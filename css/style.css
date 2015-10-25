@@ -243,7 +243,7 @@ header {
 
 #menu {
   float: right;
-  position: absolute; bottom: 0; right: 0;
+  position: absolute; bottom: 80; right: 0;
 }
 
 #menu > li {
