@@ -1,219 +1,39 @@
 ------------
-title: On Free DSLs and Cofree interpreters
+title: Comprendre les catamorphismes
 author: Arnaud Bailly 
-date: 2015-06-04
+date: 2014-01-11
 ------------
 
-This post has been triggered by a [tweet](https://twitter.com/etorreborre/status/605562458279944192) from Eric Torreborre on a talk
-by David Laing presenting the interaction of Free DSLs and Cofree interpreters at the Brisbane Functional Programming Group. I am
-currently engaged in the development of a Haskell-based system for [Capital Match](http://www.capital-match.com) which is basically
-an API for managing peer-to-peer lending, and I am trying to formalise the API of the system as the result of a composition of
-several domain-specific languages.
+# Bananes, lentilles, enveloppes et barbelés
 
-The ultimate goal is to be able to use these DSLs to define complex actions that could be interpreted in various ways: a
-command-line client sending RESTful queries to a server, a Webdriver-based test executor or a simple test recorder and comparator,
-or even by a core engine interpreting complex actions in terms of simpler sequencing of service calls.
+[Functional Programming with bananas, lenses, envelopes and barbed wires](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.41.125)
+est un article célèbre qui explore différentes formes (ou _patterns_) de récursion. C'est à dire que l'on cherche à exprimer la
+récursion non pas comme une caractéristique du langage mais comme une _fonction d'ordre supérieur_, ou un combinateur comme un
+autre, comme tel donc susceptible d'être généralisé, réutilisé, composé.  Depuis ma découverte de cet article j'ai été fasciné par
+ses possibilités sans avoir jamais pris le temps de les comprendre vraiment. Cet article est une tentative d'explication de ce
+_qu'est_ un catamorphisme, l'une des formes de récursions classifiées dans l'article sus-cité.
 
-The rest of the post is a simple literate Haskell style explanation of what I came up with today exploring the specific topic of the
-composition of DSLs and interpreters: Given we can compose DSLs using *Free* monads and *Coproduct*, how can we *Pair* a composite
-DSL to the composition of several interpreters? The answer, as often, lies in the category theoretic principle for duality: *Reverse
-the arrows!* One composes interpreters into a *Product* type which is then lifted to a *Cofree* comonad paired to a *Free Coproduct* monad. 
+## Types de données récursifs
 
-This post has no original idea and is just rephrasing and reshaping of work done by more brilliant people than me:
+Quand on définit une structure (un type de données), il est fréquent de définir des types qui soient _récursifs_, c'est à dire qui
+utilisent des données de leur propre type.  L'exemple le plus typique en est l'ensemble des entiers naturels, définissable en Java
+comme suit: 
 
-* Dan Piponi's [Cofree meets free](http://blog.sigfpe.com/2014/05/cofree-meets-free.html) blog post
-* This [thread on Stack overflow](http://programmers.stackexchange.com/questions/242795/what-is-the-free-monad-interpreter-pattern)
-  about free monads
-* Runar Bjarnason talk on [Reasonably Priced Monads](https://dl.dropboxusercontent.com/u/4588997/ReasonablyPriced.pdf)
-* An [Haskell implementation](https://gist.github.com/aaronlevin/87465696ba6c554bc72b#file-reasonable-hs) of the above by Aaron
-  Levin
-* [Comonads are objects](http://www.haskellforall.com/2013/02/you-could-have-invented-comonads.html) by Gabriel Gonzalez
-* [Data types à la carte](http://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf) by Wouter Swiestra
+~~~~~~~~~ {.java .numberLines}
+public class Natural {
 
-I would not dare to say I really *understand* all of this, but at least I got some code to compile and I have some ideas on how to
-turn this into a useful "pattern" in our codebase. 
-
-# Free Coproduct DSLs
-
-So let's start with some usual declaration and imports...
-
-~~~~~~~~~ {.haskell .numberLines}
-{-# LANGUAGE DeriveFunctor         #-}
-{-# LANGUAGE FlexibleContexts      #-}
-{-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE OverlappingInstances  #-}
-{-# LANGUAGE RankNTypes            #-}
-{-# LANGUAGE TypeOperators         #-}
-module Capital.Client.Free  where
-
-import           Control.Applicative
-import           Control.Comonad.Cofree
-import           Control.Monad
-import           Control.Monad.Free
-import           Control.Monad.Identity
-import           Control.Monad.Trans    (MonadIO, liftIO)
-~~~~~~~~~~
-
-This relies on the [free](https://hackage.haskell.org/package/free) package which defines standard *free* Constructions for
-`Applicative` and `Monad`, and *cofree*  for `Comonads`.
-
-We define our basic business-domain specific functors, one for logging some messages and another for persisting some string
-value. The actual functors defined are not important, what interests us here is the fact we define those "actions" independently but
-we want in the end to be able to "Assemble" them yielding more complex actions which can at the same time log messages and persist
-things. 
-
-~~~~~~~~~ {.haskell .numberLines}
-data Logging a = Logging String a  deriving (Functor)
-
-data Persist a = Store String a deriving Functor
-~~~~~~~~~~
-
-Our composite DSL should be able to interpret actions which are either logging actions, or persist actions, so we need a way to
-express this alternative at the type-level, introducing the notion of *Coproduct* or *Sum*. This work has already been packaged by
-Ed Kmett in the [comonads-transformers](https://hackage.haskell.org/package/comonad-transformers-2.0.3) package but let's rewrite it
-here for completeness' sake.
-
-~~~~~~~~~ {.haskell .numberLines}
-newtype Coproduct f g a = Coproduct { getCoproduct :: Either (f a) (g a) }
-~~~~~~~~~
-
-A `Coproduct` of two functors is then simply the type-level equivalent of the familiar `Either` type, for which we provide smart
-constructors to inject values from left or right and a suitable `Functor` instance.
-
-~~~~~~~~~ {.haskell .numberLines}
-left :: f a -> Coproduct f g a
-left = Coproduct . Left
-
-right :: g a -> Coproduct f g a
-right = Coproduct . Right
-
-coproduct :: (f a -> b) -> (g a -> b) -> Coproduct f g a -> b
-coproduct f g = either f g . getCoproduct
-
-instance (Functor f, Functor g) => Functor (Coproduct f g) where
-  fmap f = Coproduct . coproduct (Left . fmap f) (Right . fmap f)
-~~~~~~~~~
-
-We want to be able to implicitly "lift" values from a component into its composite without resorting to explicit packing of the
-various parts of the alternative formed by a `Coproduct` type, something which would be extremely cumbersome to express, hence the
-introduction of a *natural transformation* `Inject` expressed in Haskell as a typeclass.
-
-~~~~~~~~~ {.haskell .numberLines}
-class (Functor f, Functor g) => f :<: g where
-  inject :: f a -> g a
-~~~~~~~~~
-
-To be useful we provide several interesting instances of this typeclass that defines how to inject functors into a `Coproduct`. Note
-that this requires the `OverlappingInstances` extension otherwise the compiler[^1] will refuse to compile our programs. I think this
-stuff could be expressed as *type families* but did not manage to get it right, so I gave up and resorted to original formulation by
-Wouter Swiestra.
-
-~~~~~~~~~ {.haskell .numberLines}
-instance (Functor f, Functor g) => f :<: Coproduct f g where
-  inject = left
-
-instance (Functor f, Functor g, Functor h, g :<: h) => g :<: Coproduct f h where
-  inject = right . inject
-
-instance (Functor f) => f :<: f where
-  inject = id
-~~~~~~~~~
-
-Finally, we provide "smart constructors" that generates `Free` monadic expressions out of the individual instructions of our two
-tiny DSLs. We use a `inFree` function combining lifting into `Free` monad and possible transformation between functors so that each
-expressed action is a `Free` instance whose functor is polymorphic. This is important as this is what will allow us to combine
-arbitrarily our DSL fragments into a bigger DSL.
-
-~~~~~~~~~ {.haskell .numberLines}
-inFree :: (Functor f, f :<: g) => f a -> Free g a
-inFree = hoistFree inject . liftF
-
-log :: (Logging :<: f) => String -> Free f ()
-log msg = inFree (Logging msg ())
-
-store :: (Persist :<: f) => String -> Free f ()
-store s = inFree (Store s ())
-~~~~~~~~~
-
-Equipped with all this machinery we are ready to write our first simple program in a combined DSL:
-
-~~~~~~~~~ {.haskell .numberLines}
-type Effect = Coproduct Logging Persist
-
-prg :: Free Effect ()
-prg = store "bar" >> log "foo"
-~~~~~~~~~
-
-# Cofree Product Interpreters
-
-We are now done with the DSL part, let's turn to the interpreter part. First we need some atomic interpreters which should be able
-to interpret commands from each of our DSL. We will prefix these functors with `Co` to demote the relationship they have with the
-DSL functors. Something which is not obvious here (because our DSL functors only have a single constructor) is that these
-interpreters should have a dual structure to the DSL functors: Given a DSL expressed as a sum of constructors, we need an
-interpreter with a product of intepretation functions. The DSL presented in David's post are more expressive...
-
-~~~~~~~~~ {.haskell .numberLines}
-data CoLogging a = CoLogging { cLog :: String -> a }  deriving Functor
-
-data CoPersist a = CoPersist { cStore :: String -> a }  deriving Functor
-~~~~~~~~~
-
-Of course we need concrete interpretation functions, here some simple actions that print stuff to stdout, running in `IO`.
-
-~~~~~~~~~ {.haskell .numberLines}
-coLog :: (MonadIO m) => m () -> String -> m ()
-coLog a s = a >> (liftIO $ print s)
-
-coStore :: (MonadIO m) => m () -> String -> m ()
-coStore a s = a >> (liftIO . print . ("storing " ++)) s
-~~~~~~~~~
-
-To be able to compose these interpreters we need a `Product` type whose definition is straightforward:
-
-
-~~~~~~~~~ {.haskell .numberLines}
-newtype Product f g a = Product { getProduct :: (f a, g a) }
-
-instance (Functor f, Functor g) => Functor (Product f g) where
-  fmap f (Product (a,b)) = Product (fmap f a, fmap f b)
-~~~~~~~~~
-
-class (Functor f, Functor g) => Pairing f g where
-  pair :: (a -> b -> r) -> f a -> g b -> r
-
-instance Pairing Identity Identity where
-  pair f (Identity a) (Identity b) = f a b
-
-instance Pairing ((->) a) ((,) a) where
-  pair p f = uncurry (p . f)
-
-instance Pairing ((,) a) ((->) a) where
-  pair p f g = pair (flip p) g f
-
-instance Pairing f g => Pairing (Cofree f) (Free g) where
-  pair p (a :< _ ) (Pure x)  = p a x
-  pair p (_ :< fs) (Free gs) = pair (pair p) fs gs
-
-instance Pairing CoLogging Logging where
-  pair f (CoLogging l) (Logging m k) = f (l m) k
-
-instance Pairing CoPersist Persist where
-  pair f (CoPersist s) (Store v k) = f (s v) k
-
-instance (Pairing g f, Pairing k h) => Pairing (Product g k) (Coproduct f h) where
-  pair p (Product (g,_))  (Coproduct (Left f)) = pair p g f
-  pair p (Product (_,k)) (Coproduct (Right h)) = pair p k h
-
-type Effect = Coproduct Logging Persist
-
-type Interp = Product CoLogging CoPersist
-
-interpretEffect :: Cofree Interp (IO ())
-interpretEffect = interpretM f (return ())
-  where
-     f a = Product (CoLogging $ coLog a, CoPersist $ coStore a)
-
+  public static final Natural Zero = new Natural();
+  
+  public static final Natural succ(Natural natural) {
+   return new Natural(natural);
+  }
+  
+  private Natural() {}
+  
+  private Natural(Natural pred) {
+    this.pred = pred;
+  }
+}
 ~~~~~~~~~
 
 Un entier est ici construit à l'aide de la méthode `succ` et de la constante `Zero`:
