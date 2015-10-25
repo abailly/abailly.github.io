@@ -17,20 +17,24 @@ foldlabsFeedConfiguration = FeedConfiguration
     , feedAuthorEmail = "arnaud@foldlabs.com"
     , feedRoot        = "http://blog.foldlabs.com"
     }
-    
+
 escaped :: String -> Context String
 escaped fieldName = field fieldName $ \item -> do
     content <- getMetadataField (itemIdentifier item) fieldName
-    case content of 
+    case content of
       Just s  -> return $ escapeHtml s
-      Nothing -> return "" 
+      Nothing -> return ""
 
 --------------------------------------------------------------------------------
 main :: IO ()
-main = do 
+main = do
   setLocaleEncoding utf8
   hakyll $ do
     match "images/*" $ do
+        route   idRoute
+        compile copyFileCompiler
+
+    match "js/*" $ do
         route   idRoute
         compile copyFileCompiler
 
@@ -53,14 +57,14 @@ main = do
             >>= saveSnapshot "content"
             >>= relativizeUrls
             >>= loadAndApplyTemplate "templates/default.html"  postCtx
-       
+
     match "training/*.md" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/training.html"    postCtx
             >>= relativizeUrls
             >>= loadAndApplyTemplate "templates/default.html"  postCtx
-       
+
     create ["atom.xml"] $ do
         route idRoute
         compile $ do
@@ -68,12 +72,12 @@ main = do
           posts <- fmap (take 10) . recentFirst =<<
                    loadAllSnapshots "posts/*" "content"
           renderAtom foldlabsFeedConfiguration feedCtx posts
-    
+
     create ["index.html"] $ do
         route idRoute
         compile $
           postList recentFirst
-          >>= makeItem 
+          >>= makeItem
           >>= loadAndApplyTemplate "templates/posts.html" postCtx
           >>= loadAndApplyTemplate "templates/default.html" homeCtx
           >>= relativizeUrls
@@ -81,7 +85,7 @@ main = do
     match "index.html" $ do
         route idRoute
         compile copyFileCompiler
-        
+
     match "templates/*" $ compile templateCompiler
 
 
@@ -89,18 +93,18 @@ main = do
 homeCtx :: Context String
 homeCtx = titleField "Welcome" `mappend`
     defaultContext
-  
+
 postCtx :: Context String
 postCtx =
   escaped "title" `mappend`
   dateField "date" "%B %e, %Y" `mappend`
-  
+
   defaultContext
 
 
 --------------------------------------------------------------------------------
 postList sortFilter = do
   list    <- loadAll "posts/*"
-  posts   <- sortFilter list 
+  posts   <- sortFilter list
   itemTpl <- loadBody "templates/post-item.html"
   applyTemplateList itemTpl postCtx posts
