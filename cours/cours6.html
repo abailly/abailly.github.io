@@ -1,0 +1,254 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>FoldLabs.com - </title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="http://foldlabs.com/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+
+  <script src="http://foldlabs.com/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://blog.foldlabs.com"><img id="company-logo" src="http://foldlabs.com/img/foldlabs-logo.jpeg" width="259" height="75" title="FoldLabs.com" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="/cours">Training</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div id="main" role="main">
+<h1></h1>
+
+<h1 id="tests-systèmes">Tests systèmes</h1>
+<p>Test des fonctionnalité du système du point de vue de ses <em>clients</em> (utilisateurs humains ou autres systèmes). Étape avant la mise en recette du système, permet de consolider les tests unitaires et d’intégration.</p>
+<p>Hiérarchie de tests selon granularité du CUT: classe, composant, sous-système, système. Chaque niveau de test offre un certain niveau de validation, du point de vue des fonctionnalités de chacune des unités testées.</p>
+<p>Problèmes :: - concevoir les suites de tests : fonctions de haut niveau complexes, très nombreux scénarios possibles, manque de formalisation précise; - automatiser les suites de tests : applications à tester souvent complexes, adéquation entre environnement de test et de production (dépend objectifs de test), déploiement applications réparties, simuler les inputs du système.</p>
+<p>Tests systèmes se basent/offrent un modèle de haut niveau d’un système</p>
+<h2 id="conception-suite-de-tests-systèmes">Conception suite de tests systèmes</h2>
+<p>Objectif : valider l’ensemble d’un système du point de vue de l’utilisateur du système. Modèle de test = modèle fonctionnel de l’application dans son ensemble, <strong>profil opérationnel</strong></p>
+<p>objectif de couverture = ensemble des comportements potentiels des utilisateurs, couverture statistique du profil opérationnel</p>
+<h3 id="profil-opérationnel">Profil opérationnel</h3>
+<p>Définit la manière dont le système est utilisé comme une distribution de probabilité sur ensemble des inputs possibles du système.</p>
+<p>Fiabilité statistique du système : système fiable avec une certaine marge d’erreur (e) et un certain intervalle de confiance (d). Cf. inégalité Chernoff-Hoeffding :</p>
+<blockquote>
+<p>Soit p la distribution de probabilité d’un événement A, q la distribution observée sur un échantillon de taille l et e une certaine marge d’erreur, alors <br /><span class="math display"><em>P</em>[(<em>p</em> − <em>q</em>) &gt;  = <em>e</em>] &lt;  = 2exp( − 2<em>e</em><sup>2</sup><em>l</em>)</span><br /></p>
+</blockquote>
+<p>Raisonne sur un système en termes de probabilités de comportement et donc d’erreur: les erreurs les plus gênantes sont celles qui apparaissent dans les fonctions les plus utilisées.</p>
+<h1 id="outils-pour-le-test-système">Outils pour le test système</h1>
+<h2 id="fitnesse-tests-dacceptation-au-niveau-métier">FitNesse: Tests d’acceptation au niveau métier</h2>
+<h3 id="introduction">Introduction</h3>
+<p><a href="http://fitnesse.org">FitNesse</a></p>
+<p>Fitnesse est un outil de création/exécution de <em>tests d’acceptation</em> (<em>acceptance testing</em>) qui se présente sous la forme d’un serveur autonome et d’un ensemble de pages Wiki. FitNesse est un sur ensemble de FIT (http://fit.c2.com/). Les tests sont encodés dans chaque page sous la forme de tableaux dont l’interprétation dépend de la <em>recette de tests</em> qui est lié à ces données. Chaque page peut être <em>exécutée</em> ce qui a pour effet d’exécuter les tests qui y sont stockés: le résultat de cette exécution est retranscrit dans la page en modifiant le formattage HTML de la page Wiki.</p>
+<p>Une page permet de décrire un scénario ou un ensemble de scénarios métier, d’associer une documentation à ce scénario et des tests exécutables, le tout, accessible au travers d’un navigateur web est extrêmement souple et peut-être partagé entre différents acteurs du processus.</p>
+<p>Les captures d’écran suivantes présentent la vue de l’outil dans différents modes de fonctionnement. Une page de test est une page HTML, contenant du texte, des directives spéciales et des tableaux formatés.</p>
+<div class="figure">
+<img src="../images/fitnesse-1.png" alt="Visualisation d’une page de test" />
+<p class="caption">Visualisation d’une page de test</p>
+</div>
+<p>La page peut être édité, comme tout Wiki. Le formatage est décrit à l’aide de <em>balises</em> plus simples à manipuler que du code HTML standard.</p>
+<div class="figure">
+<img src="../images/fitnesse-3.png" alt="Édition de la page de tests" />
+<p class="caption">Édition de la page de tests</p>
+</div>
+<p>Une page FitNesse peut présenter de plus la particularité d’être exécutable: en cliquant sur le bouton =Test=, le moteur FitNesse va interpréter les différentes <em>recettes de test</em> (tableaux) présentes dans la page et remettre en forme la page de sorte que les résultats des tests apparaissent soient mis en lumière.</p>
+<div class="figure">
+<img src="../images/fitnesse-2.png" alt="Exécution des tests" />
+<p class="caption">Exécution des tests</p>
+</div>
+<p>La particularité de cet outil est de permettre d’exprimer les tests dans le langage du <em>métier</em>, sous la forme de tableaux souvent plus accessibles aux non-informaticiens que du code (même HTML). Signalons qu’il est possible de coupler Selenium et FitNesse, afin d’écrire des tests avec ce dernier et de les exécuter avec le premier.</p>
+<h3 id="mise-en-oeuvre">Mise en oeuvre</h3>
+<h4 id="installation">Installation</h4>
+<p>L’installation de FitNesse est simplissime: 1. récupérer l’archive sur le site [[http://fitnesse.org]], soit sous forme binaire, soit sous forme de sources. 2. décompresser l’archive dans un répertoire idoine 3. lancer l’application fit: =<span class="math inline"> &gt; <em>s</em><em>h</em><em>r</em><em>u</em><em>n</em>.<em>s</em><em>h</em> − <em>p</em>8080 = <em>s</em><em>o</em><em>u</em><em>s</em><em>l</em><em>i</em><em>n</em><em>u</em><em>x</em>, <em>o</em><em>u</em> = </span>&gt; run -p 8080= sous windows. Un serveur web est activé pour le port donné en paramètre. 4. faire pointer son navigateur à l’adresse =http://localhost:8080=.</p>
+<p>Si tout se passe bien, FitNesse est lancé et on accède à la page d’accueil, contenant entre autre la documentation de FitNesse et l’ensemble des tests.</p>
+<p>FitLibrary est un ensemble d’extensions à FitNesse très utiles, en particulier parce qu’il fournit une recette de test générale appelée =DoFixture= extrêmement pratique à utiliser. Il est donc conseillé de le récupérer (au même endroit). Il semble que les versions les plus récentes de FitNesse intègrent directement FitLibrary.</p>
+<h4 id="exemple-dutilisation-tests-de-robots">Exemple d’utilisation: tests de robots</h4>
+<p>Cet exemple détaille l’utilisation de FitNesse pour tester le comportement des robots. FitNesse permet d’organiser les fichiers en une structure hiérarchique. On commence donc par créer une page racine pour les tests de l’application robots, en éditant la page d’accueil principale de FitNesse. Le formatage Wiki est le suivant:</p>
+<pre><code>  !img-l http://files/images/FitNesseLogoMedium.jpg
+  !1 Welcome to [[FitNesse][FitNesse.FitNesse]]!
+  !3 ''The fully integrated standalone acceptance testing framework and wiki.''
+
+  |!c '''Table of Contents'''|
+  |!c [[A One-Minute Description][FitNesse.OneMinuteDescription]]|''What is [[FitNesse][FitNesse.FitNesse]]? Start here.''|
+  |!c [[A Two-Minute Example][FitNesse.TwoMinuteExample]]|''A brief example. Read this one next.''|
+  |!c [[User Guide][FitNesse.UserGuide]]|''Answer the rest of your questions here.''|
+  |!c [[Acceptance Tests][FitNesse.SuiteAcceptanceTests]]|''FitNesse's suite of Acceptance Tests''|
+  |!c [[Tests Robots][OqubeRobots]]|''Sample acceptance tests for Robot toy application''|</code></pre>
+<p>Comme tous les Wiki, FitNesse permet de créer de nouvelles pages en définissant un lien qui n’existe pas (ici =OqubeRobots=).</p>
+<p>La page =OqubeRobots= va contenir la description du projet (pas détaillée ici) et un lien vers les différentes pages de tests:</p>
+<pre><code>  !path /home/nono/enseign/sources/robots/target/classes/
+  !path /home/nono/enseign/sources/robots/target/test-classes/
+
+  |Test suites for Robots |
+  | ^RobotCreationAndBasic | Tests creation constraints for robots and basic behavior as objects (equals, hashcode) |</code></pre>
+<p>On voit ici que les liens vers des <em>pages filles</em> sont indiquées par un caractère =^=. Par ailleurs, nous définissons les éléments de <strong>classpath</strong> qui devront être utilisés par FitNesse pour exécuter nos tests. Un classpath s’applique récursivement sur l’ensemble des pages filles. Enfin, il est nécessaire de définir cette page comme une <em>suite de test</em>: fitnesse cherchera tous les tests définis dans cette page et ses descendantes pour les exécuter.</p>
+<p>A chaque page sont associées des <em>propriétés</em> ou meta-données qu’il est possible de modifier en cliquant sur le menu =Properties=.</p>
+<p>On crée ensuite une première page de tests =RobotCreationAndBasic= pour tester la construction des robots, sous la forme d’une recette =DoFixture=.</p>
+<pre><code>!|oqube.robots.RobotCreationFixture|
+
+  A robot is identified by a unique '''name''' which is given at robot's creation and contains its position: x and y coordinates and its orientation, one of north, south, east or west.
+
+  |''create robot''|tutu|''with x''|5|''y''|3|''orientation''|south|
+  |check|''x''|5|
+  |check|''y''|3|
+  |check|''orientation''|south|
+
+  Alternatively, a robot can be created with only a name. by default, its position is then ''(1,1,north)''.
+
+  |''create robot''|tutu|
+  |check|''x''|1|
+  |check|''y''|1|
+  |check|''orientation''|north|</code></pre>
+<p>A cette page est associée la recette de test suivante:</p>
+<pre><code>package oqube.robots;
+
+import fitlibrary.DoFixture;
+
+public class RobotCreationFixture extends DoFixture {
+
+  private final Map&lt;String, Orientation&gt; orientations = new
+    HashMap&lt;String, Orientation&gt;() {{ ... }};
+
+  public Orientation findOrientation(String s) {
+    return orientations.get(s);
+  }
+
+  public Robot createRobot(String name) {
+    return new Robot(name);
+  }
+  
+  public Robot createRobotWithXYOrientation(String name, int x,int y, Orientation o) {
+    return new Robot(name,new Position(x,y,o));
+  }
+ 
+}</code></pre>
+<p>Fitnesse (ou plutôt =DoFixture=) interprète les lignes de chaque table en suivant un certain nombre de conventions:<br />
+- chaque ligne d’une table est une <em>action</em>: FitNesse essaye de lui faire correspondre une méthode dans la classe de recette de test associée. - Une ligne de la forme =|‘’create robot’‘|tutu|’‘with x’‘|5|’‘y’‘|3|’‘orientation’‘|south|= estt interprété comme une méthode =createRobotWithXYOrientation= dans la recette sous-jacente. De même pour l’identifiant =’‘create robot’‘= lié à la méthode =createRobot=; - une ligne de la forme =|check|’‘x’’|5|= correspond à une <em>assertions</em> de test (équivalent à un =assertXXX= de JUnit). L’action correspondant à la ligne privée de sa première case est exécutée et son résultat est comparé à la valeur de la dernière case. - si FitNesse ne trouve pas l’action (la méthode) dans la classe de recette, il va la chercher dans un objet =SystemUnderTest= qu’il est possible de définir dans la recette =DoFixture=. Cela permet de construire des objets et d’interroger leurs propriétés de manière très naturelle (comme ici). - lorsqu’une action retourne un objet, cet objet est encapsulé dans une nouvelle instance de =DoFixture= et <em>les lignes restantes de la table</em> sont interprétées par rapport à cette nouvelle recette. - de même, lorsqu’une action retourne une instance de =Fixture=, les lignes restantes dans la table sont interprétées dans la nouvelle recette. - la méthode =findOrientation= (associée ici à une table de hachage) permet de transformer automatiquement des chaînes de caractères (identifiants) en objets.</p>
+<p>Les cas d’erreurs peuvent être vérifiés au moyen de l’action =reject=:</p>
+<pre><code>  It should not be possible to create a Robot with negative coordinates, either in x or y
+
+  |reject|''create robot''|tutu|''with x''|-1|''y''|3|''orientation''|south|
+  |reject|''create robot''|tutu|''with x''|0|''y''|3|''orientation''|south|
+  |reject|''create robot''|tutu|''with x''|12|''y''|-3|''orientation''|south|
+  |reject|''create robot''|tutu|''with x''|1|''y''|0|''orientation''|south|</code></pre>
+<p>Cette action va intercepter les exceptions et valider le test si l’exception est effectivement lancée.</p>
+<p>On s’intéresse ensuite à l’exécution des ordres par les robots. Ces tests étant différents des tests liés à la création des robots, on va les regrouper dans une nouvelle page =RobotMovementsTest=:</p>
+<pre><code>   !1 Test basic orders
+
+   !|oqube.robots.RobotMovementsFixture|
+
+   We start the robot at position '(2,2,North)'.
+   There are 12 basic cases for changing a robot's position and orientation according to given order. 
+
+   |''create robot''|tutu|''with x''|2|''y''|2|''orientation''|north|
+   |''executer''|advance|
+   |check|''x''|2|
+   |check|''y''|3|
+   |check|''orientation''|north|
+   |''executer''|turnleft|
+   |check|''x''|2|
+   |check|''y''|3|
+   |check|''orientation''|west|
+   |''executer''|turnright|
+   |check|''x''|2|
+   |check|''y''|3|
+   |check|''orientation''|north|</code></pre>
+<p>La classe =oqube.robots.RobotMovementsFixture= hérite de =RobotCreationFixture= pour pouvoir créer des robots à des coordonées quelconques. Dans l’immédiat, on ajoute une fabrique d’ordres.</p>
+<pre><code>public class RobotMovementsFixture extends RobotCreationFixture {
+
+  private Map&lt;String, Ordre&gt; ordres = new HashMap&lt;String, Ordre&gt;() {{ ... }};
+
+  public Ordre findOrdre(String key) {
+    return ordres.get(key);
+  }
+}</code></pre>
+<p>De la même manière que précédemment, on souhaite par ailleurs vérifier les cas d’erreur (en l’occurence, qu’un mouvement ne peut produire de position négative ou nulle). Mais contrairement au cas de la construction d’un robot, un ordre illégal est ici simplement ignoré.</p>
+<pre><code>   |''create robot''|tutu|''with x''|1|''y''|1|''orientation''|west|
+   |''executer''|advance|
+   |check|''x''|1|
+   |check|''y''|1|
+   |check|''orientation''|west|
+   |''executer''|turnleft|
+   |''executer''|advance|
+   |check|''x''|1|
+   |check|''y''|1|
+   |check|''orientation''|south|</code></pre>
+<p>La recette =DoFixture= est suffisamment flexible pour permettre d’exprimer de manière “naturelle” des comportements complexes. Par exemple, si l’on souhaite tester le comportement d’un robot exécutant une séquence d’ordres, il est nécessaire de procéder en trois temps:</p>
+<ol style="list-style-type: decimal">
+<li>créer le robot</li>
+<li>créer la séquence d’ordres</li>
+<li>exécuter l’ordre et vérifier son résultat.</li>
+</ol>
+<p>Ces étapes s’expriment naturellement comme une suite de <em>tables</em>:</p>
+<pre><code> We now test construction and application of a Sequence of orders. 
+ We first create a robot on a terrain.
+
+ |''create robot''|tutu|''with x''|1|''y''|1|''orientation''|north|''with terrain width''|5|''height''|5|
+
+ We then create a sequence, adds to it some orders, 
+
+ |''create sequence''|
+ |''add''|advance|
+ |''add''|turnright|
+ |''add''|advance|
+ |''add''|turnleft|
+ |''add''|advance|
+
+ then apply this sequence as though it was a single order to a robot.
+
+ |''executer''|sequence|
+ |check|''x''|2|
+ |check|''y''|3|
+ |check|''orientation''|north|</code></pre>
+<p>Il est toutefois nécessaire de faire les modifications suivantes à la recette de tests =RobotsMovementFixture=:</p>
+<pre><code>  public Robot createRobotWithXYOrientationWithTerrainWidthHeight(String name,
+      int x, int y, Orientation o, int w, int h) {
+    assert o != null;
+    Terrain t = new Terrain(w, h);
+    Robot r = new Robot(name, new Position(x, y, o, t)); 
+    setSystemUnderTest(r);
+    return r;
+  }
+
+  public Sequence createSequence() {
+    Sequence s = new Sequence();
+    ordres.put(&quot;sequence&quot;, s);
+    return s;
+  }</code></pre>
+<p>On utilise la méthode =setSystemUnderTest= pour stocker une référence à l’objet robot dans la recette de test, puis on crée et peuple une séquence d’ordres avec un certain nombre d’ordres. Enfin, on applique la séquence d’ordres sur le robot. On remarquera que ceci est possible car on a divisé les tests en <em>trois</em> tables: par convention, une nouvelle table applique une action soit sur la recette de test en cours, <strong>soit</strong> sur le SUT s’il existe.</p>
+<h2 id="selenium-tests-d-ihm-web">Selenium: Tests d’ IHM web</h2>
+<h2 id="jemmy-tests-dihm-java">Jemmy: Tests d’IHM Java</h2>
+
+    </div>
+    <footer>
+      - Brewed since 2011 - <a href="http://blog.foldlabs.com/atom.xml"><img src="http://blog.foldlabs.com/images/feed-icon.svg" width="15px" /></a> - Generated with <a href="http://jaspervdj.be/hakyll">Hakyll</a>  - 
+    </footer>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-26916078-2', 'foldlabs.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

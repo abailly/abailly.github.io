@@ -1,0 +1,74 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>FoldLabs.com - Agile Open France 2013 - Takeaways</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="http://foldlabs.com/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+
+  <script src="http://foldlabs.com/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://blog.foldlabs.com"><img id="company-logo" src="http://foldlabs.com/img/foldlabs-logo.jpeg" width="259" height="75" title="FoldLabs.com" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="/cours">Training</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div id="main" role="main">
+<h1>Agile Open France 2013 - Takeaways</h1>
+<div class="info">Posted on January 27, 2013</div>
+
+<h2 id="summary">Summary</h2>
+<p> Things I learned, heard, discovered, was amazed of, during <a href="http://blog.agileopenfrance.com/">Agile Open France 2013</a>:  * Thanks to Willem Van den Ende, I learnt of the existence of <a href="http://lxc.sourceforge.net/">Linux Containers</a>, a project to build embedded and isolated servers hosted by a single Linux kernel. I knew and have used <a href="http://linux-vserver.org/Welcome_to_Linux-VServer.org">VServer</a> but <strong>lxc</strong> appears to have much wider support and a quite large community.  * I worked with Willem (again!) on a very nice idea of its own: Managing tasks of projects using <a href="http://graphviz.org">Graphviz</a> graphs whose nodes are tasks and edges are dependencies. The graphviz file is stored alongside the project in a git repository hence versioned and updated over time while the project is unfolding. Tasks may be added, deleted, changed and grouped under <em>clusters</em> (eg. subgraphs) representing common state: <em>done</em>, <em>inprogress</em>, <em>todo</em>, <em>technical debt</em>…   Together with Willem we hacked a Haskell solution to extract data from such a graph in order to produce a <em>Cumulative Flow Diagram</em> for clusters, thus giving some statistical information on the projects’ progress, lead time and queues size.  Although the Graphviz package’s API in Haskell is a bit weird at first, we managed to get somewhere in a relatively small time frame without prior knowledge of this API, which is a tribute to its documentation, above the average.  * While working with Willem, it occured to me that creating tasks/issues/tickets classified as <em>technical debt</em> was actually a pretty good idea. This is not the first time I came across it but I now think I will set it up on my next project, and extract regularly for the team some metrics on the amount of accumulated technical debt.   The fact that, by reifying the technical debt items in the project tracking system, one gets the opportunity to prioritize it like any other feature, is definitely a plus. Now, technical debt is something that flies in the face of all stakeholders and team members when deciding what to do next and we can ground our decisions on whether or not we are ready now to accumulate or repay part of it.  * I took part in a session on <em>Agile Teaching</em> with an aim towards making courses and teaching to students more amenable to agile methods. Laurent Bossavit told us about its experience at Ecole des Mines de Douai with a 3-days intensive course which gives student the opportunity to practice every aspect of the development lifecycle using agile practices and techniques, something which is more difficult in a sliced lesson taking place over the course of a semester.  Laurent also wisely remarked that we tend to transpose our experience as trainers for professional developers in a corporate settings to students, which is most of the time wrong.   Everyone agreed on the importance and benefits of workshops and agile games which, apart from boosting the morale of students who are bored to death by slideware, provides a rich interactive experience to build a more theoretical analysis. I myself tend to start with theory than illustrate with practice which is not so good and this is something I shall change in my next courses.  * Etienne Charignon demonstrated how they have used FitNesse as their <em>only</em> testing tool on a recent project and how successful he thinks this experience was. Their approach was radical: They did not write a single unit test and used only FitNesse to drive their <em>development, something which sounds </em>impossible* to me. Yet they succeeded in delivering a high-quality application (except maybe in the GUI area which, as far as I can tell from what Etienne told us, lacked tests) which pleased the customer.   They were lucky enough to have onboard an analyst with some dev background who wrote most of the initial tests and maintained the FitNesse. They also had few business logic, the application being mostly a front-end to some database, hence testing with FitNesse tables was really expressive.  I was impressed by how they used FitNesse as an integrated <em>specification tool</em>, putting all relevant documentation alongside the tests and structuring them using features and functional areas. I always had mixed feelings with FitNesse as most of the time I tried to introduce it, I had a hard time onboarding non-developers, although I am really convinced of the interest of such a tool to provide accurate, structured and precise specification of a piece of software.  * In the train bringing me back home I chatted with Pascal and Luc and our discussion happened to fall on the <em>tests as specification</em> issue. We both agreed that, if only developers are involved in writing tests, it is better to devise the tools and processes to <em>generate</em> specifications from the (JUnit) tests than forcing developers to use a tool that gets them outside of their efficiency zone (eg. outside of the IDE/CI cycle).  * I ran the <a href="http://github.com/abailly/extreme-startup">extreme startup</a> game with Willem (I spent a lot of time with Willem in this conference!) on Friday morning. We gave it a little twist by requiring teams to select a constraint. This time we played the game, in Haskell, with the constraint of not using the REPL which was really alleviated when we managed to make Haskell’s <em>doctest</em> port running.   Other teams had constraints like: discovering git while developing, not using unit tests, developing on the iPad (kudos to Laurent Bossavit who managed to have a web server in python running on its iPad!).  This was fun and engaging, as always, and Raphaël gave me an idea to make it more fun: Allow people to participate in the game as <em>investors</em>, fuelling the participants with <em>time</em> to develop their solution according to their business plan and their existing codebase.   * I proposed a session inspired by Dan North’s <a href>Patterns of Effective Delivery</a> talk and some blog posts from him and Liz Keogh on this subject: How some teams get <em>past</em> standard agile practices to deliver software more effectively. The wifi was lame in the hotel so we could not watch the talk or even a fraction of it, hence the discussion was a bit biased by my vision of Dan North’s vision.  * In the bus back to Strasbourg’s station we had an informal discussion on <em>Designing for Operability</em>. Pierrick talked about his experience developing a software which is both used in SAAS and hosted mode. The most salient aspect of their approache is that they deploy a software without proper sysadmins (eg. developers are the sysadmins), and the software is autoinstallable and autoupdatable, thus alleviating the need for complex installation and upgrade ceremonies.   Julien who works as head of an operations department gave us some more insights on how a large organization handles this. One of their strongest requirement is that everything that gets logged by an application they operate should be <em>tracable</em>: A UID should identify the error condition in all layers of the system (eg. client and server) and no log should be produced without it. They also ensure that code deployment is simply done with a checkout from SVN and that tools between developers’ stations and servers are consistent. Binary artifacts are <em>versioned</em>.   ## What I Will Do  * <strong>More Haskell</strong>: This is a great language which is easy to develop with in all current environments. I have been loving it for years and still find it amazing… I plan to revive my git-p4 bridge, making it more robusts and usable, and develop a programmable maven shell in order to simplify maven builds and common commands. * <strong>Use FitNesse as documentation hub</strong>: Instead of splitting documentation across various repositories, wikis, documents, I will try to ensure all project’s documentation is kept in FitNesse hence versioned alongside the project. * <strong>Improve FitNesse tests</strong> quality, and turn them into a real executable specification. Given that I shall start accompanying a new team soon, I will take the time and responsibility to maintain the Fitnesse and write more tests, more easily, in order to provide a good feedback on where the project is as early as possible. * <strong>Run Extreme Startup</strong>: This game is both fun and instructive. I will submit a proposal to run it for next Agile France conference and at my current work. I will try to add more questions in order to provide variety and possibly rewrite the graph display part which sucks. * <strong>Review Dan North</strong>’s talk again. * <strong>Track Technical Debt</strong></p>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'foldlabsblog'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
+    <footer>
+      - Brewed since 2011 - <a href="http://blog.foldlabs.com/atom.xml"><img src="http://blog.foldlabs.com/images/feed-icon.svg" width="15px" /></a> - Generated with <a href="http://jaspervdj.be/hakyll">Hakyll</a>  - 
+    </footer>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-26916078-2', 'foldlabs.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

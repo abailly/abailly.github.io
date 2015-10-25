@@ -1,0 +1,282 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>FoldLabs.com - </title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="http://foldlabs.com/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+
+  <script src="http://foldlabs.com/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://blog.foldlabs.com"><img id="company-logo" src="http://foldlabs.com/img/foldlabs-logo.jpeg" width="259" height="75" title="FoldLabs.com" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="/cours">Training</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div id="main" role="main">
+<h1></h1>
+
+<h1 id="test-dinteraction">Test d’interaction</h1>
+<h2 id="définition">Définition</h2>
+<p>Une première définition</p>
+<ul>
+<li>test unitaire: test d’une classe en isolation, indépendamment de toute autre classe;</li>
+<li>test d’intégration: tester un ensemble de classes qui collaborent;</li>
+<li>test d’interaction: autre nom pour test d’intégration, tester un ensemble de classes qui interagissent entre elles.</li>
+<li>ce qu’on a fait en testant Jeu::jouer() en regardant les conséquences sur l’état de la banque.</li>
+</ul>
+<p>Une seconde définition.</p>
+<ul>
+<li>Test unitaire tel qu’on l’a vu jusqu’à présent: basé sur l’examen de l’état de l’objet (utilisation d’Assert);</li>
+<li>stimuler puis observer le résultat sur l’état;</li>
+<li>et si pas d’état ou état pas modifié ? (ex: la méthode de transfert de la borne, cf tp)</li>
+<li>parfois on a juste envie de tester qu’une méthode effectue certains bons appels sur les instances avec lequelles elle collabore</li>
+<li>c’est alors un cas particulier de test unitaire à base de mocks, que la communauté “mock” appelle aussi test basé sur les interactions (bien que “l’interaction” avec un mock soit par essence unilatérale !)</li>
+<li>à lire sur la question: un article de <a href="http://www.martinfowler.com/articles/mocksArentStubs.html">Martin Fowler</a>, très bien fait (introduit le concept plus général de <strong>Double</strong>, un objet construit spécifiquement pour le test en substitution d’un objet réel).</li>
+</ul>
+<p>Pour ce TD on utilisera ds un premier temps la seconde définition.</p>
+<ul>
+<li>on teste une méthode d’une classe donnée;</li>
+<li>toutes les classes qui dépendent de la classe sous test sont “mockées”;</li>
+<li>on s’intéresse à ce qu’une invocation de la méthode sous test déclenche comme invocations sur les mocks.</li>
+</ul>
+<p>En écrivant les mocks à la main</p>
+<h3 id="exercice-1">Exercice 1</h3>
+<p>Sur le test de l’appel de la méthode Jeu::jouer(10), écrire les mocks pour et tester que:</p>
+<ul>
+<li>chaque dé est lancé exactement une fois;</li>
+<li>un seul appel est effectué sur la banque: selon les cas payer ou encaisser avec le bon paramètre;</li>
+<li>la méthode termine correctement.</li>
+</ul>
+<p>Fastidieux ! Il existe des outils qui créent automatiquement des mocks.</p>
+<h3 id="doublures">Doublures</h3>
+<ul>
+<li>Voir article de M.Fowler (op. cit.).</li>
+<li>Voir [http://xunitpatterns.com/Test%20Double.html]</li>
+</ul>
+<p>Principe général de la définition de <em>Doublures</em>: objets créés uniquement pour les besoins du test en <em>remplacement</em> d’objets réels. - <strong>Fantôme</strong> (<em>Dummy</em>) : objet utilisé uniquement pour son <em>existence</em>, sans qu’aucune interaction avec le CUT ne soit attendue. P.ex. pour éviter un NPE lors d’un appel de méthode ou de constructeur, pour remplir un tableau quand seul le tableau lui-même est testé. - <strong>Bouchon</strong> (<em>Stub</em>) : fournit des réponses préprogrammés aux appels réalisés par le CUT. Utilisé pour produire des entrées nécessaires au comportement du CUT, définit des points de contrôles - <strong>Espion</strong> (<em>Spy</em>) : même principe que le bouchon, mais en plus contrôle les sorties du CUT pour vérification ultérieure. Les vérifications sont faites par examen de l’<em>état</em> de l’espion (attributs spécifiques) - <strong>Simulacre</strong> (<em>Mock</em>) : même principe que l’espion, mais le simulacre est <em>programmé</em> pour vérifier les outputs/produire les inputs au cours du test. Le simulacre implante un scénario d’interactions et vérifie le <em>comportement</em> du CUT par rapport à ce scénario. - <strong>Substitut</strong> (<em>Fake</em>) : objet/système remplacant un objet/système utilisé en production pour simplifier le test (ex: utiliser un SGBD résidant en mémoire à la place du vrai SGBD). Le substitut offre tout ou partie des fonctionnalités du substitué mais souvent en mode dégradé.</p>
+<p>Les différences entre bouchons et simulacres: - différence d’<em>intention</em>: les bouchons sont utilisés quand on ne peut pas utiliser un vrai objet pour des raisons techniques (effets de bord difficilement testables), les simulacres sont utilisés systématiquement pour tester le comportement du CUT - différence d’implantation: les bouchons ont le plus souvent une implantation <em>ad hoc</em>, les simulacres sont fournis par un framework</p>
+<h2 id="outillage">Outillage</h2>
+<p>Le site des mocks : [[http://www.mockobjects.com]]</p>
+<p>Frameworks existants:</p>
+<ul>
+<li>mockobjects (le plus connu)</li>
+<li>DynaMock, EasyMock (successeurs)</li>
+<li><a href="http://jmock.codehaus.org">jmock</a>: plus récent, tire parti du retour d’expérience des autres, mais assez mal documenté !</li>
+<li><a href="http://www.jbehave.org">jBehave</a> : framework plus général que les autres, orienté Behaviour Driven Development</li>
+</ul>
+<h2 id="principes-dutilisation-de-jmock">Principes d’utilisation de JMock</h2>
+<p>Construit comme une extension de JUnit : on n’utilise plus =junit.framework.TestCase= mais =org.jmock.MockObjectTestCase=.</p>
+<p>Permet de créer un mock:</p>
+<ul>
+<li>automatiquement à partir d’une description (pas d’implémentation à écrire);</li>
+<li>version de base: à partir d’une interface à mocker;</li>
+<li>version étendue: à partir d’une classe à mocker (mais alors elle doit posséder un constructeur sans paramètres), utilisation réflexion Java.</li>
+</ul>
+<p>La description d’un mock consiste en ses expectations:</p>
+<ul>
+<li>les attentes que le testeur a sur ce mock, son comportement attendu;</li>
+<li>le mock fournit un proxy qu’on peut <em>transtyper</em> ds le type mocké.</li>
+</ul>
+<p>Étapes à suivre:</p>
+<ol style="list-style-type: decimal">
+<li>on crée les mocks, on décrit leur comportement;</li>
+<li>on crée une instance à tester en utilisant ces mocks, on exécute l’appel à tester sur cette instance;</li>
+<li>on vérifie que les attentes sont bien vérifiées (vérification qui peut être implicite).</li>
+</ol>
+<example>
+Mock mockDe1 = new Mock(De.class);
+</example>
+<p>Les attentes sont à vérifier explicitement par mockDe1.verify().</p>
+<p>ou encore :</p>
+<example>
+Mock mockDe1 = mock(De.class); // méthode de MockObjectTestCase
+</example>
+<p>Dans ce cas l’appel de verify() est implicite. Dans tous les cas l’utilisation du mock se fait comme suit:</p>
+<example>
+Jeu j = new Jeu((De) mockDe1.proxy(),….); jeu.jouer();
+</example>
+<h2 id="description-dun-mock-expectations">Description d’un mock (expectations)</h2>
+<p>À un mock peuvent être attachées plusieurs descriptions.</p>
+<p>Chaque description concerne le/les appels d’une méthode. Pour cette méthode on précise (ou pas) les détails suivants (dans l’ordre):</p>
+<ol style="list-style-type: decimal">
+<li>combien de fois doit avoir lieu l’appel: au moins une (=atLeastOne()=), jamais (=never()=), exactement une (=once()=), exactement n (exactly(int))</li>
+<li>avec quels paramètres:</li>
+</ol>
+<ul>
+<li>paramètre égal à X (=eq()=, =same()=);</li>
+<li>paramètre vérifiant une contrainte donnée:
+<ul>
+<li>null, non null, contient une chaîne donnée…</li>
+<li>importe quelle valeur;</li>
+<li>le et, ou, non logique de contraintes;</li>
+<li>possibilité de dédcrire ses propres contraintes.</li>
+</ul></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>concernant la terminaison:</li>
+</ol>
+<ul>
+<li>quelle valeur retourne la méthode (obligatoire si pas de type void: il faut dire au mock quelle valeur sera effectivement retournée lors de l’appel):
+<ul>
+<li>à chaque appel qui satisfait les conditions précédentes (=returnValue=);</li>
+<li>pour des appels successifs (ex: retourne 1 au 1er apple, puis 2 au 2nd, puis 3 au 3ème) (=onConsecutiveCall=);</li>
+<li>ou quelle exception elle lance (=throwException=).</li>
+</ul></li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>concernant le séquencement des appels : si l’appel doit se produire après un autre appel donné (possibilité de nommer les appels).</li>
+</ol>
+<h2 id="jmock-permet-de-définir-les-attentes-expectations-sous-une-forme">jMock** permet de définir les <em>attentes</em> (<em>expectations</em>) sous une forme</h2>
+<p>“naturel”: l’expression de l’attente en Java est très proche d’une expression similaire en anglais:</p>
+<example>
+// on attend 1 appel de la methode verify avec n,importe quel // parametre et on retourne alors 1 mock.expects(once()).method(“verify”).with(ANYTHING).will(returnValue(1));<br />
+ // sans la ponctutaion: // mock expects once method “verify” with ANYTHING will returnValue 1;
+</example>
+<h2 id="contraintes">Contraintes</h2>
+<p>JMock définit des contraintes génériques pour la vérification des paramètres passés au mock object. Il est possible d’en créer de nouvelles en passant à la méthode =with()= un objet =Constraint=: - la méthode =describeTo= passe un StringBuffer dans lequel la description de la contrainte est écrite - la méthode =eval(Object)= invoque la contrainte sur un paramètre donné.</p>
+<h3 id="exercices">Exercices</h3>
+<h2 id="exercice-3">** Exercice 3:</h2>
+<p>Mocker un flot d’entrée On considère la méthode suivante:</p>
+<example>
+public void ecritFlotDansFichier(FileWriter f, InputStream in, int nb) throws IOException,FlotTropCourtException { for (int i = 0; i&lt; nb; i++) { int lu = in.read(); if (lu == -1) throw new FlotTropCourtException(); else f.write(lu); } f.close(); }
+</example>
+<p>Quels mocks ? Quelles attentes ? Quels cas de test ?</p>
+<h3 id="exercice-4">* Exercice 4</h3>
+<p>On considère l’interface AbstractBD suivante:</p>
+<example>
+public IdConnexion connecte(User u) throws DejaConnecteException; public void deconnecte(IdConnexion id) throws PasConnecteException; public String select(IdConnexion id,String s) throws UnknownId ;
+</example>
+<p>et la classe UserBD suivante:</p>
+<example>
+public UserBD(); public void setBD(AbstractBD bd); public void connexionBD() throws DejaConnecteException; public void deconnexionBD() throws PasConnecteException; public void select(String s) throws UnknownId;
+</example>
+<p>Test de UserBD: Décrire les mocks et un cas de test qui teste: - un scénario nominal comportant 3 appels à select. - un scénario d’erreur où l’utilisateur demande une seconde connexion alors qu’il est déjà connecté.</p>
+<h3 id="exercice-5">* Exercice 5</h3>
+<p>On s’intéresse au comportement de la classe =Jeu= dans la bataille navale. Cette classe est supposée régler l’interaction entre les deux joueurs. Ecrire les tests unitaires pour cette classe.</p>
+<p><src lang="java"> private boolean gameOver() { boolean fini1 = this.joueur1.aPerdu(); boolean fini2 = this.joueur2.aPerdu(); boolean fini = fini1 || fini2; }</p>
+<p>private void andTheWinnerIs() { if (this.joueur1.aPerdu()) System.out.println (“Le joueur 1 a perdu.”); else if (this.joueur2.aPerdu()) System.out.println (“Le joueur 2 a perdu.”); else System.out.println(“Problème !!!”); }</p>
+<p>public void jouer() { int nbTour = 1; while (! gameOver()) { System.out.println (“Tour” + nbTour); System.out.println (“Au joueur 1 de jouer”); joueur1.jouer(joueur2); System.out.println (“Au joueur 2 de jouer”); joueur2.jouer(joueur1); nbTour ++; } andTheWinnerIs(); }</p>
+<p></src></p>
+<h2 id="conséquences">Conséquences</h2>
+<h3 id="couplage-faible">Couplage faible</h3>
+<p>Voir aussi <a href="cours4.muse">Test objet</a>. L’utilisation de ces techniques de test, en particulier en lien avec le TDD a des conséquences importantes sur la conception des classes et des systèmes: - impose un <em>couplage faible</em> entre les différents objets du système: les objets ne dépendent pas directement des implantations mais d’abstractions (classe abstraites, interfaces) ; - diminue la granularité des objets: plus les classe sont petites et découpées, plus le test sera facile et rapide; - induit l’<a href="http://martinfowler.com/articles/injection.html">injection de dépendances</a> pour gérer facilement la connectique entre les objets.</p>
+<p>Les objets forment un réseau dont chaque connexion est modifiable (pas nécessairement dynamiquement, mais suffisamment pour permettre d’être testée).</p>
+<h3 id="comportement-explicite">Comportement explicite</h3>
+<p>Pour écrire correctement les <em>attentes</em> et le résultat de l’invocation d’un <em>mock</em>, il faut connaître avec suffisamment de précision le comportement <em>spécifié</em> de l’objet: - notion de contrat devient nécessaire: quels sont les attentes de l’objet, quel est son comportement - pas nécessairement formalisé, mais au moins doit être explicité.</p>
+<h3 id="dépendance-à-limplantation">Dépendance à l’implantation</h3>
+<p>L’implantation est ‘déduite’ ou induite par la description du mock: les interactions avec les autres objets induisent nécessairement une manière de réaliser l’implantation.</p>
+<h3 id="vérifie-ce-qui-est-fait-et-pas-fait">Vérifie ce qui est fait et pas fait</h3>
+<p>Le mock vérifie que tout ce qui est prévu à lieu et que rien de ce qui n’est pas prévu n’a lieu: comportement strict ! Plus simple que lorsqu’on utilise une inner class ou classe anonyme (nécessité d’une variable d’état pour vérifier que les appels ont été faits).</p>
+<h1 id="behaviour-driven-development">Behaviour Driven Development</h1>
+<h2 id="principes">Principes</h2>
+<p>Technique de développement inspirée du TDD mais basée sur le test du ##comportement** des objets: - concentre les tests sur la construction d’un <em>domaine</em> (<em>Domain Driven Design</em>): un ensemble d’objets représentants un problème dans le système et leurs interactions. - utilise la technique des MockObjects (ou <em>Double</em>) intensivement: chaque objet est testé dans un <em>contexte</em> nécessaire à son exécution qui est simulé - définit de manière pragmatique une implantation de <em>contrats</em></p>
+<h3 id="outils">Outils</h3>
+<p>Java :: - <a href="http://www.jbehave.org">jBehave</a> - <a href="http://cukes.info">cucumber</a></p>
+<p>Ruby :: - rspec - <a href="http://cukes.info">cucumber</a></p>
+<p>Python :: - <a href="htt://www.lifl.fr/~marvie/software#pyBehave">pyBehave</a></p>
+<h2 id="jbehave">JBehave</h2>
+<p>Deux frameworks pour le prix d’un: - les <em>Behaviours</em>: framework de type Mock Objects, en un peu plus simple et abstrait - les <em>Stories</em>: framework pour la définition de tests d’acceptation, plutôt haut-niveau, permet de définir dans un langage simple</p>
+<h3 id="behaviours">Behaviours</h3>
+<p>Une classe = un ensemble de comportements pour un objet Une méthode = un comportement spécifique à vérifier.</p>
+<p>Même principe de fonctionnement que pour JUnit: - la classe est analysée de manière réflexive pour identifier toutes les méthodes représentant des comportements. Par convention, les méthodes sont préfixées par <strong>shouldXXX</strong> - une instance de la classe <em>Behaviour</em> est créée pour chaque comportement à tester - la classe peut hériter de =UsingMiniMock= ce qui lui permet d’utiliser le framework de Mock objects intégré de JBehave - une méthode =setUp= est invoquée pour construire l’état du système</p>
+<p>Principale différence: accent mis sur le comportement, on teste en fonction de ce que <em>devrait</em> faire l’objet (ie. utilisation de <em>should</em>) et pas en fonction de son état.</p>
+<h3 id="story">Story</h3>
+<p>Une <em>Narration</em> (<em>Story</em>) est définie par: - un rôle: l’acteur du système pour lequel la narration doit être définie et implantée - une fonction (<em>feature</em>) : ce que réalise le système - un bénéfice (<em>benefit</em>) : comment la fonction profitera au rôle</p>
+<p>Un <em>Scenario</em> est défini par: - un ou plusieurs <em>contexte</em>: =Given <the world has some property>= - un ou plusieurs <em>événement</em>: =When <I do something>= - un ou plusieurs <em>résultat</em>: =Then <The world has changed>=</p>
+<h2 id="jdave">JDave</h2>
+<h3 id="configuration-dun-pom-maven2">Configuration d’un POM maven2</h3>
+<example>
+<p>… <dependencies> <!-- for executing junit4 tests with surefire --> <dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> <version>4.2</version> <scope>test</scope> </dependency> <!-- for executing specifications as junit tests --> <dependency> <groupId>javax.servlet</groupId> <artifactId>servlet-api</artifactId> <scope>provided</scope> </dependency> <dependency> <groupId>org.jdave</groupId> <artifactId>jdave-junit4</artifactId> <version>0.9.0</version> <scope>test</scope> </dependency> </dependencies> <!-- for retrieving tools --> <repositories> <repository> <id>laughing-panda</id> <name>Laughing Panda</name> <url>http://www.laughingpanda.org/maven2/</url> </repository> </repositories> <pluginRepositories> <pluginRepository> <id>laughing-panda</id> <name>Laughing Panda</name> <url>http://www.laughingpanda.org/maven2/</url> </pluginRepository> </pluginRepositories> <build> <plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId> <version>2.3</version> <executions> <!-- allows execution of JDave tests and JUnit tests --> <execution> <id>jdave</id> <goals> <goal>test</goal> </goals> <configuration> <includes> <include>**/*Spec.java</include> </includes> <excludes> <exclude>**/*Test.java</exclude> </excludes> <systemProperties> <property> <name>jdave.tools.specdox.format</name> <value>xml</value> </property> <property> <name>jdave.tools.specdox.dir</name> <value>target/jdave</value> </property> </systemProperties> </configuration> </execution> </executions> </plugin> </plugins> </build><br />
+ <reporting> <plugins> <plugin> <groupId>org.jdave</groupId> <artifactId>maven-jdave-report-plugin</artifactId> </plugin><br />
+ <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jxr-plugin</artifactId> </plugin> </plugins> </reporting> </project></p>
+</example>
+<h1 id="test-dintégration">Test d’intégration</h1>
+<p>Test un ensemble d’unités entre elles pour vérifier leur bonne ##intégration**. Test une structure d’objets (CUT) particulière correspondant à une ou plusieurs situation en production. Test configuration probable d’interactions entre objets.</p>
+<p>Hypothèse: - le test unitaire n’est pas suffisant ni exhaustif, certaines interactions peuvent ne pas avoir été correctement testées, en particulier lors de séquences d’appels à un même objet. - <em>axiome de composition de weyuker</em> : le fait que A et B soient “corrects” n’implique pas que la composition de A et B soit correct (pas vrai pour des fonctions pures, pourquoi ?)</p>
+<p>Pb : état des objets partagés entre plusieurs instances: objets doivent coopérer entre eux pour respecter les spécifications des objets qu’ils partagent (ou ne partager que des objets sans états ni effets de bord).</p>
+<example>
+<pre><code>+-----------+	      +------------+
+|     A     |      	      |    B       |
++--+--------+	      +------|-----+
+   |			     |
+   |			     |
+   |			     |
+   +-----&gt;+---------------+	     |
+      |       C       |&lt;------
+      +---------------+</code></pre>
+</example>
+<h2 id="exemple-1">Exemple 1</h2>
+<p>Exemple d’un DAB “intelligent” qui cache le solde d’un compte pour accélérer les opérations.</p>
+<example>
+<p>class DAB {</p>
+<p>DAB() { this.compte = CompteFactory.getCompte(…); this.solde = this.compte.getSolde(); }</p>
+<p>public void retirer(int sum ){   if(this.solde - retrait &gt; sum) {   this.retrait += sum; distribuer(sum); } else display.show(“Solde insuffisant”);  }</p>
+public void retraitCarte() {   this.compte.debiter(this.retrait); } }
+</example>
+<p>Si l’instance de compte est partagée, on peut autoriser des retraits avec un solde insuffisant.</p>
+<h2 id="exemple-2">Exemple 2</h2>
+<p>Lecteur de données: utilise une connexion à un flux de données pour lire au fur et à mesure des entiers.</p>
+<example>
+<p>class DBReader {</p>
+<pre><code>DB is;
+
+DBReader(DB is) {
+  this.is = is;
+}
+
+public int getData() {</code></pre>
+<p>  return is.read();  }</p>
+<pre><code>public void done() {
+  is.close();
+}</code></pre>
+}
+</example>
+<example>
+<p>class DB {</p>
+<p>public void open() {   … }</p>
+<p>public int read() { if(!closed) try { return is.read(); }catch(IOException e) { throw new RuntimeException(e); } else throw new RuntimeException(“cannot read, db is closed”); }</p>
+public void close() { this.closed = true; is.close(); } }
+</example>
+<h2 id="test-dintégration-1">Test d’intégration</h2>
+<p>test d’intégration: construit des cas de test simulant les interactions entre objets et validant leur bonne coopération.</p>
+<p>objectif : identifier les conflits possibles dans l’utilisation des objets (et du système)</p>
+<p>solutions : - synchronisation explicite dans les objets : un objet qui a vocation d’être partagé doit offrir un moyen de synchroniser plusieurs clients - vérification systématique dans clients (lourd) - éviter les objets partagés !</p>
+
+    </div>
+    <footer>
+      - Brewed since 2011 - <a href="http://blog.foldlabs.com/atom.xml"><img src="http://blog.foldlabs.com/images/feed-icon.svg" width="15px" /></a> - Generated with <a href="http://jaspervdj.be/hakyll">Hakyll</a>  - 
+    </footer>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-26916078-2', 'foldlabs.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

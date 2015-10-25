@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>FoldLab Blog</title>
+    <link href="http://blog.foldlabs.com/atom.xml" rel="self" />
+    <link href="http://blog.foldlabs.com" />
+    <id>http://blog.foldlabs.com/atom.xml</id>
+    <author>
+        <name>Arnaud Bailly</name>
+        <email>arnaud@foldlabs.com</email>
+    </author>
+    <updated>2015-09-03T00:00:00Z</updated>
+    <entry>
+    <title>Portrait of the developer as a young man</title>
+    <link href="http://blog.foldlabs.com/posts/dev-artist.html" />
+    <id>http://blog.foldlabs.com/posts/dev-artist.html</id>
+    <published>2015-09-03T00:00:00Z</published>
+    <updated>2015-09-03T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Portrait of the developer as a young man</h1>
+<div class="info">Posted on September  3, 2015</div>
+
+<ul>
+<li>https://hbr.org/2015/08/is-overwork-killing-you</li>
+</ul>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'foldlabsblog'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+]]></summary>
+</entry>
+<entry>
+    <title>On Free DSLs and Cofree interpreters</title>
+    <link href="http://blog.foldlabs.com/posts/free.html" />
+    <id>http://blog.foldlabs.com/posts/free.html</id>
+    <published>2015-06-04T00:00:00Z</published>
+    <updated>2015-06-04T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>On Free DSLs and Cofree interpreters</h1>
+<div class="info">Posted on June  4, 2015</div>
+
+<p>This post has been triggered by a <a href="https://twitter.com/etorreborre/status/605562458279944192">tweet</a> from Eric Torreborre on a talk by David Laing presenting the interaction of Free DSLs and Cofree interpreters at the Brisbane Functional Programming Group. I am currently engaged in the development of a Haskell-based system for <a href="http://www.capital-match.com">Capital Match</a> which is basically an API for managing peer-to-peer lending, and I am trying to formalise the API of the system as the result of a composition of several domain-specific languages.</p>
+<p>The ultimate goal is to be able to use these DSLs to define complex actions that could be interpreted in various ways: a command-line client sending RESTful queries to a server, a Webdriver-based test executor or a simple test recorder and comparator, or even by a core engine interpreting complex actions in terms of simpler sequencing of service calls.</p>
+<p>The rest of the post is a simple literate Haskell style explanation of what I came up with today exploring the specific topic of the composition of DSLs and interpreters: Given we can compose DSLs using <em>Free</em> monads and <em>Coproduct</em>, how can we <em>Pair</em> a composite DSL to the composition of several interpreters? The answer, as often, lies in the category theoretic principle for duality: <em>Reverse the arrows!</em> One composes interpreters into a <em>Product</em> type which is then lifted to a <em>Cofree</em> comonad paired to a <em>Free Coproduct</em> monad.</p>
+<p>This post has no original idea and is just rephrasing and reshaping of work done by more brilliant people than I am:</p>
+<ul>
+<li>Dan Piponi’s <a href="http://blog.sigfpe.com/2014/05/cofree-meets-free.html">Cofree meets free</a> blog post,</li>
+<li>This <a href="http://programmers.stackexchange.com/questions/242795/what-is-the-free-monad-interpreter-pattern">thread on Stack overflow</a> about free monads,</li>
+<li>Runar Bjarnason talk on <a href="https://dl.dropboxusercontent.com/u/4588997/ReasonablyPriced.pdf">Reasonably Priced Monads</a>,</li>
+<li>An <a href="https://gist.github.com/aaronlevin/87465696ba6c554bc72b#file-reasonable-hs">Haskell implementation</a> of the above by Aaron Levin,</li>
+<li><a href="http://www.haskellforall.com/2013/02/you-could-have-invented-comonads.html">Comonads are objects</a> by Gabriel Gonzalez,</li>
+<li><a href="http://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf">Data types à la carte</a> by Wouter Swiestra,</li>
+<li>Edward Kmett’s <a href="http://comonad.com/haskell/Comonads_1.pdf">All about comonads</a> slide deck,</li>
+<li>And of course David Laing’s <a href="https://github.com/dalaing/cofun">github</a> repository.</li>
+</ul>
+<p>I would not dare to say I really <em>understand</em> all of this, but at least I got some code to compile and I have some ideas on how to turn this into a useful “pattern” in our codebase.</p>
+<h1 id="free-coproduct-dsls">Free Coproduct DSLs</h1>
+<p>So let’s start with some usual declaration and imports…</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE DeriveFunctor         #-}</span>
+<span class="ot">{-# LANGUAGE FlexibleContexts      #-}</span>
+<span class="ot">{-# LANGUAGE FlexibleInstances     #-}</span>
+<span class="ot">{-# LANGUAGE MultiParamTypeClasses #-}</span>
+<span class="ot">{-# LANGUAGE OverlappingInstances  #-}</span>
+<span class="ot">{-# LANGUAGE RankNTypes            #-}</span>
+<span class="ot">{-# LANGUAGE TypeOperators         #-}</span>
+<span class="kw">module</span> <span class="dt">Capital.Client.Free</span>  <span class="kw">where</span>
+
+<span class="kw">import           </span><span class="dt">Control.Applicative</span>
+<span class="kw">import           </span><span class="dt">Control.Comonad.Cofree</span>
+<span class="kw">import           </span><span class="dt">Control.Monad</span>
+<span class="kw">import           </span><span class="dt">Control.Monad.Free</span>
+<span class="kw">import           </span><span class="dt">Control.Monad.Identity</span>
+<span class="kw">import           </span><span class="dt">Control.Monad.Trans</span>    (<span class="dt">MonadIO</span>, liftIO)</code></pre></td></tr></table></div>
+<p>This relies on the <a href="https://hackage.haskell.org/package/free">free</a> package which defines standard <em>free</em> Constructions for <code>Applicative</code> and <code>Monad</code>, and <em>cofree</em> for <code>Comonads</code>.</p>
+<p>We define our basic business-domain specific functors, one for logging some messages and another for persisting some string value. The actual functors defined are not important, what interests us here is the fact we define those “actions” independently but we want in the end to be able to “Assemble” them yielding more complex actions which can at the same time log messages and persist things.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Logging</span> a <span class="fu">=</span> <span class="dt">Logging</span> <span class="dt">String</span> a  <span class="kw">deriving</span> (<span class="dt">Functor</span>)
+
+<span class="kw">data</span> <span class="dt">Persist</span> a <span class="fu">=</span> <span class="dt">Store</span> <span class="dt">String</span> a <span class="kw">deriving</span> <span class="dt">Functor</span></code></pre></td></tr></table></div>
+<p>Our composite DSL should be able to interpret actions which are either logging actions, or persist actions, so we need a way to express this alternative at the type-level, introducing the notion of <em>Coproduct</em> or <em>Sum</em>. This work has already been packaged by Ed Kmett in the <a href="https://hackage.haskell.org/package/comonad-transformers-2.0.3">comonads-transformers</a> package but let’s rewrite it here for completeness’ sake.</p>
+<div class="sourceCode"><table class="sourceCode ha1skell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode">newtype Coproduct f g a = Coproduct { getCoproduct :: Either (f a) (g a) }</code></pre></td></tr></table></div>
+<p>A <code>Coproduct</code> of two functors is then simply the type-level equivalent of the familiar <code>Either</code> type, for which we provide smart constructors to inject values from left or right and a suitable <code>Functor</code> instance.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="ot">left ::</span> f a <span class="ot">-&gt;</span> <span class="dt">Coproduct</span> f g a
+left <span class="fu">=</span> <span class="dt">Coproduct</span> <span class="fu">.</span> <span class="dt">Left</span>
+
+<span class="ot">right ::</span> g a <span class="ot">-&gt;</span> <span class="dt">Coproduct</span> f g a
+right <span class="fu">=</span> <span class="dt">Coproduct</span> <span class="fu">.</span> <span class="dt">Right</span>
+
+<span class="ot">coproduct ::</span> (f a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (g a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> <span class="dt">Coproduct</span> f g a <span class="ot">-&gt;</span> b
+coproduct f g <span class="fu">=</span> either f g <span class="fu">.</span> getCoproduct
+
+<span class="kw">instance</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g) <span class="ot">=&gt;</span> <span class="dt">Functor</span> (<span class="dt">Coproduct</span> f g) <span class="kw">where</span>
+  fmap f <span class="fu">=</span> <span class="dt">Coproduct</span> <span class="fu">.</span> coproduct (<span class="dt">Left</span> <span class="fu">.</span> fmap f) (<span class="dt">Right</span> <span class="fu">.</span> fmap f)</code></pre></td></tr></table></div>
+<p>We want to be able to implicitly “lift” values from a component into its composite without resorting to explicit packing of the various parts of the alternative formed by a <code>Coproduct</code> type, something which would be extremely cumbersome to express, hence the introduction of a <em>natural transformation</em> <code>Inject</code> expressed in Haskell as a typeclass.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">class</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g) <span class="ot">=&gt;</span> f <span class="fu">:&lt;:</span> g <span class="kw">where</span>
+<span class="ot">  inject ::</span> f a <span class="ot">-&gt;</span> g a</code></pre></td></tr></table></div>
+<p>To be useful we provide several interesting instances of this typeclass that defines how to inject functors into a <code>Coproduct</code>. Note that this requires the <code>OverlappingInstances</code> extension otherwise the compiler<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> will refuse to compile our programs. I think this stuff could be expressed as <em>type families</em> but did not manage to get it right, so I gave up and resorted to original formulation by Wouter Swiestra.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">instance</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g) <span class="ot">=&gt;</span> f <span class="fu">:&lt;:</span> <span class="dt">Coproduct</span> f g <span class="kw">where</span>
+  inject <span class="fu">=</span> left
+
+<span class="kw">instance</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g, <span class="dt">Functor</span> h, g <span class="fu">:&lt;:</span> h) <span class="ot">=&gt;</span> g <span class="fu">:&lt;:</span> <span class="dt">Coproduct</span> f h <span class="kw">where</span>
+  inject <span class="fu">=</span> right <span class="fu">.</span> inject
+
+<span class="kw">instance</span> (<span class="dt">Functor</span> f) <span class="ot">=&gt;</span> f <span class="fu">:&lt;:</span> f <span class="kw">where</span>
+  inject <span class="fu">=</span> id</code></pre></td></tr></table></div>
+<p>Finally, we provide “smart constructors” that generates <code>Free</code> monadic expressions out of the individual instructions of our two tiny DSLs. We use a <code>inFree</code> function combining lifting into <code>Free</code> monad and possible transformation between functors so that each expressed action is a <code>Free</code> instance whose functor is polymorphic. This is important as this is what will allow us to combine arbitrarily our DSL fragments into a bigger DSL.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="ot">inFree ::</span> (<span class="dt">Functor</span> f, f <span class="fu">:&lt;:</span> g) <span class="ot">=&gt;</span> f a <span class="ot">-&gt;</span> <span class="dt">Free</span> g a
+inFree <span class="fu">=</span> hoistFree inject <span class="fu">.</span> liftF
+
+log<span class="ot"> ::</span> (<span class="dt">Logging</span> <span class="fu">:&lt;:</span> f) <span class="ot">=&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Free</span> f ()
+log msg <span class="fu">=</span> inFree (<span class="dt">Logging</span> msg ())
+
+<span class="ot">store ::</span> (<span class="dt">Persist</span> <span class="fu">:&lt;:</span> f) <span class="ot">=&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Free</span> f ()
+store s <span class="fu">=</span> inFree (<span class="dt">Store</span> s ())</code></pre></td></tr></table></div>
+<p>Equipped with all this machinery we are ready to write our first simple program in a combined DSL:</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Effect</span> <span class="fu">=</span> <span class="dt">Coproduct</span> <span class="dt">Logging</span> <span class="dt">Persist</span>
+
+<span class="ot">prg ::</span> <span class="dt">Free</span> <span class="dt">Effect</span> ()
+prg <span class="fu">=</span> store <span class="st">&quot;bar&quot;</span> <span class="fu">&gt;&gt;</span> log <span class="st">&quot;foo&quot;</span></code></pre></td></tr></table></div>
+<h1 id="cofree-product-interpreters">Cofree Product Interpreters</h1>
+<p>We are now done with the DSL part, let’s turn to the interpreter part. First we need some atomic interpreters which should be able to interpret commands from each of our DSL. We will prefix these functors with <code>Co</code> to demote the relationship they have with the DSL functors. Something which is not obvious here (because our DSL functors only have a single constructor) is that these interpreters should have a dual structure to the DSL functors: Given a DSL expressed as a sum of constructors, we need an interpreter with a product of intepretation functions. The DSL presented in David’s post are more expressive…</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">CoLogging</span> a <span class="fu">=</span> <span class="dt">CoLogging</span> {<span class="ot"> cLog ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> a }  <span class="kw">deriving</span> <span class="dt">Functor</span>
+
+<span class="kw">data</span> <span class="dt">CoPersist</span> a <span class="fu">=</span> <span class="dt">CoPersist</span> {<span class="ot"> cStore ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> a }  <span class="kw">deriving</span> <span class="dt">Functor</span></code></pre></td></tr></table></div>
+<p>Of course we need concrete interpretation functions, here some simple actions that print stuff to stdout, running in <code>IO</code>.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="ot">coLog ::</span> (<span class="dt">MonadIO</span> m) <span class="ot">=&gt;</span> m () <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> m ()
+coLog a s <span class="fu">=</span> a <span class="fu">&gt;&gt;</span> (liftIO <span class="fu">$</span> print s)
+
+<span class="ot">coStore ::</span> (<span class="dt">MonadIO</span> m) <span class="ot">=&gt;</span> m () <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> m ()
+coStore a s <span class="fu">=</span> a <span class="fu">&gt;&gt;</span> (liftIO <span class="fu">.</span> print <span class="fu">.</span> (<span class="st">&quot;storing &quot;</span> <span class="fu">++</span>)) s</code></pre></td></tr></table></div>
+<p>To be able to compose these interpreters we need a <code>Product</code> type whose definition is straightforward: This is simply the type-level equivalent of the <code>(,)</code> tupling operator.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Product</span> f g a <span class="fu">=</span> <span class="dt">Product</span> {<span class="ot"> p1 ::</span> f a,<span class="ot"> p2 ::</span> g a }
+
+<span class="kw">instance</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g) <span class="ot">=&gt;</span> <span class="dt">Functor</span> (<span class="dt">Product</span> f g) <span class="kw">where</span>
+  fmap f (<span class="dt">Product</span> (a,b)) <span class="fu">=</span> <span class="dt">Product</span> (fmap f a, fmap f b)</code></pre></td></tr></table></div>
+<p>Then we can define our complex interpreter and what interpretation means in the context of this composite. <code>coiter</code> is a function from the <a href="https://hackage.haskell.org/package/free-4.12.1/docs/Control-Comonad-Cofree.html"><code>Cofree</code></a> module that “lifts” computation in a Functor into a <code>Cofree</code> monad, starting from a seed value.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Interp</span> <span class="fu">=</span> <span class="dt">Product</span> <span class="dt">CoLogging</span> <span class="dt">CoPersist</span>
+
+<span class="ot">interpretEffect ::</span> <span class="dt">Cofree</span> <span class="dt">Interp</span> (<span class="dt">IO</span> ())
+interpretEffect <span class="fu">=</span> coiter f (return ())
+  <span class="kw">where</span>
+     f a <span class="fu">=</span> <span class="dt">Product</span> (<span class="dt">CoLogging</span> <span class="fu">$</span> coLog a, <span class="dt">CoPersist</span> <span class="fu">$</span> coStore a)</code></pre></td></tr></table></div>
+<h1 id="tying-free-to-cofree">Tying Free to Cofree</h1>
+<p>This is where the “magic” occurs! We need a way to <em>tie</em> our DSLs to our interpreters so that we can apply the latter to the former in a consistent way, even when they are composed. Enters the <code>Pairing</code> class which express this relationship using a function tying together each functor (DSL and interpreter) to produce a result.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">class</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g) <span class="ot">=&gt;</span> <span class="dt">Pairing</span> f g <span class="kw">where</span>
+<span class="ot">  pair ::</span> (a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> r) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> g b <span class="ot">-&gt;</span> r</code></pre></td></tr></table></div>
+<p>For the <code>Identity</code> functors, <code>pair</code>ing is simply two-arguments function application.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Pairing</span> <span class="dt">Identity</span> <span class="dt">Identity</span> <span class="kw">where</span>
+  pair f (<span class="dt">Identity</span> a) (<span class="dt">Identity</span> b) <span class="fu">=</span> f a b</code></pre></td></tr></table></div>
+<p>We can also define a pair relating function types and tuple types, both ways:</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Pairing</span> ((<span class="ot">-&gt;</span>) a) ((,) a) <span class="kw">where</span>
+  pair p f <span class="fu">=</span> uncurry (p <span class="fu">.</span> f)
+
+<span class="kw">instance</span> <span class="dt">Pairing</span> ((,) a) ((<span class="ot">-&gt;</span>) a) <span class="kw">where</span>
+  pair p f g <span class="fu">=</span> pair (flip p) g f</code></pre></td></tr></table></div>
+<p>And finally we can pair <code>Cofree</code> and <code>Free</code> as well as <code>Product</code> and <code>Coproduct</code>, thus providing all the necessary tools for tying the knots. Note that in this case no intepretation takes place before pairing hit a <code>Pure</code> value, which actually means that interpretation first need to build all the “spine” for program to be interpreted then unwind it and applying interpretation step to each instruction. This precludes evaluating infinite “scripts”.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Pairing</span> f g <span class="ot">=&gt;</span> <span class="dt">Pairing</span> (<span class="dt">Cofree</span> f) (<span class="dt">Free</span> g) <span class="kw">where</span>
+  pair p (a <span class="fu">:&lt;</span> _ ) (<span class="dt">Pure</span> x)  <span class="fu">=</span> p a x
+  pair p (_ <span class="fu">:&lt;</span> fs) (<span class="dt">Free</span> gs) <span class="fu">=</span> pair (pair p) fs gs
+
+<span class="kw">instance</span> (<span class="dt">Pairing</span> g f, <span class="dt">Pairing</span> k h) <span class="ot">=&gt;</span> <span class="dt">Pairing</span> (<span class="dt">Product</span> g k) (<span class="dt">Coproduct</span> f h) <span class="kw">where</span>
+  pair p (<span class="dt">Product</span> (g,_))  (<span class="dt">Coproduct</span> (<span class="dt">Left</span> f)) <span class="fu">=</span> pair p g f
+  pair p (<span class="dt">Product</span> (_,k)) (<span class="dt">Coproduct</span> (<span class="dt">Right</span> h)) <span class="fu">=</span> pair p k h</code></pre></td></tr></table></div>
+<p>We finally tie the appropriate “leaf” functors together in a straightforward way.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Pairing</span> <span class="dt">CoLogging</span> <span class="dt">Logging</span> <span class="kw">where</span>
+  pair f (<span class="dt">CoLogging</span> l) (<span class="dt">Logging</span> m k) <span class="fu">=</span> f (l m) k
+
+<span class="kw">instance</span> <span class="dt">Pairing</span> <span class="dt">CoPersist</span> <span class="dt">Persist</span> <span class="kw">where</span>
+  pair f (<span class="dt">CoPersist</span> s) (<span class="dt">Store</span> v k) <span class="fu">=</span> f (s v) k
+
+<span class="kw">type</span> <span class="dt">Effect</span> <span class="fu">=</span> <span class="dt">Coproduct</span> <span class="dt">Logging</span> <span class="dt">Persist</span></code></pre></td></tr></table></div>
+<p>We are now ready to define and interpret programs mixing logging and persistence:</p>
+<blockquote>
+<p>let prog = store “bar” &gt;&gt; logI “foo” &gt;&gt; store “quux” &gt;&gt; logI “baz” :: Free Effect () λ&gt; pair const interpretEffect ((return &lt;$&gt; prog) :: Free Effect (IO ()) ) “storing bar” “foo” “storing quux” “baz” λ&gt;</p>
+</blockquote>
+<h1 id="conclusion">Conclusion</h1>
+<p>As is often the case when dealing with “complex” or rather unfamiliar category theoretic constructions, I am fascinated by the elegance of the solution but I can’t help asking “What’s the point?” There is always a simpler solution which does not require all this machinery and solves the problem at hand. But in this case I am really excited about the possibilities it opens in terms of engineering and architecting our system, because it gives us a clear and rather easy way to:</p>
+<ul>
+<li>Define in isolation fragments of DSL matching our APIs and business logic,</li>
+<li>Define one or more interpreter for each of these fragments,</li>
+<li>Combine them in arbitrary (but consistent for pairing) ways.</li>
+</ul>
+<p>This code is in <a href="https://gist.github.com/abailly/84a54ace82a67c3c8aab">gist</a>.</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>GHC 7.8.3 in our case<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>In private conversation by email David Laing told me follow-up talks will deal with free/cofree duality with effects thus taking care of evaluating monadic scripts and interpreters.<a href="#fnref2">↩</a></p></li>
+</ol>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'foldlabsblog'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+]]></summary>
+</entry>
+<entry>
+    <title>On Free DSLs and Cofree interpreters</title>
+    <link href="http://blog.foldlabs.com/posts/cata.html" />
+    <id>http://blog.foldlabs.com/posts/cata.html</id>
+    <published>2015-06-04T00:00:00Z</published>
+    <updated>2015-06-04T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>On Free DSLs and Cofree interpreters</h1>
+<div class="info">Posted on June  4, 2015</div>
+
+<p>This post has been triggered by a <a href="https://twitter.com/etorreborre/status/605562458279944192">tweet</a> from Eric Torreborre on a talk by David Laing presenting the interaction of Free DSLs and Cofree interpreters at the Brisbane Functional Programming Group. I am currently engaged in the development of a Haskell-based system for <a href="http://www.capital-match.com">Capital Match</a> which is basically an API for managing peer-to-peer lending, and I am trying to formalise the API of the system as the result of a composition of several domain-specific languages.</p>
+<p>The ultimate goal is to be able to use these DSLs to define complex actions that could be interpreted in various ways: a command-line client sending RESTful queries to a server, a Webdriver-based test executor or a simple test recorder and comparator, or even by a core engine interpreting complex actions in terms of simpler sequencing of service calls.</p>
+<p>The rest of the post is a simple literate Haskell style explanation of what I came up with today exploring the specific topic of the composition of DSLs and interpreters: Given we can compose DSLs using <em>Free</em> monads and <em>Coproduct</em>, how can we <em>Pair</em> a composite DSL to the composition of several interpreters? The answer, as often, lies in the category theoretic principle for duality: <em>Reverse the arrows!</em> One composes interpreters into a <em>Product</em> type which is then lifted to a <em>Cofree</em> comonad paired to a <em>Free Coproduct</em> monad.</p>
+<p>This post has no original idea and is just rephrasing and reshaping of work done by more brilliant people than me:</p>
+<ul>
+<li>Dan Piponi’s <a href="http://blog.sigfpe.com/2014/05/cofree-meets-free.html">Cofree meets free</a> blog post</li>
+<li>This <a href="http://programmers.stackexchange.com/questions/242795/what-is-the-free-monad-interpreter-pattern">thread on Stack overflow</a> about free monads</li>
+<li>Runar Bjarnason talk on <a href="https://dl.dropboxusercontent.com/u/4588997/ReasonablyPriced.pdf">Reasonably Priced Monads</a></li>
+<li>An <a href="https://gist.github.com/aaronlevin/87465696ba6c554bc72b#file-reasonable-hs">Haskell implementation</a> of the above by Aaron Levin</li>
+<li><a href="http://www.haskellforall.com/2013/02/you-could-have-invented-comonads.html">Comonads are objects</a> by Gabriel Gonzalez</li>
+<li><a href="http://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf">Data types à la carte</a> by Wouter Swiestra</li>
+</ul>
+<p>I would not dare to say I really <em>understand</em> all of this, but at least I got some code to compile and I have some ideas on how to turn this into a useful “pattern” in our codebase.</p>
+<h1 id="free-coproduct-dsls">Free Coproduct DSLs</h1>
+<p>So let’s start with some usual declaration and imports…</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE DeriveFunctor         #-}</span>
+<span class="ot">{-# LANGUAGE FlexibleContexts      #-}</span>
+<span class="ot">{-# LANGUAGE FlexibleInstances     #-}</span>
+<span class="ot">{-# LANGUAGE MultiParamTypeClasses #-}</span>
+<span class="ot">{-# LANGUAGE OverlappingInstances  #-}</span>
+<span class="ot">{-# LANGUAGE RankNTypes            #-}</span>
+<span class="ot">{-# LANGUAGE TypeOperators         #-}</span>
+<span class="kw">module</span> <span class="dt">Capital.Client.Free</span>  <span class="kw">where</span>
+
+<span class="kw">import           </span><span class="dt">Control.Applicative</span>
+<span class="kw">import           </span><span class="dt">Control.Comonad.Cofree</span>
+<span class="kw">import           </span><span class="dt">Control.Monad</span>
+<span class="kw">import           </span><span class="dt">Control.Monad.Free</span>
+<span class="kw">import           </span><span class="dt">Control.Monad.Identity</span>
+<span class="kw">import           </span><span class="dt">Control.Monad.Trans</span>    (<span class="dt">MonadIO</span>, liftIO)</code></pre></td></tr></table></div>
+<p>This relies on the <a href="https://hackage.haskell.org/package/free">free</a> package which defines standard <em>free</em> Constructions for <code>Applicative</code> and <code>Monad</code>, and <em>cofree</em> for <code>Comonads</code>.</p>
+<p>We define our basic business-domain specific functors, one for logging some messages and another for persisting some string value. The actual functors defined are not important, what interests us here is the fact we define those “actions” independently but we want in the end to be able to “Assemble” them yielding more complex actions which can at the same time log messages and persist things.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Logging</span> a <span class="fu">=</span> <span class="dt">Logging</span> <span class="dt">String</span> a  <span class="kw">deriving</span> (<span class="dt">Functor</span>)
+
+<span class="kw">data</span> <span class="dt">Persist</span> a <span class="fu">=</span> <span class="dt">Store</span> <span class="dt">String</span> a <span class="kw">deriving</span> <span class="dt">Functor</span></code></pre></td></tr></table></div>
+<p>Our composite DSL should be able to interpret actions which are either logging actions, or persist actions, so we need a way to express this alternative at the type-level, introducing the notion of <em>Coproduct</em> or <em>Sum</em>. This work has already been packaged by Ed Kmett in the <a href="https://hackage.haskell.org/package/comonad-transformers-2.0.3">comonads-transformers</a> package but let’s rewrite it here for completeness’ sake.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Coproduct</span> f g a <span class="fu">=</span> <span class="dt">Coproduct</span> {<span class="ot"> getCoproduct ::</span> <span class="dt">Either</span> (f a) (g a) }</code></pre></td></tr></table></div>
+<p>A <code>Coproduct</code> of two functors is then simply the type-level equivalent of the familiar <code>Either</code> type, for which we provide smart constructors to inject values from left or right and a suitable <code>Functor</code> instance.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="ot">left ::</span> f a <span class="ot">-&gt;</span> <span class="dt">Coproduct</span> f g a
+left <span class="fu">=</span> <span class="dt">Coproduct</span> <span class="fu">.</span> <span class="dt">Left</span>
+
+<span class="ot">right ::</span> g a <span class="ot">-&gt;</span> <span class="dt">Coproduct</span> f g a
+right <span class="fu">=</span> <span class="dt">Coproduct</span> <span class="fu">.</span> <span class="dt">Right</span>
+
+<span class="ot">coproduct ::</span> (f a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (g a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> <span class="dt">Coproduct</span> f g a <span class="ot">-&gt;</span> b
+coproduct f g <span class="fu">=</span> either f g <span class="fu">.</span> getCoproduct
+
+<span class="kw">instance</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g) <span class="ot">=&gt;</span> <span class="dt">Functor</span> (<span class="dt">Coproduct</span> f g) <span class="kw">where</span>
+  fmap f <span class="fu">=</span> <span class="dt">Coproduct</span> <span class="fu">.</span> coproduct (<span class="dt">Left</span> <span class="fu">.</span> fmap f) (<span class="dt">Right</span> <span class="fu">.</span> fmap f)</code></pre></td></tr></table></div>
+<p>We want to be able to implicitly “lift” values from a component into its composite without resorting to explicit packing of the various parts of the alternative formed by a <code>Coproduct</code> type, something which would be extremely cumbersome to express, hence the introduction of a <em>natural transformation</em> <code>Inject</code> expressed in Haskell as a typeclass.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">class</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g) <span class="ot">=&gt;</span> f <span class="fu">:&lt;:</span> g <span class="kw">where</span>
+<span class="ot">  inject ::</span> f a <span class="ot">-&gt;</span> g a</code></pre></td></tr></table></div>
+<p>To be useful we provide several interesting instances of this typeclass that defines how to inject functors into a <code>Coproduct</code>. Note that this requires the <code>OverlappingInstances</code> extension otherwise the compiler<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> will refuse to compile our programs. I think this stuff could be expressed as <em>type families</em> but did not manage to get it right, so I gave up and resorted to original formulation by Wouter Swiestra.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">instance</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g) <span class="ot">=&gt;</span> f <span class="fu">:&lt;:</span> <span class="dt">Coproduct</span> f g <span class="kw">where</span>
+  inject <span class="fu">=</span> left
+
+<span class="kw">instance</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g, <span class="dt">Functor</span> h, g <span class="fu">:&lt;:</span> h) <span class="ot">=&gt;</span> g <span class="fu">:&lt;:</span> <span class="dt">Coproduct</span> f h <span class="kw">where</span>
+  inject <span class="fu">=</span> right <span class="fu">.</span> inject
+
+<span class="kw">instance</span> (<span class="dt">Functor</span> f) <span class="ot">=&gt;</span> f <span class="fu">:&lt;:</span> f <span class="kw">where</span>
+  inject <span class="fu">=</span> id</code></pre></td></tr></table></div>
+<p>Finally, we provide “smart constructors” that generates <code>Free</code> monadic expressions out of the individual instructions of our two tiny DSLs. We use a <code>inFree</code> function combining lifting into <code>Free</code> monad and possible transformation between functors so that each expressed action is a <code>Free</code> instance whose functor is polymorphic. This is important as this is what will allow us to combine arbitrarily our DSL fragments into a bigger DSL.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="ot">inFree ::</span> (<span class="dt">Functor</span> f, f <span class="fu">:&lt;:</span> g) <span class="ot">=&gt;</span> f a <span class="ot">-&gt;</span> <span class="dt">Free</span> g a
+inFree <span class="fu">=</span> hoistFree inject <span class="fu">.</span> liftF
+
+log<span class="ot"> ::</span> (<span class="dt">Logging</span> <span class="fu">:&lt;:</span> f) <span class="ot">=&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Free</span> f ()
+log msg <span class="fu">=</span> inFree (<span class="dt">Logging</span> msg ())
+
+<span class="ot">store ::</span> (<span class="dt">Persist</span> <span class="fu">:&lt;:</span> f) <span class="ot">=&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Free</span> f ()
+store s <span class="fu">=</span> inFree (<span class="dt">Store</span> s ())</code></pre></td></tr></table></div>
+<p>Equipped with all this machinery we are ready to write our first simple program in a combined DSL:</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Effect</span> <span class="fu">=</span> <span class="dt">Coproduct</span> <span class="dt">Logging</span> <span class="dt">Persist</span>
+
+<span class="ot">prg ::</span> <span class="dt">Free</span> <span class="dt">Effect</span> ()
+prg <span class="fu">=</span> store <span class="st">&quot;bar&quot;</span> <span class="fu">&gt;&gt;</span> log <span class="st">&quot;foo&quot;</span></code></pre></td></tr></table></div>
+<h1 id="cofree-product-interpreters">Cofree Product Interpreters</h1>
+<p>We are now done with the DSL part, let’s turn to the interpreter part. First we need some atomic interpreters which should be able to interpret commands from each of our DSL. We will prefix these functors with <code>Co</code> to demote the relationship they have with the DSL functors. Something which is not obvious here (because our DSL functors only have a single constructor) is that these interpreters should have a dual structure to the DSL functors: Given a DSL expressed as a sum of constructors, we need an interpreter with a product of intepretation functions. The DSL presented in David’s post are more expressive…</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">CoLogging</span> a <span class="fu">=</span> <span class="dt">CoLogging</span> {<span class="ot"> cLog ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> a }  <span class="kw">deriving</span> <span class="dt">Functor</span>
+
+<span class="kw">data</span> <span class="dt">CoPersist</span> a <span class="fu">=</span> <span class="dt">CoPersist</span> {<span class="ot"> cStore ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> a }  <span class="kw">deriving</span> <span class="dt">Functor</span></code></pre></td></tr></table></div>
+<p>Of course we need concrete interpretation functions, here some simple actions that print stuff to stdout, running in <code>IO</code>.</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="ot">coLog ::</span> (<span class="dt">MonadIO</span> m) <span class="ot">=&gt;</span> m () <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> m ()
+coLog a s <span class="fu">=</span> a <span class="fu">&gt;&gt;</span> (liftIO <span class="fu">$</span> print s)
+
+<span class="ot">coStore ::</span> (<span class="dt">MonadIO</span> m) <span class="ot">=&gt;</span> m () <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> m ()
+coStore a s <span class="fu">=</span> a <span class="fu">&gt;&gt;</span> (liftIO <span class="fu">.</span> print <span class="fu">.</span> (<span class="st">&quot;storing &quot;</span> <span class="fu">++</span>)) s</code></pre></td></tr></table></div>
+<p>To be able to compose these interpreters we need a <code>Product</code> type whose definition is straightforward:</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Product</span> f g a <span class="fu">=</span> <span class="dt">Product</span> {<span class="ot"> getProduct ::</span> (f a, g a) }
+
+<span class="kw">instance</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g) <span class="ot">=&gt;</span> <span class="dt">Functor</span> (<span class="dt">Product</span> f g) <span class="kw">where</span>
+  fmap f (<span class="dt">Product</span> (a,b)) <span class="fu">=</span> <span class="dt">Product</span> (fmap f a, fmap f b)</code></pre></td></tr></table></div>
+<p>class (Functor f, Functor g) =&gt; Pairing f g where pair :: (a -&gt; b -&gt; r) -&gt; f a -&gt; g b -&gt; r</p>
+<p>instance Pairing Identity Identity where pair f (Identity a) (Identity b) = f a b</p>
+<p>instance Pairing ((-&gt;) a) ((,) a) where pair p f = uncurry (p . f)</p>
+<p>instance Pairing ((,) a) ((-&gt;) a) where pair p f g = pair (flip p) g f</p>
+<p>instance Pairing f g =&gt; Pairing (Cofree f) (Free g) where pair p (a :&lt; _ ) (Pure x) = p a x pair p (_ :&lt; fs) (Free gs) = pair (pair p) fs gs</p>
+<p>instance Pairing CoLogging Logging where pair f (CoLogging l) (Logging m k) = f (l m) k</p>
+<p>instance Pairing CoPersist Persist where pair f (CoPersist s) (Store v k) = f (s v) k</p>
+<p>instance (Pairing g f, Pairing k h) =&gt; Pairing (Product g k) (Coproduct f h) where pair p (Product (g,<em>)) (Coproduct (Left f)) = pair p g f pair p (Product (</em>,k)) (Coproduct (Right h)) = pair p k h</p>
+<p>type Effect = Coproduct Logging Persist</p>
+<p>type Interp = Product CoLogging CoPersist</p>
+<p>interpretEffect :: Cofree Interp (IO ()) interpretEffect = interpretM f (return ()) where f a = Product (CoLogging $ coLog a, CoPersist $ coStore a)</p>
+<p><sub>~<sub>~</sub></sub>~</p>
+<p>Un entier est ici construit à l’aide de la méthode <code>succ</code> et de la constante <code>Zero</code>:</p>
+<ul>
+<li>soit 0 ;</li>
+<li>soit le successeur d’un autre entier.</li>
+</ul>
+<p>La question que l’on peut se poser, si l’on s’intéresse à ce genre de choses, c’est : comment peut-on caractériser algébriquement l’ensemble des entiers ainsi défini, si ce n’est de manière tautologique ? Il peut nous apparaître très naturel d’utiliser un type dans sa propre définition mais c’est parce que nous sommes habitués à raisonner récursivement.</p>
+<h3 id="point-fixe">Point Fixe</h3>
+<p>Pour répondre à la question posée, on peut reformuler de manière “compacte” le problème en cherchant à définir le type <code>Natural</code> comme la solution d’une équation algébrique (+ joue ici le rôle de <code>OU</code>):</p>
+<pre><code>Natural = Zero  + Succ (Natural),</code></pre>
+<p>équation dont la solution est problématique puisque la variable apparaît des deux côtés de l’équation !</p>
+<p>Si l’on substitue naïvement la définition de <code>Natural</code> en partie droite, alors on obtient quelque chose comme</p>
+<pre><code>Natural = Zero + Succ (Zero + Succ ( Zero + Succ (Zero +...</code></pre>
+<p>ce qui peut se réécrire en</p>
+<pre><code>Natural = Zero + Succ (Zero) + Succ (Succ (Zero)) +...</code></pre>
+<p><code>Natural</code> apparait bien comme un ensemble infini d’éléments qui sont soit <code>Zero</code> soit de la forme <span class="math inline"><em>S</em><em>u</em><em>c</em><em>c</em><sup><em>n</em></sup><em>Z</em><em>e</em><em>r</em><em>o</em></span> pour tout <span class="math inline"><em>n</em></span> entier.</p>
+<p>Du point de vue mathématique, la solution d’une équtation de la forme <span class="math inline"><em>x</em> = <em>f</em>(<em>x</em>)</span> est appelée un <em>point fixe</em>, ce qui est bien la forme de l’équation de Natural. On peut donc dire que <code>Natural</code> est le point fixe de l’équation <span class="math inline"><em>X</em> = <em>Z</em><em>e</em><em>r</em><em>o</em> + <em>S</em><em>u</em><em>c</em><em>c</em>(<em>X</em>)</span>. Nous disons <em>le</em> point fixe, mais ce n’est pas tout à fait exact : comme on ne considére que des nombres finis (même si l’ensemble lui-même est de taille infinie), il s’agit là du <em>plus petit point fixe</em>. Il existe en effet des ensembles qui sont des points fixes de cette équation mais dont la cardinalité est plus grande que N car ils contiennent des nombres infinis (en quantité infinie…).</p>
+<p>Ce type de définition étant très courant, il a paru utile de généraliser cette notion de <em>plus petit point fixe</em>, d’où l’introduction l’opérateur <em>μ</em>. Pour toute fonction f, μf est le plus petit point fixe de f, plus formellement: <br /><span class="math display"><em>μ</em><em>f</em> = <em>x</em> ∈ <em>d</em><em>o</em><em>m</em>(<em>f</em>), <em>x</em> = <em>f</em>(<em>x</em>)<em>e</em><em>t</em>∀<em>x</em>′ ∈ <em>d</em><em>o</em><em>m</em>(<em>f</em>), <em>x</em>′ = <em>f</em>(<em>x</em>′) ⇒ <em>x</em>′ ≥ <em>x</em></span><br /></p>
+<p>Or ici la définition de Natural ne semble pas être une fonction. En fait, pour qu’une définition de type soit une fonction, il faut qu’elle soit une fonction sur des types, prenant en argument des types et retournant des types, en d’autres termes un foncteur. Mais c’est exactement ce que dit la forme <span class="math inline"><em>Z</em><em>e</em><em>r</em><em>o</em> + <em>S</em><em>u</em><em>c</em><em>c</em>(<em>X</em>)</span> où X désigne un type quelconque, et donc on peut légitimement définir <code>Natural  = μ(Zero + Succ(x))</code> comme un ensemble d’éléments point fixe d’un foncteur.</p>
+<h3 id="définition-explicite">Définition explicite</h3>
+<p>Toute cette mécanique est rendu implicite dans tous les langages, même les plus plus sophistiqués comme Haskell, Scala ou Caml. Pour définir un type de données récursif, nul besoin d’utiliser l’opérateur μ, on se contente d’utiliser les possibilités syntaxiques du langage qui autorise l’utilisation du nom d’un type dans sa définition. Mais pour pouvoir généraliser les mécanismes de récursions sous forme de FOS, il est nécessaire de déconstruire cette vision et d’introduire explicitement la récursion.</p>
+<p>C’est ce que l’on va faire, en Haskell tout d’abord.</p>
+<p>On introduit d’abord l’opérateur <code>Mu</code> comme un nouveau type de données prenant en paramètre un foncteur <code>f</code>. <code>Mu</code> a un seul constructeur, <code>In</code> qui empaquette le foncteur <code>f</code> dans une boucle récursive, ce qui nous donne 2 fonctions permettant de naviguer dans la “pile” de récursion:</p>
+<ul>
+<li><code>In : f (Mu f) -&gt; Mu f</code> (le constructeur, vu comme une fonction),</li>
+<li><code>out : Mu f -&gt; f (Mu f)</code> (l’accesseur de l’unique champ de la structure encapsulée par In).</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- newtypes in Haskell are cheaps, they do not add any runtime overhead and serve</span>
+<span class="co">-- only for the compiler to distinguish types</span>
+<span class="kw">newtype</span> <span class="dt">Mu</span> f <span class="fu">=</span> <span class="dt">In</span> {<span class="ot"> out ::</span> (f (<span class="dt">Mu</span> f)) }</code></pre></div>
+<p>Essayons maintenant de définir les entiers comme ci-dessus au moyen de <code>Mu</code> en évitant la récursion explicite et en définissant <code>Natural</code> comme un foncteur:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- le foncteur engendrant les entiers naturels</span>
+<span class="kw">data</span> <span class="dt">Natf</span> x <span class="fu">=</span> <span class="dt">Zero</span>  <span class="fu">|</span> <span class="dt">Succ</span> x 
+
+<span class="co">-- le type (un simple alias) Natural comme point fixe d&#39;un foncteur</span>
+<span class="kw">type</span> <span class="dt">Natural</span> <span class="fu">=</span> <span class="dt">Mu</span> <span class="dt">Natf</span></code></pre></div>
+<p>Voici quelques objets de type <code>Natural</code> que l’on peut construire en utilisant directement les constructeurs de <code>Natf</code> sans se préoccuper de <code>Mu</code> pour l’instant:</p>
+<pre><code>*Main&gt; let zero = Zero
+*Main&gt; let un = Succ Zero
+*Main&gt; :t un
+un :: Natf (Natf x)
+*Main&gt; let deux = Succ un
+*Main&gt; :t deux
+deux :: Natf (Natf (Natf x))</code></pre>
+<p>On peut constater que chaque “nombre” a un type différent, ce qui n’est pas très pratique. En utilisan Mu, on uniformise le type d’où la naissance de Natural, un ensemble contenant des objets de type homogène:</p>
+<pre><code>*Main&gt; let zero = In Zero
+*Main&gt; :t zero
+zero :: Mu Natf
+*Main&gt; let un = In (Succ zero)
+*Main&gt; :t un
+un :: Mu Natf
+*Main&gt; let deux = In (Succ un)
+*Main&gt; :t deux
+deux :: Mu Natf</code></pre>
+<p>Tous les nombres ont bien ici le type <code>Mu Natf</code> et l’on peut sans problème les combiner, par exemple pour définir l’addition:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">add ::</span> <span class="dt">Natural</span> <span class="ot">-&gt;</span> <span class="dt">Natural</span> <span class="ot">-&gt;</span> <span class="dt">Natural</span>
+add (<span class="dt">In</span> <span class="dt">Zero</span>) x <span class="fu">=</span> x
+add x (<span class="dt">In</span> <span class="dt">Zero</span>) <span class="fu">=</span> x
+add (<span class="dt">In</span> (<span class="dt">Succ</span> x)) (<span class="dt">In</span> (<span class="dt">Succ</span> x&#39;)) <span class="fu">=</span> <span class="dt">In</span> (<span class="dt">Succ</span> (<span class="dt">In</span> (<span class="dt">Succ</span> (add x x&#39;))))</code></pre></div>
+<h3 id="foncteur-et-f-algèbre">Foncteur et F-Algèbre</h3>
+<p>Evidemment, c’est théoriquement très intéressant mais ce qu’on veut c’est manipuler des “vrais” nombres, pas de longues chaînes de constructeurs, sauf dans les cas où l’on s’intéresse à la récursion explicite, évidemment. On voudrait donc pouvoir <em>transformer</em> des objets de notre type Natural en un type plus commun, par exemple Int. Pour ce faire, notre type de base Natf manque d’un ingrédient: la <em>fonctorialité</em> (ou propriété d’être un foncteur). On a vu que ce qui définissait un foncteur, c’était le fait de posséder une fonction <code>fmap</code> possédant quelques bonnes propriétés de compositionnalité. Dans le cas de Natf, cette définition est simple:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Functor</span> <span class="dt">Natf</span> <span class="kw">where</span>
+  fmap f (<span class="dt">Zero</span>) <span class="fu">=</span> <span class="dt">Zero</span>
+  fmap f (<span class="dt">Succ</span> x) <span class="fu">=</span> <span class="dt">Succ</span> (f x)</code></pre></div>
+<p>Dès que l’on a un foncteur <code>f</code>, alors pour tout type <code>a</code> on peut définir (entre autres myriades de choses) des fonctions de types <code>h :: f a -&gt; a</code> qui “déconstruisent” des éléments de <code>a</code> “transformés” par <code>f</code> en éléments de <code>a</code>: c’est comme si on enlevait une couche d’une pelure d’oignon. Ce type de fonction est suffisamment courant pour avoir été nommé, on les appelle des <em>f-algèbres</em>. Par exemple, on peut écrire une f-algèbre qui permet de transformer des objets de type <code>Natf Int</code> en objets de type <code>Int</code> (nos gentils entiers habituels):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">intalgebra ::</span> <span class="dt">Natf</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+intalgebra <span class="dt">Zero</span>     <span class="fu">=</span> <span class="dv">0</span>
+intalgebra (<span class="dt">Succ</span> x) <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> x</code></pre></div>
+<p>Cette fonction est très simple et non récursive, elle décrit simplement une correspondance univoque entre des opérations du type de départ (les constructeurs de <code>Natf</code>) et des opérations du type d’arrivée (les fonctions <code>plus</code> et la constante <code>0</code>). Ce serait encore plus explicite si l’on pouvait écrire ceci:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- does not compile</span>
+<span class="ot">intalgebra ::</span> <span class="dt">Natf</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+intalgebra <span class="dt">Zero</span> <span class="fu">=</span> <span class="dv">0</span>
+intalgebra <span class="dt">Succ</span> <span class="fu">=</span> (<span class="dv">1</span><span class="fu">+</span>)</code></pre></div>
+<p>Mais une fois que l’on a cette fonction, on n’est guère avancé car de toute évidence, elle ne peut s’appliquer aux nombres de type <code>Natural</code>. C’est ici qu’entre un jeu notre premier “récurseur” d’ordre supérieur: le <strong>catamorphisme</strong> (roulement de tambour) !</p>
+<h2 id="catamorphismes">Catamorphismes</h2>
+<p>Un <em>catamorphisme</em> est donc une <em>fonction d’ordre supérieure</em> permettant de produire une valeur d’un type arbitraire en “repliant” une structure, un type algébrique, récursivement, par application d’un opérateur quelconque sur une valeur initiale.</p>
+<p>Le catamorphisme “canonique” est l’opérateur <code>foldr</code> sur les listes:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldr<span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span>  b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b
+foldr op x []     <span class="fu">=</span> x
+foldr op x (y<span class="fu">:</span>ys) <span class="fu">=</span> y <span class="ot">`op`</span> (foldr op x ys)</code></pre></div>
+<p>Pour tout opérateur binaire ⊙ et toute valeur x, h = foldr ⊙ x, est un catamorphisme pour les listes de type <code>[a] -&gt; b</code>. Le parcours de la liste est imbriqué avec l’application de l’opérateur dans l’appel récursif à <code>foldr</code>. Par ailleurs, on a vu ci-dessus que la récursion pouvait être rendue explicite au travers de la structure du type de données, par l’opérateur <code>Mu</code>, qui produit un <em>point fixe</em> d’un foncteur quelconque. On aimerait donc pouvoir distinguer, séparer, dans foldr et d’autres opérations du même type qui transforment un type de données récursif en une valeur quleconque, deux entités distinctes:</p>
+<ul>
+<li>le traitement de chaque instance possible d’un foncteur, autrement dit une f-algèbre quelconque ;</li>
+<li>et la récursion.</li>
+</ul>
+<p>Ces deux contraintes peuvent s’exprimer dans le système de type, ce qui nous donne la signature suivante pour <code>cata</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">cata ::</span> <span class="dt">Functor</span> f <span class="ot">=&gt;</span> (f a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> (<span class="dt">Mu</span> f <span class="ot">-&gt;</span> a)</code></pre></div>
+<p><code>cata</code> est donc une fonction qui, à partir d’une f-algèbre, produit une fonction transformation un point fixe du foncteur <code>f</code> en une valeur. Sa définition est la suivante et l’on voit bien que la récursion y est explicite:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">cata h <span class="fu">=</span> h <span class="fu">.</span> fmap (cata h) <span class="fu">.</span> out</code></pre></div>
+<p>On est désormais équipé pour appliquer notre fonction <code>intalgebra</code> définie ci-dessus pour transformer les nombres algébriques en entiers “sympathiques”:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">toInt<span class="ot"> ::</span> <span class="dt">Natural</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> 
+toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
+<p>et l’on peut utiliser <code>toint</code> pour obtenir de “vrais” entiers:</p>
+<pre><code>*Main&gt; toint (In Zero)
+0
+*Main&gt; toint (In (Succ (In (Succ (In Zero)))))
+2
+*Main&gt; </code></pre>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>GHC 7.8.3 in our case<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'foldlabsblog'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+]]></summary>
+</entry>
+<entry>
+    <title>Ten &quot;Good&quot; Reasons Not to Do TDD</title>
+    <link href="http://blog.foldlabs.com/posts/no-tdd.html" />
+    <id>http://blog.foldlabs.com/posts/no-tdd.html</id>
+    <published>2014-01-31T00:00:00Z</published>
+    <updated>2014-01-31T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Ten &quot;Good&quot; Reasons Not to Do TDD</h1>
+<div class="info">Posted on January 31, 2014</div>
+
+<p>When trying to introduce <em>Test-Driven Development</em> in a team or company, it is normal to encounter resistance: Change is always hard, whatever it may be, for <em>everybody</em>. It is a transgression of the current norm and rules that most people would not accept readily.</p>
+<p>Here is a small compendium of ten “good” reasons I have been given for not doing TDD while introducing that technique to new teams.</p>
+<h2 id="it-is-going-to-slow-us-down">“It Is going to slow us down!”</h2>
+<p>If we deliver code faster, we have more times to discover bugs and fix them using real testing conditions, eg. in production.</p>
+<h2 id="it-takes-a-lot-of-time-to-master">“It takes a lot of time to master!”</h2>
+<p>We would rather employ youngsters having just graduated that will put 12+ hours of work per day and ship code faster than take the time to train people on TDD</p>
+<h2 id="managers-and-business-people-keep-setting-tight-deadlines">“Managers and Business people keep setting tight deadlines”</h2>
+<p>We cannot or do not know how to say “no” to our customers, so we keep promising features and given we work hard and fast, we can deliver and fix bugs later. Anyway, it has always worked that way so the customer does not even expect first versions to be correct so everybody knows and expect there will be bugs (and more overtime to fix them after delivery…). Besides, our contracts fix scope, deadline and price with high penalty in case of failure to deliver so we would rather ship it as planned.</p>
+<h2 id="we-already-tried-writing-unit-tests-and-it-became-a-maintenance-nightmare">“We already tried writing unit tests and it became a maintenance nightmare”</h2>
+<p>Given we already have QA team that takes care of testing, and the complexity of the code, it is better to invest in large, complex but well-known functional or system-level tests than doubling the codebase with unit tests. And by the way, when I write unit tests for my code, it happens to be 3-4 times bigger than the code I am testing so what’s the point?</p>
+<h2 id="we-have-too-much-legacy-code-it-would-be-a-drop-in-the-ocean">“We have too much legacy code, it would be a drop in the ocean”</h2>
+<p>Let’s concentrate on shipping new features and fixing bugs touching existing code in the least invasively possible way, given we do not know if touching anything won’t break our software in possibly horrible ways</p>
+<h2 id="i-do-not-want-to-be-told-how-i-have-to-code">“I do not want to be told how I have to code”</h2>
+<p>I have enough experience to find my way in the code so I can change it quickly enough without the need of TDD. Besides I have my own set of techniques and tools that I have polished over the years so why bother changing?</p>
+<h2 id="our-test-suite-takes-too-long-to-run-and-is-broken-half-of-the-time">“Our test suite takes too long to run and is broken half of the time”</h2>
+<p>Given the aforementioned reasons, we do not have the time to fix it properly so let’s move on and find other ways to deal with bugs.</p>
+<h2 id="our-code-does-not-lend-itself-to-tdd-because-we-do-much-guiembeddedmobilelegacy-pick-one-code">“Our code does not lend itself to TDD because we do much (GUI/Embedded/Mobile/Legacy Pick one) code”</h2>
+<p>We are special here so we cannot do something that’s been invented for startupers or simple web apps.</p>
+<h2 id="all-these-unit-tests-do-not-guarantee-functional-relevance">“All these unit tests do not guarantee functional relevance”</h2>
+<p>So why bother writing them given we could invest the time in functional-level tests?</p>
+<h2 id="whats-the-point-of-writing-tests-for-code-that-will-never-change-they-wont-catch-any-regression">“What’s the point of writing tests for code that will never change? They won’t catch any regression”</h2>
+<p>OK, it might be changed but surely not in the near future so given I know what I am doing, I would rather get rid of those tests</p>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'foldlabsblog'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+]]></summary>
+</entry>
+<entry>
+    <title>On &quot;The Dream Team Nightmare&quot;,  by Portia Tung</title>
+    <link href="http://blog.foldlabs.com/posts/dtn.html" />
+    <id>http://blog.foldlabs.com/posts/dtn.html</id>
+    <published>2014-01-09T00:00:00Z</published>
+    <updated>2014-01-09T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>On &quot;The Dream Team Nightmare&quot;,  by Portia Tung</h1>
+<div class="info">Posted on January  9, 2014</div>
+
+<p>The first “agile” conference I attended was <a href="http://spaconference.org/spa2008">SPA 2008</a> which took place in a nice hotel in the english countryside. And one of the first session I attended at this conference was a session about <a href="http://www.spaconference.org/spa2008/sessions/session148.html">Real options</a>, initially planned to be run by Chris Matts but actually lead by Pascal Van Cauwenberghe and Portia Tung. I vividly recall that, although the session was far from being perfect, it was fun, intriguing and I learnt quite a few new things.  Since then, I have had the opportunity to attend several of Portia’s session, mainly at [XP Day Benelux[(http://xpday.be/) (which by the way is the best conference I ever attended), and they always have been great moments, perfectly balanced between learning and fun, and perfectly organized[^1].  # The Dream Team Nightmare  <a href="http://pragprog.com/book/ptdream/the-dream-team-nightmare">The Dream Team Nightmare</a> is Portia Tung’s new book published by Pragmatic Books, which offers you a journey beyond the basics of agile coaching practices, techniques and tools. You take the role of Jim Hopper, an experienced agile coach which has been appointed by Love Inc. to help one of the company’s development team, the <em>Dream Team</em>.  This team has been struggling with agile software development practice for couple of years and is facing severe issues: Development time increases, relations with business people are difficult and conflicting, quality is soaring… After initial enthusiasm for agile adoption, it seems to have been lagging behind other teams, to the point where they are considering abandoning agile altogether. You have been given a week to provide the management of the company an assessment of the situation and proposals to improve the team’s productivity and quality.  # What I Loved  The first thing I loved with this book is its form. Being an adventure book means that you are somehow in control of the destiny of Jim, the main character: You have to make decisions at crucial points, which can have beneficial or detrimental effects on the outcome of the story. Each step of the story is written in a lively manner, with a special attention to the description of the characters and the dialogues.  Day by day, one follows the progress of the coach and its team, and how they apply a lot of varying coaching techniques and tools to interact with people and start solving their problems. Without the hassle of a text book, one is then introduced to things like setting a kanban board for a meeting or a team, various meeting facilitation techniques for meetings, perfection game and decider from Core protocols, story writing, measurements and feedback evaluations, system thinking with reality and future trees…  The book covers a lot of the classical dysfunctions one find in software development (and probably other engineering) teams: Lack of trust between team members, and across team boundaries, isolation of teams from other teams’ experiments and feedback, silos, business-technical divide, fear of change and failure, lack of feedback, point less measurements and estimating. I especially liked how kanban boards are used systematically to set goals and track progress, even for meetings; the emphasis on concrete and multidimensional measurements for progress; and the <em>option thinking</em> toolbox which is used extensively in the book to build a release plan that is both realistic, flexible and business-oriented.  It is not the same thing to <em>read</em> a formal description of a tool or technique, and to live it through the eyes of an involved person in a concrete situation. <em>The Dream Team Nightmare</em> succeeds in being both pedagogical and fun, which is a rare endeavour. And I already started using some of the techniques from the book in my daily work!  [^1]: The quality of Portia’s sessions props deserves a special mention!</p>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'foldlabsblog'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+]]></summary>
+</entry>
+<entry>
+    <title>Notes sur &quot;Les décisions absurdes&quot;</title>
+    <link href="http://blog.foldlabs.com/posts/decisions-absurdes.html" />
+    <id>http://blog.foldlabs.com/posts/decisions-absurdes.html</id>
+    <published>2013-12-31T00:00:00Z</published>
+    <updated>2013-12-31T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Notes sur &quot;Les décisions absurdes&quot;</h1>
+<div class="info">Posted on December 31, 2013</div>
+
+<p>Qu’y-a-t’il de commun entre l’explosion de la navette <em>Challenger</em>, la collision entre deux pétroliers dans le Golfe Persique, la transformation d’une université d’entreprise en institut de formation externe, la persistance de transparents surchargés et illisibles dans les communications d’entreprise, le pont de la rivière Kwai ? Toutes ces petites et grandes catastrophes, et bien d’autres, sont le résultat de <strong>décisions absurdes</strong>, des décisions produisant de manière persistante des effets contraires au but initialement recherché, analysées par <a href="http://christian.morel5.perso.sfr.fr">Chistian Morel</a> dans le <a href="http://www.gallimard.fr/Catalogue/GALLIMARD/Folio/Folio-essais/Les-decisions-absurdes">livre portant ce titre</a>.  L’intérêt principal de ce livre, en plus de son style agréablement didactique et subtilement ironique, est de ne pas se contenter d’identifier une cause unique pour toutes ces cas d’erreurs extrêmement variés mais de couvrir un ensemble de causes potentielles qui, se combinant, sont à même de produire ces comportements absurdes observables chez des individus et dans des organisations ayant par ailleurs atteint un très haut degré de sophistication et de scientificité. C’est donc à la conjugaison d’erreurs <em>cognitives</em>, de <em>comportements collectifs</em> aberrants et de défaillances <em>téléologiques</em> que l’on doit s’intéresser pour mieux comprendre, et peut-être éviter, les décisions absurdes.  Autrement dit, il n’y a jamais de responsabilité unique, individuelle ou attribuable à un petit groupe, pour ces erreurs, mais toujours une dérive d’un système rationnel, comme un <em>cancer de la raison</em> qui petit à petit viendrait substituer des métastases aux cellules saines d’un organisme. Le cas de <em>Challenger</em> est emblématique et cumule à un haut degré les trois types d’erreurs pour aboutir à une décision catastrophique:  * les ingénieurs et managers de Morton-Thiokol commettent d’abord des erreurs <em>cognitives</em>, d’une part au sujet du climat hivernal de la Floride, transposant une faible probabilité de grand froid en une impossibilité, d’autre part au sujet de la fiabilité des joints lors des lancements. Ce phénomène a été décortiqué en détail par Kahneman et al. et <a href="http://us.macmillan.com/thinkingfastandslow/DanielKahneman">Thinking, Fast and Slow</a> est une introduction pour le commun des mortels au modèle cognitif proposé par Kahneman et reprit partiellement par Morel, celui des deux systèmes : le <em>Système I</em> ou heuristique, efficace et rapide mais imprécis et prompt à se tromper et le <em>Système II</em> ou analytiau * le processus au cours duquel est prise la décision de maintenir le lancement renforce ces erreurs cognitives pour produire un consensus mou. La décision finale est prise au cours d’une conférence téléphonique entre trois lieux différents des États-Unis, les doutes de certains ingénieurs ne sont pas perçus comme déterminants par les <em>managers</em> d’autant plus qu’ils ne parviennent pas à les formuler scientifiquement, le jeu des relations de pouvoirs affaiblit les signaux négatifs… * le fruit est alors mûr pour que la troisième source d’erreurs, la perte de sens ou erreur téléologique, entre en jeu. Les participants à la décision perdent de vue la fin - faire voler en sécurité 7 astronautes dans une navette spatiale - au profit des moyens - les joints des <em>boosters</em> sont-ils dangereux et Morton-Thiokol est-il uin fournisseur fiable ? La préservation du système prend le pas sur la finalité pour laquelle ce système a été construit.  En conclusion du livre, l’auteur remarque par ailleurs que les erreurs sont liées à <em>l’indétermination fondamentale du monde</em>. Ce qui rend la vie excitante et les décisions nécessaires est aussi ce qui rend ces décisions positives ou négatives, ce qui provoque le succès ou échec, l’erreurs ou la bonne décision. De très nombreuses situations sont sous-déterminées, nous n’avons pas les réponses toutes prêtes et, particulièrement en situation de stress et d’urgence, il nous faut savoir mobiliser à la fois notre Système I, heuristique et expérientiel, et notre Système II, analytique et scientifique.  Les organisations habituées à l’urgence, au danger et au stress - armée, secours civil, contrôle aérien, chirurgie, médecine d’urgence - développent des techniques similaires pour que leurs membres soient capables de faire face à ces situations par définition imprévisibles:  * s’entraîner de manière systématique, à l’aide de protocoles précis, développés par capitalisation des expériences, développer des réflexes de <em>survie</em> mobilisables instantanément afin de libérer le cerveau pour d’autres tâches ; * développer l’autonomie et la cohésion des équipes par la compréhension et l’incorparation des <em>fins</em> et des <em>buts</em> de l’organisationm afin que les décisions prises lors de “situations critiques” aient le plus de chances d’être adaptées à la situation et non polluées par des considérations extérieures, erreurs cognitives, systémiques ou téléologiques.  Même si au sein d’une équipe de développement il est très rare de vivre des situations aussi dramatiques, nous commettons beaucoup d’erreurs qui se trouvent reflétées dans notre code sous la forme de <em>bugs</em> , manifestes ou latents - la fameuse <em>dette technique</em>. Mais comprendre les sources de ces erreurs, et savoir les combattre, est une nécessité de plus en plus impérieuse dans un monde qui va de plus en plus vite et qui est en train d’être <a href="https://gist.github.com/sferik/5277512">mangé par le logiciel</a>.  J’attends avec impatience la parution du tome II en poche intitulé <a href="http://christian.morel5.perso.sfr.fr">Les décisions absurdes II. Comment les éviter</a>.</p>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'foldlabsblog'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+]]></summary>
+</entry>
+<entry>
+    <title>Using Docker for Building</title>
+    <link href="http://blog.foldlabs.com/posts/docker.html" />
+    <id>http://blog.foldlabs.com/posts/docker.html</id>
+    <published>2013-11-25T00:00:00Z</published>
+    <updated>2013-11-25T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Using Docker for Building</h1>
+<div class="info">Posted on November 25, 2013</div>
+
+<ul>
+<li>Goal: ensure repeatability and reliability of builds across OS (dev’ing on Windows, CI on linux, deploying on unix/solaris)</li>
+<li>Using docker inside a Linux VM on VirtualBox on windows</li>
+<li>Start from docker’s github repo, use vagrant to generate VM with docker configured</li>
+<li>Create docker image from base (eg. ubuntu…)</li>
+<li>Install jdk, maven…</li>
+<li>Snapshot after first build =&gt; provides already loaded repository</li>
+<li>Beware of network connectivity. Had an issue while running tests, code was trying to connect to a server that was not reachable, HTTP client hanged in timeout which caused the test to fail as the test itself was timeouted </li>
+<li>Issue with repository update when offline =&gt; use host’s local repository as remote </li>
+<li>probably not that useful to build java on linux =&gt; only execute tests!!</li>
+<li>mount local repository</li>
+<li>run mvn test:test</li>
+</ul>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'foldlabsblog'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+]]></summary>
+</entry>
+<entry>
+    <title>On Test-Driven Development</title>
+    <link href="http://blog.foldlabs.com/posts/tdd.html" />
+    <id>http://blog.foldlabs.com/posts/tdd.html</id>
+    <published>2013-11-16T00:00:00Z</published>
+    <updated>2013-11-16T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>On Test-Driven Development</h1>
+<div class="info">Posted on November 16, 2013</div>
+
+<ul>
+<li>Within Agile circles, TDD is thought to be one of the techniques promoted by XP that is only for developers</li>
+<li>This is something I have been practicing for years now, and I still have to master</li>
+<li>It occured to me recently, during a session on fractal TDD I gave at Agile Tour Beirut with Craig Morrisson, that there is actually more to it than simpy a technique for developers</li>
+<li>This is also tied to what Freeman and Pryce says in their GOOS book</li>
+<li>And I think this was what Kent Beck had in mind when he invented it, explicitly or implicitly, except that using the word Test was unfortunate as it lead other people to think it was somehow connected to the actual activity of testing</li>
+<li>TDD is the heart of Agile and from it you can derive all other practices that, along the years have become part of the norm of what can be considered agile software development</li>
+<li>When infected by this desire to be able to express in an <em>executable form</em> the <strong>purpose</strong> of what I shall be developing, other practices become obvious. Given TDD and the need for feedback:
+<ul>
+<li>I need <em>continuous integration</em> because it tells me faster whether or not my purpose is fulfilled, and whether or not all other people’s purposes are fulfilled</li>
+<li>I need short and frequent <em>iterative releases</em> to validate my tests (my assumptions) against the actual usage of end-users and customers</li>
+<li>I need <em>refactoring</em> to ensure my tests stay manageable and my code testable</li>
+<li>I need <em>simple design</em> because it promotes testability and clarity</li>
+<li>I need <em>pair programming</em> (or at least peer review) to double-check my tests and my code and to align them against the current practice of the team</li>
+<li>I need <em>whole team</em> to ensure all parts of the software can be tested and are tested</li>
+<li>…</li>
+</ul></li>
+<li>Fractal TDD is just a compact and efficient way to say that TDD has most value when practiced at all level and all stages of your development process: Each and every artifact produced and designed must be backed with some “test” which expresses the purpose of this artifact and provides the ability to consistently, continuously, rigorously and reliably validate the produced artifact is actually the right one</li>
+<li>On another perspective, just as Curry-Howard expresses the isomorphism that exists between types and programs on one side, and predicates and proofs on the other side ; TDD expresses this same relationship logic has w.r.t. tests and software.</li>
+<li>A test is a <em>predicate</em> that should be asserted by the software</li>
+<li>And the fact that not all proofs (actually the vast majority of proofs) cannot be machine-checked does not invalidate the whole proving process behind mathematics ; just like the fact that not all tests can be automated does not impact their general usefulness</li>
+<li>Relationship between code and test then goes on 3 levels:
+<ul>
+<li>Level 1 is actually <em>writing tests</em> for the sake of producing a good regression test suite. When done at this level, it is irrelevant whether you write your tests first or last</li>
+<li>Level 2 is actually practicing TDD to drive coding, at the level of <em>unit tests</em> or a bit above that. Its benefits are: Simpler code, only relevant code is written, clean code…</li>
+<li>Level 3 is <em>fractal TDD</em>, where this logic is applied at all stages and all steps of the development process</li>
+</ul></li>
+<li>There are probably more levels on the road to enlightment but those are <em>known unknowns</em></li>
+<li>At an even higher-level, TDD is simply a rephrasing of classical scientific method: Make an hypothesis, Design an experiment, Validate or invalidate the hypothesis with the experiment, repeat until exhausted (till you die…) ; but in the context not of producing knowledge but to change the world</li>
+<li>This is the same mechanism that’s at the heart of Lean: The <em>pull system</em><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> makes all parts of the system dependents on initial <em>pull</em> by customers/end-users</li>
+<li><em>Feature Injection</em> is another high-level form of TDD: The whole development process is driven by the requested outputs of the system which trigger examples that are turned into tests then code.</li>
+<li><em>Impact Mapping</em>, <em>story mapping</em>, <em>goal tables</em> are other instances of the same class. Starting from a high-level measurable business goal, derives intermediate goals, prioritize them, then use this to drive development building use cases</li>
+<li><em>Lean Startup</em> is yet another form of scientific process, where one design experiments to find a business model.</li>
+<li>What are the consequences? For me, it is the acknowledgment that never should I start working on some code without a clear understanding of the goal in the form of an <strong>assertable statement of purpose</strong>, a <em>procedure</em> which can tell whether or not the goal has been reached, that is a <strong>test</strong>.</li>
+<li>Of course this test can takes many forms:
+<ul>
+<li>A piece of executable code,</li>
+<li>A fitnesse table or cucumber scenario,</li>
+<li>An Excel spreadsheet,</li>
+<li>A more or less formal written statement about the goal, which can followed to deliver a definite assertion about the goal,</li>
+<li>A description of the shape of some output,</li>
+<li>…</li>
+</ul></li>
+<li>It must have the standard expected characteristics:
+<ul>
+<li>Repeatable,</li>
+<li>Self-contained: No external knowledge or artifact<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> is required to understand and execute the test beyond what the test itself provides,</li>
+<li>Actionable</li>
+<li>Unambiguous</li>
+<li>Timebound: One must be able to verify it within a specific (short) timespan</li>
+</ul></li>
+<li>Reframing this in a more mathematical setting, a test (both the statement and the procedure to verify it) must be:
+<ul>
+<li>Consistent: If it can run its output is either true or false</li>
+<li>Complete: If it can run to completion, it gives an output for all inputs</li>
+<li>Computable: It provides an output in finite (and low complexity) time and space</li>
+</ul></li>
+<li>A single test is usually not enough, it is just the start of a process so we usually end up with more tests. These tests can be viewed as an <em>executable specification</em> of the built system in so far as we accept the fact they are a mere <em>sampling</em> of the possible input/output space of this system, so we expect our set of tests to exhibit another property: Accurate Sampling.</li>
+<li>This sampling is expected to provide an accurate image of the specification, so accurate actually that it should be possible to read the tests <em>as if</em> they were the actual specification of the system</li>
+<li>A genuine executable specification would be a thing used in formal methods to prove properties of the system, or even derive the system from a formal definition (eg. as in B or Z)</li>
+<li>TDD allows developers (and testers) to build such test suites while <em>designing the system</em> when there does not exist a specification of the system.</li>
+<li>TDD at level 2 is <em>one</em> programming technique, not <em>the</em> programming technique. When a specification already exists, eg. when no learning is expected to take place, it is not useful.</li>
+<li>TDD at level 2 can be mixed with other techniques for different parts of the software. For example, one could start writing code following a given specification, provide a skeletal system providing minimal service and writing tests after code to expose this specification, then test-drive the design and development of some components to be included in the system.</li>
+<li>If we say Level 2 TDD is one programming technique among others, what are these other techniques? In particular, what other techniques provide the same kind of guarantees than TDD provide?
+<ul>
+<li><em>Generative techniques</em> provide those guarantees: Start from a human-validated model, then automatically generate code from this model. This of course implies the generator software is itself validated and verified. The model need not be a complex UML diagram, it could a simple descriptive specification, in a DSL, from which more complex code is generated</li>
+<li><em>Spike and Iterate</em> (Dan North, Liz Keogh) is the disciplined form of <em>hack and fix</em>. Produce an initial <em>spike</em>, eg. Minimal and experimental, implementation, designed to maximize feedback and learning ; then iterate on this initial spike, refactoring and completing tests while investigating detailed design of some crude parts. Here the guarantees are provided by end-users direct feedback.<br />
+</li>
+<li><em>Property-based testing</em> allows one to define properties about part of the system then use some automatic generators to produce test cases sampling the input space and try to find counterexamples invalidating the property</li>
+</ul></li>
+</ul>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Saying that pull system is at the heart of Lean is somewhat controversial, I guess. Some would say that <em>kaizen</em>, the continuous quest for perfection is actually at the heart of Lean.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Beyond some basic level of understanding of the context. If we are stating some property of a piece of software then some assumptions can be omitted in the test, like the fact the software must be run…<a href="#fnref2">↩</a></p></li>
+</ol>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'foldlabsblog'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+]]></summary>
+</entry>
+<entry>
+    <title>Essence &amp; Accident</title>
+    <link href="http://blog.foldlabs.com/posts/essence.html" />
+    <id>http://blog.foldlabs.com/posts/essence.html</id>
+    <published>2013-11-10T00:00:00Z</published>
+    <updated>2013-11-10T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Essence &amp; Accident</h1>
+<div class="info">Posted on November 10, 2013</div>
+
+<p>Some thoughts on accidental vs. essential complexity triggered while reading <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.93.8928">Out of the Tar Pit</a> by Peter Marks and Ben Moseley  * Quoting <a href="http://en.wikipedia.org/wiki/The_Mythical_Man-Month">Brooks</a> they separate <em>Essential</em> from <em>Accidental</em> complexity: * “Essential complexity is inherent in, and the essence of, the problem (as seen by the users)” * “Accidental complexity is all the rest - complexity with which the development team would not have to deal in the ideal world (eg. complexity arising from performance issues and from suboptimal language and infrastructure)” * This is actually not Brooks’ definition of accident and essence, and it seems I can trace back this misunderstanding to <a href="http://www.ibm.com/developerworks/java/library/j-eaed1/index.html">another definition by N.Ford</a>.  * Brooks actually talks about the <em>essential complexity</em> of <em>software development</em>, irrespective of the problem or usage software is put to use:   &gt; The essence of a software entity is a construct of interlocking concepts [..] This essence is abstract, in that the conceptual &gt; constructs is the same under many different representations. &gt; &gt; The complexity of software is an essential property, not an &gt; accidental one  &gt;  &gt; Brooks, The MMM, p.182 sq.  * In essence (ha!ha!) what Brooks says is: “No matter how sophisticated your tools may be, developing software is complex”. It uses this uses this assertion to undermine various efforts to reduce complexity of software through languages, patterns, tools (eg. software).  * Looks like another form of the irreflexive nature of most formalisms: No computational formalism is powerful enough to talk about itself. * Then they derive a methodology from this initial requirement that we need to deal only with the essential complexity, methodology which goes through another form of formal declarative requirement language meant to ignore accidental issues of <em>how</em> the system is about to perform anything * The problem is that: 1. reality bites you very quickly 2. the solution quickly becomes part of the problem * Any technical device, and software makes no exception to it, changes its users and the way they interact with the “world”. They create relations between various things, various beings that were previously unrelated, while at the same time sending other beings into oblivion. * This is at the heart of Activity Theory, among many others (see also Habermas, Simondon, more recently Stéphane Vial and of course Latour).  * “It is not the business of the user to know what they want” - S.Jobs. Users don’t know what they want until they see it, and when they see it they want something else or different  * Software is a by-product of technical acts, the result of various acts and transformations forming a network extending over space and time. In <a href="/posts/eme.html">Latour</a>’s term, they are leftovers from the passing of [TEC] beings within some group of people, a specific <em>folding</em> of materials and immaterials other beings that, when completed and put to use, produce some efficicent effect. * Essential/accidental dichotomy is another avatar of [DC], <em>double-click</em>, the evil spirit of modernity that aims at suppressing all mediations to enforce its binary view of the world (somewhat ironical when dealing with software!): Users are separated from developers, usage from development, ideal world of perfect function from real world of bits and bytes. * But for anything to happen, a mediation must occur, things need to be moved, put in correspondance, changed, carved, designed, transformed, and not only inanimate and “material” things but also people, rules, ideas, laws, beliefs… * Complexity is always the result of some history, some web of interaction between constraints, desires, organizations, projects, physical laws. If it must be reduced it is not because of some idealistic image of what <em>could be done</em> but to meet the intrisic <em>truth</em> of the technicalities: fitness, quality, elegance, simplicity and a form of obviousness and obliviousness. Good technical objects are those which make themselves invisible <em>after being tamed</em> and accurately and efficiently mediate some other course of actions. * Remember: “There is no silver bullet”, “there is no free lunch”. We <em>must</em> take care of the technical detours lest they produce some monster behind our back. * Thinking in terms essence/accident is just a way of rejecting what is properly <em>technical</em>, with its own risks and rewards, in the name of the value of simplicity. * To take another perspective on it, it is just as if all situations were amenable to the Known/Knowable half of the Cynefin quadrant, the <em>ordered</em> part of existence, ignoring exerything Complex or Chaotic. * Latour talks (in AIME) about Habit [HAB] as “the mode of existence of essence”: Essence is what is left when we forget how we got there, when this path lies just beneath the surface of our consciousness in order to not encumber it but ready to be brought back at first need (eg. when circumstances change possibly conflicting with habits). * This implies that there is no <em>essence</em>, there is no fundamental truth from which everything derives, there is no transcending that would not be explained or explainable by some course of action, beyond our <em>habits</em></p>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'foldlabsblog'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+]]></summary>
+</entry>
+<entry>
+    <title>Extreme Startup @ Agile Nantes</title>
+    <link href="http://blog.foldlabs.com/posts/extreme-s-20131002.html" />
+    <id>http://blog.foldlabs.com/posts/extreme-s-20131002.html</id>
+    <published>2013-10-02T00:00:00Z</published>
+    <updated>2013-10-02T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Extreme Startup @ Agile Nantes</h1>
+<div class="info">Posted on October  2, 2013</div>
+
+<p>Grâce à <a href="">Agile Nantes</a> j’ai eu l’opportunité avec Cédric Pineau d’animer un atelier Extreme Startup à <a href="">La Cantine</a> de Nantes. Voici quelques notes sur cette session, sans bien entendu rien dévoiler du contenu de l’extreme startup ! Nous étions une petite dizaine au départ avec des bases de code très diversifiées : 2 équipes en Java, une équipe en PHP, une équipe en node.js.</p>
+<h1 id="ressenti-des-équipes">Ressenti des équipes</h1>
+<p>La plupart des participants n’ont pas ressenti vraiment le besoin de refactorer le code. Quand on a la tête dans le guidon, le copier-coller fonctionne très bien ! En plus, il permet d’être sûr que l’on n’a pas <em>cassé</em> de fonctionnalité quand on rajoute du code et en redéploie. Seule une équipe a réellement écrit des tests unitaires, aucune n’écrivant de tests fonctionnels.</p>
+<p>Ceux qui n’étaient pas programmeurs ont eu du mal à savoir sur quoi agir. Certains se sont organisés pour faire de la <em>veille</em> en suivant l’évolution de leur score et de leur projet sur un écran à part, ce qui permet aussi de se partager le travail. Analyser ce qui arrive en temps réel demande du temps cependant, et permet aussi aux non-développeurs de vraiment se sentir utile. Une équipe a fait de la <em>R&amp;D</em> en partageant le travail entre 2 développeurs : un qui produit du code opérationnel, un autre qui développe des fonctionnalités futures.</p>
+<p>La question de l’exploitation des <em>logs</em> a été levée, certains demandant à ce que la simulation propose plus de métriques et de moyens de savoir ce qui se passe. Mais on peut se demander si ce n’est pas aux développeurs d’être capable de fournir ces informations, ce qui pose la question intéressante de l’opérabilité des solutions : dans quelle mesure le produit est capable de fournir des données au-delà de la fonctionnalité qu’il remplit ?</p>
+<p>L’environnement de développement a posé problème à une équipe développant en PHP: le mode <em>serveur REST</em> n’est pas habituel dans cet environnement et de ce fait, l’équipe a eu du mal a avoir un serveur basique fonctionnel. D’autant plus que le serveur de base proposé sur <a href="">github</a> est basé sur une utilisation en ligne de commande et l’ouverture de sockets, chose qui n’est pas du tout usuelle dans l’univers PHP.</p>
+<p>La simulation montre bien l’important de maîtriser son environnement et les fondamentaux de sa plate-forme.</p>
+<h1 id="comprendre-le-score">Comprendre le score</h1>
+<p>Quelle est la signification du score de chaqué équipe ? S’agit-il d’un <em>revenu généré</em>, du <em>cash</em> disponible, de <em>parts de marché</em> ? Ou bien encore d’une mesure abstraite de <em>confiance</em> ou <em>d’image</em> du groupe concerné sur un certain marché ? Cette question du rapport au score se pose lorsque de nouveaux entrants pénètrent le <em>marché</em> : leur score est de 0 ce qui du coup peut les avantager par rapport aux scores d’autres participants ayant déjà un historique négatif à rattraper. Cela fait partie de la simulation car la capacité d’une startup à <em>pivoter</em> (ou <em>persévérer</em>) est un élément important d’une stratégie produit.</p>
+<p>Toujours du point de vue de la simulation, la situation est potentiellement différente selon qu’une startup fonctionne sur des fonds propres ou des fonds externes. Dans le premier cas il sera difficile de remettre les compteurs à 0 : une fois que l’on a consommé l’ensemble de son patrimoine, il n’est plus possible de réinvestir ! Inversement dans le second cas, un échec peut conduire à l’assèchement des financements, le ou les porteurs de projets devenant <em>persona non grata</em> auprès de financeurs potentiels.</p>
+<h1 id="améliorations-possibles">Améliorations possibles</h1>
+<p>Une composante importante de la tactique dans le développement d’un produit web est absente de la simulation : le <em>test A/B</em>. Les seules mesures dont disposent les équipes sont les points marqués ou perdus, le cumul des points et la position relative par rapport aux autres équipes. S’il apparaît possible d’anticiper sur les évolutions futures du <em>marché</em> avec un minimum d’observation, il ne semble pas possible de réllement tester la réaction du marché par rapport à telle ou telle solution.</p>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'foldlabsblog'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+]]></summary>
+</entry>
+
+</feed>

@@ -1,0 +1,139 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>FoldLabs.com - Calcul de l&#39;Impôt</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="http://foldlabs.com/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+
+  <script src="http://foldlabs.com/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://blog.foldlabs.com"><img id="company-logo" src="http://foldlabs.com/img/foldlabs-logo.jpeg" width="259" height="75" title="FoldLabs.com" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="/cours">Training</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div id="main" role="main">
+<h1>Calcul de l'Impôt</h1>
+
+<p>Une version simplifiée du calcul de l’<em>impôt sur le revenu des personnes physiques</em> (IRPP).</p>
+<h2 id="calculs">Calculs</h2>
+<p>Le montant de l’impôt est calculé par <em>foyer fiscal</em>, composé de une ou plusieurs personnes. Pour chaque foyer, on dispose des informations suivantes, tirées du formulaire CERFA 2042:</p>
+<ul>
+<li>situation familiale: marié/pacsé, célibataire, veuf, divorcé;</li>
+<li>revenus imposables (<span class="math inline"><em>R</em></span>): revenu du foyer fiscal constituant la base de calcul de l’IRPP;</li>
+<li>charges déductibles (<span class="math inline"><em>D</em></span>): charges déductibles du revenu imposable;</li>
+<li>crédits d’impôts (<span class="math inline"><em>C</em></span>): charges déductibles du montant de l’impôt;</li>
+<li>nombre de parts (<span class="math inline"><em>Q</em></span>): permet le calcul du quotient familial, voir ci-dessous.</li>
+</ul>
+<p>L’équation suivante permet de calculer la <em>base imposable</em> (<span class="math inline"><em>B</em></span>) du foyer: <span class="math inline">$B = \frac{(R - D)}{Q}$</span>.</p>
+<h3 id="barème">Barème</h3>
+<p>Le calcul de l’<em>impôt brut</em> <span class="math inline"><em>I</em>′</span> dépend du tableau ci-dessous des tranches d’imposition. Chaque tranche du montant <span class="math inline"><em>B</em></span> est imposée selon un taux différent, le montant final dépendant de la somme des impôts calculés par tranche (les montants sont en euros).</p>
+<p>De || A || Taux |<br />
+0 | 4.413 € | 0% |<br />
+4.414 € | 8.677 € | 6,83 % |<br />
+8.678 € | 15.274 € | 19,14 % |<br />
+15.275 € | 24.731 € | 28,26 % |<br />
+24.732 € | 40.241 € | 37,38 % |<br />
+40.242 € | 49.624 € | 42,62 % |<br />
+49.624 € | <span class="math inline">∞</span> | 48,09 % |</p>
+<p>Enfin, le calcul de l’<em>impôt net</em> <span class="math inline"><em>I</em></span> à acquitter dépend des crédits d’impôts et est synthétisé dans l’équation :</p>
+<p><br /><span class="math display">$$I = I' - \frac{1}{2}C.$$</span><br /></p>
+<h3 id="nombre-de-parts">Nombre de parts</h3>
+<p>La base du nombre de parts du foyer fiscal est de 1 pour une personne vivant seule (célibataire, veuf ou veuve, divorcée) et de 2 pour un couple (marié ou pacsé). Ce nombre de parts est augmenté de:</p>
+<ul>
+<li>0,5 pour le premier et le deuxième enfant à charge;</li>
+<li>0,5 pour les veufs et veuves ;</li>
+<li>1 pour chaque enfant à charge au delà du deuxième.</li>
+</ul>
+<p>Toutefois, la réduction d’impôt provenant d’un enfant à charge est plafonnée à 2159 € par demi-part au-delà de 1 part (pour les personnes seules) et 2 parts (pour les couples).</p>
+<h2 id="exemple">Exemple</h2>
+<p>Soit un couple marié dont les caractéristiques sont les suivantes:</p>
+<ul>
+<li><span class="math inline"><em>R</em> = 110000</span>;</li>
+<li><span class="math inline"><em>D</em> = 3000</span>;</li>
+<li><span class="math inline"><em>C</em> = 900</span>;</li>
+<li><span class="math inline"><em>Q</em> = 4</span> (3 enfants).</li>
+</ul>
+<p>Les règles de calcul ci-dessus nous donnent donc pour la base imposable:</p>
+<p><br /><span class="math display"><em>B</em> = (<em>R</em> − <em>D</em>)/<em>Q</em> = (110000 − 3000)/4 = 26750, </span><br /></p>
+<p>soit un impôt brut de:</p>
+<p><br /><span class="math display"><em>I</em>′ = (26750 − 24732) × 37, 38% + 4226, 45 = 4981, 15</span><br />.</p>
+<p>Sans prendre en compte les enfants, le montant de l’impôt serait de:</p>
+<p><br /><span class="math display"><em>I</em>′ = (53500 − 49624) × 48, 09% + 14023, 12 = 15887, 09, </span><br /></p>
+<p>la différence est de <span class="math inline">15887 − 4981 = 10906</span>, soit au dessus du plafond de déduction autorisé compte-tenu du nombre de parts supplémentaires de <span class="math inline">2159 × 4 = 8636</span>. Le montant net de l’impôt est donc de: <span class="math inline"><em>I</em> = 15887 − 8636 − (900/2) = 6801.</span></p>
+<h2 id="interfaces">Interfaces</h2>
+<p>Le système à tester utilise la classe <code>irpp.Cerfa2042</code> pour représenter un formulaire de déclaration. Cette classe est un simple <em>bean</em> servant à stocker les données qui sont transmises pour le calcul de l’impôt.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">package irpp;</span>
+
+<span class="kw">public</span> <span class="kw">class</span> Cerfa2042 {
+  
+  <span class="co">/* revenu imposable brut */</span>
+  <span class="kw">private</span> <span class="dt">int</span> revenu;
+  
+  <span class="co">/* charges deductibles */</span>
+  <span class="kw">private</span> <span class="dt">int</span> deductions; 
+  
+  <span class="co">/* situation de famille - mutuellement exclusives */</span>
+  <span class="kw">private</span> <span class="dt">boolean</span> marie;
+  <span class="kw">private</span> <span class="dt">boolean</span> celibataire;
+  <span class="kw">private</span> <span class="dt">boolean</span> separe;
+  <span class="kw">private</span> <span class="dt">boolean</span> veuvage;
+
+  <span class="co">/* credits d'impot */</span>
+  <span class="kw">private</span> <span class="dt">int</span> creditsImpot;
+  
+  <span class="co">/* enfants a charge */</span>
+  <span class="kw">private</span> <span class="dt">int</span> enfantsACharge;
+
+}</code></pre></div>
+<p>Le calcul de l’impôt est effectivement réalisé par une instance de l’interface <code>irpp.CalculIRPP</code>:</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">package irpp;</span>
+
+<span class="kw">public</span> <span class="kw">interface</span> CalculIRPP {
+
+  <span class="kw">public</span> <span class="dt">static</span> <span class="kw">class</span> DeclarationInvalideException <span class="kw">extends</span> Exception {
+   ...
+  }
+
+  <span class="dt">int</span> <span class="fu">calculerImpot</span>(Cerfa2042 form) <span class="kw">throws</span> DeclarationInvalideException;
+}</code></pre></div>
+<p>Tous les montants en entrée et en sortie sont des entiers représentant des euros. Tous les calculs sont supposés être réalisés de manière exacte et arrondis à l’euro le plus proche au dernier moment.</p>
+
+    </div>
+    <footer>
+      - Brewed since 2011 - <a href="http://blog.foldlabs.com/atom.xml"><img src="http://blog.foldlabs.com/images/feed-icon.svg" width="15px" /></a> - Generated with <a href="http://jaspervdj.be/hakyll">Hakyll</a>  - 
+    </footer>
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-26916078-2', 'foldlabs.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
