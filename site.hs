@@ -58,6 +58,14 @@ main = do
             >>= relativizeUrls
             >>= loadAndApplyTemplate "templates/default.html"  postCtx
 
+    match "drafts/*" $ do
+        route $ setExtension "html"
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/post.html"    postCtx
+            >>= saveSnapshot "content"
+            >>= relativizeUrls
+            >>= loadAndApplyTemplate "templates/draft.html"  postCtx
+
     match "training/*.md" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
