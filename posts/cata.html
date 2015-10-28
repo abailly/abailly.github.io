@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Arnaud Bailly - On Free DSLs and Cofree interpreters</title>
+  <title>Arnaud Bailly - Comprendre les catamorphismes</title>
   <meta name="description" content="We craft code">
   <meta name="author" content="Arnaud Bailly, Thomas Queste">
 
@@ -26,32 +26,21 @@
         <nav class="clearfix">
         <ul id="menu">
           <li>
-          <a href="#">About/À propos</a>
+          <a href="#">About</a>
           </li>
         </ul>
         </nav>
       </div>
     </header>
     <div id="main" role="main">
-<h1>On Free DSLs and Cofree interpreters</h1>
-<div class="info">Posted on June  4, 2015</div>
+<h1>Comprendre les catamorphismes</h1>
+<div class="info">Posted on January 11, 2014</div>
 
-<p>This post has been triggered by a <a href="https://twitter.com/etorreborre/status/605562458279944192">tweet</a> from Eric Torreborre on a talk by David Laing presenting the interaction of Free DSLs and Cofree interpreters at the Brisbane Functional Programming Group. I am currently engaged in the development of a Haskell-based system for <a href="http://www.capital-match.com">Capital Match</a> which is basically an API for managing peer-to-peer lending, and I am trying to formalise the API of the system as the result of a composition of several domain-specific languages.</p>
-<p>The ultimate goal is to be able to use these DSLs to define complex actions that could be interpreted in various ways: a command-line client sending RESTful queries to a server, a Webdriver-based test executor or a simple test recorder and comparator, or even by a core engine interpreting complex actions in terms of simpler sequencing of service calls.</p>
-<p>The rest of the post is a simple literate Haskell style explanation of what I came up with today exploring the specific topic of the composition of DSLs and interpreters: Given we can compose DSLs using <em>Free</em> monads and <em>Coproduct</em>, how can we <em>Pair</em> a composite DSL to the composition of several interpreters? The answer, as often, lies in the category theoretic principle for duality: <em>Reverse the arrows!</em> One composes interpreters into a <em>Product</em> type which is then lifted to a <em>Cofree</em> comonad paired to a <em>Free Coproduct</em> monad.</p>
-<p>This post has no original idea and is just rephrasing and reshaping of work done by more brilliant people than me:</p>
-<ul>
-<li>Dan Piponi’s <a href="http://blog.sigfpe.com/2014/05/cofree-meets-free.html">Cofree meets free</a> blog post</li>
-<li>This <a href="http://programmers.stackexchange.com/questions/242795/what-is-the-free-monad-interpreter-pattern">thread on Stack overflow</a> about free monads</li>
-<li>Runar Bjarnason talk on <a href="https://dl.dropboxusercontent.com/u/4588997/ReasonablyPriced.pdf">Reasonably Priced Monads</a></li>
-<li>An <a href="https://gist.github.com/aaronlevin/87465696ba6c554bc72b#file-reasonable-hs">Haskell implementation</a> of the above by Aaron Levin</li>
-<li><a href="http://www.haskellforall.com/2013/02/you-could-have-invented-comonads.html">Comonads are objects</a> by Gabriel Gonzalez</li>
-<li><a href="http://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf">Data types à la carte</a> by Wouter Swiestra</li>
-</ul>
-<p>I would not dare to say I really <em>understand</em> all of this, but at least I got some code to compile and I have some ideas on how to turn this into a useful “pattern” in our codebase.</p>
-<h1 id="free-coproduct-dsls">Free Coproduct DSLs</h1>
-<p>So let’s start with some usual declaration and imports…</p>
-<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+<h1 id="bananes-lentilles-enveloppes-et-barbelés">Bananes, lentilles, enveloppes et barbelés</h1>
+<p><a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.41.125">Functional Programming with bananas, lenses, envelopes and barbed wires</a> est un article célèbre qui explore différentes formes (ou <em>patterns</em>) de récursion. C’est à dire que l’on cherche à exprimer la récursion non pas comme une caractéristique du langage mais comme une <em>fonction d’ordre supérieur</em>, ou un combinateur comme un autre, comme tel donc susceptible d’être généralisé, réutilisé, composé. Depuis ma découverte de cet article j’ai été fasciné par ses possibilités sans avoir jamais pris le temps de les comprendre vraiment. Cet article est une tentative d’explication de ce <em>qu’est</em> un catamorphisme, l’une des formes de récursions classifiées dans l’article sus-cité.</p>
+<h2 id="types-de-données-récursifs">Types de données récursifs</h2>
+<p>Quand on définit une structure (un type de données), il est fréquent de définir des types qui soient <em>récursifs</em>, c’est à dire qui utilisent des données de leur propre type. L’exemple le plus typique en est l’ensemble des entiers naturels, définissable en Java comme suit:</p>
+<div class="sourceCode"><table class="sourceCode java numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
 3
 4
@@ -65,144 +54,20 @@
 12
 13
 14
-15
-</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE DeriveFunctor         #-}</span>
-<span class="ot">{-# LANGUAGE FlexibleContexts      #-}</span>
-<span class="ot">{-# LANGUAGE FlexibleInstances     #-}</span>
-<span class="ot">{-# LANGUAGE MultiParamTypeClasses #-}</span>
-<span class="ot">{-# LANGUAGE OverlappingInstances  #-}</span>
-<span class="ot">{-# LANGUAGE RankNTypes            #-}</span>
-<span class="ot">{-# LANGUAGE TypeOperators         #-}</span>
-<span class="kw">module</span> <span class="dt">Capital.Client.Free</span>  <span class="kw">where</span>
+</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> Natural {
 
-<span class="kw">import           </span><span class="dt">Control.Applicative</span>
-<span class="kw">import           </span><span class="dt">Control.Comonad.Cofree</span>
-<span class="kw">import           </span><span class="dt">Control.Monad</span>
-<span class="kw">import           </span><span class="dt">Control.Monad.Free</span>
-<span class="kw">import           </span><span class="dt">Control.Monad.Identity</span>
-<span class="kw">import           </span><span class="dt">Control.Monad.Trans</span>    (<span class="dt">MonadIO</span>, liftIO)</code></pre></td></tr></table></div>
-<p>This relies on the <a href="https://hackage.haskell.org/package/free">free</a> package which defines standard <em>free</em> Constructions for <code>Applicative</code> and <code>Monad</code>, and <em>cofree</em> for <code>Comonads</code>.</p>
-<p>We define our basic business-domain specific functors, one for logging some messages and another for persisting some string value. The actual functors defined are not important, what interests us here is the fact we define those “actions” independently but we want in the end to be able to “Assemble” them yielding more complex actions which can at the same time log messages and persist things.</p>
-<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-2
-3
-</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Logging</span> a <span class="fu">=</span> <span class="dt">Logging</span> <span class="dt">String</span> a  <span class="kw">deriving</span> (<span class="dt">Functor</span>)
-
-<span class="kw">data</span> <span class="dt">Persist</span> a <span class="fu">=</span> <span class="dt">Store</span> <span class="dt">String</span> a <span class="kw">deriving</span> <span class="dt">Functor</span></code></pre></td></tr></table></div>
-<p>Our composite DSL should be able to interpret actions which are either logging actions, or persist actions, so we need a way to express this alternative at the type-level, introducing the notion of <em>Coproduct</em> or <em>Sum</em>. This work has already been packaged by Ed Kmett in the <a href="https://hackage.haskell.org/package/comonad-transformers-2.0.3">comonads-transformers</a> package but let’s rewrite it here for completeness’ sake.</p>
-<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Coproduct</span> f g a <span class="fu">=</span> <span class="dt">Coproduct</span> {<span class="ot"> getCoproduct ::</span> <span class="dt">Either</span> (f a) (g a) }</code></pre></td></tr></table></div>
-<p>A <code>Coproduct</code> of two functors is then simply the type-level equivalent of the familiar <code>Either</code> type, for which we provide smart constructors to inject values from left or right and a suitable <code>Functor</code> instance.</p>
-<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="ot">left ::</span> f a <span class="ot">-&gt;</span> <span class="dt">Coproduct</span> f g a
-left <span class="fu">=</span> <span class="dt">Coproduct</span> <span class="fu">.</span> <span class="dt">Left</span>
-
-<span class="ot">right ::</span> g a <span class="ot">-&gt;</span> <span class="dt">Coproduct</span> f g a
-right <span class="fu">=</span> <span class="dt">Coproduct</span> <span class="fu">.</span> <span class="dt">Right</span>
-
-<span class="ot">coproduct ::</span> (f a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (g a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> <span class="dt">Coproduct</span> f g a <span class="ot">-&gt;</span> b
-coproduct f g <span class="fu">=</span> either f g <span class="fu">.</span> getCoproduct
-
-<span class="kw">instance</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g) <span class="ot">=&gt;</span> <span class="dt">Functor</span> (<span class="dt">Coproduct</span> f g) <span class="kw">where</span>
-  fmap f <span class="fu">=</span> <span class="dt">Coproduct</span> <span class="fu">.</span> coproduct (<span class="dt">Left</span> <span class="fu">.</span> fmap f) (<span class="dt">Right</span> <span class="fu">.</span> fmap f)</code></pre></td></tr></table></div>
-<p>We want to be able to implicitly “lift” values from a component into its composite without resorting to explicit packing of the various parts of the alternative formed by a <code>Coproduct</code> type, something which would be extremely cumbersome to express, hence the introduction of a <em>natural transformation</em> <code>Inject</code> expressed in Haskell as a typeclass.</p>
-<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-2
-</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">class</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g) <span class="ot">=&gt;</span> f <span class="fu">:&lt;:</span> g <span class="kw">where</span>
-<span class="ot">  inject ::</span> f a <span class="ot">-&gt;</span> g a</code></pre></td></tr></table></div>
-<p>To be useful we provide several interesting instances of this typeclass that defines how to inject functors into a <code>Coproduct</code>. Note that this requires the <code>OverlappingInstances</code> extension otherwise the compiler<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> will refuse to compile our programs. I think this stuff could be expressed as <em>type families</em> but did not manage to get it right, so I gave up and resorted to original formulation by Wouter Swiestra.</p>
-<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">instance</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g) <span class="ot">=&gt;</span> f <span class="fu">:&lt;:</span> <span class="dt">Coproduct</span> f g <span class="kw">where</span>
-  inject <span class="fu">=</span> left
-
-<span class="kw">instance</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g, <span class="dt">Functor</span> h, g <span class="fu">:&lt;:</span> h) <span class="ot">=&gt;</span> g <span class="fu">:&lt;:</span> <span class="dt">Coproduct</span> f h <span class="kw">where</span>
-  inject <span class="fu">=</span> right <span class="fu">.</span> inject
-
-<span class="kw">instance</span> (<span class="dt">Functor</span> f) <span class="ot">=&gt;</span> f <span class="fu">:&lt;:</span> f <span class="kw">where</span>
-  inject <span class="fu">=</span> id</code></pre></td></tr></table></div>
-<p>Finally, we provide “smart constructors” that generates <code>Free</code> monadic expressions out of the individual instructions of our two tiny DSLs. We use a <code>inFree</code> function combining lifting into <code>Free</code> monad and possible transformation between functors so that each expressed action is a <code>Free</code> instance whose functor is polymorphic. This is important as this is what will allow us to combine arbitrarily our DSL fragments into a bigger DSL.</p>
-<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="ot">inFree ::</span> (<span class="dt">Functor</span> f, f <span class="fu">:&lt;:</span> g) <span class="ot">=&gt;</span> f a <span class="ot">-&gt;</span> <span class="dt">Free</span> g a
-inFree <span class="fu">=</span> hoistFree inject <span class="fu">.</span> liftF
-
-log<span class="ot"> ::</span> (<span class="dt">Logging</span> <span class="fu">:&lt;:</span> f) <span class="ot">=&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Free</span> f ()
-log msg <span class="fu">=</span> inFree (<span class="dt">Logging</span> msg ())
-
-<span class="ot">store ::</span> (<span class="dt">Persist</span> <span class="fu">:&lt;:</span> f) <span class="ot">=&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Free</span> f ()
-store s <span class="fu">=</span> inFree (<span class="dt">Store</span> s ())</code></pre></td></tr></table></div>
-<p>Equipped with all this machinery we are ready to write our first simple program in a combined DSL:</p>
-<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-2
-3
-4
-</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Effect</span> <span class="fu">=</span> <span class="dt">Coproduct</span> <span class="dt">Logging</span> <span class="dt">Persist</span>
-
-<span class="ot">prg ::</span> <span class="dt">Free</span> <span class="dt">Effect</span> ()
-prg <span class="fu">=</span> store <span class="st">&quot;bar&quot;</span> <span class="fu">&gt;&gt;</span> log <span class="st">&quot;foo&quot;</span></code></pre></td></tr></table></div>
-<h1 id="cofree-product-interpreters">Cofree Product Interpreters</h1>
-<p>We are now done with the DSL part, let’s turn to the interpreter part. First we need some atomic interpreters which should be able to interpret commands from each of our DSL. We will prefix these functors with <code>Co</code> to demote the relationship they have with the DSL functors. Something which is not obvious here (because our DSL functors only have a single constructor) is that these interpreters should have a dual structure to the DSL functors: Given a DSL expressed as a sum of constructors, we need an interpreter with a product of intepretation functions. The DSL presented in David’s post are more expressive…</p>
-<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-2
-3
-</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">CoLogging</span> a <span class="fu">=</span> <span class="dt">CoLogging</span> {<span class="ot"> cLog ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> a }  <span class="kw">deriving</span> <span class="dt">Functor</span>
-
-<span class="kw">data</span> <span class="dt">CoPersist</span> a <span class="fu">=</span> <span class="dt">CoPersist</span> {<span class="ot"> cStore ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> a }  <span class="kw">deriving</span> <span class="dt">Functor</span></code></pre></td></tr></table></div>
-<p>Of course we need concrete interpretation functions, here some simple actions that print stuff to stdout, running in <code>IO</code>.</p>
-<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-2
-3
-4
-5
-</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="ot">coLog ::</span> (<span class="dt">MonadIO</span> m) <span class="ot">=&gt;</span> m () <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> m ()
-coLog a s <span class="fu">=</span> a <span class="fu">&gt;&gt;</span> (liftIO <span class="fu">$</span> print s)
-
-<span class="ot">coStore ::</span> (<span class="dt">MonadIO</span> m) <span class="ot">=&gt;</span> m () <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> m ()
-coStore a s <span class="fu">=</span> a <span class="fu">&gt;&gt;</span> (liftIO <span class="fu">.</span> print <span class="fu">.</span> (<span class="st">&quot;storing &quot;</span> <span class="fu">++</span>)) s</code></pre></td></tr></table></div>
-<p>To be able to compose these interpreters we need a <code>Product</code> type whose definition is straightforward:</p>
-<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-2
-3
-4
-</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Product</span> f g a <span class="fu">=</span> <span class="dt">Product</span> {<span class="ot"> getProduct ::</span> (f a, g a) }
-
-<span class="kw">instance</span> (<span class="dt">Functor</span> f, <span class="dt">Functor</span> g) <span class="ot">=&gt;</span> <span class="dt">Functor</span> (<span class="dt">Product</span> f g) <span class="kw">where</span>
-  fmap f (<span class="dt">Product</span> (a,b)) <span class="fu">=</span> <span class="dt">Product</span> (fmap f a, fmap f b)</code></pre></td></tr></table></div>
-<p>class (Functor f, Functor g) =&gt; Pairing f g where pair :: (a -&gt; b -&gt; r) -&gt; f a -&gt; g b -&gt; r</p>
-<p>instance Pairing Identity Identity where pair f (Identity a) (Identity b) = f a b</p>
-<p>instance Pairing ((-&gt;) a) ((,) a) where pair p f = uncurry (p . f)</p>
-<p>instance Pairing ((,) a) ((-&gt;) a) where pair p f g = pair (flip p) g f</p>
-<p>instance Pairing f g =&gt; Pairing (Cofree f) (Free g) where pair p (a :&lt; _ ) (Pure x) = p a x pair p (_ :&lt; fs) (Free gs) = pair (pair p) fs gs</p>
-<p>instance Pairing CoLogging Logging where pair f (CoLogging l) (Logging m k) = f (l m) k</p>
-<p>instance Pairing CoPersist Persist where pair f (CoPersist s) (Store v k) = f (s v) k</p>
-<p>instance (Pairing g f, Pairing k h) =&gt; Pairing (Product g k) (Coproduct f h) where pair p (Product (g,<em>)) (Coproduct (Left f)) = pair p g f pair p (Product (</em>,k)) (Coproduct (Right h)) = pair p k h</p>
-<p>type Effect = Coproduct Logging Persist</p>
-<p>type Interp = Product CoLogging CoPersist</p>
-<p>interpretEffect :: Cofree Interp (IO ()) interpretEffect = interpretM f (return ()) where f a = Product (CoLogging $ coLog a, CoPersist $ coStore a)</p>
-<p><sub>~<sub>~</sub></sub>~</p>
+  <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> Natural Zero = <span class="kw">new</span> <span class="fu">Natural</span>();
+  
+  <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> Natural <span class="fu">succ</span>(Natural natural) {
+   <span class="kw">return</span> <span class="kw">new</span> <span class="fu">Natural</span>(natural);
+  }
+  
+  <span class="kw">private</span> <span class="fu">Natural</span>() {}
+  
+  <span class="kw">private</span> <span class="fu">Natural</span>(Natural pred) {
+    <span class="kw">this</span>.<span class="fu">pred</span> = pred;
+  }
+}</code></pre></td></tr></table></div>
 <p>Un entier est ici construit à l’aide de la méthode <code>succ</code> et de la constante <code>Zero</code>:</p>
 <ul>
 <li>soit 0 ;</li>
@@ -300,42 +165,12 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 *Main&gt; toint (In (Succ (In (Succ (In Zero)))))
 2
 *Main&gt; </code></pre>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>GHC 7.8.3 in our case<a href="#fnref1">↩</a></p></li>
-</ol>
-</div>
 
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-  var disqus_shortname = 'foldlabsblog'; // required: replace example with your forum shortname
-  
-  /* * * DON'T EDIT BELOW THIS LINE * * */
-  (function() {
-  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     </div>
     <footer>
       - Brewed since 2011 - <a href="/atom.xml"><img src="/images/feed-icon.svg" width="15px" /></a> - Generated with <a href="http://jaspervdj.be/hakyll">Hakyll</a>  - 
     </footer>
   </div>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-26916078-2', 'foldlabs.com');
-  ga('send', 'pageview');
-
-</script>
 </body>
 </html>
