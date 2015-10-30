@@ -43,6 +43,29 @@
 <p>Of course, there is no silver bullet and these advantages come at a price: * The complete state has to fit in RAM. Given that one can easily use hosts with 64GB of RAM, and there exists system with 1TB of RAM, this does not seem a real issue in the near future. And when it will start becoming an issue, we will already have tackled this scalability issue by distributing the model across several nodes, * There is a performance price to pay at application’s startup, because the state has to be reconstructed, * One has to learn Haskell to start querying the state, instead of reusing SQL. But then Haskell is not a particularly difficult language to learn when one only needs querying and transforming data, and it is always possible if this is needed to interpret the event log in such a way as to reconstruct a relational data model.</p>
 
 
+<div id="disqus_thread"></div>
+<script>
+  /*
+    https://disqus.com/admin/universalcode/#configuration-variables
+   */
+  var disqus_config = function () {
+    this.page.url = "/drafts/event-source.html";
+    this.page.identifier = "event-source";
+  };
+
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     </div>
     <footer>
       - Brewed since 2011 - <a href="/atom.xml"><img src="/images/feed-icon.svg" width="15px" /></a> - Generated with <a href="http://jaspervdj.be/hakyll">Hakyll</a>  - 

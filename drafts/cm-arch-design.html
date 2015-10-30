@@ -77,60 +77,72 @@
 <p>Each model demarcates transactional boundaries and is the unit of consistency within the system. Commands and events on a single model are assumed to occur <em>sequentially</em>.</p>
 <h2 id="services">Services</h2>
 <p>Above <code>BusinessModel</code>s are <code>Service</code>s which provides the interface to the system. Services orchestrate the interactions of one or more Models. At the simplest level, a <code>Service</code> simply consists in the application of a single <code>Command</code> on some <code>BusinessModel</code>, but it can be more complex, synchronizing application of commands over several models. Based on the ideas exposed in <a href="http://adrianmarriott.net/logosroot/papers/LifeBeyondTxns.pdf">Life Beyond Distributed Transactions</a>, a Service represents the state of the interaction between a single user of the system, e.g. a request, and one or more piece of data maintained by the system.</p>
-<p>Because they are the agents of the outside world in the system, Services operates in an impure context, hence in a dedicated <code>Monad</code> called <code>WebM</code> (more on this later). Services typically return some representable type, when they are queries, or an <code>Event</code> denoting the outcome of the request.</p>
+<p>Because they are the agents of the outside world in the system, Services operates in an impure context, hence in a dedicated <code>Monad</code> called <code>WebM</code>. Services typically return some representable type, when they are queries, or an <code>Event</code> denoting the outcome of the request.</p>
+<p><code>WebM</code> is actually an instance of a monad transformer <code>WebStateM</code> over IO, hence it is impure. It has access to 2 pieces of state. Here is the definition of <code>WebStateM</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">WebStateM</span> shared local m a <span class="fu">=</span> <span class="dt">WebStateM</span> {<span class="ot"> runWebM ::</span> <span class="dt">TVar</span> shared <span class="ot">-&gt;</span> local <span class="ot">-&gt;</span> m a }
+
+<span class="kw">type</span> <span class="dt">WebM</span> a <span class="fu">=</span> forall s <span class="fu">.</span> <span class="dt">EventStore</span> s <span class="ot">=&gt;</span> <span class="dt">WebStateM</span> <span class="dt">SharedState</span> <span class="dt">LocalState</span> s a</code></pre></div>
+<p>This is actually a <code>Reader</code> monad with two different pieces of data:</p>
 <ul>
-<li>We have this hierarchy of monads, expressed in types:
+<li><code>LocalState</code> is filled with information relevant to a single query (e.g. user id, request id, time…),</li>
+<li><code>SharedState</code> is a <code>TVar</code> (transaction variable living in <code>STM</code> monad) that is shared across all requests,</li>
+<li><code>EventStore</code> is a monad that provides access to persistent storage.</li>
+</ul>
+<p>The vast majority of services use the generic <code>applyCommand</code> function which is the critical part of the system. This function is responsible for:</p>
 <ul>
-<li><code>model :: Command -&gt; State Model (Event Model)</code></li>
-<li><code>service :: WebM (Event Model)</code></li>
-<li><code>web :: ActionT ()</code></li>
-</ul></li>
-<li>This hierarchy of monads delineates languages:
+<li>applying the command and updating the stored Model,</li>
+<li>persist the event in the “database”,</li>
+<li>dispatch the event to interested components.</li>
+</ul>
+<h2 id="web">Web</h2>
+<p>The REST interface is provided by <a href="https://github.com/scotty-web/scotty">scotty</a> which is a simple framework based on <a href="https://github.com/yesodweb/wai">WAI</a> and <a href="https://github.com/yesodweb/wai">warp</a><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>. Most action handlers are pretty simple:</p>
 <ul>
-<li>language of models expresses atomic (e.g. often CRUDesque) changes to a Model, like <code>RegisterTransaction</code>, <code>UpdateProfile</code> or <code>CloseFacility</code></li>
-<li>language of Services expresses either direct changes to Models or more complex interactions like <code>addPledge</code> or <code>acceptFacility</code> which require more than one command to complete.</li>
-<li>language of Web manages HTTP Requests and resposnes, JSON structures and delegate work to services. It is the language of representation of things</li>
+<li>They extract some parameters or JSON data from the body of the request,</li>
+<li>They invoke some service,</li>
+<li>They provide an HTTP response according to the result returned:
+<ul>
+<li>Queries simply serialize the result to JSON or other requested media type,</li>
+<li>Actions look at the returned <code>Event</code> to provide meaningful answers.</li>
 </ul></li>
 </ul>
-<h2 id="managing-state">Managing State</h2>
+<p>On top of REST endpoints sit some <code>Middleware</code> which check or apply transformations to requests and/or responses:</p>
 <ul>
-<li>WebM is a monad with IO inside, so it is stateful. It has access to 2 pieces of state:
-<ul>
-<li><code>LocalState</code> is filled with information relevant to a single query (e.g. user id, request id, time…)</li>
-<li><code>SharedState</code> is a <code>TVar</code> (transaction variable living in <code>STM</code> monad) that is shared across all requests.</li>
-<li>STM transactions operate at the level of a single <code>Command</code> through the <code>applyCommand</code> function<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></li>
-<li><code>applyCommand</code> is the critical part of the system, it is responsible for:
-<ul>
-<li>applying the command and updating the stored Model</li>
-<li>persist the event in the “database”</li>
-<li>dispatch the event to interested components</li>
-</ul></li>
-</ul></li>
-<li>Here is the definition of WebM: <code>.haskell   newtype WebStateM g l m a = WebStateM { runWebM :: TVar g -&gt; l -&gt; m a }</code></li>
-<li>This is actually a <code>Reader</code> monad with two different pieces of data. The <code>l</code> component is the local state which is set for each request and the <code>g</code> part is the global state, shared through a STM-controlled variable</li>
-<li>Executing a user-triggered action is in a sense a series of translations occuring between the different <em>level of languages</em>:
-<ul>
-<li>from REST to <code>WebM</code> we use <code>inWeb :: WebStateM CapitalMatchState LocalState m a -&gt; ActionT e (WebStateM CapitalMatchState   LocalState m) a</code></li>
-<li>from <code>WebM</code> to <code>STM Model</code> we use <code>liftIO . atomically</code></li>
-<li>… and finally in <code>Model</code> we reach the pure kernel of the domain!</li>
-</ul></li>
+<li>Provide a <code>Request-Id</code> header,</li>
+<li>Authorisation and authentication,</li>
+<li>Sanity checks (e.g. sizes of payloads),</li>
+<li>Logging,</li>
+<li>Caching and static data service.</li>
 </ul>
-<h1 id="concurrency">Concurrency</h1>
+<h2 id="lost-in-translation">Lost in Translation</h2>
+<p>Executing a user-triggered action is in a sense a series of translations occuring between the different <em>level of languages</em>:</p>
 <ul>
-<li>Concurrency is mostly handled at the REST layer through Warp and Scotty: Each request is handled concurrently by separate threads which are <a href="https://ghc.haskell.org/trac/ghc/wiki/LightweightConcurrency">very lightweight in Haskell/GHC</a></li>
-<li>On top of that we have a couple more threads in the application:
+<li>From REST to <code>WebM</code> we use <code>inWeb :: WebStateM CapitalMatchState LocalState m a -&gt; ActionT e (WebStateM CapitalMatchState   LocalState m) a</code>,</li>
+<li>From <code>WebM</code> to <code>STM Model</code> we use <code>liftIO . atomically</code>,</li>
+<li>… and finally in <code>Model</code> we reach the pure kernel of the business domain!</li>
+</ul>
+<p>Conceptually, we have this hierarchy of monads, expressed in types:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">model ::</span> <span class="dt">Command</span> <span class="ot">-&gt;</span> <span class="dt">StateT</span> <span class="dt">STM</span> <span class="dt">Model</span> (<span class="dt">Event</span> <span class="dt">Model</span>)
+<span class="ot">service ::</span> <span class="dt">WebM</span> (<span class="dt">Event</span> <span class="dt">Model</span>)
+<span class="ot">web ::</span> <span class="dt">ActionT</span> ()</code></pre></div>
+<p>This hierarchy of monads delineates, somewhat obviously, the following languages:</p>
+<ul>
+<li>Language of models expresses atomic (e.g. often CRUDesque) changes to a Model, like <code>RegisterTransaction</code>, <code>UpdateProfile</code> or <code>CloseFacility</code>,</li>
+<li>Language of Services expresses either direct changes to Models or more complex interactions like <code>addPledge</code> or <code>acceptFacility</code> which require more than one command to complete,</li>
+<li>Language of Web manages HTTP Requests and resposnes, JSON structures and delegate work to services. It is the language of representation of things.</li>
+</ul>
+<h1 id="cross-cutting-concerns">Cross-cutting Concerns</h1>
+<h2 id="concurrency">Concurrency</h2>
+<p>Concurrency is mostly handled at the REST layer through Warp and Scotty: Each request is handled concurrently by separate threads which are <a href="https://ghc.haskell.org/trac/ghc/wiki/LightweightConcurrency">very lightweight in Haskell/GHC</a>. On top of that we have a couple more threads in the application:</p>
 <ul>
 <li>one logging thread per handler (currently 2), which handle logging messages</li>
 <li>a storage thread which handle low-level read/write requests to events file</li>
 <li>a driver thread which handle events storage<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></li>
 <li>a <em>Heartbeat</em> thread periodically checks other threads and notifies health</li>
-</ul></li>
-<li>We used to run directly threads with <code>forkIO</code> and friends but finally moved to something simpler and robust <a href="http://hackage.org/packages/async">async</a> package.</li>
-<li>Concurrent updates to the model are handled through <a href="http://hackage.org/packages/stm">Software Transactional Memory</a>: A <code>TVar</code> (transactional variable) holds a reference to the state</li>
 </ul>
-<h1 id="persistence-and-storage">Persistence and Storage</h1>
-<ul>
-<li>Persistence is managed through a dedicated event bus: <code>Event</code> are first packaged into a more opaque <code>StoredEvent</code> object containing metadata useful for traceability of the system:
+<p>We used to run directly threads with <code>forkIO</code> and friends but finally moved to something simpler and robust <a href="http://hackage.org/packages/async">async</a> package. Concurrent updates to the model are handled through <a href="http://hackage.org/packages/stm">Software Transactional Memory</a>: A <code>TVar</code> (transactional variable) holds a reference to the state and all operations on the state are thus transactional.</p>
+<p>The initial goal was to enforce a strict separation between the various Business Models with an eye towards being able to deploy them as independent services exchange messages. But it happened this rule was broken more than once and a few months later we ended up having built a monolith with uncontrolled dependencies across domains and layers. We then undertook the necessary refactoring steps to get back to a “saner” state where STM transactions operate at the level of a single <code>Command</code> through the <code>applyCommand</code> function.</p>
+<h2 id="persistence-and-storage">Persistence and Storage</h2>
+<p>Persistence is managed through a dedicated event bus: <code>Event</code> are first packaged into a more opaque <code>StoredEvent</code> object containing metadata useful for traceability of the system:</p>
 <ul>
 <li>an event version (more on this later)</li>
 <li>an event type which encodes at the value level the actual type of event</li>
@@ -139,37 +151,46 @@
 <li>ID of original request</li>
 <li>SHA1 of commit, e.g. version of the code (thanks to <a href="http://geoffroycouprie.com/">Geoffroy Couprie</a> for the suggestion)</li>
 <li>a <code>ByteString</code> containing serialized version of the event</li>
-</ul></li>
-<li>Then <code>StoredEvent</code>s are pushed to a dedicated <code>Driver</code> thread which stores events in the underlying events file</li>
-<li>There is a loophole here: if storage of event fails, we have still applied event to the model! To make things simple if storage fail we “Stop the world” assuming that if we have an I/O error it’s irrecoverable and we better stop here</li>
-<li>This is crude and does not provide strong guarantees on durability of data, but in practice it has worked pretty well, probably thanks to low volume of traffic</li>
-<li>Storage is a simple append-only file which contains sequence of applied events serialized to some binary format (Kafka-like)</li>
-<li>We are in the process of moving to a much more robust storage solution:
-<ul>
-<li>externalize data store to another process/host</li>
-<li>replicate it to increase fault-tolerance</li>
-<li>provide strong consistency through distributed consensus</li>
-</ul></li>
 </ul>
-<h1 id="user-interface">User Interface</h1>
+<p>Then <code>StoredEvent</code>s are pushed to a dedicated <code>Driver</code> thread which stores events in the underlying events file. There is a loophole here: if storage of event fails, we have still applied event to the model! To make things simple if storage fail we “Stop the world” assuming that if we have an I/O error it’s irrecoverable and we better stop here. This is crude and does not provide strong guarantees on durability of data, but in practice it has worked pretty well, probably thanks to low volume of traffic.</p>
+<p>Physical <code>Storage</code> is a simple append-only file which contains sequence of applied events serialized to some binary format (<a href="http://kafka.apache.org">Kafka</a>-like). We are in the process of moving to a much more robust storage solution:</p>
 <ul>
-<li>UI code still lives partly in the server and partly as pure client-side code:
+<li>externalize data store to another process/host,</li>
+<li>replicate it to increase fault-tolerance,</li>
+<li>provide strong consistency through distributed consensus.</li>
+</ul>
+<h3 id="event-versioning">Event Versioning</h3>
+<p>Events are stored with a <em>version</em> number which is a monotonically increasing number. This version number is bumped each time we change the structure of our events, e.g. adding a field to some record, changing a field’s type… When an event is persisted, it contains the <em>current version</em> number that’s defined in the application at that time. When the event is read back (i.e. deserialized) to rebuild the state of the system, this version number is used to select the correct read function.</p>
+<p>Hence modifying the structure of events always entails the following steps in development:</p>
+<ul>
+<li>Write deserialization test for current version number<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>,</li>
+<li>Bump version number,</li>
+<li>Write new code,</li>
+<li>Write <em>migration code</em> to adapt old events to new version.</li>
+</ul>
+<p>This mechanism adds some interesting properties to our underlying storage:</p>
+<ul>
+<li>Stored events are immutable hence storage system is append-only: We never need to rewrite past events,</li>
+<li>It is possible to rebuilt state of the system (code <em>and</em> data) at any point in the past.</li>
+</ul>
+<h2 id="user-interface">User Interface</h2>
+<p>UI code still lives partly in the server and partly as pure client-side code:</p>
 <ul>
 <li>HTML code is generated and served by the server using standard endpoints according to <code>Accept</code> header in request. We use <a href="https://hackage.haskell.org/package/blaze-html">blaze-html</a> combinators to describe the pages in Haskell</li>
 <li>Static assets are served by <a href="https://hackage.haskell.org/package/wai-middleware-static">wai-middleware-static</a></li>
-</ul></li>
-<li>But the grunt of UI work is done on the client with <a href="https://github.com/omcljs/om/">Om</a>. Om is a <a href="http://github.com/clojure/clojurescript">clojurescript</a> interface to Facebook’s <a href="http://facebook.github.io/react/">React</a><a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>. We treat the UI-backend interaction as a pure client-server: UI maintains its own state and interact with server through usual Ajax calls, updating state accordingly. The interface a user sees is a single-page application</li>
-<li>None of the developer in the core team is a web designer or developer by trade so our UI is functional but a bit boring and cluttered.</li>
 </ul>
-<h1 id="logging-and-monitoring">Logging and Monitoring</h1>
+<p>But the grunt of UI work is done on the client with <a href="https://github.com/omcljs/om/">Om</a>. Om is a <a href="http://github.com/clojure/clojurescript">clojurescript</a> interface to Facebook’s <a href="http://facebook.github.io/react/">React</a><a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>. We treat the UI-backend interaction as a pure client-server: UI maintains its own state and interact with server through usual Ajax calls, updating state accordingly. The interface a user sees is a single-page application.</p>
+<p>None of the developer in the core team is a web designer or developer by trade so our UI is functional but a bit boring and cluttered.</p>
+<h2 id="logging-and-monitoring">Logging and Monitoring</h2>
+<p>There is a <code>Log</code> structure which is a queue consuming logging events and handling it according to some IO function. We log all queries, all commands issued and various other events occuring in the system: application startup/stop, heartbeat, I/O errors, storage events… In order to prevent sensitive data to leak to logging, we have a <code>redact</code> function that rewrites commands to remove those data before passing it to logging system.</p>
+<p>We currently have two different log backends:</p>
 <ul>
-<li>There is a <code>Log</code> structure which is a queue consuming logging events and handling it according to some IO function</li>
-<li>We log all queries, all commands issued and various other events occuring in the system: application startup/stop, heartbeat, I/O errors, storage events…</li>
 <li>One log handler outputs JSON-formatted events to <code>stdout</code></li>
 <li>One log handler outputs some events to <a href="http://riemann.io">Riemann</a>, using <a href="https://github.com/tel/riemann-hs">riemann-hs</a>. Those events are then used for notification and monitoring of infrastructure (more on this in a later post)</li>
-<li>At startup of application we also notify dev team by sending an email with the configuration. This is useful to check startup of production environment, as this email contains among other things the version of the application and the command line with which is has been started</li>
 </ul>
-<h1 id="future-works">Future Works</h1>
+<p>At startup of application we also notify dev team by sending an email with the configuration. This is useful to check startup of production environment, as this email contains among other things the version of the application and the command line with which is has been started.</p>
+<h1 id="conclusion">Conclusion</h1>
+<h2 id="the-good-the-bad-and-the-ugly">The Good, the Bad and the Ugly</h2>
 <h2 id="towards-microservice">Towards Microservice</h2>
 <ul>
 <li>In spite of good initial intention we still have built a monolith, albeit a small one and one that will be not too hard to split. We now want to increase robustness, resilience and scalability of our development process and our system by breaking the monolith into components services</li>
@@ -183,20 +204,42 @@
 <li>Ideally each component should be deployable independently or alongside other components in the same process depending on needed granularity and redundancy. This can be achieved easily through configuration at the level of the glue code according to some topology configuration</li>
 <li>we are not currently too much constrained by performance bounds: response time is pretty much acceptable</li>
 </ul>
-<h2 id="information-hiding">Information Hiding</h2>
-<ul>
-<li>We expose too much of the internal details of modules and types</li>
-</ul>
+<h1 id="thanks">Thanks</h1>
+<p>I would like to address a big <strong>Thank you!</strong> to the following persons who have contributed to this adventure:</p>
 <div class="footnotes">
 <hr />
 <ol>
 <li id="fn1"><p>I have been using RDBMS since the 90’s, developed a point-of-sale application in Access and have been using PostgreSQL through its various versions since 1998 but I have never loved relational model nor SQL.<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>Although one could argue that there exists “languages” like Excel that allow you to write complex queries and explore data in a very sophisticated way without the use of SQL<a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>This was not the case initially, services orchestrated several commands inside a single STM transaction, but this goes against distribution, modularity and scalability as STM cannot host IO operations which prevent distributing/replicating Models<a href="#fnref3">↩</a></p></li>
+<li id="fn3"><p><a href="http://haskell-servant.github.io/">Servant</a> is definitely on our roadmap.<a href="#fnref3">↩</a></p></li>
 <li id="fn4"><p>This thread is pretty much redundant with storage thread for the moment. The plan is to use it for serialising <code>applyCommand</code> operations on the models<a href="#fnref4">↩</a></p></li>
-<li id="fn5"><p>It looks like our Om will be soon superceded by <a href="https://github.com/omcljs/om/wiki/Quick-Start-%28om.next%29">om.next</a><a href="#fnref5">↩</a></p></li>
+<li id="fn5"><p>We use <a href="https://hackage.haskell.org/package/QuickCheck">QuickCheck</a> to generate a bunch of events for the type of interest.<a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p>It looks like our Om will be soon superceded by <a href="https://github.com/omcljs/om/wiki/Quick-Start-%28om.next%29">om.next</a><a href="#fnref6">↩</a></p></li>
 </ol>
 </div>
+
+
+<div id="disqus_thread"></div>
+<script>
+  /*
+    https://disqus.com/admin/universalcode/#configuration-variables
+   */
+  var disqus_config = function () {
+    this.page.url = "/drafts/cm-arch-design.html";
+    this.page.identifier = "cm-arch-design";
+  };
+
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
 
 
     </div>

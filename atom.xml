@@ -260,6 +260,29 @@ interpretEffect <span class="fu">=</span> coiter f (return ())
 </ol>
 </div>
 
+
+<div id="disqus_thread"></div>
+<script>
+  /*
+    https://disqus.com/admin/universalcode/#configuration-variables
+   */
+  var disqus_config = function () {
+    this.page.url = "/posts/free.html";
+    this.page.identifier = "free";
+  };
+
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
 ]]></summary>
 </entry>
 <entry>
@@ -293,6 +316,29 @@ interpretEffect <span class="fu">=</span> coiter f (return ())
 <p>So why bother writing them given we could invest the time in functional-level tests?</p>
 <h2 id="whats-the-point-of-writing-tests-for-code-that-will-never-change-they-wont-catch-any-regression">“What’s the point of writing tests for code that will never change? They won’t catch any regression”</h2>
 <p>OK, it might be changed but surely not in the near future so given I know what I am doing, I would rather get rid of those tests</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  /*
+    https://disqus.com/admin/universalcode/#configuration-variables
+   */
+  var disqus_config = function () {
+    this.page.url = "/posts/no-tdd.html";
+    this.page.identifier = "no-tdd";
+  };
+
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
 
 ]]></summary>
 </entry>
@@ -435,6 +481,29 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 2
 *Main&gt; </code></pre>
 
+
+<div id="disqus_thread"></div>
+<script>
+  /*
+    https://disqus.com/admin/universalcode/#configuration-variables
+   */
+  var disqus_config = function () {
+    this.page.url = "/posts/cata.html";
+    this.page.identifier = "cata";
+  };
+
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
 ]]></summary>
 </entry>
 <entry>
@@ -448,6 +517,29 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 
 <p>The first “agile” conference I attended was <a href="http://spaconference.org/spa2008">SPA 2008</a> which took place in a nice hotel in the english countryside. And one of the first session I attended at this conference was a session about <a href="http://www.spaconference.org/spa2008/sessions/session148.html">Real options</a>, initially planned to be run by Chris Matts but actually lead by Pascal Van Cauwenberghe and Portia Tung. I vividly recall that, although the session was far from being perfect, it was fun, intriguing and I learnt quite a few new things.  Since then, I have had the opportunity to attend several of Portia’s session, mainly at [XP Day Benelux[(http://xpday.be/) (which by the way is the best conference I ever attended), and they always have been great moments, perfectly balanced between learning and fun, and perfectly organized[^1].  # The Dream Team Nightmare  <a href="http://pragprog.com/book/ptdream/the-dream-team-nightmare">The Dream Team Nightmare</a> is Portia Tung’s new book published by Pragmatic Books, which offers you a journey beyond the basics of agile coaching practices, techniques and tools. You take the role of Jim Hopper, an experienced agile coach which has been appointed by Love Inc. to help one of the company’s development team, the <em>Dream Team</em>.  This team has been struggling with agile software development practice for couple of years and is facing severe issues: Development time increases, relations with business people are difficult and conflicting, quality is soaring… After initial enthusiasm for agile adoption, it seems to have been lagging behind other teams, to the point where they are considering abandoning agile altogether. You have been given a week to provide the management of the company an assessment of the situation and proposals to improve the team’s productivity and quality.  # What I Loved  The first thing I loved with this book is its form. Being an adventure book means that you are somehow in control of the destiny of Jim, the main character: You have to make decisions at crucial points, which can have beneficial or detrimental effects on the outcome of the story. Each step of the story is written in a lively manner, with a special attention to the description of the characters and the dialogues.  Day by day, one follows the progress of the coach and its team, and how they apply a lot of varying coaching techniques and tools to interact with people and start solving their problems. Without the hassle of a text book, one is then introduced to things like setting a kanban board for a meeting or a team, various meeting facilitation techniques for meetings, perfection game and decider from Core protocols, story writing, measurements and feedback evaluations, system thinking with reality and future trees…  The book covers a lot of the classical dysfunctions one find in software development (and probably other engineering) teams: Lack of trust between team members, and across team boundaries, isolation of teams from other teams’ experiments and feedback, silos, business-technical divide, fear of change and failure, lack of feedback, point less measurements and estimating. I especially liked how kanban boards are used systematically to set goals and track progress, even for meetings; the emphasis on concrete and multidimensional measurements for progress; and the <em>option thinking</em> toolbox which is used extensively in the book to build a release plan that is both realistic, flexible and business-oriented.  It is not the same thing to <em>read</em> a formal description of a tool or technique, and to live it through the eyes of an involved person in a concrete situation. <em>The Dream Team Nightmare</em> succeeds in being both pedagogical and fun, which is a rare endeavour. And I already started using some of the techniques from the book in my daily work!  [^1]: The quality of Portia’s sessions props deserves a special mention!</p>
 
+
+<div id="disqus_thread"></div>
+<script>
+  /*
+    https://disqus.com/admin/universalcode/#configuration-variables
+   */
+  var disqus_config = function () {
+    this.page.url = "/posts/dtn.html";
+    this.page.identifier = "dtn";
+  };
+
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
 ]]></summary>
 </entry>
 <entry>
@@ -460,6 +552,29 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 <div class="info">Posted on December 31, 2013</div>
 
 <p>Qu’y-a-t’il de commun entre l’explosion de la navette <em>Challenger</em>, la collision entre deux pétroliers dans le Golfe Persique, la transformation d’une université d’entreprise en institut de formation externe, la persistance de transparents surchargés et illisibles dans les communications d’entreprise, le pont de la rivière Kwai ? Toutes ces petites et grandes catastrophes, et bien d’autres, sont le résultat de <strong>décisions absurdes</strong>, des décisions produisant de manière persistante des effets contraires au but initialement recherché, analysées par <a href="http://christian.morel5.perso.sfr.fr">Chistian Morel</a> dans le <a href="http://www.gallimard.fr/Catalogue/GALLIMARD/Folio/Folio-essais/Les-decisions-absurdes">livre portant ce titre</a>.  L’intérêt principal de ce livre, en plus de son style agréablement didactique et subtilement ironique, est de ne pas se contenter d’identifier une cause unique pour toutes ces cas d’erreurs extrêmement variés mais de couvrir un ensemble de causes potentielles qui, se combinant, sont à même de produire ces comportements absurdes observables chez des individus et dans des organisations ayant par ailleurs atteint un très haut degré de sophistication et de scientificité. C’est donc à la conjugaison d’erreurs <em>cognitives</em>, de <em>comportements collectifs</em> aberrants et de défaillances <em>téléologiques</em> que l’on doit s’intéresser pour mieux comprendre, et peut-être éviter, les décisions absurdes.  Autrement dit, il n’y a jamais de responsabilité unique, individuelle ou attribuable à un petit groupe, pour ces erreurs, mais toujours une dérive d’un système rationnel, comme un <em>cancer de la raison</em> qui petit à petit viendrait substituer des métastases aux cellules saines d’un organisme. Le cas de <em>Challenger</em> est emblématique et cumule à un haut degré les trois types d’erreurs pour aboutir à une décision catastrophique:  * les ingénieurs et managers de Morton-Thiokol commettent d’abord des erreurs <em>cognitives</em>, d’une part au sujet du climat hivernal de la Floride, transposant une faible probabilité de grand froid en une impossibilité, d’autre part au sujet de la fiabilité des joints lors des lancements. Ce phénomène a été décortiqué en détail par Kahneman et al. et <a href="http://us.macmillan.com/thinkingfastandslow/DanielKahneman">Thinking, Fast and Slow</a> est une introduction pour le commun des mortels au modèle cognitif proposé par Kahneman et reprit partiellement par Morel, celui des deux systèmes : le <em>Système I</em> ou heuristique, efficace et rapide mais imprécis et prompt à se tromper et le <em>Système II</em> ou analytiau * le processus au cours duquel est prise la décision de maintenir le lancement renforce ces erreurs cognitives pour produire un consensus mou. La décision finale est prise au cours d’une conférence téléphonique entre trois lieux différents des États-Unis, les doutes de certains ingénieurs ne sont pas perçus comme déterminants par les <em>managers</em> d’autant plus qu’ils ne parviennent pas à les formuler scientifiquement, le jeu des relations de pouvoirs affaiblit les signaux négatifs… * le fruit est alors mûr pour que la troisième source d’erreurs, la perte de sens ou erreur téléologique, entre en jeu. Les participants à la décision perdent de vue la fin - faire voler en sécurité 7 astronautes dans une navette spatiale - au profit des moyens - les joints des <em>boosters</em> sont-ils dangereux et Morton-Thiokol est-il uin fournisseur fiable ? La préservation du système prend le pas sur la finalité pour laquelle ce système a été construit.  En conclusion du livre, l’auteur remarque par ailleurs que les erreurs sont liées à <em>l’indétermination fondamentale du monde</em>. Ce qui rend la vie excitante et les décisions nécessaires est aussi ce qui rend ces décisions positives ou négatives, ce qui provoque le succès ou échec, l’erreurs ou la bonne décision. De très nombreuses situations sont sous-déterminées, nous n’avons pas les réponses toutes prêtes et, particulièrement en situation de stress et d’urgence, il nous faut savoir mobiliser à la fois notre Système I, heuristique et expérientiel, et notre Système II, analytique et scientifique.  Les organisations habituées à l’urgence, au danger et au stress - armée, secours civil, contrôle aérien, chirurgie, médecine d’urgence - développent des techniques similaires pour que leurs membres soient capables de faire face à ces situations par définition imprévisibles:  * s’entraîner de manière systématique, à l’aide de protocoles précis, développés par capitalisation des expériences, développer des réflexes de <em>survie</em> mobilisables instantanément afin de libérer le cerveau pour d’autres tâches ; * développer l’autonomie et la cohésion des équipes par la compréhension et l’incorparation des <em>fins</em> et des <em>buts</em> de l’organisationm afin que les décisions prises lors de “situations critiques” aient le plus de chances d’être adaptées à la situation et non polluées par des considérations extérieures, erreurs cognitives, systémiques ou téléologiques.  Même si au sein d’une équipe de développement il est très rare de vivre des situations aussi dramatiques, nous commettons beaucoup d’erreurs qui se trouvent reflétées dans notre code sous la forme de <em>bugs</em> , manifestes ou latents - la fameuse <em>dette technique</em>. Mais comprendre les sources de ces erreurs, et savoir les combattre, est une nécessité de plus en plus impérieuse dans un monde qui va de plus en plus vite et qui est en train d’être <a href="https://gist.github.com/sferik/5277512">mangé par le logiciel</a>.  J’attends avec impatience la parution du tome II en poche intitulé <a href="http://christian.morel5.perso.sfr.fr">Les décisions absurdes II. Comment les éviter</a>.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  /*
+    https://disqus.com/admin/universalcode/#configuration-variables
+   */
+  var disqus_config = function () {
+    this.page.url = "/posts/decisions-absurdes.html";
+    this.page.identifier = "decisions-absurdes";
+  };
+
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
 
 ]]></summary>
 </entry>
@@ -485,6 +600,29 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 <li>mount local repository</li>
 <li>run mvn test:test</li>
 </ul>
+
+
+<div id="disqus_thread"></div>
+<script>
+  /*
+    https://disqus.com/admin/universalcode/#configuration-variables
+   */
+  var disqus_config = function () {
+    this.page.url = "/posts/docker.html";
+    this.page.identifier = "docker";
+  };
+
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
 
 ]]></summary>
 </entry>
@@ -576,6 +714,29 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 </ol>
 </div>
 
+
+<div id="disqus_thread"></div>
+<script>
+  /*
+    https://disqus.com/admin/universalcode/#configuration-variables
+   */
+  var disqus_config = function () {
+    this.page.url = "/posts/tdd.html";
+    this.page.identifier = "tdd";
+  };
+
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
 ]]></summary>
 </entry>
 <entry>
@@ -624,6 +785,29 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 <li>This implies that there is no <em>essence</em>, there is no fundamental truth from which everything derives, there is no transcending that would not be explained or explainable by some course of action, beyond our <em>habits</em></li>
 </ul>
 
+
+<div id="disqus_thread"></div>
+<script>
+  /*
+    https://disqus.com/admin/universalcode/#configuration-variables
+   */
+  var disqus_config = function () {
+    this.page.url = "/posts/essence.html";
+    this.page.identifier = "essence";
+  };
+
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
 ]]></summary>
 </entry>
 <entry>
@@ -648,6 +832,29 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 <h1 id="améliorations-possibles">Améliorations possibles</h1>
 <p>Une composante importante de la tactique dans le développement d’un produit web est absente de la simulation : le <em>test A/B</em>. Les seules mesures dont disposent les équipes sont les points marqués ou perdus, le cumul des points et la position relative par rapport aux autres équipes. S’il apparaît possible d’anticiper sur les évolutions futures du <em>marché</em> avec un minimum d’observation, il ne semble pas possible de réllement tester la réaction du marché par rapport à telle ou telle solution.</p>
 
+
+<div id="disqus_thread"></div>
+<script>
+  /*
+    https://disqus.com/admin/universalcode/#configuration-variables
+   */
+  var disqus_config = function () {
+    this.page.url = "/posts/extreme-s-20131002.html";
+    this.page.identifier = "extreme-s-20131002";
+  };
+
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
 ]]></summary>
 </entry>
 <entry>
@@ -660,6 +867,29 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 <div class="info">Posted on July 23, 2013</div>
 
 <p>Je découvre <a href="http://fr.wikipedia.org/wiki/Andr%C3%A9_Gorz">André Gorz</a> par cet ouvrage, <a href="http://www.editions-galilee.fr/f/index.php?sp=liv&amp;livre_id=2857">Métamorphoses du travail</a>, qui a paru aux éditions Galilée puis en Folio chez Gallimard. Je ne peux qu’en conseiller la lecture et il m’a donné l’envie de lire les autres livres de cet auteur dont j’avais entendu parler, ou qui était cité en référence d’autres auteurs, mais que je n’avais jamais lu.  Daté de 1988, cette analyse suivie de propositions concrètes n’a à mon avis, et quoiqu’en dise <a href="http://lipietz.net/spip.php?article2152">Alain Lipietz</a>, rien perdue de son actualité, ni a fortiori de son acuité. Elle est particulièrement pertinente pour les travailleurs de la connaissance que sont les développeurs, et ses thèses entrent en résonnance avec ce que le mouvement Agile a de plus révolutionnaire.  Le travail est une “invention” relativement récente, du moins tel que le défini André Gorz, c’est-à-dire une activité qui :  1. crée de la valeur d’usage ; 2. en vue d’un échange marchand ; 3. dans la sphère publique ; 4. en un temps mesurable et avec un rendement aussi élevé que possible (p.222).   En ce sens, celui de la <em>rationalité économique</em>, le travail est un produit de la révolution capitaliste industrielle : avant elle, il n’existe pas, tant et si bien que les premiers industriels ont eu toutes les peines du monde à faire travailler les premiers ouvriers à plein temps et de manière régulière. Et c’est en les sous-payant que l’on s’assurera de leur totale sujétion à l’usine, condition nécessaire à l’accumulation capitalistique de la plus-value et l’échange marchand calibré, rationnel, mesuré.  Dans nos sociétés post-industrielles, ce travail se fait rare[^3] : une quantité de plus en plus importante de richesse est produite par de moins en moins de travail, si bien sûr on entend par “richesse” la richesse pécuniaire et la quantité de biens et de services disponibles[^1]. La désindustrialisation frappe durement, quoique de manière inégale, de nombreux de pays industrialisés et de nombreux secteurs (tous ?), et son corollaire est la disparition de la figure de l’ouvrier[^2]. Cette disparition est surtout un problème pour la pensée de gauche <em>traditionnelle</em> pour laquelle le travail, l’ouvrier, la production sont essentiels puisqu’ils fondent sa légitimité : la gauche s’est construite dans les luttes sociales autour de la condition ouvrière et que celle-ci vienne à disparaître ne peut qu’être source d’angoisse.   Le travail n’a pas disparu et un refuge possible pour le syndicalisme qui est le mode d’organisation et de lutte qui intéresse A.Gorz, est celui de l’expertise, de la compétence technique, du <em>craftsman</em> et du <em>craftsmanship</em> : valoriser la belle ouvrage, le travail bien fait, la compétence durement acquise[^4]. Le travail du <em>prolétaire</em>, de l’OS indifférencié qui n’a que son corps à aliéner et vendre se voit petit à petit substituer du travail considéré comme plus intelligent, plus agréable, plus valorisant : travail de conception, d’ingénierie, de planification, de maintenance, d’adaptation des machines et des systèmes ; mais aussi travail dit “de service”, où le travailleur est payé pour son temps, son attention, sa présence mais ne “fait” rien[^6].   Cette voie mène de façon certaine à une <em>dualisation</em> de la société. Ceux qui travaille, de moins en moins nombreux, travaillent beaucoup avec des horaires de plus en plus extensifs, tandis qu’une fraction de plus en plus importante de la main d’oeuvre “s’installe” dans la précarité et le travail à temps partiel[^5]. Force est de constater que la situation actuelle, près de 25 ans après, donne raison à l’analyse de Gorz : c’est bien dans cette société duelle que l’on vit aujourd’hui.  * solution 1: augmenter la masse travail en marchandisant de plus en plus de secteurs d’activités * solution 2: réduire drastiquement le temps de travail  [^6]: <a href="http://internetactu.blog.lemonde.fr/2013/08/02/ou-va-leconomie-numerique-robotisation-ou-monopolisation/">Cette article</a> analyse de façon détaillée comment l’automatisation détruit aujourd’hui des emplois et comment le partage de la plus-value se fait au détriment du travail et au profit du capital. La robotisation, loin de favoriser l’émergence de nouveaux emplois, de nouvelles activités, se fait malthusienne et accentue la pression sur l’emploi pour accroître les marges des entreprises qui innovent.  [^5]: On peut voir l’aboutissement ultime de cette logique dans le <a href="http://en.wikipedia.org/wiki/Zero-hour_contract">zero-hour contract</a> existant au Royaume-Uni mais les contrats à temps partiel imposés par la grande distribution au personnel de caisse en est une forme <em>soft</em>. L’objectif étant bien sûr de faire du salaire un coût variable et non plus un coût fixe.   [^4]: Le domaine du développement informatique est traversé lui aussi par cette tentation, le mouvement du <a href="http://manifesto.softwarecraftsmanship.org/">software craftsmanship</a> cherche à maintenir et valoriser le travail du programmeur de cette manière.   [^2]: Ce qui ne signifie pas, loin de là, disparition de l’exploitation, du travail sous-payé et sous-qualifié, de la misère…).  [^3]: L’une des critiques d’Alain Lipietz à André Gorz, et une critique récurrente contre toute réflexion sur la diminution tendancielle du travail, est de constater que le travail ouvrier n’a pas disparu mais s’est déplacé vers les pays dits émergents, Chine en tête. C’est vrai mais d’une part la Chine n’inonde pas seulement les pays de l’OCDE, mais le monde entier et son propre marché intérieur de produits manufacturés ce qui suppose une croissance de la productivité et se fait aussi par le biais d’investissement capitalistiques de plus en plus important ; et d’autre part les biens manufacturés importés ne constituent plus qu’une fraction de ce fameux PIB. Pour reprendre l’exemple de la France, sa <a href="http://stats.oecd.org/Index.aspx?DataSetCode=PDYGTH">balance des paiements</a> est certes structurellement déficitaire mais de “seulement” 2,17% du PIB et le montant de ses importations de biens est de $653 milliards pour un PIB de $35133 milliards, soit environ 1,8%.   [^1]: Pour s’en rendre compte, on peut se reporter aux statistiques de <a href="http://stats.oecd.org/Index.aspx?DatasetCode=ANHRS">l’OCDE</a> mesurant la productivité entendue comme le rapport entre le Produit Intérieur Brut (PIB, ou <em>Gross Domestic Product</em> en anglais) et le nombre d’heures travaillées et à celles mesurant la <a href="http://stats.oecd.org/Index.aspx?DataSetCode=PDYGTH">croissance de la productivité</a>. On pourra constater par exemple que globalement la productivité s’accroît dans tous les pays de l’OCDE, hormis durant le point d’orgue de la crise des <em>subprimes</em> en 2008-2009. Chose intéressante pour nous européens, on pourra aussi constater la forte différence entre le PIB par habitant et le PIB par heure travaillée pour les pays fondateurs de l’europe, à l’exception de l’Italie : on travaille moins en Europe de l’ouest mais la productivité est comparativement meilleure. Chose encore plus amusante, le PIB par heure travaillée en France est supérieur à celui de l’Allemagne… </p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  /*
+    https://disqus.com/admin/universalcode/#configuration-variables
+   */
+  var disqus_config = function () {
+    this.page.url = "/posts/gorz.html";
+    this.page.identifier = "gorz";
+  };
+
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
 
 ]]></summary>
 </entry>
