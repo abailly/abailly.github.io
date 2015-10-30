@@ -284,6 +284,11 @@ interpretEffect <span class="fu">=</span> coiter f (return ())
   /*
     https://disqus.com/admin/universalcode/#configuration-variables
    */
+  var disqus_config = function () {
+    this.page.url = "/posts/free.html";
+    this.page.identifier = "free";
+  };
+
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
   

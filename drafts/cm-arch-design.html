@@ -189,23 +189,63 @@
 <li>One log handler outputs some events to <a href="http://riemann.io">Riemann</a>, using <a href="https://github.com/tel/riemann-hs">riemann-hs</a>. Those events are then used for notification and monitoring of infrastructure (more on this in a later post)</li>
 </ul>
 <p>At startup of application we also notify dev team by sending an email with the configuration. This is useful to check startup of production environment, as this email contains among other things the version of the application and the command line with which is has been started.</p>
-<h1 id="conclusion">Conclusion</h1>
+<h1 id="reflection">Reflection</h1>
+<p>It’s been a bit over a year since I have started working on Capital Match’s platform. I – we – have made mistakes, not everything went as smoothly as we would like and there it is still just the beginning of a hopefully long adventure. One year is a good time to stop - or slow down a bit - and reflect on what’s been accomplished, what went wrong and what went well. In the next sections I try to provide a more or less objective assessment of the architecture we have put in place, and what would be our next steps.</p>
 <h2 id="the-good-the-bad-and-the-ugly">The Good, the Bad and the Ugly</h2>
-<h2 id="towards-microservice">Towards Microservice</h2>
+<p>We have been live since March 2015, serving more than S$ 3 millions and counting in facilities for SMEs in Singapore without any major interruption of service. This in itself is an extremely positive fact and a tribute to the basic robustness of the system. It works and it supports continuous improvements in a smooth way<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>.</p>
+<p>Here are some benefits I see in our approach, encompassing both the technology used (Haskell, Om/Clojurescript) and the architecture:</p>
 <ul>
-<li>In spite of good initial intention we still have built a monolith, albeit a small one and one that will be not too hard to split. We now want to increase robustness, resilience and scalability of our development process and our system by breaking the monolith into components services</li>
-<li>We are in the process of splitting the application into smaller constituents along the following lines:
+<li>Strong and expressive types greatly improves confidence in the code<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a>. Among the <a href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/ghc-language-features.html">many features</a> supported by GHC, here are the ones, mostly simple and straightforward, we use routinely:
+<ul>
+<li><code>newtype</code>s are cheap in Haskell, being unpacked at runtime, but they are enforced during compilation and makes for very expressive signatures: No more <code>String</code>-based programs but <code>UserId</code>, <code>PassportNr</code> or <code>EMail</code>,</li>
+<li>Phantom types is a simple technique to distinguish between various objects with equivalent representations, like encoding of a <code>ByteString</code></li>
+<li>Type-classes are very useful to define interfaces, possibly with default implementations. Most of the time we use <code>MultiParamTypeClasses</code> to express relations between different part of the systems,</li>
+<li>Existential types are useful to <em>pack</em> related things under a common opaque type for e.g. serialization or logging, where you don’t care about the details,</li>
+<li>But most of the time using a simple type with a set of constructors is clearer.</li>
+</ul></li>
+<li>We use <code>-Wall -Werror</code> for compiling code which catches things like unused variables (dead code), variable names overriding (potential troubles), incomplete pattern matching (runtime failure ahead…),</li>
+<li>Event Sourcing greatly simplifies storage management and removes all the hassle of having to manage data types mapping to a relational model, not speaking of managing migration between versions or the burden of operating a DBMS,</li>
+<li>Because data is stored as a flat file of versioned events, querying the system can be done directly in Haskell: Retrieve event stream, build in-memory state from it then use GHCi or Emacs REPL to manipulate state<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a> at your will. Over time we have written a number of <em>scripts</em> that are small Haskell programs,</li>
+<li>Scotty, WAI and Warp makes it easy to quickly develop and maintain REST interfaces, both for endpoints and middlewares.</li>
+</ul>
+<p>Here are some mistakes I made:</p>
+<ul>
+<li>Too many use of partial functions like <code>fromJust</code> or even <code>head</code>: This makes things simple at first but of course blows up at runtime. Lesson learned: Always use <strong>total functions</strong>,</li>
+<li>Too many type classes: This might come from my Java background where using an interface is usually a good idea to abstract details.</li>
+<li>Not taking enough care to keep compilation time low: Our application has grown over time, and I have not taken care of splitting it early enough to prevent bloat. Compilation time has grown over time to the point where it is now a problem. Lesson learned: Aggressively split code as early as possible, and don’t be afraid of having packages with one or two files,</li>
+<li>Too much reliance on <code>DeriveGeneric</code> based JSON serialization: Generating <code>Generic</code> instance for large types dramatically increases compilation time. Lesson learnt: Use more TemplateHaskell derivation or custom <code>ToJSON/FromJSON</code> instances which provide better flexibility<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a></li>
+<li>Having data being accessible only through Haskell implies non-tech people either need to learn it or go through the dev team to get data. This is not too much of a trouble in a very small team but could quickly become a problem as the company grows. This is where <a href="http://martinfowler.com/bliki/CQRS.html">CQRS</a> will nicely complement our Event Sourced system: It is a rather simple matter to build one or more relational models from our data and ensure the RDBMS is updated on a regular basis,</li>
+<li>Separation of concerns among the various business models has been sloppier over time, leading to too much coupling among the models,</li>
+<li>Generating HTML on the server-side: At the onset of the project, we had a static HTML file. We moved to server-side HTML generation using Blaze because we wanted to be able to control the structure of the HTML:
+<ul>
+<li>To cope for dev/prod environment on the front-end: Code is compiled and optimized differently in the two modes and this requires importing a different set of scripts,</li>
+<li>To manage <em>feature toggles</em> which allow us to provide a different UI for different users according to their account’s settings. This was very useful to handle gracefully migration of our UI,</li>
+</ul></li>
+<li>However this strategy entails a number of problems:
+<ul>
+<li>You sometimes have to recompile server when working on the UI, e.g. when changing structure of pages or handling of features,</li>
+<li>It’s hard to collaborate with front-end designers and developers,</li>
+<li>It makes UI and server more coupled,</li>
+</ul></li>
+</ul>
+<h2 id="whats-next">What’s Next?</h2>
+<p>Within the timespan of a single year, much has happened in the Haskell ecosystem and things that were experimental or unwieldy one year ago are now mature and could easily make their way to production: <a href="https://github.com/ghcjs/ghcjs">ghcjs</a> is now much easier to build and work with, there are more mature solutions in the front-end like <a href="https://github.com/ryantrinkle/reflex">reflex</a>, build has never been easier thanks to <a href="https://github.com/commercialhaskell/stack/">stack</a>, <a href="https://downloads.haskell.org/~ghc/7.10.1/docs/html/users_guide/release-7-10-1.html">GHC 7.10</a> has brought a number of improvements (and controversial breaking changes like the TAP proposal)… Gabriel Gonzalez maintains a <a href="http://www.haskellforall.com/2015/08/state-of-haskell-ecosystem-august-2015.html">State of Haskell Ecosystem</a> page that provides interesting overview of what’s hot and what’s not in the Haskell world.</p>
+<p>Here are some major challenges that lie ahead of us to improve our system:</p>
+<ul>
+<li><strong>Microservices</strong>: In spite of good initial intention we still have built a monolith, albeit a small one and one that will be not too hard to split. We now want to increase robustness, resilience and scalability of our development process and our system by breaking the monolith into components services. We are in the process of splitting the application into smaller constituents along the following lines:
 <ul>
 <li>Glue code to wire things together,</li>
 <li>Support code</li>
 <li>One component per group of related services,</li>
 <li>One component per “Model”, possibly clustered</li>
 </ul></li>
-<li>Ideally each component should be deployable independently or alongside other components in the same process depending on needed granularity and redundancy. This can be achieved easily through configuration at the level of the glue code according to some topology configuration</li>
-<li>we are not currently too much constrained by performance bounds: response time is pretty much acceptable</li>
+<li>Ideally each component should be deployable independently or alongside other components in the same process depending on needed granularity and redundancy. This can be achieved easily through configuration at the level of the glue code according to some topology configuration.</li>
+<li><strong>Performance</strong>: I tried to follow this simple development principle: <a href="http://c2.com/cgi/wiki?MakeItWorkMakeItRightMakeItFast">Make it, make it right, make it fast</a>. We mostly are done with the first part and are quite advanced on the second, so making it fast will be our next challenge especially as user base and data set grow in size. There are quite a few areas of improvement on the front: Caching computations, better data structures, improve strictness in key areas… But of course the first step will be to measure and set goals for those performance improvements</li>
+<li><strong>Robustness</strong>: No system is ever safe from failure but it depends on us what the impact of a failure is. This is definitely a must-have and something we can improve using standard replication and redundancy techniques. Splitting the system in finer-grained components is a first step towards that goal but we need specific components to ensure consistency in presence of failure.</li>
 </ul>
-<h1 id="thanks">Thanks</h1>
-<p>I would like to address a big <strong>Thank you!</strong> to the following persons who have contributed to this adventure:</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>This article is already quite long yet it is only a brief overview of our system: It is hard to summarize one year of intense work! In future installments of this blog post series I plan to address other aspects of the system that were not covered here: Development and production infrastructure, user interface development from the point of view of a backend developer, development process.</p>
+<p>As a final note, my highest gratitude goes to the following persons without the help of whom this adventure would not have been possible: Pawel Kuznicki, Willem van den Ende, Carlos Cunha, Neil Mitchell, Joey Hess, Amar Potghan, Guo Liang “Sark” Oon, Konrad Tomaszewski and all the great people at <a href="http://www.capital-match.com">Capital Match</a>.</p>
 <div class="footnotes">
 <hr />
 <ol>
@@ -215,6 +255,10 @@
 <li id="fn4"><p>This thread is pretty much redundant with storage thread for the moment. The plan is to use it for serialising <code>applyCommand</code> operations on the models<a href="#fnref4">↩</a></p></li>
 <li id="fn5"><p>We use <a href="https://hackage.haskell.org/package/QuickCheck">QuickCheck</a> to generate a bunch of events for the type of interest.<a href="#fnref5">↩</a></p></li>
 <li id="fn6"><p>It looks like our Om will be soon superceded by <a href="https://github.com/omcljs/om/wiki/Quick-Start-%28om.next%29">om.next</a><a href="#fnref6">↩</a></p></li>
+<li id="fn7"><p>I plan to provide more insights on our development and operations process in another blog post, but to give rough ideas we have deployed our application about a hundred times in the past 6 months.<a href="#fnref7">↩</a></p></li>
+<li id="fn8"><p>Having a strong type system is no replacement for a decent test suite however, because obviously a lot of bugs happen at the boundaries of the system, e.g. when invoking REST API.<a href="#fnref8">↩</a></p></li>
+<li id="fn9"><p>Obviously, this works as long as your data fits in memory. My bet is this will be the case for <a href="http://yourdatafitsinram.com/">quite a long time</a>. Shall this ever become a <a href="https://gettingreal.37signals.com/ch04_Scale_Later.php">problem</a>, we will most probably be in a position to handle it.<a href="#fnref9">↩</a></p></li>
+<li id="fn10"><p>This is the approach I took in <a href="https://github.com/capital-match/hdo/blob/master/src/Network/DO/Types.hs">hdo</a> because external representation was already defined, and in the end it makes encoding more explicit and easier to work with<a href="#fnref10">↩</a></p></li>
 </ol>
 </div>
 
@@ -224,6 +268,11 @@
   /*
     https://disqus.com/admin/universalcode/#configuration-variables
    */
+  var disqus_config = function () {
+    this.page.url = "/drafts/cm-arch-design.html";
+    this.page.identifier = "cm-arch-design";
+  };
+
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
   
