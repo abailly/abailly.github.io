@@ -146,7 +146,6 @@ On top of REST endpoints sit some `Middleware` which check or apply transformati
 
 ## Lost in Translation
 
-
 Executing a user-triggered action is in a sense a series of  translations occuring between the different *level of languages*:
 
 * From REST to `WebM` we use `inWeb :: WebStateM CapitalMatchState LocalState m a -> ActionT e (WebStateM CapitalMatchState
@@ -271,29 +270,115 @@ At startup of application we also notify dev team by sending an email with the c
 production environment, as this email contains among other things the version of the application and the command line with which
 is has been started. 
 
-# Conclusion
+# Reflection
+
+It's been a bit over a year since I have started working on Capital Match's platform. I -- we -- have made mistakes, not everything
+went as smoothly as we would like and there it is still just the beginning of a hopefully long adventure. One year is a good time to
+stop - or slow down a bit - and reflect on what's been accomplished, what went wrong and what went well. In the next sections I try
+to provide a more or less objective assessment of the architecture we have put in place, and what would be our next steps.
 
 ## The Good, the Bad and the Ugly
 
+We have been live since March 2015, serving more than S$ 3 millions and counting in facilities for SMEs in Singapore without any
+major interruption of service. This in itself is an extremely positive fact and a tribute to the basic robustness of the system. It
+works and it supports continuous improvements in a smooth way[^9].
 
-## Towards Microservice ##
+Here are some benefits I see in our approach, encompassing both the technology used (Haskell, Om/Clojurescript) and the
+architecture:
 
-* In spite of good initial intention we still have built a monolith, albeit a small one and one that will be not too hard to
-  split. We now want to increase robustness, resilience and scalability of our development process and our system by breaking the
-  monolith into components services 
-* We are in the process of splitting the application into smaller constituents along the following lines:
-    * Glue code to wire things together, 
-    * Support code
-    * One component per group of related services,
-    * One component per "Model", possibly clustered
+* Strong and expressive types greatly improves confidence in the code[^10]. Among the
+  [many features](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/ghc-language-features.html) supported by GHC, here
+  are the ones, mostly simple and straightforward, we use routinely:
+    * `newtype`s are cheap in Haskell, being unpacked at runtime, but they are enforced during compilation and makes for very
+      expressive signatures: No more `String`-based programs but `UserId`, `PassportNr` or `EMail`,
+    * Phantom types is a simple technique to distinguish between various objects with equivalent representations, like encoding of a
+      `ByteString` 
+    * Type-classes are very useful to define interfaces, possibly with default implementations. Most of the time we use
+      `MultiParamTypeClasses` to express relations between different part of the systems,
+    * Existential types are useful to *pack* related things under a common opaque type for e.g. serialization or logging, where you
+      don't care about the details, 
+    * But most of the time using a simple type with a set of constructors is clearer.
+* We use `-Wall -Werror` for compiling code which catches things like unused variables (dead code), variable names overriding
+(potential troubles), incomplete pattern matching (runtime failure ahead...),
+* Event Sourcing greatly simplifies storage management and removes all the hassle of having to manage data types mapping to
+  a relational model, not speaking of managing migration between versions or the burden of operating a DBMS, 
+* Because data is stored as a flat file of versioned events, querying the system can be done directly in Haskell: Retrieve event
+  stream, build in-memory state from it then use GHCi or Emacs REPL to manipulate state[^11] at your will. Over time we have written
+  a number of *scripts* that are small Haskell programs,
+* Scotty, WAI and Warp makes it easy to quickly develop and maintain REST interfaces, both for endpoints and middlewares.
+
+Here are some mistakes I made:
+
+* Too many use of partial functions like `fromJust` or even `head`: This makes things simple at first but of course blows up at
+  runtime. Lesson learned: Always use **total functions**,
+* Too many type classes: This might come from my Java background where using an interface is usually a good idea to abstract
+  details. 
+* Not taking enough care to keep compilation time low: Our application has grown over time, and I have not taken care of splitting it early enough to
+  prevent bloat. Compilation time has grown over time to the point where it is now a problem. Lesson learned: Aggressively split
+  code as early as possible, and don't be afraid of having packages with one or two files,
+* Too much reliance on `DeriveGeneric` based JSON serialization: Generating `Generic` instance for large types dramatically
+  increases compilation time. Lesson learnt: Use more TemplateHaskell derivation or custom `ToJSON/FromJSON` instances which provide
+  better flexibility[^12]
+* Having data being accessible only through Haskell implies non-tech people either need to learn it or go through the dev team to
+  get data. This is not too much of a trouble in a very small team but could quickly become a problem as the company grows. This is
+  where [CQRS](http://martinfowler.com/bliki/CQRS.html) will nicely complement our Event Sourced system: It is a rather simple
+  matter to build one or more relational models from our data and ensure the RDBMS is updated on a regular basis,
+* Separation of concerns among the various business models has been sloppier over time, leading to too much coupling among the
+  models,
+* Generating HTML on the server-side: At the onset of the project, we had a static HTML file. We moved to server-side HTML
+  generation using Blaze because we wanted to be able to control the structure of the HTML:
+    * To cope for dev/prod environment on the front-end: Code is compiled and optimized differently in the two modes and this
+      requires importing a different set of scripts,
+    * To manage *feature toggles* which allow us to provide a different UI for different users according to their account's
+      settings. This was very useful to handle gracefully migration of our UI,
+* However this strategy entails a number of problems:
+    * You sometimes have to recompile server when working on the UI, e.g. when changing structure of pages or handling of features, 
+    * It's hard to collaborate with front-end designers and developers, 
+    * It makes UI and server more coupled,
+
+## What's Next? ##
+
+Within the timespan of a single year, much has happened in the Haskell ecosystem and things that were experimental or unwieldy one
+year ago are now mature and could easily make their way to production: [ghcjs](https://github.com/ghcjs/ghcjs) is now much easier to
+build and work with, there are more mature solutions in the front-end like [reflex](https://github.com/ryantrinkle/reflex), build
+has never been easier thanks to [stack](https://github.com/commercialhaskell/stack/),
+[GHC 7.10](https://downloads.haskell.org/~ghc/7.10.1/docs/html/users_guide/release-7-10-1.html) has brought a number of improvements
+(and controversial breaking changes like the TAP proposal)... Gabriel Gonzalez maintains a
+[State of Haskell Ecosystem](http://www.haskellforall.com/2015/08/state-of-haskell-ecosystem-august-2015.html) page that provides
+interesting overview of what's hot and what's not in the Haskell world.
+
+Here are some major challenges that lie ahead of us to improve our system:
+
+* **Microservices**: In spite of good initial intention we still have built a monolith, albeit a small one and one that will be not
+  too hard to split. We now want to increase robustness, resilience and scalability of our development process and our system by
+  breaking the monolith into components services. We are in the process of splitting the application into smaller constituents along
+  the following lines: 
+      * Glue code to wire things together, 
+      * Support code
+      * One component per group of related services,
+      * One component per "Model", possibly clustered
 * Ideally each component should be deployable independently or alongside other components in the same process depending on needed
   granularity and redundancy. This can be achieved easily through configuration at the level of the glue code according to some
-  topology configuration
-* we are not currently too much constrained by performance bounds: response time is pretty much acceptable 
+  topology configuration.
+* **Performance**: I tried to follow this simple development principle:
+  [Make it, make it right, make it fast](http://c2.com/cgi/wiki?MakeItWorkMakeItRightMakeItFast). We mostly are done with the first
+  part and are quite advanced on the second, so making it fast will be our next challenge especially as user base and data set grow
+  in size. There are quite a few areas of improvement on the front: Caching computations, better data structures, improve strictness
+  in key areas... But of course the first step will be to measure and set goals for those performance improvements
+* **Robustness**: No system is ever safe from failure but it depends on us what the impact of a failure is. This is definitely a
+  must-have and something we can improve using standard replication and redundancy techniques. Splitting the system in finer-grained
+  components is a first step towards that goal but we need specific components to ensure consistency in presence of failure.
 
-# Thanks
+# Conclusion
 
-I would like to address a big **Thank you!** to the following persons who have contributed to this adventure: 
+This article is already quite long yet it is only a brief overview of our system: It is hard to summarize one year of intense work!
+In future installments of this blog post series I plan to address other aspects of the system that were not covered here:
+Development and production infrastructure, user interface development from the point of view of a backend developer, development
+process.
+
+As a final note, my highest gratitude goes to the following persons without the help of whom this adventure would not have been possible: Pawel
+Kuznicki, Chun Dong Chau, Pete Bonee, Willem van den Ende, Carlos Cunha, Neil Mitchell, Joey Hess, Amar Potghan, Guo Liang "Sark" Oon, Konrad Tomaszewski and
+all the great people at [Capital Match](http://www.capital-match.com).
 
 [^1]: Although one could argue that there exists "languages" like Excel that allow you to write complex queries and explore data in
 a very sophisticated way without the use of SQL
@@ -312,3 +397,16 @@ its various versions since 1998 but I have never loved relational model nor SQL.
 [^7]: [Servant](http://haskell-servant.github.io/) is definitely on our roadmap.
 
 [^8]: We use [QuickCheck](https://hackage.haskell.org/package/QuickCheck) to generate a bunch of events for the type of interest.
+
+[^9]: I plan to provide more insights on our development and operations process in another blog post, but to give rough ideas we
+have deployed our application about a hundred times in the past 6 months.
+
+[^10]: Having a strong type system is no replacement for a decent test suite however, because obviously a lot of bugs happen at the
+boundaries of the system, e.g. when invoking REST API.
+
+[^11]: Obviously, this works as long as your data fits in memory. My bet is this will be the case for
+[quite a long time](http://yourdatafitsinram.com/). Shall this ever become a
+[problem](https://gettingreal.37signals.com/ch04_Scale_Later.php), we will most probably be in a position to handle it.
+
+[^12]:  This is the approach I took in [hdo](https://github.com/capital-match/hdo/blob/master/src/Network/DO/Types.hs) because
+external representation was already defined, and in the end it makes encoding more explicit and easier to work with 
