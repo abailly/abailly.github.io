@@ -1,8 +1,13 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Control.Applicative ((<$>))
-import           Data.Monoid         (mappend)
+import           Data.Char
+import qualified Data.Map            as M
+import           Data.Maybe
+import           Data.Monoid
+import           Data.Time
 import           Hakyll
+import           System.FilePath
 -- fixing issue with file encodin
 -- https://groups.google.com/forum/#!topic/hakyll/jrGATyI1omI/discussion
 
@@ -86,7 +91,6 @@ main = do
         compile $
           postList recentFirst
           >>= makeItem
-          >>= loadAndApplyTemplate "templates/posts.html" postCtx
           >>= loadAndApplyTemplate "templates/default.html" homeCtx
           >>= relativizeUrls
 
@@ -104,15 +108,20 @@ homeCtx = titleField "Welcome" `mappend`
 
 postCtx :: Context String
 postCtx =
-  escaped "title" `mappend`
+  escaped   "title"            `mappend`
+  field     "slug" slugify     `mappend`
   dateField "date" "%B %e, %Y" `mappend`
-
   defaultContext
 
+slugify :: Item String -> Compiler String
+slugify item = do
+  metadata <- getMetadata (itemIdentifier item)
+  let slug  = dropExtension . takeFileName . toFilePath
+  return $ slug (itemIdentifier item)
 
 --------------------------------------------------------------------------------
 postList sortFilter = do
   list    <- loadAll "posts/*"
   posts   <- sortFilter list
   itemTpl <- loadBody "templates/post-item.html"
-  applyTemplateList itemTpl postCtx posts
+  applyTemplateList itemTpl homeCtx posts

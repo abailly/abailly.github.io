@@ -39,3 +39,9 @@ date: 2015-10-26
 * It is more exhausting than face to face pairing, requires more focus and engagement from all parties to avoid miscommunications
 * timezone differences makes *Deferred Pairing* useful: Someone starts some work, uses [slack](http://slack.com) as a stream of
   consciousness, then pushes result. Someone else in another timezone can then pick up work 
+
+# On Being Remote
+
+* Great post about *Remote First* culture: http://zachholman.com/posts/remote-first/
+* Counter-example: Organisations with a handful of offices, working distributedly. Distribution was an afterthought, something that
+  came up as a constraint because of mergers, and no amount of tooling can make that kind of culture work

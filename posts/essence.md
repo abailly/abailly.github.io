@@ -4,15 +4,18 @@ author: Arnaud Bailly
 date: 2013-11-10
 ------------
 
-Some thoughts on accidental vs. essential complexity triggered while reading [Out of the Tar Pit](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.93.8928) by Peter Marks and Ben Moseley
+# On Out of the Tar Pit
+
+Some thoughts on accidental vs. essential complexity triggered while reading
+[Out of the Tar Pit](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.93.8928) by Peter Marks and Ben Moseley
 
 * Quoting [Brooks](http://en.wikipedia.org/wiki/The_Mythical_Man-Month) they separate *Essential* from *Accidental* complexity:
-    * "Essential complexity is inherent in, and the essence of, the
-      problem (as seen by the users)"
-    * "Accidental complexity is all the rest - complexity with which
-      the development team would not have to deal in the ideal world
-      (eg. complexity arising from performance issues and from
-      suboptimal language and infrastructure)"
+  * "Essential complexity is inherent in, and the essence of, the
+    problem (as seen by the users)"
+  * "Accidental complexity is all the rest - complexity with which
+    the development team would not have to deal in the ideal world
+    (eg. complexity arising from performance issues and from
+    suboptimal language and infrastructure)"
 * This is actually not Brooks' definition of accident and essence, and it seems I can trace back this misunderstanding to
 [another definition by N.Ford](http://www.ibm.com/developerworks/java/library/j-eaed1/index.html). 
 * Brooks actually talks about the *essential complexity* of *software development*, irrespective of the problem or usage software is put to use: 
