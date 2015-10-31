@@ -263,14 +263,6 @@ interpretEffect <span class="fu">=</span> coiter f (return ())
 
 <div id="disqus_thread"></div>
 <script>
-  /*
-    https://disqus.com/admin/universalcode/#configuration-variables
-   */
-  var disqus_config = function () {
-    this.page.url = "/posts/free.html";
-    this.page.identifier = "free";
-  };
-
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
   
@@ -320,14 +312,6 @@ interpretEffect <span class="fu">=</span> coiter f (return ())
 
 <div id="disqus_thread"></div>
 <script>
-  /*
-    https://disqus.com/admin/universalcode/#configuration-variables
-   */
-  var disqus_config = function () {
-    this.page.url = "/posts/no-tdd.html";
-    this.page.identifier = "no-tdd";
-  };
-
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
   
@@ -484,14 +468,6 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 
 <div id="disqus_thread"></div>
 <script>
-  /*
-    https://disqus.com/admin/universalcode/#configuration-variables
-   */
-  var disqus_config = function () {
-    this.page.url = "/posts/cata.html";
-    this.page.identifier = "cata";
-  };
-
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
   
@@ -520,14 +496,6 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 
 <div id="disqus_thread"></div>
 <script>
-  /*
-    https://disqus.com/admin/universalcode/#configuration-variables
-   */
-  var disqus_config = function () {
-    this.page.url = "/posts/dtn.html";
-    this.page.identifier = "dtn";
-  };
-
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
   
@@ -556,14 +524,6 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 
 <div id="disqus_thread"></div>
 <script>
-  /*
-    https://disqus.com/admin/universalcode/#configuration-variables
-   */
-  var disqus_config = function () {
-    this.page.url = "/posts/decisions-absurdes.html";
-    this.page.identifier = "decisions-absurdes";
-  };
-
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
   
@@ -604,14 +564,6 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 
 <div id="disqus_thread"></div>
 <script>
-  /*
-    https://disqus.com/admin/universalcode/#configuration-variables
-   */
-  var disqus_config = function () {
-    this.page.url = "/posts/docker.html";
-    this.page.identifier = "docker";
-  };
-
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
   
@@ -717,14 +669,6 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 
 <div id="disqus_thread"></div>
 <script>
-  /*
-    https://disqus.com/admin/universalcode/#configuration-variables
-   */
-  var disqus_config = function () {
-    this.page.url = "/posts/tdd.html";
-    this.page.identifier = "tdd";
-  };
-
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
   
@@ -788,14 +732,6 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 
 <div id="disqus_thread"></div>
 <script>
-  /*
-    https://disqus.com/admin/universalcode/#configuration-variables
-   */
-  var disqus_config = function () {
-    this.page.url = "/posts/essence.html";
-    this.page.identifier = "essence";
-  };
-
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
   
@@ -835,14 +771,6 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 
 <div id="disqus_thread"></div>
 <script>
-  /*
-    https://disqus.com/admin/universalcode/#configuration-variables
-   */
-  var disqus_config = function () {
-    this.page.url = "/posts/extreme-s-20131002.html";
-    this.page.identifier = "extreme-s-20131002";
-  };
-
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
   
@@ -871,14 +799,6 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 
 <div id="disqus_thread"></div>
 <script>
-  /*
-    https://disqus.com/admin/universalcode/#configuration-variables
-   */
-  var disqus_config = function () {
-    this.page.url = "/posts/gorz.html";
-    this.page.identifier = "gorz";
-  };
-
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
   
