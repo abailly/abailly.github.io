@@ -6,3 +6,8 @@ blockquote {
 .draft {
     background: url("/images/draft.png") repeat;
 }
+
+footer img {
+    margin-left: 5px;
+    margin-right: 5px;
+}

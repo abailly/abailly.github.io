@@ -15,8 +15,7 @@ the conclusion I try to provide an assessment of the current situation and refle
 
 ## Haskell
 
-Haskell is a fay that has been leaning over Capital Match's cradle since the beginning. Using it was an obvious choice for me, even
-if I had had limited professional experience with Haskell before that:
+Basing Capital Match's tech stack on Haskell was an obvious choice for me from the onset, even if I had had limited professional experience with Haskell before that:
 
 * Haskell is a [very mature language](http://research.microsoft.com/en-us/um/people/simonpj/papers/history-of-haskell/) with a
   [state-of-the-art compiler](https://www.haskell.org/ghc/) that receives constant attention from a bunch of extremely bright people
@@ -25,7 +24,13 @@ if I had had limited professional experience with Haskell before that:
   evolving quickly as the platform is gaining traction thanks to efforts from both a vibrant 
   [community](https://wiki.haskell.org/Haskell_Communities_and_Activities_Report) and few but dedicated
   [private bodies](https://github.com/commercialhaskell),
-* Haskell developers are few and far between, but their number is growing and they are more often than not passionate and talented.
+* Haskell developers are few and far between, but their number is growing and they are more often than not passionate and talented,
+* I have been programming for fun and small side projects in Haskell since 2002 and I always have wanted to know how it would feel
+  to build a whole system with it. Now I know,
+* Because it enforces a strict separation of pure and effectful code, Haskell incentivizes the growth of
+  a [Hexagonal Architectures](http://alistair.cockburn.us/Hexagonal+architecture)
+  aka. [Ports and adapter](http://c2.com/cgi/wiki?PortsAndAdaptersArchitecture): A pure domain kernel which interacts with the
+  outside world through *adapters*.
 
 ## Event Sourcing
 
@@ -41,7 +46,7 @@ are:
 * Reluctance to add the operational burden of maintaining a RDBMS as part of the system. We could have used SaaS relational (or
   non-relational) database to remove that burden but this implies using yet another tool, learning some other piece of technology,
   using some set of drivers with specific bugs and requirements,
-* Personal bias against RDBMS[^6]
+* Personal bias against RDBMS used as runtime storage[^6],
 * Simplicity of implementation, at least when you don't require HA, partition tolerance or more generally fault-tolerance: A single
   file to which all events are appended is enough, and this is exactly what we do,
 * Avoiding languages impedance mismatch. There is the tradional
@@ -49,7 +54,6 @@ are:
   [some have argued](http://blog.jooq.org/2015/08/26/there-is-no-such-thing-as-object-relational-impedance-mismatch/) it is not
   where we usually think it is. As argued in the latter I think the real issue is in SQL: SQL is (probably) great for writing
   complex queries[^1] but not so much for inserting data.
-
 
 # Architecture
 
@@ -331,6 +335,8 @@ Here are some mistakes I made:
         * You sometimes have to recompile server when working on the UI, e.g. when changing structure of pages or handling of features, 
         * It's hard to collaborate with front-end designers and developers, 
         * It makes UI and server more coupled,
+* REST interface seems to be growing too quickly. There are some query abstractions that should be developed out of the raw
+  endpoints we are exposing.
 
 ## What's Next? ##
 
@@ -373,8 +379,9 @@ Development and production infrastructure, user interface development from the p
 process.
 
 As a final note, my highest gratitude goes to the following persons without the help of whom this adventure would not have been possible: Pawel
-Kuznicki, Chun Dong Chau, Pete Bonee, Willem van den Ende, Carlos Cunha, Neil Mitchell, Joey Hess, Amar Potghan, Guo Liang "Sark"
-Oon, Konrad Tomaszewski and all the great people at [Capital Match](http://www.capital-match.com).
+Kuznicki, Chun Dong Chau, Pete Bonee, Willem van den Ende, Carlos Cunha, Guo Liang "Sark"
+Oon, Amar Potghan, Konrad Tomaszewski and all the great people at [Capital Match](http://www.capital-match.com). I also would like
+to thank Corentin Roux-dit-Buisson, Neil Mitchell, Joey Hess for their support and feedback.
 
 [^1]: Although one could argue that there exists "languages" like Excel that allow you to write complex queries and explore data in
 a very sophisticated way without the use of SQL
@@ -387,8 +394,10 @@ a very sophisticated way without the use of SQL
 [^5]: Being a startup in the B2B space, it does not make that much sense for Capital Match to talk about *infinite scaling* as we
 don't expect our workload to expand beyond the limit of a single-server in the foreseeable future. 
 
-[^6]: I have been using RDBMS since the 90's, developed a point-of-sale application in Access and have been using PostgreSQL through
-its various versions since 1998 but I have never loved relational model nor SQL. 
+[^6]: I have been using RDBMS since the 90's, developed a point-of-sale application in Access, have been using PostgreSQL through
+its various versions since 1998, and recently worked on integrating DB migration process into a very large system. I am not
+an expert but I have had quite an extensive experience of relational databases over a significant number of years and I have always
+found that *writing* to DB quickly became a painful things.
 
 [^7]: [Servant](http://haskell-servant.github.io/) is definitely on our roadmap.
 
