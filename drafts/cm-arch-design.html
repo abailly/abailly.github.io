@@ -40,11 +40,13 @@
 <p>This post is about the design and architecture of the system itself, the choices and tradeoffs that were made, whether good or bad. In the conclusion I try to provide an assessment of the current situation and reflect on those choices.</p>
 <h1 id="fundamental-design-choices">Fundamental Design Choices</h1>
 <h2 id="haskell">Haskell</h2>
-<p>Haskell is a fay that has been leaning over Capital Match’s cradle since the beginning. Using it was an obvious choice for me, even if I had had limited professional experience with Haskell before that:</p>
+<p>Basing Capital Match’s tech stack on Haskell was an obvious choice for me from the onset, even if I had had limited professional experience with Haskell before that:</p>
 <ul>
 <li>Haskell is a <a href="http://research.microsoft.com/en-us/um/people/simonpj/papers/history-of-haskell/">very mature language</a> with a <a href="https://www.haskell.org/ghc/">state-of-the-art compiler</a> that receives constant attention from a bunch of extremely bright people and thus keeps improving and evolving,</li>
 <li>Haskell’s tools for building robust web-based applications is not as mature as what you can find in Java or .Net worlds but it is evolving quickly as the platform is gaining traction thanks to efforts from both a vibrant <a href="https://wiki.haskell.org/Haskell_Communities_and_Activities_Report">community</a> and few but dedicated <a href="https://github.com/commercialhaskell">private bodies</a>,</li>
-<li>Haskell developers are few and far between, but their number is growing and they are more often than not passionate and talented.</li>
+<li>Haskell developers are few and far between, but their number is growing and they are more often than not passionate and talented,</li>
+<li>I have been programming for fun and small side projects in Haskell since 2002 and I always have wanted to know how it would feel to build a whole system with it. Now I know,</li>
+<li>Because it enforces a strict separation of pure and effectful code, Haskell incentivizes the growth of a <a href="http://alistair.cockburn.us/Hexagonal+architecture">Hexagonal Architectures</a> aka. <a href="http://c2.com/cgi/wiki?PortsAndAdaptersArchitecture">Ports and adapter</a>: A pure domain kernel which interacts with the outside world through <em>adapters</em>.</li>
 </ul>
 <h2 id="event-sourcing">Event Sourcing</h2>
 <p>The system was designed from the onset as an <a href="http://martinfowler.com/eaaDev/EventSourcing.html">event-sourced</a> application: The source of truth in the system is a sequence of <em>events</em> where each event defines a transition between two states. At any point in time, the state of the system is thus whatever state the current sequence of events leads to. Among the motivations behind using ES are:</p>
@@ -52,7 +54,7 @@
 <li>Having fun and explore this corner of the design space instead of going for the more traditional RDBMS-based web app,</li>
 <li>Auditability and traceability of all actions impacting data on the platform, a property which is highly-desirable in a banking-like system. I have had previous exposure to finance software and they all end up implementing some journalling system to trace users actions and data changes,</li>
 <li>Reluctance to add the operational burden of maintaining a RDBMS as part of the system. We could have used SaaS relational (or non-relational) database to remove that burden but this implies using yet another tool, learning some other piece of technology, using some set of drivers with specific bugs and requirements,</li>
-<li>Personal bias against RDBMS<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></li>
+<li>Personal bias against RDBMS used as runtime storage<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>,</li>
 <li>Simplicity of implementation, at least when you don’t require HA, partition tolerance or more generally fault-tolerance: A single file to which all events are appended is enough, and this is exactly what we do,</li>
 <li>Avoiding languages impedance mismatch. There is the tradional <a href="http://c2.com/cgi/wiki?ObjectRelationalImpedanceMismatch">Object-relational Impedance Mismatch</a> although <a href="http://blog.jooq.org/2015/08/26/there-is-no-such-thing-as-object-relational-impedance-mismatch/">some have argued</a> it is not where we usually think it is. As argued in the latter I think the real issue is in SQL: SQL is (probably) great for writing complex queries<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> but not so much for inserting data.</li>
 </ul>
@@ -226,6 +228,7 @@
 <li>It makes UI and server more coupled,</li>
 </ul></li>
 </ul></li>
+<li>REST interface seems to be growing too quickly. There are some query abstractions that should be developed out of the raw endpoints we are exposing.</li>
 </ul>
 <h2 id="whats-next">What’s Next?</h2>
 <p>Within the span of a single year, much has happened in the Haskell ecosystem and things that were experimental or unwieldy one year ago are now mature and could easily make their way to production: <a href="https://github.com/ghcjs/ghcjs">ghcjs</a> is now much easier to build and work with, there are more mature solutions in the front-end like <a href="https://github.com/ryantrinkle/reflex">reflex</a>, build has never been easier thanks to <a href="https://github.com/commercialhaskell/stack/">stack</a>, <a href="https://downloads.haskell.org/~ghc/7.10.1/docs/html/users_guide/release-7-10-1.html">GHC 7.10</a> has brought a number of improvements (and controversial breaking changes like the TAP proposal)… Gabriel Gonzalez maintains a <a href="http://www.haskellforall.com/2015/08/state-of-haskell-ecosystem-august-2015.html">State of Haskell Ecosystem</a> page that provides interesting overview of what’s hot and what’s not in the Haskell world.</p>
@@ -242,11 +245,11 @@
 </ul>
 <h1 id="conclusion">Conclusion</h1>
 <p>This article is already quite long yet it is only a brief overview of our system: It is hard to summarize one year of intense work! In future installments of this blog post series I plan to address other aspects of the system that were not covered here: Development and production infrastructure, user interface development from the point of view of a backend developer, development process.</p>
-<p>As a final note, my highest gratitude goes to the following persons without the help of whom this adventure would not have been possible: Pawel Kuznicki, Chun Dong Chau, Pete Bonee, Willem van den Ende, Carlos Cunha, Neil Mitchell, Joey Hess, Amar Potghan, Guo Liang “Sark” Oon, Konrad Tomaszewski and all the great people at <a href="http://www.capital-match.com">Capital Match</a>.</p>
+<p>As a final note, my highest gratitude goes to the following persons without the help of whom this adventure would not have been possible: Pawel Kuznicki, Chun Dong Chau, Pete Bonee, Willem van den Ende, Carlos Cunha, Guo Liang “Sark” Oon, Amar Potghan, Konrad Tomaszewski and all the great people at <a href="http://www.capital-match.com">Capital Match</a>. I also would like to thank Corentin Roux-dit-Buisson, Neil Mitchell, Joey Hess for their support and feedback.</p>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>I have been using RDBMS since the 90’s, developed a point-of-sale application in Access and have been using PostgreSQL through its various versions since 1998 but I have never loved relational model nor SQL.<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>I have been using RDBMS since the 90’s, developed a point-of-sale application in Access, have been using PostgreSQL through its various versions since 1998, and recently worked on integrating DB migration process into a very large system. I am not an expert but I have had quite an extensive experience of relational databases over a significant number of years and I have always found that <em>writing</em> to DB quickly became a painful things.<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>Although one could argue that there exists “languages” like Excel that allow you to write complex queries and explore data in a very sophisticated way without the use of SQL<a href="#fnref2">↩</a></p></li>
 <li id="fn3"><p><a href="http://haskell-servant.github.io/">Servant</a> is definitely on our roadmap.<a href="#fnref3">↩</a></p></li>
 <li id="fn4"><p>This thread is pretty much redundant with storage thread for the moment. The plan is to use it for serialising <code>applyCommand</code> operations on the models<a href="#fnref4">↩</a></p></li>
