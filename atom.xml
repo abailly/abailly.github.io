@@ -8,8 +8,58 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@foldlabs.com</email>
     </author>
-    <updated>2015-06-04T00:00:00Z</updated>
+    <updated>2015-11-06T00:00:00Z</updated>
     <entry>
+    <title>Some Notes on ML in Haskell following MLWeek</title>
+    <link href="http://blog.foldlabs.com/posts/ml-week.html" />
+    <id>http://blog.foldlabs.com/posts/ml-week.html</id>
+    <published>2015-11-06T00:00:00Z</published>
+    <updated>2015-11-06T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Some Notes on ML in Haskell following MLWeek</h1>
+<div class="info">Posted on November  6, 2015</div>
+
+<p>From Monday 2/11 to Thursday 5/11 I attended <a href="http://www.ml-week.com/fr">ML Week</a>, a training session lead by <a href="http://jeff.purple.com/qr/">Jeff Abrahamson</a> who also organizes the <a href="http://www.meetup.com/fr/Nantes-Machine-Learning-Meetup/">Nantes ML Meetup</a>. This session was great, not only because of its content, mostly an overview of the main techniques available and a hands-on dive into Python’s eco-system to support data analysis, but also because of the discussions we had with other attendees and with Jeff whose depth of knowledge on the subject is truely amazing.</p>
+<p>However I was a bit frustrated of not being able to epxlorer the topic using my language of choice, namely Haskell. So I took opportunity of this training to start collecting links and ideas on how to do data analysis and ML in Haskell. Here are a few links and comments on my attempts to <em>map</em> the tools we were using in Python to equivalent things in the Haskell eco-system:</p>
+<ul>
+<li>All the hands-on codelabs for the training were provided in the form of <a href="http://ipython.org/notebook.html">IPython Notebooks</a>, so I went to install <a href="https://github.com/gibiansky/IHaskell">IHaskell</a> which provides a Haskell <em>kernel</em> for notebooks. It works great straight out of the box, I only had some minor glitches with <a href="https://hackage.haskell.org/package/Chart">Charts</a> display. I must say that the community for IHaskell is very responsive!</li>
+<li><a href="http://www.kronosnotebook.com/haskell">Kronos</a> provides a packaged interactive data visualization tool that contains everythign that’s needed to run IHaskell out-of-the-box when you dont’ want to bother with installing Haskell eco-system,</li>
+<li><a href="https://hackage.haskell.org/package/cassava">cassava</a> provides type-safe parsing of CSV data</li>
+<li>There is a base statistics package for Haskell: http://hackage.haskell.org/package/statistics, which is maintained by Brian O’Sullivan who is also behind <a href="https://hackage.haskell.org/package/wreq">wreq</a>, the one-stop shop for making HTTP clients. This package among many other stuff provides linear regression,</li>
+<li>Basic matrices operations are provided by <a href="http://dis.um.es/~alberto/hmatrix/hmatrix.html">hmatrix</a> which is based on efficient routines implemented by LAPACK, BLAS, and GSL,</li>
+<li><a href="https://hackage.haskell.org/package/hstatistics">hstatistics</a> is another statistics package based on hmatrix,</li>
+<li>There is a very interesting series of post from Dominik Steinitz: The ones I have been particularly interested in are on <a href="https://idontgetoutmuch.wordpress.com/2013/04/26/regression-and-automated-differentiation-4/">linear</a> and <a href="https://idontgetoutmuch.wordpress.com/2013/04/30/logistic-regression-and-automated-differentiation-3/">logistic</a> regressions using <em>automatic differentiation</em>. There has been some code drift in AD since the posts were written so they don’t compile as-is using latest versions of libraries but modifications are minor,</li>
+<li>I thus turned to <a href="http://hackage.haskell.org/package/ad-3.4">ad</a> package by E.Kmett which happens to contain a routine for computing directly approximations of functions through gradient descent techniques,</li>
+<li><a href="https://hackage.haskell.org/package/chatter">chatter</a> implements some “standard” NLP algorithms which we had to deal with to implement a spam detector,</li>
+<li>Support Vector Machines support in Haskell is implemented in a couple of packages:
+<ul>
+<li>There are <a href="http://hackage.haskell.org/package/bindings-svm">haskell bindings</a> to the (apparently) state-of-the-art library <a href="https://www.csie.ntu.edu.tw/~cjlin/libsvm/">libsvm</a> which is what is used by scikit-learn,</li>
+<li><a href="https://hackage.haskell.org/package/svm">svm</a> is another package which seems a bit oldish and unmaintained,</li>
+</ul></li>
+<li>I don’t think there is a compelling implementation of general purpose neural networks of any kind, although there appear to be quite a few package dealing with those beasts on hackage,</li>
+<li>There are two libraries for computing K-means, both pretty recent:</li>
+<li><a href="https://hackage.haskell.org/package/kmeans-vector">kmeans-vector</a>,</li>
+<li><a href="https://hackage.haskell.org/package/kmeans">kmeans</a>,</li>
+<li>For Principal Component Analysis, there is <a href="https://hackage.haskell.org/package/hstatistics-0.2.5.3/docs/Numeric-Statistics-PCA.html">hstatistics</a> or <a href="https://hackage.haskell.org/package/hmatrix-nipals">hmatrix-nipals</a></li>
+</ul>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>On Free DSLs and Cofree interpreters</title>
     <link href="http://blog.foldlabs.com/posts/free.html" />
     <id>http://blog.foldlabs.com/posts/free.html</id>
@@ -767,34 +817,6 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 <p>Toujours du point de vue de la simulation, la situation est potentiellement différente selon qu’une startup fonctionne sur des fonds propres ou des fonds externes. Dans le premier cas il sera difficile de remettre les compteurs à 0 : une fois que l’on a consommé l’ensemble de son patrimoine, il n’est plus possible de réinvestir ! Inversement dans le second cas, un échec peut conduire à l’assèchement des financements, le ou les porteurs de projets devenant <em>persona non grata</em> auprès de financeurs potentiels.</p>
 <h1 id="améliorations-possibles">Améliorations possibles</h1>
 <p>Une composante importante de la tactique dans le développement d’un produit web est absente de la simulation : le <em>test A/B</em>. Les seules mesures dont disposent les équipes sont les points marqués ou perdus, le cumul des points et la position relative par rapport aux autres équipes. S’il apparaît possible d’anticiper sur les évolutions futures du <em>marché</em> avec un minimum d’observation, il ne semble pas possible de réllement tester la réaction du marché par rapport à telle ou telle solution.</p>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Notes sur &quot;Métamorphoses du travail&quot;</title>
-    <link href="http://blog.foldlabs.com/posts/gorz.html" />
-    <id>http://blog.foldlabs.com/posts/gorz.html</id>
-    <published>2013-07-23T00:00:00Z</published>
-    <updated>2013-07-23T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Notes sur &quot;Métamorphoses du travail&quot;</h1>
-<div class="info">Posted on July 23, 2013</div>
-
-<p>Je découvre <a href="http://fr.wikipedia.org/wiki/Andr%C3%A9_Gorz">André Gorz</a> par cet ouvrage, <a href="http://www.editions-galilee.fr/f/index.php?sp=liv&amp;livre_id=2857">Métamorphoses du travail</a>, qui a paru aux éditions Galilée puis en Folio chez Gallimard. Je ne peux qu’en conseiller la lecture et il m’a donné l’envie de lire les autres livres de cet auteur dont j’avais entendu parler, ou qui était cité en référence d’autres auteurs, mais que je n’avais jamais lu.  Daté de 1988, cette analyse suivie de propositions concrètes n’a à mon avis, et quoiqu’en dise <a href="http://lipietz.net/spip.php?article2152">Alain Lipietz</a>, rien perdue de son actualité, ni a fortiori de son acuité. Elle est particulièrement pertinente pour les travailleurs de la connaissance que sont les développeurs, et ses thèses entrent en résonnance avec ce que le mouvement Agile a de plus révolutionnaire.  Le travail est une “invention” relativement récente, du moins tel que le défini André Gorz, c’est-à-dire une activité qui :  1. crée de la valeur d’usage ; 2. en vue d’un échange marchand ; 3. dans la sphère publique ; 4. en un temps mesurable et avec un rendement aussi élevé que possible (p.222).   En ce sens, celui de la <em>rationalité économique</em>, le travail est un produit de la révolution capitaliste industrielle : avant elle, il n’existe pas, tant et si bien que les premiers industriels ont eu toutes les peines du monde à faire travailler les premiers ouvriers à plein temps et de manière régulière. Et c’est en les sous-payant que l’on s’assurera de leur totale sujétion à l’usine, condition nécessaire à l’accumulation capitalistique de la plus-value et l’échange marchand calibré, rationnel, mesuré.  Dans nos sociétés post-industrielles, ce travail se fait rare[^3] : une quantité de plus en plus importante de richesse est produite par de moins en moins de travail, si bien sûr on entend par “richesse” la richesse pécuniaire et la quantité de biens et de services disponibles[^1]. La désindustrialisation frappe durement, quoique de manière inégale, de nombreux de pays industrialisés et de nombreux secteurs (tous ?), et son corollaire est la disparition de la figure de l’ouvrier[^2]. Cette disparition est surtout un problème pour la pensée de gauche <em>traditionnelle</em> pour laquelle le travail, l’ouvrier, la production sont essentiels puisqu’ils fondent sa légitimité : la gauche s’est construite dans les luttes sociales autour de la condition ouvrière et que celle-ci vienne à disparaître ne peut qu’être source d’angoisse.   Le travail n’a pas disparu et un refuge possible pour le syndicalisme qui est le mode d’organisation et de lutte qui intéresse A.Gorz, est celui de l’expertise, de la compétence technique, du <em>craftsman</em> et du <em>craftsmanship</em> : valoriser la belle ouvrage, le travail bien fait, la compétence durement acquise[^4]. Le travail du <em>prolétaire</em>, de l’OS indifférencié qui n’a que son corps à aliéner et vendre se voit petit à petit substituer du travail considéré comme plus intelligent, plus agréable, plus valorisant : travail de conception, d’ingénierie, de planification, de maintenance, d’adaptation des machines et des systèmes ; mais aussi travail dit “de service”, où le travailleur est payé pour son temps, son attention, sa présence mais ne “fait” rien[^6].   Cette voie mène de façon certaine à une <em>dualisation</em> de la société. Ceux qui travaille, de moins en moins nombreux, travaillent beaucoup avec des horaires de plus en plus extensifs, tandis qu’une fraction de plus en plus importante de la main d’oeuvre “s’installe” dans la précarité et le travail à temps partiel[^5]. Force est de constater que la situation actuelle, près de 25 ans après, donne raison à l’analyse de Gorz : c’est bien dans cette société duelle que l’on vit aujourd’hui.  * solution 1: augmenter la masse travail en marchandisant de plus en plus de secteurs d’activités * solution 2: réduire drastiquement le temps de travail  [^6]: <a href="http://internetactu.blog.lemonde.fr/2013/08/02/ou-va-leconomie-numerique-robotisation-ou-monopolisation/">Cette article</a> analyse de façon détaillée comment l’automatisation détruit aujourd’hui des emplois et comment le partage de la plus-value se fait au détriment du travail et au profit du capital. La robotisation, loin de favoriser l’émergence de nouveaux emplois, de nouvelles activités, se fait malthusienne et accentue la pression sur l’emploi pour accroître les marges des entreprises qui innovent.  [^5]: On peut voir l’aboutissement ultime de cette logique dans le <a href="http://en.wikipedia.org/wiki/Zero-hour_contract">zero-hour contract</a> existant au Royaume-Uni mais les contrats à temps partiel imposés par la grande distribution au personnel de caisse en est une forme <em>soft</em>. L’objectif étant bien sûr de faire du salaire un coût variable et non plus un coût fixe.   [^4]: Le domaine du développement informatique est traversé lui aussi par cette tentation, le mouvement du <a href="http://manifesto.softwarecraftsmanship.org/">software craftsmanship</a> cherche à maintenir et valoriser le travail du programmeur de cette manière.   [^2]: Ce qui ne signifie pas, loin de là, disparition de l’exploitation, du travail sous-payé et sous-qualifié, de la misère…).  [^3]: L’une des critiques d’Alain Lipietz à André Gorz, et une critique récurrente contre toute réflexion sur la diminution tendancielle du travail, est de constater que le travail ouvrier n’a pas disparu mais s’est déplacé vers les pays dits émergents, Chine en tête. C’est vrai mais d’une part la Chine n’inonde pas seulement les pays de l’OCDE, mais le monde entier et son propre marché intérieur de produits manufacturés ce qui suppose une croissance de la productivité et se fait aussi par le biais d’investissement capitalistiques de plus en plus important ; et d’autre part les biens manufacturés importés ne constituent plus qu’une fraction de ce fameux PIB. Pour reprendre l’exemple de la France, sa <a href="http://stats.oecd.org/Index.aspx?DataSetCode=PDYGTH">balance des paiements</a> est certes structurellement déficitaire mais de “seulement” 2,17% du PIB et le montant de ses importations de biens est de $653 milliards pour un PIB de $35133 milliards, soit environ 1,8%.   [^1]: Pour s’en rendre compte, on peut se reporter aux statistiques de <a href="http://stats.oecd.org/Index.aspx?DatasetCode=ANHRS">l’OCDE</a> mesurant la productivité entendue comme le rapport entre le Produit Intérieur Brut (PIB, ou <em>Gross Domestic Product</em> en anglais) et le nombre d’heures travaillées et à celles mesurant la <a href="http://stats.oecd.org/Index.aspx?DataSetCode=PDYGTH">croissance de la productivité</a>. On pourra constater par exemple que globalement la productivité s’accroît dans tous les pays de l’OCDE, hormis durant le point d’orgue de la crise des <em>subprimes</em> en 2008-2009. Chose intéressante pour nous européens, on pourra aussi constater la forte différence entre le PIB par habitant et le PIB par heure travaillée pour les pays fondateurs de l’europe, à l’exception de l’Italie : on travaille moins en Europe de l’ouest mais la productivité est comparativement meilleure. Chose encore plus amusante, le PIB par heure travaillée en France est supérieur à celui de l’Allemagne… </p>
 
 
 <div id="disqus_thread"></div>
