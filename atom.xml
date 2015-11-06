@@ -36,9 +36,11 @@
 <li><a href="https://hackage.haskell.org/package/svm">svm</a> is another package which seems a bit oldish and unmaintained,</li>
 </ul></li>
 <li>I don’t think there is a compelling implementation of general purpose neural networks of any kind, although there appear to be quite a few package dealing with those beasts on hackage,</li>
-<li>There are two libraries for computing K-means, both pretty recent:</li>
+<li>There are two libraries for computing K-means, both pretty recent:
+<ul>
 <li><a href="https://hackage.haskell.org/package/kmeans-vector">kmeans-vector</a>,</li>
 <li><a href="https://hackage.haskell.org/package/kmeans">kmeans</a>,</li>
+</ul></li>
 <li>For Principal Component Analysis, there is <a href="https://hackage.haskell.org/package/hstatistics-0.2.5.3/docs/Numeric-Statistics-PCA.html">hstatistics</a> or <a href="https://hackage.haskell.org/package/hmatrix-nipals">hmatrix-nipals</a></li>
 </ul>
 
