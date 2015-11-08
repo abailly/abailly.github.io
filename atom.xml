@@ -8,8 +8,83 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@foldlabs.com</email>
     </author>
-    <updated>2015-11-06T00:00:00Z</updated>
+    <updated>2015-11-07T00:00:00Z</updated>
     <entry>
+    <title>Sur &quot;Du mode d&#39;existence des objets techniques&quot;</title>
+    <link href="http://blog.foldlabs.com/posts/objets-techniques.html" />
+    <id>http://blog.foldlabs.com/posts/objets-techniques.html</id>
+    <published>2015-11-07T00:00:00Z</published>
+    <updated>2015-11-07T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Sur &quot;Du mode d&#39;existence des objets techniques&quot;</h1>
+<div class="info">Posted on November  7, 2015</div>
+
+<p>Je suis un grand <a href="/posts/eme.html">admirateur</a> de Bruno Latour, même si je ne suis pas certain de comprendre l’ensemble des concepts qu’il développe. Mais il y a une chose que je crois comprendre et qui m’attire dans sa pensée, c’est l’idée, développée en particulier dans <a href="">Nous n’avons jamais été moderne</a> et bien sûr <a href="">Enquête sur les modes d’existence</a> que Nature et Culture ne sont pas deux blocs antagonistes mais deux pôles en interaction dont les sciences et les techniques sont, entre autres, des médiateurs dont il faut se préoccuper. Dans EME il identifie un certains nombres d’êtres et de modes d’existence d’iceux. Latour cite régulièrement <a href="http://gilbert.simondon.fr/">Gilbert Simondon</a> et lui emprunte d’ailleurs une partie du titre de sa thèse: <a href="http://editions.flammarion.com/Albums_Detail.cfm?ID=41344&amp;levelCode=home">Du mode d’existence des objets techniques</a>.</p>
+<p>Simondon est un des rares philosophes qui essaye de <em>penser</em> la technique, ses objets et sa relation à l’homme. Son livre est dense, ardu, difficile à lire avec un style hâché et une profusion de termes peu usités et de tournures de phrases quelques peu alambiquées, je ne suis pas sûr d’en avoir saisi toutes les subtilités n’ayant pas eu la possibilité de fréquenter la rue d’Ulm mais j’en ai retenu quelques éléments qui résonnent avec mon expérience de programmeur et mainteneur de logiciels.</p>
+<p>Un <em>objet</em> technique est un <em>individu</em> technique issu par <em>invention</em> d’un assemblage inédit d’<em>éléments</em> techniques, constituants atomiques de la <em>technicité</em> dans lesquels résident une puissance, une capacité d’agir sur le réel et qui sont le produit d’un <em>ensemble technique</em>. Il n’y a pas de hiérarchie dans la technicité entre éléments, objets et ensembles. Un marteau par exemple, est un objet technique issue de l’assemblage d’éléments pré-existants : une masse métallique et un manche en bois pour faire simple ; le marteau s’insère dans un ensemble technique, p.ex. la menuiserie ou même plus généralement la construction, les métiers du bâtiment, dans lequel il joue un rôle particulier. La fonction de l’objet technique n’est pas fixée par sa forme mais dépend de son milieu, mais il subit un processus d’<em>adaptation</em> lorsqu’inséré dans un milieu il se modifie par l’usage qui est en fait : la forme et la fonction sont reliés l’une à l’autre par une boucle de rétroaction sans qu’un des éléments soit prépondérant.</p>
+<p>Simondon développe le concept d’abstraction et de concrétisation de l’objet technique pour décrire son évolution. Un objet technique sera d’autant plus concret qu’il sera “adhérent” au monde et que ses éléments seront en interaction “harmonieuses”, et par conséquent d’autant plus abstrait qu’il sera détaché du monde, générique. La concrétisation exprime le degré de perfection d’un élément ou d’un objet technique. Ce qui est particulier à l’objet c’est que ses éléments constitutifs peuvent produire des contraintes antagonistes, contraintes qui peuvent se résoudre soit en réduisant la marge d’indétermination de l’objet dans son usage<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, soit au travers de l’invention et de la découverte dans un changement de l’un ou de plusieurs des éléments de l’objet, voire carrément dans la création d’un nouvel objet. Simondon développe l’exemple du moteur à explosion dont le corps subit les contraintes de résistance à l’explosion et de dissapation de la chaleur: l’invention d’ailettes perpendiculaires à la paroi permet de résoudre partiellement les deux contraintes, mais alors une nouvelle tension apparaît entre le volume des ailettes et celui de la soupape.</p>
+<p>Les objets techniques ont donc une sorte de logique interne, une existence propre relativement indépendante de leur fonction et qui résulte d’une tension entre des contraintes physiques, des éléments, entre matière et forme indisolublement liés dans l’objet. L’objet technique n’est pas que fonction mais aussi forme, assemblage d’éléments et constituant d’ensembles. L’ensemble technique est le stade “moderne” d’évolution de la technicité, et ce qui appelle une <em>technologie</em>. Le rejet de la technique par l’homme apparaît quand l’homme devient lui-même élément d’un objet technique - la <em>machine</em> - et seul le passage à l’étape suivante c’est-à-dire la compréhension des ensembles et l’insertion de l’humain dans ces ensembles permet de dépasser cette opposition en faisant de la technique une part intégrale de la <em>culture</em>.</p>
+<p>Dans la deuxième partie du livre Simondon propose une explication génétique du fait technique et de ce qu’il engendre dans la société humaine basée sur l’opposition entre <em>figure</em> et <em>fond</em>, une dualité qui vise à supplanter la dualité traditionnelle entre <em>forme</em> et <em>matière</em><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>:</p>
+<ul>
+<li>dans les temps immémoriaux, aucune séparation n’existe: l’humain ne se distingue pas de la nature dont il est partie intégrante. C’est le temps dit “primitif”, celui des premiers hommes que nous ne connaissons quasiment pas ;</li>
+<li>puis vient le temps <em>magique</em> dans lequel la figure commence à se détacher du fond mais comme un réseau de noeuds “magiques”, objets, lieux, personnes, moments, phénomènes naturels interconnectés et toujours enserrés. Les figures magiques sont les points nodaux, les “nexus”, qui font sens sur le fond du monde mais n’en sont pas séparées ;</li>
+<li>cette unité magique se brise à mesure que la complexité du monde s’accroît:
+<ul>
+<li>les figures s’individualisent en objets techniques qui incarnent donc le processus d’objectivation,</li>
+<li>le fond est universalisé en divinité, et devient le domaine du <em>religieux</em> et de la subjectivité<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> ;</li>
+</ul></li>
+<li>lorsque la technique est en échec, lorsque la “figure” qu’est l’objet technique trouve ses limites dans les conditions du monde, le “fond”, elle se subdivise à son tour et donne naissance à:
+<ul>
+<li>la <em>pensée pratique</em>, préoccupée de simplicité, d’efficacité, de la gestion de l’effort, donc figurale, locale, individuée,</li>
+<li>la <em>pensée scientifique</em> préoccupée d’unité et d’universalité, de “lois naturelles”, donc un fond sur lequel s’appuyer pour développer des objets techniques et une pratique ;</li>
+</ul></li>
+<li><p>symétriquement la religion se divise en un fond, normatif, éthique et moral, et des figures théoriques, doctrinales, visant à l’universalité et à un savoir de type contemplatif.</p></li>
+<li>l’art est un des chemins par lequel l’être humain retrouve l’unité magique: les expériences esthétiques constituent autant de <em>points remarquables</em> reliés par un réseau artistique visant à recréer du sens sur le fond du monde ;</li>
+<li><p>l’autre chemin est, on s’en serait douté, celui de la philosophie dont les <em>concepts</em> réunissent les modes de pensée religieux et techniques.</p></li>
+</ul>
+<p>Ce modèle, discutable et discuté, a le mérite de proposer une grille de lecture riche et multiple du réel, d’articuler l’individu et le collectif, l’homme et le monde, les objets et les sujets dans un réseau de relations infiniment complexe. Il permet aussi d’argumenter sur l’importance des techniques dans la culture et sur l’amputation volontaire que constitue l’ignorance des techniques par de nombreuses personnes. Simondon appelle de ses voeux la formation d’une <em>technologie</em>, c’est-à-dire littéralement un savoir de la technique, une pensée technique, à commencer par le travail:</p>
+<blockquote>
+<p>L’activité technique se distingue du simple travail, et du travail aliénant, en ce que l’activité technique comporte non seulement l’utilisation de la machine mais aussi un certain coefficient d’attention au fonctionnement technique. [..] L’aliénation fondamentale [de l’homme par la machine] réside dans la rupture qui se produit enttre l’ontogénèse de l’objet technique et l’existence de cet objet technique. [..] Les objets techniques qui produisent le plus d’aliénation sont aussi ceux qui sont destinés à des utilisateurs ignorants.</p>
+<p>p.339</p>
+</blockquote>
+<p>Il est pour moi évident que cette pensée fournit un substrat unifiant tout un ensemble de faits, mouvements, idées qui sont de plus en plus prégnants dans notre société: DIY, Makers, logiciel libre, économie collaborative et participative, open science, hackathon, Devoxx4Kids… De plus en plus nombreux sont ceux qui considèrent que reprendre possession de la technique, sur le plan pratique autant que théorique, est une nécessité, voire une urgence.</p>
+<p>Dans les dernières pages de son livre Simondon critique le monde du travail, l’entreprise de son temps - et du nôtre:</p>
+<blockquote>
+<p>L’entreprise [..] doit être organisée à partir de sa fonction essentielle, c’est à dire de son fonctionnement technique.</p>
+<p>p.343</p>
+</blockquote>
+<p>ainsi que l’obsession du rendement:</p>
+<blockquote>
+<p>Le critère de rendement ne peut pas conduire à une résolution du problème [de la zone obscure subsistant entre capital et travail] ; le rendement, par rapport à l’activité technique etst très abstrait et ne permet pas d’entrer dans cette activité pour en voir l’essence.</p>
+<p>p.344</p>
+</blockquote>
+<p>Loin du technologisme conquérant et abstrait du <em>management scientifique</em> prôné, dans le domaine de l’organisation du travail, par Taylor et ses successeurs, prônant la séparation toujours plus fine des tâches et des rôles entre conception et réalisation, direction et exécution, pensée et action au nom de l’efficacité économique, et tout autant éloigné du scientisme positiviste aveugle, Simondon propose une philosophie de la technique à hauteur d’homme et de femme, un projet peut-être utopique mais ancré dans le réel, de réenchanté le monde en retrouvant l’unité perdue de la figure et du fond.</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>C’est que Simondon nomme <em>l’hypertélie</em> : la sur-adaptation de l’objet à sa finalité.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Simondon utilise le joli mot d’hylémorphique ou hylémorphisme pour désigner ce mode de pensée issu originellement de la philosophie aristotélicienne.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>religion doit ici être entendu dans son sens le plus large, <em>ce qui relie</em>, et inclut donc les systèmes sociaux et politiques, les schèmes de pensées qui permettent d’universaliser, de relier les individus dans un tout plus grand qu’eux.<a href="#fnref3">↩</a></p></li>
+</ol>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Sur &quot;Technological Revolutions and Financial Capital&quot;</title>
     <link href="http://blog.foldlabs.com/posts/techno-capital.html" />
     <id>http://blog.foldlabs.com/posts/techno-capital.html</id>
@@ -774,69 +849,6 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 <li id="fn2"><p>Beyond some basic level of understanding of the context. If we are stating some property of a piece of software then some assumptions can be omitted in the test, like the fact the software must be run…<a href="#fnref2">↩</a></p></li>
 </ol>
 </div>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Essence &amp; Accident</title>
-    <link href="http://blog.foldlabs.com/posts/essence.html" />
-    <id>http://blog.foldlabs.com/posts/essence.html</id>
-    <published>2013-11-10T00:00:00Z</published>
-    <updated>2013-11-10T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Essence &amp; Accident</h1>
-<div class="info">Posted on November 10, 2013</div>
-
-<h1 id="on-out-of-the-tar-pit">On Out of the Tar Pit</h1>
-<p>Some thoughts on accidental vs. essential complexity triggered while reading <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.93.8928">Out of the Tar Pit</a> by Peter Marks and Ben Moseley</p>
-<ul>
-<li>Quoting <a href="http://en.wikipedia.org/wiki/The_Mythical_Man-Month">Brooks</a> they separate <em>Essential</em> from <em>Accidental</em> complexity:</li>
-<li>“Essential complexity is inherent in, and the essence of, the problem (as seen by the users)”</li>
-<li>“Accidental complexity is all the rest - complexity with which the development team would not have to deal in the ideal world (eg. complexity arising from performance issues and from suboptimal language and infrastructure)”</li>
-<li>This is actually not Brooks’ definition of accident and essence, and it seems I can trace back this misunderstanding to <a href="http://www.ibm.com/developerworks/java/library/j-eaed1/index.html">another definition by N.Ford</a>.</li>
-<li>Brooks actually talks about the <em>essential complexity</em> of <em>software development</em>, irrespective of the problem or usage software is put to use:</li>
-</ul>
-<blockquote>
-<p>The essence of a software entity is a construct of interlocking concepts [..] This essence is abstract, in that the conceptual constructs is the same under many different representations.</p>
-<p>The complexity of software is an essential property, not an accidental one</p>
-<p>Brooks, The MMM, p.182 sq.</p>
-</blockquote>
-<ul>
-<li>In essence (ha!ha!) what Brooks says is: “No matter how sophisticated your tools may be, developing software is complex”. It uses this uses this assertion to undermine various efforts to reduce complexity of software through languages, patterns, tools (eg. software).</li>
-<li>Looks like another form of the irreflexive nature of most formalisms: No computational formalism is powerful enough to talk about itself.</li>
-<li>Then they derive a methodology from this initial requirement that we need to deal only with the essential complexity, methodology which goes through another form of formal declarative requirement language meant to ignore accidental issues of <em>how</em> the system is about to perform anything</li>
-<li>The problem is that:
-<ol style="list-style-type: decimal">
-<li>reality bites you very quickly</li>
-<li>the solution quickly becomes part of the problem</li>
-</ol></li>
-<li>Any technical device, and software makes no exception to it, changes its users and the way they interact with the “world”. They create relations between various things, various beings that were previously unrelated, while at the same time sending other beings into oblivion.</li>
-<li>This is at the heart of Activity Theory, among many others (see also Habermas, Simondon, more recently Stéphane Vial and of course Latour).</li>
-<li>“It is not the business of the user to know what they want” - S.Jobs. Users don’t know what they want until they see it, and when they see it they want something else or different</li>
-<li>Software is a by-product of technical acts, the result of various acts and transformations forming a network extending over space and time. In <a href="/posts/eme.html">Latour</a>’s term, they are leftovers from the passing of [TEC] beings within some group of people, a specific <em>folding</em> of materials and immaterials other beings that, when completed and put to use, produce some efficicent effect.</li>
-<li>Essential/accidental dichotomy is another avatar of [DC], <em>double-click</em>, the evil spirit of modernity that aims at suppressing all mediations to enforce its binary view of the world (somewhat ironical when dealing with software!): Users are separated from developers, usage from development, ideal world of perfect function from real world of bits and bytes.</li>
-<li>But for anything to happen, a mediation must occur, things need to be moved, put in correspondance, changed, carved, designed, transformed, and not only inanimate and “material” things but also people, rules, ideas, laws, beliefs…</li>
-<li>Complexity is always the result of some history, some web of interaction between constraints, desires, organizations, projects, physical laws. If it must be reduced it is not because of some idealistic image of what <em>could be done</em> but to meet the intrisic <em>truth</em> of the technicalities: fitness, quality, elegance, simplicity and a form of obviousness and obliviousness. Good technical objects are those which make themselves invisible <em>after being tamed</em> and accurately and efficiently mediate some other course of actions.</li>
-<li>Remember: “There is no silver bullet”, “there is no free lunch”. We <em>must</em> take care of the technical detours lest they produce some monster behind our back.</li>
-<li>Thinking in terms essence/accident is just a way of rejecting what is properly <em>technical</em>, with its own risks and rewards, in the name of the value of simplicity.</li>
-<li>To take another perspective on it, it is just as if all situations were amenable to the Known/Knowable half of the Cynefin quadrant, the <em>ordered</em> part of existence, ignoring exerything Complex or Chaotic.</li>
-<li>Latour talks (in AIME) about Habit [HAB] as “the mode of existence of essence”: Essence is what is left when we forget how we got there, when this path lies just beneath the surface of our consciousness in order to not encumber it but ready to be brought back at first need (eg. when circumstances change possibly conflicting with habits).</li>
-<li>This implies that there is no <em>essence</em>, there is no fundamental truth from which everything derives, there is no transcending that would not be explained or explainable by some course of action, beyond our <em>habits</em></li>
-</ul>
 
 
 <div id="disqus_thread"></div>
