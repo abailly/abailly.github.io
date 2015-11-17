@@ -60,6 +60,13 @@
 <li>one for roadmapping, contains 3-months columns with coarse-grained features</li>
 </ul></li>
 </ul>
+<h1 id="product-development">Product Development</h1>
+<ul>
+<li>I wrote a “walking skeleton” in a month or so, starting from initial idea, while my partner was sorting out the business side of things and trying to find seed investors in the project</li>
+<li>This walking skeleton was, well, very skeletal, being able to handle only very basic scenario: register borrower/investor, create new simple, loan, commit funding to loan then accept loan</li>
+<li>We accelerated dev in Nov-Dec 2014 with a target release for February</li>
+<li>Initial design was pretty much top-down/waterfallish</li>
+</ul>
 <h1 id="pair-programming">Pair Programming</h1>
 <ul>
 <li>Remote pairing works ok (if the network has no hiccup…)
@@ -72,10 +79,42 @@
 <li>timezone differences makes <em>Deferred Pairing</em> useful: Someone starts some work, uses <a href="http://slack.com">slack</a> as a stream of consciousness, then pushes result. Someone else in another timezone can then pick up work</li>
 <li>Timezone differences are actually great for catching date/time related bugs!</li>
 </ul>
+<h1 id="development-automation">Development Automation</h1>
+<ul>
+<li><strong>Continuous Integration</strong> is core practice of XP and we embraced it fully on the form of continous deployment</li>
+<li>Continuous should be understood in the mathematical sense, e.g. opposite of <strong>discrete</strong>: You are able to deploy at any point in time, not at certain gateways or releases milestones</li>
+<li>This implies lot of infrastructure automation: <a href="http://www.jedi.be/blog/2013/05/24/Infrastructure%20as%20Code/">Infrastructure as Code</a> and DevOps everywhere</li>
+<li>The slogan is: Automate all the things!</li>
+<li>CI is our most important tool for maintaining cohesion in the team and integrity of the software: Any commit pushed to CI triggers whole chain of build down to the point we obtain a <em>deployable application container</em></li>
+<li>We can rebuild all our infrastructure from a couple of git repositories
+<ul>
+<li><strong>Note</strong>: CI server is itself versioned and deployable</li>
+<li>VM deployments is not fully automated yet but is scripted</li>
+<li>configuraiton management is versionned and handled in Haskell too</li>
+</ul></li>
+</ul>
 <h1 id="on-being-remote">On Being Remote</h1>
 <ul>
 <li>Great post about <em>Remote First</em> culture: http://zachholman.com/posts/remote-first/</li>
 <li>Counter-example: Organisations with a handful of offices, working distributedly. Distribution was an afterthought, something that came up as a constraint because of mergers, and no amount of tooling can make that kind of culture work</li>
+<li>We are 6-7 hours apart, e.g. it is afternoon in Singapore when I wake up. This means we have about 3-4 hours of overlap, but we span 16-17 hours of wall clock time.
+<ul>
+<li>removes the need for a dedicated support/ops team, at least as long as we are smallish (see above notes about automation)</li>
+<li>We do our stand-up meeting at 9am or 10am Paris Time, acts as a sync point</li>
+</ul></li>
+<li>Use overlap time for discussing stuff (hangout works ok, would probably be better with dedicated software e.g. gotomeeting or equivalent) and pairing</li>
+<li>We use Slack <strong>a lot</strong> (could use IRC too but would require some more infrastructure and it is not as friendly to non tech-savvy persons)
+<ul>
+<li>to chat within the team and discuss technical stuff, post screnshots, code examples, design ideas…</li>
+<li>as a <strong>stream of consciousness</strong> endpoint: I dump what I am doing, jot down ideas, humours, feelings… When people wake up in the morning they have a trace of what I have done apart from the actual code/builds I produced and what I have been thinking of</li>
+</ul></li>
+<li>remote work can help reduce stress, esp. in startups: Being remote means you can simply <em>remove</em> pressure from business people</li>
+<li>it can also help minimizes personality clash, cool down interactions. Being face-to-face increases cues and hints about the other person’s feelings but is also a great way to generate stress and emotions.</li>
+<li>counterparty is <em>trust</em>: People at the other side of the world trust you to do what needs to be done</li>
+</ul>
+<h1 id="next-steps">Next Steps</h1>
+<ul>
+<li>monitoring from infrastructure to business level metrics available to everybody in the company</li>
 </ul>
 
 
