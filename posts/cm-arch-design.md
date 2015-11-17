@@ -1,10 +1,10 @@
 ------------
-title: Anatomy of a Haskell-based Startup
+title: Anatomy of a Haskell-based Application
 author: Arnaud Bailly 
-date: 2015-10-26
+date: 2015-11-16
 ------------
 
-This is the first post of a series I am planning to write about my experience developing software at
+This is the first post of a series I am planning to write about my experience developing software as CTO of
 [Capital Match](http://www.capital-match.com), a Singapore-based startup providing a peer-to-peer lending marketplace for Small and
 Medium Businesses and private and corporate investor. 
 
@@ -351,7 +351,7 @@ interesting overview of what's hot and what's not in the Haskell world.
 
 Here are some major challenges that lie ahead of us to improve our system:
 
-* **Microservices**: In spite of good initial intention we still have built a monolith, albeit a small one and one that will be not
+* **Services**: In spite of good initial intention we still have built a monolith, albeit a small one and one that will be not
   too hard to split. We now want to increase robustness, resilience and scalability of our development process and our system by
   breaking the monolith into components services. We are in the process of splitting the application into smaller constituents along
   the following lines: 

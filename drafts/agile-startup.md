@@ -39,6 +39,7 @@ date: 2015-10-26
 * It is more exhausting than face to face pairing, requires more focus and engagement from all parties to avoid miscommunications
 * timezone differences makes *Deferred Pairing* useful: Someone starts some work, uses [slack](http://slack.com) as a stream of
   consciousness, then pushes result. Someone else in another timezone can then pick up work 
+* Timezone differences are actually great for catching date/time related bugs!
 
 # On Being Remote
 
