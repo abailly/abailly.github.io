@@ -13,13 +13,15 @@ As before I have tried to be as honest as possible, highlighting both what worke
 Coming from an Agile background it is no surprise that I consciously tried to reuse the knowledge and tools I knew from previous
 implementations of Scrum, eXtreme Programming or Kanban. One of the lesson learned during the past year is that Agile needs some
 serious overhauling to be applied within a startup setting, even more so when the team is distributed. In the conclusion I try to
-draw on this experience to hint at some possible evolutions I would to see happen within Agile methods.
+draw on this experience to hint at some possible evolutions I would like to see happen within Agile methods.
 
 # A Bit of Context
 
 I started working on Capital Match at the end of August 2014. The first commit in the git repository of the application is dated on
 Wednesday, 20th of August 2014. I worked in the background for a couple of months, mostly to setup the infrastructure, flex my
-muscles on Haskell, explore the business domain space. I met with Pawel, Capital Match's founder, in October. At that
+muscles on Haskell, explore the business domain space.
+
+I met physically Pawel, Capital Match's founder, in October. At that
 time I was still working alone but I already had a working solution that was deployed and "usable", for some definition of
 usable. Willem van den Ende joined me to develop the application to production stage at the end of October and brought with him lot
 of XP and DevOps experience. We were joined by another developer at the beginning of March but this employment last only a
@@ -27,9 +29,7 @@ month.
 
 We went live on the 20th of March, one month after the initial target set in December. The tech team is now 3 people, including
 me, all of which are mainly developers. We do not have a dedicated operations team and the tech team is responsible for both
-developing new features and maintaining the application in good operational conditions.  We had one major production incident at the
-end of September where we were on the verge of losing data but we managed to recover from it and this one a major lesson learned as
-far as operations are concerned.
+developing new features and maintaining the application in good operational conditions.
 
 # Planning
 
@@ -220,77 +220,138 @@ cues and hints about the other  person's feelings but is also a great way to gen
 
 ## Hiring ##
 
-* Team is very small but hiring has been and will stay a team matter
-* "It's the technology stupid": because we use a niche technology our recruitment is necessarily international and we must be
-  prepared to recruit and work remotely
-    * I was recruited as co-founder remotely...
-* Hiring process is quite simple:
-    * Initial interview with me and/or another dev where I try to assess current skill level of candidate. Usually ask questions related to basic XP
-      practices like TDD 
-    * 2 hours pairing (or tripling) session using our remote dev environment: We usually tackle the
-      [GildedRoseKata](https://github.com/emilybache/GildedRose-Refactoring-Kata/) in Haskell, or if candidate is not comfortable
-      enough in his favourite language (Javascript, Java...)
-    * Interview with CEO and negotiations...
-    * Here we go!
-* Applying agile principles to hiring means that we are ready to experiment for a week or a month, reflect and improve, and possibly
-stop early (this occured already once). 
-* Doing this remotely also means more flexibility and more risks: 
-    * if the person you hire wants to cheat, e.g. steal your code, she can do so quite easily
-    * developers are freelance in their country, which means they can stop at any time
-    * there is an incentive from Capital Match to keep people happy and motivated
+The team is currently very small but hiring has been and will stay a team matter. Because we use a niche technology our recruitment
+is necessarily international and we must be prepared to recruit and work remotely, and actually *I was recruited as co-founder remotely...*
 
-# Next Steps
+Our hiring process is currently quite simple:
 
-* monitoring from infrastructure to business level metrics available to everybody in the company
+* Initial interview with me and/or another dev where I try to assess current skill level of candidate. Usually ask questions related to basic XP
+  practices like TDD 
+* 2 hours pairing (or tripling) session using our remote dev environment: We usually tackle the
+  [GildedRoseKata](https://github.com/emilybache/GildedRose-Refactoring-Kata/) in Haskell, or if candidate is not comfortable
+  enough in his favourite language (Javascript, Java...)
+* Interview with CEO and negotiations...
+* Here we go!
+
+Applying agile principles to hiring means that we are ready to experiment for a week or a month, reflect and improve, and possibly
+stop early (this occured already once). Doing this remotely also means more flexibility and more risks:
+
+* If the person you hire wants to cheat, e.g. steal your code, she can do so quite easily,
+* Developers are freelance in their country, which means they can stop at any time,
+* Hence finally there is an incentive for Capital Match to keep people happy and motivated. 
+
+Hiring is one of those (numerous) areas where I see a lot of improvements and where being remote is a game changer.
 
 # Theorizing
 
+Lessons learnt are most interesting if you can leverage them into some form of theoretical knowledge that can be turned into
+useful guidelines for future decisions. This section tries to extract some possibly useful insights and generalisations from this
+limited experience, which I can summarize in three points:
+
+* Treating software as *development projects* alone is a fallacy that leads to costly errors,
+* *Technology matters*,
+* Our software is part of a *system* that has different requirements at different moments in time.
+
 ## The Software Development Project Fallacy
 
-* We only have software development project management methods. Kanban, Scrum, RUP, Waterfall, V, W, Design Controls... are all inspired by
-  the logic of manufactured goods production where the produced good gets out of scope once delivered/released
-* This is no surprise as those methods are designed and promoted by consultants who, by their very nature, will have a limited
-  presence in an organisation. Their way of thinking is inherently constrained by a horizon: The moment they will leave the
-  organisation they have been hired for
-* Sprints are exhausting and inherently unsustainable, hence the mutiplications of *hardening sprints*, *release sprints*, *sprint
-  0*... which are all attempts to depart from the sprint/release straightjacket. This misses the Operations part of a system =>
-  supposed to be handled by other part of the organisation => silos (*Emphasis is mine*)
+There is not a dearth of software development project management methods, whether Agile or not: Kanban, Scrum, RUP, Waterfall, V, W,
+Design Controls... And symetrically there are quite a few methods targeted at
+managing operations and support in IT, like ITIL, although I am much less familiar with those. The fact is they are all inspired by
+the logic of *manufactured goods design and production* where: 
+
+1. The good undertakes a series of transformations, from design to production, up to the point it is ready for consumption by the
+"public",
+2. Where it falls into the hands of another group of people which is responsible for *maintenance* or *end-users support*.
+
+If we focus on Scrum alone, we find the core artifact to be the **sprint** and a number of sprints ultimately leading to a
+**release**. But sprints, and for that matter any form of time-constrained activity, are inherently exhausting and ultimately
+unsustainable, hence the mutiplications of *hardening sprints*, *release sprints*, *sprint  0*... which are all
+attempts to depart from the sprint/release straightjacket. What Scrum and even XP which is dearer to my heart misses is the *Operations* part of a system 
   
-    > Scrum is a management and control process that cuts through complexity to focus on *building software* that meets business
-    > needs. Management and teams are able to get their hands around the requirements and technologies, never let go, and deliver
-    > working software, incrementally and empirically.
-    >
-    > Scrum itself is a simple framework for effective team collaboration on complex *software projects*.
-    >
-    > [Scrum.org](https://www.scrum.org/resources/what-is-scrum)
-* *Deliver*[^1] also means *give birth* and  bears with it the idea that something we have been fostering for months is freed from our
-  control, which also suggests we are freeing ourselves of it => delivrance
-* The *release*  becomes the horizon of the team and with it comes relief, and then we move on to something else
+> Scrum is a management and control process that cuts through complexity to focus on *building software* that meets business
+> needs. Management and teams are able to get their hands around the requirements and technologies, never let go, and deliver
+> working software, incrementally and empirically.
+>
+> Scrum itself is a simple framework for effective team collaboration on complex *software projects*.
+>
+> [Scrum.org](https://www.scrum.org/resources/what-is-scrum)
 
-## From Project to Product
 
-* This experience suggests a different approach which does not reject the benefits of iterative software *development* but makes it
-  part of a bigger process which also encompasses the need for periods of reflection and calm
-* We should acknowledge the duality (at least) in our processes:
-    * Moments of *intense* activity, which might be due to deadlines, objectives, production incidents to solve, security issues...
-    * Moments of *routine* activity where team can reflect, define processes and procedures, refine things, document...
-* Agile methods are good at channelling the intensity of period I through a simple process but they are much less appropriate for
-  period II which is mostly characterized by the absence of definite goal(s).
-    * This explains the rise of "hybrid" approaches and the success of Kanban which offers a much more appropriate framework to handle
-      period II work (and conversely is not very well suited to period I...)
-    * This also explains the moderate success (at best) Agile methods have with operations or highly regulated settings
-* There is a lot to get inspired from the way [Highly Reliable Organisations](http://high-reliability.org/) work and the numerous
-  research studies that have been written about those organisations. I was also personally heavily influenced by
-  ["Les décisions absurdes"](/posts/decisions-absurdes.html) which describes the mechanics of group thinking and how they can lead
-  to catastrophic failures. HRO studies show that those organisations which **must** be reliable actually acknowledge the existence
-  of those two modes of operations. The best such organisations know how to take advantage of *routine* mode (what I call Period II)
-  to become better when the need arises to go into *intense* mode or Period I.
-* Think of those analogies: 
-    * In sport, athletes do not spend 100% of their time competing, and actually competition accounts for a small fraction of their
-      worktime, most of it is dedicated to training, learning, improving, reflecting on past competitions,
-    * Musicians and other performers do the same: A lot of time training and practicing, small fraction of their time on stage,
-    * Soldiers and military are an even better analogy because period of conflicts can last for an extended period of time and even
-      then, army takes care of rotating personel, replacing people on the front with fresh troops on a regular basis. 
+The way of thinking this methods promote is inherently constrained by a time-bound horizon: The moment the product will be
+considered "finished" and leave the organisation that produced it, hence the emphasis of the **release**.
+Lets remember that *Deliver*[^1] also means *give birth* and  bears with it the idea that something we have been fostering for
+months is freed from our control, which also suggests we are freeing ourselves of it. Deliver's substantive is
+[deliverance](http://www.wordreference.com/enfr/deliverance)... The *release*  becomes the horizon of the team and with it comes
+relief, and then we move on to something else.
+
+What I have learnt over the years but even more so over the past months working on this project is the importance of evaluating your
+capability to deliver features against your capability to maintain your software and make it able to sustain more change in the
+future. Viewing software systems solely under the angle of *projects* leads to a bias, from all persons involved, towards delivering
+more under time pressure which is the biggest source of errors. When your horizon is time constrained you cannot pay enough attention to
+the small warnings that will lead to big failures.
+
+## Technology matters
+
+> "The technology, stupid."
+>
+> liberally adapted from [James Carville](https://en.wikipedia.org/wiki/It's_the_economy,_stupid)
+
+Obviously a lot of the things we do are made possible thanks to technology:
+
+* Being distributed is now workable because there are quite a few affordable tools out there that make
+  this style of working possible for small teams: Google Hangouts, Skype, Slack/IRC, mails of course, Git, SSH, Cloud providers,
+  Docker, Linux are all key ingredients to make our distributed workplace possible[^4],
+* Developing our business as an online platform is also a key factor in enabling both an *iterative* and inherently *agile* style of
+  software but also in the availability of tools and systems. It is much harder to develop an embedded controller's system in a
+  remote way because your software is physically tied to something concrete,
+* The free and/or open-source movement has popularised geographically distributed teams and flat hierarchies for developing even
+  very large pieces of software.
+
+But I do think that our particular technology stack (e.g. Haskell) choice has a deep impact in enabling this
+distributed agile style of working:
+
+* Haskell is (still) a [niche language](http://githut.info/) for at least two reasons: Because of its paradigm which is very different from maintstream languages
+  and platforms, and because of its history which ties it to academic and esoteric PLT research more than to the production of
+  mundane web applications,
+  ![Latest Ranking from http://githut.info](/images/haskell-ranking.png)
+* Due to its niche nature, it attracts programmers that either want to distinguish themselves and/or are inherently attracted by the
+  different, not to say the bizarre... This is often the kind of people that are ready to make some extra efforts to keep on working
+  with such a language, including working with shifted hours, moving to a foreign country, learning new tools and processes...
+* On a more technical side, this particular choice allows us to work mostly through lightweight text-based tools, e.g. terminals,
+  text editors, SSH... something which is invaluable when you have to communicate over 10000 kilometers and flacky Internet.
+
+Technology is not neutral. As explained by [Bruno Latour](/posts/eme.html), technology is embodied into technical beings whose
+needs must be adressed in specific ways and with whom we need to interact in specific ways. Technology shapes our worldview and the
+way we work in a lot of different and sometimes surprising ways. But it is always worthwhile to think about it beforehand...
+
+## From Project to System
+
+My experience suggests a different approach which does not reject the benefits of iterative software *development* but makes it part
+of a bigger process which also encompasses the need for periods of reflection and calm. We should acknowledge the duality (at least)
+in our processes:
+
+* **Period I**: Moments of *intense* activity, which might be due to deadlines, objectives, production incidents to solve, security issues...
+* **Period II**: Moments of *routine* activity where team can reflect, define processes and procedures, refine things, document...
+
+Agile methods are good at channelling the intensity of period I through a simple process but they are much less appropriate for
+period II which is mostly characterized by the absence of definite goal(s). This explains the rise of "hybrid" approaches and the
+success of Kanban which offers a much more appropriate framework to handle  period II work (and conversely is not very well suited
+to period I...). This also explains the moderate success (at best) Agile methods have with operations or highly regulated settings.
+
+There is a lot to get inspired from the way [Highly Reliable Organisations](http://high-reliability.org/) work and the numerous
+research studies that have been written about those organisations. I was also personally heavily influenced by
+["Les décisions absurdes"](/posts/decisions-absurdes.html) which describes the mechanics of group thinking and how they can lead
+to catastrophic failures. HRO studies show that those organisations which **must** be reliable actually acknowledge the existence
+of those two modes of operations. The best such organisations know how to take advantage of *routine* mode (what I call Period II)
+to become better when the need arises to go into *intense* mode or Period I.
+
+Think of those analogies: 
+
+* In sport, athletes do not spend 100% of their time competing, and actually competition accounts for a small fraction of their
+  worktime, most of it is dedicated to training, learning, improving, reflecting on past competitions,
+* Musicians and other performers do the same: A lot of time training and practicing, small fraction of their time on stage,
+* Soldiers and military are an even better analogy because period of conflicts can last for an extended period of time and even
+  then, army takes care of rotating personel, replacing people on the front with fresh troops on a regular basis. 
 
 [^1]: This comes from the French *Délivrer* which can be translated to *get rid of*, *relieve*, *set free*
 
@@ -300,3 +361,6 @@ server for people to log in.
 [^3]: Looks like the smart people at /ut7 have given a name to this: They call it
 [La bassine](http://ut7.fr/posts/blog/2015/03/05/les-pieds-dans-la-bassine.html) and apparently this has been developed as part of
 work on project for [Deliverous](http://blog.deliverous.com/2015-03-06.bassine.html)
+
+[^4]: Back in the 90s or even early 2000s you would have to be either a large corporation, a university or deep hacker group to be
+able to work distributedly in real time
