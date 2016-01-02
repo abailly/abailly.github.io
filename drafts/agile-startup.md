@@ -13,7 +13,7 @@ As before I have tried to be as honest as possible, highlighting both what worke
 Coming from an Agile background it is no surprise that I consciously tried to reuse the knowledge and tools I knew from previous
 implementations of Scrum, eXtreme Programming or Kanban. One of the lesson learned during the past year is that Agile needs some
 serious overhauling to be applied within a startup setting, even more so when the team is distributed. In the conclusion I try to
-draw on this experience to hint at some possible evolutions I would like to see happen within Agile methods.
+draw on this experience to hint at some trails I would like to explore in the near future.
 
 # A Bit of Context
 
