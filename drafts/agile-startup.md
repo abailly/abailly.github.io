@@ -60,7 +60,7 @@ So we finally switched to using plain trello:
 * The user interface is super-fast and reactive,
 * It provides nearly all the features we need, except swimlanes but we use tags instead,
 * It is available on a wide variety of platforms, e.g. as a mobile app.
-
+  
 We currently use 2 boards:
 
 * *Software Development* board is used for day-to-day work. It contains baby step features and bugs, and has very simple workflow:
