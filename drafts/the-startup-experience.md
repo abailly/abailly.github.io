@@ -43,7 +43,7 @@ I have always been a strong proponent of [Test Driven Development](/posts/tdd.ht
 [still](http://david.heinemeierhansson.com/2014/tdd-is-dead-long-live-testing.html)
 [controversial](http://iansommerville.com/systems-software-and-technology/giving-up-on-test-first-development/) mostly because
 people conflate two different things: "writing regression tests" and "using tests to guide your design", a confusion which is caused
-by the use of *Test*  in * Test-Driven Development*. In a nutshell, one needs a very different mindset to jump from "I write tests
+by the use of *Test*  in Test-Driven Development. In a nutshell, one needs a very different mindset to jump from "I write tests
 to verify my program does what I intend it to do, now and in the future" to "I write executable specifications in order to ensure 1/
 I understand the problem and 2/ my program does exactly what's intended, no more, no less".[^7] The former mindset usually leads to
 so-called white-box tests which are thorough but brittle and painful to maintain.
@@ -51,7 +51,7 @@ so-called white-box tests which are thorough but brittle and painful to maintain
 Even within the Haskell
 community TDD is not widely accepted as a standard practice of development. I personally think Haskell is a really great fit for TDD
 if you take it in a broad sense, that is if you include all the tools the language and platform provide as part of your TDD
-cycle. This means leveraging the interpreter, compiler, type-checker and test running to shorten the feedback loop.
+cycle. This means leveraging the interpreter, compiler, type-checker and test runner to shorten the feedback loop.
 
 Maintaining tests require (a lot of) effort and discipline, and it is tempting when pressed to deliver to cut corners. And I
 sometimes have done it myself: Comment out an flaky test in order to stabilize build. But except in one occasion, I have always come
@@ -93,7 +93,7 @@ course related to the very localized nature of the business the company was doin
 with respect to remote working. Remote working is definitely a viable option for software development as the success of a lot of world-spanning
 open-source projects has demonstrated.
 
-As I advocated above, working effectively as a remote team works needs some requirements to be met. But even if those requirements
+As I advocated above, working effectively as a remote team needs some requirements to be met. But even if those requirements
 are met, it still can fail if people are not trained and do not make the mental leap to make it work. It might be possible that
 developers, having to deal constantly with abstractions, networks, virtualities, are more prone to make that leap. Once you consider
 it normal to work on machines located in a data center 10000 kms away, it is a small feat to consider normal to work with another
@@ -108,8 +108,6 @@ working as a distributed team is *not* to be equated with working *remotely*. Ob
 long time: Businesses are used to employ people like salespersons who largely work remotely or to have various business units all
 over the planet. But this is different from the kind of real-time cooperation and interactions one needs when developing software
 and working as a distributed team.
-
-Then your link to the actual business starts to stretch, to the point it might break.
 
 # Takeaways
 
