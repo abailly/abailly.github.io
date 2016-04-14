@@ -121,6 +121,7 @@ changed my life and the way I envision my work in a very deep way:
   people occasionally is the best way to discover local culture,
 * Haskell is *really* practical for large-ish systems development.
 
+**Afterwords**: Many thanks to Cédric and Éric for their feedback on this small piece.
 
 [^1]: Yes, simple when compared with something like Scala's or C++ type system. Haskell's type system only uses a few key concepts
 that can be rather easily understood and explained and which allow you to build powerful abstractions on top of it without resorting
