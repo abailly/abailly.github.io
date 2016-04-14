@@ -42,9 +42,16 @@ experiences...), more curious, more motivated and for those whom I had a chance 
 I have always been a strong proponent of [Test Driven Development](/posts/tdd.html). After all these years this practice is
 [still](http://david.heinemeierhansson.com/2014/tdd-is-dead-long-live-testing.html)
 [controversial](http://iansommerville.com/systems-software-and-technology/giving-up-on-test-first-development/) mostly because
-people conflate two different things: "writing regression tests" and "using tests to guide your design". Even within the Haskell
+people conflate two different things: "writing regression tests" and "using tests to guide your design", a confusion which is caused
+by the use of *Test*  in * Test-Driven Development*. In a nutshell, one needs a very different mindset to jump from "I write tests
+to verify my program does what I intend it to do, now and in the future" to "I write executable specifications in order to ensure 1/
+I understand the problem and 2/ my program does exactly what's intended, no more, no less".[^7] The former mindset usually leads to
+so-called white-box tests which are thorough but brittle and painful to maintain.
+
+Even within the Haskell
 community TDD is not widely accepted as a standard practice of development. I personally think Haskell is a really great fit for TDD
-if you take it in a broad sense, that is if you include all the tools the language and platform provide as part of your TDD cycle.
+if you take it in a broad sense, that is if you include all the tools the language and platform provide as part of your TDD
+cycle. This means leveraging the interpreter, compiler, type-checker and test running to shorten the feedback loop.
 
 Maintaining tests require (a lot of) effort and discipline, and it is tempting when pressed to deliver to cut corners. And I
 sometimes have done it myself: Comment out an flaky test in order to stabilize build. But except in one occasion, I have always come
@@ -65,17 +72,19 @@ We used some simple form of agile methodology with daily "standup" meetings that
 day, strict automated tests, continuous integration and frequent releases. This made it possible to have rapid feedback from
 business people even if I was not sitting in the same room most of the time. We exposed our work process through Trello, used
 communication tools like Slack, Hangout, Skype, and tried a few others, and we managed to build a consensus across the whole
-development team on what was going on and what we had to do.
+development team on what was going on and what we had to do. We even manage to
+[pair program](https://pragprog.com/book/jkrp/remote-pairing) on a somewhat regular basis.
 
-Working remotely works under three conditions:
+As already advocated in [Remote](https://37signals.com/remote) book, working remotely works under some conditions:
 
+* *Distribute whole team*: Having most of the team colocated with one or two persons distributed does not work, 
 * *Trust the people*: You have to trust each other and assume everybody is doing his or her best,
 * *Communicate constantly*: You have to be very explicit about what you are doing, even if working alone, and you have to constantly
 try to detect and solve potential conflicts, misinterpretations, misunderstandings that could quickly degenerate,
-* *Don't use emails*: Emails are toxic and the very nature of email communication (or the way most people use them) makes it very easy
-to start spinning down.
+* *Use the right tools*: Emails are a useful tool but one which is often abused[^8], we need "hotter" media like chat, video/phone...
 
-[Remote](https://37signals.com/remote) book provide a lot more good tips on why and how to work remotely.
+[Buffer](https://open.buffer.com/) is a good example of a company that has chosen to be fully distributed and is very transparent on how it works on a daily
+basis. 
 
 # ... But it needs energy
 
@@ -89,12 +98,16 @@ are met, it still can fail if people are not trained and do not make the mental 
 developers, having to deal constantly with abstractions, networks, virtualities, are more prone to make that leap. Once you consider
 it normal to work on machines located in a data center 10000 kms away, it is a small feat to consider normal to work with another
 developer located 10000 kms away. The network becomes an extension to standard Earth geography and there is a form of excitement in the
-way modern technology allow us to break distance barriers[^4].
+way modern technology allows us to break distance barriers[^4].
 
 Unfortunately, this particular mindset is not widespread among people practicing other trades. "Business people" who don't need to interact constantly
 with developers quickly lose grasp and stop putting energy in maintaining a communication link that's not obvious to them. The whole
 zoo of tools we are using appears daunting when compared with the simplicity of Outlook and Excel. When one has a lot more
-face-to-face interactions than online ones, she or he is quite prone to drop the latter in favour of the former.
+face-to-face interactions than online ones, she or he is quite prone to drop the latter in favour of the former. Note that
+working as a distributed team is *not* to be equated with working *remotely*. Obviously, organizations have been distributed for a
+long time: Businesses are used to employ people like salespersons who largely work remotely or to have various business units all
+over the planet. But this is different from the kind of real-time cooperation and interactions one needs when developing software
+and working as a distributed team.
 
 Then your link to the actual business starts to stretch, to the point it might break.
 
@@ -103,10 +116,10 @@ Then your link to the actual business starts to stretch, to the point it might b
 You can't summarize 20 months of your life in a couple of bullet points and I definitely think this experience was amazing and has
 changed my life and the way I envision my work in a very deep way:
 
-* Remote **team work** can be both satisfying and efficient when done properly,
+* Working as team remotely can be both satisfying and efficient when done properly,
 * Working with people from diverse origins and nationalities in a foreign setting is exciting[^6], and travelling to work with those
   people occasionally is the best way to discover local culture,
-* Functional Programming is *really* becoming hot and practical for large-ish systems development.
+* Haskell is *really* practical for large-ish systems development.
 
 
 [^1]: Yes, simple when compared with something like Scala's or C++ type system. Haskell's type system only uses a few key concepts
@@ -125,3 +138,9 @@ genuine *diversity*
 [^6]: Having to make yourself understood in a language (English) which is not the mother tongue of any of the people you work with
 is sometimes frustrating, but always interesting. In can provide some natural dampening of feelings and emotions that cannot fail to
 crop up in any collective endeavour.
+
+[^7]: For a good rebutal of the previous arguments, see
+[Uncle Bob](http://blog.cleancoder.com/uncle-bob/2016/03/19/GivingUpOnTDD.html)'s reply to the "Giving up on TDD" post. 
+
+[^8]:  Emails are terrible  for discussions - exchanging and/or arguing over some more or less complex point - or task tracking - maintaining and updating
+  status of some work in progress - yet they are unfortunately often used that way.
