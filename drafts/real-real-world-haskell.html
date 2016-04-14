@@ -1,0 +1,252 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - Real Real World Haskell</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://abailly.github.io"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="#">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="draft" id="main" role="main">
+<h1>Real Real World Haskell</h1>
+<div class="info">Posted on March 18, 2016</div>
+
+<h1 id="goal">Goal</h1>
+<ul>
+<li>Share some experience developing a complete system in Haskell</li>
+<li>Motivates people to start using Haskell at work, provide some pointers to speed-up onboarding</li>
+<li>I will be happy if you end up thinking: <em>I could try this cool stuff in my next microservice</em></li>
+<li>I will be even happier if you can put to actual use some of the stuff I present here</li>
+</ul>
+<h1 id="the-language">The Language</h1>
+<h2 id="tldr">tl;dr</h2>
+<ul>
+<li>Haskell syntax promotes terseness but is easy to pickup</li>
+<li>The type system is a great designing tool</li>
+<li></li>
+</ul>
+<h2 id="types">Types</h2>
+<ul>
+<li>Make types as precise as possible, no more string-based programming.</li>
+<li><p><code>newtype</code>s provide cheap encapsulation of other types (they are unpacked by compiler)</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">AccountNr</span> <span class="fu">=</span> <span class="dt">AccountNr</span> {<span class="ot"> accountNr ::</span> <span class="dt">T.Text</span> }
+                    <span class="kw">deriving</span> (<span class="dt">Eq</span>,<span class="dt">Ord</span>,<span class="dt">Show</span>,<span class="dt">Read</span>)
+
+
+<span class="kw">instance</span> <span class="dt">IsString</span> <span class="dt">AccountNr</span> <span class="kw">where</span>
+    fromString <span class="fu">=</span> <span class="dt">AccountNr</span> <span class="fu">.</span> T.pack</code></pre></div></li>
+<li><p>phantom types: provide annotation for common underlying representations</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">
+<span class="kw">data</span> <span class="dt">Base64</span>
+<span class="kw">data</span> <span class="dt">Hex</span>
+
+<span class="kw">newtype</span> <span class="dt">Encoded</span> code <span class="fu">=</span> <span class="dt">Encoded</span> {<span class="ot"> encodedText ::</span> <span class="dt">Text</span> } <span class="kw">deriving</span> (<span class="dt">Eq</span>, <span class="dt">Ord</span>)
+
+<span class="ot">toBase64Text ::</span> <span class="dt">ByteString</span> <span class="ot">-&gt;</span> <span class="dt">Encoded</span> <span class="dt">Base64</span>
+
+<span class="ot">toHex ::</span> <span class="dt">ByteString</span> <span class="ot">-&gt;</span> <span class="dt">Encoded</span> <span class="dt">Hex</span></code></pre></div></li>
+<li><p>type families or “type-level functions”: abstract over some type. Comes in 2 flavors, one that allow defining a type as part of some data structure or typeclass. Here we define some types <code>Event a</code> and <code>Command a</code> which depend on the <code>a</code> the actual instance of <code>a</code> used.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> (<span class="dt">ToJSON</span> (<span class="dt">Command</span> a)) <span class="ot">=&gt;</span> <span class="dt">BusinessModel</span> a <span class="kw">where</span>
+  <span class="kw">data</span> <span class="dt">Event</span><span class="ot"> a   ::</span> <span class="fu">*</span>
+  <span class="kw">data</span> <span class="dt">Command</span><span class="ot"> a ::</span> <span class="fu">*</span></code></pre></div>
+<p>One for top-level functions:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> family <span class="dt">Id</span><span class="ot"> a ::</span> <span class="fu">*</span>
+<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Id</span> <span class="dt">Account</span>       <span class="fu">=</span> <span class="dt">AccountId</span>
+<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Id</span> <span class="dt">Transaction</span>   <span class="fu">=</span> <span class="dt">TransactionId</span></code></pre></div></li>
+<li>type classes: Defines interfaces (aka. modules, signatures) to some set of operations and data types
+<ul>
+<li>encapsulate implementation details, e.g. data storage, execution model</li>
+<li>allows transparent replacement of</li>
+</ul></li>
+<li><p>See <a href="http://cfp.devoxx.fr/2016/talk/USZ-6984/TDD,_comme_dans_Type-Directed_Development">Type Driven Development</a> by Clément Delafargue</p></li>
+<li><p>missing first-class modules as provided by Caml</p></li>
+</ul>
+<h2 id="more-types">More Types</h2>
+<ul>
+<li><a href="http://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html">Free</a>-<a href="http://underscore.io/blog/posts/2015/04/14/free-monads-are-simple.html">monad</a> based Domain Specific Languages for exposing services</li>
+<li><p>Provides a strict yet composable abstraction for expressing <em>effects</em>. For example, one can define a language for working with DigitalOcean’s droplets:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">DropletCommands</span> a <span class="fu">=</span> <span class="dt">ListDroplets</span> ([<span class="dt">Droplet</span>] <span class="ot">-&gt;</span> a)
+                       <span class="fu">|</span> <span class="dt">CreateDroplet</span> <span class="dt">BoxConfiguration</span> (<span class="dt">Result</span> <span class="dt">Droplet</span> <span class="ot">-&gt;</span> a)
+                       <span class="fu">|</span> <span class="dt">DestroyDroplet</span> <span class="dt">Id</span> (<span class="dt">Maybe</span> <span class="dt">String</span> <span class="ot">-&gt;</span> a)
+                       <span class="kw">deriving</span> (<span class="dt">Functor</span>)
+
+<span class="kw">type</span> <span class="dt">DropletCommandsT</span> <span class="fu">=</span> <span class="dt">FreeT</span> <span class="dt">DropletCommands</span></code></pre></div></li>
+<li><p><a href="https://github.com/dalaing/cofun">Cofree</a> interpreters provide a way to decouple the language from the context it is interpreted in. Once you have a <code>Free</code> DSL to express some family of effects, you can <em>pair</em> it with a <code>Cofree</code> DSL expressing some lower-level operations for given DSL, e.g. expressing droplets operations in terms of network requests.</p></li>
+</ul>
+<h2 id="concurrency">Concurrency</h2>
+<ul>
+<li>Mostly based on <a href="https://www.schoolofhaskell.com/school/advanced-haskell/beautiful-concurrency">Software Transactional Memory</a> that provides tools for composing potentially concurrent access to shared variables</li>
+<li>STM do not mix with I/O operations hence you cannot use it to build critical sections with side-effects, e.g. to ensure persistence of modified data</li>
+<li>Enters <a href="https://hackage.haskell.org/package/async">async</a> a high-level library to package asynchronous computations. Threads are cheap in Haskell.</li>
+<li>We use actor-like <em>queues</em> to protect access to I/O resources, e.g. database. Haskell provide a lot of useful abstractions on top of STM and core concurrency features to build your own tools without too much hassle</li>
+</ul>
+<h2 id="the-pain-points">The pain points</h2>
+<ul>
+<li>Numeric types can be confusing: There is a whole hierarchy of typeclasses for various numeric values, from <code>Integral</code> to <code>Fractional</code> to <code>Real</code>…</li>
+<li>String types can be confusing: There is a whole zoo of types one can use as “strings”, <code>String</code>, <code>Text</code>, <code>[Char]</code>, even <code>ByteString</code> or <code>Char8.ByteString</code>…</li>
+<li>Type system sometimes look like a straightjacket and might require boilerplate to achieve desired effect</li>
+</ul>
+<h1 id="development-process">Development Process</h1>
+<h2 id="compilation-build">Compilation &amp; Build</h2>
+<ul>
+<li><strong>Caveat</strong>&gt; Compilation can take a long time!</li>
+<li>Standard package management tool is <a href="https://www.haskell.org/cabal/">Cabal</a> which has become infamous due to <a href="https://wiki.haskell.org/Cabal/Survival">cabal hell</a></li>
+<li><a href="http://docs.haskellstack.org/en/stable/README/">stack</a> greatly improves thing in order to provide fully reproducible builds and sandboxed environments, down to compiler versions</li>
+<li>Always be sure to set <code>-Wall -Werror</code> on compilation: Make all warnings errors, you can always selectively disable some warnings</li>
+<li>GHC provides options to get full stack traces in case of errors</li>
+</ul>
+<h2 id="development-cycle">Development Cycle</h2>
+<ul>
+<li>Use the REPL, Luke! Provides much faster feedback loop than full-blown compilation and building, can be used for Type/Test-DD too</li>
+<li>GHC has a cool feature to handle <strong>holes</strong>: variables which are not in scope but typechecked so that one can use that to deduce needed type and implementation</li>
+<li>My development cycle in Haskell usually boils down to:
+<ul>
+<li>Write a skeletal test file using <a href="http://hspec.github.io/">HSpec</a>, e.g. <code>test/FooTest.hs</code></li>
+<li>Start REPL in Emacs by loading file <code>C-c C-l</code></li>
+<li>See it fail to compile</li>
+<li><code>:r</code>eload until it compiles</li>
+<li>Run the test and see it fail: <code>hspec myTest</code></li>
+<li>Fill in code until test passes</li>
+<li>Do a full compile and test run before pushing to CI</li>
+</ul></li>
+</ul>
+<h2 id="development-environment">Development Environment</h2>
+<ul>
+<li>One of Haskell’s pain points: It’s a moving target and there is no single solution</li>
+<li>Most advanced support is provided by integrating various extensions to Emacs to provide auto-completion, formatting, integration with REPL, auto-compilation and errors highlighting…</li>
+<li>There is a nice <a href="https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md">tutorial</a> on how to setup emacs and Chris Done has provided some <a href="https://github.com/chrisdone/emacs-haskell-config">standard configuration</a></li>
+<li><a href="http://haskellformac.com/">Haskell for Mac</a> is a recent initiative to provide an interactive and easy to use programming environment in Haskell</li>
+<li><a href="https://github.com/gibiansky/IHaskell">IHaskell</a> provides a Haskell <em>kernel</em> for IPython notebooks for interactive programming. Provides a nice alternative to text-only development in Haskell esp. for number crunching</li>
+<li><a href="http://spacemacs.org/">Spacemacs</a> provides a viable alternative with “everything” preconfigured and packaged</li>
+<li>GHCi comes with a debugger but I have never used it. <a href="http://googletesting.blogspot.fr/search/label/TotT">Debugging sucks, testing rocks</a></li>
+</ul>
+<h2 id="system-build">System Build</h2>
+<ul>
+<li><a href="http://shakebuild.com/">shake</a> is a Make-like build system in Haskell</li>
+<li>Allows you to define <em>rules</em> and <em>targets</em>, manages dependencies to rebuild only needed part</li>
+<li>Build file is written in Haskell but can handle any kind of software</li>
+<li>We use it as our root build script to produce all our containers</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">    <span class="st">&quot;images/uibuild.uuid&quot;</span> <span class="fu">*&gt;</span> \ uuidFile <span class="ot">-&gt;</span> <span class="kw">do</span>
+      recursiveNeed <span class="st">&quot;ui&quot;</span> [<span class="st">&quot;lib//*.cljs&quot;</span>, <span class="st">&quot;lib//*.clj&quot;</span>, <span class="st">&quot;main//*.cljs&quot;</span>, <span class="st">&quot;main//*.clj&quot;</span>]
+      buildUiContainer uuidFile (cwd <span class="fu">&lt;/&gt;</span> <span class="st">&quot;ui&quot;</span>)</code></pre></div>
+<h1 id="web">Web</h1>
+<ul>
+<li><a href="https://github.com/yesodweb/wai/">WAI</a> provides all the needed components to build high performance REST-based services in Haskell</li>
+<li>Initial development was done with <a href="https://github.com/scotty-web/scotty/">scotty</a> which is very lightweight and does not really take advantage of Haskell features</li>
+<li><p>Newer services are now developed with <a href="https://github.com/haskell-servant/servant/">Servant</a>: provides a way to express APIs <strong>at the type level</strong> thus ensuring correctness at compile time</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">CreateJob</span> <span class="fu">=</span> <span class="dt">ReqBody</span> <span class="ch">'[JSON] Job :&gt; Post '</span>[<span class="dt">JSON</span>] <span class="dt">JobId</span>
+<span class="kw">type</span> <span class="dt">ListJobs</span> <span class="fu">=</span> <span class="dt">Get</span> <span class="ch">'[JSON] [Job]</span>
+<span class="kw">type</span> <span class="dt">PreviewSchedule</span> <span class="fu">=</span> <span class="dt">QueryParam</span> <span class="st">&quot;count&quot;</span> <span class="dt">Int</span> <span class="fu">:&gt;</span> <span class="dt">ReqBody</span> <span class="ch">'[JSON] Schedule :&gt; Post '</span>[<span class="dt">JSON</span>] <span class="dt">Calendar</span>
+<span class="kw">type</span> <span class="dt">RemoveJob</span> <span class="fu">=</span> <span class="dt">Capture</span> <span class="st">&quot;jobid&quot;</span> <span class="dt">JobId</span> <span class="fu">:&gt;</span> <span class="dt">Delete</span> <span class="ch">'[JSON] JobId</span>
+
+<span class="kw">type</span> <span class="dt">SchedulerApi</span> <span class="fu">=</span> <span class="st">&quot;api&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;jobs&quot;</span> <span class="fu">:&gt;</span> <span class="dt">CreateJob</span>
+               <span class="fu">:&lt;|&gt;</span> <span class="st">&quot;api&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;jobs&quot;</span> <span class="fu">:&gt;</span> <span class="dt">ListJobs</span>
+               <span class="fu">:&lt;|&gt;</span> <span class="st">&quot;api&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;jobs&quot;</span> <span class="fu">:&gt;</span> <span class="dt">RemoveJob</span>
+               <span class="fu">:&lt;|&gt;</span> <span class="st">&quot;api&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;schedule_preview&quot;</span> <span class="fu">:&gt;</span> <span class="dt">PreviewSchedule</span>
+               <span class="co">-- recorder is just used for testing purpose</span>
+               <span class="fu">:&lt;|&gt;</span> <span class="st">&quot;api&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;recorder&quot;</span> <span class="fu">:&gt;</span> <span class="dt">Capture</span> <span class="st">&quot;job&quot;</span> <span class="dt">String</span> <span class="fu">:&gt;</span> <span class="dt">ReqBody</span> <span class="ch">'[OctetStream] String :&gt; Post '</span>[<span class="dt">JSON</span>] ()
+               <span class="fu">:&lt;|&gt;</span> <span class="st">&quot;api&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;recorder&quot;</span> <span class="fu">:&gt;</span> <span class="dt">Capture</span> <span class="st">&quot;job&quot;</span> <span class="dt">String</span> <span class="fu">:&gt;</span> <span class="dt">Get</span> <span class="ch">'[JSON] String</span></code></pre></div></li>
+<li><p>Might be cool to have a look at <a href="https://github.com/agrafix/Spock">Spock</a></p></li>
+</ul>
+<h1 id="testing">Testing</h1>
+<h2 id="testing-tools">Testing tools</h2>
+<ul>
+<li><a href="https://hackage.haskell.org/package/QuickCheck-2.8.2">QuickCheck</a> is your friend!</li>
+<li>No really, QuickCheck is your friend…</li>
+<li>Use it for defining formal properties of your code beyond what type system provides</li>
+<li>Also very useful for generating samples data as part of more standard tests</li>
+<li><p>Can even be used for effectful code: Generate scenarios, using <a href="https://hackage.haskell.org/package/QuickCheck-2.8.2/docs/Test-QuickCheck-Monadic.html">Monadic QuickCheck</a></p></li>
+<li>Test in depth, e.g. correct test pyramid, with a few ETE tests, more integration, lots of unit and property tests</li>
+<li><p><a href="https://github.com/kallisti-dev/hs-webdriver">hs-webdriver</a> allows you to write <a href="http://docs.seleniumhq.org/">Selenium</a> tests in Haskell</p></li>
+</ul>
+<h2 id="beyond-testing">Beyond testing</h2>
+<ul>
+<li><a href="https://wiki.haskell.org/Haskell_program_coverage">hpc</a> is built in GHC to generates test coverage. Using it is as simple as <code>stack test --with-coverage</code>…</li>
+<li>Profiling gives you information on <em>cost centres</em> for some executions of the program. Its main inconvenient is that it requires building <em>all</em> dependencies with profiling support which effectively means you have to maintain two sets of dependencies. I only have to use it only once…</li>
+<li><a href="http://www.serpentine.com/criterion/">criterion</a> is the micro-benchmark library of choice for Haskell</li>
+</ul>
+<h1 id="deployment">Deployment</h1>
+<h2 id="packaging">Packaging</h2>
+<ul>
+<li>GHC produces native binaries with few dependencies on dynamically linked libraries</li>
+<li>It can produce 100% statically linked binaries if needed, but that’s probably not a good idea anyway…
+<ul>
+<li>https://www.reddit.com/r/haskell/comments/37m7q7/ghc_musl_easier_static_linking/</li>
+<li>https://ro-che.info/articles/2015-10-26-static-linking-ghc</li>
+<li>http://stackoverflow.com/questions/3430400/linux-static-linking-is-dead</li>
+</ul></li>
+<li>We package our services in d***er containers</li>
+</ul>
+<h2 id="configuration-management">Configuration Management</h2>
+<ul>
+<li><a href="http://propellor.branchable.com/">propellor</a> is a configuration management tool in Haskell developed by <a href="https://joeyh.name/">Joey Hess</a> of Debian fame</li>
+<li>Configuration is expressed as a Haskell program that is compiled and run on the target host</li>
+<li>It provides a nice gpg key based model to encrypt private data (e.g. ssh keys, authentication tokens, passwords…) that need to be deployed in the source directory</li>
+<li>Allows expressing configuration items in a type-safe way -&gt; leads to lots of tiny DSLs for various subsystems</li>
+</ul>
+<h2 id="infrastructure-management-wip">Infrastructure Management (WIP)</h2>
+<ul>
+<li><a href="https://github.com/capital-match/hdo">hdo</a> is a client in Haskell for interacting with <a href="https://www.digitalocean.com/">Digital Ocean</a></li>
+</ul>
+<h1 id="references">References</h1>
+<ul>
+<li><a href="http://www.haskellforall.com/2016/04/worst-practices-should-be-hard.html">Worst practices should be hard</a> and everything from Gonzales’ blog</li>
+<li><a href="http://www.shimweasel.com/hs_gbu/">Haskell in Production</a></li>
+<li>Stephen Diehl’s <a href="http://dev.stephendiehl.com/hask">What I wish I knew while learning Haskell</a>[^1]</li>
+</ul>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This is how one can encapsulate concrete type definitions without first-class modules <em>à la</em> ML<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+  </div>
+</body>
+</html>
