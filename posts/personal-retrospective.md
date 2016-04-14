@@ -1,5 +1,5 @@
 ------------
-title: My startup experience
+title: A Personal Retrospective
 author: Arnaud Bailly 
 date: 2016-04-12
 ------------
