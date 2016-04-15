@@ -7,6 +7,7 @@ import           Data.Maybe
 import           Data.Monoid
 import           Data.Time
 import           Hakyll
+import           Slides
 import           System.FilePath
 -- fixing issue with file encodin
 -- https://groups.google.com/forum/#!topic/hakyll/jrGATyI1omI/discussion
@@ -16,11 +17,11 @@ import           GHC.IO.Encoding
 -- common stuff for RSS items
 foldlabsFeedConfiguration :: FeedConfiguration
 foldlabsFeedConfiguration = FeedConfiguration
-    { feedTitle       = "FoldLab Blog"
+    { feedTitle       = "Arnaud Bailly's  Blog"
     , feedDescription = "Random musings on code..."
     , feedAuthorName  = "Arnaud Bailly"
-    , feedAuthorEmail = "arnaud@foldlabs.com"
-    , feedRoot        = "http://blog.foldlabs.com"
+    , feedAuthorEmail = "arnaud@igitur.io"
+    , feedRoot        = "http://abailly.github.io"
     }
 
 escaped :: String -> Context String
@@ -39,6 +40,10 @@ main = do
         route   idRoute
         compile copyFileCompiler
 
+    match "reveal.js/**" $ do
+        route   idRoute
+        compile copyFileCompiler
+
     match "js/*" $ do
         route   idRoute
         compile copyFileCompiler
@@ -47,10 +52,15 @@ main = do
         route   idRoute
         compile compressCssCompiler
 
+    match "slides/*.md" $ do
+        route   $ gsubRoute "slides/" (const "")  `composeRoutes` setExtension "html"
+        compile $ pandocSlideCompiler
+            >>= loadAndApplyTemplate "templates/slides-reveal.html"    slidesCtx
+
 -- should factorize templates application
     match "cours/*.md" $ do
         route $ setExtension "html"
-        compile $ pandocCompiler
+        compile $ pandocSlideCompiler
             >>= loadAndApplyTemplate "templates/cours.html"    postCtx
             >>= relativizeUrls
             >>= loadAndApplyTemplate "templates/default.html"    postCtx
@@ -113,6 +123,15 @@ postCtx =
   dateField "date" "%B %e, %Y" `mappend`
   defaultContext
 
+slidesCtx :: Context String
+slidesCtx =
+  escaped   "title"                  `mappend`
+  field     "revealjs-url"  revealJs `mappend`
+  dateField "date" "%B %e, %Y"       `mappend`
+  defaultContext
+  where
+    revealJs = const $ return "/reveal.js"
+
 slugify :: Item String -> Compiler String
 slugify item = do
   metadata <- getMetadata (itemIdentifier item)
@@ -125,3 +144,12 @@ postList sortFilter = do
   posts   <- sortFilter list
   itemTpl <- loadBody "templates/post-item.html"
   applyTemplateList itemTpl homeCtx posts
+
+stripPrefix :: Routes
+stripPrefix = customRoute stripPrefixRoute
+  where
+    stripPrefixRoute ident = dropFirstDirectory p </> takeFileName p
+      where
+        p = toFilePath ident
+    dropFirstDirectory = joinPath . tail . splitPath . takeDirectory
+
