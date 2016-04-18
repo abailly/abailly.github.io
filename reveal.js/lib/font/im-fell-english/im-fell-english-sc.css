@@ -1,0 +1,13 @@
+/* im-fell-english-sc-regular - latin */
+@font-face {
+  font-family: 'IM Fell English SC';
+  font-style: normal;
+  font-weight: 400;
+  src: url('im-fell-english-sc-v6-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('IM FELL English SC'), local('IM_FELL_English_SC'),
+       url('im-fell-english-sc-v6-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('im-fell-english-sc-v6-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('im-fell-english-sc-v6-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('im-fell-english-sc-v6-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('im-fell-english-sc-v6-latin-regular.svg#IMFellEnglishSC') format('svg'); /* Legacy iOS */
+}
