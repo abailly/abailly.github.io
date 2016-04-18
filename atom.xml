@@ -1,18 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <title>FoldLab Blog</title>
-    <link href="http://blog.foldlabs.com/atom.xml" rel="self" />
-    <link href="http://blog.foldlabs.com" />
-    <id>http://blog.foldlabs.com/atom.xml</id>
+    <title>Arnaud Bailly's  Blog</title>
+    <link href="http://abailly.github.io/atom.xml" rel="self" />
+    <link href="http://abailly.github.io" />
+    <id>http://abailly.github.io/atom.xml</id>
     <author>
         <name>Arnaud Bailly</name>
-        <email>arnaud@foldlabs.com</email>
+        <email>arnaud@igitur.io</email>
     </author>
-    <updated>2016-04-12T00:00:00Z</updated>
+    <updated>2016-04-18T00:00:00Z</updated>
     <entry>
+    <title>On &quot;Cakes, Custard + Category Theory&quot;</title>
+    <link href="http://abailly.github.io/posts/cake-custard-category.html" />
+    <id>http://abailly.github.io/posts/cake-custard-category.html</id>
+    <published>2016-04-18T00:00:00Z</published>
+    <updated>2016-04-18T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>On &quot;Cakes, Custard + Category Theory&quot;</h1>
+<div class="info">Posted on April 18, 2016</div>
+
+<p>I am not a mathematician, and this is probably the only regret of my life. When I was young I was too lazy to work seriously enough in High School to be accepted at one of the “Grandes Écoles”. Or rather I was way too much interested by role-playing games to spend time doing homework. And I must say maths were quite boring in High School and Preparatory School, not even talking about Business school’s math which barely went beyond basic arithmetics…</p>
+<p>Things would probably have been quite different had I been taught math by <a href="http://www.eugeniacheng.com/">Eugenia Cheng</a>, the author of <a href="http://www.amazon.co.uk/Cakes-Custard-Category-Theory-understanding/dp/1781252874/ref=sr_1_1?ie=UTF8&amp;qid=1422244697&amp;sr=8-1&amp;keywords=eugenia+cheng">Cakes, Custard + Category Theory</a> and one of the presenter of the famous <a href="https://www.youtube.com/watch?v=9fohXBj2UEI&amp;list=PL0E91279846EC843E">Catsters</a> series, among <a href="http://liederstube.wix.com/home">other talents</a>.</p>
+<p>I have read, or more precisely tried to read, <a href="https://www.cambridge.org/catalogue/catalogue.asp?isbn=9780521719162">many</a> <a href="http://www.maths.ed.ac.uk/~aar/papers/maclanecat.pdf">books</a> <a href="http://www.math.mcgill.ca/triples/Barr-Wells-ctcs.pdf">about</a> <a href="http://www.mpi-sws.org/~dreyer/courses/catlogic/awodey.pdf">category</a> <a href="http://ebooks.library.cornell.edu/cgi/t/text/text-idx?c=math;cc=math;view=toc;subview=short;idno=Gold010">theory</a> but I know I still only have an intuition about very basic things, e.g. what is a category theory, composition of morphisms, units, simple limits… The more abstract - and important - concepts (adjunctions, Yoneda lemma, topoi, sheaves…) are still inaccessible to my understanding: To state it in Eugenia’s terms, I <em>know</em> them but I don’t <em>understand</em> them.</p>
+<p><em>Cakes, Custard + Category Theory</em> is a math books for non-mathematicians, a book that tries and - to my humble opinion - somehow succeeds in giving lay people some ideas on why maths are important, interesting and fascinating. More importantly it also succeeds in giving <em>intuitions</em> on what <em>is</em> math and category theory and on connecting the dull, formal and painful external aspect of maths most people see with the deep, complex, beautiful and sophisticated ideas behind that rude shell.</p>
+<p>The book is divided in two parts, <em>Mathematics</em> and <em>Category Theory</em> which shares a common underlying structure: Each small chapter is introduced by the <em>recipe</em> of some cake, some classical and some invented by the author, and each part ends with a tentative explanation of <em>what</em> is math or category theory. Through the various chapters, Eugenia threads mundane life examples, recipes, cooking metaphors with actual mathematical questions in order to convey to the reader intuitions on what things like monoids, groups, morphisms, associativity or equivalence are. Mathematical notations is mostly restricted to sidebars and does not clutter reading.</p>
+<p>I am not usually a great fan of analogies which more often than not obscure rather than illuminate the thing they are supposed to explain. But this book is written in a such a way that it mostly avoids this pitfall<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>:</p>
+<ul>
+<li>Eugenia’s style is so lively and entertaining one cannot but avidly read the book and reach for the next chapter till the end,</li>
+<li>She manages to <em>motivate</em> mathematics, not as a mere tool one uses to solve more or less complex problems, but as a way to ask profound questions about the way we think and the world we live in.</li>
+</ul>
+<p>The key question in maths and category theory is then not <em>how</em> but <em>why</em>.</p>
+<blockquote>
+<p>Proof has a sociological role ; illumination has a personal role. Proof is what convinces society ; illumination is what convinces us. In a way, mathematics is like an emotion, which can’t ever be described precisely in words - it’s something that happens inside an individual. What we write down is merely a language for communicating those ideas to others, in the hope they will be able to reconstruct the feeling in their own mind.</p>
+</blockquote>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Although I myself enjoy cooking very much, I was not that much convinced about the whole recipe meme…<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>A Personal Retrospective</title>
-    <link href="http://blog.foldlabs.com/posts/personal-retrospective.html" />
-    <id>http://blog.foldlabs.com/posts/personal-retrospective.html</id>
+    <link href="http://abailly.github.io/posts/personal-retrospective.html" />
+    <id>http://abailly.github.io/posts/personal-retrospective.html</id>
     <published>2016-04-12T00:00:00Z</published>
     <updated>2016-04-12T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>A Personal Retrospective</h1>
@@ -84,8 +131,8 @@
 </entry>
 <entry>
     <title>Anatomy of a Haskell-based Application</title>
-    <link href="http://blog.foldlabs.com/posts/cm-arch-design.html" />
-    <id>http://blog.foldlabs.com/posts/cm-arch-design.html</id>
+    <link href="http://abailly.github.io/posts/cm-arch-design.html" />
+    <id>http://abailly.github.io/posts/cm-arch-design.html</id>
     <published>2015-11-16T00:00:00Z</published>
     <updated>2015-11-16T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>Anatomy of a Haskell-based Application</h1>
@@ -336,8 +383,8 @@
 </entry>
 <entry>
     <title>Sur &quot;Du mode d&#39;existence des objets techniques&quot;</title>
-    <link href="http://blog.foldlabs.com/posts/objets-techniques.html" />
-    <id>http://blog.foldlabs.com/posts/objets-techniques.html</id>
+    <link href="http://abailly.github.io/posts/objets-techniques.html" />
+    <id>http://abailly.github.io/posts/objets-techniques.html</id>
     <published>2015-11-07T00:00:00Z</published>
     <updated>2015-11-07T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>Sur &quot;Du mode d&#39;existence des objets techniques&quot;</h1>
@@ -411,8 +458,8 @@
 </entry>
 <entry>
     <title>Sur &quot;Technological Revolutions and Financial Capital&quot;</title>
-    <link href="http://blog.foldlabs.com/posts/techno-capital.html" />
-    <id>http://blog.foldlabs.com/posts/techno-capital.html</id>
+    <link href="http://abailly.github.io/posts/techno-capital.html" />
+    <id>http://abailly.github.io/posts/techno-capital.html</id>
     <published>2015-11-06T00:00:00Z</published>
     <updated>2015-11-06T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>Sur &quot;Technological Revolutions and Financial Capital&quot;</h1>
@@ -467,8 +514,8 @@
 </entry>
 <entry>
     <title>Some Notes on ML in Haskell following MLWeek</title>
-    <link href="http://blog.foldlabs.com/posts/ml-week.html" />
-    <id>http://blog.foldlabs.com/posts/ml-week.html</id>
+    <link href="http://abailly.github.io/posts/ml-week.html" />
+    <id>http://abailly.github.io/posts/ml-week.html</id>
     <published>2015-11-06T00:00:00Z</published>
     <updated>2015-11-06T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>Some Notes on ML in Haskell following MLWeek</h1>
@@ -520,8 +567,8 @@
 </entry>
 <entry>
     <title>On Free DSLs and Cofree interpreters</title>
-    <link href="http://blog.foldlabs.com/posts/free.html" />
-    <id>http://blog.foldlabs.com/posts/free.html</id>
+    <link href="http://abailly.github.io/posts/free.html" />
+    <id>http://abailly.github.io/posts/free.html</id>
     <published>2015-06-04T00:00:00Z</published>
     <updated>2015-06-04T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>On Free DSLs and Cofree interpreters</h1>
@@ -788,8 +835,8 @@ interpretEffect <span class="fu">=</span> coiter f (return ())
 </entry>
 <entry>
     <title>Ten &quot;Good&quot; Reasons Not to Do TDD</title>
-    <link href="http://blog.foldlabs.com/posts/no-tdd.html" />
-    <id>http://blog.foldlabs.com/posts/no-tdd.html</id>
+    <link href="http://abailly.github.io/posts/no-tdd.html" />
+    <id>http://abailly.github.io/posts/no-tdd.html</id>
     <published>2014-01-31T00:00:00Z</published>
     <updated>2014-01-31T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>Ten &quot;Good&quot; Reasons Not to Do TDD</h1>
@@ -837,8 +884,8 @@ interpretEffect <span class="fu">=</span> coiter f (return ())
 </entry>
 <entry>
     <title>Comprendre les catamorphismes</title>
-    <link href="http://blog.foldlabs.com/posts/cata.html" />
-    <id>http://blog.foldlabs.com/posts/cata.html</id>
+    <link href="http://abailly.github.io/posts/cata.html" />
+    <id>http://abailly.github.io/posts/cata.html</id>
     <published>2014-01-11T00:00:00Z</published>
     <updated>2014-01-11T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>Comprendre les catamorphismes</h1>
@@ -993,42 +1040,14 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
 </entry>
 <entry>
     <title>On &quot;The Dream Team Nightmare&quot;,  by Portia Tung</title>
-    <link href="http://blog.foldlabs.com/posts/dtn.html" />
-    <id>http://blog.foldlabs.com/posts/dtn.html</id>
+    <link href="http://abailly.github.io/posts/dtn.html" />
+    <id>http://abailly.github.io/posts/dtn.html</id>
     <published>2014-01-09T00:00:00Z</published>
     <updated>2014-01-09T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>On &quot;The Dream Team Nightmare&quot;,  by Portia Tung</h1>
 <div class="info">Posted on January  9, 2014</div>
 
 <p>The first “agile” conference I attended was <a href="http://spaconference.org/spa2008">SPA 2008</a> which took place in a nice hotel in the english countryside. And one of the first session I attended at this conference was a session about <a href="http://www.spaconference.org/spa2008/sessions/session148.html">Real options</a>, initially planned to be run by Chris Matts but actually lead by Pascal Van Cauwenberghe and Portia Tung. I vividly recall that, although the session was far from being perfect, it was fun, intriguing and I learnt quite a few new things.  Since then, I have had the opportunity to attend several of Portia’s session, mainly at [XP Day Benelux[(http://xpday.be/) (which by the way is the best conference I ever attended), and they always have been great moments, perfectly balanced between learning and fun, and perfectly organized[^1].  # The Dream Team Nightmare  <a href="http://pragprog.com/book/ptdream/the-dream-team-nightmare">The Dream Team Nightmare</a> is Portia Tung’s new book published by Pragmatic Books, which offers you a journey beyond the basics of agile coaching practices, techniques and tools. You take the role of Jim Hopper, an experienced agile coach which has been appointed by Love Inc. to help one of the company’s development team, the <em>Dream Team</em>.  This team has been struggling with agile software development practice for couple of years and is facing severe issues: Development time increases, relations with business people are difficult and conflicting, quality is soaring… After initial enthusiasm for agile adoption, it seems to have been lagging behind other teams, to the point where they are considering abandoning agile altogether. You have been given a week to provide the management of the company an assessment of the situation and proposals to improve the team’s productivity and quality.  # What I Loved  The first thing I loved with this book is its form. Being an adventure book means that you are somehow in control of the destiny of Jim, the main character: You have to make decisions at crucial points, which can have beneficial or detrimental effects on the outcome of the story. Each step of the story is written in a lively manner, with a special attention to the description of the characters and the dialogues.  Day by day, one follows the progress of the coach and its team, and how they apply a lot of varying coaching techniques and tools to interact with people and start solving their problems. Without the hassle of a text book, one is then introduced to things like setting a kanban board for a meeting or a team, various meeting facilitation techniques for meetings, perfection game and decider from Core protocols, story writing, measurements and feedback evaluations, system thinking with reality and future trees…  The book covers a lot of the classical dysfunctions one find in software development (and probably other engineering) teams: Lack of trust between team members, and across team boundaries, isolation of teams from other teams’ experiments and feedback, silos, business-technical divide, fear of change and failure, lack of feedback, point less measurements and estimating. I especially liked how kanban boards are used systematically to set goals and track progress, even for meetings; the emphasis on concrete and multidimensional measurements for progress; and the <em>option thinking</em> toolbox which is used extensively in the book to build a release plan that is both realistic, flexible and business-oriented.  It is not the same thing to <em>read</em> a formal description of a tool or technique, and to live it through the eyes of an involved person in a concrete situation. <em>The Dream Team Nightmare</em> succeeds in being both pedagogical and fun, which is a rare endeavour. And I already started using some of the techniques from the book in my daily work!  [^1]: The quality of Portia’s sessions props deserves a special mention!</p>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Notes sur &quot;Les décisions absurdes&quot;</title>
-    <link href="http://blog.foldlabs.com/posts/decisions-absurdes.html" />
-    <id>http://blog.foldlabs.com/posts/decisions-absurdes.html</id>
-    <published>2013-12-31T00:00:00Z</published>
-    <updated>2013-12-31T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Notes sur &quot;Les décisions absurdes&quot;</h1>
-<div class="info">Posted on December 31, 2013</div>
-
-<p>Qu’y-a-t’il de commun entre l’explosion de la navette <em>Challenger</em>, la collision entre deux pétroliers dans le Golfe Persique, la transformation d’une université d’entreprise en institut de formation externe, la persistance de transparents surchargés et illisibles dans les communications d’entreprise, le pont de la rivière Kwai ? Toutes ces petites et grandes catastrophes, et bien d’autres, sont le résultat de <strong>décisions absurdes</strong>, des décisions produisant de manière persistante des effets contraires au but initialement recherché, analysées par <a href="http://christian.morel5.perso.sfr.fr">Chistian Morel</a> dans le <a href="http://www.gallimard.fr/Catalogue/GALLIMARD/Folio/Folio-essais/Les-decisions-absurdes">livre portant ce titre</a>.  L’intérêt principal de ce livre, en plus de son style agréablement didactique et subtilement ironique, est de ne pas se contenter d’identifier une cause unique pour toutes ces cas d’erreurs extrêmement variés mais de couvrir un ensemble de causes potentielles qui, se combinant, sont à même de produire ces comportements absurdes observables chez des individus et dans des organisations ayant par ailleurs atteint un très haut degré de sophistication et de scientificité. C’est donc à la conjugaison d’erreurs <em>cognitives</em>, de <em>comportements collectifs</em> aberrants et de défaillances <em>téléologiques</em> que l’on doit s’intéresser pour mieux comprendre, et peut-être éviter, les décisions absurdes.  Autrement dit, il n’y a jamais de responsabilité unique, individuelle ou attribuable à un petit groupe, pour ces erreurs, mais toujours une dérive d’un système rationnel, comme un <em>cancer de la raison</em> qui petit à petit viendrait substituer des métastases aux cellules saines d’un organisme. Le cas de <em>Challenger</em> est emblématique et cumule à un haut degré les trois types d’erreurs pour aboutir à une décision catastrophique:  * les ingénieurs et managers de Morton-Thiokol commettent d’abord des erreurs <em>cognitives</em>, d’une part au sujet du climat hivernal de la Floride, transposant une faible probabilité de grand froid en une impossibilité, d’autre part au sujet de la fiabilité des joints lors des lancements. Ce phénomène a été décortiqué en détail par Kahneman et al. et <a href="http://us.macmillan.com/thinkingfastandslow/DanielKahneman">Thinking, Fast and Slow</a> est une introduction pour le commun des mortels au modèle cognitif proposé par Kahneman et reprit partiellement par Morel, celui des deux systèmes : le <em>Système I</em> ou heuristique, efficace et rapide mais imprécis et prompt à se tromper et le <em>Système II</em> ou analytiau * le processus au cours duquel est prise la décision de maintenir le lancement renforce ces erreurs cognitives pour produire un consensus mou. La décision finale est prise au cours d’une conférence téléphonique entre trois lieux différents des États-Unis, les doutes de certains ingénieurs ne sont pas perçus comme déterminants par les <em>managers</em> d’autant plus qu’ils ne parviennent pas à les formuler scientifiquement, le jeu des relations de pouvoirs affaiblit les signaux négatifs… * le fruit est alors mûr pour que la troisième source d’erreurs, la perte de sens ou erreur téléologique, entre en jeu. Les participants à la décision perdent de vue la fin - faire voler en sécurité 7 astronautes dans une navette spatiale - au profit des moyens - les joints des <em>boosters</em> sont-ils dangereux et Morton-Thiokol est-il uin fournisseur fiable ? La préservation du système prend le pas sur la finalité pour laquelle ce système a été construit.  En conclusion du livre, l’auteur remarque par ailleurs que les erreurs sont liées à <em>l’indétermination fondamentale du monde</em>. Ce qui rend la vie excitante et les décisions nécessaires est aussi ce qui rend ces décisions positives ou négatives, ce qui provoque le succès ou échec, l’erreurs ou la bonne décision. De très nombreuses situations sont sous-déterminées, nous n’avons pas les réponses toutes prêtes et, particulièrement en situation de stress et d’urgence, il nous faut savoir mobiliser à la fois notre Système I, heuristique et expérientiel, et notre Système II, analytique et scientifique.  Les organisations habituées à l’urgence, au danger et au stress - armée, secours civil, contrôle aérien, chirurgie, médecine d’urgence - développent des techniques similaires pour que leurs membres soient capables de faire face à ces situations par définition imprévisibles:  * s’entraîner de manière systématique, à l’aide de protocoles précis, développés par capitalisation des expériences, développer des réflexes de <em>survie</em> mobilisables instantanément afin de libérer le cerveau pour d’autres tâches ; * développer l’autonomie et la cohésion des équipes par la compréhension et l’incorparation des <em>fins</em> et des <em>buts</em> de l’organisationm afin que les décisions prises lors de “situations critiques” aient le plus de chances d’être adaptées à la situation et non polluées par des considérations extérieures, erreurs cognitives, systémiques ou téléologiques.  Même si au sein d’une équipe de développement il est très rare de vivre des situations aussi dramatiques, nous commettons beaucoup d’erreurs qui se trouvent reflétées dans notre code sous la forme de <em>bugs</em> , manifestes ou latents - la fameuse <em>dette technique</em>. Mais comprendre les sources de ces erreurs, et savoir les combattre, est une nécessité de plus en plus impérieuse dans un monde qui va de plus en plus vite et qui est en train d’être <a href="https://gist.github.com/sferik/5277512">mangé par le logiciel</a>.  J’attends avec impatience la parution du tome II en poche intitulé <a href="http://christian.morel5.perso.sfr.fr">Les décisions absurdes II. Comment les éviter</a>.</p>
 
 
 <div id="disqus_thread"></div>
