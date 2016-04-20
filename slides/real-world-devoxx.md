@@ -68,6 +68,8 @@ transactionsFromCashflows pivot generator =
 
 ## On the virtue of being lazy
 
+![](/images/femme-allongee.jpg)
+
 ## On some of the less desirable aspects of the language
 
 ![](/images/catacombes.jpg)
@@ -122,6 +124,40 @@ type instance Id Account       = AccountId
 type instance Id Transaction   = TransactionId
 ```
 
+## Where it is shown how more constraints makes one more Free
+
+```haskell
+data Gratis f a = Effectless a
+      | forall x. Effectful (f x) (x -> Gratis f a)
+
+data EmailServiceF a where
+  DoMail :: Emailer -> Email -> EmailServiceF EmailStatus
+  GetAllEmails :: Confirmation -> EmailServiceF [EmailWithStatus]
+
+type MailService = Gratis EmailServiceF
+
+```
+
+```haskell
+liftFF :: EmailServiceF a -> MailService a
+liftFF c = Effectful c pure
+
+doMail :: Emailer -> Email -> MailService EmailStatus
+doMail mailer mail = liftFF $ DoMail mailer mail
+
+doGetAllEmails :: Confirmation -> MailService [ EmailWithStatus ]
+doGetAllEmails = liftFF . GetAllEmails
+```
+
+```haskell
+interpret :: MailService a -> ExceptT L.Text (WebStateM s l m) a
+interpret (Effectful (DoMail mailer mail) f)        =
+  lift (liftIO $ mailer mail >>= handleSendingResult) >>= interpret . f
+interpret (Effectful (GetAllEmails confirmation) f) =
+  lift (runWithEmails $ doGetEmails confirmation)     >>= interpret . f
+interpret (Effectless a)                            = return a
+```
+
 # Mores & Daily Life
 
 ## Where the amazed foreigner discovers how much can be done with crude tools
@@ -139,11 +175,11 @@ type instance Id Transaction   = TransactionId
 
 ## On the usefulness and efficiency of interacting with the machine
 
-![](/images/repl.png)
+![](/images/tourneur.jpg)
 
 ## On the typical day of a commoner in Haskelland
 
-1. Write a skeletal test file using [hspec](http://hspec.github.io/), e.g. `test/FooTest.hs`
+1. Write a skeletal test file, e.g. `test/FooTest.hs`
 1. Start REPL in Emacs by loading file `C-c C-l`
 1. See it fail to compile
 1. `:r`eload until it compiles
@@ -162,7 +198,9 @@ type instance Id Transaction   = TransactionId
 ```haskell
 instance Arbitrary ScaleRatio where  arbitrary = ...
 instance Arbitrary Transaction where  arbitrary = ...
+```
 
+```haskell
 prop_scaled_transaction_is_normalized :: Transaction -> ScaleRatio
                                        -> Bool
 prop_scaled_transaction_is_normalized tx (ScaleRatio ratio) =
@@ -172,6 +210,8 @@ prop_scaled_transaction_is_normalized tx (ScaleRatio ratio) =
 ```
 
 ## Where one discovers QuickCheck can be useful beside testing properties
+
+### Generating sample data to test migration
 
 ```haskell
 sample_v8_Events :: [ByteString]
@@ -186,6 +226,8 @@ sample_v8_Events =
 ```
 
 ----
+
+### Generating execution sequences representing typical scenarios
 
 ```haskell
 genAdminActions =
@@ -209,7 +251,7 @@ genAdminActions =
 
 ![](/images/architecture.jpg)
 
-## On the intricacies of building complex software with a secret Cabal of conservative scholars
+## On the intricacies of building complex software with a Cabal of scholars
 
 ![](/images/horlogerie.jpg)
 
@@ -281,8 +323,18 @@ type SchedulerApi = "api" :> "scheduler" :> "jobs" :> CreateJob
 
 # Acknowledgements
 
+## Credits
+
 All the woodcuts illustrating this talk are drawn from the [Encyclopédie de Diderot et d'Alembert](http://planches.eu) with the exception of:
 
+* [Durer's "Artist drawing a couching woman"](http://40.media.tumblr.com/8b72c0e766b096a0d83c6a98f6586a1d/tumblr_n8m8bas4Xe1tgg8dko1_1280.jpg),
 * The [Austerlitz Pyramid](https://upload.wikimedia.org/wikipedia/commons/3/3b/Pyramide_Austerlitz_1805.jpg),
 * [Durer's Rhinoceros](https://alicegonella.files.wordpress.com/2013/04/durers-rhino-1515.jpg),
-* [Allégorie à la Paix d'Utrecht](http://gallica.bnf.fr/ark:/12148/btv1b8408177f/f1.highres)
+* [Allégorie à la Paix d'Utrecht](http://gallica.bnf.fr/ark:/12148/btv1b8408177f/f1.highres).
+
+## Thanks
+
+* To all the fine people at Capital Match who made all this possible,
+* To Haskellers all over the world who fuel the fire with their wits and spirit,
+* To Haskell B. Curry who, among others, laid out the foundations for our daily job.
+
