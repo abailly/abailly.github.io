@@ -18,6 +18,7 @@
 
     <style type="text/css">code{white-space: pre;}</style>
     <style type="text/css">
+div.sourceCode { overflow-y: none; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
@@ -98,9 +99,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">Some Ways this Wonderful Journey Could Inspire the Reader</li>
 </ul>
 </section>
-<section><section id="how-i-came-to-visit-haskelland" class="titleslide slide level1"><h1>How I Came to Visit Haskelland</h1></section><section class="slide level2">
-
-<figure>
+<section><section id="how-i-came-to-visit-haskelland" class="titleslide slide level1"><h1>How I Came to Visit Haskelland</h1>
+  <figure>
 <img src="/images/geographie.jpg" />
 </figure>
 </section><section id="where-the-author-dares-to-present-himself" class="slide level2">
@@ -108,11 +108,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <figure>
 <img src="/images/ebeniste.jpg" />
 </figure>
-</section><section id="on-the-company-which-i-travelled-to-haskelland-for" class="slide level2">
+<aside class="notes" data-markdown>
+* 20+ years of experience developing software...
+* Has been coding in Haskell for side-projects since 2001
+* Had the opportunity to join Capital Match as Co-founder and CTO in 2014
+* Haskell was part of the plan since the beginning and the reason why I got involved
+* I like theory but I prefere working software
+</aside>
+  </section><section id="on-the-company-which-i-travelled-to-haskelland-for" class="slide level2">
 <h1>On the Company which I travelled to Haskelland for</h1>
 <figure>
 <img src="/images/cm-website.png" />
 </figure>
+<aside class="notes" data-markdown>
+* Capital Match is the leading plaform in Singapore for peer-to-peer lending to SMEs
+* Backend system developed in Haskell, frontend in Clojurescript/Om since 2014
+* Manages about 7M S$ Loans
+* Mostly B2B business, which means traffic is low and main requirement is correctness not speed or load
+* Core Development team of 4 persons
+</aside>
 </section><section id="where-it-is-demonstrated-why-the-interest-of-the-honorable-reader-might-be-aroused" class="slide level2">
 <h1>Where it is demonstrated why the interest of the honorable reader might be aroused</h1>
 <ul>
@@ -123,12 +137,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">I will be even happier if you can put to <strong>actual use</strong> some of the stuff I present here</li>
 </ul>
 </section></section>
-<section><section id="on-various-aspects-of-haskelland" class="titleslide slide level1"><h1>On Various Aspects of Haskelland</h1></section><section class="slide level2">
-
-<figure>
+<section><section id="on-various-aspects-of-haskelland" class="titleslide slide level1"><h1>On Various Aspects of Haskelland</h1>
+  <figure>
 <img src="/images/frontispice.jpg" />
 </figure>
-</section><section class="slide level2">
+</section>
+
+  <section class="slide level2">
 
 <p>Where the author tries to cover the most important aspects of Haskeller’s civilisation in an extremely short span of time, thus probably missing lot of important points and generating frustration in the informed reader, but nevertheless hoping to convey enough tips for the audience to be willing to adopt some of the customs of those strange people.</p>
 </section></section>
@@ -137,11 +152,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <figure>
 <img src="/images/analyse.jpg" />
 </figure>
+<aside class="notes" data-markdown>
+* Syntax is quite easy to pick up, not too much ceremony
+* Haskell's syntax favours terseness and strives to be close to mathematical language, compare:
+* Haskellers don't use lot of *punctuation* signs but favor using *indentation* to express nesting
+* Sometimes tempted to abuse operators...
+</aside>
 </section><section id="on-the-importance-of-composition-in-haskell" class="slide level2">
 <h1>On the importance of composition in Haskell</h1>
 <figure>
 <img src="/images/musique.jpg" />
 </figure>
+<aside class="notes" data-markdown>
+* Haskell language is geared towards making *composition* of expressions straightforward
+* *Referential transparency* allows one to factorize all kind of common sub-expressions to *remove redundancy* 
+* *Partial application* and composition of functions makes it easy to write *function pipelines* and build new functions out of old ones
+</aside>
 </section><section class="slide level2">
 
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">transactionsFromCashflows ::</span> <span class="dt">AccountId</span>
@@ -149,22 +175,47 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
                           <span class="ot">-&gt;</span> [<span class="dt">CashFlow</span>] <span class="ot">-&gt;</span> [<span class="dt">Transaction</span>]
 transactionsFromCashflows pivot generator <span class="fu">=</span>
     concatMap <span class="fu">$</span> map (normalize <span class="fu">.</span> balance pivot) <span class="fu">.</span> generator</code></pre></div>
+<aside class="notes" data-markdown>
+* Example of a *point free* style to produce functions out of other functions
+* Becomes quite clear and efficient when accustomed -> favor terseness and DRY
+</aside>
 </section><section id="on-the-virtue-of-being-lazy" class="slide level2">
 <h1>On the virtue of being lazy</h1>
 <figure>
 <img src="/images/femme-allongee.jpg" />
 </figure>
+<aside class="notes" data-markdown>
+* Haskell's evaluation semantics is *lazy*, *non strict* or *call-by-need*: Arguments to functions are evaluated only when needed
+* This makes it practical to express *infinite computations* in the language
+* This applies also to I/O operations which may not be evaluated hence have no side-effects if their result is not needed
+</aside>
 </section><section id="on-some-of-the-less-desirable-aspects-of-the-language" class="slide level2">
 <h1>On some of the less desirable aspects of the language</h1>
 <figure>
 <img src="/images/catacombes.jpg" />
 </figure>
+
+<aside class="notes" data-markdown>
+* No support for first-class module which makes large scale development more cumbersome
+* A natural tendency to abuse operators and be *too terse* and *dense* too the point of becoming cryptic
+* Beginners should expect to be confused at first by how the system supports common data types like *strings* and *numbers*
+* Lazy I/O can have annoying side-effects
+* There are too many ways to handler exceptions
+</aside>
+
 </section></section>
 <section><section id="philosophy" class="titleslide slide level1"><h1>Philosophy</h1></section><section id="on-the-importance-of-types-for-haskellers" class="slide level2">
 <h1>On the importance of Types for Haskellers</h1>
 <figure>
 <img src="/images/astronomie.jpg" />
 </figure>
+
+<aside class="notes" data-markdown>
+* Haskellers seems to be extreme *platonicists*: Everything must have a well-defined type!
+* Although types can be *inferred* by the compiler, they are an extremely important tool to design programs
+* Haskell's type system can be daunting at first but is conceptually elegant and *compact*
+</aside>
+
 </section><section id="where-one-discovers-types-do-not-impose-extra-burden-at-runtime" class="slide level2">
 <h1>Where one discovers types do not impose extra burden at runtime</h1>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">AccountNr</span> <span class="fu">=</span> <span class="dt">AccountNr</span> {<span class="ot"> accountNr ::</span> <span class="dt">T.Text</span> }
@@ -172,7 +223,13 @@ transactionsFromCashflows pivot generator <span class="fu">=</span>
 
 
 <span class="kw">instance</span> <span class="dt">IsString</span> <span class="dt">AccountNr</span> <span class="kw">where</span>
-    fromString <span class="fu">=</span> <span class="dt">AccountNr</span> <span class="fu">.</span> T.pack</code></pre></div>
+fromString <span class="fu">=</span> <span class="dt">AccountNr</span> <span class="fu">.</span> T.pack</code></pre></div>
+
+<aside class="notes" data-markdown>
+* `newtype`s provide cheap encapsulation of other types as they are unpacked by compiler
+* One should never refrain from creating such new types, they provide more safety than *type aliases*
+* String-based programming no more...
+</aside>
 </section><section id="where-it-is-shown-types-can-even-conjure-the-undead" class="slide level2">
 <h1>Where it is shown types can even conjure the undead</h1>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Base64</span>
@@ -180,13 +237,24 @@ transactionsFromCashflows pivot generator <span class="fu">=</span>
 <span class="kw">newtype</span> <span class="dt">Encoded</span> code <span class="fu">=</span> <span class="dt">Encoded</span> {<span class="ot"> encodedText ::</span> <span class="dt">Text</span> }
 <span class="ot">toBase64Text ::</span> <span class="dt">ByteString</span> <span class="ot">-&gt;</span> <span class="dt">Encoded</span> <span class="dt">Base64</span>
 <span class="ot">toHex        ::</span> <span class="dt">ByteString</span> <span class="ot">-&gt;</span> <span class="dt">Encoded</span> <span class="dt">Hex</span></code></pre></div>
+<aside class="notes" data-markdown>
+* *Phantom types* provide *type-level annotation* to add more information to other types
+* Allow distinguishing between different types with identical representations without mixing them in code
+* Provide *thread-safety* by ensuring some type variables do not [escape local scope](https://wiki.haskell.org/Monad/ST)
+</aside>
 </section><section id="where-one-discovers-subtle-differences-cause-more-trouble-than-obvious-ones" class="slide level2">
 <h1>Where one discovers subtle differences cause more trouble than obvious ones</h1>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> (<span class="dt">Eq</span> a) <span class="ot">=&gt;</span> <span class="dt">Differ</span> a <span class="kw">where</span>
 <span class="ot">  uniqueId    ::</span> a <span class="ot">-&gt;</span> <span class="dt">Id</span> a
 <span class="ot">  constructor ::</span> a <span class="ot">-&gt;</span> <span class="dt">Entity</span> b
 <span class="ot">  equals      ::</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Bool</span></code></pre></div>
-</section><section id="where-one-starts-to-wonder-if-there-is-an-end-to-recursion" class="slide level2">
+<aside class="notes" data-markdown>
+* [Type classes](http://typeclassopedia.bitbucket.org/) can be thought as way to define *interfaces*, asbtracting away implementation details
+* Type classes can define not only functions, but values and other types (see next slide)
+* Type classes actually define *constraints* on types that can be accumulated in expressions and checked by the compiler
+* An instance of type class can be thought of as defining a table of virtual pointers to values
+</aside>
+  </section><section id="where-one-starts-to-wonder-if-there-is-an-end-to-recursion" class="slide level2">
 <h1>Where one starts to wonder if there is an end to recursion</h1>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> (<span class="dt">ToJSON</span> (<span class="dt">Command</span> a)) <span class="ot">=&gt;</span> <span class="dt">BusinessModel</span> a <span class="kw">where</span>
   <span class="kw">data</span> <span class="dt">Event</span><span class="ot"> a   ::</span> <span class="fu">*</span>
@@ -194,9 +262,14 @@ transactionsFromCashflows pivot generator <span class="fu">=</span>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> family <span class="dt">Id</span><span class="ot"> a ::</span> <span class="fu">*</span>
 <span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Id</span> <span class="dt">Account</span>       <span class="fu">=</span> <span class="dt">AccountId</span>
 <span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Id</span> <span class="dt">Transaction</span>   <span class="fu">=</span> <span class="dt">TransactionId</span></code></pre></div>
-</section><section id="where-it-is-shown-how-more-constraints-makes-one-more-free" class="slide level2">
+<aside class="notes" data-markdown>
+* *Type families* provide *type-level functions*, e.g. ways to compute types from types at compilation time
+* Type families can be nested within `data` and `class` definitions to provide contextual types, yielding *poor man's modules* à la OCaml
+* They can also be used at toplevel either in open or closed form
+</aside>
+  </section><section id="where-it-is-shown-how-more-constraints-makes-one-more-free" class="slide level2">
 <h1>Where it is shown how more constraints makes one more Free</h1>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Gratis</span> f a <span class="fu">=</span> <span class="dt">Effectless</span> a
+<div class="sourceCode fragment"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Gratis</span> f a <span class="fu">=</span> <span class="dt">Effectless</span> a
       <span class="fu">|</span> forall x<span class="fu">.</span> <span class="dt">Effectful</span> (f x) (x <span class="ot">-&gt;</span> <span class="dt">Gratis</span> f a)
 
 <span class="kw">data</span> <span class="dt">EmailServiceF</span> a <span class="kw">where</span>
@@ -204,7 +277,7 @@ transactionsFromCashflows pivot generator <span class="fu">=</span>
   <span class="dt">GetAllEmails</span><span class="ot"> ::</span> <span class="dt">Confirmation</span> <span class="ot">-&gt;</span> <span class="dt">EmailServiceF</span> [<span class="dt">EmailWithStatus</span>]
 
 <span class="kw">type</span> <span class="dt">MailService</span> <span class="fu">=</span> <span class="dt">Gratis</span> <span class="dt">EmailServiceF</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">liftFF ::</span> <span class="dt">EmailServiceF</span> a <span class="ot">-&gt;</span> <span class="dt">MailService</span> a
+<div class="sourceCode fragment"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">liftFF ::</span> <span class="dt">EmailServiceF</span> a <span class="ot">-&gt;</span> <span class="dt">MailService</span> a
 liftFF c <span class="fu">=</span> <span class="dt">Effectful</span> c pure
 
 <span class="ot">doMail ::</span> <span class="dt">Emailer</span> <span class="ot">-&gt;</span> <span class="dt">Email</span> <span class="ot">-&gt;</span> <span class="dt">MailService</span> <span class="dt">EmailStatus</span>
@@ -212,7 +285,7 @@ doMail mailer mail <span class="fu">=</span> liftFF <span class="fu">$</span> <s
 
 <span class="ot">doGetAllEmails ::</span> <span class="dt">Confirmation</span> <span class="ot">-&gt;</span> <span class="dt">MailService</span> [ <span class="dt">EmailWithStatus</span> ]
 doGetAllEmails <span class="fu">=</span> liftFF <span class="fu">.</span> <span class="dt">GetAllEmails</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">interpret ::</span> <span class="dt">MailService</span> a <span class="ot">-&gt;</span> <span class="dt">ExceptT</span> <span class="dt">L.Text</span> (<span class="dt">WebStateM</span> s l m) a
+<div class="sourceCode fragment"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">interpret ::</span> <span class="dt">MailService</span> a <span class="ot">-&gt;</span> <span class="dt">ExceptT</span> <span class="dt">L.Text</span> (<span class="dt">WebStateM</span> s l m) a
 interpret (<span class="dt">Effectful</span> (<span class="dt">DoMail</span> mailer mail) f)        <span class="fu">=</span>
   lift (liftIO <span class="fu">$</span> mailer mail <span class="fu">&gt;&gt;=</span> handleSendingResult) <span class="fu">&gt;&gt;=</span> interpret <span class="fu">.</span> f
 interpret (<span class="dt">Effectful</span> (<span class="dt">GetAllEmails</span> confirmation) f) <span class="fu">=</span>
@@ -224,20 +297,35 @@ interpret (<span class="dt">Effectless</span> a)                            <spa
 <figure>
 <img src="/images/menuisier.jpg" />
 </figure>
-</section><section class="slide level2">
+<aside class="notes" data-markdown>
+* There is no one-stop *Integrated Development Environment* for Haskell: Best support is provided by integrating various extensions
+into **Emacs**
+* There is a nice [tutorial](https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md) on how to setup emacs and
+Chris Done has provided some [standard configuration](https://github.com/chrisdone/emacs-haskell-config)
+* Makes it easy to setup *remote pairing*
+* [Haskell for Mac](http://haskellformac.com/) is a recent initiative to provide an interactive and easy to use programming environment in Haskell
+* [Spacemacs](http://spacemacs.org/) provides a viable alternative with "everything" preconfigured and packaged
+</aside>
+  </section><section class="slide level2">
 
 <figure>
 <img src="/images/emacs.png" />
-</figure>
-</section><section class="slide level2">
-
-<figure>
-<img src="/images/ihaskell.png" />
 </figure>
 </section><section id="on-the-usefulness-and-efficiency-of-interacting-with-the-machine" class="slide level2">
 <h1>On the usefulness and efficiency of interacting with the machine</h1>
 <figure>
 <img src="/images/tourneur.jpg" />
+</figure>
+<aside class="notes" data-markdown>
+* Use the *REPL*, Luke! Provides much faster feedback loop than full-blown compilation and building, can be used for Type/Test-DD too
+* GHC has a cool feature to handle **holes**: variables which are not in scope but typechecked so that one can use that to [deduce needed type and implementation](http://cfp.devoxx.fr/2016/talk/USZ-6984/TDD,_comme_dans_Type-Directed_Development)
+* GHCi comes with a debugger but I have never used it: [Debugging sucks, testing rocks](http://googletesting.blogspot.fr/search/label/TotT)
+* [IHaskell](https://github.com/gibiansky/IHaskell) provides a Haskell *kernel* for IPython notebooks for interactive programming. Provides a nice alternative to text-only development in Haskell esp. for number crunching
+</aside>
+</section><section class="slide level2">
+
+<figure>
+<img src="/images/ihaskell.png" />
 </figure>
 </section><section id="on-the-typical-day-of-a-commoner-in-haskelland" class="slide level2">
 <h1>On the typical day of a commoner in Haskelland</h1>
@@ -256,20 +344,30 @@ interpret (<span class="dt">Effectless</span> a)                            <spa
 <figure>
 <img src="/images/chymie.jpg" />
 </figure>
+<aside class="notes" data-markdown>
+* There are quite a few *testing* frameworks available to write unit or integration tests
+* I favour [hspec](http://hspec.github.io/) which is one of the many rspec-inspired tools
+* [hs-webdriver](https://github.com/kallisti-dev/hs-webdriver) provides bindings to [Selenium](http://docs.seleniumhq.org/) in Haskell
+* Running tests is automated as part of build tools, e.g. cabal
+</aside>
 </section><section id="where-we-see-empiricism-going-hand-in-hand-with-formalism" class="slide level2">
 <h1>Where we see empiricism going hand in hand with formalism</h1>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Arbitrary</span> <span class="dt">ScaleRatio</span> <span class="kw">where</span>  arbitrary <span class="fu">=</span> <span class="fu">...</span>
+<div class="sourceCode fragment"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Arbitrary</span> <span class="dt">ScaleRatio</span> <span class="kw">where</span>  arbitrary <span class="fu">=</span> <span class="fu">...</span>
 <span class="kw">instance</span> <span class="dt">Arbitrary</span> <span class="dt">Transaction</span> <span class="kw">where</span>  arbitrary <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prop_scaled_transaction_is_normalized ::</span> <span class="dt">Transaction</span> <span class="ot">-&gt;</span> <span class="dt">ScaleRatio</span>
+<div class="sourceCode fragment"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prop_scaled_transaction_is_normalized ::</span> <span class="dt">Transaction</span> <span class="ot">-&gt;</span> <span class="dt">ScaleRatio</span>
                                        <span class="ot">-&gt;</span> <span class="dt">Bool</span>
 prop_scaled_transaction_is_normalized tx (<span class="dt">ScaleRatio</span> ratio) <span class="fu">=</span>
   isNormalized tx&#39; <span class="fu">&amp;&amp;</span> isBalanced tx&#39;
   <span class="kw">where</span>
     tx&#39; <span class="fu">=</span> scale ratio tx</code></pre></div>
-</section><section id="where-one-discovers-quickcheck-can-be-useful-beside-testing-properties" class="slide level2">
+<aside class="notes" data-markdown>
+* [QuickCheck](https://hackage.haskell.org/package/QuickCheck-2.8.2) is the *property-based testing* tool for Haskell
+* Make all/most of your types instance of Arbitrary, boilerplate can be avoided with Template Haskell  
+* Use it for defining formal properties of your code beyond what type system provides
+</aside>
+  </section><section id="where-one-discovers-quickcheck-can-be-useful-beside-testing-properties" class="slide level2">
 <h1>Where one discovers QuickCheck can be useful beside testing properties</h1>
-<h3 id="generating-sample-data-to-test-migration">Generating sample data to test migration</h3>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">sample_v8_Events ::</span> [<span class="dt">ByteString</span>]
+<div class="sourceCode fragment"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">sample_v8_Events ::</span> [<span class="dt">ByteString</span>]
 sample_v8_Events <span class="fu">=</span>
   [<span class="st">&quot;{\&quot;tag\&quot;:\&quot;AddedDocuments\&quot;,\&quot;contents\&quot;:[\&quot;c1f09023b3a9398a1d8a257c372392ab\&quot;,[]]}&quot;</span>
   , <span class="st">&quot;{\&quot;tag\&quot;:\&quot;UpdatedInvestor\&quot;,\&quot;contents\&quot;:{\&quot;invDocuments\&quot;:[],</span>
@@ -278,10 +376,7 @@ sample_v8_Events <span class="fu">=</span>
 <span class="st">     \&quot;invLegalEntity\&quot;:{\&quot;tag\&quot;:\&quot;Corporate\&quot;,\&quot;primaryContactPosition\&quot;:{\&quot;tag\&quot;:\&quot;OtherPosition\&quot;,\&quot;contents\&quot;:\&quot;jZ\&quot;},\&quot;primaryContact\&quot;:{\&quot;personTitle\&quot;:\&quot;Y8\&quot;,\&quot;personFirstName\&quot;:\&quot;qf\&quot;,\&quot;personLastName\&quot;:\&quot;pz\&quot;,\&quot;personIdNumber\&quot;:\&quot;yC\&quot;,\&quot;personTelephone\&quot;:\&quot;nC\&quot;,\&quot;personEmail\&quot;:\&quot;xwmRJAstJRrvBy1x8FnJ4Y2.6nmGy@opBpRq.sg\&quot;},\&quot;company\&quot;:{\&quot;companyPostcode\&quot;:\&quot;kT\&quot;,\&quot;companyName\&quot;:\&quot;-o\&quot;,\&quot;companyUEN\&quot;:\&quot;LA\&quot;,\&quot;legalForm\&quot;:\&quot;LTD\&quot;,\&quot;companyAddress\&quot;:\&quot;oh\&quot;}}}}&quot;</span>
    , <span class="st">&quot;{\&quot;tag\&quot;:\&quot;NoEvent\&quot;,\&quot;contents\&quot;:[]}&quot;</span>
    , <span class="st">&quot;{\&quot;tag\&quot;:\&quot;AddedDocuments\&quot;,\&quot;contents\&quot;:[\&quot;b9973afdd569f11269fe0be736086049\&quot;,[]]}&quot;</span></code></pre></div>
-</section><section class="slide level2">
-
-<h3 id="generating-execution-sequences-representing-typical-scenarios">Generating execution sequences representing typical scenarios</h3>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">genAdminActions <span class="fu">=</span>
+<div class="sourceCode fragment"><pre class="sourceCode haskell"><code class="sourceCode haskell">genAdminActions <span class="fu">=</span>
   frequency [ (<span class="dv">1</span>,  return [])
             , (<span class="dv">1</span>,  <span class="kw">do</span>
                    f <span class="ot">&lt;-</span> <span class="dt">NewListing</span> <span class="fu">&lt;$&gt;</span> arbitrary <span class="fu">&lt;*&gt;</span> newFacility <span class="fu">&lt;*&gt;</span> rate <span class="fu">&lt;*&gt;</span> risk
@@ -290,48 +385,88 @@ sample_v8_Events <span class="fu">=</span>
             , (<span class="dv">5</span>,  (<span class="dt">LookupFacilities</span><span class="fu">:</span>) <span class="fu">&lt;$&gt;</span> genAdminActions)
             , (<span class="dv">6</span>,  (<span class="dt">AdvanceDay</span><span class="fu">:</span>) <span class="fu">.</span> (<span class="dt">ConfirmRepayments</span><span class="fu">:</span>) <span class="fu">&lt;$&gt;</span> genAdminActions)
             ]</code></pre></div>
-</section><section id="on-the-use-of-different-level-of-testing" class="slide level2">
+<aside class="notes" data-markdown>
+* Generate sample data sets to be used as part of other kind of tests: We used it to generate test data for *schema migration* code
+* Generate complex scenarios to test sequence of I/O operations
+* [Monadic QuickCheck](https://hackage.haskell.org/package/QuickCheck-2.8.2/docs/Test-QuickCheck-Monadic.html) provides needed tooling to embed data generation within effectful code
+* The idea is to write a data type representing possible actions then generate sequence of actions within some context, *à la* abstract interpretation to have meaningful sequnences and represent expected properties
+* Then actually run those sequences and check expectations are met
+</aside>
+  </section><section id="on-the-use-of-different-level-of-testing" class="slide level2">
 <h1>On the use of different level of testing</h1>
 <figure>
 <img src="/images/pyramide.jpg" />
 </figure>
+<aside class="notes" data-markdown>
+* Add an extra base to the pyramid with types and properties
+* Removes needs for classical unit testing
+* Provide medium set of integrations tests
+* Define a small but wide (in terms of covered features) set of ETE tests
+</aside>
 </section></section>
 <section><section id="architecture" class="titleslide slide level1"><h1>Architecture</h1></section><section id="on-the-importance-of-laying-out-strong-foundations" class="slide level2">
 <h1>On the importance of laying out strong foundations</h1>
 <figure>
 <img src="/images/architecture.jpg" />
 </figure>
+<aside class="notes" data-markdown>
+* GHC has become the standard compiler for Haskell, current version is 7.10.3
+* It includes a *lot* of optimisations and features from 20 years of research on programming languages and compilation
+* Always be sure to turn on  ` -Wall -Werror` when compiling: Warnings are often signs of potential troubles
+* **Caveat**: Compilation can take a long time but still does not yet beat `scalac`'s slowness
+</aside>
 </section><section id="on-the-intricacies-of-building-complex-software-with-a-cabal-of-scholars" class="slide level2">
 <h1>On the intricacies of building complex software with a Cabal of scholars</h1>
 <figure>
 <img src="/images/horlogerie.jpg" />
 </figure>
-</section><section id="where-haskellers-demonstrate-how-easily-they-can-adopt-foreigners-practice" class="slide level2">
+<aside class="notes" data-markdown>
+* Standard package management tool is [Cabal](https://www.haskell.org/cabal/) which has become infamous due to [cabal hell](https://wiki.haskell.org/Cabal/Survival)
+* Cabal is not very good at managing complex package structures out-of-the-box
+* [stack](http://docs.haskellstack.org/en/stable/README/) greatly improves thing in order to provide fully reproducible builds and sandboxed environments, down to compiler versions
+* [nix](http://nixos.org/nixpkgs/manual/#users-guide-to-the-haskell-infrastructure) provides a solution to package management in Haskell
+</aside>
+  </section><section id="where-haskellers-demonstrate-how-easily-they-can-adopt-foreigners-practice" class="slide level2">
 <h1>Where Haskellers demonstrate how easily they can adopt foreigners practice</h1>
-<figure>
-<img src="/images/event-sourcing.png" />
-</figure>
-</section><section class="slide level2">
-
 <figure>
 <img src="/images/services-architecture.png" />
 </figure>
+<aside class="notes" data-markdown>
+* We developed a (micro)-services based architecture: each service is independently deployed in its own container with its own data storage
+* Having nearly independent executables makes it easy to package standalone containers -> no need to install a JVM!
+</aside>
 </section></section>
 <section><section id="diplomacy" class="titleslide slide level1"><h1>Diplomacy</h1></section><section id="where-we-separate-that-which-is-pure-from-that-which-is-impure" class="slide level2">
 <h1>Where we separate that which is pure from that which is impure</h1>
 <figure>
 <img src="/images/pure-impure.jpg" />
 </figure>
+<aside class="notes" data-markdown>
+* Type system provides a clean way to distinguish *pure* values from *impure* effects
+* Staying *pure* has predictable semantics and opens the door to *optimisations*
+* *Effectful computations* are one way portal to the *real world*
+</aside>
 </section><section id="where-we-learn-we-can-have-our-cake-and-eat-it-too" class="slide level2">
 <h1>Where we learn we can have our cake and eat it too</h1>
 <figure>
 <img src="/images/boulanger.jpg" />
 </figure>
+<aside class="notes" data-markdown>
+* Concurrency in Haskell is mostly based on composable [Software Transactional Memory](https://www.schoolofhaskell.com/school/advanced-haskell/beautiful-concurrency) operations
+* STM do not mix with I/O operations hence cannot have observable *side-effects* but the upside is that runtime can detect *deadlocks*
+* [async](https://hackage.haskell.org/package/async) a high-level library to package asynchronous computations within cheap Haskell threading model
+* We used actor-like *queues* to protect access to I/O resources, e.g. database. Haskell provide a lot of useful abstractions on top of STM and core concurrency features to build your own tools
+</aside>
 </section><section id="where-haskellers-prove-they-know-how-to-communicate-with-the-rest-of-the-world" class="slide level2">
 <h1>Where Haskellers prove they know how to communicate with the REST of the world</h1>
 <figure>
 <img src="/images/marine.jpg" />
 </figure>
+<aside class="notes" data-markdown>
+* [WAI](https://github.com/yesodweb/wai/) provides all the needed components to build high performance REST-based services in Haskell
+* Initial development was done with [Scotty](https://github.com/scotty-web/scotty/) which is a lightweight framework inspired by Sinatra
+* Definitely need to have a look at [Spock](https://github.com/agrafix/Spock) which is a kind of "successor" to Scotty
+</aside>
 </section><section id="where-some-types-make-mortal-beings-doubt-about-their-sanity" class="slide level2">
 <h1>Where some types make mortal beings doubt about their sanity</h1>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">CreateJob</span> <span class="fu">=</span> <span class="dt">ReqBody</span> <span class="ch">&#39;[JSON] Job :&gt; Post &#39;</span>[<span class="dt">JSON</span>] <span class="dt">JobId</span>
@@ -341,10 +476,25 @@ sample_v8_Events <span class="fu">=</span>
 <span class="kw">type</span> <span class="dt">SchedulerApi</span> <span class="fu">=</span> <span class="st">&quot;api&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;jobs&quot;</span> <span class="fu">:&gt;</span> <span class="dt">CreateJob</span>
                <span class="fu">:&lt;|&gt;</span> <span class="st">&quot;api&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;jobs&quot;</span> <span class="fu">:&gt;</span> <span class="dt">ListJobs</span>
                <span class="fu">:&lt;|&gt;</span> <span class="st">&quot;api&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;jobs&quot;</span> <span class="fu">:&gt;</span> <span class="dt">RemoveJob</span></code></pre></div>
-</section><section id="on-some-ways-data-is-persisted-to-stable-storage" class="slide level2">
+
+<aside class="notes" data-markdown>
+* Newer services are now developed with [Servant](https://github.com/haskell-servant/servant/) which provides a way to express APIs **at the type level** 
+* Makes it possible to *derive* server, client or swagger specs from a single declaration
+</aside>
+  </section><section id="on-some-ways-data-is-persisted-to-stable-storage" class="slide level2">
 <h1>On some ways data is persisted to stable storage</h1>
 <figure>
 <img src="/images/marbrerie.jpg" />
+</figure>
+<aside class="notes" data-markdown>
+* Haskell has bindings to most open-source or standard (R)DBMS but *we did not used them*
+* Seems like perfect environment to use [event sourcing](http://martinfowler.com/eaaDev/EventSourcing.html)
+* We developed in-house solution to store events generated by the application as a *sequential log of events* stored in a file on disk
+</aside>
+</section><section class="slide level2">
+
+<figure>
+<img src="/images/event-sourcing.png" />
 </figure>
 </section></section>
 <section><section id="war" class="titleslide slide level1"><h1>War</h1></section><section id="where-peaceful-haskellers-prepare-themselves-to-wage-war" class="slide level2">
@@ -352,32 +502,65 @@ sample_v8_Events <span class="fu">=</span>
 <figure>
 <img src="/images/machines-de-guerre.jpg" />
 </figure>
-</section><section id="on-the-war-time-organisation-of-haskells-legions" class="slide level2">
+<aside class="notes" data-markdown>
+* [Shake](http://shakebuild.com/) is a Haskell tool to replace `make` and orchestrate complex builds
+* [bake](https://github.com/ndmitchell/bake) is our *Continuous Integration* tool
+* We used both to build and deploy all components of the system as [docker](http://docker.io) containers
+* Both provides way to express complex build processes as *type-safe declarative* rules
+</aside>
+  </section><section id="on-the-war-time-organisation-of-haskells-legions" class="slide level2">
 <h1>On the war-time organisation of Haskell’s legions</h1>
 <figure>
 <img src="/images/militaire.jpg" />
 </figure>
-</section><section id="on-the-capabilities-to-wage-war-outside-of-haskelland" class="slide level2">
+<aside class="notes" data-markdown>
+* [propellor](http://propellor.branchable.com/) is a configuration management tool in Haskell developed by [Joey Hess](https://joeyh.name/) of Debian fame
+* Configuration is expressed as a Haskell program that is compiled and run on the target host
+* It provides a nice gpg key based model to encrypt private data (e.g. ssh keys, authentication tokens, passwords...) that need to be deployed in the source directory
+* Once again, it allows expressing configuration items in a *type-safe* way
+</aside>
+  </section><section id="on-the-capabilities-to-wage-war-outside-of-haskelland" class="slide level2">
 <h1>On the capabilities to wage war outside of Haskelland</h1>
 <figure>
 <img src="/images/marine-formation.jpg" />
 </figure>
-</section><section class="slide level2">
+<aside class="notes" data-markdown>
+* [hdo](https://github.com/capital-match/hdo) is Haskell client for interacting with [Digital Ocean](https://www.digitalocean.com/)'s API where we deploy all our containers
+* There is thorough Haskell support for AWS API through [Amazonka](https://github.com/brendanhay/amazonka) and Google's APIs through [gogol](https://github.com/brendanhay/gogol)
+* Monitoring is done through a [riemann](http://riemann.io) [Haskell client](http://github.com/capital-match/riemann-hs)
+</aside>
+  </section><section class="slide level2">
 
 <figure>
 <img src="/images/system-architecture.png" />
 </figure>
+<aside class="notes" data-markdown>
+* Application is standardised and packaged as Docker containers, deployed on Virtual Machines from Digital Ocean
+* Backups on Amazon’s S3 which also hosts static web site
+</aside>
 </section></section>
 <section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="what-benefits-one-can-expect-from-visiting-haskelland" class="slide level2">
 <h1>What benefits one can expect from visiting Haskelland</h1>
 <figure>
 <img src="/images/paix-utrecht.jpg" />
 </figure>
+<aside class="notes" data-markdown>
+* Strong type discipline and powerful compiler removes a whole class of programming errors: *When it compiles, it runs*
+* Types are also great to design complex software systems and yield great opportunities for verification 
+* All the *best practices* you learnt are still valid in Haskelland, only a bit differently practiced
+* You can stay away from "hairy" stuff while still being productive and have fun
+</aside>
 </section><section id="what-the-cautious-traveller-should-be-aware-of-when-ashoring-haskelland" class="slide level2">
 <h1>What the cautious traveller should be aware of when ashoring Haskelland</h1>
 <figure>
 <img src="/images/rhinoceros.jpg" />
 </figure>
+<aside class="notes" data-markdown>
+* Development environment can be tricky to get - and stay - "right"
+* A lot of the material one can find is *research focused* which can be daunting
+* Avoid *partial functions* at all cost
+* It can be hard to find Haskell developers *locally* 
+</aside>
 </section></section>
 <section><section id="acknowledgements" class="titleslide slide level1"><h1>Acknowledgements</h1></section><section id="credits" class="slide level2">
 <h1>Credits</h1>
@@ -397,6 +580,8 @@ sample_v8_Events <span class="fu">=</span>
 </ul>
 </section></section>
     </div>
+    <div class="footer"><p>#DevoxxFR</p></div>
+    <div class="header"><p>Devoxx France, Paris, 20-22 April 2016<img align="right" src="logo-texte-devoxx-france-400.png" /></div>
   </div>
 
 
@@ -413,7 +598,7 @@ sample_v8_Events <span class="fu">=</span>
         history: true,
         center: true,
         theme: 'old-english', // available themes are in /css/theme
-        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+        transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
 
         // Optional libraries used to extend on reveal.js
         dependencies: [

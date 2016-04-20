@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+
+  <meta name="author" content="Capital Match Team" />
+
+
+  <meta name="dcterms.date" content="March 10, 2016" />
+
+  <title>Life Beyond Relational Database</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="/reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    </style>    
+
+
+    <link rel="stylesheet" href="/reveal.js/css/theme/beige.css" id="theme">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="/reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section>
+    <h1 class="title">Life Beyond Relational Database</h1>
+
+
+    <h2 class="author">Capital Match Team</h2>
+
+    <h3 class="date">March 10, 2016</h3>
+</section>
+
+
+
+<section><section id="agenda" class="titleslide slide level1"><h1>Agenda</h1></section><section id="agenda-1" class="slide level2">
+<h1>Agenda</h1>
+<ul>
+<li class="fragment">Introduction</li>
+<li class="fragment">Event-Sourcing Model</li>
+<li class="fragment">Implementation &amp; Usage</li>
+<li class="fragment">Future works</li>
+</ul>
+</section></section>
+<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="who-are-we" class="slide level2">
+<h1>Who are we?</h1>
+<figure>
+<img src="/images/cm-website.png" />
+</figure>
+</section><section id="who-are-we-1" class="slide level2">
+<h1>Who are we?</h1>
+<ul>
+<li class="fragment">Capital Match is the leading plaform in Singapore for peer-to-peer lending to SMEs</li>
+<li class="fragment">Backend system developed in Haskell, frontend in Clojurescript/Om since 2014</li>
+<li class="fragment">Core Development team of 3 + 1: Amar, Arnaud, Guo Liang, Zhou Yu</li>
+</ul>
+</section></section>
+<section><section id="relational-model" class="titleslide slide level1"><h1>Relational Model</h1></section><section class="slide level2">
+
+<figure>
+<img src="/images/relational-model.gif" />
+</figure>
+</section><section id="whats-good-with-relational-model" class="slide level2">
+<h1>What’s good with Relational Model?</h1>
+<ul>
+<li class="fragment">Really great for querying <span class="math inline">→</span> <em>SQL Rocks!</em></li>
+<li class="fragment">Conceptually simple to understand: <em>Everything is a Table</em></li>
+<li class="fragment">Ubiquitous</li>
+</ul>
+</section><section id="whats-wrong-with-relational-model" class="slide level2">
+<h1>What’s wrong with Relational Model?</h1>
+<ul>
+<li class="fragment">Writes/updates are complex</li>
+<li class="fragment"><em>Impedance Mismatch</em>: Lot of data is more tree-ish or graph-ish</li>
+<li class="fragment">One single Database for everything <span class="math inline">→</span> <em>SPOF</em></li>
+<li class="fragment"><strong>Mutable State</strong></li>
+</ul>
+</section><section class="slide level2">
+
+<figure>
+<img src="/images/one-ring.jpg" />
+</figure>
+</section></section>
+<section><section id="event-sourcing" class="titleslide slide level1"><h1>Event Sourcing</h1></section><section id="state-vs.transitions" class="slide level2">
+<h1>State vs. Transitions</h1>
+<figure>
+<img src="/images/state-transitions.png" />
+</figure>
+</section><section id="state-vs.transitions-1" class="slide level2">
+<h1>State vs. Transitions</h1>
+<ul>
+<li class="fragment">RDBMS stores the <strong>state</strong> of the model at some point in time…</li>
+<li class="fragment">… But we are also interested in the <strong>transitions</strong> …</li>
+<li class="fragment">… And state can always be reconstructed from a <em>sequence of transitions</em>.</li>
+</ul>
+</section><section id="the-event-sourcing-model" class="slide level2">
+<h1>The Event Sourcing Model</h1>
+<blockquote>
+<p>Event Sourcing ensures that all changes to application state are stored as a sequence of events. Not just can we query these events, we can also use the event log to reconstruct past states, and as a foundation to automatically adjust the state to cope with retroactive changes.</p>
+</blockquote>
+<blockquote>
+<p><a href="http://martinfowler.com/eaaDev/EventSourcing.html">Martin Fowler</a></p>
+</blockquote>
+</section><section id="events-makes-it-easier-to" class="slide level2">
+<h1>Events makes it easier to…</h1>
+<ul>
+<li class="fragment">Audit current state and what lead to it</li>
+<li class="fragment">Implement generic undo/redo mechanism</li>
+<li class="fragment">Run simulations with different hypothesis over live data</li>
+<li class="fragment">Cope with data format migrations</li>
+<li class="fragment">Handle potentially conflicting changes</li>
+</ul>
+</section><section id="events-drive-business" class="slide level2">
+<h1>Events Drive Business</h1>
+<ul>
+<li class="fragment">Events are what makes a model dynamic: What affects it, how it reacts to outside world…</li>
+<li class="fragment">Provide foundation for <a href="http://www.amazon.fr/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">Domain Driven Design</a> techniques <span class="math inline">→</span> Better business models, Ubiquitous language</li>
+<li class="fragment">Lead to <a href="http://ziobrando.blogspot.sg/2013/11/introducing-event-storming.html">Event Storming</a> technique for “requirements” elicitation and business domain modelling</li>
+</ul>
+</section></section>
+<section><section id="in-practice" class="titleslide slide level1"><h1>In Practice</h1></section><section id="overview" class="slide level2">
+<h1>Overview</h1>
+<figure>
+<img src="/images/event-sourcing.png" />
+</figure>
+</section><section id="pure-business-models" class="slide level2">
+<h1>Pure Business Models</h1>
+<ul>
+<li class="fragment">Each model delimits a <em>Bounded Context</em>: It is responsible for a single cohesive part of the domain</li>
+<li class="fragment">Models are <strong>pure</strong> immutable data structures</li>
+<li class="fragment">Distinguish <em>Commands</em> from <em>Events</em></li>
+</ul>
+</section><section id="pure-business-models-2" class="slide level2">
+<h1>Pure Business Models (2)</h1>
+<ul>
+<li class="fragment"><p>Commands compute Event from State</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">act ::</span> <span class="dt">Command</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Event</span></code></pre></div></li>
+<li class="fragment"><p>Events modify model</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">apply ::</span> <span class="dt">Event</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Model</span></code></pre></div></li>
+</ul>
+</section><section id="effectful-services" class="slide level2">
+<h1>Effectful Services</h1>
+<blockquote>
+<p>Services are used to orchestrate interaction between one or more business models and the outside world</p>
+</blockquote>
+<ul>
+<li class="fragment">Services are functions operating <em>across several contexts</em></li>
+<li class="fragment">They can be synchronous or asynchronous (we use mostly synchronous)</li>
+<li class="fragment">There are no <em>distributed transactions</em>: Service has to cope with failures from each context</li>
+</ul>
+</section><section id="effectful-services-2" class="slide level2">
+<h1>Effectful Services (2)</h1>
+<ul>
+<li class="fragment"><p>We have a monad to express effects and sequencing on each context: <code>WebStateM</code></p>
+<pre><code>newtype WebStateM g l m a = WebStateM { runWebM :: TVar g -&gt; l -&gt; m a }</code></pre></li>
+<li class="fragment"><code>g</code> is a “global” Model which can be accessed concurrently <span class="math inline">→</span> protected in STM</li>
+<li class="fragment"><code>l</code> is local data, contextual to a single service execution</li>
+<li class="fragment"><p><code>m</code> is underlying monad, usually <code>IO</code></p></li>
+</ul>
+</section><section id="events-storage" class="slide level2">
+<h1>Events Storage</h1>
+<pre><code>data StoredEvent s = StoredEvent { eventVersion :: EventVersion
+                                 , eventType    :: EventType s 
+                                 , eventDate    :: Date        
+                                 , eventUser    :: UserId      
+                                 , eventRequest :: Encoded Hex 
+                                 , eventSHA1    :: Encoded Hex 
+                                 , event        :: ByteString  
+                                 }</code></pre>
+</section><section id="events-storage-2" class="slide level2">
+<h1>Events Storage (2)</h1>
+<ul>
+<li class="fragment">We use a simple Append-only file store, writing serialized events (mostly JSON) packed with metadata</li>
+<li class="fragment">Each event has a (monotonically increasing) version which is used for proper deserialization</li>
+<li class="fragment">Events carry useful information for troubleshooting and auditing: User who initiated the request, request id itself, SHA1 representing version of appplication</li>
+<li class="fragment">Events Store serializes concurrent writes</li>
+</ul>
+</section></section>
+<section><section id="software" class="titleslide slide level1"><h1>Software</h1></section><section id="section" class="slide level2">
+<h1></h1>
+<figure>
+<img src="/images/workshop.jpg" alt="In Practice" /><figcaption>In Practice</figcaption>
+</figure>
+</section><section id="demo" class="slide level2">
+<h1>Demo</h1>
+<ul>
+<li class="fragment">Anatomy of a complete business model
+<ul>
+<li class="fragment">Web layer w/ servant</li>
+<li class="fragment">Service layer (w/ Free monads…)</li>
+<li class="fragment">Business model</li>
+<li class="fragment">Migration code</li>
+<li class="fragment">Standalone service</li>
+</ul></li>
+<li class="fragment">Using Haskell scripts for operational queries and updates</li>
+</ul>
+</section></section>
+<section><section id="future-works" class="titleslide slide level1"><h1>Future Works</h1></section><section id="section-1" class="slide level2">
+<h1></h1>
+<figure>
+<img src="/images/monolith-2001.jpg" />
+</figure>
+</section><section id="implement-better-cqrs" class="slide level2">
+<h1>Implement Better CQRS</h1>
+<ul>
+<li class="fragment">Separate <em>Read Model</em> from <em>Write Model</em></li>
+<li class="fragment"><em>Write Model</em>: Append-only linear data store per context, very fast, minimize locking/write time</li>
+<li class="fragment"><em>Read model</em>: Optimized for specific querying, may be relational if needed in order to make it more user-friendly</li>
+</ul>
+</section><section id="make-models-resilient" class="slide level2">
+<h1>Make models resilient</h1>
+<ul>
+<li class="fragment">Resilience of models <span class="math inline">→</span> <em>Replication</em></li>
+<li class="fragment">Use <a href="http://raft.github.io/">Raft</a> to maintain strong consistency of models: <a href="https://github.com/cartazio/haver-raft">several</a> <a href="https://github.com/NicolasT/kontiki">implementations</a> <a href="https://github.com/chrisnc/tangaroa">in</a> Haskell</li>
+<li class="fragment">Started implementation of practical cluster based on Raft, called <a href="https://github.com/capital-match/raptr">raptr</a></li>
+</ul>
+</section><section id="make-models-secure" class="slide level2">
+<h1>Make models secure</h1>
+<ul>
+<li class="fragment">Turn event stream into a <em>source of truth</em> <span class="math inline">→</span> Blockchain and beyond…</li>
+<li class="fragment">Juno: <a href="https://github.com/buckie/juno">Smart contracts</a> over Raft cluster</li>
+<li class="fragment">Uses cryptographically signed events to ensure history cannot be tampered with</li>
+<li class="fragment">Turns journal into a “legally binding ledger”?</li>
+</ul>
+</section></section>
+<section><section id="questions" class="titleslide slide level1"><h1>Questions?</h1></section><section id="section-2" class="slide level2">
+<h1></h1>
+<figure>
+<img src="/images/puzzled.jpg" />
+</figure>
+</section></section>
+<section><section id="credits" class="titleslide slide level1"><h1>Credits</h1></section></section>
+    </div>
+  </div>
+
+
+  <script src="/reveal.js/lib/js/head.min.js"></script>
+  <script src="/reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'old-english', // available themes are in /css/theme
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: '/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+  </body>
+</html>

@@ -47,8 +47,7 @@
 <h2 id="tldr">tl;dr</h2>
 <ul>
 <li>Haskell syntax promotes terseness but is easy to pickup</li>
-<li>The type system is a great designing tool</li>
-<li></li>
+<li>Haskell’s type system is great</li>
 </ul>
 <h2 id="types">Types</h2>
 <ul>
@@ -78,7 +77,7 @@
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> family <span class="dt">Id</span><span class="ot"> a ::</span> <span class="fu">*</span>
 <span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Id</span> <span class="dt">Account</span>       <span class="fu">=</span> <span class="dt">AccountId</span>
 <span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Id</span> <span class="dt">Transaction</span>   <span class="fu">=</span> <span class="dt">TransactionId</span></code></pre></div></li>
-<li>type classes: Defines interfaces (aka. modules, signatures) to some set of operations and data types
+<li><a href="http://typeclassopedia.bitbucket.org/">type classes</a>: Defines interfaces (aka. modules, signatures) to some set of operations and data types
 <ul>
 <li>encapsulate implementation details, e.g. data storage, execution model</li>
 <li>allows transparent replacement of</li>
@@ -138,7 +137,7 @@
 <h2 id="development-environment">Development Environment</h2>
 <ul>
 <li>One of Haskell’s pain points: It’s a moving target and there is no single solution</li>
-<li>Most advanced support is provided by integrating various extensions to Emacs to provide auto-completion, formatting, integration with REPL, auto-compilation and errors highlighting…</li>
+<li>Best support is provided by integrating various extensions to Emacs to provide auto-completion, formatting, integration with REPL, auto-compilation and errors highlighting…</li>
 <li>There is a nice <a href="https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md">tutorial</a> on how to setup emacs and Chris Done has provided some <a href="https://github.com/chrisdone/emacs-haskell-config">standard configuration</a></li>
 <li><a href="http://haskellformac.com/">Haskell for Mac</a> is a recent initiative to provide an interactive and easy to use programming environment in Haskell</li>
 <li><a href="https://github.com/gibiansky/IHaskell">IHaskell</a> provides a Haskell <em>kernel</em> for IPython notebooks for interactive programming. Provides a nice alternative to text-only development in Haskell esp. for number crunching</li>
@@ -191,7 +190,7 @@
 <li>Profiling gives you information on <em>cost centres</em> for some executions of the program. Its main inconvenient is that it requires building <em>all</em> dependencies with profiling support which effectively means you have to maintain two sets of dependencies. I only have to use it only once…</li>
 <li><a href="http://www.serpentine.com/criterion/">criterion</a> is the micro-benchmark library of choice for Haskell</li>
 </ul>
-<h1 id="deployment">Deployment</h1>
+<h1 id="deployment-production">Deployment &amp; Production</h1>
 <h2 id="packaging">Packaging</h2>
 <ul>
 <li>GHC produces native binaries with few dependencies on dynamically linked libraries</li>
@@ -212,7 +211,9 @@
 </ul>
 <h2 id="infrastructure-management-wip">Infrastructure Management (WIP)</h2>
 <ul>
-<li><a href="https://github.com/capital-match/hdo">hdo</a> is a client in Haskell for interacting with <a href="https://www.digitalocean.com/">Digital Ocean</a></li>
+<li>We deploy our docker containers to Digital Ocean hosts. <a href="https://github.com/capital-match/hdo">hdo</a> is a client in Haskell for interacting with <a href="https://www.digitalocean.com/">Digital Ocean</a></li>
+<li>There is thorough Haskell support for AWS API through <a href="https://github.com/brendanhay/amazonka">Amazonka</a> and Google’s APIs through <a href="https://github.com/brendanhay/gogol">gogol</a></li>
+<li>Monitoring is done through a <a href="http://riemann.io">riemann</a> <a href="http://github.com/capital-match/riemann-hs">Haskell client</a></li>
 </ul>
 <h1 id="references">References</h1>
 <ul>
