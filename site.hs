@@ -53,7 +53,7 @@ main = do
         compile compressCssCompiler
 
     match "slides/*.md" $ do
-        route   $ gsubRoute "slides/" (const "")  `composeRoutes` setExtension "html"
+        route   $ setExtension "html"
         compile $ pandocSlideCompiler
             >>= loadAndApplyTemplate "templates/slides-reveal.html"    slidesCtx
 
