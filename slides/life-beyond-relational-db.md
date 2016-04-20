@@ -5,7 +5,6 @@ date: 2016-03-10
 theme: beige
 ------------ 
 
-
 # Agenda
 
 --------
@@ -23,7 +22,7 @@ theme: beige
 
 ## Who are we?
 
-![](images/cm-website.png)
+![](/images/cm-website.png)
 
 ## Who are we?
 
@@ -35,7 +34,7 @@ theme: beige
 
 -----
 
-![](images/relational-model.gif)
+![](/images/relational-model.gif)
 
 ## What's good with Relational Model?
 
@@ -52,13 +51,13 @@ theme: beige
 
 ----
 
-![](images/one-ring.jpg)
+![](/images/one-ring.jpg)
 
 # Event Sourcing
 
 ## State vs. Transitions
 
-![](images/state-transitions.png)
+![](/images/state-transitions.png)
 
 ## State vs. Transitions
 
@@ -92,7 +91,7 @@ theme: beige
 
 ## Overview
 
-![](images/event-sourcing.png)
+![](/images/event-sourcing.png)
 
 ## Pure Business Models
 
@@ -157,7 +156,7 @@ data StoredEvent s = StoredEvent { eventVersion :: EventVersion
 
 ## 
 
-![In Practice](images/workshop.jpg)
+![In Practice](/images/workshop.jpg)
 
 ## Demo
 
@@ -173,7 +172,7 @@ data StoredEvent s = StoredEvent { eventVersion :: EventVersion
 
 ##
 
-![](images/monolith-2001.jpg)
+![](/images/monolith-2001.jpg)
 
 ## Implement Better CQRS
 
@@ -198,7 +197,7 @@ data StoredEvent s = StoredEvent { eventVersion :: EventVersion
 
 ## 
 
-![](images/puzzled.jpg)
+![](/images/puzzled.jpg)
 
 # Credits
 
