@@ -16,8 +16,7 @@ date: 2016-03-18
 ## tl;dr
 
 * Haskell syntax promotes terseness but is easy to pickup
-* The type system is a great designing tool
-* 
+* Haskell's type system is great
 
 ## Types ##
 
@@ -32,7 +31,7 @@ date: 2016-03-18
     instance IsString AccountNr where
         fromString = AccountNr . T.pack
     ```
-                       
+
 * phantom types: provide annotation for common underlying representations
 
     ```haskell
@@ -64,7 +63,7 @@ date: 2016-03-18
     type instance Id Transaction   = TransactionId
     ```
 
-* type classes: Defines interfaces (aka. modules, signatures) to some set of operations and data types
+* [type classes](http://typeclassopedia.bitbucket.org/): Defines interfaces (aka. modules, signatures) to some set of operations and data types
     * encapsulate implementation details, e.g. data storage, execution model
     * allows transparent replacement of 
 * See [Type Driven Development](http://cfp.devoxx.fr/2016/talk/USZ-6984/TDD,_comme_dans_Type-Directed_Development) by Clément Delafargue
@@ -126,7 +125,7 @@ date: 2016-03-18
 ## Development Environment
 
 * One of Haskell's pain points: It's a moving target and there is no single solution
-* Most advanced support is provided by integrating various extensions to Emacs to provide auto-completion, formatting, integration with REPL, auto-compilation and errors highlighting...
+* Best support is provided by integrating various extensions to Emacs to provide auto-completion, formatting, integration with REPL, auto-compilation and errors highlighting...
 * There is a nice [tutorial](https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md) on how to setup emacs and Chris Done has provided some [standard configuration](https://github.com/chrisdone/emacs-haskell-config)
 * [Haskell for Mac](http://haskellformac.com/) is a recent initiative to provide an interactive and easy to use programming environment in Haskell
 * [IHaskell](https://github.com/gibiansky/IHaskell) provides a Haskell *kernel* for IPython notebooks for interactive programming. Provides a nice alternative to text-only development in Haskell esp. for number crunching
@@ -188,7 +187,7 @@ date: 2016-03-18
 * Profiling gives you information on *cost centres* for some executions of the program. Its main inconvenient is that it requires building *all* dependencies with profiling support which effectively means you have to maintain two sets of dependencies. I only have to use it only once...
 * [criterion](http://www.serpentine.com/criterion/) is the micro-benchmark library of choice for Haskell
 
-# Deployment
+# Deployment & Production
 
 ## Packaging
 
@@ -208,7 +207,9 @@ date: 2016-03-18
 
 ## Infrastructure Management (WIP)
 
-* [hdo](https://github.com/capital-match/hdo) is a client in Haskell for interacting with [Digital Ocean](https://www.digitalocean.com/)
+* We deploy our docker containers to Digital Ocean hosts. [hdo](https://github.com/capital-match/hdo) is a client in Haskell for interacting with [Digital Ocean](https://www.digitalocean.com/)
+* There is thorough Haskell support for AWS API through [Amazonka](https://github.com/brendanhay/amazonka) and Google's APIs through [gogol](https://github.com/brendanhay/gogol)
+* Monitoring is done through a [riemann](http://riemann.io) [Haskell client](http://github.com/capital-match/riemann-hs)
 
 # References
 

@@ -158,24 +158,25 @@ body {
 .reveal pre {
   display: block;
   position: relative;
-  width: 90%;
+  width: 110%;
   margin: 20px auto;
   text-align: left;
   font-size: 0.55em;
   font-family: monospace;
   line-height: 1.2em;
-  word-wrap: break-word;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }
 
 .reveal code {
-  font-family: monospace; }
+    font-family: monospace;
+    font-size: 120%;
+}
 
 .reveal pre code {
   display: block;
   padding: 5px;
-  overflow: auto;
+  overflow: none;
   max-height: 400px;
-  word-wrap: normal; }
+}
 
 .reveal table {
   margin: auto;
