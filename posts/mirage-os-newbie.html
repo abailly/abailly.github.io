@@ -32,9 +32,9 @@
         </nav>
       </div>
     </header>
-    <div class="draft" id="main" role="main">
+    <div id="main" role="main">
 <h1>First Steps with MirageOS</h1>
-<div class="info">Posted on April 21, 2016</div>
+<div class="info">Posted on April 22, 2016</div>
 
 <p>This post is a follow-up to the session I gave at <a href="http://cfp.devoxx.fr/2016/talk/KEN-7124/Unikernel:_Le_conteneur_du_futur">Devoxx France</a> on <a href="http://mirage.io">MirageOS</a>. It provides detailed instructions on how to setup a development environment to be able to:</p>
 <ul>
@@ -50,6 +50,7 @@
 <li><a href="http://www.skjegstad.com/blog/2015/01/19/mirageos-xen-virtualbox/">Magnus Skjegstad</a> blog post which mostly covers point 2. above, and <a href="http://www.skjegstad.com/blog/2015/03/25/mirageos-vm-per-url-experiment/">another post</a> which covers more advanced stuff,</li>
 <li><a href="https://www.somerandomidiot.com/blog/2014/07/25/doing-nothing-in-mirage/">Doing nothing in Mirage</a>, an older post on basic configuration,</li>
 <li>An account on recent Solo5 development to <a href="https://mirage.io/blog/introducing-solo5">run Mirage on Qemu</a>,</li>
+<li>Another <em>getting started</em> <a href="http://roscidus.com/blog/blog/2014/07/28/my-first-unikernel%2F">blog post</a></li>
 <li>Some random pages on Xen configuration:
 <ul>
 <li><a href="http://superuser.com/questions/737976/how-do-i-get-xen-domu-guests-to-have-internet-access">Accessing the Internet from domU kernels</a>,</li>
@@ -69,7 +70,7 @@
 <p>To build this service we need to:</p>
 <ul>
 <li>Run a HTTP Server: I will use <a href="https://github.com/mirage/ocaml-cohttp">ocaml-cohttp</a> which is built specifically to be run within MirageOS applications,</li>
-<li>Store data in some key/value store: MirageOS provides <a href>kv_ro</a> which is an abstract key/value store which can be backed in code or in a FAT-formatted disk image.</li>
+<li>Store data in some key/value store: MirageOS provides <code>kv_ro</code> which is an abstract key/value store which can be backed in code or in a FAT-formatted disk image.</li>
 </ul>
 <h2 id="server-code">Server Code</h2>
 <p>The server code resides in a <code>unikernel.ml</code> file. I am not at all familiar with OCaml so my code is probably not really idiomatic. Learning OCaml is one of the reasons I became interested in MirageOS in the first place !</p>
@@ -79,11 +80,11 @@
 <span class="ot">open</span> Lwt<span class="kw">.</span>Infix
 <span class="ot">open</span> V1_LWT
 <span class="ot">open</span> Printf</code></pre></div>
-<p>The <code>string_of_stream</code> function is adapted from the basic <code>kv_ro</code> example provided in <a href>mirage-skeleton</a>. Its name is pretty explicit…</p>
+<p>The <code>string_of_stream</code> function is adapted from the basic <code>kv_ro</code> example provided in <a href="https://github.com/mirage/mirage-skeleton">mirage-skeleton</a>. Its name is pretty explicit…</p>
 <div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> string_of_stream stream =
   <span class="kw">let</span> s = List<span class="kw">.</span>map Cstruct<span class="kw">.</span>to_string stream <span class="kw">in</span>
   return (String<span class="kw">.</span>concat <span class="st">&quot;&quot;</span> s)</code></pre></div>
-<p>The main module is parameterized by 3 signatures which are provided by MirageOS according to the configuration given at build-time. Here we have 3 modules: The console for outputting some logs, the Key/Value store and <a href>conduit</a> which provides network connectivity:</p>
+<p>The main module is parameterized by 3 signatures which are provided by MirageOS according to the configuration given at build-time. Here we have 3 modules: The console for outputting some logs, the Key/Value store and <code>conduit</code> which provides network connectivity:</p>
 <div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="ot">module</span> Main (<span class="dt">C</span>:<span class="dt">CONSOLE</span>) (<span class="dt">K</span>: <span class="dt">KV_RO</span>) (<span class="dt">CON</span>:Conduit_mirage<span class="kw">.</span><span class="dt">S</span>) = <span class="kw">struct</span></code></pre></div>
 <p>We build a new module by passing underlying connection manager to our HTTP server implementation then we can define our <code>start</code> entry point:</p>
 <div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">  <span class="ot">module</span> H = Cohttp_mirage<span class="kw">.</span><span class="dt">Server</span>(Conduit_mirage<span class="kw">.</span><span class="dt">Flow</span>)
@@ -186,7 +187,7 @@ Invalid login</code></pre>
 
 </div>
 <p>The VirtualBox engine exposes the host-only interface to the host as <code>vboxnet4</code> with a pre-configured IP (e.g. IP is set in <code>Vagrantfile</code> as part of definition of host-only network). This interface is linked to the <code>eth1</code> “physical interface” inside the VM and part of the same <em>ethernet</em> network. We create a <code>br0</code> interface which is a bridge: An interface that connects two or more interfaces by routing the packets to/from each of the bridged interfaces. In this case it connects the host-only interface (<code>eth1</code>) and the the virtual interfaces created for each domU kernel, in this case <code>vif1.1</code>. The latter is pair of a pair of virtual interfaces created by underlying hypervisor when the domU kernel boots up, the other member of the pair being the <code>tap0</code> interface on the domU side. Each packet going through either interface is made available to the other interface.</p>
-<p>Another important is configuring and activating <a href>dnsmasq</a> to ensure domU kernels will be able to get an IP address using DHCP. Here we configure it to be attached to <code>br0</code> interface - our bridge - and to serve IPs from 192.168.77.3 to 192.168.77.200.</p>
+<p>Another important is configuring and activating <a href="http://www.thekelleys.org.uk/dnsmasq/doc.html">dnsmasq</a> to ensure domU kernels will be able to get an IP address using DHCP. Here we configure it to be attached to <code>br0</code> interface - our bridge - and to serve IPs from 192.168.77.3 to 192.168.77.200.</p>
 <p>Last but not least, one must not forget to enable <strong>promiscuous mode</strong> on the host-only NIC created for the VM: I spent a couple hours trying to understand why my packets could not reach the unikernel although I could see ARP frames being exchanged…</p>
 <h2 id="building-mirageos-kernel-on-xen-enabled-vm">Building MirageOS kernel on Xen-enabled VM</h2>
 <p>We are now ready to configure, build and run our unikernel on Xen VM. We assume code has been somehow uploaded to the VM:</p>
@@ -290,22 +291,22 @@ ARP: timeout 192.168.77.1</code></pre>
 <h1 id="conclusion">Conclusion</h1>
 <h2 id="takeaways">Takeaways</h2>
 <ul>
-<li>MirageOS is quite well-packaged and thought out and mostly works out-of-the-box as advertised. The documentation is detailed and takes the newbie by the hand through the various steps one needs to build all the examples. All in all the “developer experience” is better than with <a href>HaLVM</a>,</li>
-<li>I was mostly frustrated by my lack of knowledge and understanding of Xen platform and virtual networking and I am indebted to people from the <a href>MirageOS mailing list</a> and <a href>IRC Channel</a> for their help,</li>
+<li>MirageOS is quite well-packaged and thought out and mostly works out-of-the-box as advertised. The documentation is detailed and takes the newbie by the hand through the various steps one needs to build all the examples. All in all the “developer experience” is better than with <a href="https://github.com/GaloisInc/HaLVM">HaLVM</a>,</li>
+<li>I was mostly frustrated by my lack of knowledge and understanding of Xen platform and virtual networking and I am indebted to people from the <a href="http://lists.xenproject.org/cgi-bin/mailman/listinfo/mirageos-devel">MirageOS mailing list</a> and <a href="http://freenode.net/">IRC Channel #mirage</a> for their help,</li>
 <li>I was also limited by my lack of knowledge of OCaml, but working with MirageOS is a good incentive to learn the language which seems interesting and somehow <em>feels</em> different from Haskell while sharing a lot of concepts.. Finding documentation on OCaml is pretty straightforward and idioms are close enough to Haskell I was not too far off most of the time…</li>
 </ul>
 <h2 id="next-steps">Next steps</h2>
 <p>I really think the unikernel paradigm could be as important a shift as containers and dockers have been in the last couple of years and as such I really want to keep investigating what MirageOS and HaLVM have to offer. To the best of my understanding there seems to be two different approaches to unikernels:</p>
 <ul>
-<li>A <em>bottom-up</em>, <em>language-agnostic</em> and <em>system-based</em> approach which produces unikernels for any or most kind of unix binaries by stripping down a stock OS and packing it along with adapted libs with the target process. This approach is merely an extension of the existing containers paradigm and is exemplified by <a href>Rump kernels</a> and <a href>OSv</a>,</li>
+<li>A <em>bottom-up</em>, <em>language-agnostic</em> and <em>system-based</em> approach which produces unikernels for any or most kind of unix binaries by stripping down a stock OS and packing it along with adapted libs with the target process. This approach is merely an extension of the existing containers paradigm and is exemplified by <a href="http://rumpkernel.org/">Rump kernels</a> and <a href="http://osv.io/">OSv</a>,</li>
 <li>A <em>top-down</em> and <em>language-centric</em> approach exemplified by Mirage and HaLVM where system-level components are actually written in the language thus providing all the benefits of tight integration and focus, and packed with a custom minimalistic OS.</li>
 </ul>
 <p>Obviously, the former approach definitely requires less effort and allows one to produce unikernels in a very short time span by simply repackaging existing applications and services. The latter approach is more demanding as it requires expertise in a specific language and building all the needed components, sometimes from scratch, to provide low-level services otherwise provided by standard system libraries. I don’t have much rational arguments, beyond those provided in Mirage’s own documentation, to back my personal preference for the latter: I might be biased by my interest in functional programming languages, especially strongly typed ones, and the somewhat childish desire to master every single part of the system stack.</p>
 <p>What I want to do know is:</p>
 <ul>
-<li>Write a truly useful service that could be unikernelised in OCaml: To build on some previous experiments in the domain of distributed consensus, I think having a unikernel-based Raft implementation could be a challenging and interesting next step,</li>
-<li>Experiment more with <a href>solo5</a>, a companion project of Mirage whose goal is to allow running Mirage unikernels on top of non-Xen hypervisors, like qemu and VirtualBox,</li>
-<li>Experiment with deployment of unikernels on cloud providers. There is some documentation and script already available to <a href>deploy to AWS</a> which I would like to try.</li>
+<li>Write a truly useful service that could be unikernelised in OCaml: To build on some previous experiments in the domain of distributed consensus, I think having a unikernel-based Raft implementation could be a challenging and interesting next step. Another potentially interesting use case would be to build unikernels for serverless tasks dispatched with something like <a href="http://aws.amazon.com/fr/documentation/lambda/">AWS Lambda</a> but this is not possible,</li>
+<li>Experiment more with <a href="https://github.com/djwillia/solo5">solo5</a>, a companion project of Mirage whose goal is to allow running Mirage unikernels on top of non-Xen hypervisors, like qemu and VirtualBox,</li>
+<li>Experiment with deployment of unikernels on cloud providers. There is some documentation and script already available to <a href="https://mirage.io/wiki/xen-boot">deploy to AWS</a> which I would like to try.</li>
 </ul>
 
 
@@ -328,6 +329,7 @@ ARP: timeout 192.168.77.1</code></pre>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
     </footer>
+    
   </div>
 </body>
 </html>
