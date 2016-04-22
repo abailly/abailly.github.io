@@ -508,7 +508,22 @@ sample_v8_Events <span class="fu">=</span>
 * We used both to build and deploy all components of the system as [docker](http://docker.io) containers
 * Both provides way to express complex build processes as *type-safe declarative* rules
 </aside>
-  </section><section id="on-the-war-time-organisation-of-haskells-legions" class="slide level2">
+  </section>
+
+<section id="shake-example" class="slide level2">
+
+  <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">    <span class="dt">ImageName</span> <span class="st">&quot;capitalmatch/nginx&quot;</span> <span class="ot">`buildImageBy`</span> \imageName <span class="ot">-&gt;</span> <span class="kw">do</span>
+       need [<span class="st">&quot;nginx/Dockerfile&quot;</span>,<span class="st">&quot;nginx/reload_nginx.sh&quot;</span>
+            , <span class="st">&quot;nginx/forego&quot;</span>, <span class="st">&quot;nginx/Procfile&quot;</span>]
+       cmdDockerBuild imageName <span class="st">&quot;nginx&quot;</span>
+
+    <span class="st">&quot;docker//source-version.txt&quot;</span> <span class="fu">%&gt;</span> \versionFile <span class="ot">-&gt;</span> <span class="kw">do</span>
+      alwaysRerun
+      <span class="dt">Stdout</span> v <span class="ot">&lt;-</span> cmd <span class="st">&quot;git&quot;</span> [<span class="st">&quot;rev-parse&quot;</span>, <span class="st">&quot;HEAD&quot;</span>]
+      writeFileChanged versionFile v</code></pre></div>
+</section>
+
+  <section id="on-the-war-time-organisation-of-haskells-legions" class="slide level2">
 <h1>On the war-time organisation of Haskell’s legions</h1>
 <figure>
 <img src="/images/militaire.jpg" />
@@ -519,7 +534,26 @@ sample_v8_Events <span class="fu">=</span>
 * It provides a nice gpg key based model to encrypt private data (e.g. ssh keys, authentication tokens, passwords...) that need to be deployed in the source directory
 * Once again, it allows expressing configuration items in a *type-safe* way
 </aside>
-  </section><section id="on-the-capabilities-to-wage-war-outside-of-haskelland" class="slide level2">
+  </section>
+
+  <section id="propellor-example" class="slide level2">
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">lendingHost ::</span> <span class="dt">Service</span>
+            <span class="ot">-&gt;</span> <span class="dt">Property</span> <span class="dt">HasInfo</span>
+lendingHost svc <span class="fu">=</span> propertyList <span class="fu">$</span> props
+    <span class="fu">&amp;</span> installLatestDocker
+    <span class="fu">&amp;</span> dockerComposeInstalled
+    <span class="fu">&amp;</span> File.dirExists certPath
+    <span class="fu">&amp;</span> writeSslKey <span class="st">&quot;nginx-private-key&quot;</span> <span class="st">&quot;lending.capital-match.com&quot;</span>
+    <span class="fu">&amp;</span> restrictToOwner (certPath <span class="fu">&lt;/&gt;</span> <span class="st">&quot;ssl.key&quot;</span>)
+    <span class="fu">&amp;</span> writeCertificateChain <span class="st">&quot;nginx-public-cert&quot;</span> <span class="st">&quot;lending.capital-match.com&quot;</span>
+    <span class="fu">&amp;</span> (certPath <span class="fu">&lt;&gt;</span> <span class="st">&quot;ssl-unified.crt&quot;</span>) <span class="ot">`File.mode`</span>
+      combineModes [ownerWriteMode, ownerReadMode]
+    <span class="fu">&amp;</span> hasDataContainer <span class="st">&quot;cm-data&quot;</span> dataImage
+    <span class="fu">&amp;</span> composeUp <span class="dt">True</span> <span class="st">&quot;/home/build/docker-compose.yml&quot;</span>
+      (<span class="dt">Just</span> [(<span class="st">&quot;ROOT_PASSWORD&quot;</span>,rootPassword)])</code></pre></div>
+</section>
+
+  <section id="on-the-capabilities-to-wage-war-outside-of-haskelland" class="slide level2">
 <h1>On the capabilities to wage war outside of Haskelland</h1>
 <figure>
 <img src="/images/marine-formation.jpg" />
@@ -578,10 +612,18 @@ sample_v8_Events <span class="fu">=</span>
 <li class="fragment">To Haskellers all over the world who fuel the fire with their wits and spirit,</li>
 <li class="fragment">To Haskell B. Curry who, among others, laid out the foundations for our daily job.</li>
 </ul>
+</section><section id="thanks" class="slide level2">
+<h1>Contacts</h1>
+<ul>
+<li class="fragment"><a href="arnaud@igitur.io">arnaud@igitur.io</a></li>
+<li class="fragment"><a href="http://igitur.io">http://igitur.io</a></li>
+<li class="fragment"><a href="https://twitter.com/abailly">@abailly</a></li>
+<li class="fragment"><a href="http://fr.linkedin.com/in/arnaudbailly/">LinkedIn - Arnaud Bailly</a></li>
+</ul>
 </section></section>
     </div>
     <div class="footer"><p>#DevoxxFR</p></div>
-    <div class="header"><p>Devoxx France, Paris, 20-22 April 2016<img align="right" src="logo-texte-devoxx-france-400.png" /></div>
+    <div class="header"><p>Devoxx France, Paris, 20-22 April 2016</p></div>
   </div>
 
 
