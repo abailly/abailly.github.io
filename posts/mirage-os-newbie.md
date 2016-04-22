@@ -1,7 +1,7 @@
 ------------
 title: First Steps with MirageOS 
 author: Arnaud Bailly
-date: 2016-04-21
+date: 2016-04-22
 ------------
 
 This post is a follow-up to the session I gave at
@@ -25,6 +25,7 @@ advanced stuff,
 * [Doing nothing in Mirage](https://www.somerandomidiot.com/blog/2014/07/25/doing-nothing-in-mirage/), an older post on basic
   configuration,
 * An account on recent Solo5 development to [run Mirage on Qemu](https://mirage.io/blog/introducing-solo5),
+* Another *getting started* [blog post](http://roscidus.com/blog/blog/2014/07/28/my-first-unikernel%2F)
 * Some random pages on Xen configuration:
     *
       [Accessing the Internet from domU kernels](http://superuser.com/questions/737976/how-do-i-get-xen-domu-guests-to-have-internet-access),
@@ -48,7 +49,7 @@ To build this service we need to:
 
 * Run a HTTP Server: I will use [ocaml-cohttp](https://github.com/mirage/ocaml-cohttp) which is built specifically to be run within
 MirageOS applications, 
-* Store data in some key/value store: MirageOS provides [kv_ro]() which is an abstract key/value store which can be backed in code
+* Store data in some key/value store: MirageOS provides `kv_ro` which is an abstract key/value store which can be backed in code
 or in a FAT-formatted disk image.
 
 ## Server Code
@@ -66,7 +67,7 @@ open V1_LWT
 open Printf
 ```
 
-The `string_of_stream` function is adapted from the basic `kv_ro` example provided in [mirage-skeleton](). Its name is pretty explicit...
+The `string_of_stream` function is adapted from the basic `kv_ro` example provided in [mirage-skeleton](https://github.com/mirage/mirage-skeleton). Its name is pretty explicit...
 
 ```ocaml
 let string_of_stream stream =
@@ -75,7 +76,7 @@ let string_of_stream stream =
 ```
 
 The main module is parameterized by 3 signatures which are provided by MirageOS according to the configuration given at
-build-time. Here we have 3 modules: The console for outputting some logs, the Key/Value store and [conduit]() which provides
+build-time. Here we have 3 modules: The console for outputting some logs, the Key/Value store and `conduit` which provides
 network connectivity:
 
 ```ocaml
@@ -259,7 +260,7 @@ The VirtualBox engine exposes the host-only interface to the host as `vboxnet4` 
 to the `eth1` "physical interface" inside the VM and part of the same *ethernet* network. We create a `br0` interface which is a bridge: An interface that connects two or more interfaces by routing the packets to/from each of the bridged interfaces. In this case it connects the host-only interface
 (`eth1`) and the the virtual interfaces created for each domU kernel, in this case `vif1.1`. The latter is pair of a pair of virtual interfaces created  by underlying hypervisor when the domU kernel boots up, the other member of the pair being the `tap0` interface on the domU side. Each packet going through either interface is made available to the other interface.
 
-Another important is configuring and activating [dnsmasq]() to ensure domU kernels will be able to get an IP address using DHCP. Here we configure it to be attached to `br0` interface - our bridge - and to serve IPs from 192.168.77.3 to 192.168.77.200. 
+Another important is configuring and activating [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) to ensure domU kernels will be able to get an IP address using DHCP. Here we configure it to be attached to `br0` interface - our bridge - and to serve IPs from 192.168.77.3 to 192.168.77.200. 
 
 Last but not least, one must not forget to enable **promiscuous mode** on the host-only NIC created for the VM: I spent a couple hours trying to understand why my packets could not reach the unikernel although I could see ARP frames being exchanged...
 
@@ -394,21 +395,21 @@ We have been running successfuly our first home-made unikernel on an hypervisor!
 
 ## Takeaways
 
-* MirageOS is quite well-packaged and thought out and mostly works out-of-the-box as advertised. The documentation is detailed and takes the newbie by the hand through the various steps one needs to build all the examples. All in all the "developer experience" is better than with [HaLVM](), 
-* I was mostly frustrated by my lack of knowledge and understanding of Xen platform and virtual networking and I am indebted to people from the [MirageOS mailing list]() and [IRC Channel]() for their help,
+* MirageOS is quite well-packaged and thought out and mostly works out-of-the-box as advertised. The documentation is detailed and takes the newbie by the hand through the various steps one needs to build all the examples. All in all the "developer experience" is better than with [HaLVM](https://github.com/GaloisInc/HaLVM), 
+* I was mostly frustrated by my lack of knowledge and understanding of Xen platform and virtual networking and I am indebted to people from the [MirageOS mailing list](http://lists.xenproject.org/cgi-bin/mailman/listinfo/mirageos-devel) and [IRC Channel #mirage](http://freenode.net/) for their help,
 * I was also limited by my lack of knowledge of OCaml, but working with MirageOS is a good incentive to learn the language which seems interesting and somehow *feels*  different from Haskell while sharing a lot of concepts.. Finding documentation on OCaml is pretty straightforward and idioms are close enough to Haskell I was not too far off most of the time...
 
 ## Next steps
 
 I really think the unikernel paradigm could be as important a shift as containers and dockers have been in the last couple of years and as such I really want to keep investigating what MirageOS and HaLVM have to offer. To the best of my understanding there seems to be two different approaches to unikernels:
 
-* A *bottom-up*, *language-agnostic* and *system-based* approach which produces unikernels for any or most kind of unix binaries by stripping down a stock OS and packing it along with adapted libs with the target process. This approach is merely an extension of the existing containers paradigm and is exemplified by [Rump kernels]() and [OSv](),
+* A *bottom-up*, *language-agnostic* and *system-based* approach which produces unikernels for any or most kind of unix binaries by stripping down a stock OS and packing it along with adapted libs with the target process. This approach is merely an extension of the existing containers paradigm and is exemplified by [Rump kernels](http://rumpkernel.org/) and [OSv](http://osv.io/),
 * A *top-down* and *language-centric* approach exemplified by Mirage and HaLVM where system-level components are actually written in the language thus providing all the benefits of tight integration and focus, and packed with a custom minimalistic OS.
 
 Obviously, the former approach definitely requires less effort and allows one to produce unikernels in a very short time span by simply repackaging existing applications and services. The latter approach is more demanding as it requires expertise in a specific language and building all the needed components, sometimes from scratch, to provide low-level services otherwise provided by standard system libraries. I don't have much rational arguments, beyond those provided in Mirage's own documentation, to back my personal preference for the latter: I might be biased by my interest in functional programming languages, especially strongly typed ones, and the somewhat childish desire to master every single part of the system stack.
 
 What I want to do know is:
 
-* Write a truly useful service that could be unikernelised in OCaml: To build on some previous experiments in the domain of distributed consensus, I think having a unikernel-based Raft implementation could be a challenging and interesting next step,
-* Experiment more with [solo5](), a companion project of Mirage whose goal is to allow running Mirage unikernels on top of non-Xen hypervisors, like qemu and VirtualBox,
-* Experiment with deployment of unikernels on cloud providers. There is some documentation and script already available to [deploy to AWS]() which I would like to try.
+* Write a truly useful service that could be unikernelised in OCaml: To build on some previous experiments in the domain of distributed consensus, I think having a unikernel-based Raft implementation could be a challenging and interesting next step. Another potentially interesting use case would be to build unikernels for serverless tasks dispatched with something like [AWS Lambda](http://aws.amazon.com/fr/documentation/lambda/) but this is not possible,
+* Experiment more with [solo5](https://github.com/djwillia/solo5), a companion project of Mirage whose goal is to allow running Mirage unikernels on top of non-Xen hypervisors, like qemu and VirtualBox,
+* Experiment with deployment of unikernels on cloud providers. There is some documentation and script already available to [deploy to AWS](https://mirage.io/wiki/xen-boot) which I would like to try.
