@@ -299,9 +299,42 @@ type SchedulerApi = "api" :> "scheduler" :> "jobs" :> CreateJob
 
 ![](/images/machines-de-guerre.jpg)
 
+----
+
+```haskell
+lendingHost :: Service
+            -> Property HasInfo
+lendingHost svc = propertyList $ props
+    & installLatestDocker
+    & dockerComposeInstalled
+    & File.dirExists certPath
+    & writeSslKey "nginx-private-key" "lending.capital-match.com"
+    & restrictToOwner (certPath </> "ssl.key")
+    & writeCertificateChain "nginx-public-cert" "lending.capital-match.com"
+    & (certPath <> "ssl-unified.crt") `File.mode`
+      combineModes [ownerWriteMode, ownerReadMode]
+    & hasDataContainer "cm-data" dataImage
+    & composeUp True "/home/build/docker-compose.yml"
+      (Just [("ROOT_PASSWORD",rootPassword)])
+```
+
 ## On the war-time organisation of Haskell's legions
 
 ![](/images/militaire.jpg)
+
+----
+
+```haskell
+    ImageName "capitalmatch/nginx" `buildImageBy` \imageName -> do
+       need ["nginx/Dockerfile","nginx/reload_nginx.sh"
+            , "nginx/forego", "nginx/Procfile"]
+       cmdDockerBuild imageName "nginx"
+
+    "docker//source-version.txt" %> \versionFile -> do
+      alwaysRerun
+      Stdout v <- cmd "git" ["rev-parse", "HEAD"]
+      writeFileChanged versionFile v
+```
 
 ## On the capabilities to wage war outside of Haskelland
 
