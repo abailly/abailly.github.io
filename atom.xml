@@ -8,8 +8,43 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2016-04-22T00:00:00Z</updated>
+    <updated>2016-04-23T00:00:00Z</updated>
     <entry>
+    <title>Sur &quot;Spinoza encule Hegel&quot;</title>
+    <link href="http://abailly.github.io/posts/spinoza-encule-hegel.html" />
+    <id>http://abailly.github.io/posts/spinoza-encule-hegel.html</id>
+    <published>2016-04-23T00:00:00Z</published>
+    <updated>2016-04-23T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Sur &quot;Spinoza encule Hegel&quot;</h1>
+<div class="info">Posted on April 23, 2016</div>
+
+<p>Une France post-apocalyptique et comme suspendue. Des gangs sillonent l’ex-capitale et le pays pour s’entretuer. Ils ont nom <em>Sang Noir de Bakounine</em>, <em>Docteur Jdanov</em>, <em>Planète Potlatch</em>, <em>Jeunes Hégeliens</em>… Julius Puech est le chef de la <em>Fraction Armée Spinoziste</em>. Il porte des bottes de lézard mauves et voue une haine farouche aux Hégeliens dont le chef s’appelle Thorez. Il aime Spinoza et François. Il a de la sympathie pour le Diable. Tout ça finira très mal.</p>
+<div class="figure">
+<img src="/images/spinoza-encule-hegel.jpg" class="floating" height="300" />
+
+</div>
+<p>Plutôt que <em>La septième fonction du langage</em> de Laurent Binet qui y fait référence, mieux vaut lire <a href="https://fr.wikipedia.org/wiki/Spinoza_encule_Hegel">Spinoza encule Hegel</a> de Jean-Bernard Pouy. Si possible vite, très vite. Avec une bouteille d’alcool fort à portée de la main, et les Stones à fond dans les oreilles. Ou alors entre deux propositions de l’Éthique. Mais le texte n’a pas besoin d’adjuvants pour exciter les sens, enivrer. La prose est hypnotique et balistique, mais sait se faire lyrique quand elle évoque les amours - exclusivement masculines - des héros. Manière élégante somme toute de dépasser le sexisme inhérent aux situations riches en testostérone. D’ailleurs, le héros finira esclave d’un gang exclusivement féminin pas moins nihiliste que ses congénères masculins.</p>
+<p>Métaphore sous acide d’un mai 68 qui s’éloigne et dont on sait les fruits amers, SEH est un livre coup-de-poing-dans-le-bide autant qu’une blague de potache. Un éclat de rire autant qu’un chant mélancolique. Je ne sais pas si je l’aime par nostalgie d’une époque fantasmée, par regret d’être venu trop tard, à l’époque de la Grande Récupération - ou de la Grande Trahison - après que les plus malins eurent transformés le capital intellectuel accumulé dans les seventies en capital tout court.</p>
+<p>Ou parce qu’il me reste encore un peu de la rage adolescente.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>First Steps with MirageOS</title>
     <link href="http://abailly.github.io/posts/mirage-os-newbie.html" />
     <id>http://abailly.github.io/posts/mirage-os-newbie.html</id>
@@ -1163,162 +1198,6 @@ interpretEffect <span class="fu">=</span> coiter f (return ())
 <p>So why bother writing them given we could invest the time in functional-level tests?</p>
 <h2 id="whats-the-point-of-writing-tests-for-code-that-will-never-change-they-wont-catch-any-regression">“What’s the point of writing tests for code that will never change? They won’t catch any regression”</h2>
 <p>OK, it might be changed but surely not in the near future so given I know what I am doing, I would rather get rid of those tests</p>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Comprendre les catamorphismes</title>
-    <link href="http://abailly.github.io/posts/cata.html" />
-    <id>http://abailly.github.io/posts/cata.html</id>
-    <published>2014-01-11T00:00:00Z</published>
-    <updated>2014-01-11T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Comprendre les catamorphismes</h1>
-<div class="info">Posted on January 11, 2014</div>
-
-<h1 id="bananes-lentilles-enveloppes-et-barbelés">Bananes, lentilles, enveloppes et barbelés</h1>
-<p><a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.41.125">Functional Programming with bananas, lenses, envelopes and barbed wires</a> est un article célèbre qui explore différentes formes (ou <em>patterns</em>) de récursion. C’est à dire que l’on cherche à exprimer la récursion non pas comme une caractéristique du langage mais comme une <em>fonction d’ordre supérieur</em>, ou un combinateur comme un autre, comme tel donc susceptible d’être généralisé, réutilisé, composé. Depuis ma découverte de cet article j’ai été fasciné par ses possibilités sans avoir jamais pris le temps de les comprendre vraiment. Cet article est une tentative d’explication de ce <em>qu’est</em> un catamorphisme, l’une des formes de récursions classifiées dans l’article sus-cité.</p>
-<h2 id="types-de-données-récursifs">Types de données récursifs</h2>
-<p>Quand on définit une structure (un type de données), il est fréquent de définir des types qui soient <em>récursifs</em>, c’est à dire qui utilisent des données de leur propre type. L’exemple le plus typique en est l’ensemble des entiers naturels, définissable en Java comme suit:</p>
-<div class="sourceCode"><table class="sourceCode java numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-</pre></td><td class="sourceCode"><pre><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> Natural {
-
-  <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> Natural Zero = <span class="kw">new</span> <span class="fu">Natural</span>();
-  
-  <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> Natural <span class="fu">succ</span>(Natural natural) {
-   <span class="kw">return</span> <span class="kw">new</span> <span class="fu">Natural</span>(natural);
-  }
-  
-  <span class="kw">private</span> <span class="fu">Natural</span>() {}
-  
-  <span class="kw">private</span> <span class="fu">Natural</span>(Natural pred) {
-    <span class="kw">this</span>.<span class="fu">pred</span> = pred;
-  }
-}</code></pre></td></tr></table></div>
-<p>Un entier est ici construit à l’aide de la méthode <code>succ</code> et de la constante <code>Zero</code>:</p>
-<ul>
-<li>soit 0 ;</li>
-<li>soit le successeur d’un autre entier.</li>
-</ul>
-<p>La question que l’on peut se poser, si l’on s’intéresse à ce genre de choses, c’est : comment peut-on caractériser algébriquement l’ensemble des entiers ainsi défini, si ce n’est de manière tautologique ? Il peut nous apparaître très naturel d’utiliser un type dans sa propre définition mais c’est parce que nous sommes habitués à raisonner récursivement.</p>
-<h3 id="point-fixe">Point Fixe</h3>
-<p>Pour répondre à la question posée, on peut reformuler de manière “compacte” le problème en cherchant à définir le type <code>Natural</code> comme la solution d’une équation algébrique (+ joue ici le rôle de <code>OU</code>):</p>
-<pre><code>Natural = Zero  + Succ (Natural),</code></pre>
-<p>équation dont la solution est problématique puisque la variable apparaît des deux côtés de l’équation !</p>
-<p>Si l’on substitue naïvement la définition de <code>Natural</code> en partie droite, alors on obtient quelque chose comme</p>
-<pre><code>Natural = Zero + Succ (Zero + Succ ( Zero + Succ (Zero +...</code></pre>
-<p>ce qui peut se réécrire en</p>
-<pre><code>Natural = Zero + Succ (Zero) + Succ (Succ (Zero)) +...</code></pre>
-<p><code>Natural</code> apparait bien comme un ensemble infini d’éléments qui sont soit <code>Zero</code> soit de la forme <span class="math inline"><em>S</em><em>u</em><em>c</em><em>c</em><sup><em>n</em></sup><em>Z</em><em>e</em><em>r</em><em>o</em></span> pour tout <span class="math inline"><em>n</em></span> entier.</p>
-<p>Du point de vue mathématique, la solution d’une équtation de la forme <span class="math inline"><em>x</em> = <em>f</em>(<em>x</em>)</span> est appelée un <em>point fixe</em>, ce qui est bien la forme de l’équation de Natural. On peut donc dire que <code>Natural</code> est le point fixe de l’équation <span class="math inline"><em>X</em> = <em>Z</em><em>e</em><em>r</em><em>o</em> + <em>S</em><em>u</em><em>c</em><em>c</em>(<em>X</em>)</span>. Nous disons <em>le</em> point fixe, mais ce n’est pas tout à fait exact : comme on ne considére que des nombres finis (même si l’ensemble lui-même est de taille infinie), il s’agit là du <em>plus petit point fixe</em>. Il existe en effet des ensembles qui sont des points fixes de cette équation mais dont la cardinalité est plus grande que N car ils contiennent des nombres infinis (en quantité infinie…).</p>
-<p>Ce type de définition étant très courant, il a paru utile de généraliser cette notion de <em>plus petit point fixe</em>, d’où l’introduction l’opérateur <em>μ</em>. Pour toute fonction f, μf est le plus petit point fixe de f, plus formellement: <br /><span class="math display"><em>μ</em><em>f</em> = <em>x</em> ∈ <em>d</em><em>o</em><em>m</em>(<em>f</em>), <em>x</em> = <em>f</em>(<em>x</em>)<em>e</em><em>t</em>∀<em>x</em>′ ∈ <em>d</em><em>o</em><em>m</em>(<em>f</em>), <em>x</em>′ = <em>f</em>(<em>x</em>′) ⇒ <em>x</em>′ ≥ <em>x</em></span><br /></p>
-<p>Or ici la définition de Natural ne semble pas être une fonction. En fait, pour qu’une définition de type soit une fonction, il faut qu’elle soit une fonction sur des types, prenant en argument des types et retournant des types, en d’autres termes un foncteur. Mais c’est exactement ce que dit la forme <span class="math inline"><em>Z</em><em>e</em><em>r</em><em>o</em> + <em>S</em><em>u</em><em>c</em><em>c</em>(<em>X</em>)</span> où X désigne un type quelconque, et donc on peut légitimement définir <code>Natural  = μ(Zero + Succ(x))</code> comme un ensemble d’éléments point fixe d’un foncteur.</p>
-<h3 id="définition-explicite">Définition explicite</h3>
-<p>Toute cette mécanique est rendu implicite dans tous les langages, même les plus plus sophistiqués comme Haskell, Scala ou Caml. Pour définir un type de données récursif, nul besoin d’utiliser l’opérateur μ, on se contente d’utiliser les possibilités syntaxiques du langage qui autorise l’utilisation du nom d’un type dans sa définition. Mais pour pouvoir généraliser les mécanismes de récursions sous forme de FOS, il est nécessaire de déconstruire cette vision et d’introduire explicitement la récursion.</p>
-<p>C’est ce que l’on va faire, en Haskell tout d’abord.</p>
-<p>On introduit d’abord l’opérateur <code>Mu</code> comme un nouveau type de données prenant en paramètre un foncteur <code>f</code>. <code>Mu</code> a un seul constructeur, <code>In</code> qui empaquette le foncteur <code>f</code> dans une boucle récursive, ce qui nous donne 2 fonctions permettant de naviguer dans la “pile” de récursion:</p>
-<ul>
-<li><code>In : f (Mu f) -&gt; Mu f</code> (le constructeur, vu comme une fonction),</li>
-<li><code>out : Mu f -&gt; f (Mu f)</code> (l’accesseur de l’unique champ de la structure encapsulée par In).</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- newtypes in Haskell are cheaps, they do not add any runtime overhead and serve</span>
-<span class="co">-- only for the compiler to distinguish types</span>
-<span class="kw">newtype</span> <span class="dt">Mu</span> f <span class="fu">=</span> <span class="dt">In</span> {<span class="ot"> out ::</span> (f (<span class="dt">Mu</span> f)) }</code></pre></div>
-<p>Essayons maintenant de définir les entiers comme ci-dessus au moyen de <code>Mu</code> en évitant la récursion explicite et en définissant <code>Natural</code> comme un foncteur:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- le foncteur engendrant les entiers naturels</span>
-<span class="kw">data</span> <span class="dt">Natf</span> x <span class="fu">=</span> <span class="dt">Zero</span>  <span class="fu">|</span> <span class="dt">Succ</span> x 
-
-<span class="co">-- le type (un simple alias) Natural comme point fixe d&#39;un foncteur</span>
-<span class="kw">type</span> <span class="dt">Natural</span> <span class="fu">=</span> <span class="dt">Mu</span> <span class="dt">Natf</span></code></pre></div>
-<p>Voici quelques objets de type <code>Natural</code> que l’on peut construire en utilisant directement les constructeurs de <code>Natf</code> sans se préoccuper de <code>Mu</code> pour l’instant:</p>
-<pre><code>*Main&gt; let zero = Zero
-*Main&gt; let un = Succ Zero
-*Main&gt; :t un
-un :: Natf (Natf x)
-*Main&gt; let deux = Succ un
-*Main&gt; :t deux
-deux :: Natf (Natf (Natf x))</code></pre>
-<p>On peut constater que chaque “nombre” a un type différent, ce qui n’est pas très pratique. En utilisan Mu, on uniformise le type d’où la naissance de Natural, un ensemble contenant des objets de type homogène:</p>
-<pre><code>*Main&gt; let zero = In Zero
-*Main&gt; :t zero
-zero :: Mu Natf
-*Main&gt; let un = In (Succ zero)
-*Main&gt; :t un
-un :: Mu Natf
-*Main&gt; let deux = In (Succ un)
-*Main&gt; :t deux
-deux :: Mu Natf</code></pre>
-<p>Tous les nombres ont bien ici le type <code>Mu Natf</code> et l’on peut sans problème les combiner, par exemple pour définir l’addition:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">add ::</span> <span class="dt">Natural</span> <span class="ot">-&gt;</span> <span class="dt">Natural</span> <span class="ot">-&gt;</span> <span class="dt">Natural</span>
-add (<span class="dt">In</span> <span class="dt">Zero</span>) x <span class="fu">=</span> x
-add x (<span class="dt">In</span> <span class="dt">Zero</span>) <span class="fu">=</span> x
-add (<span class="dt">In</span> (<span class="dt">Succ</span> x)) (<span class="dt">In</span> (<span class="dt">Succ</span> x&#39;)) <span class="fu">=</span> <span class="dt">In</span> (<span class="dt">Succ</span> (<span class="dt">In</span> (<span class="dt">Succ</span> (add x x&#39;))))</code></pre></div>
-<h3 id="foncteur-et-f-algèbre">Foncteur et F-Algèbre</h3>
-<p>Evidemment, c’est théoriquement très intéressant mais ce qu’on veut c’est manipuler des “vrais” nombres, pas de longues chaînes de constructeurs, sauf dans les cas où l’on s’intéresse à la récursion explicite, évidemment. On voudrait donc pouvoir <em>transformer</em> des objets de notre type Natural en un type plus commun, par exemple Int. Pour ce faire, notre type de base Natf manque d’un ingrédient: la <em>fonctorialité</em> (ou propriété d’être un foncteur). On a vu que ce qui définissait un foncteur, c’était le fait de posséder une fonction <code>fmap</code> possédant quelques bonnes propriétés de compositionnalité. Dans le cas de Natf, cette définition est simple:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Functor</span> <span class="dt">Natf</span> <span class="kw">where</span>
-  fmap f (<span class="dt">Zero</span>) <span class="fu">=</span> <span class="dt">Zero</span>
-  fmap f (<span class="dt">Succ</span> x) <span class="fu">=</span> <span class="dt">Succ</span> (f x)</code></pre></div>
-<p>Dès que l’on a un foncteur <code>f</code>, alors pour tout type <code>a</code> on peut définir (entre autres myriades de choses) des fonctions de types <code>h :: f a -&gt; a</code> qui “déconstruisent” des éléments de <code>a</code> “transformés” par <code>f</code> en éléments de <code>a</code>: c’est comme si on enlevait une couche d’une pelure d’oignon. Ce type de fonction est suffisamment courant pour avoir été nommé, on les appelle des <em>f-algèbres</em>. Par exemple, on peut écrire une f-algèbre qui permet de transformer des objets de type <code>Natf Int</code> en objets de type <code>Int</code> (nos gentils entiers habituels):</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">intalgebra ::</span> <span class="dt">Natf</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
-intalgebra <span class="dt">Zero</span>     <span class="fu">=</span> <span class="dv">0</span>
-intalgebra (<span class="dt">Succ</span> x) <span class="fu">=</span> <span class="dv">1</span> <span class="fu">+</span> x</code></pre></div>
-<p>Cette fonction est très simple et non récursive, elle décrit simplement une correspondance univoque entre des opérations du type de départ (les constructeurs de <code>Natf</code>) et des opérations du type d’arrivée (les fonctions <code>plus</code> et la constante <code>0</code>). Ce serait encore plus explicite si l’on pouvait écrire ceci:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- does not compile</span>
-<span class="ot">intalgebra ::</span> <span class="dt">Natf</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
-intalgebra <span class="dt">Zero</span> <span class="fu">=</span> <span class="dv">0</span>
-intalgebra <span class="dt">Succ</span> <span class="fu">=</span> (<span class="dv">1</span><span class="fu">+</span>)</code></pre></div>
-<p>Mais une fois que l’on a cette fonction, on n’est guère avancé car de toute évidence, elle ne peut s’appliquer aux nombres de type <code>Natural</code>. C’est ici qu’entre un jeu notre premier “récurseur” d’ordre supérieur: le <strong>catamorphisme</strong> (roulement de tambour) !</p>
-<h2 id="catamorphismes">Catamorphismes</h2>
-<p>Un <em>catamorphisme</em> est donc une <em>fonction d’ordre supérieure</em> permettant de produire une valeur d’un type arbitraire en “repliant” une structure, un type algébrique, récursivement, par application d’un opérateur quelconque sur une valeur initiale.</p>
-<p>Le catamorphisme “canonique” est l’opérateur <code>foldr</code> sur les listes:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldr<span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span>  b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b
-foldr op x []     <span class="fu">=</span> x
-foldr op x (y<span class="fu">:</span>ys) <span class="fu">=</span> y <span class="ot">`op`</span> (foldr op x ys)</code></pre></div>
-<p>Pour tout opérateur binaire ⊙ et toute valeur x, h = foldr ⊙ x, est un catamorphisme pour les listes de type <code>[a] -&gt; b</code>. Le parcours de la liste est imbriqué avec l’application de l’opérateur dans l’appel récursif à <code>foldr</code>. Par ailleurs, on a vu ci-dessus que la récursion pouvait être rendue explicite au travers de la structure du type de données, par l’opérateur <code>Mu</code>, qui produit un <em>point fixe</em> d’un foncteur quelconque. On aimerait donc pouvoir distinguer, séparer, dans foldr et d’autres opérations du même type qui transforment un type de données récursif en une valeur quleconque, deux entités distinctes:</p>
-<ul>
-<li>le traitement de chaque instance possible d’un foncteur, autrement dit une f-algèbre quelconque ;</li>
-<li>et la récursion.</li>
-</ul>
-<p>Ces deux contraintes peuvent s’exprimer dans le système de type, ce qui nous donne la signature suivante pour <code>cata</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">cata ::</span> <span class="dt">Functor</span> f <span class="ot">=&gt;</span> (f a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> (<span class="dt">Mu</span> f <span class="ot">-&gt;</span> a)</code></pre></div>
-<p><code>cata</code> est donc une fonction qui, à partir d’une f-algèbre, produit une fonction transformation un point fixe du foncteur <code>f</code> en une valeur. Sa définition est la suivante et l’on voit bien que la récursion y est explicite:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">cata h <span class="fu">=</span> h <span class="fu">.</span> fmap (cata h) <span class="fu">.</span> out</code></pre></div>
-<p>On est désormais équipé pour appliquer notre fonction <code>intalgebra</code> définie ci-dessus pour transformer les nombres algébriques en entiers “sympathiques”:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">toInt<span class="ot"> ::</span> <span class="dt">Natural</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> 
-toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
-<p>et l’on peut utiliser <code>toint</code> pour obtenir de “vrais” entiers:</p>
-<pre><code>*Main&gt; toint (In Zero)
-0
-*Main&gt; toint (In (Succ (In (Succ (In Zero)))))
-2
-*Main&gt; </code></pre>
 
 
 <div id="disqus_thread"></div>
