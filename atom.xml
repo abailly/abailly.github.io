@@ -8,8 +8,217 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2016-04-23T00:00:00Z</updated>
+    <updated>2016-04-24T00:00:00Z</updated>
     <entry>
+    <title>Using agile in a startup</title>
+    <link href="http://abailly.github.io/posts/agile-startup.html" />
+    <id>http://abailly.github.io/posts/agile-startup.html</id>
+    <published>2016-04-24T00:00:00Z</published>
+    <updated>2016-04-24T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Using agile in a startup</h1>
+<div class="info">Posted on April 24, 2016</div>
+
+<p>This post is a follow-up to my <a href="/posts/cm-arch-design.html">previous post</a> on designing an application in Haskell and part of a series of post I intend to write that reflect on my experience as CTO of Haskell-based startup. Whereas the previous post was very technical, focusing on <em>what</em> we built, this one focuses on <em>how</em> we built it: Processes, methods and tools we used, how the team was built and how it interacts on a daily basis, which problems we encountered and how we solved them (or not)… As before I have tried to be as honest as possible, highlighting both what worked and what did not work so well.</p>
+<p>Coming from an Agile background it is no surprise that I consciously tried to reuse the knowledge and tools I knew from previous implementations of Scrum, eXtreme Programming or Kanban. One of the lesson learned during the past year is that Agile needs some serious overhauling to be applied within a startup setting, even more so when the team is distributed. In the conclusion I try to draw on this experience to hint at some trails I would like to explore in the future.</p>
+<h1 id="a-bit-of-context">A Bit of Context</h1>
+<p>I started working on Capital Match at the end of August 2014. The first commit in the git repository of the application is dated on Wednesday, 20th of August 2014. I worked in the background for a couple of months, mostly to setup the infrastructure, flex my muscles on Haskell, explore the business domain space.</p>
+<p>I met physically my co-founder in October. At that time I was still working alone but I already had a working solution that was deployed and “usable”, for some definition of usable. Willem van den Ende joined me to develop the application to production stage at the end of October and brought with him lot of XP and DevOps experience. We were joined by another developer at the beginning of March but this employment lasted only a month.</p>
+<p>We went live on the 20th of March, one month after the initial target set in December. The tech team is now 4 people, including me, all of which are mainly developers. We do not have a dedicated operations team and the tech team is responsible for both developing new features and maintaining the application in good operational conditions.</p>
+<h1 id="planning">Planning</h1>
+<h2 id="project-planning">Project Planning</h2>
+<p>We started using <a href="http://taiga.io">taiga.io</a> from November to plan the go-live, first without then with spring planning. It was a good thing to explain to non-tech people we can deliver so much in a period. We quickly settled on 1 week sprints and it took us a while to get to some form of regularity and cadence, never really get to smooth release and meaningful <em>Story Points</em> values. A month or so after go-live we switched to a kanban style process which is not really well supported by taiga.</p>
+<p>It seems people are having a hard time understanding SP, and when they understand they start trying to game it and discuss evaluations. It fairly quickly gets back to “when will it be done?” and “can’t we really do it faster?” and “what if we did XX?” questions… Smart people used to work with figures are prone to get to the conclusion figures are acutally measuring output and value and then we will use those figures to measure success.</p>
+<p>We dropped formal estimates, even before golive: what’s done is done, when it is not done it is not done. In order to cope with unrealistic expectations and requirements we strived hard to make everything visible, deploy very quickly and allow people to test easily, work in baby steps… in other words reduce the length of the <em>feedback loop</em>. We don’t provide estimates anymore, and people don’t ask for them, except in very broad terms for high-level features which we (I) estimate as S/M/L or some combination thereof.</p>
+<p>People also had a hard time using taiga (and I am not sure it would have been better with any other tool…): Response is a bit slow, most of the things don’t make sense for them, they don’t follow really tickets and comments on them… nor do they care much about tracking SPs progress.</p>
+<p>So we finally switched to using plain trello:</p>
+<ul>
+<li>Its interface is very intuitive to pick, and most people already have used it at some previous point,</li>
+<li>The user interface is super-fast and reactive,</li>
+<li>It provides nearly all the features we need, except swimlanes but we use tags instead,</li>
+<li>It is available on a wide variety of platforms, e.g. as a mobile app.</li>
+</ul>
+<p>We currently use 2 boards:</p>
+<ul>
+<li><em>Software Development</em> board is used for day-to-day work. It contains baby step features and bugs, and has very simple workflow:
+<ul>
+<li><em>To prioritize</em> is used for brain dumping features, and we try to clean up at frequent interval,</li>
+<li><em>To Do</em> is for actual stuff to do. We strive to keep those items fine-grained, e.g. no more than 1-2 day of work,</li>
+<li><em>Doing</em> says it all. We try to minimize Work-in-progress by ensuring people do not work in parallel on more than one feature. It is at this stage that tickets are assigned and not before,</li>
+<li><em>Ready for testing</em> means ticket has passed CI (more on this later) and is ready to be tested on <em>staging</em> platform with non-production data. Once or twice a day we send an email notifying people of whatever is available to test on <em>staging</em> platform,</li>
+<li><em>Deployed</em> means feature has been deployed to <em>production</em> platform. Just like for staging, we send an email to involved people every time we deploy new feature to production.</li>
+</ul></li>
+<li><em>Product roadmap</em> board is used for larger scale planning. It contains 3-months columns and coarse grained features estimated using S/M/L t-shirt sizes. There is one <em>Ongoing</em> column which contains features we are currently working on. It is mostly used as a reminder of “large” things we want/need to do.</li>
+</ul>
+<h2 id="product-development">Product Development</h2>
+<p>I wrote a “walking skeleton” in a month or so, starting from initial idea, while my partner was sorting out the business side of things and trying to find seed investors in the project. This walking skeleton was, well, very skeletal, being able to handle only very basic scenario: register borrower/investor, create new simple, loan, commit funding to loan then accept loan.</p>
+<p>When go live started to come close, business people got scared and wanted to go into <em>command and control</em> mode, and wanted to go into the following process:</p>
+<ul>
+<li>They designed very detailed “screens” in Excel with lot of complex business rules, strict wordings… covering the complete scope of the application as we initially discussed it,</li>
+<li>Devs would work one screen at a time and <em>complete</em> it before going to the next,</li>
+<li>Then they would tests what devs produce,</li>
+<li>Then bugs would be notified and needed to be fixed,till business is happy</li>
+<li>In short, we were reinventing <em>Waterfall</em> without the good parts (e.g. formal V&amp;V)</li>
+</ul>
+<p>I used the initial provided design documet to slice everything into small stories with estimates and put that into Taiga, then we started working on it following the aforementioned process. After 1-2 weeks it became obvious to everybody we would not be able to deliver everything that has been designed in excruciating details, because we simply could not code fast enough. Something like about 40-50% only of the designed features were actually shipped on go-live. Hence we reverted to priority-based scheduling and <a href="http://agileatlas.org/articles/item/dimensional-planning">Dimensional planning</a> with one week sprints and a target release date.</p>
+<p>At some early stage I tried to use <a href="http://www.agileproductdesign.com/presentations/user_story_mapping/e">Story mapping</a>, maintaining a map of the software’s features using <a href="https://www.mindmup.com/">MindMup</a> a hosted mind-mapping application:</p>
+<div class="figure">
+<img src="/images/story-map.png" alt="A fragment of Capital Match’s Story Map" />
+<p class="caption">A fragment of Capital Match’s Story Map</p>
+</div>
+<p>The idea was that we would represent the whole process in a map, distinguishing manual/automated parts and filling the leaves with actually available features. However this did not gel and people never get accustomed to use that representation of the software, so I quickly stopped maintaining it.</p>
+<h1 id="programming-practices">Programming Practices</h1>
+<h2 id="pair-programming">Pair Programming</h2>
+<p>We started doing remote pairing with Willem and we still try to do it on a regular basis. Remote pairing works really fine if the network has no hiccup. We have the following simple setting:</p>
+<ul>
+<li>We setup a remote VM containing the development environment (compilers, source code) and accessible only to the team. Configuration of this VM is kept versioned in our code repository hence it follows the evolution of the code itself which may require over time different dependencies, different compilers… To be able to quickly setup a VM, we use a snapshot instead of full-blown configuration</li>
+<li>People connect on the VM using with <a href="http://www.openssh.com/">ssh</a> and <a href="https://tmux.github.io/">tmux</a><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, and we use console-based <a href="https://www.gnu.org/software/emacs/">emacs</a> for hacking. OF course this is possible because we are using languages and tools that do not need a complex visual IDE to work<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>,</li>
+<li>We use hangout for voice + video. Small tip, thanks to <a href="">Emmanuel Gaillot</a>: Set your terminal to be slightly transparent so that you can see the remote persons behind the code!</li>
+</ul>
+<p>I really like pair programming but I found its remote version is more exhausting than its face to face counterpart. It requires more focus and engagement because it is very easy to get distracted as your partner is not there to snoop over your shoulder and see you are actually browsing your emails or twitter. And the lower fidelity communication requires even more focus. However we found that timezone differences forced us to make something like <em>Deferred Pairing</em>: I start some work in France, using <a href="http://slack.com">slack</a> as a stream of consciousness, pushing code to github repository, then I go to sleep. In the middle of the night someone in Asia picks up where I left code and continue working on it till we manage to have some time overlap. Then we can pair for a couple of hours if needed, and restart the whole cycle.</p>
+<h2 id="development-automation">Development Automation</h2>
+<p><strong>Continuous Integration</strong> is core practice of XP and we embraced it fully from the onset of the project in the form of <em>continous deployment</em>: Each code change’s integration in the existing codebase is checked as soon as the code is published to be available for the whole team to use. Continuous should of course be understood in the mathematical sense, e.g. opposite of <strong>discrete</strong>: You are able to deploy at any point in time, not at certain gateways or releases milestones. I plan to provide more details in another blog post but practically speaking this means:</p>
+<ul>
+<li>People push to a “central” git repository located on a CI server. Note this repository is central only by virtue of being on the CI server and we could deploy other servers and “central” repositories at will. There is nothing special and we try to keep using git in a distributed way,</li>
+<li>This triggers a job on the CI server which, among other things, runs automated tests (more on this later) and deploy an instance of the application for testing, and pushes the same instance to a central repository for deployment to production.</li>
+</ul>
+<p>This implies managing infrastructure, e.g. VMs, containers, processes and would not be possible without strong automation: <a href="http://www.jedi.be/blog/2013/05/24/Infrastructure%20as%20Code/">Infrastructure as Code</a> and DevOps everywhere, the slogan is: Automate all the things!</p>
+<ul>
+<li>We can rebuild all our infrastructure from a couple of git repositories
+<ul>
+<li><strong>Note</strong>: CI server is itself versioned and deployable</li>
+<li>VM deployments is not fully automated yet but is scripted</li>
+<li>Configuraiton management is versionned and handled in Haskell too</li>
+</ul></li>
+</ul>
+<p>Continuous Integration is really our most important tool for maintaining cohesion in the team and integrity of the software: Any commit pushed to CI triggers whole chain of build down to the point we obtain a <em>deployable application container</em></p>
+<h2 id="test-driven-development">Test Driven Development</h2>
+<p>I have <a href="/posts/tdd.html">already written</a> on TDD and how much I loved it: To me TDD is <em>THE</em> core practice of XP and its main contribution to the advance of software development. Even in a startup setting I don’t think we made a lot of compromise on writing tests, but the amount of tests that need to be written in a strongly-typed language like Haskell is less than what you would need to write in Ruby or even Java.</p>
+<p>Our automated tests are currently divided into 4 types:</p>
+<ul>
+<li><strong>Property based tests</strong>, expressing pure code’s properties like symmetry of read/write, description of processes, computations… There aren’t that many properties in our code, mostly I think because our domain is rather simple and not easily amenable to compact formulation of properties: There is no point in expressing a property in a way that is as complicated as the code it is supposed to specify,</li>
+<li><strong>Integration tests</strong> check our code within the context of I/O, mostly through its REST interface but sometimes only using basic I/O or imperative code. This is where we catch most of our errors because it is very easy to make a mistake when interacting with the outside world, whereas the compiler and explicit types help a lot in catching internal programming mistakes,</li>
+<li><strong>User Interface tests</strong> are actually unit tests for the UI code which is written in Clojurescript. These are the least developed part of our test stack which is a pity given the dynamic nature of the language we use and the amount of UI code we have, but we try to remove logic from UI as much as possible and most of the issues we have at this level are actually user interactions problems which can more quickly be caught through actually using the interface,</li>
+<li><strong>End-to-End tests</strong> like their name implies tests the application at the highest-level using <a href="http://www.seleniumhq.org/">Selenium</a> to drive a browser to interact with the application like a human being would do. We have about 20 tests in this category and we try to keep that number low as obviously they are the more costly ones to run. However they are really invaluable in catching complex integration issues.</li>
+</ul>
+<h1 id="team">Team</h1>
+<h2 id="on-being-remote">On Being Remote</h2>
+<p>Working remotely has been an integral part of the organization since the beginning. We are 6-7 hours apart, e.g. it is afternoon in Singapore when I wake up. This means we have about 3-4 hours of overlap, but we span 16-17 hours of wall clock time. Here are some features that are entailed by being remote:</p>
+<ul>
+<li>This removes the need for a dedicated support/ops team, at least as long as we are smallish (see above notes about automation)</li>
+<li>We do our stand-up meeting at 9am or 10am Paris Time, acts as a sync point,</li>
+<li>We use overlap time for discussing stuff, pairing, solving design or hard technical problems. Hangout works ok but it would probably be better with dedicated software e.g. gotomeeting or equivalent)</li>
+<li>We found that timezone differences are actually great for catching date/time related bugs!</li>
+<li>We use <a href="http://slack.com">Slack</a> <strong>a lot</strong>. We could use IRC of course but it would require some more infrastructure and it is not as friendly to non tech-savvy persons:
+<ul>
+<li>We use ut to chat within the team and discuss technical stuff, post screnshots, code examples, design ideas…</li>
+<li>We use it as a <strong>stream of consciousness</strong> endpoint: I dump what I am doing, jot down ideas, humours, feelings… When people wake up in the morning they have a trace of what I have done apart from the actual code/builds I produced and what I have been thinking of</li>
+<li>We also use it as an endpoint for some important monitoring information, e.g. when something is pushed to central git repository or when state of a server changes.</li>
+</ul></li>
+</ul>
+<p>There is a great post about <em>Remote First</em> culture: http://zachholman.com/posts/remote-first/ which you should read, along with 37 Signal’s <a href="http://37signals.com/remote">Remote</a>. They both emphasizes the fact that working remotely works <strong>if and only if</strong> the whole organisation is built around this premise. Think as a counter-example organisations that have a handful of offices which need to work distributedly. Distribution was an afterthought, something that came up as a constraint because of mergers, and no amount of tooling can make that kind of culture work.</p>
+<p>Remote work can help reduce stress, especially in startups: Being remote means you can simply <em>remove</em> pressure from business people when it becomes too heavy. It can also help minimizes personality clash, cool down interactions. Being face-to-face increases cues and hints about the other person’s feelings but is also a great way to generate stress and emotions. The counterparty is <em>trust</em>: People at the other side of the world trust you to do what needs to be done</p>
+<h2 id="hiring">Hiring</h2>
+<p>The team is currently very small but hiring has been and will stay a team matter. Because we use a niche technology our recruitment is necessarily international and we must be prepared to recruit and work remotely, and actually <em>I was recruited as co-founder remotely…</em></p>
+<p>Our hiring process is currently quite simple:</p>
+<ul>
+<li>Initial interview with me and/or another dev where I try to assess current skill level of candidate. Usually ask questions related to basic XP practices like TDD</li>
+<li>2 hours pairing (or tripling) session using our remote dev environment: We usually tackle the <a href="https://github.com/emilybache/GildedRose-Refactoring-Kata/">GildedRoseKata</a> in Haskell, or if candidate is not comfortable enough in his favourite language (Javascript, Java…)</li>
+<li>Interview with CEO and negotiations…</li>
+<li>Here we go!</li>
+</ul>
+<p>Applying agile principles to hiring means that we are ready to experiment for a week or a month, reflect and improve, and possibly stop early (this occured already once). Doing this remotely also means more flexibility and more risks:</p>
+<ul>
+<li>If the person you hire wants to cheat, e.g. steal your code, she can do so quite easily,</li>
+<li>Developers are freelance in their country, which means they can stop at any time,</li>
+<li>Hence finally there is an incentive for Capital Match to keep people happy and motivated.</li>
+</ul>
+<p>Hiring is one of those (numerous) areas where I see a lot of improvements and where being remote is a game changer.</p>
+<h1 id="theorizing">Theorizing</h1>
+<p>Lessons learnt are most interesting if you can leverage them into some form of theoretical knowledge that can be turned into useful guidelines for future decisions. This section tries to extract some possibly useful insights and generalisations from this limited experience, which I can summarize in three points:</p>
+<ul>
+<li>Treating software as <em>development projects</em> alone is a fallacy that leads to costly errors,</li>
+<li><em>Technology matters</em>,</li>
+<li>Our software is part of a <em>system</em> that has different requirements at different moments in time.</li>
+</ul>
+<h2 id="the-software-development-project-fallacy">The Software Development Project Fallacy</h2>
+<p>There is not a dearth of software development project management methods, whether Agile or not: Kanban, Scrum, RUP, Waterfall, V, W, Design Controls… And symetrically there are quite a few methods targeted at managing operations and support in IT, like ITIL, although I am much less familiar with those. The fact is they are all inspired by the logic of <em>manufactured goods design and production</em> where:</p>
+<ol style="list-style-type: decimal">
+<li>The good undertakes a series of transformations, from design to production, up to the point it is ready for consumption by the “public”,</li>
+<li>Where it falls into the hands of another group of people which is responsible for <em>maintenance</em> or <em>end-users support</em>.</li>
+</ol>
+<p>If we focus on Scrum alone, we find the core artifact to be the <strong>sprint</strong> and a number of sprints ultimately leading to a <strong>release</strong>. But sprints, and for that matter any form of time-constrained activity, are inherently exhausting and ultimately unsustainable, hence the mutiplications of <em>hardening sprints</em>, <em>release sprints</em>, <em>sprint 0</em>… which are all attempts to depart from the sprint/release straightjacket. What Scrum and even XP which is dearer to my heart misses is the <em>Operations</em> part of a system</p>
+<blockquote>
+<p>Scrum is a management and control process that cuts through complexity to focus on <em>building software</em> that meets business needs. Management and teams are able to get their hands around the requirements and technologies, never let go, and deliver working software, incrementally and empirically.</p>
+<p>Scrum itself is a simple framework for effective team collaboration on complex <em>software projects</em>.</p>
+<p><a href="https://www.scrum.org/resources/what-is-scrum">Scrum.org</a></p>
+</blockquote>
+<p>The way of thinking this methods promote is inherently constrained by a time-bound horizon: The moment the product will be considered “finished” and leave the organisation that produced it, hence the emphasis of the <strong>release</strong>. Lets remember that <em>Deliver</em><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> also means <em>give birth</em> and bears with it the idea that something we have been fostering for months is freed from our control, which also suggests we are freeing ourselves of it. Deliver’s substantive is <a href="http://www.wordreference.com/enfr/deliverance">deliverance</a>… The <em>release</em> becomes the horizon of the team and with it comes relief, and then we move on to something else.</p>
+<p>What I have learnt over the years but even more so over the past months working on this project is the importance of evaluating your capability to deliver features against your capability to maintain your software and make it able to sustain more change in the future. Viewing software systems solely under the angle of <em>projects</em> leads to a bias, from all persons involved, towards delivering more under time pressure which is the biggest source of errors. When your horizon is time constrained you cannot pay enough attention to the small warnings that will lead to big failures.</p>
+<h2 id="technology-matters">Technology matters</h2>
+<blockquote>
+<p>“The technology, stupid.”</p>
+<p>liberally adapted from <a href="https://en.wikipedia.org/wiki/It&#39;s_the_economy,_stupid">James Carville</a></p>
+</blockquote>
+<p>Obviously a lot of the things we do are made possible thanks to technology:</p>
+<ul>
+<li>Being distributed is now workable because there are quite a few affordable tools out there that make this style of working possible for small teams: Google Hangouts, Skype, Slack/IRC, mails of course, Git, SSH, Cloud providers, Docker, Linux are all key ingredients to make our distributed workplace possible<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>,</li>
+<li>Developing our business as an online platform is also a key factor in enabling both an <em>iterative</em> and inherently <em>agile</em> style of software but also in the availability of tools and systems. It is much harder to develop an embedded controller’s system in a remote way because your software is physically tied to something concrete,</li>
+<li>The free and/or open-source movement has popularised geographically distributed teams and flat hierarchies for developing even very large pieces of software.</li>
+</ul>
+<p>But I do think that our particular technology stack (e.g. Haskell) choice has a deep impact in enabling this distributed agile style of working:</p>
+<ul>
+<li>Haskell is (still) a <a href="http://githut.info/">niche language</a> for at least two reasons: Because of its paradigm which is very different from maintstream languages and platforms, and because of its history which ties it to academic and esoteric PLT research more than to the production of mundane web applications, <img src="/images/haskell-ranking.png" alt="Latest Ranking from http://githut.info" /></li>
+<li>Due to its niche nature, it attracts programmers that either want to distinguish themselves and/or are inherently attracted by the different, not to say the bizarre… This is often the kind of people that are ready to make some extra efforts to keep on working with such a language, including working with shifted hours, moving to a foreign country, learning new tools and processes…</li>
+<li>On a more technical side, this particular choice allows us to work mostly through lightweight text-based tools, e.g. terminals, text editors, SSH… something which is invaluable when you have to communicate over 10000 kilometers and flacky Internet.</li>
+</ul>
+<p>Technology is not neutral. As explained by <a href="/posts/eme.html">Bruno Latour</a>, technology is embodied into technical beings whose needs must be adressed in specific ways and with whom we need to interact in specific ways. Technology shapes our worldview and the way we work in a lot of different and sometimes surprising ways. But it is always worthwhile to think about it beforehand…</p>
+<h2 id="from-project-to-system">From Project to System</h2>
+<p>My experience suggests a different approach which does not reject the benefits of iterative software <em>development</em> but makes it part of a bigger process which also encompasses the need for periods of reflection and calm. We should acknowledge the duality (at least) in our processes:</p>
+<ul>
+<li><strong>Period I</strong>: Moments of <em>intense</em> activity, which might be due to deadlines, objectives, production incidents to solve, security issues…</li>
+<li><strong>Period II</strong>: Moments of <em>routine</em> activity where team can reflect, define processes and procedures, refine things, document…</li>
+</ul>
+<p>Agile methods are good at channelling the intensity of period I through a simple process but they are much less appropriate for period II which is mostly characterized by the absence of definite goal(s). This explains the rise of “hybrid” approaches and the success of Kanban which offers a much more appropriate framework to handle period II work (and conversely is not very well suited to period I…). This also explains the moderate success (at best) Agile methods have with operations or highly regulated settings.</p>
+<p>There is a lot to get inspired from the way <a href="http://high-reliability.org/">Highly Reliable Organisations</a> work and the numerous research studies that have been written about those organisations. I was also personally heavily influenced by <a href="/posts/decisions-absurdes.html">“Les décisions absurdes”</a> which describes the mechanics of group thinking and how they can lead to catastrophic failures. HRO studies show that those organisations which <strong>must</strong> be reliable actually acknowledge the existence of those two modes of operations. The best such organisations know how to take advantage of <em>routine</em> mode (what I call Period II) to become better when the need arises to go into <em>intense</em> mode or Period I.</p>
+<p>Think of those analogies:</p>
+<ul>
+<li>In sport, athletes do not spend 100% of their time competing, and actually competition accounts for a small fraction of their worktime, most of it is dedicated to training, learning, improving, reflecting on past competitions,</li>
+<li>Musicians and other performers do the same: A lot of time training and practicing, small fraction of their time on stage,</li>
+<li>Soldiers and military are an even better analogy because period of conflicts can last for an extended period of time and even then, army takes care of rotating personel, replacing people on the front with fresh troops on a regular basis.</li>
+</ul>
+<blockquote>
+<p>The content of this post was used to present a session at <a href="http://www.agilenantes.org/agile-tour-nantes-2015/">Agile Tour Nantes 2015</a>: Thanks to the organisers for having accepted that talk.</p>
+<p>Thanks to Anne Caron-Perlon for her very helpful comments and remarks.</p>
+<p>Thanks to Capital Match Team for those exciting 2 years.</p>
+</blockquote>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>It seems that <a href="http://tmate.io/">tmate</a> provides even better support for that at the expense of having to setup a centralised server for people to log in.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Looks like the smart people at /ut7 have given a name to this: They call it <a href="http://ut7.fr/posts/blog/2015/03/05/les-pieds-dans-la-bassine.html">La bassine</a> and apparently this has been developed as part of work on project for <a href="http://blog.deliverous.com/2015-03-06.bassine.html">Deliverous</a><a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>This comes from the French <em>Délivrer</em> which can be translated to <em>get rid of</em>, <em>relieve</em>, <em>set free</em><a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>Back in the 90s or even early 2000s you would have to be either a large corporation, a university or deep hacker group to be able to work distributedly in real time<a href="#fnref4">↩</a></p></li>
+</ol>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Sur &quot;Spinoza encule Hegel&quot;</title>
     <link href="http://abailly.github.io/posts/spinoza-encule-hegel.html" />
     <id>http://abailly.github.io/posts/spinoza-encule-hegel.html</id>
@@ -1149,55 +1358,6 @@ interpretEffect <span class="fu">=</span> coiter f (return ())
 <li id="fn2"><p>In private conversation by email David Laing told me follow-up talks will deal with free/cofree duality with effects thus taking care of evaluating monadic scripts and interpreters.<a href="#fnref2">↩</a></p></li>
 </ol>
 </div>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Ten &quot;Good&quot; Reasons Not to Do TDD</title>
-    <link href="http://abailly.github.io/posts/no-tdd.html" />
-    <id>http://abailly.github.io/posts/no-tdd.html</id>
-    <published>2014-01-31T00:00:00Z</published>
-    <updated>2014-01-31T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Ten &quot;Good&quot; Reasons Not to Do TDD</h1>
-<div class="info">Posted on January 31, 2014</div>
-
-<p>When trying to introduce <em>Test-Driven Development</em> in a team or company, it is normal to encounter resistance: Change is always hard, whatever it may be, for <em>everybody</em>. It is a transgression of the current norm and rules that most people would not accept readily.</p>
-<p>Here is a small compendium of ten “good” reasons I have been given for not doing TDD while introducing that technique to new teams.</p>
-<h2 id="it-is-going-to-slow-us-down">“It Is going to slow us down!”</h2>
-<p>If we deliver code faster, we have more times to discover bugs and fix them using real testing conditions, eg. in production.</p>
-<h2 id="it-takes-a-lot-of-time-to-master">“It takes a lot of time to master!”</h2>
-<p>We would rather employ youngsters having just graduated that will put 12+ hours of work per day and ship code faster than take the time to train people on TDD</p>
-<h2 id="managers-and-business-people-keep-setting-tight-deadlines">“Managers and Business people keep setting tight deadlines”</h2>
-<p>We cannot or do not know how to say “no” to our customers, so we keep promising features and given we work hard and fast, we can deliver and fix bugs later. Anyway, it has always worked that way so the customer does not even expect first versions to be correct so everybody knows and expect there will be bugs (and more overtime to fix them after delivery…). Besides, our contracts fix scope, deadline and price with high penalty in case of failure to deliver so we would rather ship it as planned.</p>
-<h2 id="we-already-tried-writing-unit-tests-and-it-became-a-maintenance-nightmare">“We already tried writing unit tests and it became a maintenance nightmare”</h2>
-<p>Given we already have QA team that takes care of testing, and the complexity of the code, it is better to invest in large, complex but well-known functional or system-level tests than doubling the codebase with unit tests. And by the way, when I write unit tests for my code, it happens to be 3-4 times bigger than the code I am testing so what’s the point?</p>
-<h2 id="we-have-too-much-legacy-code-it-would-be-a-drop-in-the-ocean">“We have too much legacy code, it would be a drop in the ocean”</h2>
-<p>Let’s concentrate on shipping new features and fixing bugs touching existing code in the least invasively possible way, given we do not know if touching anything won’t break our software in possibly horrible ways</p>
-<h2 id="i-do-not-want-to-be-told-how-i-have-to-code">“I do not want to be told how I have to code”</h2>
-<p>I have enough experience to find my way in the code so I can change it quickly enough without the need of TDD. Besides I have my own set of techniques and tools that I have polished over the years so why bother changing?</p>
-<h2 id="our-test-suite-takes-too-long-to-run-and-is-broken-half-of-the-time">“Our test suite takes too long to run and is broken half of the time”</h2>
-<p>Given the aforementioned reasons, we do not have the time to fix it properly so let’s move on and find other ways to deal with bugs.</p>
-<h2 id="our-code-does-not-lend-itself-to-tdd-because-we-do-much-guiembeddedmobilelegacy-pick-one-code">“Our code does not lend itself to TDD because we do much (GUI/Embedded/Mobile/Legacy Pick one) code”</h2>
-<p>We are special here so we cannot do something that’s been invented for startupers or simple web apps.</p>
-<h2 id="all-these-unit-tests-do-not-guarantee-functional-relevance">“All these unit tests do not guarantee functional relevance”</h2>
-<p>So why bother writing them given we could invest the time in functional-level tests?</p>
-<h2 id="whats-the-point-of-writing-tests-for-code-that-will-never-change-they-wont-catch-any-regression">“What’s the point of writing tests for code that will never change? They won’t catch any regression”</h2>
-<p>OK, it might be changed but surely not in the near future so given I know what I am doing, I would rather get rid of those tests</p>
 
 
 <div id="disqus_thread"></div>
