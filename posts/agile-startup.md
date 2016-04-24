@@ -1,7 +1,7 @@
 ------------
 title: Using agile in a startup
 author: Arnaud Bailly 
-date: 2015-10-26
+date: 2016-04-24
 ------------
 
 This post is a follow-up to my [previous post](/posts/cm-arch-design.html) on designing an application in Haskell and part of a
@@ -13,7 +13,7 @@ As before I have tried to be as honest as possible, highlighting both what worke
 Coming from an Agile background it is no surprise that I consciously tried to reuse the knowledge and tools I knew from previous
 implementations of Scrum, eXtreme Programming or Kanban. One of the lesson learned during the past year is that Agile needs some
 serious overhauling to be applied within a startup setting, even more so when the team is distributed. In the conclusion I try to
-draw on this experience to hint at some trails I would like to explore in the near future.
+draw on this experience to hint at some trails I would like to explore in the future.
 
 # A Bit of Context
 
@@ -21,13 +21,13 @@ I started working on Capital Match at the end of August 2014. The first commit i
 Wednesday, 20th of August 2014. I worked in the background for a couple of months, mostly to setup the infrastructure, flex my
 muscles on Haskell, explore the business domain space.
 
-I met physically Pawel, Capital Match's founder, in October. At that
+I met physically my co-founder in October. At that
 time I was still working alone but I already had a working solution that was deployed and "usable", for some definition of
 usable. Willem van den Ende joined me to develop the application to production stage at the end of October and brought with him lot
-of XP and DevOps experience. We were joined by another developer at the beginning of March but this employment last only a
+of XP and DevOps experience. We were joined by another developer at the beginning of March but this employment lasted only a
 month.
 
-We went live on the 20th of March, one month after the initial target set in December. The tech team is now 3 people, including
+We went live on the 20th of March, one month after the initial target set in December. The tech team is now 4 people, including
 me, all of which are mainly developers. We do not have a dedicated operations team and the tech team is responsible for both
 developing new features and maintaining the application in good operational conditions.
 
@@ -352,6 +352,13 @@ Think of those analogies:
 * Musicians and other performers do the same: A lot of time training and practicing, small fraction of their time on stage,
 * Soldiers and military are an even better analogy because period of conflicts can last for an extended period of time and even
   then, army takes care of rotating personel, replacing people on the front with fresh troops on a regular basis. 
+
+> The content of this post was used to present a session at [Agile Tour Nantes 2015](http://www.agilenantes.org/agile-tour-nantes-2015/): Thanks
+> to the organisers for having accepted that talk.
+> 
+> Thanks to Anne Caron-Perlon for her very helpful comments and remarks.
+>
+> Thanks to Capital Match Team for those exciting 2 years.
 
 [^1]: This comes from the French *Délivrer* which can be translated to *get rid of*, *relieve*, *set free*
 
