@@ -8,8 +8,253 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2016-05-05T00:00:00Z</updated>
+    <updated>2016-05-12T00:00:00Z</updated>
     <entry>
+    <title>Life Beyond Relational Database in Haskell - The case for Event Sourcing</title>
+    <link href="http://abailly.github.io/posts/event-source.html" />
+    <id>http://abailly.github.io/posts/event-source.html</id>
+    <published>2016-05-12T00:00:00Z</published>
+    <updated>2016-05-12T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Life Beyond Relational Database in Haskell - The case for Event Sourcing</h1>
+<div class="info">Posted on May 12, 2016</div>
+
+<p>This post contains the code I demonstrated as part of my talk at <a href="http://ncrafts.io">nCrafts</a>. This work is based on the following references (stepping on the shoulders of giants, as always…):</p>
+<ul>
+<li><a href="http://okmij.org/ftp/Haskell/extensible/exteff.pdf">Extensible effects paper</a>: Extensible effects theory and practice in Haskell</li>
+<li><a href="https://github.com/atnos-org/eff-cats">eff-cats</a>: Same in Scala</li>
+<li><a href="http://www.cse.chalmers.se/~rjmh/Papers/QuickCheckST.ps">Testing monadic code with QuickCheck</a></li>
+<li><a href="http://abailly.github.io/posts/cm-arch-design.html">Blog post</a> about the architecture implemented at Capital Match</li>
+<li>Work-in-progress <a href="https://github.com/abailly/hevents">Haskell library</a> to simplify developing event sourced systems</li>
+<li>Original <a href="http://shaffner.us/cs/papers/tarpit.pdf">Out of the Tar Pit</a> paper</li>
+</ul>
+<h1 id="imports-stuff-to-make-the-compiler-happy">Imports, stuff to make the compiler happy</h1>
+<p>We first add the usual <code>LANGUAGE</code> extension incantations… Note they should probably go in to the <code>.cabal</code> file.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE DataKinds             #-}</span>
+<span class="ot">{-# LANGUAGE FlexibleInstances     #-}</span>
+<span class="ot">{-# LANGUAGE MultiParamTypeClasses #-}</span>
+<span class="ot">{-# LANGUAGE OverloadedStrings     #-}</span>
+<span class="ot">{-# LANGUAGE ScopedTypeVariables   #-}</span>
+<span class="ot">{-# LANGUAGE TypeOperators         #-}</span>
+<span class="kw">module</span> <span class="dt">Hevents.Eff.Demo</span> <span class="kw">where</span></code></pre></div>
+<p>Then a whole bunch of imports… I never managed to choose a definite course of action on whether to import full module, import qualified, import only selected symbols. Seems to me this is pretty much a team-level convention.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import           </span><span class="dt">Control.Category</span>
+<span class="kw">import           </span><span class="dt">Control.Concurrent.Async</span>
+<span class="kw">import           </span><span class="dt">Control.Concurrent.STM</span>
+<span class="kw">import qualified</span> <span class="dt">Control.Eff</span>                <span class="kw">as</span> <span class="dt">E</span>
+<span class="kw">import           </span><span class="dt">Control.Eff.Exception</span>
+<span class="kw">import           </span><span class="dt">Control.Eff.Lift</span>           <span class="kw">as</span> <span class="dt">E</span> <span class="kw">hiding</span> (lift)
+<span class="kw">import           </span><span class="dt">Control.Exception</span>          (finally)
+<span class="kw">import           </span><span class="dt">Control.Monad.Except</span>
+<span class="kw">import qualified</span> <span class="dt">Control.Monad.State</span>        <span class="kw">as</span> <span class="dt">ST</span>
+<span class="kw">import           </span><span class="dt">Control.Monad.Trans.Either</span>
+<span class="kw">import qualified</span> <span class="dt">Data.ByteString.Builder</span>    <span class="kw">as</span> <span class="dt">BS</span>
+<span class="kw">import           </span><span class="dt">Data.Either</span>                (rights)
+<span class="kw">import           </span><span class="dt">Data.Proxy</span>
+<span class="kw">import           </span><span class="dt">Data.Serialize</span>             (<span class="dt">Serialize</span>, get, put)
+<span class="kw">import           </span><span class="dt">Data.Typeable</span>
+<span class="kw">import           </span><span class="dt">Data.Void</span>
+<span class="kw">import           </span><span class="dt">Hevents.Eff</span>                <span class="kw">as</span> <span class="dt">W</span>
+<span class="kw">import           </span><span class="dt">Prelude</span>                    <span class="kw">hiding</span> (init, (.))
+<span class="kw">import           </span><span class="dt">Servant</span>
+<span class="kw">import           </span><span class="dt">Servant.Client</span>
+<span class="kw">import           </span><span class="dt">System.Environment</span>
+<span class="kw">import           </span><span class="dt">Test.Hspec</span>
+<span class="kw">import           </span><span class="dt">Test.QuickCheck</span>            <span class="kw">as</span> <span class="dt">Q</span>
+<span class="kw">import           </span><span class="dt">Test.QuickCheck.Monadic</span>    <span class="kw">as</span> <span class="dt">Q</span></code></pre></div>
+<h1 id="the-business-domain">The “Business Domain”</h1>
+<p>We want to implement an event-sourced service that will allow us to manipulate a simple integer <em>counter</em>:</p>
+<ul>
+<li>Our counter changes when some value is <em>added</em> to it,</li>
+<li>A value is added when a command is issued that <em>increments</em> the counter,</li>
+<li>We also want to modify the counter when a <em>decrement</em> command is issued, which means a <em>negative</em> value will be <em>added</em> to the counter,</li>
+<li>We want our counter to be <em>bounded</em>: It shall never go below 0 or beyond 100,</li>
+<li>And its initial value will be 0.</li>
+</ul>
+<h1 id="lets-start-writing-a-test">Let’s start writing a test…</h1>
+<p>We’ll first write some property describing the behaviour of our model for a single command. We expect that an <code>Increment</code> command shall set an <code>init</code>ialized counter to the same value than the command, and that a <code>Decrement</code> command will decrease the value of a counter. Note here we anticipate a bit on bounds requirement checking by setting the counter to some value which is greater than any <code>Decrement</code> command we are supposed to issue.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prop_shouldApplySingleCommandRespectingBounds ::</span> <span class="dt">Command</span> <span class="dt">Counter</span><span class="fu">*&gt;</span> <span class="dt">Bool</span>
+prop_shouldApplySingleCommandRespectingBounds c<span class="fu">@</span>(<span class="dt">Increment</span> n) <span class="fu">=</span>
+    <span class="kw">let</span> <span class="dt">OK</span> result <span class="fu">=</span> init <span class="ot">`act`</span> c
+    <span class="kw">in</span>  init <span class="ot">`apply`</span> result <span class="fu">==</span> <span class="dt">Counter</span> n
+prop_shouldApplySingleCommandRespectingBounds c<span class="fu">@</span>(<span class="dt">Decrement</span> n) <span class="fu">=</span>
+    <span class="kw">let</span> bounderCounter <span class="fu">=</span> <span class="dt">Counter</span> singleCommandUpperBound
+        <span class="dt">OK</span> result <span class="fu">=</span> bounderCounter <span class="ot">`act`</span> c
+    <span class="kw">in</span>  bounderCounter <span class="ot">`apply`</span> result <span class="fu">==</span> <span class="dt">Counter</span> (singleCommandUpperBound <span class="fu">-</span> n)</code></pre></div>
+<p>This property requires some way to generate <code>Arbitrary</code> instances of our commands, which is straightforward:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Arbitrary</span> (<span class="dt">Command</span> <span class="dt">Counter</span>) <span class="kw">where</span>
+  arbitrary <span class="fu">=</span> oneof [ <span class="dt">Increment</span> <span class="fu">&lt;$&gt;</span> singleCommandValue
+                    , <span class="dt">Decrement</span> <span class="fu">&lt;$&gt;</span> singleCommandValue
+                    ]
+    <span class="kw">where</span>
+        singleCommandValue <span class="fu">=</span> choose (<span class="dv">0</span>,singleCommandUpperBound)
+
+<span class="ot">singleCommandUpperBound ::</span> <span class="dt">Int</span>
+singleCommandUpperBound <span class="fu">=</span> <span class="dv">20</span></code></pre></div>
+<p>Another useful property we want to define that our counter respects its bounds, no matter which sequence of events we send to it:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prop_shouldNotApplyCommandsOverBounds ::</span> [ <span class="dt">Command</span> <span class="dt">Counter</span> ] <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+prop_shouldNotApplyCommandsOverBounds commands <span class="fu">=</span>
+  <span class="kw">let</span> finalCounter <span class="fu">=</span> ST.execState (mapM updateModel commands) init
+  <span class="kw">in</span>  isWithinBounds finalCounter
+
+<span class="ot">isWithinBounds ::</span> <span class="dt">Counter</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+isWithinBounds (<span class="dt">Counter</span> value) <span class="fu">=</span> value <span class="fu">&gt;=</span> <span class="dv">0</span> <span class="fu">&amp;&amp;</span> value <span class="fu">&lt;=</span> <span class="dv">100</span></code></pre></div>
+<p>And of course we need some implementation of our <code>Command</code>s and <code>Counter</code>. The latter is pretty much a simple wrapping of <code>Int</code> but to define the former we need our <code>Counter</code> type to be an instance of <a href="https://github.com/abailly/hevents/blob/master/src/Hevents/Eff/Model.lhs">Model</a> typeclass, which defines the basic structure of an event-sourced component (or aggregate).</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Counter</span> <span class="fu">=</span> <span class="dt">Counter</span> {<span class="ot"> counter ::</span> <span class="dt">Int</span> } <span class="kw">deriving</span> (<span class="dt">Eq</span>,<span class="dt">Show</span>)
+
+<span class="kw">instance</span> <span class="dt">Model</span> <span class="dt">Counter</span> <span class="kw">where</span></code></pre></div>
+<p>We define the “component” types of our model: Commands, events and errors which here are very simple.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="kw">data</span> <span class="dt">Command</span> <span class="dt">Counter</span> <span class="fu">=</span> <span class="dt">Increment</span> <span class="dt">Int</span>
+                       <span class="fu">|</span> <span class="dt">Decrement</span> <span class="dt">Int</span>
+                       <span class="kw">deriving</span> (<span class="dt">Eq</span>, <span class="dt">Show</span>)
+  <span class="kw">data</span> <span class="dt">Event</span> <span class="dt">Counter</span> <span class="fu">=</span> <span class="dt">Added</span> <span class="dt">Int</span> <span class="kw">deriving</span> (<span class="dt">Eq</span>,<span class="dt">Show</span>)
+  <span class="kw">data</span> <span class="dt">Error</span> <span class="dt">Counter</span> <span class="fu">=</span> <span class="dt">OutOfBounds</span> <span class="kw">deriving</span> (<span class="dt">Eq</span>,<span class="dt">Show</span>)</code></pre></div>
+<p>Then comes our initial value…</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  init <span class="fu">=</span> <span class="dt">Counter</span> <span class="dv">0</span></code></pre></div>
+<p><code>act</code> computes the effect of applying a command to current state of our counter…</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">
+  <span class="dt">Counter</span> k <span class="ot">`act`</span> <span class="dt">Increment</span> n <span class="fu">=</span> <span class="kw">if</span> k <span class="fu">+</span> n <span class="fu">&lt;=</span> <span class="dv">100</span>
+                                <span class="kw">then</span> <span class="dt">OK</span> <span class="fu">$</span> <span class="dt">Added</span> n
+                                <span class="kw">else</span> <span class="dt">KO</span> <span class="dt">OutOfBounds</span>
+
+  <span class="dt">Counter</span> k <span class="ot">`act`</span> <span class="dt">Decrement</span> n <span class="fu">=</span> <span class="kw">if</span> k <span class="fu">-</span> n <span class="fu">&gt;=</span> <span class="dv">0</span>
+                                <span class="kw">then</span> <span class="dt">OK</span> <span class="fu">$</span> <span class="dt">Added</span> (<span class="fu">-</span>n)
+                                <span class="kw">else</span> <span class="dt">KO</span> <span class="dt">OutOfBounds</span></code></pre></div>
+<p>Then <code>apply</code> actually “updates” (or more precisely, create a new updated instance of) the counter by applying the value to add.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="dt">Counter</span> k <span class="ot">`apply`</span> <span class="dt">Added</span> n <span class="fu">=</span> <span class="dt">Counter</span> <span class="fu">$</span> k <span class="fu">+</span> n</code></pre></div>
+<p>When we check the behaviour of applying a sequence of <code>Command</code>s to our counter, we make use of a library function which runs in the <code>State</code> monad and allow us to “fold” the application of a sequence of commands to a <code>Counter</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">updateModel ::</span> (<span class="dt">Model</span> a) <span class="ot">=&gt;</span> <span class="dt">Command</span> a <span class="ot">-&gt;</span> <span class="dt">State</span> a (<span class="dt">Result</span> a)</code></pre></div>
+<h1 id="exposing-services-built-on-our-model">Exposing services built on our model</h1>
+<p>As always, we start with the testing part but this time we expect our tests to have side effects and model interactions of the outside world with our system’s fragment. We shall start with very simple modelling of client’s behaviour:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">CounterAction</span> <span class="fu">=</span> <span class="dt">GetCounter</span>
+                   <span class="fu">|</span> <span class="dt">IncCounter</span> <span class="dt">Int</span>
+                   <span class="fu">|</span> <span class="dt">DecCounter</span> <span class="dt">Int</span>
+                   <span class="kw">deriving</span> (<span class="dt">Show</span>)</code></pre></div>
+<p>In order to generate samples for our actions we assume some frequency distribution, giving more weight to actions that get state than to actions that update it.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">
+<span class="kw">instance</span> <span class="dt">Arbitrary</span> <span class="dt">CounterAction</span> <span class="kw">where</span>
+  arbitrary <span class="fu">=</span> frequency [ (<span class="dv">3</span>, return <span class="dt">GetCounter</span>)
+                        , (<span class="dv">2</span>, <span class="dt">IncCounter</span> <span class="fu">&lt;$&gt;</span> choose (<span class="dv">0</span>,<span class="dv">10</span>))
+                        , (<span class="dv">1</span>, <span class="dt">DecCounter</span> <span class="fu">&lt;$&gt;</span> choose (<span class="dv">0</span>,<span class="dv">10</span>))
+                        ]</code></pre></div>
+<p>Then we use monadic QuickCheck to run an <code>arbitrary</code> sequence of user actions on an “effectful” model which is initialised with some state holder and a storage backend.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prop_servicesRespectCounterBounds ::</span> [ <span class="dt">CounterAction</span> ] <span class="ot">-&gt;</span> <span class="dt">Property</span>
+prop_servicesRespectCounterBounds actions <span class="fu">=</span> Q.monadicIO <span class="fu">$</span> <span class="kw">do</span>
+  results <span class="ot">&lt;-</span> Q.run <span class="fu">$</span> <span class="kw">do</span>
+    (model, storage) <span class="ot">&lt;-</span> prepareContext
+    mapM (effect storage model <span class="fu">.</span> interpret) actions
+
+  assert <span class="fu">$</span> all isWithinBounds (rights results)</code></pre></div>
+<p>This test might be considered to be a little weak, and we could probably enhance it with testing error conditions. That’s something definitely worth doing for production code, however for the sake of simplicity we will not add more tests here.</p>
+<p>Prparation step is simple but deserve some explanations:</p>
+<ul>
+<li>We create a <code>Counter</code> with some initial value and wrap it in a <em>transactional variable</em> because our underlying <code>State</code> effects works within the <code>STM</code> monad. This is so in order to ensure proper atomicity of commands on the model in face of concurrent access,</li>
+<li>We create a simple in-memory store, which is a STM-based bounded queue.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">prepareContext <span class="fu">=</span> (,)           <span class="fu">&lt;$&gt;</span>
+  newTVarIO (W.init<span class="ot"> ::</span> <span class="dt">Counter</span>) <span class="fu">&lt;*&gt;</span>
+  atomically W.makeMemoryStore</code></pre></div>
+<p><code>effect</code> is actually a natural transformation that composes all the small little effects we need in our sample and “lift” them in the <code>IO</code> monad. Note the <code>Eff</code> type which exposes explicitly all the effects our code is allowed to make thus constraining its behaviour to a limited subset of possible interactions with outside world. The <code>ServantErr</code> type is the type of <em>exceptions</em> we can “throw” using <code>Exc</code> effect: This anticipates on the needs of the REST API we shall expose later on. Actually it could have been any kind of <code>Exception</code> instance but once again, this makes things simpler and removes a layer of transformation from custom exceptions to Servant errors, something we would probably want to do in production code.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">EventSourced</span> s e a <span class="fu">=</span>
+  <span class="dt">E.Eff</span> (<span class="dt">State</span> s <span class="fu">E.:&gt;</span> <span class="dt">Store</span> <span class="fu">E.:&gt;</span> <span class="dt">Exc</span> e <span class="fu">E.:&gt;</span> <span class="dt">Lift</span> <span class="dt">STM</span> <span class="fu">E.:&gt;</span> <span class="dt">Void</span>) a
+
+<span class="ot">effect ::</span> (<span class="dt">Typeable</span> m, <span class="dt">Typeable</span> e, <span class="dt">Storage</span> <span class="dt">STM</span> s, <span class="dt">Registrar</span> <span class="dt">STM</span> m reg)
+         <span class="ot">=&gt;</span> s <span class="ot">-&gt;</span> reg
+         <span class="ot">-&gt;</span> <span class="dt">E.Eff</span> (<span class="dt">EventSourced</span> <span class="dt">Counter</span> <span class="dt">ServantErr</span>) a
+         <span class="ot">-&gt;</span> <span class="dt">IO</span> (<span class="dt">Either</span> e a)
+effect s m <span class="fu">=</span> atomically <span class="fu">.</span> runSync <span class="fu">.</span> runExc <span class="fu">.</span> W.runStore s <span class="fu">.</span>  W.runState m</code></pre></div>
+<p>The definition of our services is pretty straightforward:</p>
+<ul>
+<li><code>getCounter</code> simply return the state of the counter,</li>
+<li><code>increment</code> and <code>decrement</code> both send the corresponding commands and store the resulting event, returning the content of the counter.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">CounterService</span> a <span class="fu">=</span> <span class="dt">EventSourced</span> <span class="dt">Counter</span> <span class="dt">ServantErr</span> a
+
+<span class="ot">getCounter ::</span> <span class="dt">CounterService</span> <span class="dt">Int</span>
+getCounter <span class="fu">=</span> counter <span class="fu">&lt;$&gt;</span> getState
+
+<span class="ot">increment ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">CounterService</span> <span class="dt">Int</span>
+increment n <span class="fu">=</span> applyCommand (<span class="dt">Increment</span> n) <span class="fu">&gt;&gt;=</span> storeEvent
+
+<span class="ot">decrement ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">CounterService</span> <span class="dt">Int</span>
+decrement n <span class="fu">=</span> applyCommand (<span class="dt">Decrement</span> n) <span class="fu">&gt;&gt;=</span> storeEvent</code></pre></div>
+<p>The <code>storeEvent</code> function is where most of the grunt work happens and notably where we do error handling:</p>
+<ul>
+<li>We first try to <code>store</code> the produced <code>Event Counter</code>, and if this succeeds we return the state of the counter. If this fails, we convert the error in a <code>500</code> error, passing some hopefully useful message,</li>
+<li>If the input is an <code>Error Counter</code> we simply rethrow the converted error as a <code>400</code> error, all errors produced by commands represent precondition violations of the model’s specification.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">storeEvent ::</span> <span class="dt">Either</span> (<span class="dt">Error</span> <span class="dt">Counter</span>) (<span class="dt">Event</span> <span class="dt">Counter</span>)
+             <span class="ot">-&gt;</span> <span class="dt">CounterService</span> <span class="dt">Int</span>
+storeEvent (<span class="dt">Left</span> e)  <span class="fu">=</span> throwExc <span class="fu">$</span> fromModelError e
+storeEvent (<span class="dt">Right</span> e) <span class="fu">=</span> store e <span class="fu">&gt;&gt;=</span> either (throwExc <span class="fu">.</span> fromDBError) (const <span class="fu">$</span> counter <span class="fu">&lt;$&gt;</span> getState)
+  <span class="kw">where</span>
+    fromModelError e <span class="fu">=</span> err400 { errBody <span class="fu">=</span> makeBody <span class="fu">$</span> <span class="st">&quot;Invalid command &quot;</span> <span class="fu">++</span> show e }
+    fromDBError    e <span class="fu">=</span> err500 { errBody <span class="fu">=</span> makeBody <span class="fu">$</span> <span class="st">&quot;DB Error &quot;</span> <span class="fu">++</span> show e }
+    makeBody         <span class="fu">=</span> BS.toLazyByteString <span class="fu">.</span> BS.stringUtf8</code></pre></div>
+<p>Note that because of the <code>Store</code> effect we need to be able to <em>serialize</em> our events:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Serialize</span> (<span class="dt">Event</span> <span class="dt">Counter</span>) <span class="kw">where</span>
+  put (<span class="dt">Added</span> i) <span class="fu">=</span> put i
+  get           <span class="fu">=</span> <span class="dt">Added</span> <span class="fu">&lt;$&gt;</span> get</code></pre></div>
+<p>The last missing piece is the <code>interpret</code> function which turns our QuickCheck generated actions into actual effectful actions to be run against our system.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">interpret <span class="dt">GetCounter</span>     <span class="fu">=</span> getCounter
+interpret (<span class="dt">IncCounter</span> n) <span class="fu">=</span> increment n
+interpret (<span class="dt">DecCounter</span> n) <span class="fu">=</span> decrement n</code></pre></div>
+<h1 id="expose-our-counter-services-through-a-rest-api">Expose our counter services through a REST API</h1>
+<p>The last step of our Counter “microservice” is to expose it as a REST interface. We will leverage the excellent work done on the <a href="http://servant.github.io">Servant</a> and firstly define out API’s type which is a simple exposition of the previously defined services:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">
+<span class="kw">type</span> <span class="dt">CounterApi</span> <span class="fu">=</span>
+ <span class="st">&quot;counter&quot;</span> <span class="fu">:&gt;</span> (<span class="dt">Get</span> <span class="ch">&#39;[JSON] Int</span>
+              <span class="fu">:&lt;|&gt;</span> <span class="st">&quot;increment&quot;</span> <span class="fu">:&gt;</span> <span class="dt">Capture</span> <span class="st">&quot;inc&quot;</span> <span class="dt">Int</span> <span class="fu">:&gt;</span> <span class="dt">Get</span> <span class="ch">&#39;[JSON] Int</span>
+              <span class="fu">:&lt;|&gt;</span> <span class="st">&quot;decrement&quot;</span> <span class="fu">:&gt;</span> <span class="dt">Capture</span> <span class="st">&quot;dec&quot;</span> <span class="dt">Int</span> <span class="fu">:&gt;</span> <span class="dt">Get</span> <span class="ch">&#39;[JSON] Int)</span>
+
+<span class="ot">counterApi ::</span> <span class="dt">Proxy</span> <span class="dt">CounterApi</span>
+counterApi <span class="fu">=</span> <span class="dt">Proxy</span></code></pre></div>
+<p>Writing our test is pretty straightforward and mostly repeats the previous test at the service level layer, the main difference being the effectful services are run within an actual web server on some predefined port. Note this is makes our test brittle and non parallelizable: It would be better to let the server select a free port and return it as part of its startup.</p>
+<p>The only noteworthy part is that we can use our previously defined <code>effect</code> “interpreter” natural transformation and wrap it inside an <code>EitherT</code> transformer which is the type expected by Servant.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prop_counterServerImplementsCounterApi ::</span> [ <span class="dt">CounterAction</span> ] <span class="ot">-&gt;</span> <span class="dt">Property</span>
+prop_counterServerImplementsCounterApi actions <span class="fu">=</span> Q.monadicIO <span class="fu">$</span> <span class="kw">do</span>
+  results <span class="ot">&lt;-</span> Q.run <span class="fu">$</span> <span class="kw">do</span>
+    (model, storage) <span class="ot">&lt;-</span> prepareContext
+    server <span class="ot">&lt;-</span> W.runWebServerErr <span class="dv">8082</span> counterApi
+                  (<span class="dt">Nat</span> <span class="fu">$</span> <span class="dt">EitherT</span> <span class="fu">.</span> effect storage model) handler
+    mapM runClient actions <span class="ot">`finally`</span> cancel server
+
+  assert <span class="fu">$</span> all isWithinBounds (rights results)</code></pre></div>
+<p>The client-side services are obtained from a destructured assignment using Servant’s <code>(:&lt;|&gt;)</code> operator which is overloaded at the type and value level and then used to interpret user actions.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">counterState <span class="fu">:&lt;|&gt;</span> incCounter <span class="fu">:&lt;|&gt;</span> decCounter <span class="fu">=</span> client counterApi (<span class="dt">BaseUrl</span> <span class="dt">Http</span> <span class="st">&quot;localhost&quot;</span> <span class="dv">8082</span>)
+
+runClient <span class="dt">GetCounter</span>     <span class="fu">=</span> runEitherT <span class="fu">$</span> counterState
+runClient (<span class="dt">IncCounter</span> n) <span class="fu">=</span> runEitherT <span class="fu">$</span> incCounter n
+runClient (<span class="dt">DecCounter</span> n) <span class="fu">=</span> runEitherT <span class="fu">$</span> decCounter n</code></pre></div>
+<p>It is also noteworthy we can simply build our REST server composing our already defined services. Servant’s type wizardy ensures the expected type for the whole API is matched by actual functions composed with <code>(:&lt;|&gt;)</code>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">handler <span class="fu">=</span> getCounter <span class="fu">:&lt;|&gt;</span> increment <span class="fu">:&lt;|&gt;</span> decrement</code></pre></div>
+<p>Writing a <code>main</code> server that is able to listen on some port and runs our services is left as an exercise for the reader.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>The goal of this post and the associated talk was to demonstrate how Haskell’s type system and some well designed and though out libraries made it easy to build type-safe “microservices”. In particular, I would like to emphasize the following points:</p>
+<ul>
+<li>Haskell’s pure functional core makes it a perfect fit for designing, implementing and experimenting business domain models using <em>Domain Driven Design</em> principles: Use a common language which here is embedded in the form of commands, events and errors, provide a pure core which implements core business rules and can be very easily tested, wrap that pure core within a <em>Hexagonal architecture</em> providing needed side-effects…</li>
+<li>QuickCheck is a great tool for doing <em>Test Driven Development</em> of such models: One can use it to expose assumptions about the behaviour of the model’s clients in the form of <em>Arbitrary</em> instances and then test potentially complex sequences of actions against the model,</li>
+<li>Using monadic QuickCheck, it is possible to leverage that technique at any level of the system’s stack, making it easy to test various effects of our system and how it interacts with the outside world. Something that we could introduce here is testing the server with multiple concurrent clients and then checking our model doesn’t break its invariants in the face of concurrent accesses,</li>
+<li>The <em>Extensible effects</em> framework allows us to define and compose tiny effectful “DSLs” over the core domain DSL. More importantly, thanks to its extensibility, it is possible to define new effects without having to recompile any of our existing services (note this would require our services’ types to be more lax, using typeclass constraints instead of concrete type for the <em>Eff</em> monad).</li>
+</ul>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Sur &quot;Critique de la raison pure&quot;</title>
     <link href="http://abailly.github.io/posts/kant.html" />
     <id>http://abailly.github.io/posts/kant.html</id>
@@ -1115,62 +1360,6 @@ ARP: timeout 192.168.77.1</code></pre>
 <li id="fn3"><p>religion doit ici être entendu dans son sens le plus large, <em>ce qui relie</em>, et inclut donc les systèmes sociaux et politiques, les schèmes de pensées qui permettent d’universaliser, de relier les individus dans un tout plus grand qu’eux.<a href="#fnref3">↩</a></p></li>
 </ol>
 </div>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Sur &quot;Technological Revolutions and Financial Capital&quot;</title>
-    <link href="http://abailly.github.io/posts/techno-capital.html" />
-    <id>http://abailly.github.io/posts/techno-capital.html</id>
-    <published>2015-11-06T00:00:00Z</published>
-    <updated>2015-11-06T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Sur &quot;Technological Revolutions and Financial Capital&quot;</h1>
-<div class="info">Posted on November  6, 2015</div>
-
-<p>Il y a quelques mois j’ai eu l’occasion d’assister à une <a href="http://conseil-developpement.loire-atlantique.fr/assaut-numerique-decrypte-devant-100-citoyens-et-professionnels-de-loire-atlantique/">conférence</a> de <a href="https://twitter.com/Nicolas_Colin">Nicolas Collin</a> donnée à l’Hôtel de Département dans le cadre du <a href="http://conseil-developpement.loire-atlantique.fr/">Comité de Développement de la Loire-Atlantique</a>. Sur les conseils de Nicolas Colin et après une discussion sur twitter, j’ai donc commandé et lu <a href="https://books.google.fr/books/about/Technological_Revolutions_and_Financial.html">Technological Revolutions and Financial Capital</a> de <a href="http://www.carlotaperez.org/">Carlota Perez</a>, professeure à la prestigieuse London School of Economics. J’en recommande la lecture et j’appelle de mes voeux une traduction qui permettrait de mieux diffuser les hypothèses et le modèle intéressant - et positif - que propose Carlota Perez.</p>
-<p>Dans ce livre C.Perez propose une relecture des modèles cycliques du capitalisme (p.ex. <a href="https://fr.wikipedia.org/wiki/Cycle_de_Kondratiev">cycles de Kondratiev</a>) en articulant les (r)évolutions technologiques, financières et socio-politiques. L’hypothèse centrale du livre, soutenue par une démonstration historique, est que le capitalisme est caractérisé par des cycles longs, induits par des sauts technologiques majeurs, qui sont entrecoupés de crises plus ou moins profondes manifestant différentes phases d’intégration du nouveau paradigme. La survenue d’un nouveau paradigme technologique s’accompagne inévitablement de transformations majeures de la société dans toutes ses dimensions: économiques, sociétales, organistionelles, politiques, économiques… Ces transformations se diffusent par vague à partir d’un noyau central en provoquant des bouleversements <a href="https://en.wikipedia.org/wiki/Creative_destruction">schumpéteriens</a> dont nous subissons les effets.</p>
-<p>Elle distingue dans l’histoire du capitalisme cinq paradigmes majeurs se succédant environ tous les cinquante ans:</p>
-<ul>
-<li>la révolution industrielle proprement dite, dont le métier à tisser automatique est l’emblème, qui démarre en Angleterre vers 1760,</li>
-<li>la machine à vapeur et le train à partir de 1820, toujours depuis l’Angleterre,</li>
-<li>l’acier, l’électricité et l’ingénierie, à partir de 1870 et dont le centre est l’Allemagne et les USA,</li>
-<li>le pétrole, l’automobile et la production de masse, aux USA toujours, démarrant dans les années 1910-1920,</li>
-<li>enfin les semi-conducteurs et technologies de l’information, dont le noyau se situe toujours aux US, à partir des années 70.</li>
-</ul>
-<p>La diffusion de chacun de ces paradigmes est séparée en deux grandes phases - <em>Installation</em> et <em>Déploiement</em> - séparées par un <em>point de retournement</em>, chaque phase étant elle-même subdivisée en deux sous-phases. Le modèle s’articule donc en cinq étapes caractérisées par différents modes d’interactions entre technologie, capitalisme financier et investissement productif:</p>
-<ol style="list-style-type: decimal">
-<li>l’<strong>Irruption</strong> dont le point de départ est un <em>big bang</em> technologique à partir duquel se déploie un faisceau de plus en plus dense d’innovations. Cette phase est celle des succès fulgurants, des innovations spectaculaires, des entrepreneurs de génies, des croissances faramineuses à mesure que le nouveau paradigme conquiert de nouveaux territoires tout en commencant à mordre sur l’ancien paradigme (toujours en place et “installé” désormais dans la routine et le conservatisme). La croissance est d’autant plus rapide qu’elle est alimentée par des flux de capitaux qui cherchent à s’employer, capitaux générés par les profits accumulés dans l’ancien paradigme mais qui ne se satisfont plus de taux de rentabilité de “pères de familles” ;</li>
-<li>la <strong>Frénésie</strong> s’empare du système à mesure que le nouveau paradigme s’impose comme un nouvel <em>eldorado</em>, les investissements sont de plus en plus importants, les risques plus grands, les innovations de plus en plus risquées voires carrément frauduleuses dans le système financier. C’est l’époque des <strong>bulles spéculatives</strong>, Canal de Panama, chemins de fer transcontinentaux, Années Folles, hedge funds et CDO, des fortunes éclairs, des IPO monstrueuses… Le capital financier prend le pas sur le capital productif et l’hystérie s’auto-alimente, jusqu’à ce que…</li>
-<li>le <strong>Point de retournement</strong> fasse éclater la bulle, provoquant l’effondrement du systéme financier devenu fou, et une crise généralisée plus ou moins grave et douloureuse (crise de 1890, 1929, 1973, 2008…) de l’ensemble du système économique et souvent socio-politique,</li>
-<li>à cette “purge” succède la phase de <strong>Synergie</strong> qui voit se déployer le nouveau paradigme dans l’ensemble de la société. De nouvelles lois et de nouveaux modes de régulation apparaissent pour juguler la finance, un nouvel “âge d’or” s’installe tandis que l’innovation apparaît enfin sous un jour bénéfique en s’adaptant et en adaptant la structure sociale. L’ensemble des acteurs du système se convertissent au nouveau paradigme et en tirent des bénéfices, la richesse globale s’accroît et se diffuse… La <em>Belle époque</em>, le <em>New Deal</em> et les <em>Trente glorieuses</em> en sont quelques manifestations emblématiques. Durant cette phase c’est le capitalisme productif qui prend le pas sur le capitalisme financier, les ingénieurs et gestionnaires qui supplantent les financiers et les spéculateurs,</li>
-<li>enfin vient le temps de la <strong>Maturité</strong> où les dernières “marches” du système sont touchées par le nouveau paradigme, où l’optimisation devient plus importante que l’innovation. Cette phase recouvre en la dissimulant plus ou moins l’irruption de la prochaine vague technologique, elle voit s’exacerber les tensions que l’expansion de la phase précédente masquait : les pauvres, moins pauvres mais plus instruits et plus exigeants réclament une part plus importante de la richesse ; le conservatisme gagne du terrain : il devient plus important de protéger ses avantages acquis que d’innover et d’en créer de nouveaux. Le capital productif trouve ses limites car les rendements décroissent, l’argent s’accumule sans trouver - encore - à s’employer…</li>
-</ol>
-<p>Ce qui est particulièrement intéressant dans le modèle de Carlota Perez c’est que :</p>
-<ol style="list-style-type: decimal">
-<li>c’est un modèle <strong>dynamique</strong> et non statique : il permet de comprendre l’évolution de notre système et non une situation particulière, aussi désirable soit-elle ;</li>
-<li>il articule trois modalités du changement, technologique, économique et institutionnel, ne considérant pas qu’il y aurait une cause racine et un <em>sens de l’histoire</em> auquel chacun devrait se plier mais plutôt qu’un état de fait est la résultante d’interactions extrêmement complexes entre de nombreux acteurs ;</li>
-<li>il cherche à être utile non seulement pour comprendre mais aussi pour agir : identifier les cycles et les phases devrait permettre d’ajuster au mieux les politiques publiques, pour atténuer les effets négatifs et augmenter les effets positifs de chaque étape.</li>
-</ol>
-<p>Je n’ai pas les compétences pour juger de la validité scientifique et historique de ce livre. “Tous les modèles sont faux, certains sont utiles” disait <a href="https://en.wikiquote.org/wiki/George_E._P._Box">G.Box</a> et le peu que je connais des différents domaines qu’il couvre m’incite à penser que ce modèle particulier fait partie de la seconde catégorie. Les question qu’il m’incite à me poser sont les suivantes:</p>
-<ol style="list-style-type: decimal">
-<li>si nous suivons ce modèle, dans quelle phase nous situons nous actuellement et qu’est ce que cela implique pour la société et l’action publique ? Certains semblent penser que nous nous trouvons dans la phase de Synergie du paradigme <em>technologie de l’information</em> dont le point de retournement aurait été la bulle Internet des années 2000 suivi par la crise de 2008, ce qui signifierait que l’on assiste au déploiement du nouveau paradigme destiné à supplanter l’ancien à bref échéance ;</li>
-<li>si le <a href="https://en.wikipedia.org/wiki/Accelerating_change">changement accélère</a>, le modèle ne devient-il pas caduque car il supppose pour chacune des phases un temps plus ou moins incompressible nécessaire ?</li>
-</ol>
 
 
 <div id="disqus_thread"></div>
