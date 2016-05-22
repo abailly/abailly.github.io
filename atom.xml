@@ -8,8 +8,79 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2016-05-12T00:00:00Z</updated>
+    <updated>2016-05-22T00:00:00Z</updated>
     <entry>
+    <title>Notes on Failing to Understand Software Transactional Memory</title>
+    <link href="http://abailly.github.io/posts/note-on-stm.html" />
+    <id>http://abailly.github.io/posts/note-on-stm.html</id>
+    <published>2016-05-22T00:00:00Z</published>
+    <updated>2016-05-22T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Notes on Failing to Understand Software Transactional Memory</h1>
+<div class="info">Posted on May 22, 2016</div>
+
+<p>I am writing some library to easily implement event sourced services in Haskell based on previous experience at Capital Match, and while doing so I rewrote a simple file-based event store. This store communicates with core service using <a href="https://hackage.haskell.org/package/stm-2.4.4.1/docs/Control-Concurrent-STM-TBQueue.html">TBQueue</a>, a bounded queue implemented over Haskell’s STM. It took me couple of hours on Friday to solve a <a href="http://hackage.haskell.org/package/base-4.8.2.0/docs/Control-Exception-Base.html#t:BlockedIndefinitelyOnSTM">BlockedIndefinitelyOnSTM</a> bug I was facing while testing this simple store. So today I posted a <a href="http://stackoverflow.com/questions/37376419/what-is-the-precise-reason-i-got-blocked-on-stm">question about STM</a> on Stack Overflow, as I did not have a clear intuition on why my code was failing, hence why my fix was correct.</p>
+<p>The code of the store boils down to the following simple model.</p>
+<p>First some useful imports…</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE ScopedTypeVariables #-}</span>
+<span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
+
+<span class="kw">import           </span><span class="dt">Control.Concurrent.Async</span>
+<span class="kw">import           </span><span class="dt">Control.Concurrent.STM</span>
+<span class="kw">import           </span><span class="dt">Control.Exception</span>
+<span class="kw">import           </span><span class="dt">Control.Monad</span>            (forever)
+<span class="kw">import           </span><span class="dt">Hevents.Eff</span>
+<span class="kw">import           </span><span class="dt">System.IO</span></code></pre></div>
+<p>The store dequeues some <em>operation</em> from a given queue, writes the operation’s string to <code>stdout</code> then put back the length of the written string into a <a href="http://hackage.haskell.org/package/stm-2.4.4.1/docs/Control-Concurrent-STM-TMVar.html">TMVar</a>, which models communicating the result of the operation back to the caller.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Op</span> <span class="fu">=</span> <span class="dt">Op</span> <span class="dt">String</span> (<span class="dt">TMVar</span> <span class="dt">Int</span>)
+
+<span class="ot">storerun ::</span> <span class="dt">TBQueue</span> <span class="dt">Op</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
+storerun q <span class="fu">=</span> <span class="kw">do</span>
+  h <span class="ot">&lt;-</span> openFile <span class="st">&quot;store.test&quot;</span> <span class="dt">ReadWriteMode</span>
+  hSetBuffering h <span class="dt">NoBuffering</span>
+  forever <span class="fu">$</span> <span class="kw">do</span>
+    <span class="dt">Op</span> s v <span class="ot">&lt;-</span> atomically <span class="fu">$</span> readTBQueue q
+    hPutStrLn h s
+    atomically <span class="fu">$</span> putTMVar v (length s)</code></pre></div>
+<p>The <code>main</code> function is responsible for creating the jobs queue, starting the “store” in a separate thread then reading lines from <code>stdin</code> and feeding them as “operations” for the store.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span> <span class="kw">do</span>
+  q <span class="ot">&lt;-</span> newTBQueueIO <span class="dv">100</span>
+  _ <span class="ot">&lt;-</span> async <span class="fu">$</span> storerun q
+  storeInput q
+  <span class="kw">where</span>
+    storeInput q <span class="fu">=</span> forever <span class="fu">$</span> <span class="kw">do</span>
+      l <span class="ot">&lt;-</span> getLine
+      v <span class="ot">&lt;-</span> newEmptyTMVarIO
+      r <span class="ot">&lt;-</span> atomically <span class="fu">$</span> <span class="kw">do</span>
+        writeTBQueue q (<span class="dt">Op</span> l v)
+        takeTMVar v</code></pre></div>
+<p>This code deadlocks because STM are actually - surprise! - <strong>transactions</strong>: They do all of their operations, or nothing, and they are serialized. Hence the following block:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">r <span class="ot">&lt;-</span> atomically <span class="fu">$</span> <span class="kw">do</span>
+  writeTBQueue q (<span class="dt">Op</span> l v)
+  takeTMVar v</code></pre></div>
+<p>…can succeeds <em>if and only if</em> it can <strong>atomically</strong> put an operation in the queue and read the result back from <code>v</code>. Which of course is not possible because the result is put back after the operation is read from the queue in another transaction. The correct code is:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">atomically <span class="fu">$</span> writeTBQueue q (<span class="dt">Op</span> l v)
+r <span class="ot">&lt;-</span> atomically <span class="fu">$</span> takeTMVar v</code></pre></div>
+<p>Pretty obvious, in retrospect. As the person who answered my question on SO, there is no way for two STM transactions to <em>exchange</em> information.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Life Beyond Relational Database in Haskell - The case for Event Sourcing</title>
     <link href="http://abailly.github.io/posts/event-source.html" />
     <id>http://abailly.github.io/posts/event-source.html</id>
@@ -1283,81 +1354,6 @@ ARP: timeout 192.168.77.1</code></pre>
 <li id="fn8"><p>Having a strong type system is no replacement for a decent test suite however, because obviously a lot of bugs happen at the boundaries of the system, e.g. when invoking REST API.<a href="#fnref8">↩</a></p></li>
 <li id="fn9"><p>Obviously, this works as long as your data fits in memory. My bet is this will be the case for <a href="http://yourdatafitsinram.com/">quite a long time</a>. Shall this ever become a <a href="https://gettingreal.37signals.com/ch04_Scale_Later.php">problem</a>, we will most probably be in a position to handle it.<a href="#fnref9">↩</a></p></li>
 <li id="fn10"><p>This is the approach I took in <a href="https://github.com/capital-match/hdo/blob/master/src/Network/DO/Types.hs">hdo</a> because external representation was already defined, and in the end it makes encoding more explicit and easier to work with<a href="#fnref10">↩</a></p></li>
-</ol>
-</div>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Sur &quot;Du mode d&#39;existence des objets techniques&quot;</title>
-    <link href="http://abailly.github.io/posts/objets-techniques.html" />
-    <id>http://abailly.github.io/posts/objets-techniques.html</id>
-    <published>2015-11-07T00:00:00Z</published>
-    <updated>2015-11-07T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Sur &quot;Du mode d&#39;existence des objets techniques&quot;</h1>
-<div class="info">Posted on November  7, 2015</div>
-
-<p>Je suis un grand <a href="/posts/eme.html">admirateur</a> de Bruno Latour, même si je ne suis pas certain de comprendre l’ensemble des concepts qu’il développe. Mais il y a une chose que je crois comprendre et qui m’attire dans sa pensée, c’est l’idée, développée en particulier dans <a href="">Nous n’avons jamais été moderne</a> et bien sûr <a href="">Enquête sur les modes d’existence</a> que Nature et Culture ne sont pas deux blocs antagonistes mais deux pôles en interaction dont les sciences et les techniques sont, entre autres, des médiateurs dont il faut se préoccuper. Dans EME il identifie un certains nombres d’êtres et de modes d’existence d’iceux. Latour cite régulièrement <a href="http://gilbert.simondon.fr/">Gilbert Simondon</a> et lui emprunte d’ailleurs une partie du titre de sa thèse: <a href="http://editions.flammarion.com/Albums_Detail.cfm?ID=41344&amp;levelCode=home">Du mode d’existence des objets techniques</a>.</p>
-<p>Simondon est un des rares philosophes qui essaye de <em>penser</em> la technique, ses objets et sa relation à l’homme. Son livre est dense, ardu, difficile à lire avec un style hâché et une profusion de termes peu usités et de tournures de phrases quelques peu alambiquées, je ne suis pas sûr d’en avoir saisi toutes les subtilités n’ayant pas eu la possibilité de fréquenter la rue d’Ulm mais j’en ai retenu quelques éléments qui résonnent avec mon expérience de programmeur et mainteneur de logiciels.</p>
-<p>Un <em>objet</em> technique est un <em>individu</em> technique issu par <em>invention</em> d’un assemblage inédit d’<em>éléments</em> techniques, constituants atomiques de la <em>technicité</em> dans lesquels résident une puissance, une capacité d’agir sur le réel et qui sont le produit d’un <em>ensemble technique</em>. Il n’y a pas de hiérarchie dans la technicité entre éléments, objets et ensembles. Un marteau par exemple, est un objet technique issue de l’assemblage d’éléments pré-existants : une masse métallique et un manche en bois pour faire simple ; le marteau s’insère dans un ensemble technique, p.ex. la menuiserie ou même plus généralement la construction, les métiers du bâtiment, dans lequel il joue un rôle particulier. La fonction de l’objet technique n’est pas fixée par sa forme mais dépend de son milieu, mais il subit un processus d’<em>adaptation</em> lorsqu’inséré dans un milieu il se modifie par l’usage qui est en fait : la forme et la fonction sont reliés l’une à l’autre par une boucle de rétroaction sans qu’un des éléments soit prépondérant.</p>
-<p>Simondon développe le concept d’abstraction et de concrétisation de l’objet technique pour décrire son évolution. Un objet technique sera d’autant plus concret qu’il sera “adhérent” au monde et que ses éléments seront en interaction “harmonieuses”, et par conséquent d’autant plus abstrait qu’il sera détaché du monde, générique. La concrétisation exprime le degré de perfection d’un élément ou d’un objet technique. Ce qui est particulier à l’objet c’est que ses éléments constitutifs peuvent produire des contraintes antagonistes, contraintes qui peuvent se résoudre soit en réduisant la marge d’indétermination de l’objet dans son usage<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, soit au travers de l’invention et de la découverte dans un changement de l’un ou de plusieurs des éléments de l’objet, voire carrément dans la création d’un nouvel objet. Simondon développe l’exemple du moteur à explosion dont le corps subit les contraintes de résistance à l’explosion et de dissapation de la chaleur: l’invention d’ailettes perpendiculaires à la paroi permet de résoudre partiellement les deux contraintes, mais alors une nouvelle tension apparaît entre le volume des ailettes et celui de la soupape.</p>
-<p>Les objets techniques ont donc une sorte de logique interne, une existence propre relativement indépendante de leur fonction et qui résulte d’une tension entre des contraintes physiques, des éléments, entre matière et forme indisolublement liés dans l’objet. L’objet technique n’est pas que fonction mais aussi forme, assemblage d’éléments et constituant d’ensembles. L’ensemble technique est le stade “moderne” d’évolution de la technicité, et ce qui appelle une <em>technologie</em>. Le rejet de la technique par l’homme apparaît quand l’homme devient lui-même élément d’un objet technique - la <em>machine</em> - et seul le passage à l’étape suivante c’est-à-dire la compréhension des ensembles et l’insertion de l’humain dans ces ensembles permet de dépasser cette opposition en faisant de la technique une part intégrale de la <em>culture</em>.</p>
-<p>Dans la deuxième partie du livre Simondon propose une explication génétique du fait technique et de ce qu’il engendre dans la société humaine basée sur l’opposition entre <em>figure</em> et <em>fond</em>, une dualité qui vise à supplanter la dualité traditionnelle entre <em>forme</em> et <em>matière</em><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>:</p>
-<ul>
-<li>dans les temps immémoriaux, aucune séparation n’existe: l’humain ne se distingue pas de la nature dont il est partie intégrante. C’est le temps dit “primitif”, celui des premiers hommes que nous ne connaissons quasiment pas ;</li>
-<li>puis vient le temps <em>magique</em> dans lequel la figure commence à se détacher du fond mais comme un réseau de noeuds “magiques”, objets, lieux, personnes, moments, phénomènes naturels interconnectés et toujours enserrés. Les figures magiques sont les points nodaux, les “nexus”, qui font sens sur le fond du monde mais n’en sont pas séparées ;</li>
-<li>cette unité magique se brise à mesure que la complexité du monde s’accroît:
-<ul>
-<li>les figures s’individualisent en objets techniques qui incarnent donc le processus d’objectivation,</li>
-<li>le fond est universalisé en divinité, et devient le domaine du <em>religieux</em> et de la subjectivité<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> ;</li>
-</ul></li>
-<li>lorsque la technique est en échec, lorsque la “figure” qu’est l’objet technique trouve ses limites dans les conditions du monde, le “fond”, elle se subdivise à son tour et donne naissance à:
-<ul>
-<li>la <em>pensée pratique</em>, préoccupée de simplicité, d’efficacité, de la gestion de l’effort, donc figurale, locale, individuée,</li>
-<li>la <em>pensée scientifique</em> préoccupée d’unité et d’universalité, de “lois naturelles”, donc un fond sur lequel s’appuyer pour développer des objets techniques et une pratique ;</li>
-</ul></li>
-<li><p>symétriquement la religion se divise en un fond, normatif, éthique et moral, et des figures théoriques, doctrinales, visant à l’universalité et à un savoir de type contemplatif.</p></li>
-<li>l’art est un des chemins par lequel l’être humain retrouve l’unité magique: les expériences esthétiques constituent autant de <em>points remarquables</em> reliés par un réseau artistique visant à recréer du sens sur le fond du monde ;</li>
-<li><p>l’autre chemin est, on s’en serait douté, celui de la philosophie dont les <em>concepts</em> réunissent les modes de pensée religieux et techniques.</p></li>
-</ul>
-<p>Ce modèle, discutable et discuté, a le mérite de proposer une grille de lecture riche et multiple du réel, d’articuler l’individu et le collectif, l’homme et le monde, les objets et les sujets dans un réseau de relations infiniment complexe. Il permet aussi d’argumenter sur l’importance des techniques dans la culture et sur l’amputation volontaire que constitue l’ignorance des techniques par de nombreuses personnes. Simondon appelle de ses voeux la formation d’une <em>technologie</em>, c’est-à-dire littéralement un savoir de la technique, une pensée technique, à commencer par le travail:</p>
-<blockquote>
-<p>L’activité technique se distingue du simple travail, et du travail aliénant, en ce que l’activité technique comporte non seulement l’utilisation de la machine mais aussi un certain coefficient d’attention au fonctionnement technique. [..] L’aliénation fondamentale [de l’homme par la machine] réside dans la rupture qui se produit enttre l’ontogénèse de l’objet technique et l’existence de cet objet technique. [..] Les objets techniques qui produisent le plus d’aliénation sont aussi ceux qui sont destinés à des utilisateurs ignorants.</p>
-<p>p.339</p>
-</blockquote>
-<p>Il est pour moi évident que cette pensée fournit un substrat unifiant tout un ensemble de faits, mouvements, idées qui sont de plus en plus prégnants dans notre société: DIY, Makers, logiciel libre, économie collaborative et participative, open science, hackathon, Devoxx4Kids… De plus en plus nombreux sont ceux qui considèrent que reprendre possession de la technique, sur le plan pratique autant que théorique, est une nécessité, voire une urgence.</p>
-<p>Dans les dernières pages de son livre Simondon critique le monde du travail, l’entreprise de son temps - et du nôtre:</p>
-<blockquote>
-<p>L’entreprise [..] doit être organisée à partir de sa fonction essentielle, c’est à dire de son fonctionnement technique.</p>
-<p>p.343</p>
-</blockquote>
-<p>ainsi que l’obsession du rendement:</p>
-<blockquote>
-<p>Le critère de rendement ne peut pas conduire à une résolution du problème [de la zone obscure subsistant entre capital et travail] ; le rendement, par rapport à l’activité technique etst très abstrait et ne permet pas d’entrer dans cette activité pour en voir l’essence.</p>
-<p>p.344</p>
-</blockquote>
-<p>Loin du technologisme conquérant et abstrait du <em>management scientifique</em> prôné, dans le domaine de l’organisation du travail, par Taylor et ses successeurs, prônant la séparation toujours plus fine des tâches et des rôles entre conception et réalisation, direction et exécution, pensée et action au nom de l’efficacité économique, et tout autant éloigné du scientisme positiviste aveugle, Simondon propose une philosophie de la technique à hauteur d’homme et de femme, un projet peut-être utopique mais ancré dans le réel, de réenchanté le monde en retrouvant l’unité perdue de la figure et du fond.</p>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>C’est que Simondon nomme <em>l’hypertélie</em> : la sur-adaptation de l’objet à sa finalité.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Simondon utilise le joli mot d’hylémorphique ou hylémorphisme pour désigner ce mode de pensée issu originellement de la philosophie aristotélicienne.<a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>religion doit ici être entendu dans son sens le plus large, <em>ce qui relie</em>, et inclut donc les systèmes sociaux et politiques, les schèmes de pensées qui permettent d’universaliser, de relier les individus dans un tout plus grand qu’eux.<a href="#fnref3">↩</a></p></li>
 </ol>
 </div>
 

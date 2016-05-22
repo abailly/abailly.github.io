@@ -36,11 +36,50 @@
 <h1>Haskell-based Infrastructure Management</h1>
 <div class="info">Posted on October 26, 2015</div>
 
-<p>In a <a href="../posts/cm-arch-design.html">previous post</a> I described the overall design and architecture of our core system and my experience developing this system over the past year. In this installment of the series I plan to write on my Haskell experience as a startuper <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> I shall describe how we setup our development and operations environment using mostly Haskell tools and code.</p>
+<p>In a <a href="../posts/cm-arch-design.html">previous post</a> I described the overall design and architecture of our core system. This post shall provide more details on our development and operations environment which uses mostly Haskell tools and code. I consider both development and production environments as a single integrated system as, obviously, there is a porous membrane between the two especially in a small company with 4 developers.</p>
 <h1 id="principles">Principles</h1>
+<p>When we started to setup this environment, we were guided by a few principles:</p>
 <ul>
-<li>Everything Docker and containers</li>
-<li>One Single Source of Authority: Everything should be versioned and we should be able to recover the whole environment from some git repository</li>
+<li>Every system-level part should be containerized,</li>
+<li>There should be a single versioned source of authority for configuration,</li>
+<li>Use as much Haskell as possible.</li>
+</ul>
+<h2 id="everything-docker">Everything Docker</h2>
+<p><a href="http://docker.io">docker</a> is still a controversial technology, esp. among system and cloud specialists, and the topic of hot debates which is a sure sign it is a game changer. And back in 2014 when we started developing Capital Match’s platform, docker was in its infancy. I have had some experience in the past working with <a href="http://linux-vserver.org/Welcome_to_Linux-VServer.org">VServer</a> and <a href="https://linuxcontainers.org/">LXC</a> and containers are definitely great as a way to package (parts of) a system. Using docker allows us to:</p>
+<ul>
+<li>Provide seamless integration of development and production environments: The exact same software can be produced anywhere and used anywhere, whatever OS or configuration the actual developer is using, and the production configuration can be reproduced easily for testing or staging purposes,</li>
+<li>Encapsulate components in immutable “packages” that require minimal system-level configuration, e.g. no more fiddling with ports, machine names, environment variables… docker-compose takes care of running everything, and we can make services dependent to stable names,</li>
+<li>Simplify “hardware” configuration: All we need is something that is running docker (and a compatible kernel of course…) which means machines provisioning becomes a no-brainer,</li>
+<li>Isolate build and run components from system-level dependencies conflicts,</li>
+<li>Provide some level of reuse across containers and components thanks to layered FS.</li>
+</ul>
+<p>Note that we stuck to the initial docker “philosophy” of <em>one process per container</em>, except for some very specific needs (e.g. Selenium testing): It is not possible to ssh into our applicative containers.</p>
+<h2 id="single-source-of-authority">Single Source of Authority</h2>
+<blockquote>
+<p>Everything should be versioned and we should be able to recover the whole environment from a single git repository.</p>
+</blockquote>
+<p>This means we should of course version our application’s code, but also the system’s configuration and as much dependencies as possible. Ideally, we should be able to reconstruct the whole system from a handful commands:</p>
+<ul>
+<li><code>git clone &lt;the repo&gt; cm</code></li>
+<li><code>cd cm; ./build ; ./deploy</code></li>
+</ul>
+<p>In practice this is quite a bit more complicated as there are some glue parts missing to ensure the whole system can be rebuilt from scratch, but still we came quite close to that ideal. We are using 2 different repositories, one for the application code and one for the environment, mostly for technical reasons related to how our configuration management software works. The only unversioned part is the description of the “hardware” and the provisioning part which is still done “manually”.</p>
+<h2 id="everything-haskell">Everything Haskell</h2>
+<p>There is not a dearth of tools when it comes to configuration management, systems provisioning and deployment, build tools… When starting small you usually don’t want to invest a lot of time in learning new tools hence a common choice is simply to start small with shell scripts. But tools usually exist for a reason: Scripts quickly become a tangled maze of scattered knowledge. Yet we have at our disposal a powerful tool: Haskell itself, the language and its ecosystem, hence we decided to try as much as possible to stick to using Haskell-based tools. Beside the obvious simplification this brings us (one compiler, one toolchain, one language…), the advantages Haskell provides over other languages (type safety, lazy evaluation, immutable data structures) seemed to be equally valuable at the applicative level than at the system level.</p>
+<h1 id="overview">Overview</h1>
+<div class="figure">
+<img src="../images/system-architecture.png" width="900" />
+
+</div>
+<p>The above figure gives a high-level overview of the system:</p>
+<ul>
+<li>Developers work on local machines (or <em>dev boxes</em>, see below), pushing changes to <a href="http://git-scm.com">git</a>,</li>
+<li>Pushing to remote repository triggers build on <em>continuous integration</em> server <a href="https://github.com/ndmitchell/bake">bake</a>,</li>
+<li>The final output of CI is a bunch of containers which are deployed to a private repositories on <a href="https://hub.docker.com/">docker hub</a>,</li>
+<li>When we are ready to deploy, we update the system configuration in another git repository then run <a href="http://propellor.branchable.com/">propellor</a>,</li>
+<li>This triggers configuration of <em>run</em> system which usually entails downloading correct container from repository and running it,</li>
+<li>Data (also stored in a container) is regularly backed-up on S3,</li>
+<li>Various components of the system feed events to <a href="http://riemann.io">riemann</a> monitoring system.</li>
 </ul>
 <h1 id="components">Components</h1>
 <h2 id="build">Build</h2>
@@ -52,12 +91,6 @@
 <h2 id="production">Production</h2>
 <h2 id="monitoring">Monitoring</h2>
 <h1 id="conclusion">Conclusion</h1>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>Or is it my startup experience as a Haskeller?<a href="#fnref1">↩</a></p></li>
-</ol>
-</div>
 
 
 <div id="disqus_thread"></div>
