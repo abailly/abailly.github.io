@@ -32,18 +32,24 @@
         </nav>
       </div>
     </header>
-    <div class="draft" id="main" role="main">
+    <div id="main" role="main">
 <h1>Haskell-based Infrastructure Management</h1>
 <div class="info">Posted on May 23, 2016</div>
 
-<p>In a <a href="../posts/cm-arch-design.html">previous post</a> I described the overall design and architecture of Capital Match’s core system. This post is a the first to provide more details on our development and operations environment which uses mostly Haskell tools and code. I consider both development and production environments as a single integrated system as, obviously, there is a porous membrane between the two especially in a small company with 4 developers.</p>
+<p>In a <a href="../posts/cm-arch-design.html">previous post</a> I described the overall design and architecture of Capital Match’s core system. I now turn to providing more details on our development and operations environment which uses mostly Haskell tools and code. As there are quite a lot of moving parts, this large topic will be covered in two posts: The present one will focus on basic principles, build tools and development environment ; it shall be followed by another post on configuration management, deployment and monitoring. I consider both development and production environments as a single integrated system as, obviously, there is a porous membrane between the two especially in a small company with 4 developers. Although I have been interested in that topic since my first systems programming course in university, some 18 years ago, I do not consider myself a genuine systems administrator and I made a lot of mistakes while building Capital Match platform. But I do believe in the <em>“you build it, you run it”</em> motto and this is all the more true for a small startup team. Hence I have tried to pay attention to building a flexible yet robust system.</p>
 <h1 id="principles">Principles</h1>
 <p>When we started to setup this environment, we were guided by a few principles:</p>
 <ul>
+<li>Automate, automate, automate: As much setup as possible should be automated,</li>
 <li>Every system-level part should be containerized,</li>
 <li>There should be a single versioned source of authority for configuration,</li>
 <li>Use as much Haskell as possible.</li>
 </ul>
+<h2 id="automate">Automate</h2>
+<blockquote>
+<p>Automate all the things!</p>
+</blockquote>
+<p>Deployment to production should be as much automated as possible, involving as few manual steps as possible. The end goal is to reach a state of continuous deployment where pushed changes are built, verified and deployed continuously over the day. This implies all the steps involved in getting some feature delivered to end-users should be identified and linked into a coherent process that is implemented in code, apart from the actual coding of the feature itself. There should be no fiddling with SSHing on production machine to fix some configuration script, no manual migration process when upgrading data schema, no copying of binaries from development environment to production…</p>
 <h2 id="everything-docker">Everything Docker</h2>
 <blockquote>
 <p>Containerize all the things!</p>
@@ -230,6 +236,52 @@
 <li>We also pushed emacs configuration to a <a href="https://github.com/capital-match/cm-dotfiles/blob/master/.emacs">shared git repository</a> which is pulled when configuring the machine, something we should have done earlier of course.</li>
 </ul>
 <h1 id="discussion">Discussion</h1>
+<h2 id="build-process">Build process</h2>
+<p>In retrospect I think the biggest issue we faced while developing the platform and working on the dev and prod infrastructure was fighting back increase in <em>build time</em> as we were adding new features and services. Building a deployable container <em>from scratch</em>, including creation of the build machine, configuration of build tools, creation of the needed containers, download and build of dependencies, testing, packaging would take about 2 hours. Here is the breakdown of time for some of the build stages according to the CI:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Test</th>
+<th align="left">Mean</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">IntegrationTest</td>
+<td align="left">7m51s</td>
+</tr>
+<tr class="even">
+<td align="left">EndToEndTest</td>
+<td align="left">7m05s</td>
+</tr>
+<tr class="odd">
+<td align="left">Compile</td>
+<td align="left">6m05s</td>
+</tr>
+<tr class="even">
+<td align="left">ParallelDeploy</td>
+<td align="left">1m12s</td>
+</tr>
+<tr class="odd">
+<td align="left">UITest</td>
+<td align="left">53.46s</td>
+</tr>
+</tbody>
+</table>
+<p>Even if tests are run in parallel, this means it takes more than 10 minutes to get to the point where we can deploy code. Actually, CI tells us our mean time to deployable is about 30 minutes, which is clearly an issue we need to tackle. To reduce build time there is no better way than splitting the system into smaller chunks, something the team has been working on for a few months now and is paying off at least by ensuring we can add feature without increasing build time! The next step would be to split the core application which currently contains more than 80 files into more services and components.</p>
+<p>On the positive side:</p>
+<ul>
+<li>Shake provides a somewhat more robust and clearer make, removing cryptic syntax and reliance on shell scripts. All the build is concentrated in a single Haskell source file that requires few dependencies to be built,</li>
+<li>Haskell build tooling has been steadily improving in last couple of years especially since stack has taken a prominent position. Stack does not remove dependency on cabal but it actually reduces it what cabal does best: Providing a simple, descriptive configuration for building single packages ; and provides a definitely better experience regarding dependency management, build reproducibility and managing multiple build configuration,</li>
+<li>I am less happy with the ClojureScript and Javascript parts, probably because I am much less familiar with them, hence I won’t enter trolling mode,</li>
+<li>Packaging build environments with docker greatly reduces development friction: Issues can be reproduced very easily against a reference environment. Developer’s freedom is not comprised: Everyone is free to configure her own environment with CI acting as final gatekeeper while making troubleshooting somewhat easy (grab image and run it locally to reproduce problems),</li>
+<li>Using containers also makes onboarding of new developers somewhat easier: They can focus on a single part of the system (e.g. UI) and rely on the containers to run a consistent environment locally.</li>
+</ul>
+<h2 id="development-environment-1">Development Environment</h2>
+<p>The single feature I miss from my former Java development environment is <em>refactoring</em>: The ability to safely rename, move, extract code fragments with a couple key strokes across the whole code base lowers the practical and psychological barrier to improve your code <strong>now</strong>. GHC (esp. with <code>-Wall -Werror</code> flags on) catches of course a whole lot more errors than Javac or gcc but the process of fixing compiler errors after some refactoring of a deeply nested core function is time consuming. On the other hand the lack of global refactoring capabilities is a strong incentive to modularize and encapsulate your code in small packages which can be compiled and even deployed independently.</p>
+<blockquote>
+<p>To be continued…</p>
+</blockquote>
 
 
 <div id="disqus_thread"></div>
@@ -251,6 +303,7 @@
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
     </footer>
+    
   </div>
 </body>
 </html>
