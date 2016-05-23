@@ -4,15 +4,22 @@ author: Arnaud Bailly
 date: 2016-05-23
 ------------
 
-In a [previous post](/posts/cm-arch-design.html) I described the overall design and architecture of Capital Match's core system. This post is a the first to provide more details on our development and operations environment which uses mostly Haskell tools and code. I consider both development and production environments as a single integrated system as, obviously, there is a porous membrane between the two especially in a small company with 4 developers.
+In a [previous post](/posts/cm-arch-design.html) I described the overall design and architecture of Capital Match's core system. I now turn to providing more details on our development and operations environment which uses mostly Haskell tools and code. As there are quite a lot of moving parts, this large topic will be covered in two posts: The present one will focus on basic principles, build tools and development environment ; it shall be followed by another post on configuration management, deployment and monitoring. I consider both development and production environments as a single integrated system as, obviously, there is a porous membrane between the two especially in a small company with 4 developers. Although I have been interested in that topic since my first systems programming course in university, some 18 years ago, I do not consider myself a genuine systems administrator and I made a lot of mistakes while building Capital Match platform. But I do believe in the *"you build it, you run it"* motto and this is all the more true for a small startup team. Hence I have tried to pay attention to building a flexible yet robust system. 
 
 # Principles
 
 When we started to setup this environment, we were guided by a few principles:
 
+* Automate, automate, automate: As much setup as possible should be automated,
 * Every system-level part should be containerized,
 * There should be a single versioned source of authority for configuration,
 * Use as much Haskell as possible.
+
+## Automate
+
+> Automate all the things!
+
+Deployment to production should be as much automated as possible, involving as few manual steps as possible. The end goal is to reach a state of continuous deployment where pushed changes are built, verified and deployed continuously over the day. This implies all the steps involved in getting some feature delivered to end-users should be identified and linked into a coherent process that is implemented in code, apart from the actual coding of the feature itself. There should be no fiddling with SSHing on production machine to fix some configuration script, no manual migration process when upgrading data schema, no copying of binaries from development environment to production... 
 
 ## Everything Docker
 
@@ -205,7 +212,7 @@ My current workflow when working on Haskell code looks like:
 
 The nice thing when using non-modern languages like Haskell and Clojure is that you only need to be able to edit text files to develop software, hence the choice of Emacs to develop both is kind of obvious. There is very good support for Clojure in emacs through [nrepl](https://github.com/clojure/tools.nrepl) and [Cider](https://github.com/clojure-emacs/cider) but it seems having the same level of support for Clojurescript is still challenging.
 
-* When developping UI ClojureScript code, I mostly use  [figwheel](https://github.com/bhauman/lein-figwheel) which provides interactive reloading of code in the browser. One needs to start figwheel through `lein figwheel` which provides a REPL, then load the UI in a browser: The UI connects to the figwheel server which notifies it of code changes that trigger reload of the page, 
+* When developping UI ClojureScript code, I mostly use [figwheel](https://github.com/bhauman/lein-figwheel) which provides interactive reloading of code in the browser. One needs to start figwheel through `lein figwheel` which provides a REPL, then load the UI in a browser: The UI connects to the figwheel server which notifies it of code changes that trigger reload of the page, 
 * For (mostly) non-UI code, I tend to favour TDD and use "autotesting" build: Changes in code trigger recompilation and run of all unit tests using the same configuration than batch run,
 * [paredit-mode](http://wikemacs.org/wiki/Paredit-mode) provides a structured way to edit LISP-like code: It automatically balances parens, brackets or double-quotes and provides dozens of shortcuts to manipulate the syntax tree ensuring syntactically correct transformations. I tend to use it as much as possible but sometimes find it cumbersome,
 * What I miss most when developing ClojureScript is a way to identify and navigate across symbols: I could not find an easy way to have some symbols index, something which is provided for Haskell through simple tags support. I am pretty sure there is something out there...
@@ -222,3 +229,30 @@ I already discussed in a [previous blog post](/posts/agile-startup.html) how we 
 
 # Discussion
 
+## Build process
+
+In retrospect I think the biggest issue we faced while developing the platform and working on the dev and prod infrastructure was fighting back increase in *build time* as we were adding new features and services. Building a deployable container *from scratch*, including creation of the build machine, configuration of build tools, creation of the needed containers, download and build of dependencies, testing, packaging would take about 2 hours. Here is the breakdown of time for some of the build stages according to the CI:
+
+Test              |  Mean 
+------------------+-------
+IntegrationTest   |  7m51s 
+EndToEndTest      |  7m05s 
+Compile           |  6m05s 
+ParallelDeploy    |  1m12s 
+UITest            |  53.46s 
+
+Even if tests are run in parallel, this means it takes more than 10 minutes to get to the point where we can deploy code. Actually, CI tells us our mean time to deployable is about 30 minutes, which is clearly an issue we need to tackle. To reduce build time there is no better way than splitting the system into smaller chunks, something the team has been working on for a few months now and is paying off at least by ensuring we can add feature without increasing build time! The next step would be to split the core application which currently contains more than 80 files into more services and components.
+
+On the positive side:
+
+* Shake provides a somewhat more robust and clearer make, removing cryptic syntax and reliance on shell scripts. All the build is concentrated in a single Haskell source file that requires few dependencies to be built,
+* Haskell build tooling has been steadily improving in last couple of years especially since stack has taken a prominent position. Stack does not remove dependency on cabal but it actually reduces it what cabal does best: Providing a simple, descriptive configuration for building single packages ; and provides a definitely better experience regarding dependency management, build reproducibility and managing multiple build configuration,
+* I am less happy with the ClojureScript and Javascript parts, probably because I am much less familiar with them, hence I won't enter trolling mode,
+* Packaging build environments with docker greatly reduces development friction: Issues can be reproduced very easily against a reference environment. Developer's freedom is not comprised: Everyone is free to configure her own environment with CI acting as final gatekeeper while making troubleshooting somewhat easy (grab image and run it locally to reproduce problems),
+* Using containers also makes onboarding of new developers somewhat easier: They can focus on a single part of the system (e.g. UI) and rely on the containers to run a consistent environment locally.
+
+## Development Environment
+
+The single feature I miss from my former Java development environment is *refactoring*: The ability to safely rename, move, extract code fragments with a couple key strokes across the whole code base lowers the practical and psychological barrier to improve your code **now**. GHC (esp. with `-Wall -Werror` flags on) catches of course a whole lot more errors than Javac or gcc but the process of fixing compiler errors after some refactoring of a deeply nested core function is time consuming. On the other hand the lack of global refactoring capabilities is a strong incentive to modularize and encapsulate your code in small packages which can be compiled and even deployed independently.
+
+> To be continued...
