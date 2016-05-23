@@ -1,5 +1,5 @@
 ------------
-title: Haskell-based Infrastructure Management
+title: Haskell-based Development Environment
 author: Arnaud Bailly 
 date: 2016-05-23
 ------------
