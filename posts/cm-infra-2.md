@@ -207,3 +207,8 @@ Growing such a system was (and still is) a time-consuming and complex task, espe
 * It forces us to really think in terms of a single unified **system**: Being in charge of the whole lifecycle of your code, from writing the first line to deployment to production to retirement yields a sense of responsibility one does not gain from working in silos and throwing some bunch of code over the wall to ops team. This is truly [DevOps](http://www.jedi.be/blog/2010/02/12/what-is-this-devops-thing-anyway/) in the way Patrick Debois initially coined the term, as a kind of system-thinking process and genuinely drives you to the [You build it, you run it](http://queue.acm.org/detail.cfm?id=1142065) culture,
 * Managing operations, even at a small scale, is demanding, hence the need to think about automation, monitoring and short deployment cycles as early as possible in order to minimize the need for manual interventions.
 
+This completes a series of post I have written over the past few months, describing my experience building Capital Match platform:
+
+* [Anatomy of a Haskell-based Application](/posts/cm-arch-design.html) described the overall design and architecture of the application,
+* [Using agile in a startup](/posts/agile-startup.html) detailed our development process,
+* [Haskell-based Development Environment](/posts/cm-infra-1.html) focused on the build system and development environment.
