@@ -180,7 +180,8 @@ relation, then this is a data race. A program whose all sequentially
 consistent executions are devoid of  data races is said to be
 *properly synchronized*.
 
-Happens-before is the transitive closure of 2 other relations: 
+Happens-before is the transitive closure of 2 other relations:
+
 * *Program order* which is the partial order of actions  as
   specified by the program's source code. It is partial because
   actions executed by different threads can be interleaved: The
