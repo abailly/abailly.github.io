@@ -87,7 +87,11 @@
 <p>If all sequentially consistent executions of a program are free of data-races then all executions appear to be sequentially consistent</p>
 </blockquote>
 <p>This guarantee is defined through the <em>happens-before</em> relation: If two conflicting accesses (at least one access is a write to the same memory location) are not ordered w.r.t. <em>happens-before</em> relation, then this is a data race. A program whose all sequentially consistent executions are devoid of data races is said to be <em>properly synchronized</em>.</p>
-<p>Happens-before is the transitive closure of 2 other relations: * <em>Program order</em> which is the partial order of actions as specified by the program’s source code. It is partial because actions executed by different threads can be interleaved: The underlying memory model respects program order only in an <em>intra-thread</em> context * <em>Synchronization order</em> which is the total order over all synchronization actions: monitor exit → monitor enter, volatile writes → volatile reads, thread start → first action in thread, last action in thread → thread isAlive(), interrupt → interruption catching, default value write → first action of thread,…</p>
+<p>Happens-before is the transitive closure of 2 other relations:</p>
+<ul>
+<li><em>Program order</em> which is the partial order of actions as specified by the program’s source code. It is partial because actions executed by different threads can be interleaved: The underlying memory model respects program order only in an <em>intra-thread</em> context</li>
+<li><em>Synchronization order</em> which is the total order over all synchronization actions: monitor exit → monitor enter, volatile writes → volatile reads, thread start → first action in thread, last action in thread → thread isAlive(), interrupt → interruption catching, default value write → first action of thread,…</li>
+</ul>
 <p>All these orders apply to couple of actions within an <em>execution</em> of the program (eg. they are not ordering relations on the program’s source itself). Given these definitions and some program, there exists a minimal set of synchronization actions that ensures all executions are data-race free</p>
 <p>Just because one uses <em>volatile</em> variables does not means there won’t be any race conditions in the program: The execution order is dependent on the scheduler hence different executions can observe different values of the variable.</p>
 <h3 id="some-examples">Some Examples</h3>

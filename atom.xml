@@ -8,8 +8,42 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2016-05-24T00:00:00Z</updated>
+    <updated>2016-05-30T00:00:00Z</updated>
     <entry>
+    <title>Multi-host Docker Networking</title>
+    <link href="http://abailly.github.io/posts/multi-host-docker-net.html" />
+    <id>http://abailly.github.io/posts/multi-host-docker-net.html</id>
+    <published>2016-05-30T00:00:00Z</published>
+    <updated>2016-05-30T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Multi-host Docker Networking</h1>
+<div class="info">Posted on May 30, 2016</div>
+
+<p>A while ago I grew the desire to experiment implementing <em>multi-host docker networking</em> to deploy <a href="/posts/cm-infra-2.html">Capital Match system</a>. This system is made of several interlinked containers and <a href="https://docs.docker.com/v1.8/compose/">docker-compose</a> does not (did not?) work across several hosts. It seemed to me the <a href="https://docs.docker.com/engine/userguide/networking/get-started-overlay/">official solution</a> based on <code>docker-machine</code>, <code>swarm</code> and service registry was a bit complicated: Our configuration is mostly static, e.g. number, distribution and relationship between containers in known at deploy time. Hence I looked for a simpler solution, something that would be more <em>networky</em>: I am indebted to <a href="https://fr.wikipedia.org/wiki/Utilisateur:Hashar">hashar</a> for suggesting a GRE-based solution and to the following references for actual technical details:</p>
+<ul>
+<li><a href="https://goldmann.pl/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/" class="uri">https://goldmann.pl/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/</a></li>
+<li><a href="https://wiredcraft.com/blog/multi-host-docker-network/" class="uri">https://wiredcraft.com/blog/multi-host-docker-network/</a></li>
+</ul>
+<p>I did some experiment in shell, jotted down a couple of notes in my journal and moved on to other, more urgent duties. I had a couple of hours left on Friday last week and I stumbled on those notes which were sitting there, on my hard disk, and I decided it was a good time to write a blog post about this experiment.</p>
+<p>I started writing this post embedding script fragments but I quickly wanted to check what I wrote actually worked, so I began running those scripts fragment. But then it made this experiment non repeatable which is definitely annoying if you make a mistake, want to restart from scratch, change some parameters… So I decided this stuff would warrant a minor project of its own where I could provide all the needed code to configure multi-host networking in docker based on GRE tunnels. I have done quite a share of system configuration and operations management and have been able to use or create some useful tools to streamline ops in Haskell, so it quickly became obvious I would need to write some Haskell code. So what started as a mundane journal cleanup ended up being a full-blown yak-shaving session whose result can be found in this github <a href="https://github.com/abailly/multi-host-docker">repository</a>.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Haskell-based Infrastructure</title>
     <link href="http://abailly.github.io/posts/cm-infra-2.html" />
     <id>http://abailly.github.io/posts/cm-infra-2.html</id>
@@ -1473,53 +1507,6 @@ ARP: timeout 192.168.77.1</code></pre>
 <li>Experiment more with <a href="https://github.com/djwillia/solo5">solo5</a>, a companion project of Mirage whose goal is to allow running Mirage unikernels on top of non-Xen hypervisors, like qemu and VirtualBox,</li>
 <li>Experiment with deployment of unikernels on cloud providers. There is some documentation and script already available to <a href="https://mirage.io/wiki/xen-boot">deploy to AWS</a> which I would like to try.</li>
 </ul>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>On &quot;Cakes, Custard + Category Theory&quot;</title>
-    <link href="http://abailly.github.io/posts/cake-custard-category.html" />
-    <id>http://abailly.github.io/posts/cake-custard-category.html</id>
-    <published>2016-04-18T00:00:00Z</published>
-    <updated>2016-04-18T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>On &quot;Cakes, Custard + Category Theory&quot;</h1>
-<div class="info">Posted on April 18, 2016</div>
-
-<p>I am not a mathematician, and this is probably the only regret of my life. When I was young I was too lazy to work seriously enough in High School to be accepted at one of the “Grandes Écoles”. Or rather I was way too much interested by role-playing games to spend time doing homework. And I must say maths were quite boring in High School and Preparatory School, not even talking about Business school’s math which barely went beyond basic arithmetics…</p>
-<p>Things would probably have been quite different had I been taught math by <a href="http://www.eugeniacheng.com/">Eugenia Cheng</a>, the author of <a href="http://www.amazon.co.uk/Cakes-Custard-Category-Theory-understanding/dp/1781252874/ref=sr_1_1?ie=UTF8&amp;qid=1422244697&amp;sr=8-1&amp;keywords=eugenia+cheng">Cakes, Custard + Category Theory</a> and one of the presenter of the famous <a href="https://www.youtube.com/watch?v=9fohXBj2UEI&amp;list=PL0E91279846EC843E">Catsters</a> series, among <a href="http://liederstube.wix.com/home">other talents</a>.</p>
-<p>I have read, or more precisely tried to read, <a href="https://www.cambridge.org/catalogue/catalogue.asp?isbn=9780521719162">many</a> <a href="http://www.maths.ed.ac.uk/~aar/papers/maclanecat.pdf">books</a> <a href="http://www.math.mcgill.ca/triples/Barr-Wells-ctcs.pdf">about</a> <a href="http://www.mpi-sws.org/~dreyer/courses/catlogic/awodey.pdf">category</a> <a href="http://ebooks.library.cornell.edu/cgi/t/text/text-idx?c=math;cc=math;view=toc;subview=short;idno=Gold010">theory</a> but I know I still only have an intuition about very basic things, e.g. what is a category theory, composition of morphisms, units, simple limits… The more abstract - and important - concepts (adjunctions, Yoneda lemma, topoi, sheaves…) are still inaccessible to my understanding: To state it in Eugenia’s terms, I <em>know</em> them but I don’t <em>understand</em> them.</p>
-<p><em>Cakes, Custard + Category Theory</em> is a math books for non-mathematicians, a book that tries and - to my humble opinion - somehow succeeds in giving lay people some ideas on why maths are important, interesting and fascinating. More importantly it also succeeds in giving <em>intuitions</em> on what <em>is</em> math and category theory and on connecting the dull, formal and painful external aspect of maths most people see with the deep, complex, beautiful and sophisticated ideas behind that rude shell.</p>
-<p>The book is divided in two parts, <em>Mathematics</em> and <em>Category Theory</em> which shares a common underlying structure: Each small chapter is introduced by the <em>recipe</em> of some cake, some classical and some invented by the author, and each part ends with a tentative explanation of <em>what</em> is math or category theory. Through the various chapters, Eugenia threads mundane life examples, recipes, cooking metaphors with actual mathematical questions in order to convey to the reader intuitions on what things like monoids, groups, morphisms, associativity or equivalence are. Mathematical notations is mostly restricted to sidebars and does not clutter reading.</p>
-<p>I am not usually a great fan of analogies which more often than not obscure rather than illuminate the thing they are supposed to explain. But this book is written in a such a way that it mostly avoids this pitfall<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>:</p>
-<ul>
-<li>Eugenia’s style is so lively and entertaining one cannot but avidly read the book and reach for the next chapter till the end,</li>
-<li>She manages to <em>motivate</em> mathematics, not as a mere tool one uses to solve more or less complex problems, but as a way to ask profound questions about the way we think and the world we live in.</li>
-</ul>
-<p>The key question in maths and category theory is then not <em>how</em> but <em>why</em>.</p>
-<blockquote>
-<p>Proof has a sociological role ; illumination has a personal role. Proof is what convinces society ; illumination is what convinces us. In a way, mathematics is like an emotion, which can’t ever be described precisely in words - it’s something that happens inside an individual. What we write down is merely a language for communicating those ideas to others, in the hope they will be able to reconstruct the feeling in their own mind.</p>
-</blockquote>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>Although I myself enjoy cooking very much, I was not that much convinced about the whole recipe meme…<a href="#fnref1">↩</a></p></li>
-</ol>
-</div>
 
 
 <div id="disqus_thread"></div>
