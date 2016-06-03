@@ -359,3 +359,8 @@ footer {
     float:left;
     margin-right: 1em;
 }
+
+.floating-right {
+    float:right;
+    margin-right: 1em;
+}
