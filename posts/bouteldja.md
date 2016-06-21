@@ -28,7 +28,7 @@ relation aux hommes décolonisés et aux femmes en général, de tous les décol
 
 Il est aussi très bien écrit. La langue d'Houria Bouteldja est fluide, percutante, poétique parfois, polémique toujours. Elle me
 rappelle, si ce n'est par le style du moins par le ton et le sens de la formule, certains écrits de Debord, ou bien sûr les textes du
-[Comité invisible](). Cela n'a rien d'étonnant compte-tenu de la proximité entre toutes les luttes de l'ultra-gauche: le
+[Comité invisible](http://www.lafabrique.fr/spip/IMG/pdf_Insurrection.pdf). Cela n'a rien d'étonnant compte-tenu de la proximité entre toutes les luttes de l'ultra-gauche: le
 décolonialisme est l'allié "naturel" du féminisme, de l'anti-capitalisme, des luttes trans-genres, de l'écologie radicale... 
 
 Allié ou plutôt *avant-garde* au sens bolchévique, marxiste, révolutionnaire du terme : la pointe la plus avancée de la
