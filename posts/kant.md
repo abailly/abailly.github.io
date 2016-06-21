@@ -24,12 +24,12 @@ Ceci est une retranscription d'un cours improvisé par [Peggy Penez-Avez](https:
 * Les objets d'expérience possibles sont les *phénomènes*. Rien ne prouve que le réel soit identique aux phénomènes, le réel *en soi* (nouméne) ne peut être connu.
 * L'enjeu de Kant qui s'inscrit dans le mouvement des Lumières est d'atteindre à l'universalité de la raison. Ce que l'on peut connaître et penser peut l'être par tous les êtres humains, parce qu'il ne peut être autrement que ce qu'il est en vertu des conditions nécessaires à la raison
 * La méthode relève quelque peu de l'imagination d'un maniaque qui prétendrait repartir de 0. Kant divise l'exposition en:
-   * l'esthétique transcendantale, qui est la définition des formes de la sensibilité
-   * l'analytique transcendantale, qui construit les concepts a priori de l'entendement
-   * la dialectique transcendantale enfin, qui définit les limites de la connaissance et ce que l'on peut penser en dehors d'elle. 
-   * Si je ne peux pas connaître Dieu, pourquoi en ai-je l'idée ? C'est un travers de l'esprit qui cherche systématiquement à absolutiser : par exemple l'idée de Dieu est l'absolutisation de la *causalité*
-   * Cette  tendance à la totalisation nous pousse à l'inconditionné, à chercher des fondements absolus et définitifs à toute chose
-   * C'est une "maladie" de l'esprit d'élaborer des illusions à partir des catégories de l'entendement, en dehors de toute expérience possible
+    * l'esthétique transcendantale, qui est la définition des formes de la sensibilité
+    * l'analytique transcendantale, qui construit les concepts a priori de l'entendement
+    * la dialectique transcendantale enfin, qui définit les limites de la connaissance et ce que l'on peut penser en dehors d'elle. 
+* Si je ne peux pas connaître Dieu, pourquoi en ai-je l'idée ? C'est un travers de l'esprit qui cherche systématiquement à absolutiser : par exemple l'idée de Dieu est l'absolutisation de la *causalité*
+    * Cette  tendance à la totalisation nous pousse à l'inconditionné, à chercher des fondements absolus et définitifs à toute chose
+    * C'est une "maladie" de l'esprit d'élaborer des illusions à partir des catégories de l'entendement, en dehors de toute expérience possible
 * Mais par ailleurs l'impossibilité de s'arrêter à l'expérience fait de l'homme un être libre et moral. Les idées de la raison qui ne sont pas de l'ordre de la connaissance sont la condition de la vie morale
 * L'idée morale chez Kant consiste à renverser la proposition "tu peux donc tu dois" en "tu dois donc tu peux": c'est l'impératif catégorique
  
