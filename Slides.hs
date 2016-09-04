@@ -15,5 +15,6 @@ pandocSlideCompiler = pandocCompilerWith defaultHakyllReaderOptions writeHtmlSli
                                                 , writerSlideVariant = RevealJsSlides
                                                 , writerIgnoreNotes = True
                                                 , writerHtml5 = True
+                                                , writerHTMLMathMethod = MathML Nothing
                                                 , writerHighlight = True
                                                 }
