@@ -8,43 +8,52 @@ theme: black
 
 # Motivation
 
-----
+## Caveat Emptor
 
-## I Applied for a Job
+> All humans have equal intelligence;
+>
+> Every human has received from God the faculty of being able to instruct himself;
+>
+> We can teach what we don't know;
+>
+> Everything is in everything.
+>
+>
+> Joseph Jacotot (1770-1840)
+
+## It all started...
+
+as a silly coding challenge to apply for a job:
 
 > Extract the top 400 articles from Arxiv corresponding to the query `big data`, analyze 
 > their content using Google's word2vec algorithm, then run a principal component analysis over
-> the resulting words matrix and display the 100 most frequent words' position on a 2D plane.
+> the resulting words matrix and display the 100 most frequent words' position on a 2D figure.
 > In Haskell...
-
-## Data Analysis Pipeline
-
-* Data acquisition and preparation
-* Data analysis and modelling 
-* Data visualisation
 
 ## Understanding ML
 
-* Beyond tools implementation: Word2vec is already implemented in various toolkits: [gensim](https://radimrehurek.com/gensim/models/word2vec.html), [Google's TensorFlow](https://www.tensorflow.org/versions/r0.10/tutorials/word2vec/index.html), [spark-mllib](http://spark.apache.org/docs/latest/mllib-feature-extraction.html#word2vec)...
-* Beyond mathematical formulas and theoretical principles
-* Sharpen intuitions about ML
+* Going beyond tools
+* Going beyond (obscure) mathematical formulas and theoretical principles
+* Acquire intuitions about how ML works and can be used
 
 ## Challenges
 
-* Understanding Basic Algorithm
-* Optimizing for very large datasets
-* Completing the Pipeline
+* To understand how word2vec works
+* To optimize word2vec for large data sets
+* To complete a data analysis pipeline
 
 # Understanding Basic `word2vec` Algorithm
 
-## Basic formulation
+## Demo
+
+## Principles
 
 * Goal: Build a *words embedding* model, e.g. a function $e: W \rightarrow R^d$ that maps each word from a given vocabulary $W$ to a high-dimensional *vector* space
 * Word2vec is actually more a *family* of models: 
     * 2 basic models: Continuous Bag-of-Words (CBOW) and **Skip-Gram** and various optimisations 
     * Several variations 
 
-## Basic Formulation
+## Principles
 
 ![](/images/w2v-model.png)
 
@@ -94,21 +103,23 @@ $$
 w_I_{new} = w_I - \alpha h'
 $$ 
 
-## Coding the Model
+## (Naive) Code in Haskell
+
+## Visualizing word2vec with wevi
 
 # Optimizing
 
 ## Problem
 
 * While correct and straightforward, complexity of basic implementation is huge: For each sample, we need to compute error gradient over $W'$ which has size $T x D$.
-* Training speed is about $1/20^th$  of reference implementation
+* Training speed is about $1/20^{th}$  of reference implementation
 * Major contribution of word2vec papers is their ability to handle billions of words...
 * How can they do it?
 
 ## Proposed Optimisations
 
 * Input words sub-sampling: Randomly discard frequent words while keeping relative frequencies identical
-* Parallel training: Train model in parallel, requires model update to be non-conflicting
+* Parallelize training
 * Negative sampling
 * **Hierarchical Softmax**
 
@@ -116,33 +127,32 @@ $$
 
 **Idea**: Approximate probability over $V$ with probabilities over *binary encoding* of $V$
 
-* Output vectors encode a word's  *path* within the binary tree
+* Output vectors encode a word's *path* within the binary tree
 * Reduces complexity of model training to updating $\log(V)$ output vectors instead of $V$ 
 
 ## Huffman Tree
 
 ![](/images/w2v-huffman.png)
 
----- 
+## Huffman Tree
 
-Huffman coding encode words according to their frequencies: More frequent words are assigned shorter codes
-
-```.haskell
-> huffmanEncode [("A", 25), ("B", 25), ("C", 20), ("D", 15)
-                 , ("E", 10), ("F",5)]
-("A",Coding {frequency = 25, huffman = 10,   wordPoints = [2,4]})
-("D",Coding {frequency = 15, huffman = 011,  wordPoints = [1,3,4]})
-("E",Coding {frequency = 10, huffman = 1111, wordPoints = [0,1,3,4]})
-("B",Coding {frequency = 25, huffman = 01,   wordPoints = [3,4]})
-("C",Coding {frequency = 20, huffman = 00,   wordPoints = [2,4]})
-("F",Coding {frequency = 5,  huffman = 0111, wordPoints = [0,1,3,4]})
-```
+* Huffman coding encode words according to their frequencies: More frequent words are assigned shorter codes
+* To each word is assigned a path in the Huffman tree which tells, for each node, whether to go left or right
+* Each node is assigned a row in the output matrix
 
 ## Original Code
 
 ![](/images/w2v-code.png)
 
-# Other Challenges
+## Less naive Haskell Code
+
+# More Challenges
+
+## Functional Programming
+
+* Haskell is a pure lazy functional programming
+* Data is immutable which leads to inefficiencies when modifying very large data structures *naïvely*
+* Need to use mutable data structures and *impure* code
 
 ## Data Acquisition
 
@@ -189,19 +199,32 @@ Huffman coding encode words according to their frequencies: More frequent words 
 ## Machine Learning is Hard (2)
 
 * Still an active research field: Going from research paper to tool is not straightforward
-* Reverse engineering code was a painful process given the low-level of engineering effort put into it
-* To really understand what one's doing requires understanding of lot of maths: Linear algebra, statistics, numerical analysis, Natural Language Processing...
+* Reverse engineering code was a painful process
+* To really understand what one's doing requires understanding large chunks of maths: Linear algebra, statistics, numerical analysis, Natural Language Processing...
 
 ## Machine Learning is Fun
 
 * Stretches your programming skills beyond their limits
-* Forces you to tackle tough concepts and techniques
-* Definitely *hype*
+* Forces you to tackle new concepts, techniques and algorithms
+* Expands knowledge base to cutting edge technology
+* Increases his/her love for you
 
 ## Takeaways
 
-* There is not best way to understand software than to implement it
+* There is no better way to understand algorithms than to implement them
 * For production, don't roll your own ML engine unless:
     *  that's your core skills domain 
     *  and/or you are prepared to spend time and money
 
+## References 
+
+* [Original word2vec paper](http://arxiv.org/pdf/1301.3781.pdf)
+* Word2vec implementations: [original C version](https://github.com/dav/word2vec), [gensim](https://radimrehurek.com/gensim/models/word2vec.html), [Google's TensorFlow](https://www.tensorflow.org/versions/r0.10/tutorials/word2vec/index.html), [spark-mllib](http://spark.apache.org/docs/latest/mllib-feature-extraction.html#word2vec), [Java](https://github.com/medallia/Word2VecJava)...
+* [Visualizing word2vec](https://github.com/ronxin/wevi) and [word2vec Parameter Learning Explained](http://www-personal.umich.edu/~ronxin/pdf/w2vexp.pdf)
+* [Implementing word2vec in Python](http://rare-technologies.com/deep-learning-with-word2vec-and-gensim/)
+* Word2vec in Java as part of [deeplearning4j](http://deeplearning4j.org/word2vec#just) (although word2vec is **NOT** deep learning...)
+* [Making sense of word2vec](http://rare-technologies.com/making-sense-of-word2vec/)
+* [word2vec Explained](http://arxiv.org/pdf/1402.3722v1.pdf)
+* [word2vec in Haskell](https://github.com/abailly/hs-word2vec)
+
+# Questions & Feedback
