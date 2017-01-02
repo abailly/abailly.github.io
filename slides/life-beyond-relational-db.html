@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
 
-  <meta name="author" content="Capital Match Team" />
+  <meta name="author" content="Arnaud Bailly" />
 
 
-  <meta name="dcterms.date" content="March 10, 2016" />
+  <meta name="dcterms.date" content="October 21, 2016" />
 
   <title>Life Beyond Relational Database</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,7 +55,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     </style>    
 
 
-    <link rel="stylesheet" href="/reveal.js/css/theme/beige.css" id="theme">
+    <link rel="stylesheet" href="/reveal.js/css/theme/black.css" id="theme">
 
     <!-- If the query includes 'print-pdf', include the PDF print sheet -->
     <script>
@@ -80,10 +80,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section>
     <h1 class="title">Life Beyond Relational Database</h1>
 
+  <h1 class="subtitle">Event Sourcing + Functional Programming</h1>
 
-    <h2 class="author">Capital Match Team</h2>
 
-    <h3 class="date">March 10, 2016</h3>
+    <h2 class="author">Arnaud Bailly</h2>
+
+    <h3 class="date">October 21, 2016</h3>
 </section>
 
 
@@ -92,22 +94,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1>Agenda</h1>
 <ul>
 <li class="fragment">Introduction</li>
-<li class="fragment">Event-Sourcing Model</li>
+<li class="fragment">Relational Model vs. Event Sourcing</li>
+<li class="fragment">Purely Functional Event Sourcing</li>
 <li class="fragment">Implementation &amp; Usage</li>
-<li class="fragment">Future works</li>
 </ul>
 </section></section>
-<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="who-are-we" class="slide level2">
-<h1>Who are we?</h1>
-<figure>
-<img src="/images/cm-website.png" />
-</figure>
-</section><section id="who-are-we-1" class="slide level2">
-<h1>Who are we?</h1>
+<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="who-am-i" class="slide level2">
+<h1>Who am I?</h1>
 <ul>
-<li class="fragment">Capital Match is the leading plaform in Singapore for peer-to-peer lending to SMEs</li>
-<li class="fragment">Backend system developed in Haskell, frontend in Clojurescript/Om since 2014</li>
-<li class="fragment">Core Development team of 3 + 1: Amar, Arnaud, Guo Liang, Zhou Yu</li>
+<li class="fragment">Developing software professionally since 1994</li>
+<li class="fragment">Functional Programming enthusiast</li>
+<li class="fragment">ex-CTO of Capital Match</li>
+<li class="fragment"><code>@abailly</code> on twitter</li>
 </ul>
 </section></section>
 <section><section id="relational-model" class="titleslide slide level1"><h1>Relational Model</h1></section><section class="slide level2">
@@ -118,7 +116,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section><section id="whats-good-with-relational-model" class="slide level2">
 <h1>What’s good with Relational Model?</h1>
 <ul>
-<li class="fragment">Really great for querying <span class="math inline">→</span> <em>SQL Rocks!</em></li>
+<li class="fragment">Really great for querying <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo accent="false">→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> <em>SQL Rocks!</em></li>
 <li class="fragment">Conceptually simple to understand: <em>Everything is a Table</em></li>
 <li class="fragment">Ubiquitous</li>
 </ul>
@@ -127,7 +125,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li class="fragment">Writes/updates are complex</li>
 <li class="fragment"><em>Impedance Mismatch</em>: Lot of data is more tree-ish or graph-ish</li>
-<li class="fragment">One single Database for everything <span class="math inline">→</span> <em>SPOF</em></li>
+<li class="fragment">One single Database for everything <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo accent="false">→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> <em>SPOF</em></li>
 <li class="fragment"><strong>Mutable State</strong></li>
 </ul>
 </section><section class="slide level2">
@@ -139,7 +137,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section><section id="event-sourcing" class="titleslide slide level1"><h1>Event Sourcing</h1></section><section id="state-vs.transitions" class="slide level2">
 <h1>State vs. Transitions</h1>
 <figure>
-<img src="/images/state-transitions.png" />
+<img src="/images/state-transitions.png.small.png" />
 </figure>
 </section><section id="state-vs.transitions-1" class="slide level2">
 <h1>State vs. Transitions</h1>
@@ -169,11 +167,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1>Events Drive Business</h1>
 <ul>
 <li class="fragment">Events are what makes a model dynamic: What affects it, how it reacts to outside world…</li>
-<li class="fragment">Provide foundation for <a href="http://www.amazon.fr/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">Domain Driven Design</a> techniques <span class="math inline">→</span> Better business models, Ubiquitous language</li>
+<li class="fragment">Provide foundation for <a href="http://www.amazon.fr/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">Domain Driven Design</a> techniques <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo accent="false">→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> Better business models, Ubiquitous language</li>
 <li class="fragment">Lead to <a href="http://ziobrando.blogspot.sg/2013/11/introducing-event-storming.html">Event Storming</a> technique for “requirements” elicitation and business domain modelling</li>
 </ul>
 </section></section>
-<section><section id="in-practice" class="titleslide slide level1"><h1>In Practice</h1></section><section id="overview" class="slide level2">
+<section><section id="event-sourcing-in-haskell" class="titleslide slide level1"><h1>Event Sourcing in Haskell</h1></section><section id="overview" class="slide level2">
 <h1>Overview</h1>
 <figure>
 <img src="/images/event-sourcing.png" />
@@ -189,7 +187,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1>Pure Business Models (2)</h1>
 <ul>
 <li class="fragment"><p>Commands compute Event from State</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">act ::</span> <span class="dt">Command</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Event</span></code></pre></div></li>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">act ::</span> <span class="dt">Command</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Either</span> <span class="dt">Error</span> <span class="dt">Event</span></code></pre></div></li>
 <li class="fragment"><p>Events modify model</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">apply ::</span> <span class="dt">Event</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Model</span></code></pre></div></li>
 </ul>
@@ -206,79 +204,52 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section><section id="effectful-services-2" class="slide level2">
 <h1>Effectful Services (2)</h1>
 <ul>
-<li class="fragment"><p>We have a monad to express effects and sequencing on each context: <code>WebStateM</code></p>
-<pre><code>newtype WebStateM g l m a = WebStateM { runWebM :: TVar g -&gt; l -&gt; m a }</code></pre></li>
-<li class="fragment"><code>g</code> is a “global” Model which can be accessed concurrently <span class="math inline">→</span> protected in STM</li>
-<li class="fragment"><code>l</code> is local data, contextual to a single service execution</li>
-<li class="fragment"><p><code>m</code> is underlying monad, usually <code>IO</code></p></li>
+<li class="fragment">Provide <em>composable</em> effects using <a href="https://hackage.haskell.org/package/extensible-effects-1.11.0.2">extensible-effects</a></li>
+<li class="fragment"><p>Each effect expresses its actions through a DSL lifted to a <em>Free Monad</em></p>
+<pre class=".haskell"><code>data State m a where
+    ApplyCommand :: (Model m) =&gt; Command m -&gt; (Either (Error m) (Event m) -&gt; a) -&gt; State m a
+    GetState     :: (Model m) =&gt;                      (m                 -&gt; a) -&gt; State m a</code></pre></li>
 </ul>
 </section><section id="events-storage" class="slide level2">
 <h1>Events Storage</h1>
-<pre><code>data StoredEvent s = StoredEvent { eventVersion :: EventVersion
-                                 , eventType    :: EventType s 
-                                 , eventDate    :: Date        
-                                 , eventUser    :: UserId      
-                                 , eventRequest :: Encoded Hex 
-                                 , eventSHA1    :: Encoded Hex 
-                                 , event        :: ByteString  
+<pre><code>data StoredEvent s = StoredEvent { eventVersion  :: EventVersion
+                                 , eventDate     :: Date        
+                                 , eventSHA1     :: Encoded Hex 
+                                 , eventChecksum :: Encoded Hex 
+                                 , event         :: ByteString  
                                  }</code></pre>
 </section><section id="events-storage-2" class="slide level2">
 <h1>Events Storage (2)</h1>
 <ul>
-<li class="fragment">We use a simple Append-only file store, writing serialized events (mostly JSON) packed with metadata</li>
-<li class="fragment">Each event has a (monotonically increasing) version which is used for proper deserialization</li>
-<li class="fragment">Events carry useful information for troubleshooting and auditing: User who initiated the request, request id itself, SHA1 representing version of appplication</li>
+<li class="fragment">We use a simple Append-only file store, writing serialized events packed with metadata</li>
+<li class="fragment">Each event has a <em>monotonically increasing version number</em> which is used to handle migrations</li>
+<li class="fragment">Events can carry useful information for troubleshooting and auditing: User who initiated the request, request id itself, SHA1 representing version of appplication</li>
 <li class="fragment">Events Store serializes concurrent writes</li>
 </ul>
 </section></section>
-<section><section id="software" class="titleslide slide level1"><h1>Software</h1></section><section id="section" class="slide level2">
+<section><section id="implementation" class="titleslide slide level1"><h1>Implementation</h1></section><section id="section" class="slide level2">
 <h1></h1>
 <figure>
 <img src="/images/workshop.jpg" alt="In Practice" /><figcaption>In Practice</figcaption>
 </figure>
-</section><section id="demo" class="slide level2">
-<h1>Demo</h1>
-<ul>
-<li class="fragment">Anatomy of a complete business model
-<ul>
-<li class="fragment">Web layer w/ servant</li>
-<li class="fragment">Service layer (w/ Free monads…)</li>
-<li class="fragment">Business model</li>
-<li class="fragment">Migration code</li>
-<li class="fragment">Standalone service</li>
-</ul></li>
-<li class="fragment">Using Haskell scripts for operational queries and updates</li>
-</ul>
-</section></section>
-<section><section id="future-works" class="titleslide slide level1"><h1>Future Works</h1></section><section id="section-1" class="slide level2">
-<h1></h1>
+</section><section id="haskell" class="slide level2">
+<h1>Haskell</h1>
 <figure>
-<img src="/images/monolith-2001.jpg" />
+<img src="/images/haskell-logo.png" />
 </figure>
-</section><section id="implement-better-cqrs" class="slide level2">
-<h1>Implement Better CQRS</h1>
 <ul>
-<li class="fragment">Separate <em>Read Model</em> from <em>Write Model</em></li>
-<li class="fragment"><em>Write Model</em>: Append-only linear data store per context, very fast, minimize locking/write time</li>
-<li class="fragment"><em>Read model</em>: Optimized for specific querying, may be relational if needed in order to make it more user-friendly</li>
+<li class="fragment">https://github.com/abailly/hevents</li>
 </ul>
-</section><section id="make-models-resilient" class="slide level2">
-<h1>Make models resilient</h1>
+</section><section id="elm" class="slide level2">
+<h1>Elm</h1>
+<figure>
+<img src="/images/elm-lang.png" />
+</figure>
 <ul>
-<li class="fragment">Resilience of models <span class="math inline">→</span> <em>Replication</em></li>
-<li class="fragment">Use <a href="http://raft.github.io/">Raft</a> to maintain strong consistency of models: <a href="https://github.com/cartazio/haver-raft">several</a> <a href="https://github.com/NicolasT/kontiki">implementations</a> <a href="https://github.com/chrisnc/tangaroa">in</a> Haskell</li>
-<li class="fragment">Started implementation of practical cluster based on Raft, called <a href="https://github.com/capital-match/raptr">raptr</a></li>
-</ul>
-</section><section id="make-models-secure" class="slide level2">
-<h1>Make models secure</h1>
-<ul>
-<li class="fragment">Turn event stream into a <em>source of truth</em> <span class="math inline">→</span> Blockchain and beyond…</li>
-<li class="fragment">Juno: <a href="https://github.com/buckie/juno">Smart contracts</a> over Raft cluster</li>
-<li class="fragment">Uses cryptographically signed events to ensure history cannot be tampered with</li>
-<li class="fragment">Turns journal into a “legally binding ledger”?</li>
+<li class="fragment">https://github.com/abailly/hsgames</li>
 </ul>
 </section></section>
-<section><section id="questions" class="titleslide slide level1"><h1>Questions?</h1></section><section id="section-2" class="slide level2">
+<section><section id="questions" class="titleslide slide level1"><h1>Questions?</h1></section><section id="section-1" class="slide level2">
 <h1></h1>
 <figure>
 <img src="/images/puzzled.jpg" />
