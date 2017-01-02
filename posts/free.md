@@ -251,6 +251,7 @@ type Effect = Coproduct Logging Persist
 
 We are now ready to define and interpret programs mixing logging and persistence:
 
+~~~~~~~~~
 > let prog = store "bar" >> logI "foo" >> store "quux" >> logI "baz" :: Free Effect ()
 > λ> pair const interpretEffect ((return <$> prog) :: Free Effect (IO ()) )
 > "storing bar"
@@ -258,6 +259,7 @@ We are now ready to define and interpret programs mixing logging and persistence
 > "storing quux"
 > "baz"
 > λ> 
+~~~~~~~~~
 
 # Conclusion
 
