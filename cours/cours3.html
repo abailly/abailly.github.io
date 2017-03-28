@@ -35,8 +35,8 @@
     <div id="main" role="main">
 <h1></h1>
 
-<h1 id="critères-combinatoires">Critères combinatoires</h1>
-<h2 id="combinaisons-logiques">Combinaisons logiques</h2>
+<section><section id="critères-combinatoires" class="titleslide slide level1"><h1>Critères combinatoires</h1></section><section id="combinaisons-logiques" class="slide level2">
+<h1>Combinaisons logiques</h1>
 <p>Applicabilité :: L’output est fonction d’une expression logique liant les variables d’input interprétées comme des propositions.</p>
 <p>Modèle de faute :: Erreurs dans l’interprétation des conditions d’un algorithme, erreurs logiques (mauvais connecteurs logiques, inversions).</p>
 <h3 id="exemple-1-les-triangles">Exemple 1 : les triangles</h3>
@@ -46,44 +46,48 @@
 </blockquote>
 <p>Implicitement, une expression logique définit un triangle correct (paramètres appelés a,b et c) :</p>
 <ul>
-<li>pour vérifier l’ordre des paramètres :</li>
-<li>C1: <code>a &lt;= b</code></li>
-<li> C2: <code>b &lt;= c</code></li>
-<li>pour vérifier des propriétés de base d’un triangle :
+<li class="fragment">pour vérifier l’ordre des paramètres :</li>
+<li class="fragment">C1: <code>a &lt;= b</code></li>
+<li class="fragment"> C2: <code>b &lt;= c</code></li>
+<li class="fragment">pour vérifier des propriétés de base d’un triangle :
 <ul>
-<li>C3: =c &lt; a + b=</li>
-<li>C4: =a &gt; 0=</li>
-<li>C5: =b &gt; 0=</li>
-<li>C6: =c &gt; 0=</li>
+<li class="fragment">C3: =c &lt; a + b=</li>
+<li class="fragment">C4: =a &gt; 0=</li>
+<li class="fragment">C5: =b &gt; 0=</li>
+<li class="fragment">C6: =c &gt; 0=</li>
 </ul></li>
 </ul>
 <p>On a donc comme expression logique :</p>
 <pre><code>C1 /\ C2 .. /\ C6</code></pre>
-<h2 id="construction-des-suites-de-test">Construction des suites de test</h2>
-<p>Si on veut tester tous les cas, on a au pire <span class="math inline">2<sup><em>n</em></sup></span> <strong>variants</strong> différents.</p>
+</section><section id="construction-des-suites-de-test" class="slide level2">
+<h1>Construction des suites de test</h1>
+<p>Si on veut tester tous les cas, on a au pire <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>n</mi></msup><annotation encoding="application/x-tex">2^n</annotation></semantics></math> <strong>variants</strong> différents.</p>
 <p>Variant :: Une combinaison unique des variables (booléennes) d’entrée et des variables de sortie (ie. une ligne dans la table de vérité correspondant à l’expression)</p>
-<ol style="list-style-type: decimal">
-<li>Construire une représentation manipulable de l’expression logique: cette expression doit être la plus simple possible pour limiter la génération de cas de test</li>
-<li>Appliquer un critère de test (stratégie de test)</li>
-<li>sélectionner les valeurs d’entrées permettant de réaliser le test</li>
+<ol type="1">
+<li class="fragment">Construire une représentation manipulable de l’expression logique: cette expression doit être la plus simple possible pour limiter la génération de cas de test</li>
+<li class="fragment">Appliquer un critère de test (stratégie de test)</li>
+<li class="fragment">sélectionner les valeurs d’entrées permettant de réaliser le test</li>
 </ol>
-<h2 id="représentation-testable">Représentation testable</h2>
+</section><section id="représentation-testable" class="slide level2">
+<h1>Représentation testable</h1>
 <p>modéle de test permettant d’appliquer une stratégie de sélection : - <em>table de décision</em> : chaque colonne est une variable d’entrée ou de sortie (on suppose que toutes les variables sont modélisées comme des booléens), chaque ligne est une combinaison - <em>arbre</em> : chaque noeud de l’arbre est une variable, chaque branche est un état de cette variable, les feuilles sont les valeurs de variables de sorties correspondant - <em>graphe de cause-effets</em> : les noeuds de départ sont les variables d’entrée, les noeuds de sortie sonts les variables de sortie, les noeuds intermédiaires sont des opérateurs booléens - <em>matrices de Karnaugh</em> - <em>BDD</em></p>
 <p>Cas particuliers : - <strong>don’t care</strong> : la valeur d’une variable n’a pas d’importance dans le cas considéré. Permet de simplifier une expression ou une table de décision - <strong>can’t happen</strong> : un cas est impossible (cas des valeurs de variables liées, si plusieurs variables propositionnelles utilisent une même variable d’entrée avec des valeurs différentes, appelé exclusion mutuelle sure). Attention aux faux sentiments de sécurité… - <strong>don’t know</strong> : cas non prévu par la spécification : <strong>PROBLEME</strong></p>
-<h2 id="critères-de-couvertures">Critères de couvertures</h2>
+</section><section id="critères-de-couvertures" class="slide level2">
+<h1>Critères de couvertures</h1>
 <ul>
-<li>tous les variants explicites</li>
-<li>tous les variants : <span class="math inline">2<sup><em>n</em></sup></span> dans le pire des cas, impraticable au dela de quelques variables</li>
-<li>tous les termes =true=/=false=</li>
-<li>mc/dc</li>
+<li class="fragment">tous les variants explicites</li>
+<li class="fragment">tous les variants : <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>n</mi></msup><annotation encoding="application/x-tex">2^n</annotation></semantics></math> dans le pire des cas, impraticable au dela de quelques variables</li>
+<li class="fragment">tous les termes =true=/=false=</li>
+<li class="fragment">mc/dc</li>
 </ul>
 <h3 id="mcdc">MC/DC</h3>
-<h2 id="modified-conditiondecision-coverage-critère-de-test-classique">Modified Condition/Decision Coverage** : critère de test classique,</h2>
+</section><section id="modified-conditiondecision-coverage-critère-de-test-classique" class="slide level2">
+<h1>Modified Condition/Decision Coverage** : critère de test classique,</h1>
 <p>applicable pour expressions logiques</p>
 <ul>
-<li>chaque valeur possible de chaque proposition de l’expression doit être testée au moins une fois</li>
-<li>chaque valeur possible de l’expression doit être testé au moins une fois</li>
-<li>chaque valeur possible d’une condition produisant un résultat de décisions différent indépendamment des autres conditions doit être testée</li>
+<li class="fragment">chaque valeur possible de chaque proposition de l’expression doit être testée au moins une fois</li>
+<li class="fragment">chaque valeur possible de l’expression doit être testé au moins une fois</li>
+<li class="fragment">chaque valeur possible d’une condition produisant un résultat de décisions différent indépendamment des autres conditions doit être testée</li>
 </ul>
 <p>exemple : =A / B= - <em>condition coverage</em> : (1,0), (0,1) - <em>decision coverage</em> : (1,0), (0,0) - <em>decision/condition</em> : (1,1), (0,0) - <em>MC/DC</em> : (1,0), (0,1), (0,0)</p>
 <p>voir http://library-dspace.larc.nasa.gov/dspace/jsp/handle/2002/12640</p>
@@ -98,7 +102,8 @@
    AV     | T | T | T | F | F </code></pre>
 <p>Les cas de tests sont ils valides pour le critère MC/DC et l’expression :</p>
 <pre><code>WOW = (Roue_G &amp; Roue_D) | ((Vit &lt; 40 ) &amp; AV)</code></pre>
-<h2 id="représentation-graphe-construction-dun-bdd">Représentation Graphe: Construction d’un BDD</h2>
+</section><section id="représentation-graphe-construction-dun-bdd" class="slide level2">
+<h1>Représentation Graphe: Construction d’un BDD</h1>
 <p>Représentation compacte d’une expression booléenne Construire un <em>diagramme de décision binaire</em> (BDD) représentant tous les états possibles d’un ensemble de variables logiquement liées (ou non). Un BDD est un graphe dirigé acyclique dont les noeuds sont des variables logiques et les arcs des valeurs logiques vrai ou faux. Les noeuds terminaux du graphe sont les valeurs =true= et =false=.</p>
 <p>Propriétés des (Reduced,Ordered) BDD : - canonicité wrt un certain ordre total des variables : tout chemin de la racine du BDD à une feuille respecte un ordre total des variables - minimalité : chaque noeud est unique au sens où le triplet (var,low,high) est unique dans le BDD</p>
 <p>Attention :: Tous les BDD ne sont pas égaux, trouver le BDD minimal pour une expression arbitraire est un pb NP-complet (dépend du choix d’ordonnancement des variables)</p>
@@ -108,20 +113,24 @@
 <p>Construit lors de la compilation des expressions logiques: forme normal <em>if-then-else</em> (<strong>INF</strong>) correspond au dépliage des expressions conditionnelles. Problèmes si une variable apparaît plusieurs fois dans une expression.</p>
 <h3 id="lien-mcdc-et-bdd">Lien MC/DC et BDD</h3>
 <p>Hypothèse : Pour toute expression logique =e=, le nombre de cas de tests pour les critères <em>tous les chemins du BDD</em> et <em>MC/DC</em> est équivalent.</p>
-<h2 id="conclusion">Conclusion</h2>
+</section><section id="conclusion" class="slide level2">
+<h1>Conclusion</h1>
 <p>Critères combinatoires = cas particulier de critères de flots de contrôle généraux. Lorsqu’on construit le flot de contrôle d’une méthode, les branchement représentents des conditions logiques, La couverture des arcs implique donc couverture des conditions logiques.</p>
-<h1 id="pairwise-testing">Pairwise testing</h1>
-<h2 id="introduction">Introduction</h2>
+</section></section>
+<section><section id="pairwise-testing" class="titleslide slide level1"><h1>Pairwise testing</h1></section><section id="introduction" class="slide level2">
+<h1>Introduction</h1>
 <p>Modèle de fautes :: Les défauts dépendent de l’interaction d’au plus 2 (ou n) paramètres, pas de la combinaison de tous les paramètres du CUT.</p>
 <p>Applicabilité :: Le comportement du CUT dépend de la combinaison d’un ensemble de paramètres à valeurs finis: drapeaux, énumérations, plages de valeurs ou partitions de domaines (cf. infra). La taille du domaine et le nombre de paramètres doivent être dans des proportions raisonnables. Le nombre réel de configuration à tester en combinant toutes les possibilités est trop important.</p>
 <p>Référence :: <a href="http://www.pairwise.org/">Pairwise.org</a></p>
-<h2 id="principes">Principes</h2>
+</section><section id="principes" class="slide level2">
+<h1>Principes</h1>
 <p>Critère de test combinatoire basé sur l’hypothèse <em>réaliste</em> que les <em>défauts</em> sont causés par l’interaction d’au plus deux facteurs (paramètres). Permet de réduire l’explosion combinatoire pour la sélection des cas de tests lorsqu’un comportement dépend de plusieurs variables dont le domaine est <strong>fini</strong>. Appelé aussi méthodes des ##tableaux orthogonaux**, généralisation du principe MC/DC.</p>
-<p><strong>Tableau orthogonal</strong> <span class="math inline">(<em>n</em>, <em>n</em>)</span> de force <span class="math inline"><em>t</em></span> : une matrice telle que chacun des <span class="math inline"><em>n</em><sup><em>t</em></sup></span> t-uplets (sous matrices <span class="math inline">(<em>n</em>, <em>t</em>)</span>) apparaisse le même nombre de fois.</p>
-<h2 id="tableau-couvrant-de-force-t-tableau-orthogonal-mais-tel-chaque">Tableau couvrant** de force <span class="math inline"><em>t</em></span>: tableau orthogonal mais tel chaque</h2>
-<p><span class="math inline"><em>n</em><sup><em>t</em></sup></span> t-uplet apparaisse au moins une fois.</p>
+<p><strong>Tableau orthogonal</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(n,n)</annotation></semantics></math> de force <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> : une matrice telle que chacun des <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mi>t</mi></msup><annotation encoding="application/x-tex">n^t</annotation></semantics></math> t-uplets (sous matrices <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(n,t)</annotation></semantics></math>) apparaisse le même nombre de fois.</p>
+</section><section id="tableau-couvrant-de-force-t-tableau-orthogonal-mais-tel-chaque" class="slide level2">
+<h1>Tableau couvrant** de force <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>: tableau orthogonal mais tel chaque</h1>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mi>t</mi></msup><annotation encoding="application/x-tex">n^t</annotation></semantics></math> t-uplet apparaisse au moins une fois.</p>
 <p>Trouver un tableau orthogonal qui soit minimal est un problème NP-complet.</p>
-<p>Utilisation de <em>Carrés Latins</em> superposés pour trouver des données de test répondant au critère: - suppose que tous les <span class="math inline"><em>k</em></span> paramètres ont la même taille <span class="math inline"><em>n</em></span> (nb de valeurs) - isole deux paramètres qui seront les indices d’une matrice <span class="math inline"><em>n</em> × <em>n</em></span> - pour chacun des <span class="math inline"><em>k</em> − 2</span> paramètres restant, on construit un <em>Carré Latin</em> tel que chacun des CL soit orthogonale aux autres (ie. toute paire de paramètres apparaissent une et une seule fois dans la matrice résultant de la superposition des carrés latins)</p>
+<p>Utilisation de <em>Carrés Latins</em> superposés pour trouver des données de test répondant au critère: - suppose que tous les <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> paramètres ont la même taille <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> (nb de valeurs) - isole deux paramètres qui seront les indices d’une matrice <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">n\times n</annotation></semantics></math> - pour chacun des <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k-2</annotation></semantics></math> paramètres restant, on construit un <em>Carré Latin</em> tel que chacun des CL soit orthogonale aux autres (ie. toute paire de paramètres apparaissent une et une seule fois dans la matrice résultant de la superposition des carrés latins)</p>
 <p>Exemple avec 4 paramètres de taille 3:</p>
 <pre><code>a b c
 b c a
@@ -132,7 +141,7 @@ et
 1 2 3
 3 1 2
 2 3 1</code></pre>
-<p>Les tests sont au nombre de 9, contre <span class="math inline">3<sup>4</sup> = 81</span> si on teste toutes les combinaisons de valeurs possibles:</p>
+<p>Les tests sont au nombre de 9, contre <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>3</mn><mn>4</mn></msup><mo>=</mo><mn>81</mn></mrow><annotation encoding="application/x-tex">3^4 = 81</annotation></semantics></math> si on teste toutes les combinaisons de valeurs possibles:</p>
 <pre><code> 1 1 a 1 
  1 2 b 2 
  1 3 c 3
@@ -156,52 +165,50 @@ et
  2 3 4 1 </code></pre>
 <p>Cas particulier du n-wise testing: tous les n-uplets couverts par les différents cas de test.</p>
 <p>Comment traiter les variables n’ayant pas le même nombre de valeurs possibles: - utiliser la taille maximale pour le calcul du tableau orthogonal - modifier le mapping de telle sorte que plusieurs valeurs du tableau pointent vers les mêmes valeurs concrètes - simplifier les cas de test : en remplacant des valeurs, on tombe souvent sur des redondances.</p>
-<h2 id="mise-en-oeuvre">Mise en oeuvre</h2>
-<ol style="list-style-type: decimal">
-<li>identifier les différentes variables et leurs valeurs possibles<br />
+</section><section id="mise-en-oeuvre" class="slide level2">
+<h1>Mise en oeuvre</h1>
+<ol type="1">
+<li class="fragment">identifier les différentes variables et leurs valeurs possibles<br />
 </li>
-<li>mapper ces valeurs sur une séquence (nombres, lettres) éventuellement avec le même nombre de valeurs pour chaque variable</li>
-<li>construire un tableau orthogonal/couvrant avec les valeurs abstraites</li>
-<li>remapper sur des valeurs concrètes</li>
-<li>construire les cas de test correspondants (ie. en construisant l’oracle).</li>
+<li class="fragment">mapper ces valeurs sur une séquence (nombres, lettres) éventuellement avec le même nombre de valeurs pour chaque variable</li>
+<li class="fragment">construire un tableau orthogonal/couvrant avec les valeurs abstraites</li>
+<li class="fragment">remapper sur des valeurs concrètes</li>
+<li class="fragment">construire les cas de test correspondants (ie. en construisant l’oracle).</li>
 </ol>
 <p>Complexe ! Utiliser un outil: <a href="http://www.burtleburtle.net/bob/math/jenny.html">jenny</a>. Programme en C permettant de générer une suite de tests respectant le crière <em>tous-les-k-uplets</em>.</p>
-<h2 id="interprétation-sous-forme-de-graphe">Interprétation sous forme de Graphe</h2>
+</section><section id="interprétation-sous-forme-de-graphe" class="slide level2">
+<h1>Interprétation sous forme de Graphe</h1>
 <p>Chaque valeur de paramètre est un noeud d’un graphe =G(V,E)=. Pour =k= paramètres, le graphe =G= est k-parti complet: - l’ensemble des noeuds est partitionné en k sous-ensembles deux à deux disjoints - chaque noeud possède un arc vers tous les autres noeuds qui n’appartiennent pas à sa propre partition.</p>
 <p>Les arcs représentent donc les couples de valeurs possibles. S’il y a des couples <em>impossibles</em>, les arcs sont supprimés.</p>
 <p>Un cas de tests est donc un chemin dans le graphe tel que chaque partition est représentée une et une seule fois. Une suite de teste est adéquate pour le critère toutes-les-paires si tous les arcs du graphe sont couverts par au moins un chemin.</p>
-<h1 id="partition-de-domaines">Partition de domaines</h1>
-<p>Partitionnement des domaines de valeurs, parfois aeppelé <em>test aux limites</em>. Critère pour le choix de valeurs pertinentes.</p>
-<p>Modèle de fautes :: Les erreurs sont souvent dûes à une mauvaise interprétation d’opérateurs de comparaison ou de tests aux limites des domaines de valeurs. ex: =&lt;= et inférieur ou égal, étoile de kleene ou étoile propre. Mauvaise détermination d’une condition limite, modification de comportement non prise en compte dans certains domaines.</p>
-<p>Applicabilité :: Comportement dépend d’une <em>partition</em> de domaine d’une ou plusieurs variables d’entrée (ou d’état), applicable aussi pour des partitions d’états d’objets : comportement fonction de classes de valeurs, changement en fonction de domaine</p>
-<p>Basé sur existence d’une <strong>frontière</strong> de domaine, domaine peut être ##ouvert** (ne comprenant pas la frontière) ou <strong>fermé</strong> (comprenant la frontière)</p>
-<h2 id="critères">Critères</h2>
+</section></section>
+<section><section id="partition-de-domaines" class="titleslide slide level1"><h1>Partition de domaines</h1></section><section id="critères" class="slide level2">
+<h1>Critères</h1>
 <p>point on :: point <strong>sur</strong> la frontière</p>
 <p>point off :: point <strong>dans</strong> un domaine ouvert et en <strong>dehors</strong> d’un domaine fermé</p>
 <p>1 x 1 : choisit un point ON et un point OFF par condition définissant une partition de domaine, le plus proche possible l’un de l’autre</p>
 <p>N x 1 : choisir N point ON linéairement indépendants sur chaque frontière, N est le nombre de dimensions (variables), et 1 point OFF</p>
 <p>Stratégies faibles vs. fortes: - 1x1 faible: 1 point ON et un point OFF pour chaque condition - 1x1 fort: 1 point ON et un point OFF pour chaque segment résultant d’une combinaison de conditions - Nx1 faible: N point ON et 1 point OFF pour n dimensions, par condition - Nx1 faible: N point ON et 1 point OFF pour n dimensions, par segment de frontiére</p>
-<h2 id="exemple-1-triangles">Exemple 1 : Triangles</h2>
+</section><section id="exemple-1-triangles" class="slide level2">
+<h1>Exemple 1 : Triangles</h1>
 <p>Définition d’un triangle isocèle : Un triangle est isocèle si deux de ses côtés sont de même longueur.</p>
 <p>Défini trois domaine en trois dimensions borné par les frontières : 1. <code>a=b &amp; c &lt; a+b</code> 2. <code>b=c &amp; a &lt; b+c</code> 3. <code>c=a &amp; b &lt; c+a</code></p>
-<p>Attention :: Ne tient pas compte de l’ordre des paramètres ! Si =a&lt;b&lt;c=, il y a moins de cas à traiter (lesquels ?)</p>
-<h2 id="exemple-2-contrôle-de-chaudière">Exemple 2 : contrôle de chaudière</h2>
-<p>Chaudière alimentée par une vanne et chauffée par un gaz. soupape de sécurité en cas de surpression.</p>
-<p>Input : - température - pression</p>
-<p>Output : - ouvrir/fermer gaz (=G=) - ouvrir/fermer soupape (=S=) - ouvrir/fermer vanne (=V=)</p>
-<p>Conditions : - <code>T - 5*P &lt;= 200</code> =&gt; G, sinon ~G - <code>P &lt;= 1</code> =&gt; V, sinon ~V - <code>P &gt; 3</code> =&gt; S, sinon ~S</p>
-<h2 id="mise-en-oeuvre-1">mise en oeuvre</h2>
+<p>Attention :: Ne tient pas compte de l’ordre des paramètres ! Si =a<b<c=, il y a moins de cas à traiter (lesquels ?) ## Exemple 2 : contrôle de chaudière Chaudière alimentée par une vanne et chauffée par un gaz. soupape de sécurité en cas de surpression. Input : - température - pression Output : - ouvrir fermer gaz (="G=)" - ouvrir fermer soupape (="S=)" - ouvrir fermer vanne (="V=)" Conditions : - ```T - 5*P <="200```" => G, sinon ~G - <code>P &lt;= 1</code> =&gt; V, sinon ~V - <code>P &gt; 3</code> =&gt; S, sinon ~S</p>
+</section><section id="mise-en-oeuvre-1" class="slide level2">
+<h1>mise en oeuvre</h1>
 <p>construction <em>système d’équations</em> représentant les contraintes des différents domaines.</p>
 <p>Vérifications : - <strong>complétude</strong> : l’ensemble des sous-domaines définis forme une partition de l’ensemble des valeurs possibles - <strong>consistance</strong> : l’intersection des sous-domaines est vide</p>
 <p>Représentation facile pour domaines numériques à une ou deux variables: représente sur une droite ou un plan les contraintes et les domaines, sélection des points visuelle.</p>
 <p>Représentation complexe pour 3 variables et plus: vérification des critères nécessite outils mathématiques plus complexes, résolution de systèmes d’équations et inéquations (cf. simplex). Si la spécification est trop compliquée à tester, se poser des questions sur son intérêt : il y a de fortes chances qu’elle soit mal implantée. =&gt; ##divide quod impera**</p>
-<h2 id="exemple-3-test-dun-générateur-aléatoire">Exemple 3: test d’un générateur aléatoire</h2>
+</section><section id="exemple-3-test-dun-générateur-aléatoire" class="slide level2">
+<h1>Exemple 3: test d’un générateur aléatoire</h1>
 <p>Problème: soit la classe =Random= suivante:</p>
 <pre><code>public class Random {
    public int random() ...
 }  </code></pre>
 <p>Comment tester <em>fonctionnellement</em> cette classe ?</p>
 <p>Solution: - extraire un échantillon des nombres produits par =random()= - vérifier que la distribution des nombres tend à être uniforme, compte-tenu d’une marge d’erreur acceptable et d’exécutions multiples.</p>
+</section></section>
 
     </div>
     <footer>
@@ -209,5 +216,15 @@ et
     </footer>
     
   </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>

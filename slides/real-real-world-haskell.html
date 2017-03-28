@@ -80,10 +80,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section>
     <h1 class="title">The Real Real World of Haskell</h1>
 
-  <h1 class="subtitle">Relations on the Land of Pure Functional Programming by a Mortal Being</h1>
+  <h2 class="subtitle">Relations on the Land of Pure Functional Programming by a Mortal Being</h2>
 
 
-    <h2 class="author">Arnaud Bailly</h2>
+    <h3 class="author">Arnaud Bailly</h3>
 
     <h3 class="date">April 22, 2016</h3>
 </section>
@@ -159,7 +159,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment"><p>Haskell’s syntax favours terseness and strives to be close to mathematical language, compare:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[ (x, x <span class="fu">*</span> <span class="dv">2</span>) <span class="fu">|</span> x <span class="ot">&lt;-</span> [ <span class="dv">0</span> <span class="fu">..</span> <span class="dv">100</span> ], x <span class="ot">`mod`</span> <span class="dv">3</span> <span class="fu">==</span> <span class="dv">0</span> ] </code></pre></div></li>
 <li class="fragment"><p>with:</p>
-<p><span class="math inline">{(<em>x</em>, 2<em>x</em>)|<em>x</em> ∈ [1, 100]∧<em>x</em> <em>m</em><em>o</em><em>d</em> 3 = 0}</span></p></li>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mn>2</mn><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mn>100</mn><mo stretchy="false" form="postfix">]</mo><mo>∧</mo><mi>x</mi><mspace width="0.222em"></mspace><mi>m</mi><mi>o</mi><mi>d</mi><mspace width="0.222em"></mspace><mn>3</mn><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{ (x, 2x) | x \in [1,100] \land x\ mod\ 3 = 0 \}</annotation></semantics></math></p></li>
 <li class="fragment"><p>Haskellers don’t use lot of <em>punctuation</em> signs but favor using <em>indentation</em> to express nesting</p></li>
 </ul>
 </section><section id="on-the-importance-of-composition-in-haskell" class="slide level2">
@@ -611,5 +611,15 @@ sample_v8_Events <span class="fu">=</span>
 //          { src: '/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
 ]});
     </script>
-  </body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
 </html>

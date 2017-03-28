@@ -75,62 +75,62 @@
 <h2 id="server-code">Server Code</h2>
 <p>The server code resides in a <code>unikernel.ml</code> file. I am not at all familiar with OCaml so my code is probably not really idiomatic. Learning OCaml is one of the reasons I became interested in MirageOS in the first place !</p>
 <p>We first need some usual incantations to “import” names, e.g. opening modules in OCaml:</p>
-<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="ot">open</span> String
-<span class="ot">open</span> Lwt
-<span class="ot">open</span> Lwt<span class="kw">.</span>Infix
-<span class="ot">open</span> V1_LWT
-<span class="ot">open</span> Printf</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">open</span> <span class="dt">String</span>
+<span class="kw">open</span> Lwt
+<span class="kw">open</span> Lwt.Infix
+<span class="kw">open</span> V1_LWT
+<span class="kw">open</span> <span class="dt">Printf</span></code></pre></div>
 <p>The <code>string_of_stream</code> function is adapted from the basic <code>kv_ro</code> example provided in <a href="https://github.com/mirage/mirage-skeleton">mirage-skeleton</a>. Its name is pretty explicit…</p>
 <div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> string_of_stream stream =
-  <span class="kw">let</span> s = List<span class="kw">.</span>map Cstruct<span class="kw">.</span>to_string stream <span class="kw">in</span>
-  return (String<span class="kw">.</span>concat <span class="st">&quot;&quot;</span> s)</code></pre></div>
+  <span class="kw">let</span> s = <span class="dt">List</span>.map Cstruct.to_string stream <span class="kw">in</span>
+  return (<span class="dt">String</span>.concat <span class="st">&quot;&quot;</span> s)</code></pre></div>
 <p>The main module is parameterized by 3 signatures which are provided by MirageOS according to the configuration given at build-time. Here we have 3 modules: The console for outputting some logs, the Key/Value store and <code>conduit</code> which provides network connectivity:</p>
-<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="ot">module</span> Main (<span class="dt">C</span>:<span class="dt">CONSOLE</span>) (<span class="dt">K</span>: <span class="dt">KV_RO</span>) (<span class="dt">CON</span>:Conduit_mirage<span class="kw">.</span><span class="dt">S</span>) = <span class="kw">struct</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">module</span> Main (C:CONSOLE) (K: KV_RO) (CON:Conduit_mirage.S) = <span class="kw">struct</span></code></pre></div>
 <p>We build a new module by passing underlying connection manager to our HTTP server implementation then we can define our <code>start</code> entry point:</p>
-<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">  <span class="ot">module</span> H = Cohttp_mirage<span class="kw">.</span><span class="dt">Server</span>(Conduit_mirage<span class="kw">.</span><span class="dt">Flow</span>)
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">  <span class="kw">module</span> H = Cohttp_mirage.Server(Conduit_mirage.Flow)
 
   <span class="kw">let</span> start console k conduit =</code></pre></div>
 <p>We first define the function that will check the database for matching username/password pair, given an access request. The main thing to note here is that reading from the store happens within the context of so-called <em>light-weight threads</em> or <code>Lwt</code> which is the basic Mirage cooperative thread execution model. Potentially blocking operations expect a <em>continuation</em> that will be passed the result of the operation.</p>
 <div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">    <span class="kw">let</span> check_pwd u p =
-      K<span class="kw">.</span>read k u <span class="dv">0</span> <span class="dv">4096</span> &gt;&gt;= <span class="kw">fun</span> readpwd -&gt;
+      K.read k u <span class="dv">0</span> <span class="dv">4096</span> &gt;&gt;= <span class="kw">fun</span> readpwd -&gt;
       <span class="kw">match</span> readpwd <span class="kw">with</span>
-      | <span class="dt">`Ok</span> pwds -&gt;
+      | `Ok pwds -&gt;
          string_of_stream pwds &gt;&gt;= <span class="kw">fun</span> pwd -&gt;
-         return $ compare (trim pwd) p == <span class="dv">0</span>
+         return $ <span class="dt">compare</span> (trim pwd) p == <span class="dv">0</span>
       | _ -&gt; return <span class="kw">false</span>
     <span class="kw">in</span> </code></pre></div>
 <p>Then comes the meat of the server, the <code>http_callback</code> function that will be called by cohttp upon everyrequest. We extract interesting parts of the request’s URI then check whether or not the username/password pair matches, and finally return a response.</p>
 <div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">    <span class="kw">let</span> http_callback _conn_id req _body =
-      <span class="kw">let</span> uri  = Cohttp<span class="kw">.</span>Request<span class="kw">.</span>uri req             <span class="kw">in</span>
-      <span class="kw">let</span> path = Uri<span class="kw">.</span>path uri                       <span class="kw">in</span>
-      <span class="kw">let</span> user = Uri<span class="kw">.</span>get_query_param uri <span class="st">&quot;user&quot;</span>     <span class="kw">in</span>
-      <span class="kw">let</span> pwd  = Uri<span class="kw">.</span>get_query_param uri <span class="st">&quot;password&quot;</span> <span class="kw">in</span>
+      <span class="kw">let</span> uri  = Cohttp.Request.uri req             <span class="kw">in</span>
+      <span class="kw">let</span> path = Uri.path uri                       <span class="kw">in</span>
+      <span class="kw">let</span> user = Uri.get_query_param uri <span class="st">&quot;user&quot;</span>     <span class="kw">in</span>
+      <span class="kw">let</span> pwd  = Uri.get_query_param uri <span class="st">&quot;password&quot;</span> <span class="kw">in</span>
       <span class="kw">match</span> (user,pwd) <span class="kw">with</span>
       | (<span class="dt">Some</span> u, <span class="dt">Some</span> p) -&gt;
           check_pwd u p &gt;&gt;= <span class="kw">fun</span> chk -&gt; 
           <span class="kw">if</span> chk
-          <span class="kw">then</span> H<span class="kw">.</span>respond_string ~status:<span class="dt">`OK</span> ~body:(sprintf <span class="st">&quot;hello %s!</span><span class="ch">\n</span><span class="st">&quot;</span> u) ()
-          <span class="kw">else</span> H<span class="kw">.</span>respond_string ~status:<span class="dt">`Unauthorized</span> ~body:<span class="st">&quot;Invalid login</span><span class="ch">\n</span><span class="st">&quot;</span> ()
+          <span class="kw">then</span> H.respond_string ~status:`OK ~body:(sprintf <span class="st">&quot;hello %s!</span><span class="ch">\n</span><span class="st">&quot;</span> u) ()
+          <span class="kw">else</span> H.respond_string ~status:`Unauthorized ~body:<span class="st">&quot;Invalid login</span><span class="ch">\n</span><span class="st">&quot;</span> ()
       | _                -&gt;
-          H<span class="kw">.</span>respond_string ~status:<span class="dt">`Unauthorized</span> ~body:<span class="st">&quot;No user given</span><span class="ch">\n</span><span class="st">&quot;</span> ()
+          H.respond_string ~status:`Unauthorized ~body:<span class="st">&quot;No user given</span><span class="ch">\n</span><span class="st">&quot;</span> ()
     <span class="kw">in</span></code></pre></div>
 <p>It remains to start the ball rolling by creating the HTTP server and listening on some port, using underlying <code>CON</code>duit module implementation:</p>
-<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">    <span class="kw">let</span> spec = H<span class="kw">.</span>make ~callback:http_callback () <span class="kw">in</span>
-    CON<span class="kw">.</span>listen conduit (<span class="dt">`TCP</span> <span class="dv">8088</span>) (H<span class="kw">.</span>listen spec)
-end</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">    <span class="kw">let</span> spec = H.make ~callback:http_callback () <span class="kw">in</span>
+    CON.listen conduit (`TCP <span class="dv">8088</span>) (H.listen spec)
+<span class="kw">end</span></code></pre></div>
 <p>The single most important thing to note here is that this code is pretty much system-agnostic: There is no dependency on a particular low-level runtime infrastructure and the same code can be run either as a native binary on Unix or packaged as unikernel on Xen (or QEMU). Implementation details are hidden behind the signatures, e.g. interfaces, that parameterize the <code>Main</code> module and whose instances are passed to the <code>start</code> function.</p>
 <h2 id="configuring-mirage">Configuring Mirage</h2>
 <p>The second important file one has to write for a MirageOS application is the <code>config.ml</code> file which is used by <code>mirage</code> tool to generate the needed boilerplate to run the actual code.</p>
 <p>After the incantation to access <code>Mirage</code> module’s content, we define our first component that will be melded in our application. This one is a simple generic key/value store whose content will be built from the <code>data/</code> directory. In Unix mode requests for some key will be matched to the content of the <code>data/</code> directory, whereas in Xen mode we will need to pack that data inside a block device and mount that device in the built kernel</p>
-<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="ot">open</span> Mirage
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">open</span> Mirage
 
 <span class="kw">let</span> auth_data = generic_kv_ro <span class="st">&quot;data&quot;</span></code></pre></div>
 <p>Our second component is the HTTP server. We can see here our configuration depends on the underlying platform. Note that the <code>generic_stackv4</code> provides IPv4 implementation for both Unix and Xen and strictly speaking we could get rid of the <code>if_impl</code> construct. It is also possible to use a <code>direct_stackv4_with_default_ipv4</code> implementation on Xen: This will assign a static IP to the kernel which can be changed when configuring mirage.</p>
 <div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> server =
   <span class="kw">let</span> network =
-    if_impl Key<span class="kw">.</span>is_xen
+    if_impl Key.is_xen
             (generic_stackv4 default_console tap0)
-            (socket_stackv4 default_console [Ipaddr<span class="kw">.</span>V4<span class="kw">.</span>any]) <span class="kw">in</span>
+            (socket_stackv4 default_console [Ipaddr.V4.any]) <span class="kw">in</span>
   conduit_direct network</code></pre></div>
 <p>The <code>handler</code> function defines the general structure of our service and adds some libraries and packages to be imported by mirage. Then we can finally register our <code>auth_service</code> passing it the result of invoking handler with actual implementation of the modules it requires.</p>
 <div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> handler =
@@ -331,5 +331,15 @@ ARP: timeout 192.168.77.1</code></pre>
     </footer>
     
   </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>

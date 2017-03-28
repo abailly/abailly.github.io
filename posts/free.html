@@ -259,9 +259,13 @@ interpretEffect <span class="fu">=</span> coiter f (return ())
 
 <span class="kw">type</span> <span class="dt">Effect</span> <span class="fu">=</span> <span class="dt">Coproduct</span> <span class="dt">Logging</span> <span class="dt">Persist</span></code></pre></td></tr></table></div>
 <p>We are now ready to define and interpret programs mixing logging and persistence:</p>
-<blockquote>
-<p>let prog = store “bar” &gt;&gt; logI “foo” &gt;&gt; store “quux” &gt;&gt; logI “baz” :: Free Effect () λ&gt; pair const interpretEffect ((return &lt;$&gt; prog) :: Free Effect (IO ()) ) “storing bar” “foo” “storing quux” “baz” λ&gt;</p>
-</blockquote>
+<pre><code>&gt; let prog = store &quot;bar&quot; &gt;&gt; logI &quot;foo&quot; &gt;&gt; store &quot;quux&quot; &gt;&gt; logI &quot;baz&quot; :: Free Effect ()
+&gt; λ&gt; pair const interpretEffect ((return &lt;$&gt; prog) :: Free Effect (IO ()) )
+&gt; &quot;storing bar&quot;
+&gt; &quot;foo&quot;
+&gt; &quot;storing quux&quot;
+&gt; &quot;baz&quot;
+&gt; λ&gt; </code></pre>
 <h1 id="conclusion">Conclusion</h1>
 <p>As is often the case when dealing with “complex” or rather unfamiliar category theoretic constructions, I am fascinated by the elegance of the solution but I can’t help asking “What’s the point?” There is always a simpler solution which does not require all this machinery and solves the problem at hand. But in this case I am really excited about the possibilities it opens in terms of engineering and architecting our system, because it gives us a clear and rather easy way to:</p>
 <ul>
@@ -300,5 +304,15 @@ interpretEffect <span class="fu">=</span> coiter f (return ())
     </footer>
     
   </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>

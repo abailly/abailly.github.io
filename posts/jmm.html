@@ -100,14 +100,14 @@
 <span class="kw">public</span> <span class="dt">int</span> y = <span class="dv">0</span>;
 
 <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span> () {
-  Thread p1 = <span class="kw">new</span> Thread() {
+  <span class="bu">Thread</span> p1 = <span class="kw">new</span> <span class="bu">Thread</span>() {
     <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {
        <span class="dt">int</span> r1 = x;
        <span class="kw">if</span>(r1 != <span class="dv">0</span>) y = <span class="dv">42</span>;
     }
   };
 
-  Thread p2 = <span class="kw">new</span> Thread() {
+  <span class="bu">Thread</span> p2 = <span class="kw">new</span> <span class="bu">Thread</span>() {
     <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {
        <span class="dt">int</span> r2 = y;
        <span class="kw">if</span>(r2 != <span class="dv">0</span>) x = <span class="dv">42</span>;
@@ -148,14 +148,14 @@ p2: x = 42; </code></pre>
 <p>It should be noted that reads of “later” writes may still be possible if it respects the causality constraints. In the example, this may not happen but the following program makes it perfectly admissible (by the way, this program is not data-race free):</p>
 <div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">  <span class="dt">int</span> x = <span class="dv">0</span>;
   <span class="dt">int</span> y = <span class="dv">0</span>;
-  Thread p1 = <span class="kw">new</span> Thread() {
+  <span class="bu">Thread</span> p1 = <span class="kw">new</span> <span class="bu">Thread</span>() {
     <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {
        <span class="dt">int</span> r1 = x;
        <span class="kw">if</span>(r1 == <span class="dv">1</span>) y = <span class="dv">1</span>;
     }
   };
 
-  Thread p2 = <span class="kw">new</span> Thread() {
+  <span class="bu">Thread</span> p2 = <span class="kw">new</span> <span class="bu">Thread</span>() {
     <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {
        <span class="dt">int</span> r2 = y;
        <span class="kw">if</span>(r2 == <span class="dv">1</span>) x = <span class="dv">1</span>;
@@ -209,5 +209,15 @@ p2: x = 42; </code></pre>
     </footer>
     
   </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>

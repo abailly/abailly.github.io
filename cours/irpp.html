@@ -35,19 +35,23 @@
     <div id="main" role="main">
 <h1>Calcul de l'Impôt</h1>
 
+<section class="slide level2">
+
 <p>Une version simplifiée du calcul de l’<em>impôt sur le revenu des personnes physiques</em> (IRPP).</p>
-<h2 id="calculs">Calculs</h2>
+</section>
+<section id="calculs" class="slide level2">
+<h1>Calculs</h1>
 <p>Le montant de l’impôt est calculé par <em>foyer fiscal</em>, composé de une ou plusieurs personnes. Pour chaque foyer, on dispose des informations suivantes, tirées du formulaire CERFA 2042:</p>
 <ul>
-<li>situation familiale: marié/pacsé, célibataire, veuf, divorcé;</li>
-<li>revenus imposables (<span class="math inline"><em>R</em></span>): revenu du foyer fiscal constituant la base de calcul de l’IRPP;</li>
-<li>charges déductibles (<span class="math inline"><em>D</em></span>): charges déductibles du revenu imposable;</li>
-<li>crédits d’impôts (<span class="math inline"><em>C</em></span>): charges déductibles du montant de l’impôt;</li>
-<li>nombre de parts (<span class="math inline"><em>Q</em></span>): permet le calcul du quotient familial, voir ci-dessous.</li>
+<li class="fragment">situation familiale: marié/pacsé, célibataire, veuf, divorcé;</li>
+<li class="fragment">revenus imposables (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>): revenu du foyer fiscal constituant la base de calcul de l’IRPP;</li>
+<li class="fragment">charges déductibles (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>): charges déductibles du revenu imposable;</li>
+<li class="fragment">crédits d’impôts (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>): charges déductibles du montant de l’impôt;</li>
+<li class="fragment">nombre de parts (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>): permet le calcul du quotient familial, voir ci-dessous.</li>
 </ul>
-<p>L’équation suivante permet de calculer la <em>base imposable</em> (<span class="math inline"><em>B</em></span>) du foyer: <span class="math inline">$B = \frac{(R - D)}{Q}$</span>.</p>
+<p>L’équation suivante permet de calculer la <em>base imposable</em> (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>) du foyer: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mo>−</mo><mi>D</mi><mo stretchy="false" form="postfix">)</mo></mrow><mi>Q</mi></mfrac></mrow><annotation encoding="application/x-tex">B = \frac{(R - D)}{Q}</annotation></semantics></math>.</p>
 <h3 id="barème">Barème</h3>
-<p>Le calcul de l’<em>impôt brut</em> <span class="math inline"><em>I</em>′</span> dépend du tableau ci-dessous des tranches d’imposition. Chaque tranche du montant <span class="math inline"><em>B</em></span> est imposée selon un taux différent, le montant final dépendant de la somme des impôts calculés par tranche (les montants sont en euros).</p>
+<p>Le calcul de l’<em>impôt brut</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mi>′</mi></mrow><annotation encoding="application/x-tex">I'</annotation></semantics></math> dépend du tableau ci-dessous des tranches d’imposition. Chaque tranche du montant <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math> est imposée selon un taux différent, le montant final dépendant de la somme des impôts calculés par tranche (les montants sont en euros).</p>
 <p>De || A || Taux |<br />
 0 | 4.413 € | 0% |<br />
 4.414 € | 8.677 € | 6,83 % |<br />
@@ -55,35 +59,39 @@
 15.275 € | 24.731 € | 28,26 % |<br />
 24.732 € | 40.241 € | 37,38 % |<br />
 40.242 € | 49.624 € | 42,62 % |<br />
-49.624 € | <span class="math inline">∞</span> | 48,09 % |</p>
-<p>Enfin, le calcul de l’<em>impôt net</em> <span class="math inline"><em>I</em></span> à acquitter dépend des crédits d’impôts et est synthétisé dans l’équation :</p>
-<p><br /><span class="math display">$$I = I' - \frac{1}{2}C.$$</span><br /></p>
+49.624 € | <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>∞</mi><annotation encoding="application/x-tex">\infty</annotation></semantics></math> | 48,09 % |</p>
+<p>Enfin, le calcul de l’<em>impôt net</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> à acquitter dépend des crédits d’impôts et est synthétisé dans l’équation :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><mi>I</mi><mi>′</mi><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>C</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">I = I' - \frac{1}{2}C.</annotation></semantics></math></p>
 <h3 id="nombre-de-parts">Nombre de parts</h3>
 <p>La base du nombre de parts du foyer fiscal est de 1 pour une personne vivant seule (célibataire, veuf ou veuve, divorcée) et de 2 pour un couple (marié ou pacsé). Ce nombre de parts est augmenté de:</p>
 <ul>
-<li>0,5 pour le premier et le deuxième enfant à charge;</li>
-<li>0,5 pour les veufs et veuves ;</li>
-<li>1 pour chaque enfant à charge au delà du deuxième.</li>
+<li class="fragment">0,5 pour le premier et le deuxième enfant à charge;</li>
+<li class="fragment">0,5 pour les veufs et veuves ;</li>
+<li class="fragment">1 pour chaque enfant à charge au delà du deuxième.</li>
 </ul>
 <p>Toutefois, la réduction d’impôt provenant d’un enfant à charge est plafonnée à 2159 € par demi-part au-delà de 1 part (pour les personnes seules) et 2 parts (pour les couples).</p>
-<h2 id="exemple">Exemple</h2>
+</section>
+<section id="exemple" class="slide level2">
+<h1>Exemple</h1>
 <p>Soit un couple marié dont les caractéristiques sont les suivantes:</p>
 <ul>
-<li><span class="math inline"><em>R</em> = 110000</span>;</li>
-<li><span class="math inline"><em>D</em> = 3000</span>;</li>
-<li><span class="math inline"><em>C</em> = 900</span>;</li>
-<li><span class="math inline"><em>Q</em> = 4</span> (3 enfants).</li>
+<li class="fragment"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mn>110000</mn></mrow><annotation encoding="application/x-tex">R=110000</annotation></semantics></math>;</li>
+<li class="fragment"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>3000</mn></mrow><annotation encoding="application/x-tex">D=3000</annotation></semantics></math>;</li>
+<li class="fragment"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mn>900</mn></mrow><annotation encoding="application/x-tex">C=900</annotation></semantics></math>;</li>
+<li class="fragment"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">Q=4</annotation></semantics></math> (3 enfants).</li>
 </ul>
 <p>Les règles de calcul ci-dessus nous donnent donc pour la base imposable:</p>
-<p><br /><span class="math display"><em>B</em> = (<em>R</em> − <em>D</em>)/<em>Q</em> = (110000 − 3000)/4 = 26750, </span><br /></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mo>−</mo><mi>D</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>Q</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>110000</mn><mo>−</mo><mn>3000</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>4</mn><mo>=</mo><mn>26750</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">B=(R-D)/Q=(110000-3000)/4= 26750,</annotation></semantics></math></p>
 <p>soit un impôt brut de:</p>
-<p><br /><span class="math display"><em>I</em>′ = (26750 − 24732) × 37, 38% + 4226, 45 = 4981, 15</span><br />.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mi>′</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>26750</mn><mo>−</mo><mn>24732</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mn>37</mn><mo>,</mo><mn>38</mn><mi>%</mi><mo>+</mo><mn>4226</mn><mo>,</mo><mn>45</mn><mo>=</mo><mn>4981</mn><mo>,</mo><mn>15</mn></mrow><annotation encoding="application/x-tex">I' =(26750-24732) \times 37,38\% + 4226,45 = 4981,15</annotation></semantics></math>.</p>
 <p>Sans prendre en compte les enfants, le montant de l’impôt serait de:</p>
-<p><br /><span class="math display"><em>I</em>′ = (53500 − 49624) × 48, 09% + 14023, 12 = 15887, 09, </span><br /></p>
-<p>la différence est de <span class="math inline">15887 − 4981 = 10906</span>, soit au dessus du plafond de déduction autorisé compte-tenu du nombre de parts supplémentaires de <span class="math inline">2159 × 4 = 8636</span>. Le montant net de l’impôt est donc de: <span class="math inline"><em>I</em> = 15887 − 8636 − (900/2) = 6801.</span></p>
-<h2 id="interfaces">Interfaces</h2>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mi>′</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>53500</mn><mo>−</mo><mn>49624</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mn>48</mn><mo>,</mo><mn>09</mn><mi>%</mi><mo>+</mo><mn>14023</mn><mo>,</mo><mn>12</mn><mo>=</mo><mn>15887</mn><mo>,</mo><mn>09</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">I' = (53500 - 49624) \times 48,09\% +  14023,12 = 15887,09,</annotation></semantics></math></p>
+<p>la différence est de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>15887</mn><mo>−</mo><mn>4981</mn><mo>=</mo><mn>10906</mn></mrow><annotation encoding="application/x-tex">15887 - 4981 = 10906</annotation></semantics></math>, soit au dessus du plafond de déduction autorisé compte-tenu du nombre de parts supplémentaires de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2159</mn><mo>×</mo><mn>4</mn><mo>=</mo><mn>8636</mn></mrow><annotation encoding="application/x-tex">2159\times 4 = 8636</annotation></semantics></math>. Le montant net de l’impôt est donc de: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><mn>15887</mn><mo>−</mo><mn>8636</mn><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mn>900</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>6801</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">I = 15887 - 8636 - (900 / 2) = 6801.</annotation></semantics></math></p>
+</section>
+<section id="interfaces" class="slide level2">
+<h1>Interfaces</h1>
 <p>Le système à tester utilise la classe <code>irpp.Cerfa2042</code> pour représenter un formulaire de déclaration. Cette classe est un simple <em>bean</em> servant à stocker les données qui sont transmises pour le calcul de l’impôt.</p>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">package irpp;</span>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">package</span><span class="im"> irpp;</span>
 
 <span class="kw">public</span> <span class="kw">class</span> Cerfa2042 {
   
@@ -107,17 +115,18 @@
 
 }</code></pre></div>
 <p>Le calcul de l’impôt est effectivement réalisé par une instance de l’interface <code>irpp.CalculIRPP</code>:</p>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">package irpp;</span>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">package</span><span class="im"> irpp;</span>
 
 <span class="kw">public</span> <span class="kw">interface</span> CalculIRPP {
 
-  <span class="kw">public</span> <span class="dt">static</span> <span class="kw">class</span> DeclarationInvalideException <span class="kw">extends</span> Exception {
+  <span class="kw">public</span> <span class="dt">static</span> <span class="kw">class</span> DeclarationInvalideException <span class="kw">extends</span> <span class="bu">Exception</span> {
    ...
   }
 
   <span class="dt">int</span> <span class="fu">calculerImpot</span>(Cerfa2042 form) <span class="kw">throws</span> DeclarationInvalideException;
 }</code></pre></div>
 <p>Tous les montants en entrée et en sortie sont des entiers représentant des euros. Tous les calculs sont supposés être réalisés de manière exacte et arrondis à l’euro le plus proche au dernier moment.</p>
+</section>
 
     </div>
     <footer>
@@ -125,5 +134,15 @@
     </footer>
     
   </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>

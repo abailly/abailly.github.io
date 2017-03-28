@@ -84,7 +84,7 @@
 <pre><code>Natural = Zero + Succ (Zero) + Succ (Succ (Zero)) +...</code></pre>
 <p><code>Natural</code> apparait bien comme un ensemble infini d’éléments qui sont soit <code>Zero</code> soit de la forme <span class="math inline"><em>S</em><em>u</em><em>c</em><em>c</em><sup><em>n</em></sup><em>Z</em><em>e</em><em>r</em><em>o</em></span> pour tout <span class="math inline"><em>n</em></span> entier.</p>
 <p>Du point de vue mathématique, la solution d’une équtation de la forme <span class="math inline"><em>x</em> = <em>f</em>(<em>x</em>)</span> est appelée un <em>point fixe</em>, ce qui est bien la forme de l’équation de Natural. On peut donc dire que <code>Natural</code> est le point fixe de l’équation <span class="math inline"><em>X</em> = <em>Z</em><em>e</em><em>r</em><em>o</em> + <em>S</em><em>u</em><em>c</em><em>c</em>(<em>X</em>)</span>. Nous disons <em>le</em> point fixe, mais ce n’est pas tout à fait exact : comme on ne considére que des nombres finis (même si l’ensemble lui-même est de taille infinie), il s’agit là du <em>plus petit point fixe</em>. Il existe en effet des ensembles qui sont des points fixes de cette équation mais dont la cardinalité est plus grande que N car ils contiennent des nombres infinis (en quantité infinie…).</p>
-<p>Ce type de définition étant très courant, il a paru utile de généraliser cette notion de <em>plus petit point fixe</em>, d’où l’introduction l’opérateur <em>μ</em>. Pour toute fonction f, μf est le plus petit point fixe de f, plus formellement: <br /><span class="math display"><em>μ</em><em>f</em> = <em>x</em> ∈ <em>d</em><em>o</em><em>m</em>(<em>f</em>), <em>x</em> = <em>f</em>(<em>x</em>)<em>e</em><em>t</em>∀<em>x</em>′ ∈ <em>d</em><em>o</em><em>m</em>(<em>f</em>), <em>x</em>′ = <em>f</em>(<em>x</em>′) ⇒ <em>x</em>′ ≥ <em>x</em></span><br /></p>
+<p>Ce type de définition étant très courant, il a paru utile de généraliser cette notion de <em>plus petit point fixe</em>, d’où l’introduction l’opérateur <em>μ</em>. Pour toute fonction f, μf est le plus petit point fixe de f, plus formellement: <br /><span class="math display"><em>μ</em><em>f</em> = <em>x</em> ∈ <em>d</em><em>o</em><em>m</em>(<em>f</em>),<em>x</em> = <em>f</em>(<em>x</em>)<em>e</em><em>t</em>∀<em>x</em>′∈<em>d</em><em>o</em><em>m</em>(<em>f</em>),<em>x</em>′=<em>f</em>(<em>x</em>′) ⇒ <em>x</em>′≥<em>x</em></span><br /></p>
 <p>Or ici la définition de Natural ne semble pas être une fonction. En fait, pour qu’une définition de type soit une fonction, il faut qu’elle soit une fonction sur des types, prenant en argument des types et retournant des types, en d’autres termes un foncteur. Mais c’est exactement ce que dit la forme <span class="math inline"><em>Z</em><em>e</em><em>r</em><em>o</em> + <em>S</em><em>u</em><em>c</em><em>c</em>(<em>X</em>)</span> où X désigne un type quelconque, et donc on peut légitimement définir <code>Natural  = μ(Zero + Succ(x))</code> comme un ensemble d’éléments point fixe d’un foncteur.</p>
 <h3 id="définition-explicite">Définition explicite</h3>
 <p>Toute cette mécanique est rendu implicite dans tous les langages, même les plus plus sophistiqués comme Haskell, Scala ou Caml. Pour définir un type de données récursif, nul besoin d’utiliser l’opérateur μ, on se contente d’utiliser les possibilités syntaxiques du langage qui autorise l’utilisation du nom d’un type dans sa définition. Mais pour pouvoir généraliser les mécanismes de récursions sous forme de FOS, il est nécessaire de déconstruire cette vision et d’introduire explicitement la récursion.</p>
@@ -188,5 +188,15 @@ toInt <span class="fu">=</span> cata intalgebra</code></pre></div>
     </footer>
     
   </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>

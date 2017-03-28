@@ -35,66 +35,72 @@
     <div id="main" role="main">
 <h1></h1>
 
+<section class="slide level2">
+
 <blockquote>
 <p><strong>Les références à des outils ne sont plus à jour</strong></p>
 </blockquote>
-<h1 id="couverture-de-test-structurel">Couverture de test structurel</h1>
-<h2 id="introduction">Introduction</h2>
+</section>
+<section><section id="couverture-de-test-structurel" class="titleslide slide level1"><h1>Couverture de test structurel</h1></section><section id="introduction" class="slide level2">
+<h1>Introduction</h1>
 <h3 id="principes">Principes</h3>
 <ul>
-<li>technique de test dynamique;</li>
-<li>basée sur l’examen du code source pour produire les DT (Données de Test);</li>
-<li>exécution du programme avec ces DT, comparaison des résultats avec la spécification.</li>
+<li class="fragment">technique de test dynamique;</li>
+<li class="fragment">basée sur l’examen du code source pour produire les DT (Données de Test);</li>
+<li class="fragment">exécution du programme avec ces DT, comparaison des résultats avec la spécification.</li>
 </ul>
 <p>Principalement basé sur des critères de couverture d’un graphe:</p>
 <ul>
-<li>comportement du programme = chemin dans ce graphe;</li>
-<li>tester un comportement = «couvrir» le chemin associé;</li>
-<li>le taux de couverture indique la proportion du code sensibilisée par les tests;</li>
-<li>deux grandes méthodes:</li>
-<li>basée sur le flot de contrôle (ce cours);</li>
-<li>basée sur le flot des données (cours suivant).</li>
+<li class="fragment">comportement du programme = chemin dans ce graphe;</li>
+<li class="fragment">tester un comportement = «couvrir» le chemin associé;</li>
+<li class="fragment">le taux de couverture indique la proportion du code sensibilisée par les tests;</li>
+<li class="fragment">deux grandes méthodes:</li>
+<li class="fragment">basée sur le flot de contrôle (ce cours);</li>
+<li class="fragment">basée sur le flot des données (cours suivant).</li>
 </ul>
 <h3 id="avantages-et-inconvénients">Avantages et Inconvénients</h3>
 <p>Avantages :: - Permet de vérifier qu’une suite de tests fonctionnels couvre l’ensemble du code (en pratique, une suite de tests fonctionnelle couvre entre 40 et 60% du code); - Permet éventuellement de découvrir des “surprises”, cad du code superflu sans rapport avec les spécifications;</p>
 <p>Attention ! :: - couverture de 100% ne veut pas dire test exhaustif ! - donc n’implique pas le zéro défaut ! - arrêt du test qd couverture souhaitée et les tests passent sur code non instrumenté (on ne sait jamais).</p>
 <p>Inconvénients :: - pas très adapté au formalisme objet;</p>
-<h2 id="notions-sur-les-graphes">Notions sur les graphes</h2>
+</section><section id="notions-sur-les-graphes" class="slide level2">
+<h1>Notions sur les graphes</h1>
 <p>A peu près tous les critères de couverture sont basés sur la notion de graphes: graphes de contrôle, graphes de flot de données, graphes d’appels, BDD pour les prédicats.</p>
-<p>Un <em>graphe dirigé</em> =(S,A,s,t)= est un ensemble de sommets <span class="math inline"><em>S</em></span> et un ensemble d’arcs <span class="math inline"><em>A</em> ∈ <em>S</em><em>x</em><em>S</em></span> et deux applications <span class="math inline"><em>s</em> : <em>A</em> → <em>S</em></span> et <span class="math inline"><em>t</em> : <em>A</em> → <em>S</em></span> identifiant le début et la fin d’un arc. Le graphe principal est le <strong>graphe de contrôle</strong> qui représente l’ensemble des flots d’exécution possibles du début à la fin d’une méthode ou d’un ensemble de méthodes. D’autres graphes sont construits à partir de celui-ci par morphisme ou réetiquetage des arcs.</p>
-<p>Chemin :: une séquence d’arcs <span class="math inline"><em>a</em>1, <em>a</em>2, ..., <em>a</em><em>n</em></span> telle que <span class="math inline"><em>s</em>(<em>a</em><sub><em>i</em></sub>) = <em>t</em>(<em>a</em><sub><em>i</em> − 1</sub>)</span>. Un chemin peut aussi être donné par les noeuds le composant.</p>
+<p>Un <em>graphe dirigé</em> =(S,A,s,t)= est un ensemble de sommets <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math> et un ensemble d’arcs <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>∈</mo><mi>S</mi><mi>x</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">A \in SxS</annotation></semantics></math> et deux applications <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>:</mo><mi>A</mi><mo accent="false">→</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">s: A \rightarrow S</annotation></semantics></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>:</mo><mi>A</mi><mo accent="false">→</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">t: A \rightarrow S</annotation></semantics></math> identifiant le début et la fin d’un arc. Le graphe principal est le <strong>graphe de contrôle</strong> qui représente l’ensemble des flots d’exécution possibles du début à la fin d’une méthode ou d’un ensemble de méthodes. D’autres graphes sont construits à partir de celui-ci par morphisme ou réetiquetage des arcs.</p>
+<p>Chemin :: une séquence d’arcs <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mn>1</mn><mo>,</mo><mi>a</mi><mn>2</mn><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><mi>a</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">a1, a2, ... , an</annotation></semantics></math> telle que <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>t</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">s(a_i)=t(a_{i-1})</annotation></semantics></math>. Un chemin peut aussi être donné par les noeuds le composant.</p>
 <p>Parcours :: l’ensenmble des noeuds composant un chemin.</p>
 <p>Chemin indépendant :: Un chemin qui ne peut être représenté comme combinaison linéaire d’autrens chemins.</p>
-<p>Cycle :: Un chemin tel que <span class="math inline"><em>s</em>(<em>a</em><sub>1</sub>) = <em>t</em>(<em>a</em><sub><em>n</em></sub>)</span>. Si <span class="math inline"><em>n</em> = 1</span>, on parlera plutôt de boucle.</p>
-<p><span class="math inline">(<em>p</em>, <em>q</em>)</span>-chemin :: Chemin du noeud <span class="math inline"><em>p</em></span> au noeud <span class="math inline"><em>q</em></span>.</p>
-<h2 id="outillage">Outillage</h2>
+<p>Cycle :: Un chemin tel que <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>t</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">s(a_1) = t(a_n)</annotation></semantics></math>. Si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n=1</annotation></semantics></math>, on parlera plutôt de boucle.</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>,</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(p,q)</annotation></semantics></math>-chemin :: Chemin du noeud <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> au noeud <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>.</p>
+</section><section id="outillage" class="slide level2">
+<h1>Outillage</h1>
 <h3 id="analyseur-de-couverture-cf-tp">Analyseur de couverture (cf Tp):</h3>
 <ul>
-<li>instrumentation des sources ou exécutable pour tracer le code par analyse syntaxique (numérotation des lignes de code);</li>
-<li>l’exécution du programme produit un fichier de traces;</li>
-<li>analyse des traces : rapport de couverture</li>
-<li>indique combien de fois chaque ligne de code a été exécutée.</li>
+<li class="fragment">instrumentation des sources ou exécutable pour tracer le code par analyse syntaxique (numérotation des lignes de code);</li>
+<li class="fragment">l’exécution du programme produit un fichier de traces;</li>
+<li class="fragment">analyse des traces : rapport de couverture</li>
+<li class="fragment">indique combien de fois chaque ligne de code a été exécutée.</li>
 </ul>
 <p>Quelques analyseurs de couverture :</p>
 <ul>
-<li><a href="http://www.cenqua.com/clover/">Clover</a> : outil commercial, couverture des méthodes (méthode exécutée ou non), des branches (arcs) et des instructions (noeuds). Très bonne intégration dans les environnements de développement, très cher.</li>
-<li><a href="http://www.jcoverage.com">jcoverage</a> : outil commercial avec une version GPL</li>
-<li><a href="http://cobertura.sourceforge.net/">cobertura</a> : open-source, basé sur la version GPL de jcoverage</li>
-<li><a href="http://emma.sourceforge.net/">emma</a></li>
-<li><a href="http://www.oqube.com/projects/patchwork">Patchwork</a></li>
+<li class="fragment"><a href="http://www.cenqua.com/clover/">Clover</a> : outil commercial, couverture des méthodes (méthode exécutée ou non), des branches (arcs) et des instructions (noeuds). Très bonne intégration dans les environnements de développement, très cher.</li>
+<li class="fragment"><a href="http://www.jcoverage.com">jcoverage</a> : outil commercial avec une version GPL</li>
+<li class="fragment"><a href="http://cobertura.sourceforge.net/">cobertura</a> : open-source, basé sur la version GPL de jcoverage</li>
+<li class="fragment"><a href="http://emma.sourceforge.net/">emma</a></li>
+<li class="fragment"><a href="http://www.oqube.com/projects/patchwork">Patchwork</a></li>
 </ul>
 <h3 id="générateur-automatique-de-dt.">Générateur automatique de DT.</h3>
 <ul>
-<li>produit des données permettant de <em>sensibiliser</em> certains chemins en fonction de critères déterminés par l’utilisateur</li>
-<li>nécessite généralement de construire puis résoudre des systèmes de contraintes</li>
-<li>dans le cas général, c’est un problème <strong>indécidable</strong>.</li>
+<li class="fragment">produit des données permettant de <em>sensibiliser</em> certains chemins en fonction de critères déterminés par l’utilisateur</li>
+<li class="fragment">nécessite généralement de construire puis résoudre des systèmes de contraintes</li>
+<li class="fragment">dans le cas général, c’est un problème <strong>indécidable</strong>.</li>
 </ul>
-<h2 id="comparaison-avec-les-critères-de-test-fonctionnel">Comparaison avec les critères de test fonctionnel</h2>
+</section><section id="comparaison-avec-les-critères-de-test-fonctionnel" class="slide level2">
+<h1>Comparaison avec les critères de test fonctionnel</h1>
 <p>Les deux sont complémentaires.</p>
 <ul>
-<li>le test structurel nécessite le code source;</li>
-<li>teste que ce qui est codé, ne peut pas tester ce qui aurait dû l’être !</li>
-<li>un ex où un test fonctionnel est plus susceptible de détecter un bug:</li>
+<li class="fragment">le test structurel nécessite le code source;</li>
+<li class="fragment">teste que ce qui est codé, ne peut pas tester ce qui aurait dû l’être !</li>
+<li class="fragment">un ex où un test fonctionnel est plus susceptible de détecter un bug:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">      <span class="co">/** Retourne </span>
 <span class="co">      - 0 si a et b sont pairs, </span>
@@ -109,7 +115,7 @@
                       <span class="co">// devrait être 2*x+y</span>
       }</code></pre></div>
 <ul>
-<li>un ex où le test structurel est plus susceptible de détecter un bug:</li>
+<li class="fragment">un ex où le test structurel est plus susceptible de détecter un bug:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">      <span class="co">/** calcul de factorielle n, n&gt;=0. </span>
 <span class="co">      fact(0) = 1 ; si n&gt;=1 : fact(n) = n*fact(n-1);  </span>
@@ -124,29 +130,30 @@
 <p>Les termes <em>test fonctionnel/test structurel</em> sont incorrects, incomplets, trompeurs. Le test est <strong>toujours</strong> fonctionnel en ceci qu’il vérifie que la fonction réalisée par le code est correct. La question est: que signifie le terme <em>correct</em> ?</p>
 <p>Correct = la fonction passe tous les tests permettant d’atteindre un certain objectif fixé a priori comme <strong>critère</strong> de correction. On devrait parler de <em>critère de test fonctionnel</em> vs. <em>critère de test structurel</em> ce qui serait déjà plus juste.</p>
 <p>Plus précis: - critère de test <strong>syntaxique</strong>: s’intéresse au <em>comment</em>, défini par rapport à la structure du modèle/code source/bytecode/assembleur supposé réalisé la fonction attendue - critère de test <strong>sémantique</strong> : définit par rapport à la fonction attendue elle-même (spécification, exigences, modèle non exécutable)…</p>
-<h1 id="graphe-de-contrôle">Graphe de contrôle</h1>
-<h2 id="chemins-dans-un-graphe-de-contrôle">Chemins dans un graphe de contrôle</h2>
+</section></section>
+<section><section id="graphe-de-contrôle" class="titleslide slide level1"><h1>Graphe de contrôle</h1></section><section id="chemins-dans-un-graphe-de-contrôle" class="slide level2">
+<h1>Chemins dans un graphe de contrôle</h1>
 <p>Graphe de contrôle</p>
 <ul>
-<li>un noeud représente soit:</li>
-<li>un segment: un bloc d’instructions séquentielles tel qu’aucun transfert de contrôle n’y est exécuté;</li>
-<li>un prédicat: noeud de décision, permet le transfert du contrôle;</li>
-<li>un arc entre deux noeuds, éventuellement étiqueté par une condition c représente un transfert de contrôle entre ces deux noeuds (soit inconditionnel, soit conditionné par c);</li>
+<li class="fragment">un noeud représente soit:</li>
+<li class="fragment">un segment: un bloc d’instructions séquentielles tel qu’aucun transfert de contrôle n’y est exécuté;</li>
+<li class="fragment">un prédicat: noeud de décision, permet le transfert du contrôle;</li>
+<li class="fragment">un arc entre deux noeuds, éventuellement étiqueté par une condition c représente un transfert de contrôle entre ces deux noeuds (soit inconditionnel, soit conditionné par c);</li>
 </ul>
 <p>Deux noeuds spéciaux:</p>
 <ul>
-<li>un unique noeud d’entrée <code>start</code>: noeud sans prédecesseurs à partir duquel tous les noeuds du graphe sont accessibles;</li>
-<li>un unique noeud de sortie <code>end</code>: noeud sans successeurs accessible à partir de tout noeud.</li>
+<li class="fragment">un unique noeud d’entrée <code>start</code>: noeud sans prédecesseurs à partir duquel tous les noeuds du graphe sont accessibles;</li>
+<li class="fragment">un unique noeud de sortie <code>end</code>: noeud sans successeurs accessible à partir de tout noeud.</li>
 </ul>
 <p>Différents graphes associés aux structures de contrôle. En Java:</p>
 <ul>
-<li>conditionnelle simple</li>
-<li>conditionnelle double</li>
-<li>boucle while</li>
-<li>boucle do</li>
-<li>boucle for</li>
-<li>exceptions</li>
-<li>break, return, continue</li>
+<li class="fragment">conditionnelle simple</li>
+<li class="fragment">conditionnelle double</li>
+<li class="fragment">boucle while</li>
+<li class="fragment">boucle do</li>
+<li class="fragment">boucle for</li>
+<li class="fragment">exceptions</li>
+<li class="fragment">break, return, continue</li>
 </ul>
 <p>Attention :: En java, le traitement des exceptions peut provoquer des branchements cachés dans le code.</p>
 <h3 id="chemins-de-contrôle">Chemins de contrôle</h3>
@@ -168,16 +175,16 @@ S.<span class="fu">O</span>.<span class="fu">P</span>(<span class="dv">1</span>/
 <h3 id="expression-de-chemins">Expression de chemins</h3>
 <p>Des ensembles de chemin de contrôles peuvent s’exprimer comme des #expressions régulières*. Le graphe précédent comprend 4 chemins de contrôle (noeuds d’entrée et sortie implicites):</p>
 <ul>
-<li>ch1 = <code>abdeg</code></li>
-<li>ch2 = <code>acdeg</code></li>
-<li>ch3 = <code>abdfg</code></li>
-<li>ch4 = <code>acdfg</code></li>
+<li class="fragment">ch1 = <code>abdeg</code></li>
+<li class="fragment">ch2 = <code>acdeg</code></li>
+<li class="fragment">ch3 = <code>abdfg</code></li>
+<li class="fragment">ch4 = <code>acdfg</code></li>
 </ul>
 <p>On note:</p>
 <ul>
-<li><code>ab</code> la séquence <code>a</code> puis <code>b</code>;</li>
-<li><code>ch1+ch2</code> pour exprimer le choix entre <code>ch1</code> et <code>ch2</code></li>
-<li>=a*= pour l’ensemble des chemins <code>a+aa+...</code></li>
+<li class="fragment"><code>ab</code> la séquence <code>a</code> puis <code>b</code>;</li>
+<li class="fragment"><code>ch1+ch2</code> pour exprimer le choix entre <code>ch1</code> et <code>ch2</code></li>
+<li class="fragment">=a*= pour l’ensemble des chemins <code>a+aa+...</code></li>
 </ul>
 <p>L’ensemble des chemins de contrôle pour le graphe est donc:</p>
 <p>ch1+ch2+ch3+ch4, ou</p>
@@ -245,13 +252,14 @@ S.<span class="fu">O</span>.<span class="fu">P</span>(<span class="dv">1</span>/
   }
     
 }</code></pre></div>
-<h2 id="sensibilisation-et-jeux-de-tests">Sensibilisation et jeux de tests</h2>
+</section><section id="sensibilisation-et-jeux-de-tests" class="slide level2">
+<h1>Sensibilisation et jeux de tests</h1>
 <p>Sensibiliser un chemin :: Définir les données initiales du SUT permettant d’exécuter un chemin particulier.</p>
 <h3 id="chemins-exécutables-non-exécutables">Chemins exécutables / non exécutables</h3>
 <p>On dit que la DT <code>{x=-2,y=_}</code> ou simplement <code>{x=-2}</code> sensibilise le chemin ch3=abdfg, car pour cette valeur de x le code suit ce chemin de contrôle en visitant consécutivement ces noeuds. On a aussi:</p>
 <ul>
-<li><code>{x=3}</code> sensibilise ch4 = acdfg</li>
-<li><code>{x=2}</code> sensibilise ch2 = acdeg</li>
+<li class="fragment"><code>{x=3}</code> sensibilise ch4 = acdfg</li>
+<li class="fragment"><code>{x=2}</code> sensibilise ch2 = acdeg</li>
 </ul>
 <p>ch2, ch3 et ch4 sont des chemins exécutables, car il existe une DT qui les sensibilise.</p>
 <p>Par contre on constate qu’aucune valeur de x ne permet de sensibiliser ch1 (si on passe au noeud b on ne passera jamais au noeud e): c’est un chemin non-exécutable.</p>
@@ -260,33 +268,34 @@ S.<span class="fu">O</span>.<span class="fu">P</span>(<span class="dv">1</span>/
 <h3 id="chemins-et-erreurs">Chemins et erreurs</h3>
 <p>Relativement à l’erreur au noeud g:</p>
 <ul>
-<li>Le chemin ch2 = acdeg est révélateur d’erreur car une erreur est tjs générée s’il est exécuté, quelle que soit la DT qui le sensibilise.</li>
-<li>Le chemin ch3 = abdfg est sensible aux erreurs car il génère une erreur pour la DT {x=-1}.</li>
-<li>Le chemin ch4 = acdfg est correct car il ne génère pas d’erreur quelle que soit la DT qui le sensibilise.</li>
+<li class="fragment">Le chemin ch2 = acdeg est révélateur d’erreur car une erreur est tjs générée s’il est exécuté, quelle que soit la DT qui le sensibilise.</li>
+<li class="fragment">Le chemin ch3 = abdfg est sensible aux erreurs car il génère une erreur pour la DT {x=-1}.</li>
+<li class="fragment">Le chemin ch4 = acdfg est correct car il ne génère pas d’erreur quelle que soit la DT qui le sensibilise.</li>
 </ul>
 <h3 id="sensibilisation-dun-chemin">Sensibilisation d’un chemin</h3>
 <p>Étant donné un chemin qu’on a envie de sensibiliser, comment trouver une DT qui exécute ce chemin ? Problème très difficile:</p>
-<ol style="list-style-type: decimal">
-<li>décider si le chemin est exécutable ou pas (indécidable ds le cas général = formellement impossible de construire un algorithme général qui décide de l’exécutablilité ou de la non exécutabilité de n’importe quel chemin);</li>
-<li>s’il l’est trouver une DT.</li>
+<ol type="1">
+<li class="fragment">décider si le chemin est exécutable ou pas (indécidable ds le cas général = formellement impossible de construire un algorithme général qui décide de l’exécutablilité ou de la non exécutabilité de n’importe quel chemin);</li>
+<li class="fragment">s’il l’est trouver une DT.</li>
 </ol>
 <p>Chemins non-exécutables = casse-tête du testeur. Signalent parfois:</p>
 <ul>
-<li>une erreur de codage;</li>
-<li>du code mort;</li>
-<li>un code pas optimisé du tout.</li>
+<li class="fragment">une erreur de codage;</li>
+<li class="fragment">du code mort;</li>
+<li class="fragment">un code pas optimisé du tout.</li>
 </ul>
 <p>Il existe des outils automatiques de sensibilisation, par ex basé sur l’exécution symbolique ou l’interprétation abstraite (ds les deux cas: application au test de techniques de vérification de programmes). Aussi des outils semi-automatiques voire pas automatiques du tout (environnements de preuve).</p>
 <h3 id="exécution-symbolique">Exécution symbolique</h3>
 <p>Principes:</p>
 <ul>
-<li>on assigne une valeur “symbolique” à chaque variable;</li>
-<li>on exécute symboliquement chaque instruction;</li>
-<li>on associe à chaque noeud un prédicat qui représente l’état courant du système.</li>
+<li class="fragment">on assigne une valeur “symbolique” à chaque variable;</li>
+<li class="fragment">on exécute symboliquement chaque instruction;</li>
+<li class="fragment">on associe à chaque noeud un prédicat qui représente l’état courant du système.</li>
 </ul>
 <p>Avantages: pas besoin d’un exécutable, marche bien ds certains cas.</p>
 <p>Inconvénient: rapidement impraticable, pas très objet.</p>
-<h2 id="critères-et-techniques-de-test">Critères et techniques de test</h2>
+</section><section id="critères-et-techniques-de-test" class="slide level2">
+<h1>Critères et techniques de test</h1>
 <h3 id="principe-dun-critère-de-couverture">Principe d’un critère de couverture</h3>
 <p>Un critère C est une méthode de sélection qui fournit un ensemble de chemins de contrôle à couvrir, ou plus généralement un ensemble d’objets à couvrir.</p>
 <p>À tout critère C est associé un taux de couverture, ou encore mesure de complétude qui exprime le degré de satisfaction de C, et qui vaut: nb objets dénotés par C / nb objets effectivements couverts</p>
@@ -294,18 +303,18 @@ S.<span class="fu">O</span>.<span class="fu">P</span>(<span class="dv">1</span>/
 <p>Le problème du testeur est de trouver un ensemble de DT qui satisfont le critère.</p>
 <p>Il existe de nombreux critères:</p>
 <ul>
-<li>tous les noeuds</li>
-<li>tous les arcs</li>
-<li>tous les chemins indépendants</li>
-<li>basés sur les passages ds les boucles</li>
-<li>plein d’autres basés sur le flot de données</li>
+<li class="fragment">tous les noeuds</li>
+<li class="fragment">tous les arcs</li>
+<li class="fragment">tous les chemins indépendants</li>
+<li class="fragment">basés sur les passages ds les boucles</li>
+<li class="fragment">plein d’autres basés sur le flot de données</li>
 </ul>
 <p>Ces critères ne sont pas équivalents: certains demandent plus de DT que d’autres, détectent plus d’erreurs que d’autres.</p>
 <p>On dit que le critère C1 est plus fort que le critère C2 si:</p>
 <ul>
-<li>toute faute détectée par C2 l’est par C1;</li>
-<li>toute suite de test qui passe pour C1 passe pour C2;</li>
-<li>un taux de couverture de X% pour C1 implique un taux au moins égal à X pour C2</li>
+<li class="fragment">toute faute détectée par C2 l’est par C1;</li>
+<li class="fragment">toute suite de test qui passe pour C1 passe pour C2;</li>
+<li class="fragment">un taux de couverture de X% pour C1 implique un taux au moins égal à X pour C2</li>
 </ul>
 <p>Il existe des critères incomparables entre eux.</p>
 <p>Le critère le plus fort est le critère “tous les chemins”, impossible à obtenir en général (test exhaustif = “tous les chemins avec toutes les valeurs possibles).</p>
@@ -314,10 +323,10 @@ S.<span class="fu">O</span>.<span class="fu">P</span>(<span class="dv">1</span>/
 <h3 id="critère-tous-les-noeuds">Critère tous les noeuds</h3>
 <p>Critère le plus faible, ausi appelé TER1 (<em>Test effectiveness ratio</em>).</p>
 <ul>
-<li>consiste à couvrir l’ensemble des noeuds du graphe.</li>
-<li>but du testeur : proposer un ensemble de DT qui couvrent l’ensemble des noeuds.
+<li class="fragment">consiste à couvrir l’ensemble des noeuds du graphe.</li>
+<li class="fragment">but du testeur : proposer un ensemble de DT qui couvrent l’ensemble des noeuds.
 <ul>
-<li>taux de couverture = nb noeuds couverts / nb noeuds total</li>
+<li class="fragment">taux de couverture = nb noeuds couverts / nb noeuds total</li>
 </ul></li>
 </ul>
 <p>Un exemple</p>
@@ -330,8 +339,8 @@ S.<span class="fu">O</span>.<span class="fu">P</span>(<span class="dv">1</span>/
 <span class="kw">return</span> res;              (e)                        (e) 
 }</code></pre></div>
 <ul>
-<li>peu de chance de détecter l’erreur par un test fonctionnel qui aura tendance à ne couvrir que abde;</li>
-<li>{abcd, abde} donne un taux de couverture de 100% (= satisfait le critère) et détecte l’erreur, avec par ex les DT
+<li class="fragment">peu de chance de détecter l’erreur par un test fonctionnel qui aura tendance à ne couvrir que abde;</li>
+<li class="fragment">{abcd, abde} donne un taux de couverture de 100% (= satisfait le critère) et détecte l’erreur, avec par ex les DT
 <example>
 {{x=2,y=5},{x=0,y=4}}
 </example>
@@ -346,22 +355,23 @@ S.<span class="fu">O</span>.<span class="fu">P</span>(<span class="dv">1</span>/
 <span class="kw">...                       </span>\/
 y = <span class="dv">1</span>/x;  (c)              c</code></pre></div>
 <ul>
-<li>la DT x=2 satisfait le critère “tous les noeuds”: elle sensibilise les 3 noeuds en couvrant le chemin abc;</li>
-<li>mais ne permet pas de détecter l’erreur;</li>
-<li>car le chemin révélateur d’erreur est abd;</li>
-<li>il aurait fallu couvrir les deux branches du if;</li>
+<li class="fragment">la DT x=2 satisfait le critère “tous les noeuds”: elle sensibilise les 3 noeuds en couvrant le chemin abc;</li>
+<li class="fragment">mais ne permet pas de détecter l’erreur;</li>
+<li class="fragment">car le chemin révélateur d’erreur est abd;</li>
+<li class="fragment">il aurait fallu couvrir les deux branches du if;</li>
 </ul>
 <p>Critère tous les arcs, ou TER2:</p>
 <ul>
-<li>tous les arcs du graphe de contrôle sont couverts;</li>
-<li>toutes les branches ont été couvertes;</li>
-<li>chaque prédicat a pris au moins une fois la valeur vrai et la valeur faux;</li>
-<li>taux de couverture: nb arcs couverts / nb arcs total</li>
-<li>attention aux prédicats composés.</li>
+<li class="fragment">tous les arcs du graphe de contrôle sont couverts;</li>
+<li class="fragment">toutes les branches ont été couvertes;</li>
+<li class="fragment">chaque prédicat a pris au moins une fois la valeur vrai et la valeur faux;</li>
+<li class="fragment">taux de couverture: nb arcs couverts / nb arcs total</li>
+<li class="fragment">attention aux prédicats composés.</li>
 </ul>
 <p>Critère tous les arcs + plus toutes les conditions composant les prédicats = critère C5</p>
 <p>“tous les arcs” est plus fort que “tous les noeuds”: la couverture de tous les arcs implique la couverture de tous les noeuds. L’inverse n’est pas vrai.</p>
-<h2 id="outils">Outils</h2>
+</section><section id="outils" class="slide level2">
+<h1>Outils</h1>
 <h3 id="cobertura">Cobertura</h3>
 <p>Cobertura est le successeur de la version libre de JCoverage. Il propose une analyse de la couverture des <em>lignes</em> de codes et des <em>branches</em>. Cette analyse est réalisée par instrumentation du code compilé (bytecode) et permet de visualiser pour chaque méthode, classe et paquetage le taux de couverture atteint. Cobertura permet de lever des alertes en fonction de seuils à atteindre et calcul en plus la #complexité cyclomatique* du code analysé.</p>
 <p>Les rapports de couverture générés par cobertura sont au format XML ou HTML et permettent de visualiser aisément la couverture aggrégée au niveau d’un paquetage:</p>
@@ -370,10 +380,10 @@ y = <span class="dv">1</span>/x;  (c)              c</code></pre></div>
 <p><a href="../home/nono/figures/cobertura-2.png">Couverture du code source</a></p>
 <h4 id="utilisation">Utilisation</h4>
 <p>Pour utiliser cobertura, il est nécessaire de réaliser les trois étapes suivantes :</p>
-<ol style="list-style-type: decimal">
-<li><em>instrumenter</em> les classes à tester, c’est-à-dire insérer les informations nécessaires au calcul de la couverture dans le code de la classe ;</li>
-<li><em>exécuter</em> les tests ou l’application instrumentée ;</li>
-<li><em>analyser</em> les informations sur la couverture de test en produisant un rapport de couverture.</li>
+<ol type="1">
+<li class="fragment"><em>instrumenter</em> les classes à tester, c’est-à-dire insérer les informations nécessaires au calcul de la couverture dans le code de la classe ;</li>
+<li class="fragment"><em>exécuter</em> les tests ou l’application instrumentée ;</li>
+<li class="fragment"><em>analyser</em> les informations sur la couverture de test en produisant un rapport de couverture.</li>
 </ol>
 <p>Voici un résumé des commandes utiles, on se reportera à la documentation en ligne pour plus de détails :</p>
 <p>Pour instrumenter les classes à tester et remplacer les classes originelles :</p>
@@ -429,14 +439,16 @@ y = <span class="dv">1</span>/x;  (c)              c</code></pre></div>
 <p>Voici un exemple de rapport HTML généré par Emma:</p>
 <p><a href="../home/nono/figures/emma-general.png">Rapport général</a></p>
 <p><a href="../home/nono/figures/emma-classe.png">Rapport pour une classe</a></p>
-<h1 id="graphe-de-flot-de-données">Graphe de flot de données</h1>
-<h2 id="construction">Construction</h2>
+</section></section>
+<section><section id="graphe-de-flot-de-données" class="titleslide slide level1"><h1>Graphe de flot de données</h1></section><section id="construction" class="slide level2">
+<h1>Construction</h1>
 <p>Basé sur la construction du graphe de <em>flot de données</em> à partir du graphe de flôt de contrôle : identifie les chemins de <em>définition</em> et d’<em>utilisation</em> des données (lecture/écriture).</p>
 <p>On distingue <strong>c-use</strong> et <strong>p-use</strong></p>
 <p>c-use :: utilisation de la valeur d’une variable pour un calcul</p>
 <p>p-use :: utilisation de la valeur d’une variable pour un prédicat (condition de boucle ou de branchement)</p>
 <p>Les critères de flot de données sont basés sur la couverture des <em>du-chemins</em>, c’est à dire des chemins entre la définition d’une variable et son utilisation.</p>
 <p>Les <em>du-paires</em> sont les paires définition-utilisation effectivement exécutables.</p>
+</section></section>
 
     </div>
     <footer>
@@ -444,5 +456,15 @@ y = <span class="dv">1</span>/x;  (c)              c</code></pre></div>
     </footer>
     
   </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>

@@ -35,46 +35,40 @@
     <div id="main" role="main">
 <h1></h1>
 
-<h1 id="tests-systèmes">Tests systèmes</h1>
-<p>Test des fonctionnalité du système du point de vue de ses <em>clients</em> (utilisateurs humains ou autres systèmes). Étape avant la mise en recette du système, permet de consolider les tests unitaires et d’intégration.</p>
-<p>Hiérarchie de tests selon granularité du CUT: classe, composant, sous-système, système. Chaque niveau de test offre un certain niveau de validation, du point de vue des fonctionnalités de chacune des unités testées.</p>
-<p>Problèmes :: - concevoir les suites de tests : fonctions de haut niveau complexes, très nombreux scénarios possibles, manque de formalisation précise; - automatiser les suites de tests : applications à tester souvent complexes, adéquation entre environnement de test et de production (dépend objectifs de test), déploiement applications réparties, simuler les inputs du système.</p>
-<p>Tests systèmes se basent/offrent un modèle de haut niveau d’un système</p>
-<h2 id="conception-suite-de-tests-systèmes">Conception suite de tests systèmes</h2>
+<section><section id="tests-systèmes" class="titleslide slide level1"><h1>Tests systèmes</h1></section><section id="conception-suite-de-tests-systèmes" class="slide level2">
+<h1>Conception suite de tests systèmes</h1>
 <p>Objectif : valider l’ensemble d’un système du point de vue de l’utilisateur du système. Modèle de test = modèle fonctionnel de l’application dans son ensemble, <strong>profil opérationnel</strong></p>
 <p>objectif de couverture = ensemble des comportements potentiels des utilisateurs, couverture statistique du profil opérationnel</p>
 <h3 id="profil-opérationnel">Profil opérationnel</h3>
 <p>Définit la manière dont le système est utilisé comme une distribution de probabilité sur ensemble des inputs possibles du système.</p>
 <p>Fiabilité statistique du système : système fiable avec une certaine marge d’erreur (e) et un certain intervalle de confiance (d). Cf. inégalité Chernoff-Hoeffding :</p>
 <blockquote>
-<p>Soit p la distribution de probabilité d’un événement A, q la distribution observée sur un échantillon de taille l et e une certaine marge d’erreur, alors <br /><span class="math display"><em>P</em>[(<em>p</em> − <em>q</em>) &gt;  = <em>e</em>] &lt;  = 2exp( − 2<em>e</em><sup>2</sup><em>l</em>)</span><br /></p>
+<p>Soit p la distribution de probabilité d’un événement A, q la distribution observée sur un échantillon de taille l et e une certaine marge d’erreur, alors <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">[</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mo>=</mo><mi>e</mi><mo stretchy="false" form="postfix">]</mo><mo>&lt;</mo><mo>=</mo><mn>2</mn><mo>exp</mo><mo stretchy="false" form="prefix">(</mo><mo>−</mo><mn>2</mn><msup><mi>e</mi><mn>2</mn></msup><mi>l</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P[(p-q) &gt;= e] &lt;= 2 \exp(-2 e^{2} l)</annotation></semantics></math></p>
 </blockquote>
 <p>Raisonne sur un système en termes de probabilités de comportement et donc d’erreur: les erreurs les plus gênantes sont celles qui apparaissent dans les fonctions les plus utilisées.</p>
-<h1 id="outils-pour-le-test-système">Outils pour le test système</h1>
-<h2 id="fitnesse-tests-dacceptation-au-niveau-métier">FitNesse: Tests d’acceptation au niveau métier</h2>
+</section></section>
+<section><section id="outils-pour-le-test-système" class="titleslide slide level1"><h1>Outils pour le test système</h1></section><section id="fitnesse-tests-dacceptation-au-niveau-métier" class="slide level2">
+<h1>FitNesse: Tests d’acceptation au niveau métier</h1>
 <h3 id="introduction">Introduction</h3>
 <p><a href="http://fitnesse.org">FitNesse</a></p>
 <p>Fitnesse est un outil de création/exécution de <em>tests d’acceptation</em> (<em>acceptance testing</em>) qui se présente sous la forme d’un serveur autonome et d’un ensemble de pages Wiki. FitNesse est un sur ensemble de FIT (http://fit.c2.com/). Les tests sont encodés dans chaque page sous la forme de tableaux dont l’interprétation dépend de la <em>recette de tests</em> qui est lié à ces données. Chaque page peut être <em>exécutée</em> ce qui a pour effet d’exécuter les tests qui y sont stockés: le résultat de cette exécution est retranscrit dans la page en modifiant le formattage HTML de la page Wiki.</p>
 <p>Une page permet de décrire un scénario ou un ensemble de scénarios métier, d’associer une documentation à ce scénario et des tests exécutables, le tout, accessible au travers d’un navigateur web est extrêmement souple et peut-être partagé entre différents acteurs du processus.</p>
 <p>Les captures d’écran suivantes présentent la vue de l’outil dans différents modes de fonctionnement. Une page de test est une page HTML, contenant du texte, des directives spéciales et des tableaux formatés.</p>
-<div class="figure">
-<img src="../images/fitnesse-1.png" alt="Visualisation d’une page de test" />
-<p class="caption">Visualisation d’une page de test</p>
-</div>
+<figure>
+<img src="../images/fitnesse-1.png" alt="Visualisation d’une page de test" /><figcaption>Visualisation d’une page de test</figcaption>
+</figure>
 <p>La page peut être édité, comme tout Wiki. Le formatage est décrit à l’aide de <em>balises</em> plus simples à manipuler que du code HTML standard.</p>
-<div class="figure">
-<img src="../images/fitnesse-3.png" alt="Édition de la page de tests" />
-<p class="caption">Édition de la page de tests</p>
-</div>
+<figure>
+<img src="../images/fitnesse-3.png" alt="Édition de la page de tests" /><figcaption>Édition de la page de tests</figcaption>
+</figure>
 <p>Une page FitNesse peut présenter de plus la particularité d’être exécutable: en cliquant sur le bouton =Test=, le moteur FitNesse va interpréter les différentes <em>recettes de test</em> (tableaux) présentes dans la page et remettre en forme la page de sorte que les résultats des tests apparaissent soient mis en lumière.</p>
-<div class="figure">
-<img src="../images/fitnesse-2.png" alt="Exécution des tests" />
-<p class="caption">Exécution des tests</p>
-</div>
+<figure>
+<img src="../images/fitnesse-2.png" alt="Exécution des tests" /><figcaption>Exécution des tests</figcaption>
+</figure>
 <p>La particularité de cet outil est de permettre d’exprimer les tests dans le langage du <em>métier</em>, sous la forme de tableaux souvent plus accessibles aux non-informaticiens que du code (même HTML). Signalons qu’il est possible de coupler Selenium et FitNesse, afin d’écrire des tests avec ce dernier et de les exécuter avec le premier.</p>
 <h3 id="mise-en-oeuvre">Mise en oeuvre</h3>
 <h4 id="installation">Installation</h4>
-<p>L’installation de FitNesse est simplissime: 1. récupérer l’archive sur le site [[http://fitnesse.org]], soit sous forme binaire, soit sous forme de sources. 2. décompresser l’archive dans un répertoire idoine 3. lancer l’application fit: =<span class="math inline"> &gt; <em>s</em><em>h</em><em>r</em><em>u</em><em>n</em>.<em>s</em><em>h</em> − <em>p</em>8080 = <em>s</em><em>o</em><em>u</em><em>s</em><em>l</em><em>i</em><em>n</em><em>u</em><em>x</em>, <em>o</em><em>u</em> = </span>&gt; run -p 8080= sous windows. Un serveur web est activé pour le port donné en paramètre. 4. faire pointer son navigateur à l’adresse =http://localhost:8080=.</p>
+<p>L’installation de FitNesse est simplissime: 1. récupérer l’archive sur le site [[http://fitnesse.org]], soit sous forme binaire, soit sous forme de sources. 2. décompresser l’archive dans un répertoire idoine 3. lancer l’application fit: =<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&gt;</mo><mi>s</mi><mi>h</mi><mi>r</mi><mi>u</mi><mi>n</mi><mi>.</mi><mi>s</mi><mi>h</mi><mo>−</mo><mi>p</mi><mn>8080</mn><mo>=</mo><mi>s</mi><mi>o</mi><mi>u</mi><mi>s</mi><mi>l</mi><mi>i</mi><mi>n</mi><mi>u</mi><mi>x</mi><mo>,</mo><mi>o</mi><mi>u</mi><mo>=</mo></mrow><annotation encoding="application/x-tex">&gt; sh run.sh -p 8080= sous linux, ou =</annotation></semantics></math>&gt; run -p 8080= sous windows. Un serveur web est activé pour le port donné en paramètre. 4. faire pointer son navigateur à l’adresse =http://localhost:8080=.</p>
 <p>Si tout se passe bien, FitNesse est lancé et on accède à la page d’accueil, contenant entre autre la documentation de FitNesse et l’ensemble des tests.</p>
 <p>FitLibrary est un ensemble d’extensions à FitNesse très utiles, en particulier parce qu’il fournit une recette de test générale appelée =DoFixture= extrêmement pratique à utiliser. Il est donc conseillé de le récupérer (au même endroit). Il semble que les versions les plus récentes de FitNesse intègrent directement FitLibrary.</p>
 <h4 id="exemple-dutilisation-tests-de-robots">Exemple d’utilisation: tests de robots</h4>
@@ -189,10 +183,10 @@ public class RobotCreationFixture extends DoFixture {
    |check|''y''|1|
    |check|''orientation''|south|</code></pre>
 <p>La recette =DoFixture= est suffisamment flexible pour permettre d’exprimer de manière “naturelle” des comportements complexes. Par exemple, si l’on souhaite tester le comportement d’un robot exécutant une séquence d’ordres, il est nécessaire de procéder en trois temps:</p>
-<ol style="list-style-type: decimal">
-<li>créer le robot</li>
-<li>créer la séquence d’ordres</li>
-<li>exécuter l’ordre et vérifier son résultat.</li>
+<ol type="1">
+<li class="fragment">créer le robot</li>
+<li class="fragment">créer la séquence d’ordres</li>
+<li class="fragment">exécuter l’ordre et vérifier son résultat.</li>
 </ol>
 <p>Ces étapes s’expriment naturellement comme une suite de <em>tables</em>:</p>
 <pre><code> We now test construction and application of a Sequence of orders. 
@@ -231,8 +225,11 @@ public class RobotCreationFixture extends DoFixture {
     return s;
   }</code></pre>
 <p>On utilise la méthode =setSystemUnderTest= pour stocker une référence à l’objet robot dans la recette de test, puis on crée et peuple une séquence d’ordres avec un certain nombre d’ordres. Enfin, on applique la séquence d’ordres sur le robot. On remarquera que ceci est possible car on a divisé les tests en <em>trois</em> tables: par convention, une nouvelle table applique une action soit sur la recette de test en cours, <strong>soit</strong> sur le SUT s’il existe.</p>
-<h2 id="selenium-tests-d-ihm-web">Selenium: Tests d’ IHM web</h2>
-<h2 id="jemmy-tests-dihm-java">Jemmy: Tests d’IHM Java</h2>
+</section><section id="selenium-tests-d-ihm-web" class="slide level2">
+<h1>Selenium: Tests d’ IHM web</h1>
+</section><section id="jemmy-tests-dihm-java" class="slide level2">
+<h1>Jemmy: Tests d’IHM Java</h1>
+</section></section>
 
     </div>
     <footer>
@@ -240,5 +237,15 @@ public class RobotCreationFixture extends DoFixture {
     </footer>
     
   </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>
