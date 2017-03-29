@@ -7,6 +7,10 @@ blockquote {
     background: url("/images/draft.png") repeat;
 }
 
+.footnotes {
+    font-size: 90%;
+}
+         
 footer img {
     margin-left: 5px;
     margin-right: 5px;
