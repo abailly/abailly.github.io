@@ -28,7 +28,7 @@ Ce texte faiblement structuré est une reprise des notes prises au cours de cet 
 
 ## Exercice
 
-Essayer de s'approcher au plus près de la vérité d'un terme en:
+Essayer de s'approcher au plus près du sens d'un terme en:
 
 1. énumérant des adjectifs et adverbes pouvant s'appliquer à ce terme
 2. pour chaque item de l'énumération identifier son contraire
