@@ -119,6 +119,7 @@ homeCtx = titleField "Welcome" `mappend`
 postCtx :: Context String
 postCtx =
   escaped   "title"            `mappend`
+  escaped   "subtitle"         `mappend`
   field     "slug" slugify     `mappend`
   dateField "date" "%B %e, %Y" `mappend`
   defaultContext
@@ -126,6 +127,7 @@ postCtx =
 slidesCtx :: Context String
 slidesCtx =
   escaped   "title"                  `mappend`
+  escaped   "subtitle"               `mappend`
   field     "revealjs-url"  revealJs `mappend`
   dateField "date" "%B %e, %Y"       `mappend`
   defaultContext

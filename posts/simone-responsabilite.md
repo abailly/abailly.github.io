@@ -66,7 +66,7 @@ Essayer de s'approcher au plus près de la vérité d'un terme en:
 
 ### Aristote
 
-* Dans [L'éthique à Nicomaque](),  Aristote distingue parmi l'ensemble des activités humaines la *poein* de la *praxein*. Ces activités s'opposent à la *contemplation*, à la *théorie*
+* Dans [L'éthique à Nicomaque](https://fr.wikipedia.org/wiki/%C3%89thique_%C3%A0_Nicomaque),  Aristote distingue parmi l'ensemble des activités humaines la *poein* de la *praxein*. Ces activités s'opposent à la *contemplation*, à la *théorie*
 * *poein* regroupe les activités de production de l'homme dont notamment les arts et la technique, des activités qui ont une *fin en dehors d'elle même*. Je peins pour produire une oeuvre d'art, j'écris pour produire un livre ou un article, je coud pour réaliser une vêtement...
 * a contrario, *praxein* groupe les activités et actions humaines qui *sont à elles mêmes leurs propres fins*[^1], parmi lesquelles on distingue les actions
     * intentionnelles
@@ -75,7 +75,7 @@ Essayer de s'approcher au plus près de la vérité d'un terme en:
 
 ### Wittgenstein
 
-* Dans les [Recherches philosophiques](), §621, Wittgenstein dit:[^4]
+* Dans les [Recherches philosophiques](https://fr.wikipedia.org/wiki/Investigations_philosophiques), §621, Wittgenstein dit:[^4]
 
     > N'oublions pas ceci: lorsque "je lève mon bras", mon bras se lève. Et le problème surgit : que reste-t-il si je soustrais le fait que mon bras se lève du fait que je lève le bras ?
 * Il critique l'idée que l'action est le produit d'une décision et pose donc la question "qu'est ce que l'intention ?" Y-a-t'il quelque chose comme un processus par lequel "je lève le bras" serait une décision qui se transforme en une action de "mon bras qui se lève" ?
@@ -89,7 +89,7 @@ Essayer de s'approcher au plus près de la vérité d'un terme en:
 
 ### Anscombe ###
 
-* Nous travaillons à partir d'une texte d'Anscombe qui propose plusieurs descriptions d'une même situation (et de ses conséquences) afin d'élucider la question de l'intentionnalité de l'action : un hômme pompe de l'eau contenant du poison pour alimenter une citerne qui dessert une maison dans laquelle sont réunis des dirigeants politiques tyranniques et dont l'élimination ménerait à une société meilleure. 
+* Nous travaillons à partir d'une texte d'[Anscombe](https://en.wikipedia.org/wiki/Elizabeth_Anscombe) qui propose plusieurs descriptions d'une même situation (et de ses conséquences) afin d'élucider la question de l'intentionnalité de l'action : un hômme pompe de l'eau contenant du poison pour alimenter une citerne qui dessert une maison dans laquelle sont réunis des dirigeants politiques tyranniques et dont l'élimination ménerait à une société meilleure. 
 * Peut-on décrire son action comme "le geste d'un bras faisant levier", "l'alimentation en eau", "un empoisonnement par l'eau" ou "la lutte contre la tyrannie" ?
 * Anscombe propose ce critère pour caractériser l'intentionnalité d'une action:
     1. la description de l'action est conforme à la totalité des faits ;
@@ -101,7 +101,7 @@ Essayer de s'approcher au plus près de la vérité d'un terme en:
 
 ## Arendt 
 
-* Arendt dans [La responsabilité collective]() distingue très nettement la *culpabilité* de la *responsabilité*
+* [Arendt](https://fr.wikipedia.org/wiki/Hannah_Arendt) dans *La responsabilité collective* distingue très nettement la *culpabilité* de la *responsabilité*
 * La culpabilité est nécessairement *individuelle* et identifie une action (ou un ensemble d'actions liéeS) qui est *jugée* comme *faute*. La culpabilité est de l'ordre du juridique, de la loi
 * La responsabilité peut être *collective* car elle est politique, de l'ordre de la morale (nous pouvons collectivement "répondre de"). Elle renvoit à l'identification que fait Kant de la morale et de la liberté : je suis moral parce libre, et libre parce que capable d'un jugement moral universel. Même des menaces de mort ne peuvent me libérer de mon devoir moral !
 * Dire que "nous sommes tous coupables" c'est donc confondre - volontairement ou non - ces deux notions et disculper les vrais coupables, ceux qui ont effectivement agis : diluer la faute juridique et la sanction dans le confort de la morale
@@ -116,19 +116,19 @@ Essayer de s'approcher au plus près de la vérité d'un terme en:
 
     Anthropologique
     
-    :  l'homme est ontologiquement coupable, parce qu'il est un homme. Cette définition est centrale dans la tradition chrétienne[^7] : l'homme a fait une faute et a été chassé du paradis, il est imparfait et pécheur par nature et seul Dieu qui lui est parfait, par sa grâce, peut le racheter. La volonté (le libre-arbitre) nous a été donnée par Dieu mais elle se heurte à la finitude des choses ce qui provoque le Mal, l'erreur et le péché.[^9] Pour Rousseau, il y a aussi péché originel mais il survient lorsque l'homme sort de l'état de Nature où aucune culpabilité n'a de sens pour entrer dans la société et la propriété
+    :  l'homme est ontologiquement coupable, parce qu'il est un homme. Cette définition est centrale dans la tradition chrétienne[^7] : l'homme a fait une faute et a été chassé du paradis, il est imparfait et pécheur par nature et seul Dieu qui lui est parfait, par sa grâce, peut le racheter. La volonté (le libre-arbitre) nous a été donnée par Dieu mais elle se heurte à la finitude des choses ce qui provoque le Mal, l'erreur et le péché.[^9] Pour [Rousseau](https://plato.stanford.edu/entries/rousseau/), il y a aussi péché originel mais il survient lorsque l'homme sort de l'état de Nature où aucune culpabilité n'a de sens pour entrer dans la société et la propriété
  
     Sociale
     
-    : Cette culpabilité Rousseauiste est reprise par Nietszche ([Généalogie de la morale]()) dans un sens plus social, lorsqu'il fait le lien entre la *dette* et le *devoir* qui mène à la faute et à la culpabilité. La culpabilité est ainsi une spiritualisation d'une situation de dépendance économique, la transformation d'une dépendance contingente résultant d'un rapport de force ou d'une condition sociale en une dépendance nécessaire envers un principe moral
+    : Cette culpabilité Rousseauiste est reprise par [Nietszche](https://plato.stanford.edu/entries/nietzsche/) (*Généalogie de la morale*) dans un sens plus social, lorsqu'il fait le lien entre la *dette* et le *devoir* qui mène à la faute et à la culpabilité. La culpabilité est ainsi une spiritualisation d'une situation de dépendance économique, la transformation d'une dépendance contingente résultant d'un rapport de force ou d'une condition sociale en une dépendance nécessaire envers un principe moral
     
     Monstrueuse
     
-    : Cette quatrième forme de culpabilité est définie par Anders et résulte de sa réflexion sur ce qu'on appelle désormais l'anthropocène et l'accélération vertigineuse des capacités techniques de l'homme.
+    : Cette quatrième forme de culpabilité est définie par [Anders](https://fr.wikipedia.org/wiki/G%C3%BCnther_Anders) et résulte de sa réflexion sur ce qu'on appelle désormais l'anthropocène et l'accélération vertigineuse des capacités techniques de l'homme.
     
 ## Anders
 
-* Pour Anders dans [Nous, fils d'Eichmann](), la culpabilité moderne provient de:
+* Pour Anders dans [Nous, fils d'Eichmann](http://www.payot-rivages.net/livre_Nous-fils-d-Eichmann-Gunther-Anders_ean13_9782743611095.html), la culpabilité moderne provient de:
     1. notre incapacité à nous représenter les effets de nos actions dans le monde : lorsque j'appuie sur le bouton qui largue Little Boy au dessus d'Hiroshima je ne suis pas capable de me représenter les effets dévastateurs d'une bombe nucléaire et ses centaines de milliers de victimes touchées sur des dizaines d'années
     2. la médiatisation infinie née de la division du travail et de la complexité des processus de production et de décision
 * Ces deux causes produisent du *monstrueux* : des hommes ayant perdu tout sentiment de responsabilité, incapable de se représenter les effets de leurs actions et totalement coupés d'iceux par la parcellisation des actes en viennent à faire des choses monstrueuses : faire rouler des trains remplis de juifs, construire des fours crématoires pour brûler leurs corps, construires des missiles balistiques intercontinentaux[^10]...
