@@ -34,6 +34,9 @@
     </header>
     <div id="main" role="main">
 <h1>Multi-host Docker Networking</h1>
+
+  <h2 class="subtitle"></h2>
+
 <div class="info">Posted on May 30, 2016</div>
 
 <p>A while ago I grew the desire to experiment implementing <em>multi-host docker networking</em> to deploy <a href="../posts/cm-infra-2.html">Capital Match system</a>. This system is made of several interlinked containers and <a href="https://docs.docker.com/v1.8/compose/">docker-compose</a> does not (did not?) work across several hosts. It seemed to me the <a href="https://docs.docker.com/engine/userguide/networking/get-started-overlay/">official solution</a> based on <code>docker-machine</code>, <code>swarm</code> and service registry was a bit complicated: Our configuration is mostly static, e.g. number, distribution and relationship between containers in known at deploy time. Hence I looked for a simpler solution, something that would be more <em>networky</em>: I am indebted to <a href="https://fr.wikipedia.org/wiki/Utilisateur:Hashar">hashar</a> for suggesting a GRE-based solution and to the following references for actual technical details:</p>

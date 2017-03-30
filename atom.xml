@@ -16,6 +16,9 @@
     <published>2017-03-28T00:00:00Z</published>
     <updated>2017-03-28T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>Weekly Review - Week 12</h1>
+
+  <h2 class="subtitle"></h2>
+
 <div class="info">Posted on March 28, 2017</div>
 
 <p>This post is a summary of my activities related to coding and software in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
@@ -82,12 +85,222 @@
 ]]></summary>
 </entry>
 <entry>
+    <title>Les après-midi de Simone</title>
+    <link href="http://abailly.github.io/posts/simone-responsabilite.html" />
+    <id>http://abailly.github.io/posts/simone-responsabilite.html</id>
+    <published>2017-03-27T00:00:00Z</published>
+    <updated>2017-03-27T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Les après-midi de Simone</h1>
+
+  <h2 class="subtitle">Celui qui appuie sur le bouton est-il le seul coupable ?</h2>
+
+<div class="info">Posted on March 27, 2017</div>
+
+<p>Cette question des après-midi de Simone fait partie du <em>fil vert</em> soit des séances permettant d’articuler des questions philosophiques avec le context professionnel des participants, majoritairement programmeur/euse/s. Elle conjoint deux problèmes philosophiques, celui de <strong>l’action</strong> et celui de la <strong>culpabilité</strong> ou <strong>responsabilité</strong>. La séance s’organise en:</p>
+<ul>
+<li>une introduction pour décortiquer la question, en extraire son suc et sa moelle ;</li>
+<li>une première séquence consacrée au thème de l’action ;</li>
+<li>une deuxième pour la culpabilité et la responsabilité ;</li>
+<li>une troisième pour inviter à actualiser ces thèmes dans notre vie ;</li>
+<li>enfin, bien sûr une clôture du cercle par l’écoute.</li>
+</ul>
+<p>Ce texte faiblement structuré est une reprise des notes prises au cours de cet après-midi.</p>
+<h1 id="introduction">Introduction</h1>
+<ul>
+<li>La première partie de la question renvoit à la notion d’<em>agent</em> ou de <em>sujet</em>, à la condition de responsabilité d’un <em>geste</em> dont les effets sont <em>imputables</em></li>
+<li>Elle suscite des images liées à la bombe nucléaire, à un acte technologiquement médiatisé qui est le dernier terme d’une chaîne causale <em>avant</em> que ne se produisent des effets</li>
+<li>L’agent n’est-il qu’un <em>rouage</em> dans un ensemble dont le geste extrêmement simple produit de grands effets ?</li>
+<li>Se pose la question de <em>l’intentionalité</em> de l’action : qu’est ce qu’une action intentionelle ?</li>
+<li>“seul” pose la question de l’existence (ou non) d’une action collective, de la multiplicité des agents dans une action</li>
+<li>“coupable” enfin: y-a-t’il une faute et est-elle attribuable au sujet ? De quoi est-il coupable ? Devant quel tribunal ? Et qui est coupable ?</li>
+</ul>
+<h1 id="laction">L’action</h1>
+<h2 id="exercice">Exercice</h2>
+<p>Essayer de s’approcher au plus près de la vérité d’un terme en:</p>
+<ol style="list-style-type: decimal">
+<li>énumérant des adjectifs et adverbes pouvant s’appliquer à ce terme</li>
+<li>pour chaque item de l’énumération identifier son contraire</li>
+<li>produire une définition à partir des items dont un seul pôle est applicable</li>
+</ol>
+<ul>
+<li>collective <span class="math inline">≠</span> individuelle</li>
+<li>concertée <span class="math inline">≠</span> spontanée</li>
+<li>rapide, qui <span class="math inline">≠</span> dure lente</li>
+<li>dangereuse <span class="math inline">≠</span> inoffensive</li>
+<li>en mouvement <span class="math inline">≠</span> immobile</li>
+<li>continue <span class="math inline">≠</span> discrète</li>
+<li>sans conséquence <span class="math inline">≠</span> importante</li>
+<li>consomme de l’énergie <span class="math inline">≠</span> inerte</li>
+<li>délibérée <span class="math inline">≠</span> involontaire</li>
+<li>matérielle <span class="math inline">≠</span> immatérielle, spirituelle</li>
+<li>observable <span class="math inline">≠</span> invisible</li>
+<li>qui a un début, initiée</li>
+<li>qui laisse des traces <span class="math inline">≠</span> sans effet</li>
+<li>irréversible <span class="math inline">≠</span> réversible</li>
+<li>qui a un sujet <span class="math inline">≠</span> sans agent</li>
+<li>raisonnable <span class="math inline">≠</span> déraisonnable</li>
+<li>concrète <span class="math inline">≠</span> abstraite, virtuelle</li>
+<li>directe <span class="math inline">≠</span> médiatisée</li>
+<li>impure <span class="math inline">≠</span> pure</li>
+<li>positive <span class="math inline">≠</span> négative</li>
+<li>insaissable <span class="math inline">≠</span> saisissable</li>
+<li>possible <span class="math inline">≠</span> impossible</li>
+<li>subie <span class="math inline">≠</span> acceptée</li>
+<li>orientée vers une fin <span class="math inline">≠</span> sans objectif, gratuite</li>
+<li>revendiquée <span class="math inline">≠</span> déniée, cachée, anonyme</li>
+</ul>
+<blockquote>
+<p>Une action est un mouvement initié par un sujet qui produit des traces dans le réel</p>
+</blockquote>
+<h2 id="textes">Textes</h2>
+<h3 id="aristote">Aristote</h3>
+<ul>
+<li>Dans <a href="https://fr.wikipedia.org/wiki/%C3%89thique_%C3%A0_Nicomaque">L’éthique à Nicomaque</a>, Aristote distingue parmi l’ensemble des activités humaines la <em>poein</em> de la <em>praxein</em>. Ces activités s’opposent à la <em>contemplation</em>, à la <em>théorie</em></li>
+<li><em>poein</em> regroupe les activités de production de l’homme dont notamment les arts et la technique, des activités qui ont une <em>fin en dehors d’elle même</em>. Je peins pour produire une oeuvre d’art, j’écris pour produire un livre ou un article, je coud pour réaliser une vêtement…</li>
+<li>a contrario, <em>praxein</em> groupe les activités et actions humaines qui <em>sont à elles mêmes leurs propres fins</em><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, parmi lesquelles on distingue les actions
+<ul>
+<li>intentionnelles</li>
+<li>non intentionnelles</li>
+</ul></li>
+<li>cette distinction permet à Aristote de définir le souverain Bien commme l’accomplissement par l’hômme <em>d’actions vertueuses</em><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></li>
+</ul>
+<h3 id="wittgenstein">Wittgenstein</h3>
+<ul>
+<li><p>Dans les <a href="https://fr.wikipedia.org/wiki/Investigations_philosophiques">Recherches philosophiques</a>, §621, Wittgenstein dit:<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
+<blockquote>
+<p>N’oublions pas ceci: lorsque “je lève mon bras”, mon bras se lève. Et le problème surgit : que reste-t-il si je soustrais le fait que mon bras se lève du fait que je lève le bras ?</p>
+</blockquote></li>
+<li>Il critique l’idée que l’action est le produit d’une décision et pose donc la question “qu’est ce que l’intention ?” Y-a-t’il quelque chose comme un processus par lequel “je lève le bras” serait une décision qui se transforme en une action de “mon bras qui se lève” ?</li>
+<li>Il n’y a pas d’intention extérieure à l’action ou en d’autres termes il n’y a pas <em>d’intériorité</em> ou <em>d’antériorité</em> de quelque chose qui serait la volonté : l’intention <strong>c’est</strong> l’action</li>
+<li>C’est tout le propos de la philosophie analytique qui nait avec Wittgenstein<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> que de chercher des critères qui soient uniquement linguistiques dans la compréhension du sens de nos énoncés</li>
+<li>Elle s’appuie et réactualise Aristote qui distingue<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> les actions volontaires des actions volontaires:
+<ul>
+<li>les premières, dites aussi intentionnelles, ont leur principe dans l’agent qui connait les circonstances de son action. Elles sont issues d’une délibération, d’une pensée mais ne postulent pas l’existence d’un centre de la volonté <em>dans</em> l’agent. La décision, c’est l’action</li>
+<li>les secondes sont toutes les actions faites par <em>ignorance</em> (des circonstances…) ou par une contrainte extérieure</li>
+<li>il y a une distinction entre appuyer sur le bouton avec mon doigt <em>intentionnellement</em> et appuyer sur le bouton parce que je suis désequilibré et tombe dessus</li>
+</ul></li>
+<li><p>Elle s’oppose à une tradition classique qui à partir de Saint Augustin (entre autres) pose le <em>libre arbitre</em> comme un concept central de l’esprit : une action volontaire est issue d’une libre décision de ma <strong>volonté</strong> qui a une existence propre, qui est interne : c’est le résultat extérieur d’une délibération intérieure. Spinoza, Hume, Hobbes et Nietszche sont les principaux champions de l’absence de libre arbitre</p></li>
+</ul>
+<h3 id="anscombe">Anscombe</h3>
+<ul>
+<li>Nous travaillons à partir d’une texte d’<a href="https://en.wikipedia.org/wiki/Elizabeth_Anscombe">Anscombe</a> qui propose plusieurs descriptions d’une même situation (et de ses conséquences) afin d’élucider la question de l’intentionnalité de l’action : un hômme pompe de l’eau contenant du poison pour alimenter une citerne qui dessert une maison dans laquelle sont réunis des dirigeants politiques tyranniques et dont l’élimination ménerait à une société meilleure.</li>
+<li>Peut-on décrire son action comme “le geste d’un bras faisant levier”, “l’alimentation en eau”, “un empoisonnement par l’eau” ou “la lutte contre la tyrannie” ?</li>
+<li>Anscombe propose ce critère pour caractériser l’intentionnalité d’une action:
+<ol style="list-style-type: decimal">
+<li>la description de l’action est conforme à la totalité des faits ;</li>
+<li>l’agent peut répondre à la question “pourquoi ?” étant donnée cette description des faits.</li>
+</ol></li>
+<li>Dans le cas décrit, “un empoisonnement par l’eau” répond à ces deux critères mais pas “la lutte contre la tyrannie”<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></li>
+<li>S’inscrivant dans la tradition analytique, Anscombe propose un critère qui soit exclusivement linguistique pour caractériser l’intentionnalité et donc l’assignation en responsabilité pour des actions puisqu’on ne saurait dire qu’un agent est <em>coupable</em> pour une action non intentionnelle</li>
+</ul>
+<h1 id="la-culpabilité">La culpabilité</h1>
+<h2 id="arendt">Arendt</h2>
+<ul>
+<li><a href="https://fr.wikipedia.org/wiki/Hannah_Arendt">Arendt</a> dans <em>La responsabilité collective</em> distingue très nettement la <em>culpabilité</em> de la <em>responsabilité</em></li>
+<li>La culpabilité est nécessairement <em>individuelle</em> et identifie une action (ou un ensemble d’actions liéeS) qui est <em>jugée</em> comme <em>faute</em>. La culpabilité est de l’ordre du juridique, de la loi</li>
+<li>La responsabilité peut être <em>collective</em> car elle est politique, de l’ordre de la morale (nous pouvons collectivement “répondre de”). Elle renvoit à l’identification que fait Kant de la morale et de la liberté : je suis moral parce libre, et libre parce que capable d’un jugement moral universel. Même des menaces de mort ne peuvent me libérer de mon devoir moral !</li>
+<li>Dire que “nous sommes tous coupables” c’est donc confondre - volontairement ou non - ces deux notions et disculper les vrais coupables, ceux qui ont effectivement agis : diluer la faute juridique et la sanction dans le confort de la morale</li>
+</ul>
+<h2 id="lhomme-coupable">L’homme coupable</h2>
+<ul>
+<li><p>Nous distinguons quatre “courants” dans la notion de culpabilité:</p>
+<dl>
+<dt>Juridique (et morale ?)</dt>
+<dd><p>l’on est coupable de ce que l’on <em>fait</em>, de ses <em>actes</em> en fonction d’un ensemble de règles en vigueur à une époque donnée<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a></p>
+</dd>
+<dt>Anthropologique</dt>
+<dd><p>l’homme est ontologiquement coupable, parce qu’il est un homme. Cette définition est centrale dans la tradition chrétienne<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a> : l’homme a fait une faute et a été chassé du paradis, il est imparfait et pécheur par nature et seul Dieu qui lui est parfait, par sa grâce, peut le racheter. La volonté (le libre-arbitre) nous a été donnée par Dieu mais elle se heurte à la finitude des choses ce qui provoque le Mal, l’erreur et le péché.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a> Pour <a href="https://plato.stanford.edu/entries/rousseau/">Rousseau</a>, il y a aussi péché originel mais il survient lorsque l’homme sort de l’état de Nature où aucune culpabilité n’a de sens pour entrer dans la société et la propriété</p>
+</dd>
+<dt>Sociale</dt>
+<dd><p>Cette culpabilité Rousseauiste est reprise par <a href="https://plato.stanford.edu/entries/nietzsche/">Nietszche</a> (<em>Généalogie de la morale</em>) dans un sens plus social, lorsqu’il fait le lien entre la <em>dette</em> et le <em>devoir</em> qui mène à la faute et à la culpabilité. La culpabilité est ainsi une spiritualisation d’une situation de dépendance économique, la transformation d’une dépendance contingente résultant d’un rapport de force ou d’une condition sociale en une dépendance nécessaire envers un principe moral</p>
+</dd>
+<dt>Monstrueuse</dt>
+<dd><p>Cette quatrième forme de culpabilité est définie par <a href="https://fr.wikipedia.org/wiki/G%C3%BCnther_Anders">Anders</a> et résulte de sa réflexion sur ce qu’on appelle désormais l’anthropocène et l’accélération vertigineuse des capacités techniques de l’homme.</p>
+</dd>
+</dl></li>
+</ul>
+<h2 id="anders">Anders</h2>
+<ul>
+<li>Pour Anders dans <a href="http://www.payot-rivages.net/livre_Nous-fils-d-Eichmann-Gunther-Anders_ean13_9782743611095.html">Nous, fils d’Eichmann</a>, la culpabilité moderne provient de:
+<ol style="list-style-type: decimal">
+<li>notre incapacité à nous représenter les effets de nos actions dans le monde : lorsque j’appuie sur le bouton qui largue Little Boy au dessus d’Hiroshima je ne suis pas capable de me représenter les effets dévastateurs d’une bombe nucléaire et ses centaines de milliers de victimes touchées sur des dizaines d’années</li>
+<li>la médiatisation infinie née de la division du travail et de la complexité des processus de production et de décision</li>
+</ol></li>
+<li>Ces deux causes produisent du <em>monstrueux</em> : des hommes ayant perdu tout sentiment de responsabilité, incapable de se représenter les effets de leurs actions et totalement coupés d’iceux par la parcellisation des actes en viennent à faire des choses monstrueuses : faire rouler des trains remplis de juifs, construire des fours crématoires pour brûler leurs corps, construires des missiles balistiques intercontinentaux<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a>…</li>
+<li>Certains hommes ayant participé à cette monstruosité perçoivent leur culpabilité profondément mais la société leur dénie tout jugement parce qu’elle ne peut l’accepter sans se remettre en cause : c’est le cas de Claude Eatherly qui pilotait l’avion au dessus d’Hiroshima et avec lequel Anders a correspondu. C’est une forme de culpabilité “saine”, une réaction normale à une situation anormale.</li>
+<li>A contrario, la plupart des hommes fuient cette culpabilité dans le déni, l’ignorance volontaire, l’impuissance ou même la dépression existentielle</li>
+<li><p>Anders propose une “procédure” simple et éclairante pour identifier des situations de type “eichmanniennes”:</p>
+<blockquote>
+<p>Je ne peux imaginer l’effet de cette action Donc, c’est un effet monstrueux Donc, je ne peux pas l’assumer Donc, je dois réexaminer l’action projetée, ou bien la refuser, ou bien la combattre</p>
+</blockquote></li>
+</ul>
+<h1 id="cultiver-le-sentiment-de-responsabilité">Cultiver le sentiment de responsabilité</h1>
+<ul>
+<li>La dernière étape du voyage prend la forme d’un exercice nous permettant d’ancrer les réflexions de l’après-midi dans la pratique et le “quotidien” : proposer un critère de démarcation entre la <em>peur salutaire</em>, celle qui représente un atout essentiel à notre survie ; et la <em>peur aliénante</em>, celle qui est agitée par les démagogues, nous paralyse ou nous enclin à des actions monstrueuses.</li>
+<li>Plusieurs critères sont proposés:
+<ul>
+<li>la peur de perdre quelque chose (aliénante) <span class="math inline">≠</span> la peur d’être jugé (libératrice)</li>
+<li>la fréquence et/ou la proximité de la source de peurs</li>
+<li>les peurs primaires, régressives (aliénantes) <span class="math inline">≠</span> les peurs causées par des valeurs morales</li>
+<li>le degré de médiatisation entre nous et la source de notre peur (aliénant quand il augmente)</li>
+<li>la connaissance et la compréhension de la cause de notre peur<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a></li>
+</ul></li>
+<li><p>Pour une fin elliptique, une citation de Wittgenstein:</p>
+<blockquote>
+<p>Je provoque la volonté de nager en me jettant à l’eau</p>
+<p>Recherches Philosophiques, §613</p>
+</blockquote></li>
+</ul>
+<h1 id="conclusion">Conclusion</h1>
+<ul>
+<li>L’après-midi se conclut par un tour de parole</li>
+<li>J’ai pour ma part vécu une expérience très riche et en suis content. J’ai apprécié le rythme, soutenu, l’érudition de Peggy Avez, les exercices nous invitant à réfléchir et puiser dans notre pratique et notre propre réflexion, les perspectives ouvertes sur des auteurs connus mais mal compris (Wittgenstein, Anders), peu connus (Aristote, Arendt) ou nouveaux (Anscombe).</li>
+<li>Sur le plan pratique, je retiens la “procédure d’Anders” comme une nouvelle heuristique puissante pour s’orienter dans un monde de plus en plus complexe</li>
+</ul>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>J’ai plus de mal à produire des exemples qui soient à mes yeux convaincants, cette distinction me paraissant assez largement artificielle et dépassée<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Ceci semble entrer en contradiction avec d’autres parties de l’oeuvre du stagirite pour lesquelles le souverain bien est dans la contemplation, la théorie…<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>On notera le contraste entre la simplicité de l’énonciation et la complexité des questions qu’elle soulève<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>Plus précisèment avec le <em>second</em> Wittgenstein, celui des <em>Recherches philosophiques</em> et pas celui du <em>Tractatus logico-philosophicus</em><a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>L’éthique à Nicomaque, livre 3<a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p>J’avoue ma perplexité en relisant ces notes…<a href="#fnref6">↩</a></p></li>
+<li id="fn7"><p>Il me semble que l’on passe là un peu vite sur la distinction entre droit et morale : un planteur de Louisiane est-il coupable de tuer un esclave en 1840 ? Et un romain en -50 ? Que dire du frère d’une jeune fille qui la tue parce qu’elle a “fauté” avec un garçon ?<a href="#fnref7">↩</a></p></li>
+<li id="fn8"><p>Plus largement, juive et musulmane aussi ?<a href="#fnref8">↩</a></p></li>
+<li id="fn9"><p>Dans cette tradition, la culpabilité à pour vocation d’expliquer le Mal en disculpant Dieu<a href="#fnref9">↩</a></p></li>
+<li id="fn10"><p>Des centrales nucléaires ?<a href="#fnref10">↩</a></p></li>
+<li id="fn11"><p>voir ce que dit Spinoza des affects et en particulier du traitement de la <a href="http://spinoza.fr/lecture-des-propositions-xxxix-a-xliv-du-de-affectibus/">peur</a> comme commencement de la raison<a href="#fnref11">↩</a></p></li>
+</ol>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Sur &quot;Les Blancs, les Juifs et nous&quot;</title>
     <link href="http://abailly.github.io/posts/bouteldja.html" />
     <id>http://abailly.github.io/posts/bouteldja.html</id>
     <published>2016-06-21T00:00:00Z</published>
     <updated>2016-06-21T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>Sur &quot;Les Blancs, les Juifs et nous&quot;</h1>
+
+  <h2 class="subtitle"></h2>
+
 <div class="info">Posted on June 21, 2016</div>
 
 <p>J’ai lu récemment <a href="http://www.lafabrique.fr/catalogue.php?idArt=952">Les Blancs, les Juifs et nous</a> de <a href="https://fr.wikipedia.org/wiki/Houria_Bouteldja">Houria Bouteldja</a>, fondatrice du Mouvement puis Parti des <a href="http://indigenes-republique.fr/">Indigènes de la République</a>. Les temps que nous vivons sont, comme le dit une fameuse malédiction, intéressants et la question des migrations, des frontières et des nations se repose avec une acuïté renouvellée. Nous croyions les nationalismes et racismes dépassés, au moins en Europe, vestiges d’un ancien monde qui aurait plongé dans l’abyme en 1945, quand ils n’étaient qu’assoupis. Et ces vieux démons nous reviennent en partie sous les mêmes oripeaux - stigmatisation de l’étranger, de l’immigré, peur de l’avenir et du déclassement, exaltation de la grandeur du passé - en partie sous de nouvelles hardes - crise écologique, hyper-technologie, libéralisme dévorant. Essayer de comprendre les alternatives qui s’offrent à nous, les “nouvelles” idéologies qu’il nous faudra fabriquer, diffuser, intégrer pour espérer survivre me semble être un impératif pressant.</p>
@@ -143,6 +356,9 @@
     <published>2016-06-03T00:00:00Z</published>
     <updated>2016-06-03T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>The Dungeon Master</h1>
+
+  <h2 class="subtitle"></h2>
+
 <div class="info">Posted on June  3, 2016</div>
 
 <p>This post was triggered by a <a href="https://twitter.com/ziobrando/status/737619202538758145">tweet from Alberto Brandolini</a> on <a href="https://medium.com/@ziobrando/the-rise-and-fall-of-the-dungeon-master-c2d511eed12f#.erkso3y88">The rise and fall of the Dungeon Master</a>. This revived old memories from my youth and the desire to share this part of my story, in the hope that it might shed some light on what a “Dungeon Master” role actually should be and what team work is all about. My life revolved around Role Playing Games between the the age of fifteen to about twenty-eight and this experience shaped my way of thinking probably more than anything else.</p>
@@ -203,6 +419,9 @@
     <published>2016-05-30T00:00:00Z</published>
     <updated>2016-05-30T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>Multi-host Docker Networking</h1>
+
+  <h2 class="subtitle"></h2>
+
 <div class="info">Posted on May 30, 2016</div>
 
 <p>A while ago I grew the desire to experiment implementing <em>multi-host docker networking</em> to deploy <a href="/posts/cm-infra-2.html">Capital Match system</a>. This system is made of several interlinked containers and <a href="https://docs.docker.com/v1.8/compose/">docker-compose</a> does not (did not?) work across several hosts. It seemed to me the <a href="https://docs.docker.com/engine/userguide/networking/get-started-overlay/">official solution</a> based on <code>docker-machine</code>, <code>swarm</code> and service registry was a bit complicated: Our configuration is mostly static, e.g. number, distribution and relationship between containers in known at deploy time. Hence I looked for a simpler solution, something that would be more <em>networky</em>: I am indebted to <a href="https://fr.wikipedia.org/wiki/Utilisateur:Hashar">hashar</a> for suggesting a GRE-based solution and to the following references for actual technical details:</p>
@@ -237,6 +456,9 @@
     <published>2016-05-24T00:00:00Z</published>
     <updated>2016-05-24T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>Haskell-based Infrastructure</h1>
+
+  <h2 class="subtitle"></h2>
+
 <div class="info">Posted on May 24, 2016</div>
 
 <p>In my <a href="/posts/cm-infra-1.html">previous post</a> I focused on the build and development tools. This post will conclude my series on Capital Match by focusing on the last stage of the rocket: How we build and manage our development and production infrastructure. As already emphasized in the previous post, I am not a systems engineer by trade, I simply needed to get up and running something while building our startup. Comments and feedback most welcomed!</p>
@@ -453,6 +675,9 @@ ciHost <span class="fu">=</span> propertyList <span class="st">&quot;creating Co
     <published>2016-05-23T00:00:00Z</published>
     <updated>2016-05-23T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>Haskell-based Development Environment</h1>
+
+  <h2 class="subtitle"></h2>
+
 <div class="info">Posted on May 23, 2016</div>
 
 <p>In a <a href="/posts/cm-arch-design.html">previous post</a> I described the overall design and architecture of Capital Match’s core system. I now turn to providing more details on our development and operations environment which uses mostly Haskell tools and code. As there are quite a lot of moving parts, this large topic will be covered in two posts: The present one will focus on basic principles, build tools and development environment ; it shall be followed by another post on configuration management, deployment and monitoring. I consider both development and production environments as a single integrated system as, obviously, there is a porous membrane between the two especially in a small company with 4 developers. Although I have been interested in that topic since my first systems programming course in university, some 18 years ago, I do not consider myself a genuine systems administrator and I made a lot of mistakes while building Capital Match platform. But I do believe in the <em>“you build it, you run it”</em> motto and this is all the more true for a small startup team. Hence I have tried to pay attention to building a flexible yet robust system.</p>
@@ -726,6 +951,9 @@ ciHost <span class="fu">=</span> propertyList <span class="st">&quot;creating Co
     <published>2016-05-22T00:00:00Z</published>
     <updated>2016-05-22T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>Notes on Failing to Understand Software Transactional Memory</h1>
+
+  <h2 class="subtitle"></h2>
+
 <div class="info">Posted on May 22, 2016</div>
 
 <p>I am writing some library to easily implement event sourced services in Haskell based on previous experience at Capital Match, and while doing so I rewrote a simple file-based event store. This store communicates with core service using <a href="https://hackage.haskell.org/package/stm-2.4.4.1/docs/Control-Concurrent-STM-TBQueue.html">TBQueue</a>, a bounded queue implemented over Haskell’s STM. It took me couple of hours on Friday to solve a <a href="http://hackage.haskell.org/package/base-4.8.2.0/docs/Control-Exception-Base.html#t:BlockedIndefinitelyOnSTM">BlockedIndefinitelyOnSTM</a> bug I was facing while testing this simple store. So today I posted a <a href="http://stackoverflow.com/questions/37376419/what-is-the-precise-reason-i-got-blocked-on-stm">question about STM</a> on Stack Overflow, as I did not have a clear intuition on why my code was failing, hence why my fix was correct.</p>
@@ -797,6 +1025,9 @@ r <span class="ot">&lt;-</span> atomically <span class="fu">$</span> takeTMVar v
     <published>2016-05-12T00:00:00Z</published>
     <updated>2016-05-12T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>Life Beyond Relational Database in Haskell - The case for Event Sourcing</h1>
+
+  <h2 class="subtitle"></h2>
+
 <div class="info">Posted on May 12, 2016</div>
 
 <p>This post contains the code I demonstrated as part of my talk at <a href="http://ncrafts.io">nCrafts</a>. This work is based on the following references (stepping on the shoulders of giants, as always…):</p>
@@ -1042,6 +1273,9 @@ runClient (<span class="dt">DecCounter</span> n) <span class="fu">=</span> runEi
     <published>2016-05-05T00:00:00Z</published>
     <updated>2016-05-05T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>Sur &quot;Critique de la raison pure&quot;</h1>
+
+  <h2 class="subtitle"></h2>
+
 <div class="info">Posted on May  5, 2016</div>
 
 <p>Ceci est une retranscription d’un cours improvisé par <a href="https://directory.unamur.be/staff/pavez">Peggy Penez-Avez</a> lors d’une session d’<a href="http://agenda-agile.org/showevent.php?id=487">Agile Open France 2016</a>, conçu plus ou moins comme une expérimentation du <a href="http://dojophilo.net/">Dojo Philo</a>. J’ai pu ajouté quelques notes personnelles…</p>
@@ -1083,78 +1317,6 @@ runClient (<span class="dt">DecCounter</span> n) <span class="fu">=</span> runEi
 <li>Mais par ailleurs l’impossibilité de s’arrêter à l’expérience fait de l’homme un être libre et moral. Les idées de la raison qui ne sont pas de l’ordre de la connaissance sont la condition de la vie morale</li>
 <li>L’idée morale chez Kant consiste à renverser la proposition “tu peux donc tu dois” en “tu dois donc tu peux”: c’est l’impératif catégorique</li>
 </ul>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>On &quot;The World Beyond Your Head&quot;</title>
-    <link href="http://abailly.github.io/posts/the-world-beyond-your-head.html" />
-    <id>http://abailly.github.io/posts/the-world-beyond-your-head.html</id>
-    <published>2016-04-28T00:00:00Z</published>
-    <updated>2016-04-28T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>On &quot;The World Beyond Your Head&quot;</h1>
-<div class="info">Posted on April 28, 2016</div>
-
-<p>I have read Matthew Crawford’s <a href="http://www.editionsladecouverte.fr/catalogue/index-__loge_du_carburateur-9782707160065.html">Éloge du carburateur</a> or <a href="http://www.matthewbcrawford.com/new-page-1-1-2/">Shop Class as Soulcraft</a> a few years ago, in French and really liked the way it praised manual work, of the kind one does in a mechanics shop, and reconciled it with intellectual work. I bought <a href="http://www.matthewbcrawford.com/new-page-1-1/">The World Beyond Your Head</a> and read it in English this time.</p>
-<p>I have mixed feelings about Crawford’s statements and philosophy and I am writing this post to make those feelings clearer to my self, to try to separate what I like and what I don’t like, and possibly to raise discussion and criticism. After all English is not my mother tongue and I am not a professionnal philosopher hence there are things I might have misunderstood.</p>
-<h1 id="summary">Summary</h1>
-<p>The book’s subtitle - <em>How to Flourish in an Age of Distraction</em> - exposes its program: A moralist view on our (post-)modern condition entrapped in the thralls of <em>engineered hyper pallatable desires</em> bestowed upon us by big business, and how to escape this condition and rebuild meaning.</p>
-<p>The book starts with the somewhat obvious statement that our <em>attention</em> has becomed a key resource that is being harvested by companies and governments. The former seek to extract profit by engineering experiences that will attract and retain our attention, as exemplified by how successful Internet giants are gathering personal data and constantly creating new ways of making profit out of that (big) data. The latter seek enhance social control and <em>conformance</em> in order to govern through consensus and norm, rather than through strength and police. This is exemplified by <em>nudges</em> which are now routinely used to induce expected behaviour without resorting to coercition.</p>
-<p>The question of <em>attention</em> is key as it is the expression of our relationship to the world and ultimately to our individuality, or coherence of <em>self</em>. The <em>homo economicus</em> view of free will and rationality that is our common horizon those days implies that we are individually responsible for our attention and exercise of free will, that we can <em>rationally choose</em> at all time what to focus on. But advances in psychology and behavioural economics tend to demonstrate this is not actually true, that our desires and thoughts are driven by our culture and environment, leading to a deterministic view of human rationality and ultimately to engineering our behaviour, at least statiscally.</p>
-<p>Through the example of the <em>motorcycle rider</em>’s experience, the author offers another view of attention and free will, one that relates the mind to <em>reality</em> through <em>affordances</em>, or rather one that makes the individual situated, a part of, embodied, in reality. By dismissing the view of the mind - or self - as an <em>observer</em> of reality, one can account for the rider’s experience which would seem impossible to explain in purely rational terms. The experience of the road and riding one accumulates through direct relationship with the reality, the speed of wind, the road, the noise of the engine, the surrounding traffic must be physical, mediated through the motorcycle, makes riding possible. And this cannot be engineered but must be learnt: The increasing sophistication of today’s cars remove the driver from the experience of driving thus removing the possibility of taking decisions, leading ultimately to the driverless car.</p>
-<p>Crawford’s give two counterexamples to this <em>situated self experience</em>. The first one is the <em>Mickey Mouse Clubhouse</em> which is a TV program with educational motivation but which depicts a highly virtual and <em>magical</em> world: Problems happening to Mickey and his friends are almost invariably solved by pushing some button and invoking some magical device that solves the problem. The second example is how gambling industry crafts the gamblers’ environment to induce more and more gambling and generate addiction. The goal of the whole gambling industry is to make gamblers lose contact with reality so that gambling <em>becomes</em> reality.</p>
-<p>The extreme libertarianism that expresses itself in those few examples and the accepted social norm of individualism and self-responsibility of adults that makes all this possible can be traced back, according to Matthew Crawford, to the philosophers of the European Enlightnement, Descartes, Locke and last but not least Kant. Those philosophers struggled against the absolutism of their time and the dogmatism of the Church and King, and they built a philosophy based on the overarching principle of a fully autonomous self, radically separated from the World. Kant’s moral philosophy in particular, needs to posit one’s moral self as disconnected from any particular experience in order to be able to reach universalism. The <em>moral imperative</em> that one shall only treat others as an end and never as a mean is universal because it is <em>not</em> inferred from experience or intuition but is at the root of our judgment. And Locke’s rejection of authority to make individual freedom possible implies a radical shift on the source of truth from the outside - authorities, dogma - to the inside - one’s mind and rational judgment. In the end, we are led to live in a world of <em>representations</em> that abstract ourselves from the reality.</p>
-<p>The second part of the book offers another view of individualism as <em>shared experience</em> of the world. From the baby which is led to discover the world by her caregiver to the student or apprentice which is led to discover a new field and learn new skills by a teacher or master, one can infer that our individuality <em>needs</em> other people and things, needs an actual - dialectical as Hegel says - confrontation with the reality <em>beyond my head</em>. But this requires <em>attention</em>, and <em>care</em>, and <em>effort</em> as the real world might not be very nice or my be adversarial to my current desires and feelings. Yet because there is a feedback loop between the inner self and the outer world, one can choose to consciously act in order to change his feelings and thoughts. Crawford talks about the <em>erotics of attention</em> or the desire to encounter an <em>other</em> as a way to enrichen and enliven my own <em>self</em>.</p>
-<p>But a key contradiction of our modern world is that although it theoretically puts individualism as the ultimate measure of things, in practice we are more and more treated as <em>statistical units</em>, e.g. generic representatives of some group, trend, fashion, community. This movement started in the 20s and 30s with the advent of polls, going hand in hand with industrialisation and rationalisation of organisations and of course the triumph of collectivist movements. But Tocqueville wrote about it a century ago when he described the <em>tyranny of majority</em> in democratic America. Enjoined on one side to <em>be oneself</em> and on the other side pressured to <em>abide by the social norms</em>, the modern person seeks refuge in political correctness, fashion and muzak, keeping one’s own thoughts private lest he or she runs the risk of being confronted to others. Kant is once again convicted of being at the root of this contradiction in his efforts to build a universal moral: Each man or woman must act as being a representative of humanity as a whole and som ust somehow lose his or her individuality in the process. As Matrix said it: <em>Welcome in the desert of the real</em>.</p>
-<p>The third and shortest part of the book offers a path out of this modern <em>flattening</em>, and this path builds on <em>inheritance</em> and <em>craftsmanship</em>. The author visits <a href="http://www.taylorandboody.com/">Taylor and Boody</a>, a small organmaker shop in the U.S., and through what he experiences there and what the people working there tell about their work, suggests that organmaking is a good archetype of how to rebuild true individuality in our modern days. The key characteristics of the organmakers is that:</p>
-<ol style="list-style-type: decimal">
-<li>They are inheritors to a centuries old tradition, building upon techniques, tools and artefacts that were devised in the 17th century or 18th century,</li>
-<li>They are not lavishly <em>imitating</em> the past, they are working in constant <em>discussion</em> with the old masters, sometimes replacing outdated materials with modern ones (e.g. carbon fiber), sometimes rediscovering lost techniques. There actually was a Baroque organ revival in the first half of the 20th century that lead to renewal of techniques to uncover lost sound of organs,</li>
-<li>They are <em>situated</em> and <em>embodied</em> in reality, crafting complex objects out of carefully chosen materials, using skillful techniques that require years to master,</li>
-<li>They are working as a community, led by the founders but running in a somewhat self-organised process where each person knows what she has to do and each one has his or herown area of expertise. Because Baroque organs are complex and very expensive things to build, customers understand the constraints and in particular that one cannot build an organ in days,</li>
-<li>They are building tools that are supposed to last for centuries, just like the organs from previous periods they are repairing or studying.</li>
-</ol>
-<p>Matthew Crawford concludes his book with a call to <em>reclaim the real</em> and in particular to overhaul our education system which is currently <em>undeserving of the attention of the students</em>. This overhauling should go through a rehabilitation of hand-crafting, giving the possibility to students to reclaim the real by actually working on it.</p>
-<h1 id="discussion">Discussion</h1>
-<p>I find the French title of the book <em>Contact</em> better than the English one: It better conveys the idea this book is about getting back in touch with the real and reclaiming it for ourself, to live it fully and consciously and not mediated through experiences crafted by others for their own means.</p>
-<p>As a software developer, this is something I have sometimes been struggling with. Because we work mostly in a virtual world, and a very abstract one where we are required to manipulate concepts interacting in very complex ways, it is a constant temptation to isolate oneself from the material reality. In a sense we as developers play a key role in the <em>attention engineering</em> movement Crawford is criticizing as it is through our tools, techniques, software, data centers, algorithms that people from Big Corps can harvest so much personal data and manipulate our interaction with the world to suit their needs.</p>
-<p>Social networks, virtual reality, hyper-communication, apps… all struggle to interpose themselves between us and reality in order to monetize those interactions, directly or indirectly. They all strive to capture a share of our attention and to impel their representations on us. They are mediating our access to the real and like all media before them, because they mediate this access to the world, they can control and tweak it. Or they can use the gathered data to serve other needs like advertising, industry optimisation or mass surveillance. And as software developers we have a responsibility with this state of the world, we cannot dismiss the issue saying <em>we are just techs</em>.</p>
-<p>Yet those tools we are creating and using are also giving us access to another reality. They make new <em>interactions</em> possible that were not even dreamt of in the past. It is possible to focus one’s attention on things that matter in virtual worlds, or in social networks. It is possible to foster and nurture deep - even <em>erotic</em> - interactions with people living on the other side of the planet. I have some personal experiences pair programming with people remotely that were really rich, and I have build friendship through virtual communications before I have a chance to meet people in real life. I believe, from first-hand experience, that the kind of individuality which is appealing to Crawford, individuality built on shared experience and confrontation can be built through mediation. But this of course requires energy, and actually more energy than one would need in real life, as the signal vs. noise ratio is lower hence misunderstanding can happen more quickly. And this also requires <em>action</em> and <em>intention</em>, the reliance on more neutral or individually-controlled media, e.g. open-source, free software, community run servers and networks…</p>
-<p>I also felt much empathy with Crawford’s praise of craft and the account he gives of Taylor and Boody’s way of working. As a long-time proponent of agile development, self organising teams, software craftsmanship and software quality, extreme programming… I cannot but recognise the way I would like to work, and sometimes managed to work, in how he describes teamwork at the organmakers’ shop. In the narrowest sense, software development obviously rests on a much younger tradition than organmaking. Yet even with a decades old tradition it is possible to build the kind of critical dialogue Crawford highlights in Taylor and Boody’s work:</p>
-<ul>
-<li>More often than not we are working with existing software and systems. This so-called <em>legacy code</em> is often viewed negatively, carrying with it stigmatas of impenetrability, accidental complexity, technological obsolescence… Yet this code has often been around for years and served its purpose well, and it is actually running the business be it a for-profit company or a non-profit organisation. It may have more than its share of warts but this is where the capability to engage in a <em>critical dialogue</em> comes into play. One of my favourite software development books is still Michael Feather’s <a href="">Working Effectively with Legacy Code</a>,</li>
-<li>Furthermore, we have built over the past 50 or 60 years a body of knowledge and experience which is still valuable, and valued. Technology fads come and go, but computer science, algorithms and engineering principles stay and accumulate. And with these too we can engage in a critical dialogue. <a href="https://en.wikipedia.org/wiki/Dijkstra&#39;s_algorithm">Dijkstra’s shortest path</a>, <a href="http://lcm.csa.iisc.ernet.in/dsa/node184.html">Kruskal’s spanning tree</a>, <a href="http://www-formal.stanford.edu/jmc/recursive.ps">McCarthy’s LISP</a>, <a href="http://www.inf.fu-berlin.de/lehre/WS03/alpi/lambda.pdf">Church’s lambda-calculus</a>, <a href="http://spinroot.com/courses/summer/Papers/hoare_1978.pdf">Hoare’s CSP</a>, <a href="https://intuitionistic.files.wordpress.com/2010/07/martin-lof-tt.pdf">Martin-Löf’s type theory</a>, <a href="http://infolab.stanford.edu/pub/papers/google.pdf">Page and Brin’s page rank</a> are all examples of knowledge that exist we must take care of when building new software. There is a kind of breathing in computer systems going back and forth between centralised systems with thin clients and decentralised systems with fat clients. Work on shared memory and parallel computers from the 80’s and 90’s is relevant for today’s massively distributed systems. And I am not even talking about the huge body of knowledge from mathematics, social sciences, physics, psychology one could put to good use when developing software systems.</li>
-</ul>
-<p>Moreover it is not true that our trade is a purely intellectual one. When working on a difficult problem or when encountering some unexpected road-block that forces me halt, it is often the case I grow a pain in my back, like I have been <em>pushing</em> a big rock uphill or doing some hard workout. Thinking can be helped or hindered by our physical sensations, the way we move or put to rest our body, walking, sitting, couching. Going out for a walk helps solving tough problems just like going to sleep while letting problems to rest can often have a “magical” effect. Drawing, writing or even typing are all part of our thinking process, or at least part of my thinking process. <a href="/posts/cake-custard-category.html">Eugenia Cheng</a> is not only a great category theorist, a pure mind, she is also a concert-level pianist. And how many great programmers do I know who also practice some sport or art, sometimes at competitive level?</p>
-<p>More generally, it is obvious the brain needs fuel and energy to work at its best and being well fed, rested, energized with a healthy way of life has deep impact on how fast, deep and well we can think. We <em>are</em> bodies and any attempt at denying this fact leads nowhere.</p>
-<p>Interestingly, Kant himself, whom Matthew Crawford criticizes so much in his book as being at the root of all the modern evil induced by individualism, the paragon of <em>idealism</em> nevertheless relates directly mind to body. In his <a href="https://en.wikipedia.org/wiki/Critique_of_Pure_Reason">Critics of Pure Reason</a> Kant aims at providing a grand unifying theory of <em>knowledge</em>. From what I understand - feel free to correct me - Kant posits that <em>knowledge</em> comes from the interaction of <em>understanding</em> which is the part of our mind that forms concepts and <em>intuition</em> which is the part that forms experiences. Both faculties are made possible because there exists <em>a priori</em> categories that <em>shape</em> understanding and intuition: <em>Space</em> and <em>time</em> are the tow categories that shape our experience of the world, while <em>causality</em>, <em>totality</em>, <em>unicity</em> and a bunch of others are the categories that shape concepts. I won’t - and can’t - delve into the intricacies of Kant’s philosophy but from what I understand Kant does <em>not</em> state the subject or mind exists independently of the world: On the contrary, he explicitly states that knowledge is only derived from experience and refutes <em>subjective idealism</em>: Self-consciousness exists through interactions with the real world, even though we only perceive phenomena and not the <em>reality in itself</em>. Time and space are “just” the shapes our mind give to our experience.</p>
-<p>Trying an analogy, I would say that Kant demonstrated or discovered the <em>language of the mind</em>, and he showed this language is separated in <em>pure</em> - the understanding and concepts - and <em>impure</em> - the intuition and senses - parts. The <em>pure</em> part is what is used to produce meaningful results, but it is useless and inobservable without the <em>impure</em> part which gives it <em>data</em> to process and means to act on the world. “What is the sound of a single hand clapping?” asks the famous Zen koan.</p>
-<p>Moreover Kant’s main goal seems to have been to establish solid philosophical foundations for <em>universality</em>: Of objective knowledge, reason and moral judgments. How can different people, with different experiences, can ever reach agreement, know something in common, act for a common good, if there is nothing else but <em>subjective monads</em> isolated from one another? If experience is always personal, nothing can ever be shared. Kant’s answer lies in the <em>a priori</em> of the understanding and perception which shape the way we think and thus makes shared knowledge and perceptions possible, because we all share the same internal machinery to <em>interpret</em> the phenomenal world.</p>
-<h1 id="conclusion">Conclusion</h1>
-<p>The ambivalent feelings I have with this book can be stated in a very simple way: Although I subscribe to the conclusion of the book, I am doubtful about its premises and I fear that he might be throwing the baby out with the bath’s water:</p>
-<ul>
-<li>There is a need to reclaim our attention which has been captured and privatised by corporations and state,</li>
-<li>This should come from increasing our <em>surface of contact</em> with reality, something that is fostered by shop work and skillful knowledge,</li>
-<li>The master-apprentice relationship and the transmission that happens there is key to build skillful and meaningful knowledge, one that is <em>situated</em> both in space and time,</li>
-<li>However this <em>communautarian</em> and <em>aristocratic</em> process might come at the price of universality and democracy, as exemplified by the stratified and fragmented societies of the past against which philosophers of the Enlightenment struggled. <em>Corporatism</em> is the reverse of a coin whose observe is <em>craftsmanship</em>.</li>
-</ul>
-<p>I don’t follow Crawford in his rejections of the project of the <em>Enlightenment</em>, namely the project of founding a universal community of humans. Of course, in the time and place this project’s was born, humanity was restricted to wealthy white european males. And the time of the <em>great tales</em> has passed: We live in post-(post?-)modernist times where irony reigns. And Kant’s philosophy itself might be outdated. But I am not ready to throw away the idea that we need to found, and refound again and again, some form of universal that makes it possible to share the world’s experience and build common knowledge.</p>
-<p>I cannot conclude this post without citing Spinoza whose philosophy traces the kind of path Matthew Crawford’s is proposing to us, one of reconciling mind, body and the world in a universal shared by all human beings. Spinoza viewed reality was made of a single <em>substance</em> which manifested itself through an infinity of <em>attributes</em>, only two of which are accessible to us: <em>thought</em> And <em>extension</em>. Hence the deep parallelism between the mind and the body: Whatever affects one affects the other. From those principles Spinoza builds a philosophy that seeks to enhance <em>life</em> maximilizing <em>joy</em> under the guidance of <em>reason</em>. Spinoza himself exemplified this unity of mind and body by being one of the most renowned lens polisher of his time.</p>
 
 
 <div id="disqus_thread"></div>
