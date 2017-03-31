@@ -1,0 +1,151 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - Understanding Existential Types</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://abailly.github.io"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="#">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div id="main" role="main">
+<h1>Understanding Existential Types</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on March 31, 2017</div>
+
+<p>Existential types are a less well-known extension to Haskell’s type system and Damas-Hindley-Milner type theory, although they are a logical consequence of the identification of type theory with predicate logic: If type variables can be universally quantified then it seems logical they can also be existentially quantified. I have used existential types in Haskell on several occasions but my brain always struggled to really understand what was going on and how to fix the dreaded error messages I got back from the compiler.</p>
+<p>While working on <a href="../slides/xxi-century-typed.html">my talk</a> on type-driven development I used existentials to model one of the evolution step of the quizz program I was working on and had some sort of epiphany. This short post is an attempt to capture the insights I gathered in the hope it might be useful for other people.</p>
+<h1 id="the-problem">The Problem</h1>
+<p>The problem is pretty simple and quite common. A quizz is made up from different <em>types</em> of questions which are part of a quizz, say open questions, multiple choice questions, rating questions. Each question expects a different type of answer: A free text for open questions, selected option for MCQ, a number for rating questions, but the answer is always initially given by the user as a text which must be converted to the right form.</p>
+<p>So we have the following (abridged) types of questions:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">OpenQuestion</span> 
+<span class="kw">data</span> <span class="dt">MCQuestion</span>
+<span class="kw">data</span> <span class="dt">RatingQuestion</span></code></pre></div>
+<p>We expose the API of questions as a <em>typeclass</em> in order to be future-proof (we would like to make it easy to introduce new types of questions):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Questionable</span> q <span class="kw">where</span>
+    <span class="kw">type</span> <span class="dt">Answer</span><span class="ot"> q ::</span> <span class="fu">*</span>
+    <span class="co">-- other methods omitted....</span>
+<span class="ot">    isCorrectAnswer ::</span> <span class="dt">Answer</span> q <span class="ot">-&gt;</span> q <span class="ot">-&gt;</span> <span class="dt">Bool</span></code></pre></div>
+<p>and then we need to define a <code>Quizz</code> as a sequence of questions and some functions to compute the answers to the questions and assess the user’s result. The <code>User</code> is simply modelled as a function that provides an answer (or no answer) as a string, given any question.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">User</span> <span class="fu">=</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Text</span>
+
+<span class="kw">data</span> <span class="dt">Quizz</span> <span class="fu">=</span> <span class="dt">Quizz</span> {<span class="ot"> questions ::</span> [ <span class="dt">Question</span> ] }
+
+<span class="ot">answerQuestion ::</span> <span class="dt">User</span> <span class="ot">-&gt;</span> <span class="dt">Question</span> <span class="ot">-&gt;</span> <span class="dt">Quizz</span> <span class="ot">-&gt;</span> <span class="dt">Quizz</span>
+answerQuestion user question quizz <span class="fu">=</span> <span class="fu">...</span>
+
+<span class="ot">answers ::</span> <span class="dt">User</span> <span class="ot">-&gt;</span> <span class="dt">Quizz</span> <span class="ot">-&gt;</span> <span class="dt">Quizz</span>
+answers user quizz <span class="fu">=</span>
+ foldr (answerQuestion user) quizz (questions quizz)</code></pre></div>
+<p>The key issue is then to define <code>Question</code> in such a way that it allows us to work with current (and future) question’s types in a uniform way.</p>
+<h1 id="using-existential-type">Using Existential type</h1>
+<p>A very simple solution would be to wrap each possible type in a specialized constructor, which in essence amounts to <em>tag</em> each possible <code>Question</code> with its type:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Question</span> <span class="fu">=</span> 
+    <span class="dt">MCQ</span> <span class="dt">MCQuestion</span>
+  <span class="fu">|</span> <span class="dt">Open</span> <span class="dt">OpenQuestion</span>
+  <span class="fu">|</span> <span class="dt">Rating</span> <span class="dt">RatingQuestion</span></code></pre></div>
+<p>This solution, while simple to use as it is amenable to direct pattern-matching, suffers from an obvious drawback: It closes the range of available types of questions, or rather makes it difficult to add a new one.</p>
+<p>Given that each type of question is assumed to be an instance of the <code>Questionnable</code> interface, we can wrap them using existential quantification in the type <code>Question</code>, using one of the two available syntaxes. The classic data type declaration syntax:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Question</span> <span class="fu">=</span>
+  forall q <span class="fu">.</span> <span class="dt">Questionable</span> q <span class="ot">=&gt;</span> <span class="dt">Question</span> q</code></pre></div>
+<p>or the GADT-style syntax which explicitly exposes the constructor <code>Question</code> as a function</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Question</span> <span class="kw">where</span>
+  <span class="dt">Question</span><span class="ot"> ::</span> <span class="dt">Questionable</span> q <span class="ot">=&gt;</span> q <span class="ot">-&gt;</span> <span class="dt">Question</span></code></pre></div>
+<p>The effect of an existential type construction is to limit the scope of the type variable <code>q</code> appearing in the constructor, thus in effect ensuring the question itself, whatever its type, must stay within the scope of its appearance. For example, while it is possible to pattern match on <code>Question</code> to get whatever <code>q</code> is packed inside it, this <code>q</code> cannot be returned. Writing</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">getQ (<span class="dt">Question</span> question _) <span class="fu">=</span> question</code></pre></div>
+<p>yields the following, somewhat dreadful, compiler error:</p>
+<pre><code>error:
+    • Couldn't match expected type ‘t’ with actual type ‘q’
+        because type variable ‘q’ would escape its scope
+      This (rigid, skolem) type variable is bound by
+        a pattern with constructor:
+          Question :: forall q.
+                      Questionable q =&gt;
+                      q -&gt; Question,
+        in an equation for ‘getQ’
+        at /Users/arnaud/projects/xxi-typed/haskell/.stack-work/intero/intero2342CZJ.hs:11:7-18
+    • In the expression: question
+      In an equation for ‘getQ’: getQ (Question question) = question
+    • Relevant bindings include
+        question :: q
+          (bound at /Users/arnaud/projects/xxi-typed/haskell/.stack-work/intero/intero2342CZJ.hs:11:16)
+        getQ :: Question -&gt; t
+          (bound at /Users/arnaud/projects/xxi-typed/haskell/.stack-work/intero/intero2342CZJ.hs:11:1)</code></pre>
+<p>This is so because the type of the result <code>question</code> being <code>question :: q</code> implies that the type variable <code>q</code> becomes <em>free</em> in any context where <code>getQ</code> is used: It escapes the scope of the constructor.</p>
+<p>Interestingly, the <a href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#lexically-scoped-type-variables">ScopedTypeVariables</a> GHC extension gives us the capability to use that <code>q</code>. We can write the following (somewhat contrived) function:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">slug (<span class="dt">Question</span> (<span class="ot">quest ::</span> q) _) <span class="fu">=</span> slugify quest
+  <span class="kw">where</span>
+<span class="ot">    slugify ::</span> q <span class="ot">-&gt;</span> <span class="dt">Text</span>
+    slugify <span class="fu">=</span> T.take <span class="dv">3</span> <span class="fu">.</span> question</code></pre></div>
+<p>In the type of <code>slugify</code> we are not forced to expose the constraint <code>Questionable q</code> because the type variable <code>q</code> at this point is the one brought in scope with the expression <code>q :: q</code>.</p>
+<h1 id="understanding-existential-types">Understanding Existential Types</h1>
+<p>What’s somewhat confusing for the average programmer who has not had a PhD in type theory is: Why are those types called <em>existential</em>? Especially given the fact they are introduced by <code>forall</code> keyword? <a href="http://stackoverflow.com/questions/10753073/whats-the-theoretical-basis-for-existential-types">This StackOverflow</a> does a great job at explaining how (intuitionistic) logic rules relate <span class="math inline">∀</span> and <span class="math inline">∃</span> quantifiers in the case of type constructors.</p>
+<p>In short, it comes from the fact that <br /><span class="math display">∀<em>x</em>.<em>Q</em>(<em>x</em>)⟹<em>P</em> = (∃<em>x</em>.<em>Q</em>(<em>x</em>)) ⟹ <em>P</em>.</span><br /></p>
+<h1 id="references">References</h1>
+<p>There are already a number of resources on the topic:</p>
+<ul>
+<li>Roman Cheplyaka’s <a href="https://ocharles.org.uk/blog/guest-posts/2014-12-19-existential-quantification.html">24 Days of GHC Extensions</a> does a great job at explaining how existentials work in Haskell</li>
+<li>Benjamin Pierce’s <a href="http://www.cis.upenn.edu/~bcpierce/tapl/">Types and Programming Languages</a> has chapter 24 dedicated to the subject of existential types, whose main application is the modelling of object-oriented programming</li>
+<li><a href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#existentially-quantified-data-constructors">GHC manual</a> of course, gives the fine prints</li>
+</ul>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+    
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
