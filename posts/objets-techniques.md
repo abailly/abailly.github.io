@@ -108,7 +108,7 @@ Loin du technologisme conquérant et abstrait du *management scientifique* prôn
 Taylor et ses successeurs, prônant la séparation toujours plus fine des tâches et des rôles entre conception et réalisation,
 direction et exécution, pensée et action au nom de l'efficacité économique, et tout autant éloigné du scientisme positiviste
 aveugle, Simondon propose une philosophie de la technique à hauteur d'homme et de femme, un projet peut-être utopique mais ancré
-dans le réel, de réenchanté le monde en retrouvant l'unité perdue de la figure et du fond.
+dans le réel, de réenchanter le monde en retrouvant l'unité perdue de la figure et du fond.
 
 
 [^1]: C'est que Simondon nomme *l'hypertélie* : la sur-adaptation de l'objet à sa finalité. 
