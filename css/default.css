@@ -15,3 +15,19 @@ footer img {
     margin-left: 5px;
     margin-right: 5px;
 }
+
+table td, table th {
+    padding: .2em;
+    margin: .2em;
+    text-align: left;
+}
+
+table>thead>tr {
+    background-color: #777;
+    color: #eee;
+}
+
+tbody tr:nth-child(2n) {
+    background-color: #ddd;
+}
+
