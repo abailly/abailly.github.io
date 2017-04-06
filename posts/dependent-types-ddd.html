@@ -32,7 +32,7 @@
         </nav>
       </div>
     </header>
-    <div class="draft" id="main" role="main">
+    <div id="main" role="main">
 <h1>Domain Driven Design, meet Dependent Types</h1>
 
   <h2 class="subtitle"></h2>
@@ -40,10 +40,7 @@
 <div class="info">Posted on April  3, 2017</div>
 
 <blockquote>
-<p>– This article aims to be the first post in a series exploring connection between <a href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven Design</a> and <a href="https://en.wikipedia.org/wiki/Dependent_type">Dependent types</a> as implemented in <a href="http://idris-lang.org">Idris</a>. I plan to go through all the numerous examples scattered across Eric Evan’s <a href="https://www.abebooks.com/products/isbn/9780321125217/22376984258">seminal book</a>, revisiting them in the light of functional programming with dependent types. My intuition is that using DT languages will allow us to produce better and safer designs.</p>
-</blockquote>
-<blockquote>
-<p>– Note this article is a <a href>literate Idris program</a> you can download and run with the Idris interpreter or compiler.</p>
+<p>This article aims to be the first post in a series exploring connection between <a href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven Design</a> and <a href="https://en.wikipedia.org/wiki/Dependent_type">Dependent types</a> as implemented in <a href="http://idris-lang.org">Idris</a>. I plan to go through all the examples scattered across Eric Evan’s <a href="https://www.abebooks.com/products/isbn/9780321125217/22376984258">seminal book</a>, revisiting them in the light of functional programming with dependent types. My intuition is that using DT languages will allow us to produce better and safer designs.</p>
 </blockquote>
 <p>Let’s go first through some ceremonies in order to please the Gods of programming:</p>
 <div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> <span class="kw">module</span> <span class="dt">Cargo</span>
@@ -143,6 +140,9 @@
 <span class="fu">&gt;</span>   <span class="kw">in</span> (voyage' <span class="fu">**</span> hasCargo cargo voyage') </code></pre></div>
 <p>In the original function (or method) defined in the book, <code>makeBooking</code> returned an integer which was supposed to be booking confirmation order, or -1 if the booking could not be confirmed. It seems to me the above formulation improves over this simple but potentially obscure <em>coding</em> of return type, explicitly embodying the success or failure to add the cargo to the voyage in the return <em>type</em> while concurrently updating the voyage. What I found really interesting is that while we are not only improving the cohesion/coupling through the separation of concerns <code>OverbookingPolicy</code> yields, we are also <em>opening</em> the function to other use thanks to the more precise return type.</p>
 <p>Dependent types (or even non-obviously-dependent-yet-sophisticated type systems like Haskell’s or OCaml’s) really allows (or forces) us to reason in two stages: Things we can reason about at compile time and things we can reason about at run-time, with the added value of being able to express the two using the same expressions. I suspect these capabilities could be useful to provide more robust and expressive designs for real-world problems, and not only as a tool for automated theorem proving, and this is what I intend to explore in the next installments of this series.</p>
+<blockquote>
+<p>Thanks to <a href="https://twitter.com/rhwy">Rui Carvalho</a> for the feedback and to <a href="https://www.meetup.com/fr-FR/Crafting-Software/events/238241119/">Crafting Software Meetup</a> to give me the incentive to explore these topics</p>
+</blockquote>
 <div class="footnotes">
 <hr />
 <ol>
@@ -169,8 +169,19 @@
 
     </div>
     <footer>
-       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
     </footer>
+    
   </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>
