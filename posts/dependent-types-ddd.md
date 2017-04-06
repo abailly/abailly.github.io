@@ -1,7 +1,7 @@
 ------------
 title: Domain Driven Design, meet Dependent Types
 author: Arnaud Bailly 
-date: 2017-04-03
+date: 2017-04-06
 ------------
 
 > This article aims to be the first post in a series exploring connection between [Domain Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) and [Dependent types](https://en.wikipedia.org/wiki/Dependent_type) as implemented in [Idris](http://idris-lang.org). I plan to go through all the examples scattered across Eric Evan's [seminal book](https://www.abebooks.com/products/isbn/9780321125217/22376984258), revisiting them in the light of functional programming with dependent types. My intuition is that using DT languages will allow us to produce better and safer designs.
