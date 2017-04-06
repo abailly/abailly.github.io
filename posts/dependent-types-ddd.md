@@ -4,9 +4,7 @@ author: Arnaud Bailly
 date: 2017-04-03
 ------------
 
-> -- This article aims to be the first post in a series exploring connection between [Domain Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) and [Dependent types](https://en.wikipedia.org/wiki/Dependent_type) as implemented in [Idris](http://idris-lang.org). I plan to go through all the examples scattered across Eric Evan's [seminal book](https://www.abebooks.com/products/isbn/9780321125217/22376984258), revisiting them in the light of functional programming with dependent types. My intuition is that using DT languages will allow us to produce better and safer designs.
-
-> -- Note this article is a [literate Idris program]() you can download and run with the Idris interpreter or compiler.
+> This article aims to be the first post in a series exploring connection between [Domain Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) and [Dependent types](https://en.wikipedia.org/wiki/Dependent_type) as implemented in [Idris](http://idris-lang.org). I plan to go through all the examples scattered across Eric Evan's [seminal book](https://www.abebooks.com/products/isbn/9780321125217/22376984258), revisiting them in the light of functional programming with dependent types. My intuition is that using DT languages will allow us to produce better and safer designs.
 
 Let's go first through some ceremonies in order to please the Gods of programming: 
 
@@ -192,6 +190,8 @@ We are now fully armed to define `makeBooking'''` function which is just our `ma
 In the original function (or method) defined in the book, `makeBooking` returned an integer which was supposed to be booking confirmation order, or -1 if the booking could not be confirmed. It seems to me the above formulation improves over this simple but potentially obscure *coding* of return type, explicitly embodying the success or failure to add the cargo to the voyage in the return *type* while concurrently updating the voyage. What I found really interesting is that while we are not only improving the cohesion/coupling through the separation of concerns `OverbookingPolicy` yields, we are also *opening* the function to other use thanks to the more precise return type.
 
 Dependent types (or even non-obviously-dependent-yet-sophisticated type systems like Haskell's or OCaml's) really allows (or forces) us to reason in two stages: Things we can reason about at compile time and things we can reason about at run-time, with the added value of being able to express the two using the same expressions. I suspect these capabilities could be useful to provide more robust and expressive designs for real-world problems, and not only as a tool for automated theorem proving, and this is what I intend to explore in the next installments of this series.
+
+> Thanks to [Rui Carvalho](https://twitter.com/rhwy) for the feedback and to [Crafting Software Meetup](https://www.meetup.com/fr-FR/Crafting-Software/events/238241119/) to give me the incentive to explore these topics
 
 [^1]: This one I copied verbatim from the book but I don't use really in the code...
 
