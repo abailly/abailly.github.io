@@ -73,6 +73,14 @@ main = do
             >>= relativizeUrls
             >>= loadAndApplyTemplate "templates/default.html"  postCtx
 
+    match "pages/*" $ do
+        route $ (gsubRoute "pages/" (const "")) `composeRoutes` setExtension "html"
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/page.html"    postCtx
+            >>= saveSnapshot "content"
+            >>= relativizeUrls
+            >>= loadAndApplyTemplate "templates/default.html"  postCtx
+
     match "drafts/*" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
