@@ -22,6 +22,10 @@ table td, table th {
     text-align: left;
 }
 
+dt {
+    font-weight: bold;
+}
+
 table>thead>tr {
     background-color: #777;
     color: #eee;
