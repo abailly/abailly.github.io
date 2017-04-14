@@ -1,5 +1,5 @@
 ------------
-title: Pour une thérapeutique du code
+title: Pour une  thérapeutique du code
 author: Arnaud Bailly 
 date: 2017-04-14
 ------------
