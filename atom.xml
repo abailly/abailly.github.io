@@ -8,8 +8,147 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2017-04-15T00:00:00Z</updated>
+    <updated>2017-04-17T00:00:00Z</updated>
     <entry>
+    <title>Weekly Review - Week 15</title>
+    <link href="http://abailly.github.io/posts/weekly-review-15.html" />
+    <id>http://abailly.github.io/posts/weekly-review-15.html</id>
+    <published>2017-04-17T00:00:00Z</published>
+    <updated>2017-04-17T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Weekly Review - Week 15</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on April 17, 2017</div>
+
+<p>This post is a summary of links related to coding and software I followed and read (sometimes, skimmed over) in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
+<h1 id="monday">2017-04-10 Monday</h1>
+<dl>
+<dt><a href="https://github.com/qmuli/qmuli/">qmuli/qmuli: Qmuli - Serverless framework for Haskell</a></dt>
+<dd><p>While preparing my talk about configuration management with Haskell, I went back to this fascinating idea: Execute Haskell code over AWS Lambda.</p>
+</dd>
+</dl>
+<h1 id="tuesday">2017-04-11 Tuesday</h1>
+<dl>
+<dt><a href="https://projecteuler.net/problem%3D1">Problem 1 - Project Euler</a></dt>
+<dd><p>Thinking about building something like <em>Project Euler</em> but dedicated to philosophical questions…</p>
+</dd>
+</dl>
+<h1 id="wednesday">2017-04-12 Wednesday</h1>
+<dl>
+<dt><a href="https://gist.github.com/masaedw/1571296">run emacs.app or emacsclient on Mac OS X</a></dt>
+<dd><p>Still working on getting a decent emacsclient-based setup on Mac</p>
+</dd>
+<dt><a href="http://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within">Getting the source directory of a Bash script from within - Stack Overflow</a></dt>
+<dd><p>Surprisingly not straightforward esp. if one wants to take care of all corner cases</p>
+</dd>
+<dt><a href="http://modesofexistence.org/crossings/#/fr/tec-ref">AIME - {TEC·REF}</a></dt>
+<dd><p>Back to <a href="/posts/eme.html">AIME project</a> while working on my talk for newCrafts. Most of the links below are residuals from a trail of surfing the web starting from trying to better understand the TEC/REF crossing and following references from there</p>
+</dd>
+<dt><a href="http://www.artspace.com/magazine/interviews_features/the_big_idea/a-guide-to-object-oriented-ontology-art-53690">What Is Object-Oriented Ontology? A Quick-and-Dirty Guide to the Philosophical Movement Sweeping the Art World | Art for Sale | Artspace</a></dt>
+<dd><p>It seems there exists something called <em>Object-Oriented Ontology</em> or <em>OOO</em> for short which is quite an earth-shaking news to learn for a former OO programmer slowly shifting towards FP. Maybe there is some reverse movement going on in the field of metaphysics and speculative philosophy where people coming from a purely logical framework (aka. classical logic, logical positivism, intuitionism…) would move towards an <em>object-oriented</em> approach. Seems mostly relevant and very active in the aesthetics.</p>
+</dd>
+</dl>
+<ul>
+<li><a href="http://conversations.e-flux.com/t/the-uses-and-abuses-of-object-oriented-ontology-and-speculative-realism/2105">The uses and abuses of object-oriented ontology and speculative realism - Frontpage - e-flux conversations</a></li>
+<li><a href="https://avoidingthevoid.wordpress.com/dictionary-of-concepts-for-graham-harmans-object-oriented-philosophy-draft-work-in-progress/">Dictionary of concepts for Graham Harman’s object-oriented philosophy {draft: work in progress} | Avoiding/the</a></li>
+<li><a href="http://www.thedewlab.com/blog/2012/07/12/introduction-to-object-oriented-ontology/">Introduction to Object Oriented Ontology | The DEW Lab</a></li>
+<li><a href="https://doctorzamalek2.wordpress.com/2010/07/23/brief-srooo-tutorial/">brief SR/OOO tutorial | Object-Oriented Philosophy</a></li>
+<li><a href="http://www.shaviro.com/Blog/?p%3D995">Processes and Powers – The Pinocchio Theory</a></li>
+</ul>
+<dl>
+<dt><a href="http://www.shaviro.com/Othertexts/Things.pdf">Things.pdf</a></dt>
+<dd><p>This one I read in more details, the author being somewhat supportive of OOO but apparently with some peculiar twists:</p>
+</dd>
+</dl>
+<ul>
+<li>objects have an existence of their own which is incommensurable to us</li>
+<li>we go into a state of terror when we realise this as exemplified by the mechanic from the introductory short story whose tools come alive and flesh-like</li>
+<li>following Heidgger, Shaviro posits that objects, things, tools are withdrawn from mere presence, they “cannot be reduced to its presence-at-hand - that is to say to the sum of its delineable properties” =&gt; contra correlation of things and human mind</li>
+<li>but this dissolution, this alienness has a dual movement which manifests itself especially with <em>broken tools</em>: things become more-than-present, they spring to life <em>against</em> us, in their singularity</li>
+<li>we don’t use tools, we <em>ally</em> with them to reach our goals</li>
+<li>things proposition me (Whitehead): They are not only a mere packet of sense-data</li>
+<li>things have a relation between themselves which is <em>aesthetical</em>: feeling an object for its own sake</li>
+<li>linked to romanticism and <em>wholeness</em> (??), the world as a “single gigantic system of references”</li>
+<li>democracy of fellow creatures</li>
+<li>anthropomorphism goes against anthropocentrism =&gt; imbues things with feelings, “thoughts” and desires</li>
+<li>vitalism and panpsychism =&gt; Gaia ?</li>
+</ul>
+<dl>
+<dt><a href="http://sitr.us/2014/05/05/category-theory-proofs-in-idris.html">Category Theory proofs in Idris - sitr.us</a></dt>
+<dd><p>Using Idris to institute a Categorical framework and make proofs with it</p>
+</dd>
+<dt><a href="http://www.di.fc.ul.pt/~bessani/publications/dsn14-bftsmart.pdf">dsn14-bftsmart.pdf</a></dt>
+<dd><p>Byzantine fault-tolerant distributed consensus is the algorithmic problem at the heart of blockchains. This article claims to reach tens of thousands of TPS with its implementation of BFT consensus in Java. There quite a few companies like <a href="https://symbiont.io/technology/introducing-symbiont-assembly/#the-api">Symbiont.io</a> building upon this technology to provide so-called “smart contracts” capabilities.</p>
+</dd>
+<dt><a href="https://qz.com/950973/remote-work-for-programmers-the-ultimate-office-perk-is-avoiding-the-office-entirely/">Remote work: For programmers, the ultimate office perk is avoiding the office entirely — Quartz</a></dt>
+<dd><p>Another nail in the coffin of office work?</p>
+</dd>
+<dt><a href="http://www.drmaciver.com/2015/10/the-economics-of-software-correctness/">The economics of software correctness | David R. MacIver</a> and <a href="https://www.jwz.org/doc/worse-is-better.html">The Rise of ``Worse is Better’’</a></dt>
+<dd><p>Those two articles go hand in hand…</p>
+</dd>
+</dl>
+<h1 id="thursday">2017-04-13 Thursday</h1>
+<dl>
+<dt><a href="http://zilsel.hypotheses.org/2103#more-2103">Le réalisme kitsch | Zilsel</a></dt>
+<dd><p>Une critique du <em>nouveau réalisme</em> dont le <em>réalisme spéculatif</em> qui a parti lié avec l’Ontologie Orientée-Objet dont je parle plus haut. Ainsi que de Latour, Meillassoux, Garcia et autres philosophes post-post-modernes.</p>
+</dd>
+<dt><a href="https://developer.android.com/studio/command-line/sdkmanager.html">sdkmanager | Android Studio</a></dt>
+<dd><p>On a more practical matter, I paired with Bernard on setting up an environment for mobile apps development based on <a href="http://cordova.apache.org">Cordova</a>. Setting this up is less straightforward than one would like and requires things like installing the <a href="https://software.intel.com/en-us/android/articles/intel-hardware-accelerated-execution-manager">Intel® Hardware Accelerated Execution Manager (Intel® HAXM)</a>…</p>
+</dd>
+<dt><a href="https://forge.ocamlcore.org/scm/viewvc.php/trunk/calendarFAQ-2.6.txt?view%3Dmarkup&amp;root%3Dcalendar">OCaml Calendar FAQ</a></dt>
+<dd><p>Working on a follow-up to my first post <a href="/posts/dependent-types-ddd.html">mixing DDD and Type DD</a>, I started shaving some yak: Implement a (naive) dependently-typed date module in Idris. I got a gentle reminder in this <a href="http://stackoverflow.com/questions/43352519/how-to-properly-handle-fin-n-and-integer-when-computing-dates">SO question</a> that handling dates correctly is extremely challenging, as this detailed post on dates handling from an OCaml library exposes.</p>
+</dd>
+<dt><a href="https://labs.spotify.com/2017/03/31/spotifys-lovehate-relationship-with-dns/">Spotify’s Love/Hate Relationship with DNS</a></dt>
+<dd><p>How Spotify leverages DNS in its microservices architecture</p>
+</dd>
+</dl>
+<h1 id="friday">2017-04-14 Friday</h1>
+<dl>
+<dt><a href="https://naughtthought.wordpress.com/2011/08/17/the-twilight-of-becoming-and-process/">The Twilight of Becoming (and Process) | Naught Thought</a></dt>
+<dd><p>Another post related to my exploration of OOO.</p>
+</dd>
+</dl>
+<h1 id="saturday">2017-04-15 Saturday</h1>
+<dl>
+<dt><a href="http://the-programmers-stone.com/about/implications-for-software-engineers/">The Programmers’ Stone » Implications for Software Engineers</a></dt>
+<dd><p>I don’t know how I stumbled on this blog which seems to be an online version of a book. Some more comments on <a href="http://wiki.c2.com/?ProgrammersStone">C2 wiki</a>… Looks like yet another instance of “developers are special” and “there are 10x programmers” myths, resting on some midly interesting research results from neurosciences related to <a href="https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow">Kahneman’s</a> work on behavioural economics.</p>
+</dd>
+<dt><a href="http://www.wackids.com/">the wackids</a></dt>
+<dd><p>And now for something different: A rock band playing rock classics on toy instruments!</p>
+</dd>
+<dt><a href="http://abailly.github.io/posts/kant2.html">Arnaud Bailly - Sur “Critique de la raison pure” (2)</a></dt>
+<dd><p>Published notes from last year’s reading of Kant’s CRP</p>
+</dd>
+</dl>
+<h1 id="sunday">2017-04-16 Sunday</h1>
+<dl>
+<dt><a href="https://aphyr.com/posts/341-hexing-the-technical-interview">Hexing the technical interview</a> and <a href="https://aphyr.com/posts/342-typing-the-technical-interview">Typing the technical interview</a></dt>
+<dd><p>Two fantastic posts from Kyle Kingsbury of Jepsen fame, demonstrating the breadth and depth of his knowledge of computer systems, from writing bytecode in clojure to type-level programming in Haskell</p>
+</dd>
+<dt><a href="https://halshs.archives-ouvertes.fr/halshs-00695545/document">Régler sa vie more geometrico: Spinoza</a></dt>
+<dd><p>Comment s’inspirer de l’Éthique ?</p>
+</dd>
+</dl>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Sur &quot;Critique de la raison pure&quot; (2)</title>
     <link href="http://abailly.github.io/posts/kant2.html" />
     <id>http://abailly.github.io/posts/kant2.html</id>
@@ -995,64 +1134,6 @@ answers user quizz <span class="fu">=</span>
 <li id="fn9"><p>Dans cette tradition, la culpabilité à pour vocation d’expliquer le Mal en disculpant Dieu<a href="#fnref9">↩</a></p></li>
 <li id="fn10"><p>Des centrales nucléaires ?<a href="#fnref10">↩</a></p></li>
 <li id="fn11"><p>voir ce que dit Spinoza des affects et en particulier du traitement de la <a href="http://spinoza.fr/lecture-des-propositions-xxxix-a-xliv-du-de-affectibus/">peur</a> comme commencement de la raison<a href="#fnref11">↩</a></p></li>
-</ol>
-</div>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Sur &quot;Les Blancs, les Juifs et nous&quot;</title>
-    <link href="http://abailly.github.io/posts/bouteldja.html" />
-    <id>http://abailly.github.io/posts/bouteldja.html</id>
-    <published>2016-06-21T00:00:00Z</published>
-    <updated>2016-06-21T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Sur &quot;Les Blancs, les Juifs et nous&quot;</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on June 21, 2016</div>
-
-<p>J’ai lu récemment <a href="http://www.lafabrique.fr/catalogue.php?idArt=952">Les Blancs, les Juifs et nous</a> de <a href="https://fr.wikipedia.org/wiki/Houria_Bouteldja">Houria Bouteldja</a>, fondatrice du Mouvement puis Parti des <a href="http://indigenes-republique.fr/">Indigènes de la République</a>. Les temps que nous vivons sont, comme le dit une fameuse malédiction, intéressants et la question des migrations, des frontières et des nations se repose avec une acuïté renouvellée. Nous croyions les nationalismes et racismes dépassés, au moins en Europe, vestiges d’un ancien monde qui aurait plongé dans l’abyme en 1945, quand ils n’étaient qu’assoupis. Et ces vieux démons nous reviennent en partie sous les mêmes oripeaux - stigmatisation de l’étranger, de l’immigré, peur de l’avenir et du déclassement, exaltation de la grandeur du passé - en partie sous de nouvelles hardes - crise écologique, hyper-technologie, libéralisme dévorant. Essayer de comprendre les alternatives qui s’offrent à nous, les “nouvelles” idéologies qu’il nous faudra fabriquer, diffuser, intégrer pour espérer survivre me semble être un impératif pressant.</p>
-<p>Pour ceux qui liraient ces lignes et que ces questions intéresseraient, internet est comme souvent une mine inépuisable de textes, d’information et de désinformation sur ces questions et sur le sujet du <em>décolonialisme</em> dont je n’ai fait qu’égratigner la surface, et qui est le sujet du livre de Houria Bouteldja. Je n’en parlerai donc pas plus et me concentrerai sur ce que j’ai compris de ce livre et ce qu’il m’inspire.</p>
-<h2 id="brève-synthèse">Brève synthèse</h2>
-<p>Le livre est court, divisé en 6 chapitres traitant respectivement de Sartre et de la génèse du mouvement décolonial, des Blancs et de leur domination sur toutes les autres “races”, des Juifs et de leur soumission aux Blancs, des femmes décolonisées et de leur relation aux hommes décolonisés et aux femmes en général, de tous les décolonisés et enfin de Dieu et plus particulièrement de l’Islam.</p>
-<p>Il est aussi très bien écrit. La langue d’Houria Bouteldja est fluide, percutante, poétique parfois, polémique toujours. Elle me rappelle, si ce n’est par le style du moins par le ton et le sens de la formule, certains écrits de Debord, ou bien sûr les textes du <a href="http://www.lafabrique.fr/spip/IMG/pdf_Insurrection.pdf">Comité invisible</a>. Cela n’a rien d’étonnant compte-tenu de la proximité entre toutes les luttes de l’ultra-gauche: le décolonialisme est l’allié “naturel” du féminisme, de l’anti-capitalisme, des luttes trans-genres, de l’écologie radicale…</p>
-<p>Allié ou plutôt <em>avant-garde</em> au sens bolchévique, marxiste, révolutionnaire du terme : la pointe la plus avancée de la contestation, le groupe le plus en phase avec le <em>sens de l’histoire</em>, celui sur lequel toutes les autres luttes doivent s’aligner, qui a la responsabilité historique d’être révolutionnaire. C’est d’ailleurs le point essentiel du livre : démontrer en quoi les décolonisés sont la nouvelle <em>classe révolutionnaire</em> et subsument toutes les autres luttes ; autrement dit transformer la dialectique prolétaires/capitalistes en dialectique (dé)colonisés/colonisateurs : les décolonisés sont les nouveaux <em>damnés de la Terre</em>, les ultimes prolétaires.</p>
-<p>Et ce pour une bonne raison : le concept de race, la <em>blanchitude</em> et donc la <em>non-blanchitude</em>, est une invention de l’Occident destinée à enfoncer un coin entre le prolétariat “blanc” occidental et les colonisés. Ce sont les dominants Blancs qui ont inventé le racisme pour construire leur hégémonie et s’assurer de la docilité de leurs prolétaires en inventant un sous-prolétaire : le <em>non-blanc</em>, le <em>colonisé</em>. Tactique classique de tous les pouvoirs pour lutter contre les critiques internes : créer de toute pièce un ennemi “extérieur” qui deviendra ennemi commun, puis en appeler à la solidarité de la communauté.</p>
-<p>Ce principe, au sens le plus “principiel” d’origine première d’une chose, doit donc informer toutes les luttes “autres”:</p>
-<ul>
-<li>Les mouvemements ouvriers et de luttes sociales sont invités à se rallier à sa bannière car “l’Arabe est le prolétaire du prolétaire” et leurs luttes convergent ;</li>
-<li>les luttes homosexuelles, de genre et plus largement LGBTQ sont considérées comme secondaires et surtout purement blanches : “il n’y a pas d’homosexuels en Iran” dit Ahmadinejjad lors d’un colloque à Columbia ;</li>
-<li>le féminisme est lui aussi un produit de la blanchitude et l’auteure en appele à une solidarité communautaire avec les mâles décolonisés dans un délicat équilibre entre des revendications d’émancipation et l’impératif du combat principal contre la colonisation blanche. Le corps de la femme décolonisée, en tout cas celui d’Houria Bouteldja, ne lui appartient pas, il appartient à son clan, sa communauté, sa race, à la révolution qui vient, et la violence machiste des hommes colonisés est une réaction exacerbée par la domination subie, donc <em>in fine</em> une violence d’origine coloniale.</li>
-</ul>
-<p>Le cas des Juifs est particulier : les Juifs sont des non-blancs, des colonisés, mais en adoptant le sionisme ils se sont blanchis. L’auteure utilise d’ailleurs le terme très percutant et provocant de <em>dhimmis<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> de la République</em>. L’antisémitisme, comme toute forme de racisme, est un pur produit Occidental né de la modernité, une autre forme de la domination coloniale qui a trouvée son point culminant dans la destruction des juifs d’Europe. En universalisant l’antisémitismes, les Blancs réussissent à “faire d’une pierre deux coups : justifier le hold-up de la Palestine et justifier la répression des indigènes en Europe”.</p>
-<p>L’Islam, socle culturel authentiquement décolonisé et indigène, est la seule force capable de lutter contre la modernité occidentale incarnée par la figure tutélaire de Descartes, d’où le titre du dernier chapitre du livre : <em>Allahou Akbar</em>. En posant tous les hommes également égaux car soumis à Dieu, l’Islam renverserait la profession de foi occidentalo-centrée en “l’homme maître et possesseur de la Nature”.</p>
-<h2 id="quelques-remarques-pêle-mêles">Quelques remarques pêle-mêles</h2>
-<p>J’ai aimé ce livre pour sa force provocatrice, son ton radical, son engagement en faveur des exploités et dominés. Il m’a donné des clés pour lire certains événements contemporains, certains prises de position, certaines luttes, par exemple pourquoi le port du voile peut être pensé comme révolutionnaire et libérateur (et ce en dehors de toute question morale). Comme tous les pamphlets bien écrits, il ne peut laisser indifférent et provoque des sentiments mêlés d’admiration, d’enthousiasme, de peur. C’est aussi sa limite.</p>
-<p>Comme tous les pamphlets, il est plein d’amalgames, de raccourcis, de formules chocs dont le sens est interprétable à l’infini, d’appels à l’Histoire dans lesquels se télescopent les situations, les époques, les peuples, les civilisations. Plein de mauvaise foi aussi, jugée nécessaire pour les besoins de l’argumentation. Et d’ambiguïtés : citer dans un même livre Sartre, Genet, Césaire, Malcolm X, James Baldwin, Mahmoud Ahmadinejjad et Dieudonné. Et parfois aussi tout simplement d’erreurs et d’omissions, volontaires ou non. Sur le plan historique, les relations entre Occident et Orient me semblent un peu plus complexes que ce qu’en dit l’auteure : l’Islam n’a pas attendu l’invention de la modernité pour être impérial, si ce n’est colonial. Et mettre dans le même plan toutes les colonisations européennes, depuis 1492 jusqu’au vingtième siècle est un court-circuit historique qui me semble abusif<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. Cela n’enlève rien à la responsabilité historique de l’Occident et de l’Europe dans la tragédie coloniale et post-coloniale.</p>
-<p>Est-ce que ce livre s’adresse à moi ? Moi, homme blanc, petit-bourgeois, non engagé dans les luttes sociales, rationnel et raisonnable ou tentant de l’être ; moi qui n’ai pas eu des parents ouvriers, qui n’ai jamais vécu dans une cité, qui suit un “souchien” n’ayant pas à souffrir du racisme ? Il parait difficile de le croire mais en tout cas il m’a touché. Et d’une certaine manière, Houria Bouteldja, en glorifiant le particularisme et sa “race” opprimée, atteint à l’universel de la lutte des dominés pour plus de justice sociale.</p>
-<p>Nous sentons tous confusément que notre vieux monde se meurt, lentement mais sûrement ; que si l’Occident n’a plus de colonies il détient un part du capital mondial telle qu’il capte à son profit l’essentiel des richesses produites ; que Gaïa est en train de réagir aux mauvais traitements que nous lui infligeons ; que le modèle consumériste et la logique d’accumulation qui le sous-tend sont à bout de souffle. La question est, pour paraphraser Lénine : “Que faire ?”</p>
-<p>Je n’ai pas de leçons à donner et m’en abstiendrai donc, mais je crois plus aux petits matins qu’aux grands soirs. Même si les seconds sont plus exaltants que les premiers.</p>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>Dans l’espace musulman, les dhimmis sont les non-musulmans, Juifs, Chrétiens, Zoroastriens (pas sûr pour ceux-là…) auxquels est accordé un statut spécial. Ils sont tolérés et protégés par le calife ou le sultan, ils ont l’autorisation de pratiquer leurs cultes en contrepartie d’une taxe et, si mes souvenirs sont bons, de l’obligation du port d’un signe distinctif.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Les anciens colonisateurs espagnols et portugais qui ont dominé et même exterminé les peuples indigènes d’Amérique sont devenus eux-mêmes colonisés et solidaires des luttes tiers-mondistes arabes, africaines et asiatiques.<a href="#fnref2">↩</a></p></li>
 </ol>
 </div>
 
