@@ -1,0 +1,177 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - Weekly Review - Week 16</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="/"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="http://drcode.io">Dr.Code</a>
+          </li>
+          <li>
+          <a href="/about.html">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div id="main" role="main">
+<h1>Weekly Review - Week 16</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on April 24, 2017</div>
+
+<p>This post is a summary of links related to coding and software I followed and read (sometimes, skimmed over) in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
+<h2 id="monday">2017-04-17 Monday</h2>
+<dl>
+<dt><a href="http://svn.clifford.at/handicraft/2017/tttm/README">The Teeny Tiny Mansion</a></dt>
+<dd><p>A formally proved adventure game: There is no dead end in the game, every states has a path that leads to a winning state.</p>
+</dd>
+<dt><a href="http://www.cprover.org/cbmc/">The CBMC Homepage</a></dt>
+<dd><p>The model checker that is used by <code>tttm</code>. What’s interesting is that it works directly on C/C++ source files. Could probably be adapted to work on Java files, if this is not already done…</p>
+</dd>
+<dt><a href="https://groups.google.com/forum/#!topic/idris-lang/DHYUrWZEa8Q">Is there library support for FOL or propositional logic? - Google Groups</a></dt>
+<dd><p>Some discussion on the <code>idris-lang</code> mailing about adding native First-Order Logic support in the language</p>
+</dd>
+</dl>
+<h2 id="tuesday">2017-04-18 Tuesday</h2>
+<dl>
+<dt><a href="http://sociologie.revues.org/1573">Enquête sur les modes d’existence</a></dt>
+<dd><p>(in French) Criticism of Latour’s book and more generally Latour’s philosophy. Interesting counterpoint while I am trying to use Latour’s concepts to better understand software and our relationship with it.</p>
+</dd>
+<dt><a href="http://zilsel.hypotheses.org/2103#comments">Le réalisme kitsch | Zilsel</a></dt>
+<dd><p>(in French) Another criticism, this time of <a href="../posts/weekly-review-15.html">Object-Oriented Ontology</a> and Speculative Realism</p>
+</dd>
+<dt><a href="http://www.codecraftuk.org/events/2015/02/css-tdd-review">CSS TDD - Review</a></dt>
+<dd><p>Is it possible, and useful, to write CSS in TDD mode, with automated tests? Not sure this post provides a positive answer…</p>
+</dd>
+</dl>
+<h2 id="wednesday">2017-04-19 Wednesday</h2>
+<dl>
+<dt><a href="http://blog.ploeh.dk/2016/02/10/types-properties-software-designing-with-types/">Types + Properties = Software: designing with types</a></dt>
+<dd><p>Relinking to a classical series of post on Type-Driven Development in F#.</p>
+</dd>
+<dt><a href="http://www.lean.enst.fr/wiki/pub/Lean/LesPublications/LeanDevBalleBalle.pdf">LeanDevBalleBalle.pdf</a></dt>
+<dd><p>Short description of <em>Lean Development</em> as a complement to <em>Lean Manufacturing</em>, by one of the foremost French expert on Lean</p>
+</dd>
+<dt><a href="http://spacemacs.org/layers/%2Bemacs/org/README.html#tree">Org layer</a></dt>
+<dd><p>How to use org-mode in Spacemacs. As I do a lot of pairing in Spacemacs those days, I need to beef up my skills with this environment and retarget my muscles memory to new keystrokes sequences…</p>
+</dd>
+<dt><a href="https://github.com/abailly/yak-o-matic">abailly/yak-o-matic: visualize your yaks</a></dt>
+<dd><p>Thinking of reviving this old project, written with Willem van den Ende at Agile Open France 2013, whose purpose was visualising a dependency graph of tasks given an org-mode file.</p>
+</dd>
+</dl>
+<h2 id="thursday">2017-04-20 Thursday</h2>
+<dl>
+<dt><a href="http://newartisans.com/2017/04/haskell-and-z3/">Lost in Technopolis</a></dt>
+<dd><p>Some fascinating note on the use of <a href="https://github.com/conal/concat">category theory</a> as an abstract <em>assembly language</em> to generate equations that are fed to <a href="https://github.com/Z3Prover/z3">Z3</a> theorem prover.</p>
+</dd>
+<dt><a href="http://stackoverflow.com/questions/2979174/how-do-i-compute-the-approximate-entropy-of-a-bit-string">encryption - How do I compute the approximate entropy of a bit string? - Stack Overflow</a></dt>
+<dd><p>I have been working at the end of the week on a small coding challenge: Write a script that emulates the behavior of <code>cat /dev/random</code>, e.g. that generates an infinite stream of as-random-an-possible bytes. My first thought was : How do I test the randomness of a stream of bytes, and this started some research on the web on how to compute entropy of a string</p>
+</dd>
+<dt><a href="https://en.wikipedia.org/wiki/Salsa20">Salsa20</a></dt>
+<dd><p>I chose to use this <em>stream cipher</em> algorithm to generate my stream of random bytes, encryting a stream of bytes coming from a network card put in promiscuous mode. It is reasonably straightforward to understand and implement and generates good “randomness”</p>
+</dd>
+<dt><a href="https://people.csail.mit.edu/rivest/pubs/RS14.pdf">RS14.pdf</a></dt>
+<dd><p>An article from Ron Rivest describing Spritz, an alternative to RC4.</p>
+</dd>
+</dl>
+<h2 id="friday">2017-04-21 Friday</h2>
+<dl>
+<dt><a href="https://calomel.org/entropy_random_number_generators.html">Entropy and Random Number Generators @ Calomel.org</a></dt>
+<dd><p>Helpful post on how to compute “entropy” for random generators. Link to the <a href="http://www.fourmilab.ch/random/random.zip">Ent</a> tool</p>
+</dd>
+<dt><a href="http://www.haskellforall.com/2015/01/use-haskell-for-shell-scripting.html">Haskell for all: Use Haskell for shell scripting</a></dt>
+<dd><p>I of course chose to write my random generation script in Haskell, trying to use as few dependencies as possible: I managed to get it working using only what’s provided by GHC 8.0.2 distribution. Here is an alternative and more expressive way of writing scripts in Haskell.</p>
+</dd>
+</dl>
+<h2 id="saturday">2017-04-22 Saturday</h2>
+<dl>
+<dt><a href="https://cr.yp.to/snuffle/salsa20/ref/salsa20.c">Salsa Reference Implemention</a></dt>
+<dd><p>Reference implementation of Salsa algorithm in plain old C. <a href="https://cr.yp.to/snuffle/salsafamily-20071225.pdf">salsafamily-20071225.pdf</a> provides more details and rationale on this family of algorithms. This lead me to more stuff on PRNGs and how to gather entropy from the system:</p>
+</dd>
+</dl>
+<ul>
+<li><a href="http://www.pcg-random.org/">PCG, A Family of Better Random Number Generators | PCG, A Better Random Number Generator</a></li>
+<li><a href="http://dtrace.org/blogs/brendan/2011/10/10/top-10-dtrace-scripts-for-mac-os-x/">Brendan’s blog » Top 10 DTrace scripts for Mac OS X</a></li>
+<li><a href="https://www.cyberciti.biz/open-source/debian-ubuntu-centos-linux-setup-additional-entropy-for-server-using-aveged-rng-tools-utils/">How to speed up OpenSSL/GnuPG Entropy For Random Number Generation On Linux – nixCraft</a></li>
+</ul>
+<dl>
+<dt><a href="https://aws.amazon.com/fr/blogs/aws/announcing-the-aws-chatbot-challenge-create-conversational-intelligent-chatbots-using-amazon-lex-and-aws-lambda/">Announcing the AWS Chatbot Challenge – Create Conversational, Intelligent Chatbots using Amazon Lex and AWS Lambda | AWS Blog</a></dt>
+<dd><p>Something definitely fun I would love to work on!</p>
+</dd>
+</dl>
+<h2 id="sunday">2017-04-23 Sunday</h2>
+<dl>
+<dt><a href="https://gist.github.com/abailly/9c2b23cca63e66a71093b05462a1e17d">A haskell implementation of a pseudo-random number generator using Salsa20 algorithm</a></dt>
+<dd><p>Final implementation of my pseudo-random bytes generator in Haskell</p>
+</dd>
+<dt><a href="http://www.bearcave.com/misl/misl_tech/wavelets/compression/shannon.html">Shannon Entropy</a></dt>
+<dd><p>I started to use compression ratio as a proxy for entropy of a finite stream of bytes but replaced it with direct measurement of Shannon’s entropy, using the standard formula to compute the number of bits needed to represent all elements of a finite stream <span class="math inline"><em>X</em></span> with probability of occurence for each letter of <span class="math inline"><em>p</em><sub><em>i</em></sub></span>.</p>
+</dd>
+<dt><a href="https://alastairreid.github.io/alastairreid.github.io/ARM-v8a-xml-release/">ARM Releases Machine Readable Architecture Specification – Alastair Reid – Researcher at ARM Ltd</a></dt>
+<dd><p>Another fascinating post on the use of formal specifications, this time in the realm of hardware architecture.</p>
+</dd>
+<dt><a href="https://www.linkedin.com/pulse/forget-project-planning-just-doesnt-work-alex-katsanos?trk%3Dv-feed&amp;trk%3Dv-feed&amp;lipi%3Durn%253Ali%253Apage%253Ad_flagship3_feed%253Bh8fPT2gGIAweLWHuUJcjxQ%253D%253D">Forget about project planning; it just doesn’t work | Alex Katsanos | Pulse | LinkedIn</a></dt>
+<dd><p>Looks like waterfall does not very well in “traditional” engineering either…</p>
+</dd>
+<dt><a href="https://scholar.princeton.edu/sites/default/files/mgilens/files/gilens_and_page_2014_-testing_theories_of_american_politics.doc.pdf">Testing Theories of American Politics</a></dt>
+<dd><p>Can we empirically demonstrate how policies are formed and driven? This article shows the answer is yes by testing actual decisions against theories of whose interest these decisions serve. Would definitely be interested in a similar study for Europe…</p>
+</dd>
+</dl>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+    
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

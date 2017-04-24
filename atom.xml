@@ -8,8 +8,136 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2017-04-19T00:00:00Z</updated>
+    <updated>2017-04-24T00:00:00Z</updated>
     <entry>
+    <title>Weekly Review - Week 16</title>
+    <link href="http://abailly.github.io/posts/weekly-review-16.html" />
+    <id>http://abailly.github.io/posts/weekly-review-16.html</id>
+    <published>2017-04-24T00:00:00Z</published>
+    <updated>2017-04-24T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Weekly Review - Week 16</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on April 24, 2017</div>
+
+<p>This post is a summary of links related to coding and software I followed and read (sometimes, skimmed over) in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
+<h2 id="monday">2017-04-17 Monday</h2>
+<dl>
+<dt><a href="http://svn.clifford.at/handicraft/2017/tttm/README">The Teeny Tiny Mansion</a></dt>
+<dd><p>A formally proved adventure game: There is no dead end in the game, every states has a path that leads to a winning state.</p>
+</dd>
+<dt><a href="http://www.cprover.org/cbmc/">The CBMC Homepage</a></dt>
+<dd><p>The model checker that is used by <code>tttm</code>. What’s interesting is that it works directly on C/C++ source files. Could probably be adapted to work on Java files, if this is not already done…</p>
+</dd>
+<dt><a href="https://groups.google.com/forum/#!topic/idris-lang/DHYUrWZEa8Q">Is there library support for FOL or propositional logic? - Google Groups</a></dt>
+<dd><p>Some discussion on the <code>idris-lang</code> mailing about adding native First-Order Logic support in the language</p>
+</dd>
+</dl>
+<h2 id="tuesday">2017-04-18 Tuesday</h2>
+<dl>
+<dt><a href="http://sociologie.revues.org/1573">Enquête sur les modes d’existence</a></dt>
+<dd><p>(in French) Criticism of Latour’s book and more generally Latour’s philosophy. Interesting counterpoint while I am trying to use Latour’s concepts to better understand software and our relationship with it.</p>
+</dd>
+<dt><a href="http://zilsel.hypotheses.org/2103#comments">Le réalisme kitsch | Zilsel</a></dt>
+<dd><p>(in French) Another criticism, this time of <a href="/posts/weekly-review-15.html">Object-Oriented Ontology</a> and Speculative Realism</p>
+</dd>
+<dt><a href="http://www.codecraftuk.org/events/2015/02/css-tdd-review">CSS TDD - Review</a></dt>
+<dd><p>Is it possible, and useful, to write CSS in TDD mode, with automated tests? Not sure this post provides a positive answer…</p>
+</dd>
+</dl>
+<h2 id="wednesday">2017-04-19 Wednesday</h2>
+<dl>
+<dt><a href="http://blog.ploeh.dk/2016/02/10/types-properties-software-designing-with-types/">Types + Properties = Software: designing with types</a></dt>
+<dd><p>Relinking to a classical series of post on Type-Driven Development in F#.</p>
+</dd>
+<dt><a href="http://www.lean.enst.fr/wiki/pub/Lean/LesPublications/LeanDevBalleBalle.pdf">LeanDevBalleBalle.pdf</a></dt>
+<dd><p>Short description of <em>Lean Development</em> as a complement to <em>Lean Manufacturing</em>, by one of the foremost French expert on Lean</p>
+</dd>
+<dt><a href="http://spacemacs.org/layers/%2Bemacs/org/README.html#tree">Org layer</a></dt>
+<dd><p>How to use org-mode in Spacemacs. As I do a lot of pairing in Spacemacs those days, I need to beef up my skills with this environment and retarget my muscles memory to new keystrokes sequences…</p>
+</dd>
+<dt><a href="https://github.com/abailly/yak-o-matic">abailly/yak-o-matic: visualize your yaks</a></dt>
+<dd><p>Thinking of reviving this old project, written with Willem van den Ende at Agile Open France 2013, whose purpose was visualising a dependency graph of tasks given an org-mode file.</p>
+</dd>
+</dl>
+<h2 id="thursday">2017-04-20 Thursday</h2>
+<dl>
+<dt><a href="http://newartisans.com/2017/04/haskell-and-z3/">Lost in Technopolis</a></dt>
+<dd><p>Some fascinating note on the use of <a href="https://github.com/conal/concat">category theory</a> as an abstract <em>assembly language</em> to generate equations that are fed to <a href="https://github.com/Z3Prover/z3">Z3</a> theorem prover.</p>
+</dd>
+<dt><a href="http://stackoverflow.com/questions/2979174/how-do-i-compute-the-approximate-entropy-of-a-bit-string">encryption - How do I compute the approximate entropy of a bit string? - Stack Overflow</a></dt>
+<dd><p>I have been working at the end of the week on a small coding challenge: Write a script that emulates the behavior of <code>cat /dev/random</code>, e.g. that generates an infinite stream of as-random-an-possible bytes. My first thought was : How do I test the randomness of a stream of bytes, and this started some research on the web on how to compute entropy of a string</p>
+</dd>
+<dt><a href="https://en.wikipedia.org/wiki/Salsa20">Salsa20</a></dt>
+<dd><p>I chose to use this <em>stream cipher</em> algorithm to generate my stream of random bytes, encryting a stream of bytes coming from a network card put in promiscuous mode. It is reasonably straightforward to understand and implement and generates good “randomness”</p>
+</dd>
+<dt><a href="https://people.csail.mit.edu/rivest/pubs/RS14.pdf">RS14.pdf</a></dt>
+<dd><p>An article from Ron Rivest describing Spritz, an alternative to RC4.</p>
+</dd>
+</dl>
+<h2 id="friday">2017-04-21 Friday</h2>
+<dl>
+<dt><a href="https://calomel.org/entropy_random_number_generators.html">Entropy and Random Number Generators @ Calomel.org</a></dt>
+<dd><p>Helpful post on how to compute “entropy” for random generators. Link to the <a href="http://www.fourmilab.ch/random/random.zip">Ent</a> tool</p>
+</dd>
+<dt><a href="http://www.haskellforall.com/2015/01/use-haskell-for-shell-scripting.html">Haskell for all: Use Haskell for shell scripting</a></dt>
+<dd><p>I of course chose to write my random generation script in Haskell, trying to use as few dependencies as possible: I managed to get it working using only what’s provided by GHC 8.0.2 distribution. Here is an alternative and more expressive way of writing scripts in Haskell.</p>
+</dd>
+</dl>
+<h2 id="saturday">2017-04-22 Saturday</h2>
+<dl>
+<dt><a href="https://cr.yp.to/snuffle/salsa20/ref/salsa20.c">Salsa Reference Implemention</a></dt>
+<dd><p>Reference implementation of Salsa algorithm in plain old C. <a href="https://cr.yp.to/snuffle/salsafamily-20071225.pdf">salsafamily-20071225.pdf</a> provides more details and rationale on this family of algorithms. This lead me to more stuff on PRNGs and how to gather entropy from the system:</p>
+</dd>
+</dl>
+<ul>
+<li><a href="http://www.pcg-random.org/">PCG, A Family of Better Random Number Generators | PCG, A Better Random Number Generator</a></li>
+<li><a href="http://dtrace.org/blogs/brendan/2011/10/10/top-10-dtrace-scripts-for-mac-os-x/">Brendan’s blog » Top 10 DTrace scripts for Mac OS X</a></li>
+<li><a href="https://www.cyberciti.biz/open-source/debian-ubuntu-centos-linux-setup-additional-entropy-for-server-using-aveged-rng-tools-utils/">How to speed up OpenSSL/GnuPG Entropy For Random Number Generation On Linux – nixCraft</a></li>
+</ul>
+<dl>
+<dt><a href="https://aws.amazon.com/fr/blogs/aws/announcing-the-aws-chatbot-challenge-create-conversational-intelligent-chatbots-using-amazon-lex-and-aws-lambda/">Announcing the AWS Chatbot Challenge – Create Conversational, Intelligent Chatbots using Amazon Lex and AWS Lambda | AWS Blog</a></dt>
+<dd><p>Something definitely fun I would love to work on!</p>
+</dd>
+</dl>
+<h2 id="sunday">2017-04-23 Sunday</h2>
+<dl>
+<dt><a href="https://gist.github.com/abailly/9c2b23cca63e66a71093b05462a1e17d">A haskell implementation of a pseudo-random number generator using Salsa20 algorithm</a></dt>
+<dd><p>Final implementation of my pseudo-random bytes generator in Haskell</p>
+</dd>
+<dt><a href="http://www.bearcave.com/misl/misl_tech/wavelets/compression/shannon.html">Shannon Entropy</a></dt>
+<dd><p>I started to use compression ratio as a proxy for entropy of a finite stream of bytes but replaced it with direct measurement of Shannon’s entropy, using the standard formula to compute the number of bits needed to represent all elements of a finite stream <span class="math inline"><em>X</em></span> with probability of occurence for each letter of <span class="math inline"><em>p</em><sub><em>i</em></sub></span>.</p>
+</dd>
+<dt><a href="https://alastairreid.github.io/alastairreid.github.io/ARM-v8a-xml-release/">ARM Releases Machine Readable Architecture Specification – Alastair Reid – Researcher at ARM Ltd</a></dt>
+<dd><p>Another fascinating post on the use of formal specifications, this time in the realm of hardware architecture.</p>
+</dd>
+<dt><a href="https://www.linkedin.com/pulse/forget-project-planning-just-doesnt-work-alex-katsanos?trk%3Dv-feed&amp;trk%3Dv-feed&amp;lipi%3Durn%253Ali%253Apage%253Ad_flagship3_feed%253Bh8fPT2gGIAweLWHuUJcjxQ%253D%253D">Forget about project planning; it just doesn’t work | Alex Katsanos | Pulse | LinkedIn</a></dt>
+<dd><p>Looks like waterfall does not very well in “traditional” engineering either…</p>
+</dd>
+<dt><a href="https://scholar.princeton.edu/sites/default/files/mgilens/files/gilens_and_page_2014_-testing_theories_of_american_politics.doc.pdf">Testing Theories of American Politics</a></dt>
+<dd><p>Can we empirically demonstrate how policies are formed and driven? This article shows the answer is yes by testing actual decisions against theories of whose interest these decisions serve. Would definitely be interested in a similar study for Europe…</p>
+</dd>
+</dl>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>A Dependently Typed Date</title>
     <link href="http://abailly.github.io/posts/dependently-typed-date.html" />
     <id>http://abailly.github.io/posts/dependently-typed-date.html</id>
@@ -1050,81 +1178,6 @@ answers user quizz <span class="fu">=</span>
 <li>Benjamin Pierce’s <a href="http://www.cis.upenn.edu/~bcpierce/tapl/">Types and Programming Languages</a> has chapter 24 dedicated to the subject of existential types, whose main application is the modelling of object-oriented programming</li>
 <li><a href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#existentially-quantified-data-constructors">GHC manual</a> of course, gives the fine prints</li>
 </ul>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Weekly Review - Week 12</title>
-    <link href="http://abailly.github.io/posts/weekly-review-12.html" />
-    <id>http://abailly.github.io/posts/weekly-review-12.html</id>
-    <published>2017-03-28T00:00:00Z</published>
-    <updated>2017-03-28T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Weekly Review - Week 12</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on March 28, 2017</div>
-
-<p>This post is a summary of my activities related to coding and software in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
-<dl>
-<dt><a href="http://www.grammaticalframework.org/">Grammatical Framework</a></dt>
-<dd><p>A fascinating piece of work whose purpose is to provide a way to define unified grammars that can be “linearized” into different languages for the purpose of both parsing and text generation.</p>
-</dd>
-<dt><a href="https://korewanetadesu.com/emacs-on-os-x.html">Emacs Daemon on Mac OS X</a></dt>
-<dd><p>Configuration for running Emacs in server mode which is useful for fast editing of files from the command-line: Run <code>emacsclient foo.txt&amp;</code> and the file’s content is displayed in a buffer in emacs.</p>
-</dd>
-<dt><a href="https://en.wikipedia.org/wiki/Axel_Honneth">La lutte pour la reconnaissance</a></dt>
-<dd><p>Finished reading this book from Axel Honneth, a German philosopher heir to the Frankfurt School. Worthy of some extended blog post…</p>
-</dd>
-<dt><a href="https://addons.mozilla.org/fr/firefox/addon/org-mode-capture/">Capture org-mode links in Firefox</a></dt>
-<dd><p>A nice utility to quickly capture links in Firefox and add them to Emacs’ org-mode</p>
-</dd>
-<dt><a href="https://github.com/cantino/huginn">Huggin</a></dt>
-<dd><p>A tool in Rails to create and manage agents on a personal server, something I have been thinking to setup for a while.</p>
-</dd>
-<dt><a href="https://syncthing.net/">Syncthing</a></dt>
-<dd><p>Open-source system to synchronize several devices</p>
-</dd>
-<dt><a href="https://vimeo.com/162036084">Types + Properties = Software - Mark Seemann on Vimeo</a></dt>
-<dd><p>While working on my talk for <a href="https://www.meetup.com/fr-FR/Crafting-Software/events/238241119/">Crafting Software</a> meetup, I discovered previous work from Mark Seeman in the same vein. There is a whole blog post series on <a href="http://blog.ploeh.dk/2016/02/10/types-properties-software/">Types + Properties = Software</a> which is definitely interesting. Inspired <a href="http://mirrors.link/posts/the-polyglot-approach-to-modeling-state-and-property-tests-in-elm">The Polyglot Approach to Getting Better at Modeling the State and Writing Property Tests in Elm · Exceptional Mirrors</a> written in Elm.</p>
-</dd>
-<dt><a href="https://www.stackbuilders.com/news/reverse-reverse-theorem-proving-with-idris">Reverse, Reverse: Theorem Proving with Idris</a></dt>
-<dd><p>A blog post on how theorem proving works in Elm, detailing the classical vector reversal function’s derivation.</p>
-</dd>
-<dt><a href="https://www.cs.ox.ac.uk/projects/utgp/school/idris-tutorial.pdf">idris-tutorial.pdf</a></dt>
-<dd><p>A short tutorial on Idris by Edwin Brady. Not sure how relevant it is to the newest versions of the language, but provides a compact overview of Idris’ features.</p>
-</dd>
-<dt><a href="http://www.cse.chalmers.se/~ulfn/papers/afp08/tutorial.pdf">Agda Tutorial</a></dt>
-<dd><p>Working on Idris led me to <a href="http://wiki.portal.chalmers.se/agda/pmwiki.php">Agda</a> which is a predecessor of Idris with an emphasis on theorem proving.</p>
-</dd>
-<dt><a href="http://stackoverflow.com/questions/42974540/how-can-i-express-range-validity-in-idris">How can I express range validity in Idris?</a></dt>
-<dd><p>As I was struggling on writing some Idris code for my talk, I posted this question on SO which leads to a Ah!Ah! moment thanks to the answer it received: The slogan is <em>Add more information to your types</em>!</p>
-</dd>
-<dt><a href="https://www.cs.kent.ac.uk/people/staff/sjt/TTFP/ttfp.pdf">Type Theory and Functional Programming</a></dt>
-<dd><p>An out-of-print book by Simon Thompson (author of one of the first Haskell books) that seems to provide a lot of insights on top of Pierce’s classical textbook.</p>
-</dd>
-<dt><a href="http://oxij.org/note/BrutalDepTypes/">Brutal {Meta}Introduction to Dependent Types in Agda</a></dt>
-<dd><p>A page full of resources on dependent types, not only in Agda. Lead me to <a href="http://augustss.blogspot.fr/2007/10/simpler-easier-in-recent-paper-simply.html">this post</a> from Lennart Augustsson which gives an implementation of a depedently-typed lambda calculus in Haskell.</p>
-</dd>
-<dt><a href="https://medium.com/wardleymaps/finding-a-path-cdb1249078c0#.32oohi27s">Wardley Maps</a></dt>
-<dd><p>I have started again to read Simon Wardley’s book-in-progress on how to draw maps for strategic thinking.</p>
-</dd>
-</dl>
 
 
 <div id="disqus_thread"></div>
