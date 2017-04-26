@@ -1,0 +1,184 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - On the Mode of Existence of Software</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://abailly.github.io"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="#">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="draft" id="main" role="main">
+<h1>On the Mode of Existence of Software</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on May 18, 2017</div>
+
+<ul>
+<li>The concrete experience of developing software, the craft behind it…</li>
+<li><a href="https://en.wikipedia.org/wiki/Matthew_Crawford">Matthew Crawford</a>’s “Shop class as soulcraft”: Using one’s hand, leaving purely intellectual work behind, meaning and struggling with matter</li>
+<li>I have the same experience with coding, to me this is an intense crafting activity whose medium is the same as the matter it manipulates.</li>
+<li>one craft software with her hands, <a href="https://www.meetup.com/Mechanical-Keyboard/photos/27166931/452768389/?_locale=fr-FR">typing on a keyboard</a> is so important that there are groups dedicated to it and hundreds of different types of keyboards. Each developer spends a lot of time customising her environment to be “more” efficient, dozens of books have been written on the subject of software craftmanship</li>
+<li>is software really a craft? or is it an art? Aristotle distinguishes between poiesis and praxis, and classifies all human arts and crafts in the former while the latter is reserved for doing the good</li>
+<li>poiesis is production of something and is the domain of (slave) <em>labor</em> whereas <em>praxis</em> is action and the domain of freemen</li>
+<li>Praxis as a way to emancipate human beings from labor, see <a href="../posts/gorz.html">André Gorz</a></li>
+<li>Hannah Arendt values praxis as the way to change the society, above contemplation and theoretical work, she was the one who reactivated the distinction between poiesis and praxis</li>
+<li><p>considering writing software as praxis, e.g. an action to change the world and do good?</p></li>
+<li>Software is shape and matter, pattern and background, it defeats classical hylemorphic scheme, it is essentially a <em>performative language</em></li>
+<li>Software is information</li>
+<li><p>software is the ultimate <a href="http://www.yvescitton.net/wp-content/uploads/2014/09/LATOUR-MediasModesExistence-Juin2014-Txt.pdf">mediator</a>, or the ultimate <code>[DC]</code> agent…</p></li>
+<li>2 main modes of existence are <em>subject</em> and <em>object</em></li>
+<li>Souriau adds the following modes of existence (from Latour’s <em>Reflections on Etienne Souriau’s Les différents modes d’existence</em>):
+<ul>
+<li><em>thing</em></li>
+<li><em>phenomenon</em></li>
+<li><em>soul</em></li>
+<li><em>fiction</em></li>
+<li><em>god</em></li>
+</ul></li>
+<li>One operates on/with software through the basic tool of <em>transduction</em>, e.g. the translation from one formal language to another one.
+<ul>
+<li>High-level design languages: UML, formal specifications in B, type systems…</li>
+<li>Programming languages at various levels from very “abstract” (Prolog, Haskell, Coq) to the very “concrete” (C, Assembly…)</li>
+<li>Its transductions and code all the way down, down to the physical circuits and silicium cells</li>
+</ul></li>
+<li><p>Interpretation of software takes <em>time</em>, it is never instantaneous, it is a <em>process</em>: A code is the description of a process that needs interpretation hence time, it is never given in whole, like an image or metaphor, it requires traversal, reading/writing, understanding, analysis…</p></li>
+<li>concrete/abstract in the simondonian interpretation implies some form of relationship with the world: Concretion is the process by which some technical object adheres to the world and is more “efficient” and “effective”. It departs from its abstract or generic form to reach a state of better integration, or more <em>integrity</em>. Its parts fits perfectly within each other to form a coherent whole that is in some sense <em>organic</em>. Each organ is pluri-functional and not only serves a purpose but reinforces the whole (example of the combustion engine)
+<ul>
+<li>How does this relate to software? There is clearly a tension between <em>genericity</em> and <em>specialisation</em> in software, between <em>reuse</em> (which produces bloat) and <em>reinventing</em> (which produces obscurity)</li>
+<li>Concretion and abstractions are not dependent on usage but on behaviour of the object, its “internal logic”. In software, there is also this tension between needs arising from expected use and systemic constraints, leading to potentially suboptimal solutions</li>
+<li>Concretion is the establishment of a feedback loop between the technical object and its environnement =&gt; <em>individuation</em></li>
+</ul></li>
+<li>Through individuation, the software loses its purely instrumental nature and starts <em>reflecting</em> on the humans it interacts with
+<ul>
+<li>Humans are <em>transformed</em> (transduced?) by the technical object, hence the software</li>
+</ul></li>
+<li>But more <em>polymorphic</em> programs are in some sense more concrete … see <a href="http://degoes.net/articles/insufficiently-polymorphic">John de Goes</a> argument:
+<ul>
+<li><p>Take the function:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">sameInteger ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+sameInteger x <span class="fu">=</span> x</code></pre></div></li>
+</ul>
+It is an instance of the <code>id : a -&gt; a</code> function but curiously, whereas the former’s type entails a <em>lot</em> of possible implementations, the latter has only <em>one</em>!
+<ul>
+<li><em>polymorphism</em> is not the same as abstraction (in Simondon’s meaning), on the contrary, it is a <em>concretion</em> process because it makes the element (the function/type) fits several purposes in the same object (esp. when applying DRY)</li>
+</ul></li>
+<li><p>Individuation is a process, a <em>becoming</em> whose limit or phenomenon is the <em>individual</em> (ex. of the crystal). There is no predefined shape that is superimposed on shapeless raw matter to yield some end result, but rather the matter contains the germ of its individuation that can be triggered by some conditions (e.g. temperature, pressure, presence of impurities…): Individuality is an <em>emerging</em> property of some system that make “things” become</p></li>
+<li>One does not simply <em>force</em> shape over matter and this is even truer in software
+<ul>
+<li>Prominent view of software development process has been shaped by hylemorphism and essentialism:
+<ul>
+<li>Software is a tool that is <em>used</em> to solve “real-world” problems in a more efficient way</li>
+<li>The problem can be <em>specified</em> be <em>domain experts</em> then <em>implemented</em> by developers using some well-defined engineering process</li>
+<li>This assumes there is an essence of the problem at hand that is independent of the fact we are using software</li>
+</ul></li>
+<li>This is embodied in the separation of the <em>design</em> vs. the <em>coding</em> vs. the <em>testing</em> vs. the <em>deploying</em> view…</li>
+<li>Because there are different activities involved in building and running a software system does not imply those activities should be separated in time and space</li>
+</ul></li>
+<li><p>the Graal of declarative programming? What does it mean?</p></li>
+<li>Intuitionism logic (Brouwer et al.), constructivism : we cannot conjure things out of thin air (out of excluded middle), we have to build mathematical (and technical?) beings, to prove their existence</li>
+<li><p>Software, programs, codes are proof systems</p></li>
+<li>Contrast Simondon’s concretion/abstraction w. Alexander’s Wholeness and Theory of Centers ? Looks like there are similarities in the underlying theory if not in the language</li>
+<li>Alexander as a tutelar semi-god of software development
+<ul>
+<li><p>initially, <em>A Pattern Language</em> expresses patterns in the language of the <em>problem</em>, e.g. 136 Couple’s Realm or 44. Local Town Hall or even 224. Low Doorway are all architectural elements of a building, not instructions to builders, electricians or plumbers on how to build towns or buildings.</p>
+<blockquote>
+<p>We do not believe that these large patterns, which give so much structure to a town or of a neighborhood, can be created by centralized authority, or by laws, or by master plans. A Pattern Language, p.3</p>
+</blockquote></li>
+<li>patterns are supposed to be used in communicating with inhabitants, users, citizens and their use should be validated. They are really meant as a combinatory language with which one weaves a description of some building</li>
+<li>Software patterns are described in the <em>language</em> of software, as code samples and they can hardly be composed to form a coherent whole</li>
+</ul></li>
+<li><a href="http://en.bp.ntu.edu.tw/wp-content/uploads/2011/12/06-Alexander-A-city-is-not-a-tree.pdf">A city is not a tree</a>: a city is actually a graph. The graph (or network) is the canonical modern shape</li>
+<li><p>Comparison between Alexander’s work and Wolfram’s New Kind of Science</p></li>
+<li><p>Notion of shape in Dewey (Art as Experience): &gt; Shape is the property that characterizes experience as an experience</p></li>
+</ul>
+<blockquote>
+<p>We can define shape as the operation of forces that confers to the experience of an event, a thing, a scene and a situation its wholeness</p>
+</blockquote>
+<ul>
+<li>Boundaries of <em>what</em> is a “piece of software” are more and more blurred</li>
+<li>long-lived server parts</li>
+<li>support systems</li>
+<li>thirparty services</li>
+<li>short-lived cloud functions</li>
+<li>custom/local elements (Excel, macros, notebooks)</li>
+<li><em>Web</em> of interconnected elements, individuation becomes difficult to characterise, every piece of code seems to come “alive” in interaction with more and more other pieces</li>
+<li>systemic effect =&gt; autopoietic ?</li>
+</ul>
+<h2 id="aristotle">Aristotle</h2>
+<ul>
+<li>distinguish between poiesis and praxis
+<ul>
+<li>poiesis: Action which is a mean to an end</li>
+<li>praxis: Action which is its own end</li>
+</ul></li>
+<li>autopoietic systems: systems which generate their own ends through their existence, self-reproducing systems</li>
+</ul>
+<h2 id="simondon">Simondon</h2>
+<ul>
+<li>Technical objects are made of technical elements and part of a technical network</li>
+<li>When the internal workings of a technical object disappears, or is hidden, it becomes magical (Sufficiently advanced technology is undistinguishable from magic) and ripe for cultism</li>
+</ul>
+<h2 id="latour">Latour</h2>
+<ul>
+<li><code>[TEC]</code> : mode of existence of technical beings</li>
+</ul>
+<h2 id="spinoza">Spinoza</h2>
+<ul>
+<li>Parallelism of mind and body: Every affect of the body is “reflected” in the mind and vice-versa.</li>
+<li>There is only one substance that takes different modes</li>
+</ul>
+<h2 id="pop-references">Pop References</h2>
+<ul>
+<li><a href="http://www.imdb.com/title/tt0119217/">Good Will Hunting</a>: On the importance of experience vs. knowledge. Will Hunting is a genius that can ingest and memoize the content of complex books in a matter of couple of hours. The character played by Robin Williams insists on the value of experience and time: You can know what love is, but it is a very different thing to experience love.</li>
+<li><a href="http://www.imdb.com/title/tt3659388/">The Martian</a>: Mark Watney grows potatoes on Mars and manages to survive through his knowledge, science and ingenuity</li>
+</ul>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+  </div>
+</body>
+</html>
