@@ -8,8 +8,99 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2017-04-24T00:00:00Z</updated>
+    <updated>2017-05-01T00:00:00Z</updated>
     <entry>
+    <title>Weekly Review - Week 17</title>
+    <link href="http://abailly.github.io/posts/weekly-review-17.html" />
+    <id>http://abailly.github.io/posts/weekly-review-17.html</id>
+    <published>2017-05-01T00:00:00Z</published>
+    <updated>2017-05-01T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Weekly Review - Week 17</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on May  1, 2017</div>
+
+<p>This post is a summary of links related to coding and software I followed and read (sometimes, skimmed over) in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
+<h1 id="monday">2017-04-24 Monday</h1>
+<dl>
+<dt><a href="https://gianarb.it/blog/linuxkit-operating-system-build-for-containers">LinuxKit operating system built for container</a></dt>
+<dd><p>A new and experimental tool from the Docker team to build OSes using containers (or container images ?) that you can deploy to different targets. Seems to be a contender in the <a href="https://www.packer.io/">Packer</a> or <a href="https://www.vagrantup.com">Vagrant</a> space…</p>
+</dd>
+<dt><a href="http://conal.net/papers/compiling-to-categories/compiling-to-categories.pdf">Compiling to categories (extended version) - compiling-to-categories.pdf</a></dt>
+<dd><p>A paper about using categorical language (or more precisely <a href="https://en.wikipedia.org/wiki/Cartesian_closed_category">Cartesian Closed Categories</a>) as a common <em>assembly</em> for expressions and programs that can be fed to specific interpreters. I did not read it in full but this reminds me of work from the 80s and 90s on Caml compiler and the <a href="https://en.wikipedia.org/wiki/Categorical_abstract_machine">Categorical Abstract Machine</a>. Looks definitely exciting!</p>
+</dd>
+<dt><a href="https://github.com/jwiegley/z3cat">jwiegley/z3cat: Use Conal Elliott’s concat library to compile regular Haskell functions into Z3 equations</a></dt>
+<dd><p>Everything’s in the title, I guess.</p>
+</dd>
+<dt><a href="https://liveingreatness.com/summoning-genius/">Summoning Genius | Live In Greatness - core protocols for shared vision</a></dt>
+<dd><p>Core protocols have always fascinated me since I have been introduced to them by Christophe Thibaut. This text is part of the same site and is an appeal to live up to one’s own dreams and “live in greatness”.</p>
+</dd>
+<dt><a href="https://appareil.revues.org/580#tocto1n4">Évolution technique et objectivité technique chez Leroi-Gourhan et Simondon</a></dt>
+<dd><p>A philosophy article related to the topic of the talk I am preparing fro nCrafts</p>
+</dd>
+<dt><a href="https://geography.arizona.edu/sites/geography.arizona.edu/files/u122/One%2520Sinister%2520Hurricane.pdf">One Sinister Hurricane.pdf</a></dt>
+<dd><p>An ANT-inspired analysis of work done to create visualisation tools for hurricanes’ effects. Provides evidence on the way technical tools shape thinking and interaction.</p>
+</dd>
+<dt><a href="http://intellectica.org/SiteArchives/archives/n26_27/26_09_Stiegler.pdf">Temps et individuations technique, psychique et collective dans l’œuvre de Simondon</a></dt>
+<dd><p>Started to read that one because it mentions Simondon, but I must confess Stiegler’s prose is more often than not opaque to me.</p>
+</dd>
+<dt><a href="http://www.rem.ufpr.br/_REM/REMv4/vol4/arti-palombini.htm">Pierre Schaeffer and Pierre Henry</a></dt>
+<dd><p>Not sure…</p>
+</dd>
+<dt><a href="http://en.bp.ntu.edu.tw/wp-content/uploads/2011/12/06-Alexander-A-city-is-not-a-tree.pdf">A CITY IS NOT A TREE</a></dt>
+<dd><p>A well-known text from Christophe Alexander that rejects the use of the <em>tree</em> model for cities in favor of <em>graphs</em> (he does not use that word and speaks instead of <em>lattices</em>).</p>
+</dd>
+</dl>
+<h1 id="tuesday">2017-04-25 Tuesday</h1>
+<dl>
+<dt><a href="https://zedshaw.com/2017/04/24/copying-repetition/">Copying &amp; Repetition – Zed A. Shaw</a></dt>
+<dd><p>On the importance of repetition and <em>rote learning</em>.</p>
+</dd>
+<dt><a href="https://sites.google.com/site/praxisandtechne/Home/architecture/performativity/poiesis-and-praxis">What is it that we ‘do’, when we perform an action? - Praxis and Poiesis</a></dt>
+<dd><p>On the difference between <em>poeisis</em> (action driven by some goal) and <em>praxis</em> (action which is its own goal)</p>
+</dd>
+<dt><a href="https://terenceblake.wordpress.com/2013/10/29/latours-jamesian-empiricism-2-the-case-of-prepositions/">LATOUR’S “JAMESIAN” EMPIRICISM (2): the case of prepositions</a></dt>
+<dd><p>Interesting criticism on Latour’s (ab)use of William James’ empiricism.</p>
+</dd>
+</dl>
+<h1 id="wednesday">2017-04-26 Wednesday</h1>
+<dl>
+<dt><a href="https://www.theatlantic.com/science/archive/2016/04/the-illusion-of-reality/479559/?utm_source%3Dtwb">The Case Against Reality - The Atlantic</a></dt>
+<dd><p>A “scientific” argument that reality is not what we think it is. I put scientific in double-quotes because obviously, this theory hardly lends itself to falsifiability. Some more links on the same topic:</p>
+<ul>
+<li><a href="https://www.quantamagazine.org/20160421-the-evolutionary-argument-against-reality/">The Evolutionary Argument Against Reality | Quanta Magazine</a></li>
+<li><a href="https://www.quora.com/Is-Donald-Hoffman%25E2%2580%2599s-interface-theory-of-perception-true">Is Donald Hoffman’s interface theory of perception true? - Quora</a></li>
+<li><a href="http://www.michaelshermer.com/2015/11/perception-deception/#more-4721">Michael Shermer Perception Deception » Michael Shermer</a></li>
+<li><a href="http://cogsci.uci.edu/~ddhoff/publications/">Donald D. Hoffman | University of California, Irvine</a>: Contains original scientific articles presenting Hoffman’s theory in greater details</li>
+</ul>
+</dd>
+</dl>
+<h1 id="friday">2017-04-28 Friday<a id="sec-5" name="sec-5"></a></h1>
+<dl>
+<dt><a href="https://ncatlab.org/nlab/show/relation%2Bbetween%2Btype%2Btheory%2Band%2Bcategory%2Btheory">relation between type theory and category theory in nLab</a></dt>
+<dd><p>A site that looks ladden with complex stuff on cats and dependent types.</p>
+</dd>
+</dl>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Weekly Review - Week 16</title>
     <link href="http://abailly.github.io/posts/weekly-review-16.html" />
     <id>http://abailly.github.io/posts/weekly-review-16.html</id>
@@ -1073,111 +1164,6 @@ MkDate 2016 February 29 : Date</code></pre>
 <dd><p>A deck drawn from this weeks’ <a href="http://www.devopsweekly.com/">Devops weekly</a> newsletter on how to build “bridges” across cultures and teams. I was ready to buy the book but the book has mixed reviews on O’Reilly’s site. Insights welcomed.</p>
 </dd>
 </dl>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Understanding Existential Types</title>
-    <link href="http://abailly.github.io/posts/existential-types.html" />
-    <id>http://abailly.github.io/posts/existential-types.html</id>
-    <published>2017-03-31T00:00:00Z</published>
-    <updated>2017-03-31T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Understanding Existential Types</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on March 31, 2017</div>
-
-<p>Existential types are a less well-known extension to Haskell’s type system and Damas-Hindley-Milner type theory, although they are a logical consequence of the identification of type theory with predicate logic: If type variables can be universally quantified then it seems logical they can also be existentially quantified. I have used existential types in Haskell on several occasions but my brain always struggled to really understand what was going on and how to fix the dreaded error messages I got back from the compiler.</p>
-<p>While working on <a href="/slides/xxi-century-typed.html">my talk</a> on type-driven development I used existentials to model one of the evolution step of the quizz program I was working on and had some sort of epiphany. This short post is an attempt to capture the insights I gathered in the hope it might be useful for other people.</p>
-<h1 id="the-problem">The Problem</h1>
-<p>The problem is pretty simple and quite common. A quizz is made up from different <em>types</em> of questions which are part of a quizz, say open questions, multiple choice questions, rating questions. Each question expects a different type of answer: A free text for open questions, selected option for MCQ, a number for rating questions, but the answer is always initially given by the user as a text which must be converted to the right form.</p>
-<p>So we have the following (abridged) types of questions:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">OpenQuestion</span> 
-<span class="kw">data</span> <span class="dt">MCQuestion</span>
-<span class="kw">data</span> <span class="dt">RatingQuestion</span></code></pre></div>
-<p>We expose the API of questions as a <em>typeclass</em> in order to be future-proof (we would like to make it easy to introduce new types of questions):</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Questionable</span> q <span class="kw">where</span>
-    <span class="kw">type</span> <span class="dt">Answer</span><span class="ot"> q ::</span> <span class="fu">*</span>
-    <span class="co">-- other methods omitted....</span>
-<span class="ot">    isCorrectAnswer ::</span> <span class="dt">Answer</span> q <span class="ot">-&gt;</span> q <span class="ot">-&gt;</span> <span class="dt">Bool</span></code></pre></div>
-<p>and then we need to define a <code>Quizz</code> as a sequence of questions and some functions to compute the answers to the questions and assess the user’s result. The <code>User</code> is simply modelled as a function that provides an answer (or no answer) as a string, given any question.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">User</span> <span class="fu">=</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Text</span>
-
-<span class="kw">data</span> <span class="dt">Quizz</span> <span class="fu">=</span> <span class="dt">Quizz</span> {<span class="ot"> questions ::</span> [ <span class="dt">Question</span> ] }
-
-<span class="ot">answerQuestion ::</span> <span class="dt">User</span> <span class="ot">-&gt;</span> <span class="dt">Question</span> <span class="ot">-&gt;</span> <span class="dt">Quizz</span> <span class="ot">-&gt;</span> <span class="dt">Quizz</span>
-answerQuestion user question quizz <span class="fu">=</span> <span class="fu">...</span>
-
-<span class="ot">answers ::</span> <span class="dt">User</span> <span class="ot">-&gt;</span> <span class="dt">Quizz</span> <span class="ot">-&gt;</span> <span class="dt">Quizz</span>
-answers user quizz <span class="fu">=</span>
- foldr (answerQuestion user) quizz (questions quizz)</code></pre></div>
-<p>The key issue is then to define <code>Question</code> in such a way that it allows us to work with current (and future) question’s types in a uniform way.</p>
-<h1 id="using-existential-type">Using Existential type</h1>
-<p>A very simple solution would be to wrap each possible type in a specialized constructor, which in essence amounts to <em>tag</em> each possible <code>Question</code> with its type:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Question</span> <span class="fu">=</span> 
-    <span class="dt">MCQ</span> <span class="dt">MCQuestion</span>
-  <span class="fu">|</span> <span class="dt">Open</span> <span class="dt">OpenQuestion</span>
-  <span class="fu">|</span> <span class="dt">Rating</span> <span class="dt">RatingQuestion</span></code></pre></div>
-<p>This solution, while simple to use as it is amenable to direct pattern-matching, suffers from an obvious drawback: It closes the range of available types of questions, or rather makes it difficult to add a new one.</p>
-<p>Given that each type of question is assumed to be an instance of the <code>Questionnable</code> interface, we can wrap them using existential quantification in the type <code>Question</code>, using one of the two available syntaxes. The classic data type declaration syntax:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Question</span> <span class="fu">=</span>
-  forall q <span class="fu">.</span> <span class="dt">Questionable</span> q <span class="ot">=&gt;</span> <span class="dt">Question</span> q</code></pre></div>
-<p>or the GADT-style syntax which explicitly exposes the constructor <code>Question</code> as a function</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Question</span> <span class="kw">where</span>
-  <span class="dt">Question</span><span class="ot"> ::</span> <span class="dt">Questionable</span> q <span class="ot">=&gt;</span> q <span class="ot">-&gt;</span> <span class="dt">Question</span></code></pre></div>
-<p>The effect of an existential type construction is to limit the scope of the type variable <code>q</code> appearing in the constructor, thus in effect ensuring the question itself, whatever its type, must stay within the scope of its appearance. For example, while it is possible to pattern match on <code>Question</code> to get whatever <code>q</code> is packed inside it, this <code>q</code> cannot be returned. Writing</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">getQ (<span class="dt">Question</span> question _) <span class="fu">=</span> question</code></pre></div>
-<p>yields the following, somewhat dreadful, compiler error:</p>
-<pre><code>error:
-    • Couldn&#39;t match expected type ‘t’ with actual type ‘q’
-        because type variable ‘q’ would escape its scope
-      This (rigid, skolem) type variable is bound by
-        a pattern with constructor:
-          Question :: forall q.
-                      Questionable q =&gt;
-                      q -&gt; Question,
-        in an equation for ‘getQ’
-        at /Users/arnaud/projects/xxi-typed/haskell/.stack-work/intero/intero2342CZJ.hs:11:7-18
-    • In the expression: question
-      In an equation for ‘getQ’: getQ (Question question) = question
-    • Relevant bindings include
-        question :: q
-          (bound at /Users/arnaud/projects/xxi-typed/haskell/.stack-work/intero/intero2342CZJ.hs:11:16)
-        getQ :: Question -&gt; t
-          (bound at /Users/arnaud/projects/xxi-typed/haskell/.stack-work/intero/intero2342CZJ.hs:11:1)</code></pre>
-<p>This is so because the type of the result <code>question</code> being <code>question :: q</code> implies that the type variable <code>q</code> becomes <em>free</em> in any context where <code>getQ</code> is used: It escapes the scope of the constructor.</p>
-<p>Interestingly, the <a href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#lexically-scoped-type-variables">ScopedTypeVariables</a> GHC extension gives us the capability to use that <code>q</code>. We can write the following (somewhat contrived) function:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">slug (<span class="dt">Question</span> (<span class="ot">quest ::</span> q) _) <span class="fu">=</span> slugify quest
-  <span class="kw">where</span>
-<span class="ot">    slugify ::</span> q <span class="ot">-&gt;</span> <span class="dt">Text</span>
-    slugify <span class="fu">=</span> T.take <span class="dv">3</span> <span class="fu">.</span> question</code></pre></div>
-<p>In the type of <code>slugify</code> we are not forced to expose the constraint <code>Questionable q</code> because the type variable <code>q</code> at this point is the one brought in scope with the expression <code>q :: q</code>.</p>
-<h1 id="understanding-existential-types">Understanding Existential Types</h1>
-<p>What’s somewhat confusing for the average programmer who has not had a PhD in type theory is: Why are those types called <em>existential</em>? Especially given the fact they are introduced by <code>forall</code> keyword? <a href="http://stackoverflow.com/questions/10753073/whats-the-theoretical-basis-for-existential-types">This StackOverflow</a> does a great job at explaining how (intuitionistic) logic rules relate <span class="math inline">∀</span> and <span class="math inline">∃</span> quantifiers in the case of type constructors.</p>
-<p>In short, it comes from the fact that <br /><span class="math display">∀<em>x</em>.<em>Q</em>(<em>x</em>)⟹<em>P</em> = (∃<em>x</em>.<em>Q</em>(<em>x</em>)) ⟹ <em>P</em>.</span><br /></p>
-<h1 id="references">References</h1>
-<p>There are already a number of resources on the topic:</p>
-<ul>
-<li>Roman Cheplyaka’s <a href="https://ocharles.org.uk/blog/guest-posts/2014-12-19-existential-quantification.html">24 Days of GHC Extensions</a> does a great job at explaining how existentials work in Haskell</li>
-<li>Benjamin Pierce’s <a href="http://www.cis.upenn.edu/~bcpierce/tapl/">Types and Programming Languages</a> has chapter 24 dedicated to the subject of existential types, whose main application is the modelling of object-oriented programming</li>
-<li><a href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#existentially-quantified-data-constructors">GHC manual</a> of course, gives the fine prints</li>
-</ul>
 
 
 <div id="disqus_thread"></div>
