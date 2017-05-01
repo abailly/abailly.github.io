@@ -1,7 +1,7 @@
 ------------
-title: Weekly Review - Week 16
+title: Weekly Review - Week 17
 author: Arnaud Bailly 
-date: 2017-04-24
+date: 2017-05-01
 ------------
 
 This post is a summary of links related to coding and software I followed and read (sometimes, skimmed over) in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…

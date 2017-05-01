@@ -76,6 +76,18 @@ date: 2017-05-18
     * Software patterns are described in the *language* of software, as code samples and they can hardly be composed to form a coherent whole
 * [A city is not a tree](http://en.bp.ntu.edu.tw/wp-content/uploads/2011/12/06-Alexander-A-city-is-not-a-tree.pdf): a city is actually a graph. The graph (or network) is the canonical modern shape
 * Comparison between Alexander's work and Wolfram's New Kind of Science
+* *design patterns* are not a language => there is no private language (Wittgenstein), these patterns are private to a group
+    * show side by side images of the 2 books
+
+* Tim Ingold's [Making](https://books.google.fr/books/about/Making.html?id=wwzUj2o42fUC&redir_esc=y&hl=en) 
+* example of the [biface](http://www.archaeologywordsmith.com/lookup.php?terms=biface): ubiquitous across archaelogical sites and time. Arch. are projecting their own scheme of *design* on it: They assume it has been designed by some intelligence, then crafted into its current shape.
+    * This is taken has evidence for prehistorical hominides' intelligence and consciousness
+    * What if the biface we find was actually a residue of sort? Could be that people were using the small fragments as tools, rather than the biface itself
+    * Shape of the biface is symetrical to the shape of two joined hands: could be that people were holding it with one hand while hitting it
+* medieval buildings were not designed
+    * modern buildings are *completed* before handover to inhabitants, strict separation between construction and living 
+    * medieval buildings were built using shapes, solid patterns made of wood. Stones are carved one by one and fit in place with other stones
+* *objects* --> *things*    
 
 * Notion of shape in Dewey (Art as Experience):
   > Shape is the property that characterizes experience as an experience
@@ -111,6 +123,16 @@ date: 2017-05-18
 
 * Parallelism of mind and body: Every affect of the body is "reflected" in the mind and vice-versa.
 * There is only one substance that takes different modes
+* *conatus* is the name of the force that drives *persistence of being* and is part of every *mode* (every manifestation of the unique substance, a *thing* or a *sentience*). But not every mode shares the same *kind* of way to *persist*, or the same mode of existence! 
+* [Ethica, III, 6](http://www.ethicadb.org/pars.php?parid=3&lanid=3#306): 
+
+    > Everything, in so far as it is in itself, endeavours to persist in its own being.
+* [Ethica, III,22](http://www.ethicadb.org/pars.php?parid=3&lanid=3#321)
+
+    > He who conceives, that the object of his love is affected pleasurably or painfully, will himself be affected pleasurably or painfully; and the one or the other emotion will be greater or less in the lover according as it is greater or less in the thing loved.
+* [Ethica, III,54](http://www.ethicadb.org/pars.php?parid=3&lanid=3#354)
+
+    > The mind endeavours to conceive only such things as assert its power of activity.
 
 ## Pop References
 
