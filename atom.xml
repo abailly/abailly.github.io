@@ -8,8 +8,90 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2017-05-01T00:00:00Z</updated>
+    <updated>2017-05-08T00:00:00Z</updated>
     <entry>
+    <title>Weekly Review - Week 18</title>
+    <link href="http://abailly.github.io/posts/weekly-review-18.html" />
+    <id>http://abailly.github.io/posts/weekly-review-18.html</id>
+    <published>2017-05-08T00:00:00Z</published>
+    <updated>2017-05-08T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Weekly Review - Week 18</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on May  8, 2017</div>
+
+<p>This post is a summary of links related to coding and software I followed and read (sometimes, skimmed over) in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
+<h1 id="monday">2017-05-01 Monday<a id="sec-1" name="sec-1"></a></h1>
+<dl>
+<dt><a href="https://github.com/abailly/xxi-century-typed/blob/master/idris/src/BottlesOfBeer.idr">99 Bottles of Beer</a></dt>
+<dd><p>I managed to complete my Idris implementation of the 99 Bottles of Beer classical Kata. This attempt was triggered by a discussion on Slack over <a href="https://www.sandimetz.com/99bottles">Sandi Metz’s book</a> which a couple of friends have read and is apparently excellent.</p>
+</dd>
+</dl>
+<h1 id="tuesday">2017-05-02 Tuesday<a id="sec-2" name="sec-2"></a></h1>
+<dl>
+<dt><a href="https://blog.acolyer.org/2017/05/02/corfu-a-distributed-shared-log/">Corfu: A distributed shared log | the morning paper</a><a id="sec-2-1" name="sec-2-1"></a></dt>
+<dd><p>Very interesting paper about an implementation of a distributed strongly consistent persistent log, something handy when one wants to implement event sourcing. The code is open-sourced as <a href="https://github.com/CorfuDB/CorfuDB">CorfuDB/CorfuDB</a> and there is a recent follow-up I did not delve into yet.</p>
+</dd>
+<dt><a href="https://news.ycombinator.com/item?id%3D13576236">Ask HN: What is the biggest untapped opportunity for startups? | Hacker News</a></dt>
+<dd><p>I found it funny the first answer to this question is exactly what I am trying to do with <a href="http://drcode.io">Dr.Code</a>: Short consulting sessions to help teams get over thorny issues or have access to affordable expert knowledge and skills.</p>
+</dd>
+<dt><a href="http://www.extremeprogramming.org/rules.html">Extreme Programming Rules</a><a id="sec-2-4" name="sec-2-4"></a></dt>
+<dd><p>Back to basics… XP is still unsurpassed as a coherent set of guidelines and practices for software development.</p>
+</dd>
+</dl>
+<h1 id="wednesday">2017-05-03 Wednesday<a id="sec-3" name="sec-3"></a></h1>
+<dl>
+<dt><a href="https://medium.com/travis-on-docker/multi-stage-docker-builds-for-creating-tiny-go-images-e0e1867efe5a">Multi-Stage Docker Builds for Creating Tiny Go Images</a><a id="sec-3-1" name="sec-3-1"></a></dt>
+<dd><p>Something I have been doing by hand for couple of years now and which is now a supported feature of docker: Use several containers in your build to trim down images size.</p>
+</dd>
+<dt><a href="https://gordon.readthedocs.io/en/latest/lambdas.html">Lambdas — Gordon 0.6.0 documentation</a><a id="sec-3-2" name="sec-3-2"></a></dt>
+<dd><p>I have been working last year on using Haskell to deploy <a href="https://github.com/abailly/aws-lambda-haskell">AWS Lambda</a> functions, a work that has been superseded by <a href="https://github.com/qmuli/qmuli/">qmuli</a> which aims at packaging properly Haskell executables and manage the workflow. Gordon does just that for officially supported runtimes.</p>
+</dd>
+</dl>
+<h1 id="thursday">2017-05-04 Thursday<a id="sec-4" name="sec-4"></a></h1>
+<dl>
+<dt><a href="http://nullprogram.com/blog/2013/02/06/">How to Make an Emacs Minor Mode « null program</a><a id="sec-4-1" name="sec-4-1"></a></dt>
+<dd><p>I am thinking of writing an proper indentation mode for a proprietary language I am working with and looked up what support Emacs provide for doing so. Still looks a bit daunting unfortunately.</p>
+</dd>
+</dl>
+<h1 id="friday">2017-05-05 Friday<a id="sec-5" name="sec-5"></a></h1>
+<dl>
+<dt><a href="https://www.youtube.com/watch?v%3DpqFgYCdiYz4">(13) 2 10 Elaborator Reflection: Extending Idris in Idris - YouTube</a><a id="sec-5-1" name="sec-5-1"></a></dt>
+<dd><p>Talk about using built-in elaborator engine in Idris to extend the language, similar to what one can achieve using Template Haskell.</p>
+</dd>
+<dt><a href="http://ericlefevre.net/wordpress/2009/03/06/is-fit-dead-a-debate-on-twitter/">Is Fit Dead? A debate on Twitter | Eric Lefevre-Ardant on Java &amp; Agile</a><a id="sec-5-2" name="sec-5-2"></a></dt>
+<dd><p>It looks there is not much debate going on anymore on BDD/ATDD and I am not sure whether this is due to the fact it is now considered mainstream or has been dropped altogether. I have always been a big fan of FitNesse and <em>Executable Specifications</em> approach but this is something that requires a lot of energy to setup properly on a project. Not all teams and settings are ready to invest the time to build a common language across developers and business analysts.</p>
+</dd>
+</dl>
+<h1 id="sunday">2017-05-07 Sunday<a id="sec-6" name="sec-6"></a></h1>
+<dl>
+<dt><a href="https://nstack.com/index.html">NStack - Composable Data Analytics</a><a id="sec-6-2" name="sec-6-2"></a></dt>
+<dd><p>An interesting new proposal in the distributed computing space, implemented in Haskell. I am however not a big fan of having to use a custom language instead of an already existing scripting or programming language to describe workflows. Code is available on github: <a href="https://github.com/nstack/nstack">nstack/nstack: Type-safe, composable microservices for data analytics</a><a id="sec-6-1" name="sec-6-1"></a></p>
+</dd>
+<dt><a href="http://simoneetlesphilosophes.fr/imaginer-linversion/">Exercice n°1: renverser pour mieux voir - Simone et les philosophes</a><a id="sec-6-3" name="sec-6-3"></a></dt>
+<dd><p>Exercer son esprit critique en commencant par le plus évident et le plus méconnu : les inégalités homme-femme.</p>
+</dd>
+</dl>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Weekly Review - Week 17</title>
     <link href="http://abailly.github.io/posts/weekly-review-17.html" />
     <id>http://abailly.github.io/posts/weekly-review-17.html</id>
@@ -1082,88 +1164,6 @@ MkDate 2016 February 29 : Date</code></pre>
 </ul>
 <h1 id="discussion">Discussion</h1>
 <p>Je vois dans le livre d’Axel Honneth une tentative, à mon sens réussie, pour fonder les luttes sociales sur quelque chose qui ne soit ni une pure lutte d’intérêts antagonistes, ni une téléologie de type marche de l’Esprit ou sens de l’Histoire. En s’appuyant sur le travail d’anthropologues, psychologues, sociologues, il réactualise la théorie de Hegel d’une construction et d’un progrès sociaux induits par le mécanisme de la lutte pour la reconnaissance, en “montrant” la réalité empirique de ce mécanisme. Il est très intéressant de penser, et de voir démontrer, le fait que c’est la reconnaissance personnelle du sujet dans le cercle familial, la “lutte” pour la reconnaissance de son intégrité physique et psychique, de son autonomie, qui fonde les autres stades de la lutte : c’est parce qu’il l’expérience de la confiance en soi que l’enfant peut développer plus aisément, plus tard, le respect et l’estime de soi. Et c’est aussi dans cette expérience personnelle qu’il puise la faculté de généraliser cette demande aux autres humains, au groupe social. Il n’y a pas de fatalité ou de prédestination morale, mais pas non plus une sèche lutte d’intérêts catégoriels qui ne seraient alors que relatifs, simples manifestations de rapports de pouvoirs à un instant donné de l’histoire : les individus luttent aussi pour des questions morales et symboliques, et ce d’autant plus fermement que ces questions sont relatives à une expérience intime.</p>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Weekly Review - Week 13</title>
-    <link href="http://abailly.github.io/posts/weekly-review-13.html" />
-    <id>http://abailly.github.io/posts/weekly-review-13.html</id>
-    <published>2017-04-02T00:00:00Z</published>
-    <updated>2017-04-02T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Weekly Review - Week 13</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on April  2, 2017</div>
-
-<dl>
-<dt><a href="https://blog.acolyer.org/2017/03/27/ethically-aligned-design/">Ethically aligned design | the morning paper</a></dt>
-<dd><p>Another interesting post from <em>The Morning Paper</em>, this time about ethics and software. This resonates with some discussions we have had at latest Software Craft(wo)manship. Reading the paper I was attracted to ….</p>
-</dd>
-<dt><a href="https://www.amazon.com/Moral-Machines-Teaching-Robots-Right/dp/0199737975">Moral Machines: Teaching Robots Right from Wrong: Wendell Wallach, Colin Allen</a></dt>
-<dd><p>… but some reviews I read dettered me from buying it. I will try to dig into the subject a little bit more and look for some relevant texts (beside Kant, of course)</p>
-</dd>
-<dt><a href="/posts/simone-responsabilite.html">Celui qui appuie sur le bouton est-il le seul coupable ?</a></dt>
-<dd><p>My notes on the afternoon spent under the wise guidance of <a href="http://peggyavez.com/">Peggy Penet-Avez</a> (aka. <a href="http://simoneetlesphilosophes.fr/">Simone</a>) thinking my way across the concepts of intention, action, responsibilit, guilt…</p>
-</dd>
-<dt><a href="http://dev.null.org/dadaengine/">The Dada Engine</a></dt>
-<dd><p>A well known post-modern articles generator. Stemmed from a discussion on the obscurity of Lacan which is the basis of <a href="https://s3-us-west-2.amazonaws.com/vulk-blog/ThePervertsGuidetoComputerProgramming-ThePaper.pdf">The Perverts’ guide to computer programming</a>.</p>
-</dd>
-<dt><a href="https://blog.acolyer.org/2017/03/29/deepcoder-learning-to-write-programs/">DeepCoder: Learning to write programs</a></dt>
-<dd><p>Recurrent/Convolution neural networks that “learn” to write programs from input/output samples. Interestingly, the program generated are pure functional expressions…</p>
-</dd>
-<dt><a href="https://github.com/donnemartin/system-design-primer">donnemartin/system-design-primer: Learn how to design large-scale systems</a></dt>
-<dd><p>A huge set of links on system design</p>
-</dd>
-<dt><a href="https://github.com/idris-lang/Idris-dev/blob/master/docs/st/introduction.rst">Idris-dev/introduction.rst at master</a></dt>
-<dd><p>A new Idris tutorial on the use of ST, a type for modelling state-machines.</p>
-</dd>
-<dt><a href="https://hexdocs.pm/ex_unit/ExUnit.Case.html#describe/2">ExUnit v1.4.2</a></dt>
-<dd><p>Had to understand Elixir’s unit testing framework while we were pairing with Bernard on a barrel-db demo.</p>
-</dd>
-<dt><a href="http://2013.ruleml.org/presentations/UniLFS-DumitruRoman.pdf">PowerPoint-Präsentation - UniLFS-DumitruRoman.pdf</a></dt>
-<dd><p>A deck on RuleML, a language to model business process rules</p>
-</dd>
-<dt><a href="https://nim-lang.org/">Nim Programming Language</a></dt>
-<dd><p>Another link stemming from a discussion on the <em>Artisans du logiciel</em> Slack. An statically typed imperative language (formerly known as Nimrod)</p>
-</dd>
-<dt><a href="https://www.reddit.com/r/spacemacs/comments/4a62la/magit_tutorial/">Magit tutorial? : spacemacs</a></dt>
-<dd><p>Not only did I have to program in Elixir (a dynamically typed language…), but I had to do it in Spacemacs! We found the experience to be somewhat painful because of some lag in pressing the <code>Esc</code> key, an issue which is solved by <a href="https://github.com/syl20bnr/spacemacs/issues/5413">this post</a>. Here is the final tmux configuration we use:</p>
-<pre><code> set -g prefix C-a
- set -g default-terminal &quot;screen-256color&quot;
- set -g mode-mouse on
- set -g mouse-resize-pane on
- set -g mouse-select-pane on
- set -g mouse-select-window on
- set -s escape-time 0
- set-option -g default-shell /bin/zsh</code></pre>
-</dd>
-<dt><a href="http://stackoverflow.com/questions/10753073/whats-the-theoretical-basis-for-existential-types">Theory of existential types</a></dt>
-<dd><p>While preparing a short post on <a href="/posts/existential-types.html">Existential types</a> I stumbled upon this SO answer which provides deeper theoretical insights.</p>
-</dd>
-<dt><a href="http://web.engr.oregonstate.edu/~erwig/cs582/slides/2.Idris.key.pdf">Understanding Idris</a></dt>
-<dd><p>Interesting slide deck on Idris</p>
-</dd>
-<dt><a href="https://speakerdeck.com/kdaniels/building-bridges-with-effective-devops-1">Building Bridges with Effective Devops</a></dt>
-<dd><p>A deck drawn from this weeks’ <a href="http://www.devopsweekly.com/">Devops weekly</a> newsletter on how to build “bridges” across cultures and teams. I was ready to buy the book but the book has mixed reviews on O’Reilly’s site. Insights welcomed.</p>
-</dd>
-</dl>
 
 
 <div id="disqus_thread"></div>
