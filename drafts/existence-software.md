@@ -66,6 +66,11 @@ date: 2017-05-18
 * Intuitionism logic (Brouwer et al.), constructivism : we cannot conjure things out of thin air (out of excluded middle), we have to build mathematical (and technical?) beings, to prove their existence
 * Software, programs, codes are proof systems
 
+* Kant's Critic of Pure Reason and his views on the mind:
+    * We cannot know the *noumenal* world, the *thing-in-itself* we can only *know* through our perceptions and intellect, e.g. the *phenomenal* world
+    * categories for intuition (space / time) and intellect (causality, totality, uniqueness...)
+    * Pure reason is the realm of the absolute
+    
 * Contrast Simondon's concretion/abstraction w. Alexander's Wholeness and Theory of Centers ? Looks like there are similarities in the underlying theory if not in the language
 * Alexander as a tutelar semi-god of software development
     * initially, _A Pattern Language_ expresses patterns in the language of the *problem*, e.g. 136 Couple's Realm or 44. Local Town Hall or even 224. Low Doorway are all architectural elements of a building, not instructions to builders, electricians or plumbers on how to build towns or buildings.
@@ -88,6 +93,15 @@ date: 2017-05-18
     * modern buildings are *completed* before handover to inhabitants, strict separation between construction and living 
     * medieval buildings were built using shapes, solid patterns made of wood. Stones are carved one by one and fit in place with other stones
 * *objects* --> *things*    
+
+* Ingold (ch.7) : notion of transduction vs. agency
+    * agency (Agentivité) is a corollary to embodiment (incarnation), it closes things on themselves and embeds the principles of action inside them
+    * examples of kite, potery, reindeerman, cello: thing acts as a *transducer* between the gestures of a  personE and a material
+    * duration: preservation of shape (achievement, completion) vs. continuity of a process (ex. Moore's warrior)
+    * correspondance, share experience through the exchange of letters, when I read a letter it is as if I was *with* the writer
+    * distinction between *interaction* and *correspondance* : 
+      * interaction is confrontation of two beings, stillness : none can move forward
+      * correspondance is responding to the world through the mediation of transduction, attuning gestures and thoughts to the present world until they become undistinguishable through movement, through *making*
 
 * Notion of shape in Dewey (Art as Experience):
   > Shape is the property that characterizes experience as an experience
