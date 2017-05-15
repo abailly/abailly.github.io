@@ -2,7 +2,7 @@
 title: Le XXIème sera typé ou ne sera pas
 subtitle: Comment j'ai appris à aimer les types
 author: Arnaud Bailly - @dr_c0d3
-date: 2017-03-28
+date: 2017-05-11
 theme: serif-compact
 transition: none
 ------------ 
@@ -153,7 +153,6 @@ data Question where
 
 # Idris #
 
-
 ## Types abstraits de données généralisés
 
 ![](/images/kandinsky-comp-8.jpg) 
@@ -265,7 +264,7 @@ plusOneCommutes :  (n : Nat)
 * Mise en oeuvre concrète de Curry-Howard
 * Les types sont des *propositions*, les programmes des *preuves*
 * Écrire un programme c'est démontrer que les types sont *habités*, que l'on peut effectivement construire des valeurs des types donnés
-* De la conception de logiciels considérée comme énonciation de théorèmes...
+* De la conception de logiciels considérée comme l'énonciation de théorèmes...
 
 # Travaux Pratiques
 
@@ -320,4 +319,4 @@ plusOneCommutes :  (n : Nat)
 
 ## Feedback 
 
-[Questionnaire](https://goo.gl/forms/dePn6qVnXSEUVprD2)
+[Questionnaire](https://goo.gl/forms/fwRYzEKSQMGhiA3f1)

@@ -4,6 +4,10 @@ author: Arnaud Bailly
 date: 2017-05-18
 ------------
 
+* When I develop software I often *feel* emotions which are linked to the body 
+    * could be negative like anger, fear, sadness, depression  --> Pain in the back or in the hands, tensions in my neck, headaches or dizziness
+    * could be positive like love, hope, confidence, tranquility --> relief of all tensions, positive energy, excitement...
+* People around me are also affected by software, most of the time negatively -> software appears like some magic to them
 
 * The concrete experience of developing software, the craft behind it... 
   * [Matthew Crawford](https://en.wikipedia.org/wiki/Matthew_Crawford)'s "Shop class as soulcraft":  Using one's hand, leaving purely intellectual work behind, meaning and struggling with matter
@@ -47,8 +51,8 @@ date: 2017-05-18
         sameInteger :: Int -> Int
         sameInteger x = x
         ```
-      
       It is an instance of the `id : a -> a` function but curiously, whereas the former's type entails a *lot* of possible implementations, the latter has only *one*!
+    * [Theorems for Free!](http://ttic.uchicago.edu/~dreyer/course/papers/wadler.pdf)
     * *polymorphism* is not the same as abstraction (in Simondon's meaning), on the contrary, it is a *concretion* process because it makes the element (the function/type) fits several purposes in the same object (esp. when applying DRY)
 * Individuation is a process, a *becoming* whose limit or phenomenon is the *individual* (ex. of the crystal). There is no predefined shape that is superimposed on shapeless raw matter to yield some end result, but rather the matter contains the germ of its individuation that can be triggered by some conditions (e.g. temperature, pressure, presence of impurities...): Individuality is an *emerging* property of some system that make "things" become
 
@@ -59,7 +63,6 @@ date: 2017-05-18
         * This assumes there is an essence of the problem at hand that is independent of the fact we are using software
     * This is embodied in the separation of the *design* vs. the *coding* vs. the *testing* vs. the *deploying* view... 
     * Because there are different activities involved in building and running a software system does not imply those activities should be separated in time and space
-    
 
 * the Graal of declarative programming? What does it mean? 
     
@@ -135,7 +138,7 @@ date: 2017-05-18
 
 ## Spinoza
 
-* Parallelism of mind and body: Every affect of the body is "reflected" in the mind and vice-versa.
+* Parallelism of mind and body: Every *affect* of the body is "reflected" in the mind and vice-versa.
 * There is only one substance that takes different modes
 * *conatus* is the name of the force that drives *persistence of being* and is part of every *mode* (every manifestation of the unique substance, a *thing* or a *sentience*). But not every mode shares the same *kind* of way to *persist*, or the same mode of existence! 
 * [Ethica, III, 6](http://www.ethicadb.org/pars.php?parid=3&lanid=3#306): 
@@ -148,6 +151,12 @@ date: 2017-05-18
 
     > The mind endeavours to conceive only such things as assert its power of activity.
 
+### Possible exercise
+
+* Look at 3 different pieces of code, one created by a great software developer, one by an inexperienced software developer, one generated, in different (alien) languages
+   * claire code? + generated C++
+* write down how this code is affecting oneself, which emotions it brings to the mind
+  
 ## Pop References
 
 * [Good Will Hunting](http://www.imdb.com/title/tt0119217/): On the importance of experience vs. knowledge. Will Hunting is a genius that can ingest and memoize the content of complex books in a matter of couple of hours. The character played by Robin Williams insists on the value of experience and time: You can know what love is, but it is a very different thing to experience love.
