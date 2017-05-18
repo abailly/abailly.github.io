@@ -7,7 +7,115 @@ theme: serif-black
 
 # Genesis
 
-----
+---- 
+
+## The Infelicities of Software
+
+![](/images/back-muscles.jpg)
+
+<div class="notes">
+* Personal experience of pain induced by working on software, feels like if I were pushing some heavy weight
+* Things have a natural tendency to fall apart
+* Why don't they feel right
+</div>
+
+## The Joy of Software
+
+![](/images/joy.png)
+
+<div class="notes">
+* Energy when pairing or mobbing with people over interesting problems
+* Pleasure when things appear to "fall in place" somewhat magically
+* Solving real people problems, f
+</div>
+
+# Becoming
+
+---- 
+
+![](/images/latour.jpg)
+
+## Modes of Existence 
+
+![](/images/aime.jpg)
+
+<div class="notes">
+* Actor/Network Theory
+* Various modes of existence that need to be taken care of -> ex. Gaia moment, scientific discourse vs. political discourse
+* The world is full of "beings" that require to be dealt with differently but "moderns" try to address all being the same way ("reason")
+    * TEC, POL, REL, REF.... -> each has its own ways
+* Illusion of strict separation of nature  & Culture
+* What's the mode of existence of software? It seems to overlap several ones yet not strictly fitting into neither (ORG/TEC/DRO/POL...)
+* New mode of existence -> *INFormation*
+</div>
+
+-----
+
+![](/images/simondon.jpg)
+
+## Concretion & Abstraction
+
+![](/images/tube-concretion.jpg)
+
+<div class="notes">
+* concrete/abstract in the simondonian interpretation implies some form of relationship with the world: Concretion is the process by which some technical object adheres to the world and is more "efficient" and "effective". It departs from its abstract or generic form to reach a state of better integration, or more *integrity*. Its parts fits perfectly within each other to form a coherent whole that is in some sense *organic*. Each organ is pluri-functional and not only serves a purpose but reinforces the whole (example of the combustion engine)
+    * How does this relate to software? There is clearly a tension between *genericity* and *specialisation* in software, between *reuse* (which produces bloat) and *reinventing* (which produces obscurity)
+    * Concretion and abstractions are not dependent on usage but on behaviour of the object, its "internal logic". In software, there is also this tension between needs arising from expected use and systemic constraints, leading to potentially suboptimal solutions
+    * Concretion is the establishment of a feedback loop between the technical object and its environnement => *individuation*
+* *Hypertely* -> over-adapting an object to its function
+</div>
+
+## Individuation
+
+![](/images/crystal.jpg)
+
+<div class="notes">
+* Boundaries of *what* is a "piece of software" are more and more blurred
+  * long-lived server parts
+  * support systems 
+  * thirparty services
+  * short-lived cloud functions
+  * custom/local elements (Excel, macros, notebooks)
+* Through individuation, the software loses its purely instrumental nature and starts *reflecting* on the humans it interacts with
+    * Humans are *transformed* (transduced?) by the technical object, hence the software
+* *Web* of interconnected elements, individuation becomes difficult to characterise, every piece of code seems to come "alive" in interaction with more and more other pieces
+* Technical objects are *individuals* made of *technical elements* and part of a *technical ensemble* (network): Think of a car, made out of wheels and part of the general framework to make cars possible 
+* Form and function are forces that shape the technical object, but neither has the upper hand on the other: objects have some internal logic, a "life" of their own
+</div>
+
+## Techno-logy
+
+![](/images/toaster.jpg)
+
+<div class="notes">
+* Technical Objects do not live in isolation, they are part of a *network* which makes them meaningful (and useful): Think of the chain that makes running software possible
+  * Recent experiment of [Thomas Thwaites](http://www.thomasthwaites.com/the-toaster-project/) who tried to build a toaster *from scratch*, down to mining ore and ironsmithing...
+* Simondon offers a genetic view of technicity to explain our current relationship and how it could evolve in something different (and better)
+    * Initially, man and nature have been one and the same, a state we don't know anything about
+    * Then came *magic* where *figure* becomes separated from *ground* as a network of nodes, magical beings that stand out from nature but not clearly separated from it (e.g. magical sources, trees, rocks, locations, actions, ceremonies...)
+    * the unity of magic breaks apart when the complexity of the world increases
+        * figures are individualised as *technical objects* => objectivation
+        * ground is universalised as *deity* => subjectivity
+    * when traditional technical objects find their limits, when *figure* conflicts with *ground*, a new subdivision appears:
+        * *practical thought* takes charge of simplicity, effectiveness and becomes situated, individualised
+        * *scientific thought* is concerned with universality, a new *ground* on which technical objects can arise as *figures*
+    * symetrically, the primitive religions is split into:
+        * an ethical, normative, moral *ground*  (the dogmatic side of religions)
+        * universal, theoretical, contemplative *figures* (the mystical side of religion)
+* Simondon is concerned with the chasm between culture and technics, how and why culture "rejects" the technical objects outside of its realm of interest
+    * This gives rise to a new form of magical thought, where technical objects, individuals, *figures* are disconnected from theire *ground*, the network that makes them possible and give them meaning
+    * How people use technology, carry old usages to new objects without taking into account the intrinsic capabilities of the object
+* Putting back meaning into the world through *knowledge about technical objects*
+
+</div>
+
+## Alienation
+
+> Technical activity stands out from mere work, and alienating work, in that technical activity not only contains use of the machine but also some attention coefficient to its technical workings. The fundamental alienation of man w.r.t. machine lies in the produced rupture between ontogenesis of the technical object and the existence of this technical object. The most alienating technical objects are the ones targeted at the most ignorant users.
+
+<div class="notes">
+</div>
+
 
 # Ontology
 
@@ -16,6 +124,8 @@ theme: serif-black
 ![](/images/aristotle.jpg)
 
 ## Hylemorphism 
+
+![](/images/moore.jpg)
 
 <div class="notes">
 
@@ -31,7 +141,7 @@ theme: serif-black
 
 <div class="notes">
 
-* Poiesis is production of something and is the domain of (slave) *labor* whereas *praxis* is action and the domain of freemen
+* Poiesis is production of something and is the domain of (slave) *labor* whereas *praxis* is action and the domain of freemen. Praxis is superior to poiesis which allow us to achieve good
 * Praxis as a way to emancipate human beings from labor, see [André Gorz](/posts/gorz.html)
 * Hannah Arendt values praxis as the way to change the society, above contemplation and theoretical work, she was the one who reactivated the distinction between poiesis and praxis
 * considering writing software as praxis, e.g. an action to change the world and do good?
@@ -43,6 +153,8 @@ theme: serif-black
 
 ## Conatus
 
+![](/images/tree.jpg)
+
 <div class="notes">
 
 * A very specific form of monism, *parallelism* of mind and body: Every *affect* of the body is "reflected" in the mind and vice-versa.
@@ -53,15 +165,29 @@ theme: serif-black
     > Everything, in so far as it is in itself, endeavours to persist in its own being.
 </div>
 
-## Passion & Action
+## Joy
+
+![](/images/achilles-ulysses.jpg)
 
 <div class="notes">
+* Passion vs. Action
 * [Ethica, III,22](http://www.ethicadb.org/pars.php?parid=3&lanid=3#321)
 
     > He who conceives, that the object of his love is affected pleasurably or painfully, will himself be affected pleasurably or painfully; and the one or the other emotion will be greater or less in the lover according as it is greater or less in the thing loved.
 * [Ethica, III,54](http://www.ethicadb.org/pars.php?parid=3&lanid=3#354)
 
     > The mind endeavours to conceive only such things as assert its power of activity.
+</div>
+
+## Freedom
+
+![](/images/slavery.jpg)
+
+<div class="notes">
+* The world is totally deterministic, God (or Nature) is the only thing which is its own cause
+* In purely deterministic world, freedom comes from *knowledge*, understanding one's own nature
+* Spinoza distinguishes 3 levels of knowledge: opinion, rational knowledge, intuitive knowledge 
+* Only the latter two free humans from the chains of passion, opening the realm of action
 </div>
 
 -----
@@ -118,63 +244,6 @@ theme: serif-black
 ![](/images/code-affects-3.png)
 
 
-# Becoming
-
------
-
-![](/images/simondon.jpg)
-
------
-
-## Concretion & Abstraction
-
-![](/images/tube-concretion.jpg)
-
-
-<div class="notes">
-* concrete/abstract in the simondonian interpretation implies some form of relationship with the world: Concretion is the process by which some technical object adheres to the world and is more "efficient" and "effective". It departs from its abstract or generic form to reach a state of better integration, or more *integrity*. Its parts fits perfectly within each other to form a coherent whole that is in some sense *organic*. Each organ is pluri-functional and not only serves a purpose but reinforces the whole (example of the combustion engine)
-    * How does this relate to software? There is clearly a tension between *genericity* and *specialisation* in software, between *reuse* (which produces bloat) and *reinventing* (which produces obscurity)
-    * Concretion and abstractions are not dependent on usage but on behaviour of the object, its "internal logic". In software, there is also this tension between needs arising from expected use and systemic constraints, leading to potentially suboptimal solutions
-    * Concretion is the establishment of a feedback loop between the technical object and its environnement => *individuation*
-</div>
-
-## Individuation
-
-![](/images/crystal.jpg)
-
-<div class="notes">
-* Boundaries of *what* is a "piece of software" are more and more blurred
-  * long-lived server parts
-  * support systems 
-  * thirparty services
-  * short-lived cloud functions
-  * custom/local elements (Excel, macros, notebooks)
-* Through individuation, the software loses its purely instrumental nature and starts *reflecting* on the humans it interacts with
-    * Humans are *transformed* (transduced?) by the technical object, hence the software
-* *Web* of interconnected elements, individuation becomes difficult to characterise, every piece of code seems to come "alive" in interaction with more and more other pieces
-
-</div>
-
-## Techno-logy
-
----- 
-
-![](/images/deleuze-guattari.jpg)
-
------
-
-![](/images/latour.jpg)
-
------
-
-![](/images/boyle-pump.jpg)
-
------
-
-![](/images/aime.jpg)
-
-
-
 # Crafting
 
 -----
@@ -183,7 +252,7 @@ theme: serif-black
 
 <div class="notes">
 * No talk about the philosophy of software would be complete without a reference to Christopher Alexander!
-* I have always been wary until I started reading *A Pattern Language*
+* I have always been wary about Alexander's ideas and influence, until I started reading *A Pattern Language*
 </div>
 ----- 
 
@@ -199,7 +268,7 @@ theme: serif-black
 
 ----- 
 
-![](/images/design-patterns.jpg)
+![](/images/patterns.jpg)
 
 <div class="notes">
 * Software patterns are described in the *language* of software, as code samples and they can hardly be composed to form a coherent whole
@@ -239,11 +308,15 @@ theme: serif-black
 * *objects* --> *things*
 </div>
 
------
 
 ## Transduction & Agency
 
+![](/images/rosetta-stone.jpg)
+
 <div class="notes">
+* transduction:
+    * a device or process to transform energy between 2 different forms
+    * a relation over 2 languages
 * notion of transduction vs. agency
     * agency (Agentivité) is a corollary to embodiment (incarnation), it closes things on themselves and embeds the principles of action inside them
     * examples of kite, potery, reindeerman, cello: thing acts as a *transducer* between the gestures of a person and a material/nature
@@ -271,11 +344,11 @@ theme: serif-black
 * Sometimes verges on the *reactionary*
 </div>
 
----- 
+## Legacy
 
 ![](/images/pipe-organ-builder.jpg)
 
----- 
+## Body & Soul
 
 ![](/images/keyboards.jpg)
 
@@ -290,13 +363,39 @@ theme: serif-black
 
 ## Anarchy
 
+![](/images/anarchy.jpg)
+
+<div class="notes">
 * Modern workplace is the place of heteronomy
 * Autonomy is tied to morality and responsibility: Autonomy $\leftrigharrow$ Freedom $\leftrigharrow$ Solidarity
 * responsibility extends to *all beings*, including the code itself
+</div>
+
+## Attunement
+
+![](/images/wood.jpg)
+
+<div class="notes">
+* Following the *logic of things* => freeing code from bugs and misunderstanding
+* Identifying patterns and laws, and use them!
+* Listening to the code
+</div>
+
+## Conservative Progressism
+
+![](/images/tate-modern.jpg)
+
+<div class="notes">
+* Legacy code is working code
+* There is great value in *taking care of* and *improving* existing code
+* Listening to the people who made the code 
+* Parallel w/ architecture of cities: Compare London and Paris, the tension between past, present and future. Sometimes you have to sacrifice the past to give way to the future, sometimes you have to take of the past
+</div>
 
 ## Polymorphism
 
-## Attunement
+## References
+
 
 ## Credits
 
@@ -318,3 +417,15 @@ theme: serif-black
 * [Boyle's Air Pump](https://www.sciencenews.org/sites/default/files/main/blogposts/to_M0014706_free.jpg)
 * [Crystal](http://www.carionmineraux.com/mineraux/mineraux_septembre_2010/cristal_de_roche_chine_3.jpg)
 * [Electronic Tube Concretion](http://digitalmilieu.net/wp-content/uploads/2016/04/simondon02.jpg)
+* [Reclining Figure, Henry Moore](https://upload.wikimedia.org/wikipedia/commons/e/e1/HenryMoore_RecliningFigure_1951.jpg)
+* [Tree](http://www.treecouncil.org.uk/DesktopModules/tc.Carousel/images/926/fd91dff5-c731-437c-bf2b-d2110e945484.jpg)
+* [Achilles & Ajax](http://shelton.berkeley.edu/mymyth/pics23/R9812140003.jpg)
+* [Slavery](http://www.factslides.com/imgs/slavery-chains.jpg)
+* [The Toaster Project](http://www.thomasthwaites.com/folio5/wp-content/uploads/2010/10/Toaster_Project4-PhotoCredit-Daniel_Alexanderx630.jpg)
+* [Anarchy](http://wallpapersafari.com/w/BWiQHc/)
+* [Rosetta Stone](http://theeducatorsroom.com/wp-content/uploads/2013/07/closeuprosettastone.jpg)
+* [Wood](https://previews.123rf.com/images/berka/berka1311/berka131100216/24086122-Old-weathered-rotten-floorboards-with-extremely-rough-surface-lateral-cracks-and-large-wood-knots-de-Stock-Photo.jpg)
+* [Tate Modern](http://www.tate.org.uk/sites/default/files/images/tatemodernbuilding_0.jpg)
+* [Patterns](http://mattlockyer.github.io/iat167/img/uml/patterns.jpg)
+* [Back Muscles](http://www.jouefct.com/wp-content/uploads/2015/12/this-muscle-is-responsible-for-most-of-the-flesh-on-the-posterior-side-of-the-arm-it-has-three-heads-as-the-name-implies-and-inserts-on-the-point-back-muscle-anatomy.jpg)
+* [Joy (Inside Out)](https://vignette1.wikia.nocookie.net/disney/images/1/11/Inside-Out-118.png/revision/latest?cb=20150317173713)

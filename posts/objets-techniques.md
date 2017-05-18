@@ -89,7 +89,6 @@ plus en plus prégnants dans notre société: DIY, Makers, logiciel libre, écon
 Devoxx4Kids... De plus en plus nombreux sont ceux qui considèrent que reprendre possession de la technique, sur le plan
 pratique autant que théorique, est une nécessité, voire une urgence.
 
-
 Dans les dernières pages de son livre Simondon critique le monde du travail, l'entreprise de son temps - et du nôtre:
 
 > L'entreprise [..] doit être organisée à partir de sa fonction essentielle, c'est à dire de son fonctionnement technique.
