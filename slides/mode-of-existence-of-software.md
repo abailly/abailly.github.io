@@ -7,6 +7,13 @@ theme: serif-black
 
 # Genesis
 
+<div class="notes">
+* not native english speaker... => focus/willpower :)
+* different view on code, if not language then what ? 
+* is code really for reading? do we need so much code?
+* living, experience something => 
+</div>
+
 ---- 
 
 ## The Infelicities of Software
@@ -135,9 +142,12 @@ theme: serif-black
     * The problem can be *specified* be *domain experts* then *implemented* by developers using some well-defined engineering process
     * This assumes there is an essence of the problem at hand that is independent of the fact we are using software
 * This is embodied in the separation of the *design* vs. the *coding* vs. the *testing* vs. the *deploying* view... 
+* Teleological arguments: Everything has a purpose
 </div>
 
 ## Poeisis & Praxis
+
+![](/images/musicians.jpg)
 
 <div class="notes">
 
@@ -189,59 +199,6 @@ theme: serif-black
 * Spinoza distinguishes 3 levels of knowledge: opinion, rational knowledge, intuitive knowledge 
 * Only the latter two free humans from the chains of passion, opening the realm of action
 </div>
-
------
-
-![](/images/kant.jpg)
-
-## Intuition & Intellection
-
-<div class="notes">
-* Kant was concerned about providing inner solid grounds to *knowledge* : What can I know, what are the conditions for shared knowledge? This is the Critic of Pure Reason and his views on the mind. 
-* We cannot know the *noumenal* world, the *thing-in-itself* we can only *know* through our perceptions and intellect, e.g. the *phenomenal* world
-* The mind's capabilities are divided in 3 main parts: 
-    * Intuition, the domain of sensible experience
-    * Intellect, the domain of rational thoughts, 
-    * Reason, the domain of ideas
-* Through *transcendental* analysis, we can deduce what are the *a priori* conditions for the existence of knowledge and shared experience (categories)
-   * for intuition (space / time)
-   * intellect (causality, totality, uniqueness...)
-   * Reason: Absolute
-</div>
-
-## Pure Reason
-
-<div class="notes">
-* Pure reason is the realm of the *absolute*, the part of the mind that produces judgments and seek to generalise statements from the intellect
-* We cannot *know* anything outside of experience hence reason does not produce *knowledge*: We cannot *know* God nor *soul* nor *noumenal* world
-* But because pure reason is driven towards the absolute, it is also the ground for morality and freedom
-</div>
-
-## Autonomy
-
-<div class="notes">
-* the *moral imperative* is grounded in pure reason because any moral grounded on experience would be particular and not universal
-* the only *end* that is universally applicable, valid for any reasonable being (not even human) is the *being* itself, hence the various declinations of the *categorical imperative*: 
-
-  > Act in such a way as to consider others always as an end and never as a mean
-
-* because it is universally applicable, moral is what sets us *free*. And conversely, *freedom* of reason and our capability to conceive unconditioned ideas and thoughts is what permits the existence of moral
-* Kant promotes *autonomy* versus the *heteronomy* produced by external moral rules (whether produced by "nature", society, religion, habits...)
-</div>
-
-# Affects
-
------
-
-![](/images/code-affects-1.png)
-
------
-
-![](/images/code-affects-2.png)
-
------
-
-![](/images/code-affects-3.png)
 
 
 # Crafting
@@ -314,6 +271,7 @@ theme: serif-black
 ![](/images/rosetta-stone.jpg)
 
 <div class="notes">
+* **Completion** : our obsession with reaching goals, ending things ---> vs. experiencing and living
 * transduction:
     * a device or process to transform energy between 2 different forms
     * a relation over 2 languages
@@ -348,7 +306,12 @@ theme: serif-black
 
 ![](/images/pipe-organ-builder.jpg)
 
-## Body & Soul
+<div class="notes">
+* Example of pipe organs making => mix of tradition and innovation, ultimate crafting
+* everybody knows what to do, sense of community and ownership, bonding
+</div>
+
+## Hand
 
 ![](/images/keyboards.jpg)
 
@@ -361,6 +324,11 @@ theme: serif-black
 
 # Ethics
 
+<div class="notes">
+* What does this all mean in practice? 
+* What kind of ethics this view of the code induces?
+</div>
+
 ## Anarchy
 
 ![](/images/anarchy.jpg)
@@ -369,6 +337,12 @@ theme: serif-black
 * Modern workplace is the place of heteronomy
 * Autonomy is tied to morality and responsibility: Autonomy $\leftrigharrow$ Freedom $\leftrigharrow$ Solidarity
 * responsibility extends to *all beings*, including the code itself
+* Beyond mere XP (Collective Ownership) -> spinozist freedom == knowledge, understanding, implicit, cohesion
+* No need for authority (// cathedral builders)
+
+* Direct contact with people
+* Organic team, implicit knowledge of what needs to be done -> Just do it! 
+* Beyond planning -> living with the code, making the code live
 </div>
 
 ## Attunement
@@ -386,18 +360,59 @@ theme: serif-black
 ![](/images/tate-modern.jpg)
 
 <div class="notes">
-* Legacy code is working code
+* Legacy code is working code, people did things for a reason, because of some context and constraint
 * There is great value in *taking care of* and *improving* existing code
 * Listening to the people who made the code 
 * Parallel w/ architecture of cities: Compare London and Paris, the tension between past, present and future. Sometimes you have to sacrifice the past to give way to the future, sometimes you have to take of the past
+* Coding is a *process*, a path => there is potentially no end, if I leave a project somebody will take it over
+* Take care of all aspects of the existence of software, from coding to produciton to maintainance to production
 </div>
 
-## Polymorphism
+## Refinement
+
+![](/images/refinery.jpg)
+
+<div class="notes">
+* software start "abstract" in a simondonian sense, they are very generic made up from assembling already existing elements (a web framework, an ORM, an existing model...)
+    * this works and is robust but is not really fit to the problem and when the problem evolves it cannot evolve at the same pace => incongruences
+    * refine the object towards more *concretion* (~ refactor to deeper insights)
+* make objects more concrete using more "abstract" elements
+* limiting the number of possible implementations of a function -> reduces the degrees of freedom + use general knowledge => increase density of information
+    * example of identity function, higher-order combinators, generic algebras => useful abstractions
+* concretion is a refinement process that requires listening to both the *usage* and the *behaviour* of the object
+</div>
+
+## Knowledge
+
+![](/images/bibliotheque.jpg)
+
+<div class="notes">
+* Knowledge makes one active and not passive
+* => Understand what's going on at all levels, remove the veil of mystery
+* Just because there is no magic does not mean there is no joy => Quite the contrary
+</div>
+
+# Colophon
+
+## Thanks
+
+* Bernard Notarianni and Christophe Thibaut for their crucial help in taming the jungle
+* NewCrafts team for allowing me to present those ideas in front of an audience
+* https://artisans-du-logiciel.slack.com/ for many fascinating discussions and ideas
 
 ## References
 
+* **Physics**, *Aristotle*, ca. 330 BC
+* **Nicomachean Ethics**, *Aristotle*, ca. 330 BC
+* **Ethics**, *Baruch Spinoza*, 1677
+* **Du mode d'existence des objets techniques**, *Gilbert Simondon*, 1958/1989
+* **A Pattern Language**, *Christopher Alexander*, 1977
+* **Design Patterns: Elements of Reusable Object-Oriented Software**, *Erich Gamma et al.*, 1994
+* **An Inquiry into Modes of Existence**, *Bruno Latour*, 2013
+* **Making: Anthropology, Archaeology, Art and Architecture**, *Tim Ingold*, 2013
+* **The World beyond Your Head**, *Matthew Crawford*, 2016
 
-## Credits
+## Credits (1)
 
 * [Baruch de Spinoza](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Spinoza.jpg/1200px-Spinoza.jpg)
 * [Aristotle](https://s-media-cache-ak0.pinimg.com/originals/7d/90/f4/7d90f4ab8d34e9e1a80dd09bdca64f1b.jpg)
@@ -409,6 +424,9 @@ theme: serif-black
 * [Christopher Alexander](https://upload.wikimedia.org/wikipedia/commons/9/95/ChristopherAlexander2012.jpg)
 * [Design Patterns Book](https://qph.ec.quoracdn.net/main-qimg-e966f479b74b12155f6a6ebdff1999cd-c)
 * [An Inquiry into Modes of Existence](https://s-media-cache-ak0.pinimg.com/736x/f9/b4/03/f9b403da85df11413086db664ec44c7d.jpg)
+
+## Credits (2)
+
 * [Matthew Crawford](http://md1.libe.com/photo/857914-next78_03extras_intell01.jpg?modified_at=1457437565)
 * [Mechanical Keyboards Meetup Singapore](https://secure.meetupstatic.com/photos/event/7/9/8/6/600_453691110.jpeg)
 * [Biface](https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Biface_Silex_Venerque_MHNT_PRE_.2009.0.194.1_Fond.jpg/1200px-Biface_Silex_Venerque_MHNT_PRE_.2009.0.194.1_Fond.jpg)
@@ -419,6 +437,9 @@ theme: serif-black
 * [Electronic Tube Concretion](http://digitalmilieu.net/wp-content/uploads/2016/04/simondon02.jpg)
 * [Reclining Figure, Henry Moore](https://upload.wikimedia.org/wikipedia/commons/e/e1/HenryMoore_RecliningFigure_1951.jpg)
 * [Tree](http://www.treecouncil.org.uk/DesktopModules/tc.Carousel/images/926/fd91dff5-c731-437c-bf2b-d2110e945484.jpg)
+
+## Credits (3)
+
 * [Achilles & Ajax](http://shelton.berkeley.edu/mymyth/pics23/R9812140003.jpg)
 * [Slavery](http://www.factslides.com/imgs/slavery-chains.jpg)
 * [The Toaster Project](http://www.thomasthwaites.com/folio5/wp-content/uploads/2010/10/Toaster_Project4-PhotoCredit-Daniel_Alexanderx630.jpg)
@@ -426,6 +447,12 @@ theme: serif-black
 * [Rosetta Stone](http://theeducatorsroom.com/wp-content/uploads/2013/07/closeuprosettastone.jpg)
 * [Wood](https://previews.123rf.com/images/berka/berka1311/berka131100216/24086122-Old-weathered-rotten-floorboards-with-extremely-rough-surface-lateral-cracks-and-large-wood-knots-de-Stock-Photo.jpg)
 * [Tate Modern](http://www.tate.org.uk/sites/default/files/images/tatemodernbuilding_0.jpg)
+
+## Credits (4)
+
 * [Patterns](http://mattlockyer.github.io/iat167/img/uml/patterns.jpg)
 * [Back Muscles](http://www.jouefct.com/wp-content/uploads/2015/12/this-muscle-is-responsible-for-most-of-the-flesh-on-the-posterior-side-of-the-arm-it-has-three-heads-as-the-name-implies-and-inserts-on-the-point-back-muscle-anatomy.jpg)
 * [Joy (Inside Out)](https://vignette1.wikia.nocookie.net/disney/images/1/11/Inside-Out-118.png/revision/latest?cb=20150317173713)
+* [Refinery](https://greentransportation.info/fossil-fuels/gasoline/img/refinery.jpg)
+* [Bibliothèque Nationale de France](http://demandware.edgesuite.net/sits_pod24/dw/image/v2/AAVG_PRD/on/demandware.static/-/Sites-photo-catalog/default/dwc78c0adc/URBAN/70/1370/1411.jpg?sw=1160&sh=1160&sm=fit)
+* [Greek Musicians](https://s-media-cache-ak0.pinimg.com/originals/87/2b/ae/872bae8190aea04deef9fdc165718347.jpg)
