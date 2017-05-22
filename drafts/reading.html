@@ -1,0 +1,82 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - Programming is not Reading</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://abailly.github.io"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="#">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="draft" id="main" role="main">
+<h1>Programming is not Reading</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on May 19, 2017</div>
+
+<ul>
+<li>Laura Salvino’s talk at ncrafts drawing on the analogy between learning a new (human) language and learning a programming language</li>
+<li>emphasizing reading software -&gt; simplicity, patterns, focusing on readers</li>
+<li>do we really “want readable code” ? Reading code and making your code readable is good, and probably better than writing confusing, idiosyncratic, symbols-ladden code, but emphasizing readibility misses the point of software</li>
+<li>Analogies are useful tools to think but we should be wary about carrying them too far: Programming languages are not human languages and their inner logic is totally different. A programming language is not a passive thing, it is active
+<ul>
+<li>I remember a tech leader in a team I worked with that each day printed the code written by the team and carried it home for review</li>
+<li>What’s a the usefulness of online code review tools? Does anybody do serious reviews using Github diffs? It is much more useful to have the code locally, making sure it compiles (on <em>my</em> machine) and I can play with it</li>
+<li>We spend a lot of times trying to find <em>the</em> right name for a function, a class, a method, a concept…</li>
+<li>We refactor, rename, use complex patterns in names to ensure people will understand us</li>
+</ul></li>
+<li>Programs is mostly useful for execution: I don’t care a program is perfectly readable if it is incorrect. I would rather have a program which is awkwardly written, with terse variable names but is working correctly and “as expected”. To really understand a program means executing it which can be done in your head but is much more efficiently done with a REPL/Compiler/IDE</li>
+<li>Words and sentences are not checkable by a computer which makes their usefulness as parts of a program limited. Comments are a major PITA…</li>
+<li><a href>Living Documentation</a> is hard</li>
+<li>See <a href="http://akkartik.name/post/literate-programming">this post</a> about Literate Programming: LP is a great idea that did not came to maturity because it has been stuck into primitive state and with a focus on <em>reading</em> instead of <em>running</em></li>
+<li>Related to a lot of work going on in the <a href="http://nbviewer.jupyter.org/">notebooks space</a>, innovative and/or extensible IDEs and <a href="https://awelonblue.wordpress.com/2014/09/29/introducing-wikilon/">Languages</a>, <a href="http://worrydream.com/#!2/LadderOfAbstraction">interactive</a> web <a href="http://tomasp.net/coeffects/">environments</a></li>
+</ul>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+  </div>
+</body>
+</html>
