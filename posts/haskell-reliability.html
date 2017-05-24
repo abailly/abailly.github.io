@@ -1,0 +1,136 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - Notes on Reliability &amp; Maintainability of Haskell Code</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="/"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="http://drcode.io">Dr.Code</a>
+          </li>
+          <li>
+          <a href="/about.html">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div id="main" role="main">
+<h1>Notes on Reliability &amp; Maintainability of Haskell Code</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on May 24, 2017</div>
+
+<p>Those notes are my answer to a <a href="https://gist.github.com/heath/858a321b5fc96d3011d9b6ea4fca3cb9">question</a> asked on the <a href="https://elm-lang.slack.com/">Elm Slack</a></p>
+<ol style="list-style-type: decimal">
+<li>what are some methods you use to maintain a clean codebase?
+<ol style="list-style-type: decimal">
+<li>basic principles always apply: maintain low-coupling &amp; high-cohesion, separation of concerns</li>
+</ol>
+in the case of Haskell/FP, coupling across modules happen when one module depends on another module, possibly on details of data types (e.g. constructors) of this module. Even depending on exported types/functions introduces coupling. Modules should be as much self contained as possible
+<ol start="2" style="list-style-type: decimal">
+<li>clear separation between functional components of the system, each being vertically integrated instead of spread out over multiple technical layers</li>
+</ol>
+<p>By “vertically” I mean that a unit of deployment is a “function” of the system, something that’s meaningful from the point of view of the end-user/customer/business, e.g. a <em>bounded context</em> in the sense of Domain-Driven Design. This is opposed to a more technical view where units of deployment/organisation of the code are “horizontal” layers, e.g. Web service, applicative components, data access layer,…</p>
+<ol start="3" style="list-style-type: decimal">
+<li>minimal code sharing, limited to common types. Use common/standard libraries wherever possible, pack common dependencies as libraries</li>
+</ol>
+<p>Rather than depending on code at source level, depend on it at binary level, e.g. as a package.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>standard module structure, repeated over all components of the system to ease navigation and understanding</li>
+<li>test, test, test at all levels: unit tests (including QC tests), integration tests (e.g. at boundaries like REST APIs), system level tests</li>
+<li>limit size of modules, components, functions (I always use a small 13’’ screen and everything should fit in it)</li>
+</ol>
+<p>Size matters when you need to refactor/edit/change any piece of code. GHC is smart enough to optimise code so there is usually nothing preventing dividing code in manageable chunks</p>
+<ol start="7" style="list-style-type: decimal">
+<li>no dependencies between components so that I can work on a single one at a time</li>
+</ol>
+<p><em>component</em> means <em>deployable unit of code</em>, e.g. might be a package or a service</p>
+<ol start="8" style="list-style-type: decimal">
+<li>type explicitly everything</li>
+<li>abstract away actual IO as much as possible. Explicit IO type should appear as late as possible (e.g. in main function), favor specific monads with limited effects</li>
+<li><p>use <em>actual types</em> wherever possible to represent domain concepts, avoid primitive types and above all <em>naked strings</em> (or <code>Text</code>) when they represent actual values</p>
+<p>Types are the interface of functions/modules and they should be as explicit as possible. Compare:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">checkPassword ::</span> <span class="dt">UserName</span> <span class="ot">-&gt;</span> <span class="dt">Password</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+checkPassword u p <span class="fu">=</span> <span class="fu">...</span>
+
+<span class="ot">checkPassword' ::</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span><span class="ot">` </span>
+<span class="ot">checkPassword' userName password = ...</span></code></pre></div>
+<p>Haskell provides <em>type synonyms</em> so it is tempting to have:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">UserName</span> <span class="fu">=</span> <span class="dt">Text</span>
+<span class="kw">type</span> <span class="dt">Password</span> <span class="fu">=</span> <span class="dt">Text</span></code></pre></div>
+<p>But aliases are syntactic and are replaced when typechecking code. Using aliases actually means depending on a concrete representation of the type. <code>newtype</code> are cheap in Haskell and it is easy to derive typeclasses to use constant strings or numbers when needed, but they are “actual types” and thus increases readibility and reliability of code.</p></li>
+<li>limit exposition of constructors esp. for ADTs, prefer exposing functions and “smart constructors”</li>
+</ol></li>
+<li>how does haskell help you to maintain a clean, decoupled codebase?
+<ol style="list-style-type: decimal">
+<li>being expressive leads to more compact code which means more information fits in a single function which helps focusing</li>
+<li>thanks to types, refactoring is very easy: change what’s needed to be changed and fix compiler errors</li>
+<li>thanks to types, it is easy to generalise cross-cutting concepts that appear in different contexts</li>
+<li>compositionality of functions helps defining and using small manageable chunks of logic</li>
+<li>“higher” type concepts (typeclasses, GADTs, functors and friends, type families) increase expressivity and allows introducing domain-relevant or technical abstractions at all levels</li>
+<li>types are very useful to model domain-related concepts and have some constraints checked by the compiler</li>
+<li>being both compiled and interpreted decreases the feedback loop when developing/tuning code: I can use the REPL to play with the code</li>
+</ol></li>
+<li>what system design benefits do you receive from a statically typed, pure language such as haskell, that you wouldn’t receive in a dynamically typed, but immutable language?
+<ol style="list-style-type: decimal">
+<li>I can have a strong and statically enforced separation between a core domain model’s functions and types and connections to the outside world, along the line of hexagonal architecture. Thanks to separation of effectful and pure functions, it is easy to test/QC/reason about the core domain without having to deal with the impurity of realworld computations. For example, I can let concurrency out the picture and later on use STMs (or something else) to manage concurrent access, or I can model my system with concurrency in mind (e.g. CRDTs, event streams) and still not embed effects until actual deployment</li>
+<li>I can leverage the power of the compiler to chose the level of correctness I want/need, from lousy to proof-like… I can actually code in Haskell like I would code in a dynamically typed language (e.g. use simple generic immutable structures like list, use primitives…) but I can also go for something close to proof-system.</li>
+</ol></li>
+</ol>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+    
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
