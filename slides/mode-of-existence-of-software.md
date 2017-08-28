@@ -88,6 +88,7 @@ theme: serif-black
 * *Web* of interconnected elements, individuation becomes difficult to characterise, every piece of code seems to come "alive" in interaction with more and more other pieces
 * Technical objects are *individuals* made of *technical elements* and part of a *technical ensemble* (network): Think of a car, made out of wheels and part of the general framework to make cars possible 
 * Form and function are forces that shape the technical object, but neither has the upper hand on the other: objects have some internal logic, a "life" of their own
+* Individuation has consequences on *legal property* of software => "viral" nature of some OSS licences ack the fact the border of what makes a software a single individual is blurry
 </div>
 
 ## Techno-logy
