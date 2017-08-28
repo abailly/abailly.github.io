@@ -8,8 +8,94 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2017-05-24T00:00:00Z</updated>
+    <updated>2017-08-28T00:00:00Z</updated>
     <entry>
+    <title>Weekly Review - Week 35</title>
+    <link href="http://abailly.github.io/posts/weekly-review-35.html" />
+    <id>http://abailly.github.io/posts/weekly-review-35.html</id>
+    <published>2017-08-28T00:00:00Z</published>
+    <updated>2017-08-28T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Weekly Review - Week 35</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on August 28, 2017</div>
+
+<p>This post is a summary of my activities related to coding and software in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
+<dl>
+<dt><a href="https://michael.steindorfer.name/publications/phd-thesis-efficient-immutable-collections.pdf">Efficient Immutable Collections</a></dt>
+<dd><p>Immutables collections paves the way for efficient program transformations and parallelization, but they might lead to inefficiencies from garbage collection or repeated traversals. This thesis provides techniques to build efficient immutable collections on the JVM.</p>
+</dd>
+<dt><a href="https://github.com/ipfs/ipfs">GitHub - ipfs/ipfs: IPFS - The Permanent Web</a></dt>
+<dd><p>Discovered this fascinating project which is the foundation of numerous other projects, like <a href="https://github.com/whyrusleeping/gx">gx</a> a package management tool.</p>
+</dd>
+<dt><a href="https://vadosware.io/post/end-to-end-testing-with-hspec-almost/">End To End Testing With Hspec (Almost)</a></dt>
+<dd><p>How to (not) use Haskell and Hspec to write end-to-end testing using <a href="http://hackage.haskell.org/package/hspec">hspec</a> and <a href="https://hackage.haskell.org/package/webdriver">hs-webdriver</a>. Looks like recent changes in webdriver broke Haskell’s library…</p>
+</dd>
+<dt><a href="https://blog.acolyer.org/2017/08/16/interactions-of-individual-and-pair-programmers-with-an-intelligent-tutoring-system-for-computer-science/">Interactions of individual and pair programmers with an intelligent tutoring system for computer science | the morning paper</a></dt>
+<dd><p><em>tl;dr</em>: We discovered that while both groups exhibited significant learning gains, pair programmers completed problems more quickly, relied less heavily on system-provided examples, coded more efficiently, and showed higher signs of engagement.</p>
+</dd>
+<dt><a href="https://blog.acolyer.org/2017/08/17/on-the-design-of-distributed-programming-models/">On the design of distributed programming models | the morning paper</a></dt>
+<dd><p>Another gem from Adrian Colyer’s treasure trove: What’s needed in languages to fully support distributed systems programming?</p>
+</dd>
+<dt><a href="https://blog.acolyer.org/2017/08/23/growing-a-protocol/">Growing a protocol | the morning paper</a></dt>
+<dd><p>This paper triggered some research on distributed systems testing, along with:</p>
+</dd>
+</dl>
+<ul>
+<li><a href="https://blog.acolyer.org/2015/03/26/lineage-driven-fault-injection/">Lineage-driven Fault Injection | the morning paper</a>: Analysing programs execution to inject <em>interesting</em> errors, e.g. ones that have high probability of triggering bugs</li>
+<li><a href="https://www.usenix.org/system/files/conference/osdi14/osdi14-paper-leesatapornwongsa.pdf">SAMC</a>: A tool to drive testing through model-checking with specific techniques to reduce state explosion</li>
+<li><a href="https://github.com/osrg/namazu">osrg/namazu: 鯰: Programmable fuzzy scheduler for testing distributed systems</a>: Fuzz testing of distributed systems</li>
+<li><a href="http://www.pdl.cmu.edu/dbug/">Parallel Data Lab Project: dbug: Systematic and Scalable Testing of Concurrent Systems</a>: Another model-checking/testing tool interposing itself between processes and OS/libraries to catch system calls and inject errors</li>
+<li><a href="http://www.pdl.cmu.edu/PDL-FTP/associated/CMU-PDL-12-101.pdf">Concurrent Systematic Testing at Scale</a>: Paper from the dbug project</li>
+<li><a href="http://www.macesystems.org/mace/">The Mace Project | MaceSystems</a>: A language and toolset to design and implement distributed systems</li>
+<li><a href="https://infoscience.epfl.ch/record/151495/files/EPFL_TH4858.pdf">LMC</a>: Solves the state explosion problem by analysing and tracking local state instead of the global state</li>
+</ul>
+<dl>
+<dt><a href="https://www.zurich.ibm.com/~cca/papers/pax.pdf">Yet Another Visit to Paxos</a></dt>
+<dd><p>One the numerous Paxos papers, this time introducing crash-tolerance and Byzantine failure tolerance. Lead to PBFT-Smart algorithm.</p>
+</dd>
+<dt><a href="http://www.countingcalculi.com/features/smart_hiring/">Hire Like the Israeli Military</a></dt>
+<dd><p>Detailed article on practical application of Daniel Kahneman’s hiring techniques from <a href="https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow">Thinking, Fast and Slow</a>. In the book, Kahneman advocates the use of a simple rating system based on questions to identify observable behaviours of hired persons and objectivize their past experience.</p>
+</dd>
+<dt><a href="https://stackoverflow.com/questions/10236953/the-pause-monad">haskell - The Pause monad - Stack Overflow</a></dt>
+<dd><p>One article from a series I read this weekend trying to acquire a deeper understanding of Free monad construction and how to implement pause/resume on top of Free</p>
+</dd>
+</dl>
+<ul>
+<li><a href="https://www.reddit.com/r/haskelltil/comments/4ea7er/coyoneda_is_just_the_free_functor/">Coyoneda is just the Free Functor : haskelltil</a>: <a href="https://hackage.haskell.org/package/kan-extensions-5.0.2/docs/Data-Functor-Coyoneda.html">Coyoneda</a> functor reifies functor application…</li>
+<li><a href="http://alpmestan.com/posts/2017-08-17-coyoneda-fmap-fusion.html">From Hask Till Dawn: Coyoneda and fmap fusion</a>: … a technique that can be used to make traversal of functorial structures and repeated fmap applications more efficient</li>
+<li><a href="https://elvishjerricco.github.io/2016/04/08/applicative-effects-in-free-monads.html">Applicative Effects in Free Monads</a></li>
+<li><a href="http://elvishjerricco.github.io/2016/04/13/more-on-applicative-effects-in-free-monads.html">More on Applicative Effects in Free Monads</a></li>
+</ul>
+<dl>
+<dt><a href="http://comonad.com/reader/2011/free-monads-for-less/">The Comonad.Reader » Free Monads for Less (Part 1 of 3): Codensity</a></dt>
+<dd><p>A serie of article from Ed Kmett on the Free monad construction and how to make it more efficient, followed by:</p>
+</dd>
+</dl>
+<ul>
+<li><a href="http://comonad.com/reader/2011/free-monads-for-less-2/">The Comonad.Reader » Free Monads for Less (Part 2 of 3): Yoneda</a></li>
+<li><a href="http://comonad.com/reader/2011/free-monads-for-less-3/">The Comonad.Reader » Free Monads for Less (Part 3 of 3): Yielding IO</a></li>
+</ul>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Notes on Reliability &amp; Maintainability of Haskell Code</title>
     <link href="http://abailly.github.io/posts/haskell-reliability.html" />
     <id>http://abailly.github.io/posts/haskell-reliability.html</id>
@@ -950,108 +1036,6 @@ MkDate 2016 February 29 : Date</code></pre>
 <li id="fn6"><p>Les développeurs ont l’habitude d’utiliser un canard en plastique comme interlocuteur, d’où l’expression <em>rubber ducking</em>.<a href="#fnref6">↩</a></p></li>
 </ol>
 </div>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Weekly Review - Week 14</title>
-    <link href="http://abailly.github.io/posts/weekly-review-14.html" />
-    <id>http://abailly.github.io/posts/weekly-review-14.html</id>
-    <published>2017-04-09T00:00:00Z</published>
-    <updated>2017-04-09T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Weekly Review - Week 14</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on April  9, 2017</div>
-
-<p>This post is a summary of links related to coding and software I followed and read (sometimes, skimmed over) in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
-<dl>
-<dt><a href="http://www.phoenixframework.org/v0.13.1/docs/advanced-deployment">Exrm Releases · Phoenix</a></dt>
-<dd><p>While pairing with Bernard on Barrel we investigated how to package applications built in Elixir</p>
-</dd>
-<dt><a href="https://magit.vc/manual/magit.html#Getting-Started">Magit User Manual</a></dt>
-<dd><p>A gentle reminder that magit rocks and I should be using it.</p>
-</dd>
-<dt><a href="https://media.pragprog.com/titles/elixir/ElixirCheat.pdf">ElixirCheat12 - ElixirCheat.pdf</a></dt>
-<dd><p>Elixir’s syntax is quite easy to grasp thanks to its proximity with Ruby, but there are quite a few details I am not familiar with.</p>
-</dd>
-<dt><a href="http://pumpkindb.org/">PumpkinDB</a></dt>
-<dd><p>A “new” database focusing on providing good foundations for Event Sourced applications. Interestingly, it uses a dialect of <a href="https://en.wikipedia.org/wiki/Forth_(programming_language)">Forth</a> language to express queries and operations to be run in the DB Engine.</p>
-</dd>
-<dt><a href="https://mitpress.mit.edu/books/certified-programming-dependent-types">Certified Programming with Dependent Types | The MIT Press</a></dt>
-<dd><p>Looks like this could be a good read given my current strong interest in dependently typed languages. Uses Coq but I suspect this could be equally applicable to Agda and Idris.</p>
-</dd>
-<dt><a href="https://opencredo.com/programmable-infrastructure-needs-testing/">Programmable Infrastructure Needs Testing Too - OpenCredo</a></dt>
-<dd><p>Good reminder that we should apply the good things we have learnt the hard way from programming when treating <em>infrastructure as code</em>: Test-Driven Development is equally meaningful, if a bit harder to implement. Infrastructure and configuration management is another area where type-driven development shines.</p>
-</dd>
-<dt><a href="http://tydeworkshop.org/2017">TyDe 2017</a></dt>
-<dd><p>If I were still doing research, one workshop I would love to apply for.</p>
-</dd>
-<dt><a href="http://oldcomputers.net/zx81.html">Sinclair ZX-81 computer</a></dt>
-<dd><p>My first computer…</p>
-</dd>
-<dt><a href="http://2017.programmingconference.org/track/refuses-2017#modal-phid_545469060e55a2083d899855b00321c4">Salon des Refusés 2017 - ‹Programming› 2017</a></dt>
-<dd><p>Thanks to @<a href="https://twitter.com/abolibibelot">abolibibelot</a>, this conference’s page provides a wealth of interesting and/or puzzling links on programming</p>
-</dd>
-<dt><a href="https://gregoor.github.io/syntactor/">Syntactor</a></dt>
-<dd><p>Even if the idea of enhancing code editors to take care of the syntactic structure is not new and has not yet blossomed, this implementation is a good reminder this could be a great tool if done properly</p>
-</dd>
-<dt><a href="http://lettres.ac-rouen.fr/archives_bac/annales/a71.html">Scène VIII</a></dt>
-<dd><p>Sometimes feeling like Cyrano…</p>
-</dd>
-<dt><a href="http://www.slate.fr/story/125493/celine-alvarez">Pourquoi tant de profs ne supportent plus Céline Alvarez? | Slate.fr</a></dt>
-<dd><p><a href="https://www.celinealvarez.org/">Céline Alvarez</a> has reached celebrity in 2016 thanks to her book on education, drawn from an experiment she ran for 3 years in Aubervilliers. She has attracted a lot of criticism from professional teachers. It seems to me the relationship between the kind of education she promotes and what it is for 99% of the people is akin to the relationship between what software development is like at companies like Google and what it is for the rest of us…</p>
-</dd>
-<dt><a href="http://www.brownbaglunch.fr/">BrownBagLunch</a></dt>
-<dd><p>Added myself to Nantes’ baggers</p>
-</dd>
-<dt><a href="https://www.pantone.com/fashion-color-report-spring-2017">Color Intelligence - PANTONE Fashion Color Report Spring 2017</a></dt>
-<dd><p>@<a href="https://twitter.com/__MaxS__">__MaxS__</a> provided some feedback on the use of colors on <a href="http://drcode.io">Dr.Code</a> and I discovered Pantone issued quarterly reports on which colors are <em>trending</em>! Yet having a good palette does not help you much if you lack any kind of design skill…</p>
-</dd>
-<dt><a href="https://color.adobe.com/fr/create/color-wheel/">Roue chromatique | Modèles de couleurs - Adobe Color CC</a></dt>
-<dd><p>Another site to make nice color palettes. Same remark applies here!</p>
-</dd>
-<dt><a href="https://refuses.github.io/preprints/writing.pdf">Programming is Writing is Programming - writing.pdf</a></dt>
-<dd><p>A good read from the already mentioned <em>Salon des refusés</em>. Advocates how close to writing programming is, which implies we programmers should take care of styling issues.</p>
-</dd>
-<dt><a href="https://refuses.github.io/preprints/creationism.pdf">creationism.pdf</a></dt>
-<dd><p>Another somewhat puzzling read from the <em>Salon des refusés</em>. If you are into Social Darwinism and Libertarianism…</p>
-</dd>
-<dt><a href="https://medium.com/@grgtwt/code-is-not-just-text-1082981ae27f">Code is not just text – Gregor – Medium</a></dt>
-<dd><p>Yet another link from the <em>Salon des refusés</em></p>
-</dd>
-<dt><a href="http://fare.tunes.org/">Faré’s Home Page - François-René Rideau - Đặng-Vũ Bân</a></dt>
-<dd><p>Home page of the “Creationism” paper’s author.</p>
-</dd>
-<dt><a href="http://witheve.com/deepdives/literate.html">Literate Programming and Eve</a></dt>
-<dd><p>Eve is an experimental language and IDE that “<em>presents an alternative take on what programming could be</em>”. I have always been attracted to such kind of tools that propose to mix text, layout and code, in the spirit of literate programming and <a href="http://nbviewer.jupyter.org/">notebooks</a>.</p>
-</dd>
-<dt><a href="https://github.com/puffnfresh/tryidris">puffnfresh/tryidris: Try Idris</a></dt>
-<dd><p>An online sandbox to try Idris. Can even compile to Javascript.</p>
-</dd>
-<dt><a href="https://github.com/tfjmp/php2uni">tfjmp/php2uni: PHP2Uni</a></dt>
-<dd><p>Alternative approach to building unikernels from “standard” languages</p>
-</dd>
-<dt><a href="https://zwischenzugs.wordpress.com/2017/04/04/things-i-learned-managing-site-reliability-for-some-of-the-worlds-busiest-gambling-sites/">Things I Learned Managing Site Reliability for Some of the World’s Busiest Gambling Sites | zwischenzugs</a></dt>
-<dd><p>Good read on the importance of process and documentation for operations.</p>
-</dd>
-</dl>
 
 
 <div id="disqus_thread"></div>

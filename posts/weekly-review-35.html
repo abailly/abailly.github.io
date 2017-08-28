@@ -1,0 +1,135 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - Weekly Review - Week 35</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="/"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="http://drcode.io">Dr.Code</a>
+          </li>
+          <li>
+          <a href="/about.html">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div id="main" role="main">
+<h1>Weekly Review - Week 35</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on August 28, 2017</div>
+
+<p>This post is a summary of my activities related to coding and software in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
+<dl>
+<dt><a href="https://michael.steindorfer.name/publications/phd-thesis-efficient-immutable-collections.pdf">Efficient Immutable Collections</a></dt>
+<dd><p>Immutables collections paves the way for efficient program transformations and parallelization, but they might lead to inefficiencies from garbage collection or repeated traversals. This thesis provides techniques to build efficient immutable collections on the JVM.</p>
+</dd>
+<dt><a href="https://github.com/ipfs/ipfs">GitHub - ipfs/ipfs: IPFS - The Permanent Web</a></dt>
+<dd><p>Discovered this fascinating project which is the foundation of numerous other projects, like <a href="https://github.com/whyrusleeping/gx">gx</a> a package management tool.</p>
+</dd>
+<dt><a href="https://vadosware.io/post/end-to-end-testing-with-hspec-almost/">End To End Testing With Hspec (Almost)</a></dt>
+<dd><p>How to (not) use Haskell and Hspec to write end-to-end testing using <a href="http://hackage.haskell.org/package/hspec">hspec</a> and <a href="https://hackage.haskell.org/package/webdriver">hs-webdriver</a>. Looks like recent changes in webdriver broke Haskell’s library…</p>
+</dd>
+<dt><a href="https://blog.acolyer.org/2017/08/16/interactions-of-individual-and-pair-programmers-with-an-intelligent-tutoring-system-for-computer-science/">Interactions of individual and pair programmers with an intelligent tutoring system for computer science | the morning paper</a></dt>
+<dd><p><em>tl;dr</em>: We discovered that while both groups exhibited significant learning gains, pair programmers completed problems more quickly, relied less heavily on system-provided examples, coded more efficiently, and showed higher signs of engagement.</p>
+</dd>
+<dt><a href="https://blog.acolyer.org/2017/08/17/on-the-design-of-distributed-programming-models/">On the design of distributed programming models | the morning paper</a></dt>
+<dd><p>Another gem from Adrian Colyer’s treasure trove: What’s needed in languages to fully support distributed systems programming?</p>
+</dd>
+<dt><a href="https://blog.acolyer.org/2017/08/23/growing-a-protocol/">Growing a protocol | the morning paper</a></dt>
+<dd><p>This paper triggered some research on distributed systems testing, along with:</p>
+</dd>
+</dl>
+<ul>
+<li><a href="https://blog.acolyer.org/2015/03/26/lineage-driven-fault-injection/">Lineage-driven Fault Injection | the morning paper</a>: Analysing programs execution to inject <em>interesting</em> errors, e.g. ones that have high probability of triggering bugs</li>
+<li><a href="https://www.usenix.org/system/files/conference/osdi14/osdi14-paper-leesatapornwongsa.pdf">SAMC</a>: A tool to drive testing through model-checking with specific techniques to reduce state explosion</li>
+<li><a href="https://github.com/osrg/namazu">osrg/namazu: 鯰: Programmable fuzzy scheduler for testing distributed systems</a>: Fuzz testing of distributed systems</li>
+<li><a href="http://www.pdl.cmu.edu/dbug/">Parallel Data Lab Project: dbug: Systematic and Scalable Testing of Concurrent Systems</a>: Another model-checking/testing tool interposing itself between processes and OS/libraries to catch system calls and inject errors</li>
+<li><a href="http://www.pdl.cmu.edu/PDL-FTP/associated/CMU-PDL-12-101.pdf">Concurrent Systematic Testing at Scale</a>: Paper from the dbug project</li>
+<li><a href="http://www.macesystems.org/mace/">The Mace Project | MaceSystems</a>: A language and toolset to design and implement distributed systems</li>
+<li><a href="https://infoscience.epfl.ch/record/151495/files/EPFL_TH4858.pdf">LMC</a>: Solves the state explosion problem by analysing and tracking local state instead of the global state</li>
+</ul>
+<dl>
+<dt><a href="https://www.zurich.ibm.com/~cca/papers/pax.pdf">Yet Another Visit to Paxos</a></dt>
+<dd><p>One the numerous Paxos papers, this time introducing crash-tolerance and Byzantine failure tolerance. Lead to PBFT-Smart algorithm.</p>
+</dd>
+<dt><a href="http://www.countingcalculi.com/features/smart_hiring/">Hire Like the Israeli Military</a></dt>
+<dd><p>Detailed article on practical application of Daniel Kahneman’s hiring techniques from <a href="https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow">Thinking, Fast and Slow</a>. In the book, Kahneman advocates the use of a simple rating system based on questions to identify observable behaviours of hired persons and objectivize their past experience.</p>
+</dd>
+<dt><a href="https://stackoverflow.com/questions/10236953/the-pause-monad">haskell - The Pause monad - Stack Overflow</a></dt>
+<dd><p>One article from a series I read this weekend trying to acquire a deeper understanding of Free monad construction and how to implement pause/resume on top of Free</p>
+</dd>
+</dl>
+<ul>
+<li><a href="https://www.reddit.com/r/haskelltil/comments/4ea7er/coyoneda_is_just_the_free_functor/">Coyoneda is just the Free Functor : haskelltil</a>: <a href="https://hackage.haskell.org/package/kan-extensions-5.0.2/docs/Data-Functor-Coyoneda.html">Coyoneda</a> functor reifies functor application…</li>
+<li><a href="http://alpmestan.com/posts/2017-08-17-coyoneda-fmap-fusion.html">From Hask Till Dawn: Coyoneda and fmap fusion</a>: … a technique that can be used to make traversal of functorial structures and repeated fmap applications more efficient</li>
+<li><a href="https://elvishjerricco.github.io/2016/04/08/applicative-effects-in-free-monads.html">Applicative Effects in Free Monads</a></li>
+<li><a href="http://elvishjerricco.github.io/2016/04/13/more-on-applicative-effects-in-free-monads.html">More on Applicative Effects in Free Monads</a></li>
+</ul>
+<dl>
+<dt><a href="http://comonad.com/reader/2011/free-monads-for-less/">The Comonad.Reader » Free Monads for Less (Part 1 of 3): Codensity</a></dt>
+<dd><p>A serie of article from Ed Kmett on the Free monad construction and how to make it more efficient, followed by:</p>
+</dd>
+</dl>
+<ul>
+<li><a href="http://comonad.com/reader/2011/free-monads-for-less-2/">The Comonad.Reader » Free Monads for Less (Part 2 of 3): Yoneda</a></li>
+<li><a href="http://comonad.com/reader/2011/free-monads-for-less-3/">The Comonad.Reader » Free Monads for Less (Part 3 of 3): Yielding IO</a></li>
+</ul>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+    
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
