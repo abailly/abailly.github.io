@@ -8,8 +8,71 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2017-09-04T00:00:00Z</updated>
+    <updated>2017-09-18T00:00:00Z</updated>
     <entry>
+    <title>Weekly Review - Week 38</title>
+    <link href="http://abailly.github.io/posts/weekly-review-38.html" />
+    <id>http://abailly.github.io/posts/weekly-review-38.html</id>
+    <published>2017-09-18T00:00:00Z</published>
+    <updated>2017-09-18T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Weekly Review - Week 38</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on September 18, 2017</div>
+
+<p>This post is a summary of my activities related to coding and software in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
+<dl>
+<dt><a href="https://vadosware.io/post/static-binaries-for-haskell-a-convoluted-approach/">Static Binaries for Haskell: A Convoluted Approach</a></dt>
+<dd><p>When trying to build minimal docker images, having a statically linked binary is a plus. This is actually quite hard to realize in practice with GHC as this post demonstrates (note that I tried the suggested approach and failed…)</p>
+</dd>
+<dt><a href="http://graydon2.dreamwidth.org/253769.html">graydon2 | “What next?”</a></dt>
+<dd><p>Interesting and opinionated post on <em>what’s next</em> in Programming languages, e.g. which features from PLT will reach mainstream. First-class modules done right is definitely something we are direly in need for!</p>
+</dd>
+<dt><a href="http://slatestarcodex.com/2017/09/05/book-review-surfing-uncertainty/">Book Review: Surfing Uncertainty | Slate Star Codex</a></dt>
+<dd><p>A long book review on cognition and how our brain copes with uncertain, partial or plain wrong data.</p>
+</dd>
+<dt><a href="https://github.com/adericbourg/coreprotocols-fr">Les Protocoles Fondamentaux</a></dt>
+<dd><p>French translation of Michelle and Jim McCarthy’s <a href="">Core Protocols</a>, using <a href="https://github.com/rkasper/coreprotocols">The Core Protocols: A Guide to Greatness</a> dfrom Richard Kasperowski as main source.</p>
+</dd>
+<dt><a href="https://filecoin.io/filecoin.pdf">FileCoin</a></dt>
+<dd><p>A <em>cryptocurrency</em> providing blockchain-based file-system</p>
+</dd>
+<dt><a href="http://hackage.haskell.org/package/testing-feat">testing-feat: Functional Enumeration of Algebraic Types</a></dt>
+<dd><p>A Haskell package to enumerate inhabitants of any ADT, useful for systematic testing of data types.</p>
+</dd>
+<dt><a href="http://www.samcoope.com/posts/deep_code_generation">Sam Coope - Blog</a></dt>
+<dd><p>Looks fun! Did not read the full thesis though…</p>
+</dd>
+<dt><a href="https://pragprog.com/magazines/2012-01/unit-tests-are-first">PragPub January 2012 | Unit Tests Are FIRST | The Pragmatic Bookshelf</a></dt>
+<dd><p>A gentle reminder about the properties that a proper unit test should exhibit: Fast, Isolated, Repeatable, Self-Verifying, and Timely</p>
+</dd>
+<dt><a href="https://www.tezos.com/">Tezos Crowdfunding</a></dt>
+<dd><p>Tezos is a smart contracts platform that aims at offering a self-governing network. I read the <a href="https://www.tezos.com/static/papers/white_paper.pdf">language white paper</a> which interestingly draws ideas from Forth: The Tezos language is a typed stack-based language. Although of note is the fact the reference implementation is in OCaml.</p>
+</dd>
+<dt><a href="https://blog.acolyer.org/2017/09/18/bringing-the-web-up-to-speed-with-webassembly/">Bringing the web up to speed with WebAssembly | the morning paper</a></dt>
+<dd><p>Speaking of languages, WebAssembly aims at providing a more solid foundation than Javascript as a the lingua franca for executing arbitrary code in browsers.</p>
+</dd>
+</dl>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Weekly Review - Week 36</title>
     <link href="http://abailly.github.io/posts/weekly-review-36.html" />
     <id>http://abailly.github.io/posts/weekly-review-36.html</id>
@@ -975,73 +1038,6 @@ MkDate 2016 February 29 : Date</code></pre>
 <dd><p>Comment s’inspirer de l’Éthique ?</p>
 </dd>
 </dl>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Sur &quot;Critique de la raison pure&quot; (2)</title>
-    <link href="http://abailly.github.io/posts/kant2.html" />
-    <id>http://abailly.github.io/posts/kant2.html</id>
-    <published>2017-04-15T00:00:00Z</published>
-    <updated>2017-04-15T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Sur &quot;Critique de la raison pure&quot; (2)</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on April 15, 2017</div>
-
-<p>Quelques notes supplémentaires sur Kant, la <a href="https://fr.wikipedia.org/wiki/Critique_de_la_raison_pure">Critique de la raison pure</a> et les <a href="https://fr.wikipedia.org/wiki/Fondation_de_la_m%C3%A9taphysique_des_m%C5%93urs">Fondements de la métaphysique des moeurs</a>. Ce billet fait suite à <a href="/posts/kant.html">d’autres notes</a> prises lors d’une session d’AOF 2016.</p>
-<h1 id="fin-de-la-critique-de-la-raison-pure">Fin de la Critique de la Raison Pure</h1>
-<ul>
-<li>Les idées <em>absolues</em> agissent comme régulateurs de la raison, mais quant elles sont entendues commes principes consitutifs elles produisent des <em>antinomies</em>, génère des débats entre des alternatives qui ne peuvent se résoudre car elles sont soit toutes deux fausses, soit toutes deux vraies: aucune expérience et partant aucune déduction de l’entendement ne peut permettre de décider
-<ul>
-<li>dans l’ordre du monde la série des causes n’est ni finie ni infinie, mais <em>indéfinie</em> : étant <em>dans</em> le monde, on ne peut que poursuivre l’enquête, chercher à comprendre et remonter les chaînes de causalité sans jamains espérer atteindre une réponse définitive qui ne pourrait se trouver que <em>hors du monde</em></li>
-<li>dans l’ordre du sujet, la raison permet d’assurer l’unité du sujet en absolutisant toutes ses expériences et pensées dans une <em>substance unique et simple</em>, mais il n’est pas possible d’en faire une expérience directe. La raison pure est condition d’affirmation du sujet par le <em>je pense</em> mais ne peut fonder son existence,</li>
-<li>De même pour l’idée de Dieu, produite par la raison comme un principe régulateur de l’unité de l’expérience du monde, d’une synthèse globale du réelle : penser un grand architecte permet d’offrir un fondement défini à la série des causalités</li>
-</ul></li>
-<li>la raison est <em>paresseuse</em> quand elle croit en ses principes comme étant constitutifs d’une chose réelle: en se contentant d’un explication absolue, elle s’arrête de faire son travail qui est de chercher à comprendre. La compréhension n’est plus alors fondée sur l’entendement mais sur le <em>dogme</em></li>
-<li>Il n’y a pas de fondement expérimental possible aux <em>idées</em> de la raison pure, ces idées ne servent que de “point de fuite” pour les raisonnements de l’entendement qui eux nécessitent un contenu empirique. C’est donc une erreur de prétendre <em>connaître</em> Dieu, l’immortalité de l’âme ou l’infini du réel</li>
-<li>Il est légitime de postuler une cause unique comme un outil pour nous aider à comprendre le divers du réel, comme une hypothèse scientifique, mais elle ne doit jamais nous empêcher de chercher à prolonger notre compréhension de la chaîne des conditions. Pour la connaissance, la volonté de Dieu ou l’ordonnancement de la Nature sont équivalents</li>
-<li>Il y a un <em>usage pratique</em>, c’est-à-dire aux fins de jugement, de la raison pure: parce qu’elle nous porte naturellement à penser à <em>l’immortalité de l’âme</em> (existence d’une substance simple) et à <em>l’existence de Dieu</em> (existence d’un être parfait à l’origine de toute chose) elle nous rend moraux. Autrement dit, c’est parce que l’homme a un sens moral qu’il croît en Dieu.</li>
-</ul>
-<h1 id="fondement-de-la-métaphysique-des-moeurs">Fondement de la métaphysique des moeurs</h1>
-<ul>
-<li>La morale est fondée sur des impératifs, des <em>devoirs</em> qui s’imposent à moi, qui donnent une direction à mon intention quels que soient les résultats effectifs de mes actes. La morale en acte est la <em>volonté bonne</em></li>
-<li>Une morale universelle doit valoir pour tous les êtres de raison, ce qui implique qu’elle ne puisse être fondée sur une expérience particulière, même élargie à l’espèce humaine, mais doit être trouvée dans la raison elle même</li>
-<li>L’expérience et la raison empirique ne sont sources que <em>d’impératifs hypothétiques</em> limités dans le temps, l’espace. Tout impératif moral de ce genre peut se voir opposer d’autres impératifs hypothétiques et les lois morales ne sont alors que relatives</li>
-<li>Le devoir authentique provient d’impératifs catégoriques, applicables en tous temps et tous lieux</li>
-<li>Un impératif lie des moyens à des fins, il définit quelles sont les fins qui doivent être tandis que la raison pure définit les fins qui peuvent être</li>
-<li>La seule fin qui ne soit pas ancrée dans une expérience particulière est l’être de raison même, la personne: la seule fin qui soit commune à tous les êtres est l’existence (c’est le conatus spinoziste déguisé…)</li>
-<li>De même qu’il n’y a qu’une seule fin universelle, il n’y a qu’un seul impératif catégorique qui se décline en trois formulations:
-<ul>
-<li>“Agit de telle sorte que toute personne ne soit pas considérée uniquement comme un moyen mais aussi comme une fin”</li>
-<li>“Agit de manière à ce que ta maxime ait valeur universelle”</li>
-<li>“Agit comme un législateur universel”</li>
-</ul></li>
-<li>La morale issue de l’impératif catégorique est une morale de l’autonomie: je suis moral parce que je suis un être rationnel et la loi morale que je m’impose, s’impose à tous les êtres de raison universellement. Je suis le législateur et le censeur de moi même</li>
-<li>A contrario, toute autre morale produit de l’hétéronomie: ce sont des règles extérieures, contingentes, qui s’imposent à moi de manière arbitraire. Si j’agit moralement parce que j’applique les commandements d’un texte, quel qu’il soit, je suis “agi” (je ne suis pas actif, mais passif eut dit Spinoza: je ne suis pas guidé par ma raison mais par des émotions et des actes extérieurs)</li>
-<li>C’est parce que nous sommes libres, ou plus précisément parce que nous avons l’idée de la liberté, que nous somme moraux en tant qu’entités autonomes. Mais c’est parce que nous sommes à même de nous donner des lois, donc parce que nous sommes moraux, que nous sommes libres: il y a une apparente circularité</li>
-<li>Ce qui fait disparaître la circularité c’est que l’on parle de deux points de vues différents:
-<ul>
-<li>D’un point de vue du monde sensible, phénoménal, nous sommes soumis aux lois de la nature et aux impératifs moraux. C’est le domaine de l’intuition (sensible, appréhension du réel au travers des sens et des catégories de l’espace et du temps) et de l’intellect, et celui de l’hétéronomie,</li>
-<li>Mais du point de vue du monde intelligible, de la raison pure, nous sommes à même de produire des idées inconditionnées, donc nous sommes libres et autonomes.</li>
-</ul></li>
-</ul>
 
 
 <div id="disqus_thread"></div>
