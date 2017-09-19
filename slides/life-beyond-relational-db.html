@@ -85,13 +85,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
     <h3 class="author">Capital Match Team</h3>
 
+
     <h3 class="date">March 10, 2016</h3>
 </section>
 
 
 
 <section><section id="agenda" class="titleslide slide level1"><h1>Agenda</h1></section><section id="agenda-1" class="slide level2">
-<h1>Agenda</h1>
+<h2>Agenda</h2>
 <ul>
 <li class="fragment">Introduction</li>
 <li class="fragment">Event-Sourcing Model</li>
@@ -100,12 +101,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </section></section>
 <section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="who-are-we" class="slide level2">
-<h1>Who are we?</h1>
+<h2>Who are we?</h2>
 <figure>
 <img src="/images/cm-website.png" />
 </figure>
 </section><section id="who-are-we-1" class="slide level2">
-<h1>Who are we?</h1>
+<h2>Who are we?</h2>
 <ul>
 <li class="fragment">Capital Match is the leading plaform in Singapore for peer-to-peer lending to SMEs</li>
 <li class="fragment">Backend system developed in Haskell, frontend in Clojurescript/Om since 2014</li>
@@ -118,18 +119,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <img src="/images/relational-model.gif" />
 </figure>
 </section><section id="whats-good-with-relational-model" class="slide level2">
-<h1>What’s good with Relational Model?</h1>
+<h2>What’s good with Relational Model?</h2>
 <ul>
-<li class="fragment">Really great for querying <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo accent="false">→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> <em>SQL Rocks!</em></li>
+<li class="fragment">Really great for querying <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> <em>SQL Rocks!</em></li>
 <li class="fragment">Conceptually simple to understand: <em>Everything is a Table</em></li>
 <li class="fragment">Ubiquitous</li>
 </ul>
 </section><section id="whats-wrong-with-relational-model" class="slide level2">
-<h1>What’s wrong with Relational Model?</h1>
+<h2>What’s wrong with Relational Model?</h2>
 <ul>
 <li class="fragment">Writes/updates are complex</li>
 <li class="fragment"><em>Impedance Mismatch</em>: Lot of data is more tree-ish or graph-ish</li>
-<li class="fragment">One single Database for everything <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo accent="false">→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> <em>SPOF</em></li>
+<li class="fragment">One single Database for everything <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> <em>SPOF</em></li>
 <li class="fragment"><strong>Mutable State</strong></li>
 </ul>
 </section><section class="slide level2">
@@ -139,19 +140,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </figure>
 </section></section>
 <section><section id="event-sourcing" class="titleslide slide level1"><h1>Event Sourcing</h1></section><section id="state-vs.transitions" class="slide level2">
-<h1>State vs. Transitions</h1>
+<h2>State vs. Transitions</h2>
 <figure>
 <img src="/images/state-transitions.png" />
 </figure>
 </section><section id="state-vs.transitions-1" class="slide level2">
-<h1>State vs. Transitions</h1>
+<h2>State vs. Transitions</h2>
 <ul>
 <li class="fragment">RDBMS stores the <strong>state</strong> of the model at some point in time…</li>
 <li class="fragment">… But we are also interested in the <strong>transitions</strong> …</li>
 <li class="fragment">… And state can always be reconstructed from a <em>sequence of transitions</em>.</li>
 </ul>
 </section><section id="the-event-sourcing-model" class="slide level2">
-<h1>The Event Sourcing Model</h1>
+<h2>The Event Sourcing Model</h2>
 <blockquote>
 <p>Event Sourcing ensures that all changes to application state are stored as a sequence of events. Not just can we query these events, we can also use the event log to reconstruct past states, and as a foundation to automatically adjust the state to cope with retroactive changes.</p>
 </blockquote>
@@ -159,7 +160,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><a href="http://martinfowler.com/eaaDev/EventSourcing.html">Martin Fowler</a></p>
 </blockquote>
 </section><section id="events-makes-it-easier-to" class="slide level2">
-<h1>Events makes it easier to…</h1>
+<h2>Events makes it easier to…</h2>
 <ul>
 <li class="fragment">Audit current state and what lead to it</li>
 <li class="fragment">Implement generic undo/redo mechanism</li>
@@ -168,27 +169,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">Handle potentially conflicting changes</li>
 </ul>
 </section><section id="events-drive-business" class="slide level2">
-<h1>Events Drive Business</h1>
+<h2>Events Drive Business</h2>
 <ul>
 <li class="fragment">Events are what makes a model dynamic: What affects it, how it reacts to outside world…</li>
-<li class="fragment">Provide foundation for <a href="http://www.amazon.fr/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">Domain Driven Design</a> techniques <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo accent="false">→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> Better business models, Ubiquitous language</li>
+<li class="fragment">Provide foundation for <a href="http://www.amazon.fr/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">Domain Driven Design</a> techniques <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> Better business models, Ubiquitous language</li>
 <li class="fragment">Lead to <a href="http://ziobrando.blogspot.sg/2013/11/introducing-event-storming.html">Event Storming</a> technique for “requirements” elicitation and business domain modelling</li>
 </ul>
 </section></section>
 <section><section id="in-practice" class="titleslide slide level1"><h1>In Practice</h1></section><section id="overview" class="slide level2">
-<h1>Overview</h1>
+<h2>Overview</h2>
 <figure>
 <img src="/images/event-sourcing.png" />
 </figure>
 </section><section id="pure-business-models" class="slide level2">
-<h1>Pure Business Models</h1>
+<h2>Pure Business Models</h2>
 <ul>
 <li class="fragment">Each model delimits a <em>Bounded Context</em>: It is responsible for a single cohesive part of the domain</li>
 <li class="fragment">Models are <strong>pure</strong> immutable data structures</li>
 <li class="fragment">Distinguish <em>Commands</em> from <em>Events</em></li>
 </ul>
 </section><section id="pure-business-models-2" class="slide level2">
-<h1>Pure Business Models (2)</h1>
+<h2>Pure Business Models (2)</h2>
 <ul>
 <li class="fragment"><p>Commands compute Event from State</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">act ::</span> <span class="dt">Command</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Event</span></code></pre></div></li>
@@ -196,7 +197,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">apply ::</span> <span class="dt">Event</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Model</span></code></pre></div></li>
 </ul>
 </section><section id="effectful-services" class="slide level2">
-<h1>Effectful Services</h1>
+<h2>Effectful Services</h2>
 <blockquote>
 <p>Services are used to orchestrate interaction between one or more business models and the outside world</p>
 </blockquote>
@@ -206,16 +207,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">There are no <em>distributed transactions</em>: Service has to cope with failures from each context</li>
 </ul>
 </section><section id="effectful-services-2" class="slide level2">
-<h1>Effectful Services (2)</h1>
+<h2>Effectful Services (2)</h2>
 <ul>
 <li class="fragment"><p>We have a monad to express effects and sequencing on each context: <code>WebStateM</code></p>
 <pre><code>newtype WebStateM g l m a = WebStateM { runWebM :: TVar g -&gt; l -&gt; m a }</code></pre></li>
-<li class="fragment"><code>g</code> is a “global” Model which can be accessed concurrently <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo accent="false">→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> protected in STM</li>
+<li class="fragment"><code>g</code> is a “global” Model which can be accessed concurrently <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> protected in STM</li>
 <li class="fragment"><code>l</code> is local data, contextual to a single service execution</li>
 <li class="fragment"><p><code>m</code> is underlying monad, usually <code>IO</code></p></li>
 </ul>
 </section><section id="events-storage" class="slide level2">
-<h1>Events Storage</h1>
+<h2>Events Storage</h2>
 <pre><code>data StoredEvent s = StoredEvent { eventVersion :: EventVersion
                                  , eventType    :: EventType s 
                                  , eventDate    :: Date        
@@ -225,7 +226,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
                                  , event        :: ByteString  
                                  }</code></pre>
 </section><section id="events-storage-2" class="slide level2">
-<h1>Events Storage (2)</h1>
+<h2>Events Storage (2)</h2>
 <ul>
 <li class="fragment">We use a simple Append-only file store, writing serialized events (mostly JSON) packed with metadata</li>
 <li class="fragment">Each event has a (monotonically increasing) version which is used for proper deserialization</li>
@@ -234,12 +235,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </section></section>
 <section><section id="software" class="titleslide slide level1"><h1>Software</h1></section><section id="section" class="slide level2">
-<h1></h1>
+<h2></h2>
 <figure>
 <img src="/images/workshop.jpg" alt="In Practice" /><figcaption>In Practice</figcaption>
 </figure>
 </section><section id="demo" class="slide level2">
-<h1>Demo</h1>
+<h2>Demo</h2>
 <ul>
 <li class="fragment">Anatomy of a complete business model
 <ul>
@@ -253,35 +254,35 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </section></section>
 <section><section id="future-works" class="titleslide slide level1"><h1>Future Works</h1></section><section id="section-1" class="slide level2">
-<h1></h1>
+<h2></h2>
 <figure>
 <img src="/images/monolith-2001.jpg" />
 </figure>
 </section><section id="implement-better-cqrs" class="slide level2">
-<h1>Implement Better CQRS</h1>
+<h2>Implement Better CQRS</h2>
 <ul>
 <li class="fragment">Separate <em>Read Model</em> from <em>Write Model</em></li>
 <li class="fragment"><em>Write Model</em>: Append-only linear data store per context, very fast, minimize locking/write time</li>
 <li class="fragment"><em>Read model</em>: Optimized for specific querying, may be relational if needed in order to make it more user-friendly</li>
 </ul>
 </section><section id="make-models-resilient" class="slide level2">
-<h1>Make models resilient</h1>
+<h2>Make models resilient</h2>
 <ul>
-<li class="fragment">Resilience of models <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo accent="false">→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> <em>Replication</em></li>
+<li class="fragment">Resilience of models <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> <em>Replication</em></li>
 <li class="fragment">Use <a href="http://raft.github.io/">Raft</a> to maintain strong consistency of models: <a href="https://github.com/cartazio/haver-raft">several</a> <a href="https://github.com/NicolasT/kontiki">implementations</a> <a href="https://github.com/chrisnc/tangaroa">in</a> Haskell</li>
 <li class="fragment">Started implementation of practical cluster based on Raft, called <a href="https://github.com/capital-match/raptr">raptr</a></li>
 </ul>
 </section><section id="make-models-secure" class="slide level2">
-<h1>Make models secure</h1>
+<h2>Make models secure</h2>
 <ul>
-<li class="fragment">Turn event stream into a <em>source of truth</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo accent="false">→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> Blockchain and beyond…</li>
+<li class="fragment">Turn event stream into a <em>source of truth</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> Blockchain and beyond…</li>
 <li class="fragment">Juno: <a href="https://github.com/buckie/juno">Smart contracts</a> over Raft cluster</li>
 <li class="fragment">Uses cryptographically signed events to ensure history cannot be tampered with</li>
 <li class="fragment">Turns journal into a “legally binding ledger”?</li>
 </ul>
 </section></section>
 <section><section id="questions" class="titleslide slide level1"><h1>Questions?</h1></section><section id="section-2" class="slide level2">
-<h1></h1>
+<h2></h2>
 <figure>
 <img src="/images/puzzled.jpg" />
 </figure>

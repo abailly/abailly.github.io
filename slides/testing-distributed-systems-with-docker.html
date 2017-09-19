@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+
+  <meta name="author" content="Arnaud Bailly - @dr_c0d3" />
+
+
+  <meta name="dcterms.date" content="September 19, 2017" />
+
+  <title>Distributed Systems Testing</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="/reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    </style>    
+
+
+    <link rel="stylesheet" href="/reveal.js/css/theme/serif-black.css" id="theme">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="/reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section>
+    <h1 class="title">Distributed Systems Testing</h1>
+
+  <h2 class="subtitle">How I Learned to Stop Worrying and Love Docker</h2>
+
+
+    <h3 class="author">Arnaud Bailly - @dr_c0d3</h3>
+
+
+    <h3 class="email"><a href="mailto:arnaud.bailly@symbiont.io">arnaud.bailly@symbiont.io</a></h3>
+
+    <h3 class="date">September 19, 2017</h3>
+</section>
+
+
+
+<section><section id="agenda" class="titleslide slide level1"><h1>Agenda</h1></section><section class="slide level2">
+
+<ul>
+<li class="fragment">Introduction</li>
+<li class="fragment">System Overview &amp; Motivation</li>
+<li class="fragment">Docker &amp; Testing</li>
+<li class="fragment">Demo</li>
+<li class="fragment">Conclusion</li>
+</ul>
+</section></section>
+<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="who-am-i" class="slide level2">
+<h2>Who am I?</h2>
+<figure>
+<img src="/images/jack-of-all-trades.jpg" />
+</figure>
+<aside class="notes">
+<ul>
+<li>Developing software since 1994</li>
+<li>Now busy coding in Haskell at <a href="https://symbiont.io">Symbiont</a></li>
+<li>Test Obsessed</li>
+<li>Using docker in development and production since 2014</li>
+</ul>
+</aside>
+</section><section id="symbiont" class="slide level2">
+<h2>Symbiont</h2>
+<figure>
+<img src="/images/symbiont-web.png" />
+</figure>
+<aside class="notes">
+<ul>
+<li>New-York based fintech startup building a <em>Smart Contracts</em> platform</li>
+<li>Provide solutions to build more efficient decentralised markets</li>
+<li>Tech stack based on <em>private blockchain</em> technology</li>
+<li><strong>We are hiring</strong></li>
+</ul>
+</aside>
+</section><section id="goals" class="slide level2">
+<h2>Goals</h2>
+<ul>
+<li class="fragment"><strong>Goal</strong>: Share experience return, ideas, tips on how to use docker to test a (complex) distributed system</li>
+<li class="fragment">Hope to raise tough questions and improve state of practice to develop such kind of systems</li>
+<li class="fragment"><strong>Feedback</strong> most welcomed</li>
+<li class="fragment">This is a <em>Work-in-Progress</em>…</li>
+</ul>
+</section></section>
+<section><section id="system-overview" class="titleslide slide level1"><h1>System Overview</h1></section><section id="symbionts-system" class="slide level2">
+<h2>Symbiont’s System</h2>
+<figure>
+<img src="/images/symbiont-node-arch.png" />
+</figure>
+</section><section id="core-components" class="slide level2">
+<h2>Core Components</h2>
+<ul>
+<li class="fragment">A <em>Byzantine Fault Tolerant Replicated Log</em> stores cryptographically signed and encrypted transactions</li>
+<li class="fragment">A <em>Contract Execution Engine</em> stores contract’s code and allow contract’s functions execution</li>
+<li class="fragment">A <em>Transaction Engine</em> manages identities and privacy of transactions across time</li>
+</ul>
+</section><section id="bft-distributed-log" class="slide level2">
+<h2>BFT Distributed Log</h2>
+<ul>
+<li class="fragment">Critical piece of the system, ensures that all nodes share a consistent view of the system by linearizing transactions history</li>
+<li class="fragment">Implements <a href="http://www.di.fc.ul.pt/~bessani/publications/dsn14-bftsmart.pdf">BFT-SMaRt</a> consensus protocol which is a variation over <a href="https://www.zurich.ibm.com/~cca/papers/pax.pdf">Paxos</a></li>
+<li class="fragment">Non-byzantine failures: Node failures, network outages, network slowness…</li>
+<li class="fragment">Byzantine Failures: Arbitrary messages mangling, Node identities “stealing”…</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>see Distributed Algorithms, N.Lynch, pp.99-102</li>
+<li>Stop failures means processes can stop working but otherwise abide by their specifications</li>
+<li>Byzantine failures model means processes can change state and output messages arbitrarily</li>
+</ul>
+</aside>
+</section><section id="deployment" class="slide level2">
+<h2>Deployment</h2>
+<ul>
+<li class="fragment">All components of the system are packed as <em>docker containers</em></li>
+<li class="fragment">Deployment through Kubernetes over various cloud platforms (AWS, GCP, Azure)</li>
+<li class="fragment">A <em>Node</em> contains complete stack of services deployed together, several nodes form a <em>private network</em></li>
+</ul>
+</section><section id="constraints" class="slide level2">
+<h2>Constraints</h2>
+<ul>
+<li class="fragment"><strong>Safety</strong>: System should tolerate arbitrary failures</li>
+<li class="fragment"><strong>Consistency</strong>: Transactions log should be identical to all client in order to ensure deterministic state</li>
+<li class="fragment"><strong>Security</strong>: System should enforce privacy and secrecy of transactions</li>
+<li class="fragment">Lies in the <em>CP</em> corner of CAP triangle</li>
+</ul>
+</section></section>
+<section><section id="testing" class="titleslide slide level1"><h1>Testing</h1></section><section id="goals-1" class="slide level2">
+<h2>Goals</h2>
+<ul>
+<li class="fragment">Provide an <em>easy</em> way to write system-level tests for use in development and testing</li>
+<li class="fragment">Abstract away <em>details</em> of deployment</li>
+<li class="fragment">Build complex models of system’s behavior to generate <em>interesting</em> test cases for asserting <em>correctness</em> of the system in front of <em>faults</em> =&gt; allow injecting arbitrary faults</li>
+<li class="fragment">Fine control over system’s communication to generate <em>Byzantine failures</em></li>
+</ul>
+</section><section id="jepsen" class="slide level2">
+<h2><a href="https://aphyr.com/tags/jepsen">Jepsen</a></h2>
+<figure>
+<img src="/images/call-me-maybe.jpg" />
+</figure>
+<aside class="notes">
+<ul>
+<li>Black-box testing tool</li>
+<li>Developed by Kyle Kingsbury aka. <a href="https://twitter.com/aphyr">aphyr</a></li>
+<li>A tool for checking consistency properties of distributed databases, lead to a series of post called Call Me Maybe</li>
+<li>verifies <em>linearizability</em> of execution traces</li>
+<li>Found a good number of flaws in various high-profile open-source and closed sources DBs, including ES, ZK, Mongo, Riak, Redis…</li>
+</ul>
+</aside>
+</section><section id="jepsen---how-it-works" class="slide level2">
+<h2>Jepsen - How it works?</h2>
+<ul>
+<li class="fragment">Define a (simple) model of shared object (mutex, CAS…)</li>
+<li class="fragment">Deploy system over an actual cluster of machines</li>
+<li class="fragment">Generate (semi-)random sequence of operations representing concurrent clients interactions with the system</li>
+<li class="fragment">Generate <em>partitions</em> to trigger corner-cases and observe behaviour of system when network fails</li>
+<li class="fragment">Analyze resulting execution trace to detect violations of <em>model’s properties</em></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Various <em>consistency</em> properties</li>
+<li>Knossos checks <em>linearizability</em> of operations: all operations appear to occur <em>instantaneously</em> at some point in time while respecting program order</li>
+</ul>
+</aside>
+</section><section id="jepsen-is-complex" class="slide level2">
+<h2>Jepsen is complex</h2>
+<figure>
+<img src="/images/gasworks.jpg" />
+</figure>
+<aside class="notes">
+<ul>
+<li>We are not that much interested in testing linearizability</li>
+<li>Requires developing driver in clojure to interact with system, deploy it, run it</li>
+<li>Designed to run against actual cluster/VMs, not containers</li>
+<li>Requires expertise to design, run and analyze tests</li>
+<li>But lots of cool ideas and great piece of work! =&gt; We are thinking of hiring Kyle Kingsbury in the future to apply his expertise on our system!</li>
+</ul>
+</aside>
+</section><section id="testing-symbiont-system" class="slide level2">
+<h2>Testing Symbiont System</h2>
+<figure>
+<img src="/images/jules.jpg" />
+</figure>
+<aside class="notes">
+<ul>
+<li>Deploy all or part of the system as containers in a local docker</li>
+<li>Write test scenarios exerting API of <em>System-Under-Test</em></li>
+<li>Inject networking and system level faults with <em>Blockade</em></li>
+<li>Check consistency of state of the system w/ simple properties</li>
+</ul>
+</aside>
+</section><section id="blockade" class="slide level2">
+<h2>Blockade</h2>
+<figure>
+<img src="/images/blockade.jpg" />
+</figure>
+<aside class="notes">
+<ul>
+<li>A python-based tool for injecting faults in a <em>docker network</em></li>
+<li>Works as a command-line utility that manipulates iptables of containers and reacts on docker engine events to control system</li>
+</ul>
+</aside>
+</section><section id="blockade-1" class="slide level2">
+<h2>Blockade</h2>
+<figure>
+<img src="/images/blockade-network.png" />
+</figure>
+<aside class="notes">
+<ul>
+<li>Uses <code>iptable</code>/<code>tc</code> tools to modify behaviour of containers’ network interfaces</li>
+<li>Works <code>exec</code>uting commands inside containers =&gt; requires availability of software packages</li>
+<li>Provide commands to set a given network in some defined state:
+<ul>
+<li><code>slow</code>: Add random delay to deliver packets to some node(s)</li>
+<li><code>flaky</code>: Drop randomly packets to/from some node</li>
+<li><code>partition</code>: Break connections between nodes</li>
+</ul></li>
+</ul>
+</aside>
+</section><section id="domain-specific-language" class="slide level2">
+<h2>Domain Specific Language</h2>
+<figure>
+<img src="/images/rosetta-stone.jpg" />
+</figure>
+<aside class="notes">
+<ul>
+<li>Tests are described with a custom Domain-specific language in Haskell</li>
+<li>Exposes high-level ops available to setup/run/teardown the system</li>
+<li>DSL is abstract e.g. not tied to a particular infrastructure =&gt; can be interpreted in different ways
+<ul>
+<li>local, with processes from the host</li>
+<li>docker</li>
+<li>docker-in-docker -&gt; requires special handling of network</li>
+<li>fully remote: Running tests against a production-like infrastructure</li>
+<li>simulation</li>
+</ul></li>
+</ul>
+</aside>
+</section><section id="writing-tests" class="slide level2">
+<h2>Writing Tests</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">test
+<span class="ot">  ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Test</span> e ()
+
+test numNodes <span class="fu">=</span> <span class="kw">do</span>
+  when (numNodes <span class="fu">&lt;</span> <span class="dv">5</span>) <span class="fu">$</span> 
+    exit <span class="st">&quot;Split brain test should be run with at least 5 nodes&quot;</span>
+  (adminKey, procs) <span class="ot">&lt;-</span> setup <span class="st">&quot;assembly&quot;</span> numNodes
+  <span class="kw">let</span> mid <span class="fu">=</span> numNodes <span class="ot">`div`</span> <span class="dv">2</span>
+  run1 <span class="ot">&lt;-</span> mconcat <span class="fu">&lt;$&gt;</span> 
+         feedTransactions <span class="dv">1</span>  (<span class="dv">10</span> <span class="fu">///</span>) (batchOf <span class="dv">10</span>) (seconds <span class="dv">10</span>)
+  nemesis <span class="fu">$</span> <span class="dt">Partition</span> [[ <span class="dv">1</span> <span class="fu">..</span> mid <span class="fu">-</span> <span class="dv">1</span> ], [ mid <span class="fu">..</span> numNodes ]]</code></pre></div>
+<aside class="notes">
+<ul>
+<li>tests are written in Haskell =&gt; compiled to an executable</li>
+<li>test fragments can also be executed from the REPL =&gt; rapid prototyping and easy interaction with the system</li>
+<li>contains operations for SUT <em>and</em> Nemesis actions (named inspired by Jepsen)</li>
+<li>Tests are run <em>sequentially</em></li>
+</ul>
+</aside>
+</section><section id="running-tests-w-docker" class="slide level2">
+<h2>Running Tests w/ Docker</h2>
+<ul>
+<li class="fragment">Two docker modes provided:
+<ul>
+<li class="fragment"><code>docker</code> runs the test executable from the host environment</li>
+<li class="fragment"><code>dind</code> runs the test executable from within docker</li>
+</ul></li>
+<li class="fragment">Test executable is packaged as a container and pushed to repository</li>
+<li class="fragment">Allows executing tests within <em>Continuous Integration</em> environment and tagging specific versions</li>
+</ul>
+</section><section id="tests-in-continuous-integration" class="slide level2">
+<h2>Tests in Continuous Integration</h2>
+<figure>
+<img src="/images/symbiont-circle-ci-assembly-sym-test.png" />
+</figure>
+<aside class="notes">
+<ul>
+<li>Tests are run in CI as part of distributed log’s build</li>
+<li>Deployed on a custom GCP instance</li>
+<li>Run in dind mode from a known image tag</li>
+</ul>
+</aside>
+</section></section>
+<section><section id="demo" class="titleslide slide level1"><h1>Demo</h1></section></section>
+<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="takeaways" class="slide level2">
+<h2>Takeaways</h2>
+<ul>
+<li class="fragment">Docker is tremendously useful as an environment for system-level testing</li>
+<li class="fragment">There are lots of tools and utilities out there to help you doing that</li>
+<li class="fragment">There is great value in building a test DSL that reflects the way the system works and Haskell rocks as a tool to define such kind of DSLs</li>
+<li class="fragment"><em>This is just the beginning of the journey</em></li>
+</ul>
+</section><section id="whats-next" class="slide level2">
+<h2>What’s next?</h2>
+<figure>
+<img src="/images/chartres-cathedral.jpg" />
+</figure>
+<aside class="notes">
+<ul>
+<li>Lot of work on covering more aspects of the system</li>
+<li>Provide an external parser to make it easier to write and modify tests</li>
+<li>Complete support of remote infrastructure</li>
+<li>Parallelization of tests execution</li>
+<li>…</li>
+<li>=&gt; make it easier and faster to use it</li>
+</ul>
+</aside>
+</section><section id="whats-next-model-based-testing" class="slide level2">
+<h2>What’s next? Model Based Testing!</h2>
+<figure>
+<img src="/images/magritte-pipe.jpg" />
+</figure>
+<aside class="notes">
+<ul>
+<li>Based on formal/executable models of the SUT</li>
+<li>Requires instrumentation of some sort of the processes run</li>
+<li>Similar to concurrent programs testing: <a href="https://github.com/barrucadu/dejafu">dejafu</a></li>
+<li>Still an area of active research…</li>
+</ul>
+</aside>
+</section><section id="questions" class="slide level2">
+<h2>Questions?</h2>
+<figure>
+<img src="/images/puzzled.jpg" />
+</figure>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="/reveal.js/lib/js/head.min.js"></script>
+  <script src="/reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'old-english', // available themes are in /css/theme
+        transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: '/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

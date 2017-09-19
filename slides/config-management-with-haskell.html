@@ -85,6 +85,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
     <h3 class="author">Arnaud Bailly - @dr_c0d3</h3>
 
+
     <h3 class="date">April 27, 2017</h3>
 </section>
 
@@ -100,7 +101,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </section></section>
 <section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="who-am-i" class="slide level2">
-<h1>Who am I?</h1>
+<h2>Who am I?</h2>
 <ul>
 <li class="fragment">Software developer since quite a while, not a <em>SysAdmin</em> expert</li>
 <li class="fragment">Started working on this topic while developing <a href="https://capital-match.com">Capital Match</a> platform</li>
@@ -108,7 +109,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">Currently working as <a href="http://drcode.io">Dr.Code</a></li>
 </ul>
 </section><section id="why-haskell" class="slide level2">
-<h1>Why Haskell?</h1>
+<h2>Why Haskell?</h2>
 <ul>
 <li class="fragment">I don’t know Chef nor Puppet, so I needed to learn something anyway</li>
 <li class="fragment">I feel more comfortable when I code with something typed</li>
@@ -116,9 +117,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </section></section>
 <section><section id="propellor" class="titleslide slide level1"><h1>Propellor</h1></section><section id="demo---setting-up-a-multi-host-docker-network" class="slide level2">
-<h1>Demo - Setting up a multi-host docker network</h1>
+<h2>Demo - Setting up a multi-host docker network</h2>
 </section><section id="background" class="slide level2">
-<h1>Background</h1>
+<h2>Background</h2>
 <ul>
 <li class="fragment">Developed by <a href="http://propellor.branchable.com">Joey Hess</a>, an historical Debian contributor</li>
 <li class="fragment">Development is very active, current version is 4.1 and releases are very frequent</li>
@@ -126,7 +127,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">Targeted mostly towards personal or SME-scale infrastructure with long-running machines</li>
 </ul>
 </section><section id="basic-execution-flow" class="slide level2">
-<h1>Basic Execution Flow</h1>
+<h2>Basic Execution Flow</h2>
 <ol type="1">
 <li class="fragment">Clone the code or run wrapper to get code in <code>~/.propellor</code></li>
 <li class="fragment">Hack! Hack! Hack!</li>
@@ -141,7 +142,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol></li>
 </ol>
 </section><section id="security-model" class="slide level2">
-<h1>Security Model</h1>
+<h2>Security Model</h2>
 <ul>
 <li class="fragment"><strong>Key Question</strong>: How not to disseminate confidential data (passwords, API tokens, keys, names…) while still allowing its use?</li>
 <li class="fragment">Propellor uses GPG to manage a set of public keys and a <code>privdata</code> file which is encrypted using <em>public keys</em> of all participants</li>
@@ -149,7 +150,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">When a user needs to deploy, she needs to provide credentials to decrypt private data that is then sent to remote host</li>
 </ul>
 </section><section id="advanced-features" class="slide level2">
-<h1>Advanced Features</h1>
+<h2>Advanced Features</h2>
 <ul>
 <li class="fragment">Optimises (removes) compilation of executable on remote host when source and target are binary compatible</li>
 <li class="fragment">Provides proxy-based remote configuration allowing a single entry point to configure multiple targets</li>
@@ -157,7 +158,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">Revertable properties</li>
 </ul>
 </section><section id="core-types" class="slide level2">
-<h1>Core Types</h1>
+<h2>Core Types</h2>
 </section><section class="slide level2">
 
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Property</span> metatypes
@@ -182,9 +183,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 	<span class="kw">deriving</span> (<span class="dt">Read</span>, <span class="dt">Show</span>, <span class="dt">Eq</span>)</code></pre></div>
 </section></section>
 <section><section id="deptrack" class="titleslide slide level1"><h1>DepTrack</h1></section><section id="demo---configuring-a-spark-cluster-from-scratch" class="slide level2">
-<h1>Demo - Configuring a Spark cluster from scratch</h1>
+<h2>Demo - Configuring a Spark cluster from scratch</h2>
 </section><section id="background-1" class="slide level2">
-<h1>Background</h1>
+<h2>Background</h2>
 <ul>
 <li class="fragment">Developed by <a href="https://github.com/lucasdicioccio/deptrack-project">Lucas di Cioccio</a> and recently open-sourced</li>
 <li class="fragment">Small codebase split in multiple “independent” packages to minimise footprint: Pay for what you need</li>
@@ -192,7 +193,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">New and shiny!</li>
 </ul>
 </section><section id="basic-principles" class="slide level2">
-<h1>Basic Principles</h1>
+<h2>Basic Principles</h2>
 <ul>
 <li class="fragment">A (monadic) language to describe <em>directed acyclic graph</em> of <em>operations</em> linked through <em>dependencies</em></li>
 <li class="fragment">Generated graph provides <em>optimisations</em> opportunities (e.g. group package installation, remove redundancies) and inherent <em>parallelism</em></li>
@@ -200,7 +201,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">Each node provides basic supervision functions start/stop/check</li>
 </ul>
 </section><section id="types" class="slide level2">
-<h1>Types</h1>
+<h2>Types</h2>
 </section><section class="slide level2">
 
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">DepTrackT</span> a m b <span class="fu">=</span> <span class="dt">WriterT</span> (<span class="dt">DList</span> (<span class="dt">DepCrumb</span> a)) m b
@@ -217,7 +218,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
              ,<span class="ot"> opUniqueId    ::</span> <span class="fu">!</span><span class="dt">OpUniqueId</span>
              }</code></pre></div>
 </section><section id="advanced-features-1" class="slide level2">
-<h1>Advanced Features</h1>
+<h2>Advanced Features</h2>
 <ul>
 <li class="fragment">Uses <em>static pointers</em> to provide remote invocation capability with safety guarantees from GHC</li>
 <li class="fragment">Concurrent asynchronous turnup/upkeep/turndown that automatically optimises graph’s execution</li>
@@ -226,7 +227,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </section></section>
 <section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="propellor---pros" class="slide level2">
-<h1>Propellor - Pros</h1>
+<h2>Propellor - Pros</h2>
 <ul>
 <li class="fragment">Large set of functions covering whole spectrum of configuration tasks</li>
 <li class="fragment">Track record, user base and contributors base</li>
@@ -234,7 +235,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">Security model</li>
 </ul>
 </section><section id="propellor---cons" class="slide level2">
-<h1>Propellor - Cons</h1>
+<h2>Propellor - Cons</h2>
 <ul>
 <li class="fragment">Requires haskell toolchain on target hosts</li>
 <li class="fragment">Rigid workflow with automatic builds and commits</li>
@@ -242,7 +243,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">“Static” model</li>
 </ul>
 </section><section id="deptrack---pros" class="slide level2">
-<h1>DepTrack - Pros</h1>
+<h2>DepTrack - Pros</h2>
 <ul>
 <li class="fragment">Clean model gracefully handling <em>dependencies</em> between tasks in an expressive and composable way</li>
 <li class="fragment">No requirements about specific properties of targeted infrastructure</li>
@@ -251,13 +252,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">Type-safe remote execution model</li>
 </ul>
 </section><section id="deptrack---cons" class="slide level2">
-<h1>DepTrack - Cons</h1>
+<h2>DepTrack - Cons</h2>
 <ul>
 <li class="fragment">New and not much battle tested: limited user and contributors base, documentation, large-scale testing…</li>
 <li class="fragment">Requires more work from user as most system-level tasks are not included in the codebase</li>
 </ul>
 </section><section id="conclusion-1" class="slide level2">
-<h1>Conclusion</h1>
+<h2>Conclusion</h2>
 <ul>
 <li class="fragment"><strong>Infrastructure-As-Haskell-Code</strong> is for real!</li>
 <li class="fragment">Go to <a href="https://github.com/lucasdicioccio/deptrack-project">Lucas di Cioccio</a>: Feedback most needed, PRs welcomed!</li>

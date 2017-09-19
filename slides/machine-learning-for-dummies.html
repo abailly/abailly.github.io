@@ -85,13 +85,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
     <h3 class="author">Arnaud Bailly</h3>
 
+
     <h3 class="date">September  5, 2016</h3>
 </section>
 
 
 
 <section><section id="motivation" class="titleslide slide level1"><h1>Motivation</h1></section><section id="caveat-emptor" class="slide level2">
-<h1>Caveat Emptor</h1>
+<h2>Caveat Emptor</h2>
 <blockquote>
 <p>All humans have equal intelligence;</p>
 <p>Every human has received from God the faculty of being able to instruct himself;</p>
@@ -100,20 +101,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Joseph Jacotot (1770-1840)</p>
 </blockquote>
 </section><section id="it-all-started" class="slide level2">
-<h1>It all started…</h1>
+<h2>It all started…</h2>
 <p>as a silly coding challenge to apply for a job:</p>
 <blockquote>
 <p>Extract the top 400 articles from Arxiv corresponding to the query <code>big data</code>, analyze their content using Google’s word2vec algorithm, then run a principal component analysis over the resulting words matrix and display the 100 most frequent words’ position on a 2D figure. In Haskell…</p>
 </blockquote>
 </section><section id="understanding-ml" class="slide level2">
-<h1>Understanding ML</h1>
+<h2>Understanding ML</h2>
 <ul>
 <li class="fragment">Going beyond tools</li>
 <li class="fragment">Going beyond (obscure) mathematical formulas and theoretical principles</li>
 <li class="fragment">Acquire intuitions about how ML works and can be used</li>
 </ul>
 </section><section id="challenges" class="slide level2">
-<h1>Challenges</h1>
+<h2>Challenges</h2>
 <ul>
 <li class="fragment">To understand how word2vec works</li>
 <li class="fragment">To optimize word2vec for large data sets</li>
@@ -121,11 +122,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </section></section>
 <section><section id="understanding-basic-word2vec-algorithm" class="titleslide slide level1"><h1>Understanding Basic <code>word2vec</code> Algorithm</h1></section><section id="demo" class="slide level2">
-<h1>Demo</h1>
+<h2>Demo</h2>
 </section><section id="principles" class="slide level2">
-<h1>Principles</h1>
+<h2>Principles</h2>
 <ul>
-<li class="fragment">Goal: Build a <em>words embedding</em> model, e.g. a function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>:</mo><mi>W</mi><mo accent="false">→</mo><msup><mi>R</mi><mi>d</mi></msup></mrow><annotation encoding="application/x-tex">e: W \rightarrow R^d</annotation></semantics></math> that maps each word from a given vocabulary <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math> to a high-dimensional <em>vector</em> space</li>
+<li class="fragment">Goal: Build a <em>words embedding</em> model, e.g. a function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>:</mo><mi>W</mi><mo>→</mo><msup><mi>R</mi><mi>d</mi></msup></mrow><annotation encoding="application/x-tex">e: W \rightarrow R^d</annotation></semantics></math> that maps each word from a given vocabulary <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math> to a high-dimensional <em>vector</em> space</li>
 <li class="fragment">Word2vec is actually more a <em>family</em> of models:
 <ul>
 <li class="fragment">2 basic models: Continuous Bag-of-Words (CBOW) and <strong>Skip-Gram</strong> and various optimisations</li>
@@ -133,12 +134,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul>
 </section><section id="principles-1" class="slide level2">
-<h1>Principles</h1>
+<h2>Principles</h2>
 <figure>
 <img src="/images/w2v-model.png" />
 </figure>
 </section><section id="skip-gram-model" class="slide level2">
-<h1>Skip-Gram Model</h1>
+<h2>Skip-Gram Model</h2>
 <p>Maximises probability of identifying context words for each word of the vocabulary <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math></p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>T</mi></mfrac><munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><munder><mo>∑</mo><mrow><mo>−</mo><mi>c</mi><mo>≤</mo><mi>j</mi><mo>≤</mo><mi>c</mi><mo>,</mo><mi>j</mi><mo>≠</mo><mn>0</mn></mrow></munder><mo>log</mo><mi>p</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>w</mi><mrow><mi>t</mi><mo>+</mo><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>w</mi><mi>t</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">
 \frac{1}{T} \sum_{t=1}^{T} \sum_{-c\leq j \leq c, j\neq 0} \log p(w_{t+j}|w_t)
@@ -148,23 +149,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> is the size of the <em>context window</em></li>
 </ul>
 </section><section id="skip-gram-model-1" class="slide level2">
-<h1>Skip-Gram Model</h1>
+<h2>Skip-Gram Model</h2>
 <p>Define conditional probability <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mi>w</mi><mi>′</mi><mo stretchy="false" form="prefix">|</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p(w&#39;|w)</annotation></semantics></math> using <em>softmax</em> function:</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>w</mi><mi>O</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>w</mi><mi>I</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mo>exp</mo><mo stretchy="false" form="prefix">(</mo><mi>v</mi><msubsup><mi>′</mi><msub><mi>w</mi><mi>O</mi></msub><mi>⊤</mi></msubsup><msub><mi>v</mi><msub><mi>w</mi><mi>I</mi></msub></msub><mo stretchy="false" form="postfix">)</mo></mrow><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><mo>exp</mo><mo stretchy="false" form="prefix">(</mo><mi>v</mi><msubsup><mi>′</mi><msub><mi>w</mi><mi>i</mi></msub><mi>⊤</mi></msubsup><msub><mi>v</mi><msub><mi>w</mi><mi>I</mi></msub></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">
 p(w_O|w_I) = \frac{\exp(v&#39;_{w_O}^{\top} v_{w_I})}{\sum_{i=1}^{T} \exp(v&#39;_{w_i}^{\top} v_{w_I})}
 </annotation></semantics></math></p>
 </section><section id="neural-network" class="slide level2">
-<h1>Neural Network</h1>
+<h2>Neural Network</h2>
 <figure>
 <img src="/images/w2v-nn.png" />
 </figure>
 </section><section id="feed-forward" class="slide level2">
-<h1>Feed Forward</h1>
+<h2>Feed Forward</h2>
 <figure>
 <img src="/images/w2v-ff.png" />
 </figure>
 </section><section id="back-propagation" class="slide level2">
-<h1>Back-Propagation</h1>
+<h2>Back-Propagation</h2>
 <figure>
 <img src="/images/w2v-backprop-output.png" />
 </figure>
@@ -182,12 +183,12 @@ W_{new}&#39; = W&#39; - \alpha G_O
 w_I_{new} = w_I - \alpha h&#39;
 </annotation></semantics></math></p>
 </section><section id="naive-code-in-haskell" class="slide level2">
-<h1>(Naive) Code in Haskell</h1>
+<h2>(Naive) Code in Haskell</h2>
 </section><section id="visualizing-word2vec-with-wevi" class="slide level2">
-<h1>Visualizing word2vec with wevi</h1>
+<h2>Visualizing word2vec with wevi</h2>
 </section></section>
 <section><section id="optimizing" class="titleslide slide level1"><h1>Optimizing</h1></section><section id="problem" class="slide level2">
-<h1>Problem</h1>
+<h2>Problem</h2>
 <ul>
 <li class="fragment">While correct and straightforward, complexity of basic implementation is huge: For each sample, we need to compute error gradient over <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mi>′</mi></mrow><annotation encoding="application/x-tex">W&#39;</annotation></semantics></math> which has size <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>x</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">T x D</annotation></semantics></math>.</li>
 <li class="fragment">Training speed is about <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><msup><mn>20</mn><mrow><mi>t</mi><mi>h</mi></mrow></msup></mrow><annotation encoding="application/x-tex">1/20^{th}</annotation></semantics></math> of reference implementation</li>
@@ -195,7 +196,7 @@ w_I_{new} = w_I - \alpha h&#39;
 <li class="fragment">How can they do it?</li>
 </ul>
 </section><section id="proposed-optimisations" class="slide level2">
-<h1>Proposed Optimisations</h1>
+<h2>Proposed Optimisations</h2>
 <ul>
 <li class="fragment">Input words sub-sampling: Randomly discard frequent words while keeping relative frequencies identical</li>
 <li class="fragment">Parallelize training</li>
@@ -203,48 +204,48 @@ w_I_{new} = w_I - \alpha h&#39;
 <li class="fragment"><strong>Hierarchical Softmax</strong></li>
 </ul>
 </section><section id="hierarchical-softmax" class="slide level2">
-<h1>Hierarchical Softmax</h1>
+<h2>Hierarchical Softmax</h2>
 <p><strong>Idea</strong>: Approximate probability over <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> with probabilities over <em>binary encoding</em> of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math></p>
 <ul>
 <li class="fragment">Output vectors encode a word’s <em>path</em> within the binary tree</li>
 <li class="fragment">Reduces complexity of model training to updating <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mo stretchy="false" form="prefix">(</mo><mi>V</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(V)</annotation></semantics></math> output vectors instead of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math></li>
 </ul>
 </section><section id="huffman-tree" class="slide level2">
-<h1>Huffman Tree</h1>
+<h2>Huffman Tree</h2>
 <figure>
 <img src="/images/w2v-huffman.png" />
 </figure>
 </section><section id="huffman-tree-1" class="slide level2">
-<h1>Huffman Tree</h1>
+<h2>Huffman Tree</h2>
 <ul>
 <li class="fragment">Huffman coding encode words according to their frequencies: More frequent words are assigned shorter codes</li>
 <li class="fragment">To each word is assigned a path in the Huffman tree which tells, for each node, whether to go left or right</li>
 <li class="fragment">Each node is assigned a row in the output matrix</li>
 </ul>
 </section><section id="original-code" class="slide level2">
-<h1>Original Code</h1>
+<h2>Original Code</h2>
 <figure>
 <img src="/images/w2v-code.png" />
 </figure>
 </section><section id="less-naive-haskell-code" class="slide level2">
-<h1>Less naive Haskell Code</h1>
+<h2>Less naive Haskell Code</h2>
 </section></section>
 <section><section id="more-challenges" class="titleslide slide level1"><h1>More Challenges</h1></section><section id="functional-programming" class="slide level2">
-<h1>Functional Programming</h1>
+<h2>Functional Programming</h2>
 <ul>
 <li class="fragment">Haskell is a pure lazy functional programming</li>
 <li class="fragment">Data is immutable which leads to inefficiencies when modifying very large data structures <em>naïvely</em></li>
 <li class="fragment">Need to use mutable data structures and <em>impure</em> code</li>
 </ul>
 </section><section id="data-acquisition" class="slide level2">
-<h1>Data Acquisition</h1>
+<h2>Data Acquisition</h2>
 <ul>
 <li class="fragment">Retrieve PDFs from Arxiv site</li>
 <li class="fragment">Extract textual from PDF</li>
 <li class="fragment">Cleanup text for analysis</li>
 </ul>
 </section><section id="data-visualisation" class="slide level2">
-<h1>Data Visualisation</h1>
+<h2>Data Visualisation</h2>
 <figure>
 <img src="https://www.tensorflow.org/versions/r0.10/images/linear-relationships.png" />
 </figure>
@@ -256,14 +257,14 @@ w_I_{new} = w_I - \alpha h&#39;
 <li class="fragment">Other techniques: t-SNE</li>
 </ul>
 </section><section id="computing-pca" class="slide level2">
-<h1>Computing PCA</h1>
+<h2>Computing PCA</h2>
 <ul>
 <li class="fragment">Standard tool from statistical analysis and linear algebra</li>
 <li class="fragment">Transform the “basis” of the vector space to order then by decreasing amount of variance</li>
 <li class="fragment">Select the first 2 or 3 axis to display data on 2D or 3D diagram</li>
 </ul>
 </section><section id="optimizing-pca" class="slide level2">
-<h1>Optimizing PCA</h1>
+<h2>Optimizing PCA</h2>
 <figure>
 <img src="/images/w2v-pca-perf-bench.png" />
 </figure>
@@ -276,7 +277,7 @@ w_I_{new} = w_I - \alpha h&#39;
 </ul>
 </section></section>
 <section><section id="conclusions" class="titleslide slide level1"><h1>Conclusions</h1></section><section id="machine-learning-is-hard" class="slide level2">
-<h1>Machine Learning is Hard</h1>
+<h2>Machine Learning is Hard</h2>
 <ul>
 <li class="fragment"><em>In theory</em>: Get some data, find a suitable model, fit model to data using standard logistic regression, use model</li>
 <li class="fragment"><em>In practice</em>:
@@ -287,14 +288,14 @@ w_I_{new} = w_I - \alpha h&#39;
 </ul></li>
 </ul>
 </section><section id="machine-learning-is-hard-2" class="slide level2">
-<h1>Machine Learning is Hard (2)</h1>
+<h2>Machine Learning is Hard (2)</h2>
 <ul>
 <li class="fragment">Still an active research field: Going from research paper to tool is not straightforward</li>
 <li class="fragment">Reverse engineering code was a painful process</li>
 <li class="fragment">To really understand what one’s doing requires understanding large chunks of maths: Linear algebra, statistics, numerical analysis, Natural Language Processing…</li>
 </ul>
 </section><section id="machine-learning-is-fun" class="slide level2">
-<h1>Machine Learning is Fun</h1>
+<h2>Machine Learning is Fun</h2>
 <ul>
 <li class="fragment">Stretches your programming skills beyond their limits</li>
 <li class="fragment">Forces you to tackle new concepts, techniques and algorithms</li>
@@ -302,7 +303,7 @@ w_I_{new} = w_I - \alpha h&#39;
 <li class="fragment">Increases his/her love for you</li>
 </ul>
 </section><section id="takeaways" class="slide level2">
-<h1>Takeaways</h1>
+<h2>Takeaways</h2>
 <ul>
 <li class="fragment">There is no better way to understand algorithms than to implement them</li>
 <li class="fragment">For production, don’t roll your own ML engine unless:
@@ -312,7 +313,7 @@ w_I_{new} = w_I - \alpha h&#39;
 </ul></li>
 </ul>
 </section><section id="references" class="slide level2">
-<h1>References</h1>
+<h2>References</h2>
 <ul>
 <li class="fragment"><a href="http://arxiv.org/pdf/1301.3781.pdf">Original word2vec paper</a></li>
 <li class="fragment">Word2vec implementations: <a href="https://github.com/dav/word2vec">original C version</a>, <a href="https://radimrehurek.com/gensim/models/word2vec.html">gensim</a>, <a href="https://www.tensorflow.org/versions/r0.10/tutorials/word2vec/index.html">Google’s TensorFlow</a>, <a href="http://spark.apache.org/docs/latest/mllib-feature-extraction.html#word2vec">spark-mllib</a>, <a href="https://github.com/medallia/Word2VecJava">Java</a>…</li>
