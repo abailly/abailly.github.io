@@ -76,7 +76,7 @@ express this alternative at the type-level, introducing the notion of *Coproduct
 Ed Kmett in the [comonads-transformers](https://hackage.haskell.org/package/comonad-transformers-2.0.3) package but let's rewrite it
 here for completeness' sake.
 
-~~~~~~~~~ {.ha1skell .numberLines}
+~~~~~~~~~ {.haskell .numberLines}
 newtype Coproduct f g a = Coproduct { getCoproduct :: Either (f a) (g a) }
 ~~~~~~~~~
 
