@@ -4,8 +4,9 @@ subtitle: How I Learned to Stop Worrying and Love Docker
 author: Arnaud Bailly - @dr_c0d3
 email: arnaud.bailly@symbiont.io
 date: 2017-09-19
-theme: serif-black
+theme: serif-black-symbiont
 ------------ 
+
 
 # Agenda
 
