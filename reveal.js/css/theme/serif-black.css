@@ -211,8 +211,8 @@ body {
  * LINKS
  *********************************************/
 .reveal a {
-  color: #51483D;
-  text-decoration: none;
+  color: #ddd;
+  text-decoration: underline dashed;
   -webkit-transition: color 0.15s ease;
   -moz-transition: color 0.15s ease;
   transition: color 0.15s ease; }

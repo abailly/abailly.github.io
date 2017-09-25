@@ -154,7 +154,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>BFT Distributed Log</h2>
 <ul>
 <li class="fragment">Critical piece of the system, ensures that all nodes share a consistent view of the system by linearizing transactions history</li>
-<li class="fragment">Implements <a href="http://www.di.fc.ul.pt/~bessani/publications/dsn14-bftsmart.pdf">BFT-SMaRt</a> consensus protocol which is a variation over <a href="https://www.zurich.ibm.com/~cca/papers/pax.pdf">Paxos</a></li>
+<li class="fragment">Implements <a href="http://www.di.fc.ul.pt/~bessani/publications/dsn14-bftsmart.pdf">BFT-SMaRt</a> protocol which is an extension of <a href="https://www.zurich.ibm.com/~cca/papers/pax.pdf">Paxos</a> to support <em>Byzantine failures</em></li>
 <li class="fragment">Non-byzantine failures: Node failures, network outages, network slowness…</li>
 <li class="fragment">Byzantine Failures: Arbitrary messages mangling, Node identities “stealing”…</li>
 </ul>
