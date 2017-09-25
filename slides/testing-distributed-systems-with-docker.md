@@ -64,7 +64,7 @@ theme: serif-black-symbiont
 ## BFT Distributed Log
 
 * Critical piece of the system, ensures that all nodes share a consistent view of the system by linearizing transactions history
-* Implements [BFT-SMaRt](http://www.di.fc.ul.pt/~bessani/publications/dsn14-bftsmart.pdf) consensus protocol which is a variation over [Paxos](https://www.zurich.ibm.com/~cca/papers/pax.pdf)
+* Implements [BFT-SMaRt](http://www.di.fc.ul.pt/~bessani/publications/dsn14-bftsmart.pdf) protocol which is an extension of [Paxos](https://www.zurich.ibm.com/~cca/papers/pax.pdf) to support _Byzantine failures_
 * Non-byzantine failures: Node failures, network outages, network slowness...
 * Byzantine Failures: Arbitrary messages mangling, Node identities "stealing"...
 
