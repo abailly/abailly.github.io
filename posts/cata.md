@@ -230,6 +230,7 @@ une valeur. Sa définition est la suivante et l'on voit bien que la récursion y
 cata h = h . fmap (cata h) . out
 ~~~~~~~~~
 
+
 On est désormais équipé pour appliquer notre fonction `intalgebra` définie ci-dessus pour transformer les nombres algébriques en
 entiers "sympathiques": 
 

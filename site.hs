@@ -5,10 +5,12 @@ import           Data.Char
 import qualified Data.Map            as M
 import           Data.Maybe
 import           Data.Monoid
+import qualified Data.Set            as S
 import           Data.Time
 import           Hakyll
 import           Slides
 import           System.FilePath
+import           Text.Pandoc.Options
 -- fixing issue with file encodin
 -- https://groups.google.com/forum/#!topic/hakyll/jrGATyI1omI/discussion
 
@@ -30,6 +32,17 @@ escaped fieldName = field fieldName $ \item -> do
     case content of
       Just s  -> return $ escapeHtml s
       Nothing -> return ""
+
+pandocMathCompiler =
+    let mathExtensions = [Ext_tex_math_dollars, Ext_tex_math_double_backslash,
+                          Ext_latex_macros]
+        defaultExtensions = writerExtensions defaultHakyllWriterOptions
+        newExtensions = foldr S.insert defaultExtensions mathExtensions
+        writerOptions = defaultHakyllWriterOptions {
+                          writerExtensions = newExtensions,
+                          writerHTMLMathMethod = MathJax ""
+                        }
+    in pandocCompilerWith defaultHakyllReaderOptions writerOptions
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -67,7 +80,7 @@ main = do
 
     match "posts/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompiler
+        compile $ pandocMathCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
             >>= saveSnapshot "content"
             >>= relativizeUrls
@@ -75,7 +88,7 @@ main = do
 
     match "pages/*" $ do
         route $ (gsubRoute "pages/" (const "")) `composeRoutes` setExtension "html"
-        compile $ pandocCompiler
+        compile $ pandocMathCompiler
             >>= loadAndApplyTemplate "templates/page.html"    postCtx
             >>= saveSnapshot "content"
             >>= relativizeUrls
@@ -83,7 +96,7 @@ main = do
 
     match "drafts/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompiler
+        compile $ pandocMathCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
             >>= saveSnapshot "content"
             >>= relativizeUrls
@@ -91,7 +104,7 @@ main = do
 
     match "training/*.md" $ do
         route $ setExtension "html"
-        compile $ pandocCompiler
+        compile $ pandocMathCompiler
             >>= loadAndApplyTemplate "templates/training.html"    postCtx
             >>= relativizeUrls
             >>= loadAndApplyTemplate "templates/default.html"  postCtx
