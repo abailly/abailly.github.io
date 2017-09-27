@@ -15,6 +15,8 @@
   <link rel="stylesheet" type="text/css" href="/css/default.css">
   <link rel="stylesheet" type="text/css" href="/css/syntax.css">
   <script src="/js/modernizr-2.0.6.min.js"></script>
+  <script type="text/javascript"
+          src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 <body>
   <div id="container">
@@ -39,7 +41,7 @@
 <h1></h1>
 
 <section><section id="tests-systèmes" class="titleslide slide level1"><h1>Tests systèmes</h1></section><section id="conception-suite-de-tests-systèmes" class="slide level2">
-<h1>Conception suite de tests systèmes</h1>
+<h2>Conception suite de tests systèmes</h2>
 <p>Objectif : valider l’ensemble d’un système du point de vue de l’utilisateur du système. Modèle de test = modèle fonctionnel de l’application dans son ensemble, <strong>profil opérationnel</strong></p>
 <p>objectif de couverture = ensemble des comportements potentiels des utilisateurs, couverture statistique du profil opérationnel</p>
 <h3 id="profil-opérationnel">Profil opérationnel</h3>
@@ -51,7 +53,7 @@
 <p>Raisonne sur un système en termes de probabilités de comportement et donc d’erreur: les erreurs les plus gênantes sont celles qui apparaissent dans les fonctions les plus utilisées.</p>
 </section></section>
 <section><section id="outils-pour-le-test-système" class="titleslide slide level1"><h1>Outils pour le test système</h1></section><section id="fitnesse-tests-dacceptation-au-niveau-métier" class="slide level2">
-<h1>FitNesse: Tests d’acceptation au niveau métier</h1>
+<h2>FitNesse: Tests d’acceptation au niveau métier</h2>
 <h3 id="introduction">Introduction</h3>
 <p><a href="http://fitnesse.org">FitNesse</a></p>
 <p>Fitnesse est un outil de création/exécution de <em>tests d’acceptation</em> (<em>acceptance testing</em>) qui se présente sous la forme d’un serveur autonome et d’un ensemble de pages Wiki. FitNesse est un sur ensemble de FIT (http://fit.c2.com/). Les tests sont encodés dans chaque page sous la forme de tableaux dont l’interprétation dépend de la <em>recette de tests</em> qui est lié à ces données. Chaque page peut être <em>exécutée</em> ce qui a pour effet d’exécuter les tests qui y sont stockés: le résultat de cette exécution est retranscrit dans la page en modifiant le formattage HTML de la page Wiki.</p>
@@ -229,9 +231,9 @@ public class RobotCreationFixture extends DoFixture {
   }</code></pre>
 <p>On utilise la méthode =setSystemUnderTest= pour stocker une référence à l’objet robot dans la recette de test, puis on crée et peuple une séquence d’ordres avec un certain nombre d’ordres. Enfin, on applique la séquence d’ordres sur le robot. On remarquera que ceci est possible car on a divisé les tests en <em>trois</em> tables: par convention, une nouvelle table applique une action soit sur la recette de test en cours, <strong>soit</strong> sur le SUT s’il existe.</p>
 </section><section id="selenium-tests-d-ihm-web" class="slide level2">
-<h1>Selenium: Tests d’ IHM web</h1>
+<h2>Selenium: Tests d’ IHM web</h2>
 </section><section id="jemmy-tests-dihm-java" class="slide level2">
-<h1>Jemmy: Tests d’IHM Java</h1>
+<h2>Jemmy: Tests d’IHM Java</h2>
 </section></section>
 
     </div>

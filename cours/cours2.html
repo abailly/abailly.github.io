@@ -15,6 +15,8 @@
   <link rel="stylesheet" type="text/css" href="/css/default.css">
   <link rel="stylesheet" type="text/css" href="/css/syntax.css">
   <script src="/js/modernizr-2.0.6.min.js"></script>
+  <script type="text/javascript"
+          src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 <body>
   <div id="container">
@@ -45,7 +47,7 @@
 </blockquote>
 </section>
 <section><section id="couverture-de-test-structurel" class="titleslide slide level1"><h1>Couverture de test structurel</h1></section><section id="introduction" class="slide level2">
-<h1>Introduction</h1>
+<h2>Introduction</h2>
 <h3 id="principes">Principes</h3>
 <ul>
 <li class="fragment">technique de test dynamique;</li>
@@ -66,16 +68,16 @@
 <p>Attention ! :: - couverture de 100% ne veut pas dire test exhaustif ! - donc n’implique pas le zéro défaut ! - arrêt du test qd couverture souhaitée et les tests passent sur code non instrumenté (on ne sait jamais).</p>
 <p>Inconvénients :: - pas très adapté au formalisme objet;</p>
 </section><section id="notions-sur-les-graphes" class="slide level2">
-<h1>Notions sur les graphes</h1>
+<h2>Notions sur les graphes</h2>
 <p>A peu près tous les critères de couverture sont basés sur la notion de graphes: graphes de contrôle, graphes de flot de données, graphes d’appels, BDD pour les prédicats.</p>
-<p>Un <em>graphe dirigé</em> =(S,A,s,t)= est un ensemble de sommets <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math> et un ensemble d’arcs <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>∈</mo><mi>S</mi><mi>x</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">A \in SxS</annotation></semantics></math> et deux applications <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>:</mo><mi>A</mi><mo accent="false">→</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">s: A \rightarrow S</annotation></semantics></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>:</mo><mi>A</mi><mo accent="false">→</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">t: A \rightarrow S</annotation></semantics></math> identifiant le début et la fin d’un arc. Le graphe principal est le <strong>graphe de contrôle</strong> qui représente l’ensemble des flots d’exécution possibles du début à la fin d’une méthode ou d’un ensemble de méthodes. D’autres graphes sont construits à partir de celui-ci par morphisme ou réetiquetage des arcs.</p>
+<p>Un <em>graphe dirigé</em> =(S,A,s,t)= est un ensemble de sommets <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math> et un ensemble d’arcs <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>∈</mo><mi>S</mi><mi>x</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">A \in SxS</annotation></semantics></math> et deux applications <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>:</mo><mi>A</mi><mo>→</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">s: A \rightarrow S</annotation></semantics></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>:</mo><mi>A</mi><mo>→</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">t: A \rightarrow S</annotation></semantics></math> identifiant le début et la fin d’un arc. Le graphe principal est le <strong>graphe de contrôle</strong> qui représente l’ensemble des flots d’exécution possibles du début à la fin d’une méthode ou d’un ensemble de méthodes. D’autres graphes sont construits à partir de celui-ci par morphisme ou réetiquetage des arcs.</p>
 <p>Chemin :: une séquence d’arcs <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mn>1</mn><mo>,</mo><mi>a</mi><mn>2</mn><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><mi>a</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">a1, a2, ... , an</annotation></semantics></math> telle que <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>t</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">s(a_i)=t(a_{i-1})</annotation></semantics></math>. Un chemin peut aussi être donné par les noeuds le composant.</p>
 <p>Parcours :: l’ensenmble des noeuds composant un chemin.</p>
 <p>Chemin indépendant :: Un chemin qui ne peut être représenté comme combinaison linéaire d’autrens chemins.</p>
 <p>Cycle :: Un chemin tel que <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>t</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">s(a_1) = t(a_n)</annotation></semantics></math>. Si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n=1</annotation></semantics></math>, on parlera plutôt de boucle.</p>
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>,</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(p,q)</annotation></semantics></math>-chemin :: Chemin du noeud <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> au noeud <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>.</p>
 </section><section id="outillage" class="slide level2">
-<h1>Outillage</h1>
+<h2>Outillage</h2>
 <h3 id="analyseur-de-couverture-cf-tp">Analyseur de couverture (cf Tp):</h3>
 <ul>
 <li class="fragment">instrumentation des sources ou exécutable pour tracer le code par analyse syntaxique (numérotation des lignes de code);</li>
@@ -98,19 +100,19 @@
 <li class="fragment">dans le cas général, c’est un problème <strong>indécidable</strong>.</li>
 </ul>
 </section><section id="comparaison-avec-les-critères-de-test-fonctionnel" class="slide level2">
-<h1>Comparaison avec les critères de test fonctionnel</h1>
+<h2>Comparaison avec les critères de test fonctionnel</h2>
 <p>Les deux sont complémentaires.</p>
 <ul>
 <li class="fragment">le test structurel nécessite le code source;</li>
 <li class="fragment">teste que ce qui est codé, ne peut pas tester ce qui aurait dû l’être !</li>
 <li class="fragment">un ex où un test fonctionnel est plus susceptible de détecter un bug:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">      <span class="co">/** Retourne </span>
-<span class="co">      - 0 si a et b sont pairs, </span>
-<span class="co">      - 3 s'ils sont impairs, </span>
-<span class="co">      - 1 si a est pair et b impair, </span>
-<span class="co">      - 2 si a est impair et b pair. </span>
-<span class="co">      */</span>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">      <span class="co">/**</span> Retourne 
+      <span class="co">-</span> <span class="co">0</span> si a et b sont pairs<span class="co">,</span> 
+      <span class="co">-</span> <span class="co">3</span> s<span class="co">'</span>ils sont impairs<span class="co">,</span> 
+      <span class="co">-</span> <span class="co">1</span> si a est pair et b impair<span class="co">,</span> 
+      <span class="co">-</span> <span class="co">2</span> si a est impair et b pair<span class="co">. </span>
+      <span class="co">*/</span>
       <span class="kw">public</span> <span class="dt">int</span> <span class="fu">parite</span>(<span class="dt">int</span> a, <span class="dt">int</span> b) {
         <span class="dt">int</span> x = a mod <span class="dv">2</span>;
         <span class="dt">int</span> y = b mod <span class="dv">2</span>;
@@ -120,14 +122,14 @@
 <ul>
 <li class="fragment">un ex où le test structurel est plus susceptible de détecter un bug:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">      <span class="co">/** calcul de factorielle n, n&gt;=0. </span>
-<span class="co">      fact(0) = 1 ; si n&gt;=1 : fact(n) = n*fact(n-1);  </span>
-<span class="co">      */</span>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">      <span class="co">/**</span> calcul de factorielle n<span class="co">,</span> n<span class="co">&gt;=0. </span>
+      fact<span class="co">(0)</span> <span class="co">=</span> <span class="co">1</span> <span class="co">;</span> si n<span class="co">&gt;=1</span> <span class="co">:</span> fact<span class="co">(</span>n<span class="co">)</span> <span class="co">=</span> n<span class="co">*</span>fact<span class="co">(</span>n<span class="co">-1);</span>  
+      <span class="co">*/</span>
       <span class="kw">public</span> <span class="dt">int</span> <span class="fu">fact</span>(<span class="dt">int</span> n) {
       <span class="kw">if</span> (n==<span class="dv">0</span> || n==<span class="dv">1</span>) <span class="kw">return</span> <span class="dv">1</span>;
       <span class="kw">if</span> (n==<span class="dv">2</span>) <span class="kw">return</span> <span class="dv">2</span>;
       <span class="kw">if</span> (n==<span class="dv">3</span>) <span class="kw">return</span> <span class="dv">5</span>; <span class="co">// oups ! optimisation intempestive !</span>
-      <span class="kw">return</span> n*<span class="fu">fact</span>(n<span class="dv">-1</span>);
+      <span class="kw">return</span> n*<span class="fu">fact</span>(n-<span class="dv">1</span>);
       }</code></pre></div>
 <h3 id="notion-dobjectif-de-test-vs.test">Notion d’objectif de test vs. test</h3>
 <p>Les termes <em>test fonctionnel/test structurel</em> sont incorrects, incomplets, trompeurs. Le test est <strong>toujours</strong> fonctionnel en ceci qu’il vérifie que la fonction réalisée par le code est correct. La question est: que signifie le terme <em>correct</em> ?</p>
@@ -135,7 +137,7 @@
 <p>Plus précis: - critère de test <strong>syntaxique</strong>: s’intéresse au <em>comment</em>, défini par rapport à la structure du modèle/code source/bytecode/assembleur supposé réalisé la fonction attendue - critère de test <strong>sémantique</strong> : définit par rapport à la fonction attendue elle-même (spécification, exigences, modèle non exécutable)…</p>
 </section></section>
 <section><section id="graphe-de-contrôle" class="titleslide slide level1"><h1>Graphe de contrôle</h1></section><section id="chemins-dans-un-graphe-de-contrôle" class="slide level2">
-<h1>Chemins dans un graphe de contrôle</h1>
+<h2>Chemins dans un graphe de contrôle</h2>
 <p>Graphe de contrôle</p>
 <ul>
 <li class="fragment">un noeud représente soit:</li>
@@ -249,14 +251,14 @@ S.<span class="fu">O</span>.<span class="fu">P</span>(<span class="dv">1</span>/
       <span class="dt">int</span> e = <span class="fu">expmod</span>(base,exp/<span class="dv">2</span>,mod);
       <span class="kw">return</span> e*e % mod;
     } <span class="kw">else</span> {  <span class="co">// impair</span>
-      <span class="dt">int</span> e = <span class="fu">expmod</span>(base,exp<span class="dv">-1</span>,mod);
+      <span class="dt">int</span> e = <span class="fu">expmod</span>(base,exp-<span class="dv">1</span>,mod);
       <span class="kw">return</span> e*base % mod;
     }      
   }
     
 }</code></pre></div>
 </section><section id="sensibilisation-et-jeux-de-tests" class="slide level2">
-<h1>Sensibilisation et jeux de tests</h1>
+<h2>Sensibilisation et jeux de tests</h2>
 <p>Sensibiliser un chemin :: Définir les données initiales du SUT permettant d’exécuter un chemin particulier.</p>
 <h3 id="chemins-exécutables-non-exécutables">Chemins exécutables / non exécutables</h3>
 <p>On dit que la DT <code>{x=-2,y=_}</code> ou simplement <code>{x=-2}</code> sensibilise le chemin ch3=abdfg, car pour cette valeur de x le code suit ce chemin de contrôle en visitant consécutivement ces noeuds. On a aussi:</p>
@@ -298,7 +300,7 @@ S.<span class="fu">O</span>.<span class="fu">P</span>(<span class="dv">1</span>/
 <p>Avantages: pas besoin d’un exécutable, marche bien ds certains cas.</p>
 <p>Inconvénient: rapidement impraticable, pas très objet.</p>
 </section><section id="critères-et-techniques-de-test" class="slide level2">
-<h1>Critères et techniques de test</h1>
+<h2>Critères et techniques de test</h2>
 <h3 id="principe-dun-critère-de-couverture">Principe d’un critère de couverture</h3>
 <p>Un critère C est une méthode de sélection qui fournit un ensemble de chemins de contrôle à couvrir, ou plus généralement un ensemble d’objets à couvrir.</p>
 <p>À tout critère C est associé un taux de couverture, ou encore mesure de complétude qui exprime le degré de satisfaction de C, et qui vaut: nb objets dénotés par C / nb objets effectivements couverts</p>
@@ -374,7 +376,7 @@ y = <span class="dv">1</span>/x;  (c)              c</code></pre></div>
 <p>Critère tous les arcs + plus toutes les conditions composant les prédicats = critère C5</p>
 <p>“tous les arcs” est plus fort que “tous les noeuds”: la couverture de tous les arcs implique la couverture de tous les noeuds. L’inverse n’est pas vrai.</p>
 </section><section id="outils" class="slide level2">
-<h1>Outils</h1>
+<h2>Outils</h2>
 <h3 id="cobertura">Cobertura</h3>
 <p>Cobertura est le successeur de la version libre de JCoverage. Il propose une analyse de la couverture des <em>lignes</em> de codes et des <em>branches</em>. Cette analyse est réalisée par instrumentation du code compilé (bytecode) et permet de visualiser pour chaque méthode, classe et paquetage le taux de couverture atteint. Cobertura permet de lever des alertes en fonction de seuils à atteindre et calcul en plus la #complexité cyclomatique* du code analysé.</p>
 <p>Les rapports de couverture générés par cobertura sont au format XML ou HTML et permettent de visualiser aisément la couverture aggrégée au niveau d’un paquetage:</p>
@@ -444,7 +446,7 @@ y = <span class="dv">1</span>/x;  (c)              c</code></pre></div>
 <p><a href="../home/nono/figures/emma-classe.png">Rapport pour une classe</a></p>
 </section></section>
 <section><section id="graphe-de-flot-de-données" class="titleslide slide level1"><h1>Graphe de flot de données</h1></section><section id="construction" class="slide level2">
-<h1>Construction</h1>
+<h2>Construction</h2>
 <p>Basé sur la construction du graphe de <em>flot de données</em> à partir du graphe de flôt de contrôle : identifie les chemins de <em>définition</em> et d’<em>utilisation</em> des données (lecture/écriture).</p>
 <p>On distingue <strong>c-use</strong> et <strong>p-use</strong></p>
 <p>c-use :: utilisation de la valeur d’une variable pour un calcul</p>

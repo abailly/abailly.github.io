@@ -15,6 +15,8 @@
   <link rel="stylesheet" type="text/css" href="/css/default.css">
   <link rel="stylesheet" type="text/css" href="/css/syntax.css">
   <script src="/js/modernizr-2.0.6.min.js"></script>
+  <script type="text/javascript"
+          src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 <body>
   <div id="container">
@@ -98,8 +100,8 @@
 
 <span class="kw">data</span> <span class="dt">Persist</span> a <span class="fu">=</span> <span class="dt">Store</span> <span class="dt">String</span> a <span class="kw">deriving</span> <span class="dt">Functor</span></code></pre></td></tr></table></div>
 <p>Our composite DSL should be able to interpret actions which are either logging actions, or persist actions, so we need a way to express this alternative at the type-level, introducing the notion of <em>Coproduct</em> or <em>Sum</em>. This work has already been packaged by Ed Kmett in the <a href="https://hackage.haskell.org/package/comonad-transformers-2.0.3">comonads-transformers</a> package but let’s rewrite it here for completeness’ sake.</p>
-<div class="sourceCode"><table class="sourceCode ha1skell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
-</pre></td><td class="sourceCode"><pre><code class="sourceCode">newtype Coproduct f g a = Coproduct { getCoproduct :: Either (f a) (g a) }</code></pre></td></tr></table></div>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Coproduct</span> f g a <span class="fu">=</span> <span class="dt">Coproduct</span> {<span class="ot"> getCoproduct ::</span> <span class="dt">Either</span> (f a) (g a) }</code></pre></td></tr></table></div>
 <p>A <code>Coproduct</code> of two functors is then simply the type-level equivalent of the familiar <code>Either</code> type, for which we provide smart constructors to inject values from left or right and a suitable <code>Functor</code> instance.</p>
 <div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2

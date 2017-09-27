@@ -15,6 +15,8 @@
   <link rel="stylesheet" type="text/css" href="/css/default.css">
   <link rel="stylesheet" type="text/css" href="/css/syntax.css">
   <script src="/js/modernizr-2.0.6.min.js"></script>
+  <script type="text/javascript"
+          src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 <body>
   <div id="container">
@@ -39,7 +41,7 @@
 <h1>Le test de logiciels</h1>
 
 <section id="références-pour-ces-notes" class="slide level2">
-<h1>Références pour ces notes:</h1>
+<h2>Références pour ces notes:</h2>
 <h3 id="livres">Livres</h3>
 <ul>
 <li class="fragment"><em>The Art of software testing</em>, G.J. Myers, <em>Wiley</em>, 2004 (2nde édition) 1979 (1ère édition).</li>
@@ -67,7 +69,7 @@
 </ul>
 </section>
 <section id="objectif" class="slide level2">
-<h1>Objectif:</h1>
+<h2>Objectif:</h2>
 <ul>
 <li class="fragment">détecter des erreurs dans un programme;</li>
 <li class="fragment"><p>célèbre définition de Myers:</p>
@@ -113,7 +115,7 @@
 <p>Tester révèle des pannes, déboguer enlève les erreurs à l’origine des pannes et en introduit d’autres, d’où l’importance de tester la <em>non-régression</em> donc de disposer d’un mode d’exécution automatisé des tests.</p>
 </section>
 <section id="un-état-desprit" class="slide level2">
-<h1>Un état d’esprit</h1>
+<h2>Un état d’esprit</h2>
 <p>Quelques évidences, pour la plupart issues du [Myers].</p>
 <p>Concernant la forme des cas de test:</p>
 <ul>
@@ -138,7 +140,7 @@
 <p>Enfin: concevoir des cas de tests est (pourvu que le concepteur soit dans le bon état d’esprit) une activité difficile mais créative et intéressante !</p>
 </section>
 <section id="différentes-approches" class="slide level2">
-<h1>Différentes approches</h1>
+<h2>Différentes approches</h2>
 <p>L’exécution sur une machine n’est pas la seule manière de tester un programme.</p>
 <h3 id="test-statique">Test statique</h3>
 <p>Test «par l’humain», sans machine, par lecture du code:</p>
@@ -224,7 +226,7 @@
 <p>En pratique :: Combinaison des deux approches, voir la section consacrée aux <strong>critères de tests</strong>.</p>
 </section>
 <section id="triangle-magique" class="slide level2">
-<h1>Triangle magique</h1>
+<h2>Triangle magique</h2>
 <p>Le code, les specs et les tests se vérifient l’un l’autre. Une erreur dans les tests peut avoir trois interprétations différentes :</p>
 <ul>
 <li class="fragment">les tests sont incorrects : c’est le cas le plus défavorable puisqu’il induit une confiance infondée dans le logiciel produit. Pour éviter ce cas, les tests doivent être le plus simple possible ;</li>
@@ -240,7 +242,7 @@
 <p>En fait, l’écriture des tests permet de <em>mesurer</em> la compréhension de la spécification par le <em>testeur</em>. Ce n’est pas la spécification elle-même qui est généralement inaccessible (dans l’empyrée des Idées).</p>
 </section>
 <section><section id="le-test-dans-le-cycle-de-développement" class="titleslide slide level1"><h1>Le test dans le cycle de développement</h1></section><section id="cycle-en-v" class="slide level2">
-<h1>Cycle en V</h1>
+<h2>Cycle en V</h2>
 <p>Modèle de développement normalisé par la RFA, nouvelle norme V-modell XT (2004). Le principe est d’associer une activité de vérification (test) à chaque phase du cycle de développement du logiciel.</p>
 <p>Schématiquement :</p>
 <pre><code>    Exigences   ---------
@@ -290,7 +292,7 @@
 <h3 id="test-de-recette">Test de recette</h3>
 <p>Ou test d’<em>acceptation</em>, (ou <em>User Acceptance Testing</em>, ou simplement recette) : effectué avec l’utilisateur final pour valider le système produit par rapport aux exigences, pour obtenir son approbation avant la livraison.</p>
 </section><section id="le-modèle-w" class="slide level2">
-<h1>Le modèle W</h1>
+<h2>Le modèle W</h2>
 <p><a href="http://www.gerrardconsulting.com/default.asp?page=services/wmodel.html">Modèle W</a></p>
 <p>Raffinement du modèle V pour mettre en avant les différentes activités de test <strong>et</strong> de vérification des artefacts produits pour le logiciel aux différentes étapes du cycle de développement.</p>
 <p>Le V principal est dupliqué par un autre V représentant les différentes activités de V&amp;V ayant lieu au cours du développement:</p>
@@ -309,7 +311,7 @@
 <li class="fragment">exigences/déploiement: tests d’acceptation</li>
 </ul>
 </section><section id="le-modèle-agile" class="slide level2">
-<h1>Le modèle Agile</h1>
+<h2>Le modèle Agile</h2>
 <p>Les méthodes <a href="http://www.agilemanifesto.org">Agiles</a> (<a href="http://www.extremprogramming.org">Extreme Programming</a> essentiellement) utilisent le test comme moteur du processus de développement afin de:</p>
 <ul>
 <li class="fragment">réduire les <em>déchets</em> (le travail ne contribuant pas directement à ajouter de la valeur au produit final)</li>
@@ -356,7 +358,7 @@
 <li class="fragment">différents outils/langages sont utilisés pour définir de manière adéquate les différents tests: tests systèmes, tests d’acceptation, tests fonctionnels d’IHM…</li>
 </ul>
 </section><section id="comparaisons" class="slide level2">
-<h1>Comparaisons</h1>
+<h2>Comparaisons</h2>
 <p><em>Attention, cette comparaison est biaisée en faveur des modèles Agiles</em></p>
 <blockquote>
 <p>Le coût de correction d’une erreur croît de manière exponentielle en fonction de l’interval de temps séparant la <em>production de l’erreur</em> de sa <em>manifestation</em> sous forme d’une panne B.Boehm, référence ?? - cf. Leprechauns of Software Engineering, L.Bossavit</p>
@@ -365,7 +367,7 @@
 <p>Réduire les cycles de développement: analyse-conception-réalisation-test pour détecter au plus tôt les erreurs, omissions, incompréhensions, et réagir au changement dans les meilleurs délais.</p>
 </section></section>
 <section><section id="le-test-dynamique" class="titleslide slide level1"><h1>Le test dynamique</h1></section><section id="terminologie-1" class="slide level2">
-<h1>Terminologie</h1>
+<h2>Terminologie</h2>
 <p>quoi teste-t-on ? :: une implantation du système: <strong>IUT</strong> = <em>Implementation Under Test</em> ou encore <strong>SUT</strong> = <em>System Under Test</em>;</p>
 <p>que teste-t-on ? :: une propriété/caractéristique à vérifier: l’objectif de test;</p>
 <p>donnée de test :: valeurs spécifiques pour les entrées du programme et pour la simulation de l’environnement (peuvent servir pour plusieurs cas de test);</p>
@@ -387,7 +389,7 @@
 </ul>
 </section></section>
 <section><section id="automatisation-des-tests" class="titleslide slide level1"><h1>Automatisation des tests</h1></section><section id="objectifs" class="slide level2">
-<h1>Objectifs</h1>
+<h2>Objectifs</h2>
 <h3 id="amélioration-de-la-qualité">Amélioration de la qualité</h3>
 <p>Les tests sont des spécifications exécutables:</p>
 <ul>
