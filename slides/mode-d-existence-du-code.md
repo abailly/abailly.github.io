@@ -39,88 +39,6 @@ theme: serif-black
 * Solving real people problems, f
 </div>
 
-
-# Devenir
-
-## Mode d'existence
-
-![](/images/aime.jpg)
-
-<div class="notes">
-* Actor/Network Theory
-* Various modes of existence that need to be taken care of -> ex. Gaia moment, scientific discourse vs. political discourse
-* The world is full of "beings" that require to be dealt with differently but "moderns" try to address all being the same way ("reason")
-    * TEC, POL, REL, REF.... -> each has its own ways
-* Illusion of strict separation of nature  & Culture
-* What's the mode of existence of software? It seems to overlap several ones yet not strictly fitting into neither (ORG/TEC/DRO/POL...)
-* New mode of existence -> *INFormation*
-</div>
-
-## Concrétion & Abstraction
-
-![](/images/tube-concretion.jpg)
-
-<div class="notes">
-* concrete/abstract in the simondonian interpretation implies some form of relationship with the world: Concretion is the process by which some technical object adheres to the world and is more "efficient" and "effective". It departs from its abstract or generic form to reach a state of better integration, or more *integrity*. Its parts fits perfectly within each other to form a coherent whole that is in some sense *organic*. Each organ is pluri-functional and not only serves a purpose but reinforces the whole (example of the combustion engine)
-    * How does this relate to software? There is clearly a tension between *genericity* and *specialisation* in software, between *reuse* (which produces bloat) and *reinventing* (which produces obscurity)
-    * Concretion and abstractions are not dependent on usage but on behaviour of the object, its "internal logic". In software, there is also this tension between needs arising from expected use and systemic constraints, leading to potentially suboptimal solutions
-    * Concretion is the establishment of a feedback loop between the technical object and its environnement => *individuation*
-* *Hypertely* -> over-adapting an object to its function
-</div>
-
-## Individuation
-
-![](/images/crystal.jpg)
-
-<div class="notes">
-* Boundaries of *what* is a "piece of software" are more and more blurred
-  * long-lived server parts
-  * support systems 
-  * thirparty services
-  * short-lived cloud functions
-  * custom/local elements (Excel, macros, notebooks)
-* Through individuation, the software loses its purely instrumental nature and starts *reflecting* on the humans it interacts with
-    * Humans are *transformed* (transduced?) by the technical object, hence the software
-* *Web* of interconnected elements, individuation becomes difficult to characterise, every piece of code seems to come "alive" in interaction with more and more other pieces
-* Technical objects are *individuals* made of *technical elements* and part of a *technical ensemble* (network): Think of a car, made out of wheels and part of the general framework to make cars possible 
-* Form and function are forces that shape the technical object, but neither has the upper hand on the other: objects have some internal logic, a "life" of their own
-* Individuation has consequences on *legal property* of software => "viral" nature of some OSS licences ack the fact the border of what makes a software a single individual is blurry
-</div>
-
-## Techno-logie
-
-![](/images/toaster.jpg)
-
-<div class="notes">
-* Technical Objects do not live in isolation, they are part of a *network* which makes them meaningful (and useful): Think of the chain that makes running software possible
-  * Recent experiment of [Thomas Thwaites](http://www.thomasthwaites.com/the-toaster-project/) who tried to build a toaster *from scratch*, down to mining ore and ironsmithing...
-* Simondon offers a genetic view of technicity to explain our current relationship and how it could evolve in something different (and better)
-    * Initially, man and nature have been one and the same, a state we don't know anything about
-    * Then came *magic* where *figure* becomes separated from *ground* as a network of nodes, magical beings that stand out from nature but not clearly separated from it (e.g. magical sources, trees, rocks, locations, actions, ceremonies...)
-    * the unity of magic breaks apart when the complexity of the world increases
-        * figures are individualised as *technical objects* => objectivation
-        * ground is universalised as *deity* => subjectivity
-    * when traditional technical objects find their limits, when *figure* conflicts with *ground*, a new subdivision appears:
-        * *practical thought* takes charge of simplicity, effectiveness and becomes situated, individualised
-        * *scientific thought* is concerned with universality, a new *ground* on which technical objects can arise as *figures*
-    * symetrically, the primitive religions is split into:
-        * an ethical, normative, moral *ground*  (the dogmatic side of religions)
-        * universal, theoretical, contemplative *figures* (the mystical side of religion)
-* Simondon is concerned with the chasm between culture and technics, how and why culture "rejects" the technical objects outside of its realm of interest
-    * This gives rise to a new form of magical thought, where technical objects, individuals, *figures* are disconnected from theire *ground*, the network that makes them possible and give them meaning
-    * How people use technology, carry old usages to new objects without taking into account the intrinsic capabilities of the object
-* Putting back meaning into the world through *knowledge about technical objects*
-
-</div>
-
-## Aliénation
-
-> Technical activity stands out from mere work, and alienating work, in that technical activity not only contains use of the machine but also some attention coefficient to its technical workings. The fundamental alienation of man w.r.t. machine lies in the produced rupture between ontogenesis of the technical object and the existence of this technical object. The most alienating technical objects are the ones targeted at the most ignorant users.
-
-<div class="notes">
-</div>
-
-
 # Faire
 
 ## Motifs
@@ -221,6 +139,89 @@ theme: serif-black
 * One craft software with her hands, [typing on a keyboard](https://www.meetup.com/Mechanical-Keyboard/photos/27166931/452768389/?_locale=fr-FR) is so important that there are groups dedicated to it and hundreds of different types of keyboards. 
 * Each developer spends a lot of time customising her environment to be "more" efficient, dozens of books have been written on the subject of software craftmanship
 </div>
+
+
+# Devenir
+
+## Mode d'existence
+
+![](/images/aime.jpg)
+
+<div class="notes">
+* Actor/Network Theory
+* Various modes of existence that need to be taken care of -> ex. Gaia moment, scientific discourse vs. political discourse
+* The world is full of "beings" that require to be dealt with differently but "moderns" try to address all being the same way ("reason")
+    * TEC, POL, REL, REF.... -> each has its own ways
+* Illusion of strict separation of nature  & Culture
+* What's the mode of existence of software? It seems to overlap several ones yet not strictly fitting into neither (ORG/TEC/DRO/POL...)
+* New mode of existence -> *INFormation*
+</div>
+
+## Concrétion & Abstraction
+
+![](/images/tube-concretion.jpg)
+
+<div class="notes">
+* concrete/abstract in the simondonian interpretation implies some form of relationship with the world: Concretion is the process by which some technical object adheres to the world and is more "efficient" and "effective". It departs from its abstract or generic form to reach a state of better integration, or more *integrity*. Its parts fits perfectly within each other to form a coherent whole that is in some sense *organic*. Each organ is pluri-functional and not only serves a purpose but reinforces the whole (example of the combustion engine)
+    * How does this relate to software? There is clearly a tension between *genericity* and *specialisation* in software, between *reuse* (which produces bloat) and *reinventing* (which produces obscurity)
+    * Concretion and abstractions are not dependent on usage but on behaviour of the object, its "internal logic". In software, there is also this tension between needs arising from expected use and systemic constraints, leading to potentially suboptimal solutions
+    * Concretion is the establishment of a feedback loop between the technical object and its environnement => *individuation*
+* *Hypertely* -> over-adapting an object to its function
+</div>
+
+## Individuation
+
+![](/images/crystal.jpg)
+
+<div class="notes">
+* Boundaries of *what* is a "piece of software" are more and more blurred
+  * long-lived server parts
+  * support systems 
+  * thirparty services
+  * short-lived cloud functions
+  * custom/local elements (Excel, macros, notebooks)
+* Through individuation, the software loses its purely instrumental nature and starts *reflecting* on the humans it interacts with
+    * Humans are *transformed* (transduced?) by the technical object, hence the software
+* *Web* of interconnected elements, individuation becomes difficult to characterise, every piece of code seems to come "alive" in interaction with more and more other pieces
+* Technical objects are *individuals* made of *technical elements* and part of a *technical ensemble* (network): Think of a car, made out of wheels and part of the general framework to make cars possible 
+* Form and function are forces that shape the technical object, but neither has the upper hand on the other: objects have some internal logic, a "life" of their own
+* Individuation has consequences on *legal property* of software => "viral" nature of some OSS licences ack the fact the border of what makes a software a single individual is blurry
+</div>
+
+## Techno-logie
+
+![](/images/toaster.jpg)
+
+<div class="notes">
+* Technical Objects do not live in isolation, they are part of a *network* which makes them meaningful (and useful): Think of the chain that makes running software possible
+  * Recent experiment of [Thomas Thwaites](http://www.thomasthwaites.com/the-toaster-project/) who tried to build a toaster *from scratch*, down to mining ore and ironsmithing...
+* Simondon offers a genetic view of technicity to explain our current relationship and how it could evolve in something different (and better)
+    * Initially, man and nature have been one and the same, a state we don't know anything about
+    * Then came *magic* where *figure* becomes separated from *ground* as a network of nodes, magical beings that stand out from nature but not clearly separated from it (e.g. magical sources, trees, rocks, locations, actions, ceremonies...)
+    * the unity of magic breaks apart when the complexity of the world increases
+        * figures are individualised as *technical objects* => objectivation
+        * ground is universalised as *deity* => subjectivity
+    * when traditional technical objects find their limits, when *figure* conflicts with *ground*, a new subdivision appears:
+        * *practical thought* takes charge of simplicity, effectiveness and becomes situated, individualised
+        * *scientific thought* is concerned with universality, a new *ground* on which technical objects can arise as *figures*
+    * symetrically, the primitive religions is split into:
+        * an ethical, normative, moral *ground*  (the dogmatic side of religions)
+        * universal, theoretical, contemplative *figures* (the mystical side of religion)
+* Simondon is concerned with the chasm between culture and technics, how and why culture "rejects" the technical objects outside of its realm of interest
+    * This gives rise to a new form of magical thought, where technical objects, individuals, *figures* are disconnected from theire *ground*, the network that makes them possible and give them meaning
+    * How people use technology, carry old usages to new objects without taking into account the intrinsic capabilities of the object
+* Putting back meaning into the world through *knowledge about technical objects*
+
+</div>
+
+## Aliénation
+
+> Technical activity stands out from mere work, and alienating work, in that technical activity not only contains use of the machine but also some attention coefficient to its technical workings. The fundamental alienation of man w.r.t. machine lies in the produced rupture between ontogenesis of the technical object and the existence of this technical object. The most alienating technical objects are the ones targeted at the most ignorant users.
+
+<div class="notes">
+</div>
+
+
 
 # Éthique
 
