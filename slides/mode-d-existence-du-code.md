@@ -1,6 +1,7 @@
 ------------
 title: Du mode d'existence du code
-author: Arnaud Bailly - @dr_c0d3
+subtitle: Modeste voyage en philosophie des techniques pour codeur insatisfait
+author: Arnaud Bailly - Aleryo/Symbiont - @dr_c0d3
 date: 2017-10-20
 theme: serif-black
 ------------ 
