@@ -8,8 +8,52 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2017-09-25T00:00:00Z</updated>
+    <updated>20167-11-13T00:00:00Z</updated>
     <entry>
+    <title>CodeMesh 2017 - Takeaways</title>
+    <link href="http://abailly.github.io/posts/codemesh-2017.html" />
+    <id>http://abailly.github.io/posts/codemesh-2017.html</id>
+    <published>20167-11-13T00:00:00Z</published>
+    <updated>20167-11-13T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>CodeMesh 2017 - Takeaways</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on November 13, 20167</div>
+
+<p>here are some key takeaways from this year’s <a href="http://www.codemesh.io/codemesh2017">codemesh</a> conference. i must say i never had such an intense conference, with lot of fascinating and mind-blowing sessions which bred lots of new or old ideas in my mind. thanks a lot to the organisers and the amazing speakers which made this event memorable.</p>
+<ul>
+<li>How to apply simple machine learning techniques and speculative execution to optimise repeated executions of programs or program fragments, caching pre-computed execution path to skip some computations,</li>
+<li>Using <em>session types</em> to design applicative protocols as <em>finite state machines</em> enforced by the type system hence statically verified, with some encoding examples in haskel and idris,</li>
+<li>An answer to the classical <a href="http://wiki.c2.com/?FizzBuzzTest">fizzbuzz</a> interview test where one the y combinator and church numerals from scratch using a pure untyped λ-calculus, in the spirit of the now famous piece by Aphyr <a href="https://aphyr.com/posts/342-typing-the-technical-interview">Typing the technical interview</a>,</li>
+<li>Why it is actually a good idea to model <code>IO</code> as a monad even in an impure language like scala, as it gives the compiler the capability to verify and enforce proper use of <em>side effects</em> statically,</li>
+<li>How messy and imprecise the <em>Computer Science Metanotation</em>, a language which is ubiquitous in PLT research papers to define <em>formal systems</em>, has become over the past 30 or 40 years,</li>
+<li>How to write (potentially infinite) <em>towers of interpreters</em>, with reflection and reification capabilities between each layer, and collapse the resulting tower in a single-pass compiler. This year’s <a href="http://lampwww.epfl.ch/~amin/">favorite</a>, ex aequo with Tomas Petricek’s talk,</li>
+<li>Whence does Haskell come and what’s the history of Miranda, where one learns there was no λ-calculus nor first-class functions in McCarthy’s LISP and the Programming Languages’ history is far from the linear reconstruction we often are told it is,</li>
+<li>Would aliens be able to understand λ-calculus which amounts to asking classical philosophy of mathematics question: Are mathematical objects <em>discovered</em> from the the land of eternal truths they are part of or <em>invented</em> hence subjects to historical and sociological contingencies. With fascinating references to works by Lakatos and Lakoff on the history and sociology of mathematics,</li>
+<li>What benefits one can reap from abstracting concurrent IOs with <a href="https://github.com/facebook/Haxl/">Haxl</a>, a great library developed at Facebook by <a href="http://simonmar.github.io/">Simon Marlow</a>,</li>
+<li>How to derive <em>implementations</em> of functions from examples thanks to <a href="https://github.com/webyrd/Barliman/">Barliman</a> and logic programming with <a href="http://minikanren.org/">miniKanren</a>,</li>
+<li>The use of the concept of <em>Feedback Loops</em> and <em>Feedback Structures</em> to design and develop complex self-regulated distributed systems.</li>
+</ul>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Weekly Review - Week 39</title>
     <link href="http://abailly.github.io/posts/weekly-review-39.html" />
     <id>http://abailly.github.io/posts/weekly-review-39.html</id>
@@ -757,202 +801,6 @@ checkPassword u p <span class="fu">=</span> <span class="fu">...</span>
 <dd><p>Can we empirically demonstrate how policies are formed and driven? This article shows the answer is yes by testing actual decisions against theories of whose interest these decisions serve. Would definitely be interested in a similar study for Europe…</p>
 </dd>
 </dl>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>A Dependently Typed Date</title>
-    <link href="http://abailly.github.io/posts/dependently-typed-date.html" />
-    <id>http://abailly.github.io/posts/dependently-typed-date.html</id>
-    <published>2017-04-19T00:00:00Z</published>
-    <updated>2017-04-19T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>A Dependently Typed Date</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on April 19, 2017</div>
-
-<blockquote>
-<p>This article is the <a href="/posts/dependent-types-ddd.html">second installment</a> of a planned series of articles exploring connection between <a href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven Design</a> and <a href="https://en.wikipedia.org/wiki/Dependent_type">Dependent types</a> as implemented in <a href="http://idris-lang.org">Idris</a>, revisiting examples and patterns from Eric Evan’s <a href="https://www.abebooks.com/products/isbn/9780321125217/22376984258">book</a>.</p>
-</blockquote>
-<p>I was planning to work on the <em>Specification</em> pattern from chapter 9, pp.224 seq. of the book which is something that fits nicely, along with other patterns from this chapter, in a strongly typed purely functional framework. But I was sent off-track and ended up shaving a yak, or more precisely defining a <code>Date</code> type along with an <code>addDays</code> function, because this is something that was needed to define a proper <em>DelinquentInvoice</em> specification. This was a challenging exercise for me to undertake and I learnt a things or two in the process that might be worthwhile to share.</p>
-<h2 id="code">Code</h2>
-<p>So let’s start defining our module. We will require all our functions to be <em>total</em> and export everything as public (probably something we want to restrict later on…).</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> <span class="kw">module</span> <span class="dt">Date</span> 
-<span class="fu">&gt;</span> 
-<span class="fu">&gt;</span> <span class="kw">import</span> <span class="dt">Decidable</span><span class="fu">.</span><span class="dt">Order</span>
-<span class="fu">&gt;</span> 
-<span class="fu">&gt;</span> <span class="kw">%default</span> <span class="kw">total</span>
-<span class="fu">&gt;</span> <span class="kw">%access</span> <span class="kw">public</span> export</code></pre></div>
-<p>Our first important type will be the <code>Month</code> which is straightforwardly implemented as an enumeration of months’ names<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> <span class="kw">data</span> <span class="dt">Month</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
-<span class="fu">&gt;</span>   <span class="dt">January</span>    <span class="ot">:</span> <span class="dt">Month</span>
-<span class="fu">&gt;</span>   <span class="dt">February</span>   <span class="ot">:</span> <span class="dt">Month</span>
-<span class="fu">&gt;</span>   <span class="dt">March</span>      <span class="ot">:</span> <span class="dt">Month</span>
-<span class="fu">&gt;</span>   <span class="dt">April</span>      <span class="ot">:</span> <span class="dt">Month</span>
-<span class="fu">&gt;</span>   <span class="dt">May</span>        <span class="ot">:</span> <span class="dt">Month</span>
-<span class="fu">&gt;</span>   <span class="dt">June</span>       <span class="ot">:</span> <span class="dt">Month</span>
-<span class="fu">&gt;</span>   <span class="dt">July</span>       <span class="ot">:</span> <span class="dt">Month</span>
-<span class="fu">&gt;</span>   <span class="dt">August</span>     <span class="ot">:</span> <span class="dt">Month</span>
-<span class="fu">&gt;</span>   <span class="dt">September</span>  <span class="ot">:</span> <span class="dt">Month</span>
-<span class="fu">&gt;</span>   <span class="dt">October</span>    <span class="ot">:</span> <span class="dt">Month</span>
-<span class="fu">&gt;</span>   <span class="dt">November</span>   <span class="ot">:</span> <span class="dt">Month</span>
-<span class="fu">&gt;</span>   <span class="dt">December</span>   <span class="ot">:</span> <span class="dt">Month</span></code></pre></div>
-<p>There is an <code>Enum</code> typeclass/interface in Idris but it requires quite a lot of functions to be defined, so let’s do something simpler and define only a <code>toNat</code> function which will be handy to compare months:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> toNat <span class="ot">:</span> <span class="dt">Month</span> <span class="ot">-&gt;</span> <span class="dt">Nat</span>
-<span class="fu">&gt;</span> toNat <span class="dt">January</span>    <span class="fu">=</span> <span class="dv">1</span>
-<span class="fu">&gt;</span> toNat <span class="dt">February</span>   <span class="fu">=</span> <span class="dv">2</span>
-<span class="fu">&gt;</span> toNat <span class="dt">March</span>      <span class="fu">=</span> <span class="dv">3</span>
-<span class="fu">&gt;</span> toNat <span class="dt">April</span>      <span class="fu">=</span> <span class="dv">4</span>
-<span class="fu">&gt;</span> toNat <span class="dt">May</span>        <span class="fu">=</span> <span class="dv">5</span>
-<span class="fu">&gt;</span> toNat <span class="dt">June</span>       <span class="fu">=</span> <span class="dv">6</span>
-<span class="fu">&gt;</span> toNat <span class="dt">July</span>       <span class="fu">=</span> <span class="dv">7</span>
-<span class="fu">&gt;</span> toNat <span class="dt">August</span>     <span class="fu">=</span> <span class="dv">8</span>
-<span class="fu">&gt;</span> toNat <span class="dt">September</span>  <span class="fu">=</span> <span class="dv">9</span>
-<span class="fu">&gt;</span> toNat <span class="dt">October</span>    <span class="fu">=</span> <span class="dv">10</span>
-<span class="fu">&gt;</span> toNat <span class="dt">November</span>   <span class="fu">=</span> <span class="dv">11</span>
-<span class="fu">&gt;</span> toNat <span class="dt">December</span>   <span class="fu">=</span> <span class="dv">12</span></code></pre></div>
-<p>It is then easy to compare months, providing implementations for <code>Eq</code> and <code>Ord</code> interfaces:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> implementation <span class="dt">Eq</span> <span class="dt">Month</span> <span class="kw">where</span>
-<span class="fu">&gt;</span>   m1 <span class="fu">==</span> m2 <span class="fu">=</span> toNat m1 <span class="fu">==</span> toNat m2
-<span class="fu">&gt;</span> 
-<span class="fu">&gt;</span> implementation <span class="dt">Ord</span> <span class="dt">Month</span> <span class="kw">where</span>
-<span class="fu">&gt;</span>   compare m1  m2 <span class="fu">=</span> compare (toNat m1) (toNat m2)</code></pre></div>
-<p>Now, let’s tackle <code>Year</code>s. Easy enough, we will stick to simply representing years as a natural number, which of course will prevent us at this stage to represent dates <em>B.C.</em> <sub><sub><del>idris &gt; Year : Type &gt; Year = Nat</del></sub></sub></p>
-<p>An important thing to know about a year is whether or not it is a <em>leap year</em>: This will be critical to know what’s the duration of the year and the number of days of <code>February</code>. There is a simple algorithm for that: A year which is dividible by 4 is a leap year, except when it is dividible by 100 and <em>not</em> dividible by 400 (1900 is not a leap year but 2000 is).</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> isLeapYear <span class="ot">:</span> <span class="dt">Year</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>
-<span class="fu">&gt;</span> isLeapYear y <span class="fu">=</span> check4 <span class="fu">&amp;&amp;</span> check100 <span class="fu">||</span> check400
-<span class="fu">&gt;</span>   <span class="kw">where</span></code></pre></div>
-<p>Because we are working with <code>Nat</code>s (underlying representation for years) we need to use some special functions to compute modulus, namely <code>modNatNZ</code> which requires us to provide a proof the divisor is not 0.</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span>     check4 <span class="ot">:</span> <span class="dt">Bool</span>
-<span class="fu">&gt;</span>     check4 <span class="fu">=</span> modNatNZ y <span class="dv">4</span> <span class="dt">SIsNotZ</span> <span class="fu">==</span> <span class="dv">0</span>
-<span class="fu">&gt;</span> 
-<span class="fu">&gt;</span>     check100 <span class="ot">:</span> <span class="dt">Bool</span>
-<span class="fu">&gt;</span>     check100 <span class="fu">=</span> modNatNZ y <span class="dv">100</span> <span class="dt">SIsNotZ</span> <span class="fu">/=</span> <span class="dv">0</span>
-<span class="fu">&gt;</span> 
-<span class="fu">&gt;</span>     check400 <span class="ot">:</span> <span class="dt">Bool</span>
-<span class="fu">&gt;</span>     check400 <span class="fu">=</span> modNatNZ y <span class="dv">400</span> <span class="dt">SIsNotZ</span> <span class="fu">==</span> <span class="dv">0</span></code></pre></div>
-<p>Equipped with this predicate we can compute the duration of a month:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> monthDuration <span class="ot">:</span> <span class="dt">Month</span> <span class="ot">-&gt;</span> <span class="dt">Year</span> <span class="ot">-&gt;</span> (days<span class="ot">:</span> <span class="dt">Nat</span> <span class="fu">**</span> <span class="dt">LTE</span> <span class="dv">1</span> days) </code></pre></div>
-<p>Note the return type of <code>monthDuration</code> is a <em>dependent pair</em> associating the number of days of the month (a <code>Nat</code>) with a proof this number of days is always greater than 1. This will become important later on when we want to add days to dates…</p>
-<p>Defining the function is a simple matter of case analysis over the constructors of <code>Month</code>:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> monthDuration <span class="dt">January</span> <span class="fu">_</span>      <span class="fu">=</span> (<span class="dv">31</span> <span class="fu">**</span> <span class="dt">LTESucc</span> <span class="dt">LTEZero</span>)
-<span class="fu">&gt;</span> monthDuration <span class="dt">February</span> year  <span class="fu">=</span> <span class="kw">if</span> isLeapYear year 
-<span class="fu">&gt;</span>                                <span class="kw">then</span> (<span class="dv">29</span>  <span class="fu">**</span> <span class="dt">LTESucc</span> <span class="dt">LTEZero</span>)
-<span class="fu">&gt;</span>                                <span class="kw">else</span> (<span class="dv">28</span> <span class="fu">**</span> <span class="dt">LTESucc</span> <span class="dt">LTEZero</span>)
-<span class="fu">&gt;</span> monthDuration <span class="dt">March</span> <span class="fu">_</span>        <span class="fu">=</span> (<span class="dv">31</span> <span class="fu">**</span> <span class="dt">LTESucc</span> <span class="dt">LTEZero</span>)
-<span class="fu">&gt;</span> monthDuration <span class="dt">April</span> <span class="fu">_</span>        <span class="fu">=</span> (<span class="dv">30</span> <span class="fu">**</span> <span class="dt">LTESucc</span> <span class="dt">LTEZero</span>)
-<span class="fu">&gt;</span> monthDuration <span class="dt">May</span> <span class="fu">_</span>          <span class="fu">=</span> (<span class="dv">31</span> <span class="fu">**</span> <span class="dt">LTESucc</span> <span class="dt">LTEZero</span>)
-<span class="fu">&gt;</span> monthDuration <span class="dt">June</span> <span class="fu">_</span>         <span class="fu">=</span> (<span class="dv">30</span> <span class="fu">**</span> <span class="dt">LTESucc</span> <span class="dt">LTEZero</span>)
-<span class="fu">&gt;</span> monthDuration <span class="dt">July</span> <span class="fu">_</span>         <span class="fu">=</span> (<span class="dv">31</span> <span class="fu">**</span> <span class="dt">LTESucc</span> <span class="dt">LTEZero</span>)
-<span class="fu">&gt;</span> monthDuration <span class="dt">August</span> <span class="fu">_</span>       <span class="fu">=</span> (<span class="dv">31</span> <span class="fu">**</span> <span class="dt">LTESucc</span> <span class="dt">LTEZero</span>)
-<span class="fu">&gt;</span> monthDuration <span class="dt">September</span> <span class="fu">_</span>    <span class="fu">=</span> (<span class="dv">30</span> <span class="fu">**</span> <span class="dt">LTESucc</span> <span class="dt">LTEZero</span>)
-<span class="fu">&gt;</span> monthDuration <span class="dt">October</span> <span class="fu">_</span>      <span class="fu">=</span> (<span class="dv">31</span> <span class="fu">**</span> <span class="dt">LTESucc</span> <span class="dt">LTEZero</span>)
-<span class="fu">&gt;</span> monthDuration <span class="dt">November</span> <span class="fu">_</span>     <span class="fu">=</span> (<span class="dv">30</span> <span class="fu">**</span> <span class="dt">LTESucc</span> <span class="dt">LTEZero</span>)
-<span class="fu">&gt;</span> monthDuration <span class="dt">December</span> <span class="fu">_</span>     <span class="fu">=</span> (<span class="dv">31</span> <span class="fu">**</span> <span class="dt">LTESucc</span> <span class="dt">LTEZero</span>)</code></pre></div>
-<p>Because having to pattern match on pair is not very handy, let’s provide some helpers functions to get only the relevant part of the pair:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> daysInMonth <span class="ot">:</span> <span class="dt">Month</span> <span class="ot">-&gt;</span> <span class="dt">Year</span> <span class="ot">-&gt;</span> <span class="dt">Nat</span>
-<span class="fu">&gt;</span> daysInMonth month year <span class="kw">with</span> (monthDuration month year) 
-<span class="fu">&gt;</span>   <span class="fu">|</span> (days <span class="fu">**</span> <span class="fu">_</span>) <span class="fu">=</span> days
-<span class="fu">&gt;</span> 
-<span class="fu">&gt;</span> aMonthHasOneDay <span class="ot">:</span> (month <span class="ot">:</span> <span class="dt">Month</span>) <span class="ot">-&gt;</span> (year <span class="ot">:</span> <span class="dt">Year</span>) <span class="ot">-&gt;</span> <span class="dt">LTE</span> <span class="dv">1</span> (daysInMonth month year)
-<span class="fu">&gt;</span> aMonthHasOneDay month year <span class="kw">with</span> (monthDuration month year) 
-<span class="fu">&gt;</span>   <span class="fu">|</span> (<span class="fu">_</span> <span class="fu">**</span> prf) <span class="fu">=</span> prf</code></pre></div>
-<p>Had we defined a proper <code>Enum</code> implementation, we would be able to use <code>pred</code> and <code>succ</code> to navigate between months… But we only need at the moment to compute <code>nextMonth</code> which is definitely simple:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> nextMonth <span class="ot">:</span> <span class="dt">Month</span> <span class="ot">-&gt;</span> <span class="dt">Month</span>
-<span class="fu">&gt;</span> nextMonth <span class="dt">January</span>   <span class="fu">=</span> <span class="dt">February</span>
-<span class="fu">&gt;</span> nextMonth <span class="dt">February</span>  <span class="fu">=</span> <span class="dt">March</span>    
-<span class="fu">&gt;</span> nextMonth <span class="dt">March</span>     <span class="fu">=</span> <span class="dt">April</span>    
-<span class="fu">&gt;</span> nextMonth <span class="dt">April</span>     <span class="fu">=</span> <span class="dt">May</span>      
-<span class="fu">&gt;</span> nextMonth <span class="dt">May</span>       <span class="fu">=</span> <span class="dt">June</span>     
-<span class="fu">&gt;</span> nextMonth <span class="dt">June</span>      <span class="fu">=</span> <span class="dt">July</span>     
-<span class="fu">&gt;</span> nextMonth <span class="dt">July</span>      <span class="fu">=</span> <span class="dt">August</span>   
-<span class="fu">&gt;</span> nextMonth <span class="dt">August</span>    <span class="fu">=</span> <span class="dt">September</span>
-<span class="fu">&gt;</span> nextMonth <span class="dt">September</span> <span class="fu">=</span> <span class="dt">October</span>  
-<span class="fu">&gt;</span> nextMonth <span class="dt">October</span>   <span class="fu">=</span> <span class="dt">November</span> 
-<span class="fu">&gt;</span> nextMonth <span class="dt">November</span>  <span class="fu">=</span> <span class="dt">December</span> 
-<span class="fu">&gt;</span> nextMonth <span class="dt">December</span>  <span class="fu">=</span> <span class="dt">January</span></code></pre></div>
-<p>We are at last equipped to define a <code>Date</code> type that will prevent us to define invalid dates:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> <span class="kw">data</span> <span class="dt">Date</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
-<span class="fu">&gt;</span>   <span class="dt">MkDate</span> <span class="ot">:</span> (year  <span class="ot">:</span> <span class="dt">Year</span>) <span class="ot">-&gt;</span> (month <span class="ot">:</span> <span class="dt">Month</span> ) <span class="ot">-&gt;</span> (day <span class="ot">:</span> <span class="dt">Nat</span>) </code></pre></div>
-<p>So a <code>Date</code> is built from a <code>Year</code>, a <code>Month</code> and <code>Nat</code> for the <code>day</code>, with the additional constraints that <code>day</code> should be between 1 and the length of the <code>month</code>, a property which is easily defined as implicit dependent types:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span>          <span class="ot">-&gt;</span> { <span class="kw">auto</span> dayFitInMonth <span class="ot">:</span> <span class="dt">LTE</span> day (daysInMonth month year) } 
-<span class="fu">&gt;</span>          <span class="ot">-&gt;</span> { <span class="kw">auto</span> dayGreaterThanOne <span class="ot">:</span> <span class="dt">LTE</span> <span class="dv">1</span> day } </code></pre></div>
-<p>To build a <code>Date</code>, one will then need to provide <em>proofs</em> the <code>day</code> respects the given constraints.</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span>          <span class="ot">-&gt;</span> <span class="dt">Date</span></code></pre></div>
-<p>Here are some examples of buildiing valid and invalid dates at the REPL:</p>
-<p>Let’s try to build a date with 0 as day number:</p>
-<pre><code>λΠ&gt; :let d = MkDate 2017 February 0
-(input):1:17:When checking argument gtOne to constructor Date.MkDate:
-        Can&#39;t find a value of type 
-                LTE 1 0</code></pre>
-<p>And what about the 29th of February, 2017 ?</p>
-<pre><code>λΠ&gt; :let d = MkDate 2017 February 29
-(input):1:17:When checking argument dayFitInMonth to constructor Date.MkDate:
-        Can&#39;t find a value of type 
-                LTE 29 28</code></pre>
-<p>However, 29th of February, 2016 is fine:</p>
-<pre><code>λΠ&gt; :let d = MkDate 2016 February 29
-defined
-λΠ&gt; d
-MkDate 2016 February 29 : Date</code></pre>
-<p>We can now tackle the problem which triggered that development: Adding some days to a <code>Date</code> to compute a new <code>Date</code>… The general definition follows the classical inductive principle over the number of days in order to guarantee totality of the function.</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> mutual   
-<span class="fu">&gt;</span>   addDays <span class="ot">:</span> <span class="dt">Date</span> <span class="ot">-&gt;</span> <span class="dt">Nat</span> <span class="ot">-&gt;</span> <span class="dt">Date</span>
-<span class="fu">&gt;</span>   addDays d <span class="dt">Z</span>     <span class="fu">=</span> d
-<span class="fu">&gt;</span>   addDays d (<span class="dt">S</span> k) <span class="fu">=</span> addDays (addOneDay d) k</code></pre></div>
-<p>The grunt of the job is delegated to the <code>addOneDay</code> function which is the most interesting one:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span>   addOneDay <span class="ot">:</span> <span class="dt">Date</span> <span class="ot">-&gt;</span> <span class="dt">Date</span>
-<span class="fu">&gt;</span>   addOneDay (<span class="dt">MkDate</span> year month day) <span class="fu">=</span> </code></pre></div>
-<p>We do a case analysis to using the <code>order</code> function from the <code>Ordered</code> interface that, given a <em>total relation</em> (<code>LTE</code> in our case) and two elements states which one is greater than other, providing a proof packed in an <code>Either</code> union:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span>     <span class="kw">case</span> order {to<span class="fu">=</span><span class="dt">LTE</span>} (<span class="dt">S</span> day) (daysInMonth month year) <span class="kw">of</span></code></pre></div>
-<p>The <code>Left</code> case is easy. Simply increment the number of days by one while keeping everything the same. The <code>dayFitInMonth</code> property is satisfied by the (anonymous) value provided in the <code>Either</code>:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span>       <span class="dt">Left</span> <span class="fu">_</span>  <span class="ot">=&gt;</span> 
-<span class="fu">&gt;</span>         <span class="dt">MkDate</span> year month (<span class="dt">S</span> day)</code></pre></div>
-<p>The <code>Right</code> case (meaning the <code>day</code> is the last day of the month) requires another case analysis on the <code>month</code>:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span>       <span class="dt">Right</span> <span class="fu">_</span> <span class="ot">=&gt;</span> 
-<span class="fu">&gt;</span>             <span class="kw">case</span> month <span class="kw">of</span> </code></pre></div>
-<p>If we are at the end of the year, increment <code>year</code> and set the day to 1st of January:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span>                     <span class="dt">December</span> <span class="ot">=&gt;</span> <span class="dt">MkDate</span> (year <span class="fu">+</span> <span class="dv">1</span>) <span class="dt">January</span> <span class="dv">1</span></code></pre></div>
-<p>Otherwise, move to first day of next <code>month</code>. The <code>firstDayOfMonth</code> variables provides the necessary proof that 1 is indeed within the limits of the allowed number of days for next month. This proof is provided by the <code>monthDuration</code> function and allows us to build the required <code>Date</code> in a typesafe way.</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span>                     <span class="fu">_</span>        <span class="ot">=&gt;</span> <span class="kw">let</span> firstDayOfMonth <span class="fu">=</span> aMonthHasOneDay (nextMonth month) year
-<span class="fu">&gt;</span>                                 <span class="kw">in</span> <span class="dt">MkDate</span> year (nextMonth month) <span class="dv">1</span></code></pre></div>
-<h2 id="discussion">Discussion</h2>
-<p>It took me a while and help from <a href="http://stackoverflow.com/questions/43352519/how-to-properly-handle-fin-n-and-integer-when-computing-dates">Stack Overflow</a> and the <code>#idris</code> channel at <code>irc.freenode.net</code> to figure out how to implement <code>addDays</code>. One dead end was trying to use a <code>Fin n</code> as a representation for days, believing it would already provide some guarantees that would simplify definition of other types and functions. It proved a mistake for at least 2 reasons:</p>
-<ul>
-<li>The <code>Data.Fin</code> module provides a much poorer set of functions and properties than what <code>Nat</code> natively provides. In particular, it is not possible to do arithmetics with <code>Fin n</code> numbers nor compare them directly. This lead my code to be much more convoluted than what it is now, with a lot of to and fro conversions between <code>Nat</code>, <code>Integers</code> and <code>Fin n</code>,</li>
-<li>The representation is actually not congruent with the <em>domain</em> (days within a month): A <code>Fin n</code> is a natural number strictly lower than <span class="math inline"><em>n</em></span> which means it has all numbers from 0 to <span class="math inline"><em>n</em> − 1</span>, so the type of <code>March</code> would be <code>Fin 31</code> and April <code>Fin 30</code> but the days would be numbered from 0 to 30 or 29, which is incorrect.</li>
-</ul>
-<p>Moving to representing days as a <code>Nat</code> with explicit constraints in the constructor’s type for <code>Date</code> made everything simpler.</p>
-<p>I also struggled a lot with making <code>addDays</code> total:</p>
-<ul>
-<li>Initially, I had only one function and did not use induction over number of days. This prevents the compiler from proving termination hence totality of the function as it is not able to infer that recursive calls to the function are made with a value which is <em>smaller</em> than initial call, something which is obvious with explicit pattern matching on the various constructors of the data type,</li>
-<li>I initially wrote the first test comparing the number of days to length of the month first as a simple if/then/else, then using a decidable property returning a <code>Dec (LTE a b)</code> which proved fruitless because we need 2 different proofs (and not a negation) for the 2 different cases, something which is provided by the (totally) <code>Ordered</code> interface. Once I had those 2 paths covered, moving forward was easier.</li>
-</ul>
-<p>The last difficult piece, and something that remains a little bit puzzling to me, was the need for a proof that <code>LTE 1 (monthDuration $ nextMonth month)</code> that arose from the last branch of the cases. Apparently, an explicit proof is needed because Idris does not reduce the expression appearing in types <em>unless</em> the expression is used in a <code>with xxx | lhs = rhs</code> view or is part of the definition of some value<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. This bit me also when defining <code>daysInMonth</code> and <code>aMonthHasOneDay</code>.</p>
-<p>Something that I tried to do but could not manage to complete quickly is defining the <code>LeapYear year</code> type to expose the leapyearness as a proposition that could then be carried around in types and would remove the need for explicit if/then/else. As a general rule of thumb and a piece of advice that was given to me on SO, it is a good idea to use functions and types that provide richer information than <code>Bool</code> or <code>Maybe a</code>: You usually want and need a proof that some property holds or does not hold to build richer and more accurate types.</p>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>Note we are defining a simple version of dates within the Gregorian calendar. For a lot of ugly and painful details on how to properly handle dates, one can have a look at this <a href="https://forge.ocamlcore.org/scm/viewvc.php/trunk/calendarFAQ-2.6.txt?view%3Dmarkup&amp;root%3Dcalendar">Ocaml library FAQ</a><a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Idris is strict by default: Arguments to functions are evaluated before the right-hand side and I assume this also applies to <code>let x = y in z</code> blocks which are traditionally translated to <code>(\ x -&gt; z) y</code>.<a href="#fnref2">↩</a></p></li>
-</ol>
-</div>
 
 
 <div id="disqus_thread"></div>
