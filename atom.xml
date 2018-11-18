@@ -8,18 +8,131 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>20167-11-13T00:00:00Z</updated>
+    <updated>2018-11-17T00:00:00Z</updated>
     <entry>
+    <title>CodeMesh 2018</title>
+    <link href="http://abailly.github.io/posts/codemesh-2018.html" />
+    <id>http://abailly.github.io/posts/codemesh-2018.html</id>
+    <published>2018-11-17T00:00:00Z</published>
+    <updated>2018-11-17T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>CodeMesh 2018</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on November 17, 2018</div>
+
+<p>Once again I have been lucky enough to attend this year’s <a href="https://codesync.global/conferences/code-mesh-2018/">codemesh</a> conference, but this time I was not only attending but also presenting with my friend <a href="https://twitter.com/abolibibelot">Yann Schwartz</a>, speaking of something we have been working on for a few months and thinking of for a few years: How to leverage the power of those billions of lines of logs our systems generate?</p>
+<p>I only attended the first day of the conference so the following notes reflect only a fraction of the conference. Rumors have it that the second day was much better than the first, unfortunately.</p>
+<ul>
+<li>The first keynote was given by Carl Hewitt, of <a href="http://www.erights.org/history/actors.html">Actors</a> fame, and titled <em>Ultraconcurrency for the future</em>. This was some kind of research program or vision statement about the future of computing systems and different technologies and paradigms, from actors to <em>citadels</em> through <em>inference and planning systems</em> would led to <em>Scalable Intelligent Applications</em>. I must admit the talk was hard to follow…</li>
+<li><a href="https://codesync.global/speaker/carlos-baquero-moreno/">Carlos Baquero Moreno</a> then talked about <a href="https://hal.inria.fr/inria-00555588">Convergent/Commutative/Conflict-free Replicated Data Types</a> of which he is one of the original creator. His talk was an introduction to CRDTs and it succeeded in giving a good intuition of some of the basic data structures you could build and the principles underlying both state and operation based CRDTs. Of special note was his use of a beautiful <em>isochronous map</em> drawn by Galton in the XIXth century coloring various parts of the planet according to the time it takes to reach them from then the Center of the World, London.</li>
+<li>I was both excited and intrigued by the next talk, entitled <em>Verifying a distributed system with combinatorial topology</em>, so I was sorely disappointed when I realised it was a 40 minutes long rant about how inane current development practice of distributed systems are, and how mathematics, and more precisely combinatorial topology, could help solve our problems, without any single fact or even vaguely enlightening example to support this claim. Given that Maurice Herlihy recently published a <a href="https://www.amazon.com/Distributed-Computing-Through-Combinatorial-Topology/dp/0124045782">book</a> on this subject, I am 100% sure this is an interesting topic from which us practitioners could get deep insights, but this presentation failed to convey any useful intuition.</li>
+<li><em>Coroutine explained</em> was a great overview of this sometimes confusing construct which can appear in various guises: Cooperative threads, asynchronous computations, first-class continuations. Coroutines are useful to simplify cooperative multitasking code, alleviating the pain of callback hell or even chain of promises, and removing context-switching overhead. It was interesting to see how async/await computations, and in general coroutines, are “compiled” to state-machines. I learnt about the difference between <em>stackful</em> and <em>stackless</em> coroutines, Lua being a representative of the former while JS implements the latter. The presentor highlighted some caveats when working with coroutines, liek painful stack traces, convoluted debugging and hard to maintain thread safety when using both coroutines and multithreading.</li>
+<li>The last talk I attended was given by <a href="https://heather.miller.am/">Heather Miller</a> and aimed at providing a 10000 feet view of the state of research in distributed systems support from programming language theory. This talk was really awesome and treaded quite a lot of ground, from different consistency guarantees on data structures, to Heather Miller’s own Function Passing, through Session Types. <a href="https://heather.miller.am/blog/towards-language-support-for-distributed-systems-references.html">This URL</a> is supposed to host a collection of references to the various work cited: Can’t wait to see it filled.</li>
+</ul>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
+    <title>LambdaConf 2018</title>
+    <link href="http://abailly.github.io/posts/rock-solid-haskell-services.html" />
+    <id>http://abailly.github.io/posts/rock-solid-haskell-services.html</id>
+    <published>2018-06-05T00:00:00Z</published>
+    <updated>2018-06-05T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>LambdaConf 2018</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on June  5, 2018</div>
+
+<h1 id="rock-solid-haskell-services">Rock-Solid Haskell Services</h1>
+<ul>
+<li>The workshop is presented by Roman Gonzales who is working for FP Complete and it leverages the company’s experience building highly-reliable services in Haskell</li>
+<li>The overall architecture of the system is based on Matt Parson’s <a href="http://www.parsonsmatt.org/2018/03/22/three_layer_haskell_cake.html">Three Layer Haskell Cake</a>, which is very reminiscent of Alistair Cockburn’s Hexagonal Architecture and DDD</li>
+<li>It boils down to enforcing a strict separation between <em>resources</em>, <em>business services</em> and <em>core domain logic</em></li>
+<li>To those 3 layers, Roman, drawing from his experience as a Clojure developer, adds a <em>Zero Layer</em> which is responsible for managing the lifecycle of <em>components</em> in such a way that they can be disposed of and <em>restarted</em> at will. This gives the developer the ability to interact with the “complete” system directly in the REPL and be able to reload any part of it at will</li>
+<li>The <a href="http://hackage.haskell.org/package/componentm">componentm</a> library provides the needed tools for this, and the ability to report failures at startup/teardown time, as well as some timings on how much time each component took to startup and teardown. Note that I am slightly annoyed that all logging done happens to be text-based which to me seems like an anti-pattern: Logging issued at the application level should be structured and only ever converted to human-readable format when it is needed</li>
+<li>Of course the greatest benefit of this approach is the shortening of the feedback loop it provides</li>
+<li>Roman spends quite a long time presenting another tool he wrote to manage configuration, <a href="https://hackage.haskell.org/package/etc">etc</a>.</li>
+<li><code>etc</code> allows one to define a lot of different sources of configuration like files, env variables, command-line flags, and merge them in a single JSON tree that can then be used by the application</li>
+<li>I must say I am not a big fan of those big Yaml configurtion files although I must confess I sometimes indulge in them</li>
+<li>Following a discussion with my colleague <a href="https://twitter.com/cvogt">Chris Vogt</a>, I more and more like the idea of limiting configuration to the bare minimum, e.g. to 0</li>
+<li>Having non configurable executables that are produced and packaged for specific environment, which means moving the configuration up the stack, say at compile time</li>
+<li>when we need to change some dependency, we recompile a process and redeploy it</li>
+<li>this implies a solid deployment strategy and thec capability to rollback on errors</li>
+<li>need to couple that with supervision trees in order to manage errors in an orderly manner</li>
+<li>the presenter then introduces <a href="https://github.com/roman/Haskell-capataz">capataz</a> which is a Haskell implementation of <em>supervision</em> trees</li>
+<li>supervision trees provide the ability to automatically restart components or components trees when an error happens</li>
+<li>the workshop proceeds to deployment and production concerns, with <a href="https://pragprog.com/book/mnee2/release-it-second-edition">Release It!</a> as a reference pooint, and some definitions on various issues that can happen to a system:</li>
+<li><em>impulses</em> are rapid shocks to the system</li>
+<li><em>strain</em> is stress over time, which might be caused by dependency on another system that starts operating at half-capacity
+<ul>
+<li>signs are unresponsive app, spikes on system-level metrics, excess I/O</li>
+</ul></li>
+<li>strain produce <em>Cracks</em> that can lead <em>cascading failures</em></li>
+<li><em>faults</em> =&gt; <em>errors</em> =&gt; <em>failures</em></li>
+<li>source of strains:</li>
+<li>lack of timeouts on outbound requests</li>
+<li>resource pools drained because of failures at lower level</li>
+<li>system resource exhaustion (files, ports, RAM…)</li>
+<li>not limiting size of resources (bounded queues)</li>
+<li>limiting size of query results</li>
+<li>timeouts are very rarely transient which means retries should be delayed</li>
+<li><em>circuit breakers</em> allow keeping track of the state of a 3rd party system</li>
+<li>when num of failures pass some threshold -&gt; make all subsequent requests fail or return default value, marking the circuit open</li>
+<li>after some time -&gt; try again (canary requests) and close the circuit again if it succeeds (e.g. 3rd party system goes back to normal state)</li>
+<li>use timeouts on every use of allocated resource</li>
+<li>the last stage of the workshop goes to deploying all the services that have bben built. The presenter introduces (localstack)[https://localstack.cloud/] a tool to simulate part of AWS stack locally.</li>
+</ul>
+<h1 id="from-zero-to-live-with-functional-javascript">From Zero to Live with Functional Javascript</h1>
+<p>This 2 hours workshop was given by Ian Thomas, CTO of SkyBet. It was a fast-paced overview on how to build modern javascript applications based on FP principles. The workshop is based on his <a href="https://github.com/anatomic/zero-to-live-fp-js-workshop">git repo</a> and builds a complete 12 factor app from the ground up. It contains lot of materials and the session was way too short to get more than a glimpse of it, but it’s definitely interesting material when one wants to build JS-based microservices.</p>
+<p>Ian Thomas also gave a keynote on how FP helps break the <em>fear cycle</em> which prevents large code bases from changing.</p>
+<h1 id="seeking-refuge-from-unsafe-javascript">Seeking Refuge from Unsafe JavaScript</h1>
+<p>Another workshop dedicated to Functional Javascript, presented by David Chambers. It goes through the various pure FP constructs provided by <a href="">sanctuary</a>, a library which basically provides Haskell on top of JS. Sanctuary provides algebraic data types and all the classical functions we have come to love from Haskell, and more.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>CodeMesh 2017 - Takeaways</title>
     <link href="http://abailly.github.io/posts/codemesh-2017.html" />
     <id>http://abailly.github.io/posts/codemesh-2017.html</id>
-    <published>20167-11-13T00:00:00Z</published>
-    <updated>20167-11-13T00:00:00Z</updated>
+    <published>2017-11-13T00:00:00Z</published>
+    <updated>2017-11-13T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1>CodeMesh 2017 - Takeaways</h1>
 
   <h2 class="subtitle"></h2>
 
-<div class="info">Posted on November 13, 20167</div>
+<div class="info">Posted on November 13, 2017</div>
 
 <p>here are some key takeaways from this year’s <a href="http://www.codemesh.io/codemesh2017">codemesh</a> conference. i must say i never had such an intense conference, with lot of fascinating and mind-blowing sessions which bred lots of new or old ideas in my mind. thanks a lot to the organisers and the amazing speakers which made this event memorable.</p>
 <ul>
@@ -580,225 +693,6 @@ checkPassword u p <span class="fu">=</span> <span class="fu">...</span>
 </dd>
 <dt><a href="http://simoneetlesphilosophes.fr/imaginer-linversion/">Exercice n°1: renverser pour mieux voir - Simone et les philosophes</a><a id="sec-6-3" name="sec-6-3"></a></dt>
 <dd><p>Exercer son esprit critique en commencant par le plus évident et le plus méconnu : les inégalités homme-femme.</p>
-</dd>
-</dl>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Weekly Review - Week 17</title>
-    <link href="http://abailly.github.io/posts/weekly-review-17.html" />
-    <id>http://abailly.github.io/posts/weekly-review-17.html</id>
-    <published>2017-05-01T00:00:00Z</published>
-    <updated>2017-05-01T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Weekly Review - Week 17</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on May  1, 2017</div>
-
-<p>This post is a summary of links related to coding and software I followed and read (sometimes, skimmed over) in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
-<h1 id="monday">2017-04-24 Monday</h1>
-<dl>
-<dt><a href="https://gianarb.it/blog/linuxkit-operating-system-build-for-containers">LinuxKit operating system built for container</a></dt>
-<dd><p>A new and experimental tool from the Docker team to build OSes using containers (or container images ?) that you can deploy to different targets. Seems to be a contender in the <a href="https://www.packer.io/">Packer</a> or <a href="https://www.vagrantup.com">Vagrant</a> space…</p>
-</dd>
-<dt><a href="http://conal.net/papers/compiling-to-categories/compiling-to-categories.pdf">Compiling to categories (extended version) - compiling-to-categories.pdf</a></dt>
-<dd><p>A paper about using categorical language (or more precisely <a href="https://en.wikipedia.org/wiki/Cartesian_closed_category">Cartesian Closed Categories</a>) as a common <em>assembly</em> for expressions and programs that can be fed to specific interpreters. I did not read it in full but this reminds me of work from the 80s and 90s on Caml compiler and the <a href="https://en.wikipedia.org/wiki/Categorical_abstract_machine">Categorical Abstract Machine</a>. Looks definitely exciting!</p>
-</dd>
-<dt><a href="https://github.com/jwiegley/z3cat">jwiegley/z3cat: Use Conal Elliott’s concat library to compile regular Haskell functions into Z3 equations</a></dt>
-<dd><p>Everything’s in the title, I guess.</p>
-</dd>
-<dt><a href="https://liveingreatness.com/summoning-genius/">Summoning Genius | Live In Greatness - core protocols for shared vision</a></dt>
-<dd><p>Core protocols have always fascinated me since I have been introduced to them by Christophe Thibaut. This text is part of the same site and is an appeal to live up to one’s own dreams and “live in greatness”.</p>
-</dd>
-<dt><a href="https://appareil.revues.org/580#tocto1n4">Évolution technique et objectivité technique chez Leroi-Gourhan et Simondon</a></dt>
-<dd><p>A philosophy article related to the topic of the talk I am preparing fro nCrafts</p>
-</dd>
-<dt><a href="https://geography.arizona.edu/sites/geography.arizona.edu/files/u122/One%2520Sinister%2520Hurricane.pdf">One Sinister Hurricane.pdf</a></dt>
-<dd><p>An ANT-inspired analysis of work done to create visualisation tools for hurricanes’ effects. Provides evidence on the way technical tools shape thinking and interaction.</p>
-</dd>
-<dt><a href="http://intellectica.org/SiteArchives/archives/n26_27/26_09_Stiegler.pdf">Temps et individuations technique, psychique et collective dans l’œuvre de Simondon</a></dt>
-<dd><p>Started to read that one because it mentions Simondon, but I must confess Stiegler’s prose is more often than not opaque to me.</p>
-</dd>
-<dt><a href="http://www.rem.ufpr.br/_REM/REMv4/vol4/arti-palombini.htm">Pierre Schaeffer and Pierre Henry</a></dt>
-<dd><p>Not sure…</p>
-</dd>
-<dt><a href="http://en.bp.ntu.edu.tw/wp-content/uploads/2011/12/06-Alexander-A-city-is-not-a-tree.pdf">A CITY IS NOT A TREE</a></dt>
-<dd><p>A well-known text from Christophe Alexander that rejects the use of the <em>tree</em> model for cities in favor of <em>graphs</em> (he does not use that word and speaks instead of <em>lattices</em>).</p>
-</dd>
-</dl>
-<h1 id="tuesday">2017-04-25 Tuesday</h1>
-<dl>
-<dt><a href="https://zedshaw.com/2017/04/24/copying-repetition/">Copying &amp; Repetition – Zed A. Shaw</a></dt>
-<dd><p>On the importance of repetition and <em>rote learning</em>.</p>
-</dd>
-<dt><a href="https://sites.google.com/site/praxisandtechne/Home/architecture/performativity/poiesis-and-praxis">What is it that we ‘do’, when we perform an action? - Praxis and Poiesis</a></dt>
-<dd><p>On the difference between <em>poeisis</em> (action driven by some goal) and <em>praxis</em> (action which is its own goal)</p>
-</dd>
-<dt><a href="https://terenceblake.wordpress.com/2013/10/29/latours-jamesian-empiricism-2-the-case-of-prepositions/">LATOUR’S “JAMESIAN” EMPIRICISM (2): the case of prepositions</a></dt>
-<dd><p>Interesting criticism on Latour’s (ab)use of William James’ empiricism.</p>
-</dd>
-</dl>
-<h1 id="wednesday">2017-04-26 Wednesday</h1>
-<dl>
-<dt><a href="https://www.theatlantic.com/science/archive/2016/04/the-illusion-of-reality/479559/?utm_source%3Dtwb">The Case Against Reality - The Atlantic</a></dt>
-<dd><p>A “scientific” argument that reality is not what we think it is. I put scientific in double-quotes because obviously, this theory hardly lends itself to falsifiability. Some more links on the same topic:</p>
-<ul>
-<li><a href="https://www.quantamagazine.org/20160421-the-evolutionary-argument-against-reality/">The Evolutionary Argument Against Reality | Quanta Magazine</a></li>
-<li><a href="https://www.quora.com/Is-Donald-Hoffman%25E2%2580%2599s-interface-theory-of-perception-true">Is Donald Hoffman’s interface theory of perception true? - Quora</a></li>
-<li><a href="http://www.michaelshermer.com/2015/11/perception-deception/#more-4721">Michael Shermer Perception Deception » Michael Shermer</a></li>
-<li><a href="http://cogsci.uci.edu/~ddhoff/publications/">Donald D. Hoffman | University of California, Irvine</a>: Contains original scientific articles presenting Hoffman’s theory in greater details</li>
-</ul>
-</dd>
-</dl>
-<h1 id="friday">2017-04-28 Friday<a id="sec-5" name="sec-5"></a></h1>
-<dl>
-<dt><a href="https://ncatlab.org/nlab/show/relation%2Bbetween%2Btype%2Btheory%2Band%2Bcategory%2Btheory">relation between type theory and category theory in nLab</a></dt>
-<dd><p>A site that looks ladden with complex stuff on cats and dependent types.</p>
-</dd>
-</dl>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Weekly Review - Week 16</title>
-    <link href="http://abailly.github.io/posts/weekly-review-16.html" />
-    <id>http://abailly.github.io/posts/weekly-review-16.html</id>
-    <published>2017-04-24T00:00:00Z</published>
-    <updated>2017-04-24T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Weekly Review - Week 16</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on April 24, 2017</div>
-
-<p>This post is a summary of links related to coding and software I followed and read (sometimes, skimmed over) in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
-<h2 id="monday">2017-04-17 Monday</h2>
-<dl>
-<dt><a href="http://svn.clifford.at/handicraft/2017/tttm/README">The Teeny Tiny Mansion</a></dt>
-<dd><p>A formally proved adventure game: There is no dead end in the game, every states has a path that leads to a winning state.</p>
-</dd>
-<dt><a href="http://www.cprover.org/cbmc/">The CBMC Homepage</a></dt>
-<dd><p>The model checker that is used by <code>tttm</code>. What’s interesting is that it works directly on C/C++ source files. Could probably be adapted to work on Java files, if this is not already done…</p>
-</dd>
-<dt><a href="https://groups.google.com/forum/#!topic/idris-lang/DHYUrWZEa8Q">Is there library support for FOL or propositional logic? - Google Groups</a></dt>
-<dd><p>Some discussion on the <code>idris-lang</code> mailing about adding native First-Order Logic support in the language</p>
-</dd>
-</dl>
-<h2 id="tuesday">2017-04-18 Tuesday</h2>
-<dl>
-<dt><a href="http://sociologie.revues.org/1573">Enquête sur les modes d’existence</a></dt>
-<dd><p>(in French) Criticism of Latour’s book and more generally Latour’s philosophy. Interesting counterpoint while I am trying to use Latour’s concepts to better understand software and our relationship with it.</p>
-</dd>
-<dt><a href="http://zilsel.hypotheses.org/2103#comments">Le réalisme kitsch | Zilsel</a></dt>
-<dd><p>(in French) Another criticism, this time of <a href="/posts/weekly-review-15.html">Object-Oriented Ontology</a> and Speculative Realism</p>
-</dd>
-<dt><a href="http://www.codecraftuk.org/events/2015/02/css-tdd-review">CSS TDD - Review</a></dt>
-<dd><p>Is it possible, and useful, to write CSS in TDD mode, with automated tests? Not sure this post provides a positive answer…</p>
-</dd>
-</dl>
-<h2 id="wednesday">2017-04-19 Wednesday</h2>
-<dl>
-<dt><a href="http://blog.ploeh.dk/2016/02/10/types-properties-software-designing-with-types/">Types + Properties = Software: designing with types</a></dt>
-<dd><p>Relinking to a classical series of post on Type-Driven Development in F#.</p>
-</dd>
-<dt><a href="http://www.lean.enst.fr/wiki/pub/Lean/LesPublications/LeanDevBalleBalle.pdf">LeanDevBalleBalle.pdf</a></dt>
-<dd><p>Short description of <em>Lean Development</em> as a complement to <em>Lean Manufacturing</em>, by one of the foremost French expert on Lean</p>
-</dd>
-<dt><a href="http://spacemacs.org/layers/%2Bemacs/org/README.html#tree">Org layer</a></dt>
-<dd><p>How to use org-mode in Spacemacs. As I do a lot of pairing in Spacemacs those days, I need to beef up my skills with this environment and retarget my muscles memory to new keystrokes sequences…</p>
-</dd>
-<dt><a href="https://github.com/abailly/yak-o-matic">abailly/yak-o-matic: visualize your yaks</a></dt>
-<dd><p>Thinking of reviving this old project, written with Willem van den Ende at Agile Open France 2013, whose purpose was visualising a dependency graph of tasks given an org-mode file.</p>
-</dd>
-</dl>
-<h2 id="thursday">2017-04-20 Thursday</h2>
-<dl>
-<dt><a href="http://newartisans.com/2017/04/haskell-and-z3/">Lost in Technopolis</a></dt>
-<dd><p>Some fascinating note on the use of <a href="https://github.com/conal/concat">category theory</a> as an abstract <em>assembly language</em> to generate equations that are fed to <a href="https://github.com/Z3Prover/z3">Z3</a> theorem prover.</p>
-</dd>
-<dt><a href="http://stackoverflow.com/questions/2979174/how-do-i-compute-the-approximate-entropy-of-a-bit-string">encryption - How do I compute the approximate entropy of a bit string? - Stack Overflow</a></dt>
-<dd><p>I have been working at the end of the week on a small coding challenge: Write a script that emulates the behavior of <code>cat /dev/random</code>, e.g. that generates an infinite stream of as-random-an-possible bytes. My first thought was : How do I test the randomness of a stream of bytes, and this started some research on the web on how to compute entropy of a string</p>
-</dd>
-<dt><a href="https://en.wikipedia.org/wiki/Salsa20">Salsa20</a></dt>
-<dd><p>I chose to use this <em>stream cipher</em> algorithm to generate my stream of random bytes, encryting a stream of bytes coming from a network card put in promiscuous mode. It is reasonably straightforward to understand and implement and generates good “randomness”</p>
-</dd>
-<dt><a href="https://people.csail.mit.edu/rivest/pubs/RS14.pdf">RS14.pdf</a></dt>
-<dd><p>An article from Ron Rivest describing Spritz, an alternative to RC4.</p>
-</dd>
-</dl>
-<h2 id="friday">2017-04-21 Friday</h2>
-<dl>
-<dt><a href="https://calomel.org/entropy_random_number_generators.html">Entropy and Random Number Generators @ Calomel.org</a></dt>
-<dd><p>Helpful post on how to compute “entropy” for random generators. Link to the <a href="http://www.fourmilab.ch/random/random.zip">Ent</a> tool</p>
-</dd>
-<dt><a href="http://www.haskellforall.com/2015/01/use-haskell-for-shell-scripting.html">Haskell for all: Use Haskell for shell scripting</a></dt>
-<dd><p>I of course chose to write my random generation script in Haskell, trying to use as few dependencies as possible: I managed to get it working using only what’s provided by GHC 8.0.2 distribution. Here is an alternative and more expressive way of writing scripts in Haskell.</p>
-</dd>
-</dl>
-<h2 id="saturday">2017-04-22 Saturday</h2>
-<dl>
-<dt><a href="https://cr.yp.to/snuffle/salsa20/ref/salsa20.c">Salsa Reference Implemention</a></dt>
-<dd><p>Reference implementation of Salsa algorithm in plain old C. <a href="https://cr.yp.to/snuffle/salsafamily-20071225.pdf">salsafamily-20071225.pdf</a> provides more details and rationale on this family of algorithms. This lead me to more stuff on PRNGs and how to gather entropy from the system:</p>
-</dd>
-</dl>
-<ul>
-<li><a href="http://www.pcg-random.org/">PCG, A Family of Better Random Number Generators | PCG, A Better Random Number Generator</a></li>
-<li><a href="http://dtrace.org/blogs/brendan/2011/10/10/top-10-dtrace-scripts-for-mac-os-x/">Brendan’s blog » Top 10 DTrace scripts for Mac OS X</a></li>
-<li><a href="https://www.cyberciti.biz/open-source/debian-ubuntu-centos-linux-setup-additional-entropy-for-server-using-aveged-rng-tools-utils/">How to speed up OpenSSL/GnuPG Entropy For Random Number Generation On Linux – nixCraft</a></li>
-</ul>
-<dl>
-<dt><a href="https://aws.amazon.com/fr/blogs/aws/announcing-the-aws-chatbot-challenge-create-conversational-intelligent-chatbots-using-amazon-lex-and-aws-lambda/">Announcing the AWS Chatbot Challenge – Create Conversational, Intelligent Chatbots using Amazon Lex and AWS Lambda | AWS Blog</a></dt>
-<dd><p>Something definitely fun I would love to work on!</p>
-</dd>
-</dl>
-<h2 id="sunday">2017-04-23 Sunday</h2>
-<dl>
-<dt><a href="https://gist.github.com/abailly/9c2b23cca63e66a71093b05462a1e17d">A haskell implementation of a pseudo-random number generator using Salsa20 algorithm</a></dt>
-<dd><p>Final implementation of my pseudo-random bytes generator in Haskell</p>
-</dd>
-<dt><a href="http://www.bearcave.com/misl/misl_tech/wavelets/compression/shannon.html">Shannon Entropy</a></dt>
-<dd><p>I started to use compression ratio as a proxy for entropy of a finite stream of bytes but replaced it with direct measurement of Shannon’s entropy, using the standard formula to compute the number of bits needed to represent all elements of a finite stream <span class="math inline"><em>X</em></span> with probability of occurence for each letter of <span class="math inline"><em>p</em><sub><em>i</em></sub></span>.</p>
-</dd>
-<dt><a href="https://alastairreid.github.io/alastairreid.github.io/ARM-v8a-xml-release/">ARM Releases Machine Readable Architecture Specification – Alastair Reid – Researcher at ARM Ltd</a></dt>
-<dd><p>Another fascinating post on the use of formal specifications, this time in the realm of hardware architecture.</p>
-</dd>
-<dt><a href="https://www.linkedin.com/pulse/forget-project-planning-just-doesnt-work-alex-katsanos?trk%3Dv-feed&amp;trk%3Dv-feed&amp;lipi%3Durn%253Ali%253Apage%253Ad_flagship3_feed%253Bh8fPT2gGIAweLWHuUJcjxQ%253D%253D">Forget about project planning; it just doesn’t work | Alex Katsanos | Pulse | LinkedIn</a></dt>
-<dd><p>Looks like waterfall does not very well in “traditional” engineering either…</p>
-</dd>
-<dt><a href="https://scholar.princeton.edu/sites/default/files/mgilens/files/gilens_and_page_2014_-testing_theories_of_american_politics.doc.pdf">Testing Theories of American Politics</a></dt>
-<dd><p>Can we empirically demonstrate how policies are formed and driven? This article shows the answer is yes by testing actual decisions against theories of whose interest these decisions serve. Would definitely be interested in a similar study for Europe…</p>
 </dd>
 </dl>
 

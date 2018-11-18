@@ -7,9 +7,9 @@
   <meta name="author" content="Arnaud Bailly - @dr_c0d3" />
 
 
-  <meta name="dcterms.date" content="April 12, 2018" />
+  <meta name="dcterms.date" content="May 11, 2017" />
 
-  <title>Le XXIème sera typé ou ne sera pas</title>
+  <title>The XXIst Century Shall Be Typed</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -80,45 +80,45 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <section>
-    <h1 class="title">Le XXIème sera typé ou ne sera pas</h1>
+    <h1 class="title">The XXIst Century Shall Be Typed</h1>
 
-  <h2 class="subtitle">ou Comment j&#39;ai appris à aimer les types</h2>
+  <h2 class="subtitle">or How I learnt to Love Types and Not Bother</h2>
 
 
     <h3 class="author">Arnaud Bailly - @dr_c0d3</h3>
 
 
-    <h3 class="date">April 12, 2018</h3>
+    <h3 class="date">May 11, 2017</h3>
 </section>
 
 
 
-<section><section id="plan" class="titleslide slide level1"><h1>Plan</h1></section><section class="slide level2">
+<section><section id="agenda" class="titleslide slide level1"><h1>Agenda</h1></section><section class="slide level2">
 
 <ul>
 <li class="fragment">Introduction</li>
-<li class="fragment">Voyage au pays des types</li>
-<li class="fragment">Travaux pratiques</li>
+<li class="fragment">Journey to Country of Types</li>
+<li class="fragment">Practice</li>
 <li class="fragment">Conclusion</li>
 </ul>
 </section></section>
-<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="motivation" class="slide level2">
-<h1>Motivation</h1>
+<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="why" class="slide level2">
+<h1>Why?</h1>
 <ul>
-<li class="fragment">Discussions sur le canal <code>#beginners</code> dans le slack <code>elm-lang</code>: Beaucoup du questions sur le type de <code>List a</code>…</li>
-<li class="fragment"><p><a href="http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html">Robert “Uncle Bob” Martin</a> sur la couverture des tests et les types:</p>
+<li class="fragment">I noticed there were a lot of questions on the type <code>List a</code> on the <code>#beginners</code> channel in <code>elm-lang</code>’s Slack</li>
+<li class="fragment"><p><a href="http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html">Robert “Uncle Bob” Martin</a> on test coverage and types:</p>
 <blockquote>
 <p>You don’t need static type checking if you have 100% unit test coverage.</p>
 </blockquote></li>
 <li class="fragment"><a href="https://www.youtube.com/watch?v=IcgmSRJHu_8">Making Impossible States Impossible</a></li>
-<li class="fragment"><p>Lien entre types et formalisation de <em>domaines métiers</em></p></li>
+<li class="fragment"><p>Makign <em>Business Domains</em> more formal and executable</p></li>
 </ul>
 </section><section id="objectif" class="slide level2">
 <h1>Objectif</h1>
 <ul>
 <li class="fragment">Faire découvrir la richesse des systèmes de types des langages fonctionnels</li>
 <li class="fragment">Donner envie d’aller y voir de plus près</li>
-<li class="fragment">Comprendre comment utiliser ces systèmes pour des programmes “normaux”</li>
+<li class="fragment">Mieux comprendre et mieux articuler cette compréhension</li>
 </ul>
 </section></section>
 <section><section id="voyage-au-pays-des-types" class="titleslide slide level1"><h1>Voyage au pays des types</h1></section><section class="slide level2">
@@ -167,7 +167,7 @@ view <span class="fu">:</span> <span class="dt">Model</span> <span class="ot">-&
     <span class="fu">|</span> <span class="dt">NoOp</span></code></pre></div>
 </section><section id="types-de-données-algébriques-récursifs" class="slide level2">
 <h1>Types de données algébriques récursifs</h1>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Nat</span> <span class="fu">=</span> <span class="dt">S</span> <span class="dt">Nat</span> <span class="fu">|</span> <span class="dt">Z</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"></code></pre></div>
 </section></section>
 <section><section id="haskell" class="titleslide slide level1"><h1>Haskell</h1></section><section id="classes-de-types" class="slide level2">
 <h1>Classes de types</h1>
@@ -184,6 +184,8 @@ view <span class="fu">:</span> <span class="dt">Model</span> <span class="ot">-&
 </section><section id="classes-de-types-2" class="slide level2">
 <h1>Classes de types</h1>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> (<span class="dt">Eq</span> (<span class="dt">Answer</span> q)) <span class="ot">=&gt;</span> <span class="dt">Questionable</span> q <span class="kw">where</span>
+  <span class="kw">type</span> <span class="dt">Answer</span><span class="ot"> q ::</span> <span class="fu">*</span>
+
 <span class="ot">  question ::</span> q <span class="ot">-&gt;</span> <span class="dt">Text</span>
 <span class="ot">  expected ::</span> q <span class="ot">-&gt;</span> <span class="dt">Answer</span> q
 <span class="ot">  response ::</span> q <span class="ot">-&gt;</span> <span class="dt">Maybe</span> (<span class="dt">Answer</span> q)
@@ -205,11 +207,11 @@ view <span class="fu">:</span> <span class="dt">Model</span> <span class="ot">-&
 </ul>
 </section><section class="slide level2">
 
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">
-<span class="kw">type</span> family <span class="dt">Answer</span> q <span class="fu">=</span> a <span class="fu">|</span> a <span class="ot">-&gt;</span> q <span class="kw">where</span>
-  <span class="dt">Answer</span> <span class="dt">QCM</span>          <span class="fu">=</span> <span class="dt">Int</span>
-  <span class="dt">Answer</span> <span class="dt">Grade</span>        <span class="fu">=</span> <span class="dt">Double</span>
-  <span class="dt">Answer</span> <span class="dt">OpenQuestion</span> <span class="fu">=</span> <span class="dt">Text</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Answer</span><span class="ot"> q ::</span> <span class="fu">*</span>
+
+<span class="kw">type</span> <span class="dt">Answer</span> <span class="dt">QCM</span> <span class="fu">=</span> <span class="dt">Int</span>
+<span class="kw">type</span> <span class="dt">Answer</span> <span class="dt">Grade</span> <span class="fu">=</span> <span class="dt">Int</span>
+<span class="kw">type</span> <span class="dt">Answer</span> <span class="dt">OpenQuestion</span> <span class="fu">=</span> <span class="dt">Text</span></code></pre></div>
 </section><section id="types-existentiels" class="slide level2">
 <h1>Types existentiels</h1>
 <figure>
@@ -251,17 +253,19 @@ view <span class="fu">:</span> <span class="dt">Model</span> <span class="ot">-&
   <span class="dt">Quit</span>           <span class="ot">:</span> <span class="dt">Command</span> ()</code></pre></div>
 </section><section id="hole-driven-development" class="slide level2">
 <h1>Hole-Driven Development</h1>
+</section><section id="hole-driven-development-1" class="slide level2">
+<h1>Hole-Driven Development</h1>
 <figure>
 <img src="/images/duchamp-pissotière.jpg" />
 </figure>
-</section><section id="hole-driven-development-1" class="slide level2">
+</section><section id="hole-driven-development-2" class="slide level2">
 <h1>Hole-Driven Development</h1>
 <ul>
 <li class="fragment">Utiliser l’inférence de type pour compléter le code par la structure attendue par le compilateur</li>
 <li class="fragment">Permet de s’assurer dés le départ qu’une fonction est totale</li>
 <li class="fragment">Permet à l’éditeur de compléter automatiquement le code</li>
 </ul>
-</section><section id="hole-driven-development-2" class="slide level2">
+</section><section id="hole-driven-development-3" class="slide level2">
 <h1>Hole-Driven Development</h1>
 <div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">runQuizz</span> <span class="ot">:</span> <span class="dt">Quizz</span> n <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
 runQuizz quizz<span class="fu">@</span>(<span class="dt">MkQuizz</span> answered current next) <span class="fu">=</span> <span class="kw">do</span>
@@ -280,8 +284,7 @@ runQuizz quizz<span class="fu">@</span>(<span class="dt">MkQuizz</span> answered
 <h1>Types dépendants</h1>
 <ul>
 <li class="fragment">Faire tomber la barrière entre les <em>types</em> et les <em>valeurs</em></li>
-<li class="fragment">Un type peut être définit par une fonction <em>dépendant</em> de la valeur d’un paramètre</li>
-<li class="fragment">Introduit une hiérarchie potentiellement infinie de types (quel est le type de <code>Type</code> ?)</li>
+<li class="fragment">Un type peut être définit par une fonction <em>dépendant</em> de la valeur d’un paramètre &lt;* Introduit une hiérarchie potentiellement infinie de types (quel est le type de <code>Type</code> ?)</li>
 <li class="fragment">Le <em>vérificateur de types</em> utilise la même sémantique que le <em>runtime</em></li>
 </ul>
 </section><section id="types-dépendants-2" class="slide level2">
