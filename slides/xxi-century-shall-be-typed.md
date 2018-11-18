@@ -1,11 +1,11 @@
 ------------
 title: Le XXIème sera typé ou ne sera pas
-subtitle: Comment j'ai appris à aimer les types
+subtitle: ou Comment j'ai appris à aimer les types
 author: Arnaud Bailly - @dr_c0d3
-date: 2017-05-11
+date: 2018-04-12
 theme: serif-compact
 transition: none
------------- 
+------------
 
 # Plan #
 
@@ -24,7 +24,7 @@ transition: none
 * [Robert "Uncle Bob" Martin ](http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html) sur la couverture des tests et les types:
 
     > You don’t need static type checking if you have 100% unit test coverage.
-    
+
 * [Making Impossible States Impossible](https://www.youtube.com/watch?v=IcgmSRJHu_8)
 * Lien entre types et formalisation de *domaines métiers*
 
@@ -32,7 +32,7 @@ transition: none
 
 * Faire découvrir la richesse des systèmes de types des langages fonctionnels
 * Donner envie d'aller y voir de plus près
-* Mieux comprendre et mieux articuler cette compréhension
+* Comprendre comment utiliser ces systèmes pour des programmes "normaux"
 
 # Voyage au pays des types
 
@@ -40,7 +40,7 @@ transition: none
 
 <iframe width="800" height="450" src="https://www.youtube.com/embed/y2R3FvS4xr4" frameborder="0" allowfullscreen></iframe>
 
-# Elm 
+# Elm
 
 ## Fonctions pures
 
@@ -83,11 +83,17 @@ type Msg
     | NoOp
 ```
 
+## Types de données algébriques récursifs
+
+```haskell
+data Nat = S Nat | Z
+```
+
 # Haskell
 
 ## Classes de types
 
-![](/images/pollock-untitled.jpg) 
+![](/images/pollock-untitled.jpg)
 
 ## Classes de types
 
@@ -99,13 +105,11 @@ type Msg
 
 ```haskell
 class (Eq (Answer q)) => Questionable q where
-  type Answer q :: *
-
   question :: q -> Text
   expected :: q -> Answer q
   response :: q -> Maybe (Answer q)
   answered :: q -> Maybe (Answer q) -> q
-  
+
   isCorrectAnswer :: q -> Bool
   isCorrectAnswer q = Just (expected q) == response q
 ```
@@ -121,14 +125,14 @@ class (Eq (Answer q)) => Questionable q where
 * Rend le domaine d'une fonction dépendant du codomaine
 * Peut être *ouvert* (relation extensible) ou *fermé* (le codomaine est fini)
 
------ 
+-----
 
 ```haskell
-type Answer q :: *
 
-type Answer QCM = Int
-type Answer Grade = Int
-type Answer OpenQuestion = Text
+type family Answer q = a | a -> q where
+  Answer QCM          = Int
+  Answer Grade        = Double
+  Answer OpenQuestion = Text
 ```
 
 ## Types existentiels
@@ -145,8 +149,8 @@ type Answer OpenQuestion = Text
 
 ```haskell
 data Question where
-  Question :: (Questionable q) 
-           => q 
+  Question :: (Questionable q)
+           => q
            -> (Text -> Maybe (Answer q))
            -> Question
 ```
@@ -155,7 +159,7 @@ data Question where
 
 ## Types abstraits de données généralisés
 
-![](/images/kandinsky-comp-8.jpg) 
+![](/images/kandinsky-comp-8.jpg)
 
 ## Types abstraits de données généralisés
 
@@ -166,14 +170,12 @@ data Question where
 ## Types abstraits de données généralisés
 
 ```idris
-data Command : Type -> Type where   
+data Command : Type -> Type where
   Prompt         : Question -> Command Input
   AnswerQuestion : String -> Command Bool
   Back           : Command ()
   Quit           : Command ()
 ```
-
-## Hole-Driven Development
 
 ## Hole-Driven Development
 
@@ -191,32 +193,32 @@ data Command : Type -> Type where
 runQuizz : Quizz n -> IO ()
 runQuizz quizz@(MkQuizz answered current next) = do
   (input, quizz') <- runCommand quizz (Prompt current)
-  case input of 
+  case input of
      GoBack         => ?hole_1
      QuitGame       => ?hole_2
      (GiveAnswer x) => ?hole_3
      Garbage        => ?hole_4
 ```
 
-## Types dépendants 
+## Types dépendants
 
 ![](/images/calle-sleepers.jpg)
 
-## Types dépendants 
+## Types dépendants
 
 * Faire tomber la barrière entre les *types* et les *valeurs*
 * Un type peut être définit par une fonction *dépendant*  de la valeur d'un paramètre
-<* Introduit une hiérarchie potentiellement infinie de types (quel est le type de `Type` ?)
+* Introduit une hiérarchie potentiellement infinie de types (quel est le type de `Type` ?)
 * Le *vérificateur de types* utilise la même sémantique que le *runtime*
 
-## Types dépendants 
+## Types dépendants
 
 
 ```idris
 data Quizz : (numQuestions : Nat) -> Type where
   MkQuizz :  (answered : Vect n Answered) ->
-             (current  : Question) -> 
-             (next : Vect m Question) -> 
+             (current  : Question) ->
+             (next : Vect m Question) ->
              Quizz (n + m)
 ```
 
@@ -234,7 +236,7 @@ data Quizz : (numQuestions : Nat) -> Type where
 ## Paires dépendantes
 
 ```idris
-data Answered : Type where 
+data Answered : Type where
   MkAnswered : (question ** Answer question) -> Answered
 ```
 
@@ -251,7 +253,7 @@ data Answered : Type where
 ## Type égalité
 
 ```idris
-plusOneCommutes :  (n : Nat) 
+plusOneCommutes :  (n : Nat)
                 -> (m : Nat)
                 -> (n + S m = S n + m)
 ```
@@ -268,7 +270,7 @@ plusOneCommutes :  (n : Nat)
 
 # Travaux Pratiques
 
----- 
+----
 
 ![](/images/braque-gueridon.jpg)
 
@@ -282,7 +284,7 @@ plusOneCommutes :  (n : Nat)
 
 # Colophon
 
-## (Quelques) Références 
+## (Quelques) Références
 
 * [Types and Programming Languages](https://www.cis.upenn.edu/~bcpierce/tapl/), B.Pierce
 * Advanced Types and Programming Languages, B.Pierce
@@ -290,7 +292,7 @@ plusOneCommutes :  (n : Nat)
 * [Understanding types](http://lucacardelli.name/Papers/OnUnderstanding.A4.pdf) par Luca Cardelli, dans un contexte OO avec sous-typage
 * [Familles de types en Haskell](https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/type-families-and-pokemon)
 
-## (Quelques) Références 
+## (Quelques) Références
 
 * [Fun with Type Functions](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/typefun.pdf?from=http%3A%2F%2Fresearch.microsoft.com%2F%7Esimonpj%2Fpapers%2Fassoc-types%2Ffun-with-type-funs%2Ftypefun.pdf)
 * [Types + Properties = Software - Mark Seemann on Vimeo](https://vimeo.com/162036084)
@@ -298,7 +300,7 @@ plusOneCommutes :  (n : Nat)
 * [Type Theory and Functional Programming](https://www.cs.kent.ac.uk/people/staff/sjt/TTFP/ttfp.pdf)
 * [Brutal {Meta}Introduction to Dependent Types in Agda](http://oxij.org/note/BrutalDepTypes/)
 
-## Credits 
+## Credits
 
 * [Guéridon](http://www.georgesbraque.org/images/gallery/gueridon.jpg), G.Braque, 1913
 * [Les demoiselles d'Avignon](https://c1.staticflickr.com/2/1305/563354141_dea564001f_b.jpg), P.Picasso, 1907
@@ -307,7 +309,7 @@ plusOneCommutes :  (n : Nat)
 * [Second Version of Triptych 1944](https://static01.nyt.com/images/2015/12/04/arts/04BACON1/04BACON1-superJumbo-v2.jpg), F.Bacon, 1988
 * [IKB 290](http://galeriegradiva.com/wp-content/uploads/2014/11/KLEIN_1.jpg), Y.Klein, 1959
 
-## Credits 
+## Credits
 
 * [Orange et jaune](https://claudiabrigato.files.wordpress.com/2014/11/rothko-red.jpg), M.Rothko, 1956
 * [Dormeurs](https://www.perrotin.com/images/2017/02/17/sophie_calle_the-sleepers_w1200xh630__003615.jpg), S.Calle, 1979
@@ -317,6 +319,6 @@ plusOneCommutes :  (n : Nat)
 * [Suprematist Composition: White on White.](https://www.moma.org/m/tours/7/tour_stops/171?locale=en), K.Malevitch, 1918
 * [La trahison des images](http://www.renemagritte.org/images/paintings/the-treachery-of-images.jpg), R.Magritte, 1929
 
-## Feedback 
+## Feedback
 
 [Questionnaire](https://goo.gl/forms/fwRYzEKSQMGhiA3f1)
