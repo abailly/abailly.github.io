@@ -8,8 +8,125 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2018-11-17T00:00:00Z</updated>
+    <updated>2019-01-01T00:00:00Z</updated>
     <entry>
+    <title>XP is the new SCRUM</title>
+    <link href="http://abailly.github.io/posts/scrum-and-xp.html" />
+    <id>http://abailly.github.io/posts/scrum-and-xp.html</id>
+    <published>2019-01-01T00:00:00Z</published>
+    <updated>2019-01-01T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>XP is the new SCRUM</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on January  1, 2019</div>
+
+<p>This is the blurb that introduces <a href="https://www.amazon.fr/SCHWABER-AGILE-SCRUM_p1-United-States/dp/0130676349/ref=sr_1_2?ie=UTF8&amp;qid=1546375554&amp;sr=8-2&amp;keywords=ken+schwaber">Agile Software Development with SCRUM</a>, the seminal book by Ken Schwaber and Mike Beedle that explained Scrum, or rather <em>SCRUM</em> as it should be correctly spelled, to a wide audience.</p>
+<blockquote>
+<p>eXtreme Programming is an ideal many software shops would love to reach, but with the constant pressures to produce software quickly, they cannot actually implement it. The Agile software process allows a company to implement eXtreme Programming quickly and immediately-and to begin producing software incrementally in as little as 30 days! Implementing eXtreme Programming is easier said than done. The process can be time consuming and actually slow down current software projects that are in process. This book shows readers how to use SCRUM, an Agile software development process, to quickly and seamlessly implement XP in their shop-while still producing actual software. Using SCRUM and the Agile process can virtually eliminate all downtime during an XP implementation.</p>
+</blockquote>
+<p>This message in a bottle from a not-so-distant past - the book was published in 2001 - is interesting in at least 2 respects:</p>
+<ul>
+<li>Its first statement is still valid, eighteen years later: XP is still an “ideal many software shops would love to reach” but find unattainable because of various forms of pressure,</li>
+<li>SCRUM was explicitly advocated as a <em>process</em> to “quickly and seamlessly implement XP”, a promise it mostly failed to deliver or that was lost in the fury of <em>agile transformations</em> that arose in the wake of SCRUM takeovers of the software development methods scene.</li>
+</ul>
+<p>Will 2019 be the year we’ll finally see XP being recognised?</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
+    <title>Sur &quot;Phénoménologie de la perception&quot;</title>
+    <link href="http://abailly.github.io/posts/pheno-perception.html" />
+    <id>http://abailly.github.io/posts/pheno-perception.html</id>
+    <published>2018-11-20T00:00:00Z</published>
+    <updated>2018-11-20T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Sur &quot;Phénoménologie de la perception&quot;</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on November 20, 2018</div>
+
+<h2 id="sur-lempirisme">Sur l’empirisme</h2>
+<p>“On ne peut pas réfuter une pensée qui s’ignore elle même.” L’empirisme ignore l’expérience, soit la rencontre entre un <em>sujet</em> et le <em>monde</em>. Les constructions théoriques seront toujours plus <em>réels</em> car plus “dures”, plus précises que ce dont l’expérience peut rendre compte. L’objectivation est irréfutable car elle supprime la conscience du sujet ou bien plutôt sa relation au monde, et réciproquement la relation que le monde entretient avec le sujet, l’inclusion de celui-ci dans celui-là. L’inévitable conséquence en est le dualisme.</p>
+<h2 id="sur-lintellectualisme">Sur l’intellectualisme</h2>
+<p>La réflexion manque de se réfléchir elle même et rend implicite l’existence du <em>sujet connaissant</em> et la possibilité théorique de <em>tout connaître</em>. Elle manque ainsi le <em>phénomène de la pensée</em> elle même dans son analyse des conditions de possibilité de la connaissance. “Que puis-je connaître ?” présuppose qu’il y a quelque chose à connaître par un sujet connaissant, mais ignore complètement la situation concrète de ce sujet. Toute réflexion est absolue, détachée du corps, de l’espace et du temps, détachée des autres.</p>
+<h2 id="primat-de-la-vision">Primat de la vision</h2>
+<p>L’objet est saisi en tant qu’objet parce qu’il s’inscrit sur un <em>horizon</em> et qu’avec moi d’autres objets le “regardent”. Je peux saisir l’objet dans sa profondeur grâce aux autres objets, en construisant les relations qu’ils entretiennent les uns avec les autres, en me mettant à leur place, adoptant un point de vue multiple.</p>
+<h2 id="relation-du-corps-au-monde">Relation du corps au monde</h2>
+<p>Le corps n’est pas <em>dans</em> l’espace et le temps, il les <em>habite</em> et il leur donne forme. C’est parce que nous avons un corps qu’il y a un espace-temps à explorer pour nous. L’étude des conséquences de lésions nerveuses et maladies dégéneratives montre - par contraste - qu’en l’état dit “normal” nous n’avons pas <em>connaissance</em> du monde, nous n’avons pas à l’objectifier pour agir et se mouvoir : le monde est ce qui est là pour nous, à notre portée. Quand je bouge mon bras pour prendre un objet je ne planifie pas mon acte avant de l’accomplir, ce que doit faire un malade. Le corps est porteur de sens, ou plutôt il est le moyen pour nous de signifier, de donner sens aux choses du monde en nous mettant en relation avec elles.</p>
+<h2 id="le-corps-comme-oeuvre-dart">Le corps comme oeuvre d’art</h2>
+<p>Comme le corps, l’oeuvre d’art est individualité, à la fois expression et exprimé. Les sens sont fondamentalement unis dans l’appréhension du corps. Je ne suis pas <em>dans</em> mon corps, je <em>suis</em> mon corps.</p>
+<h2 id="mimer-un-état-pour-le-faire-advenir">Mimer un état pour le faire advenir</h2>
+<p>Quand je veux m’endormir, je <em>mime</em> l’état du sommeil, calme et paisible, et c’est mon corps qui répond à cette imitation en s’endormant “réellement”. Similairement la croyance est la conséquence de la pratique religieuse et non sa cause : je crois parce que j’accomplis régulièrement des rituels prescrits.</p>
+<h2 id="impossibilité-de-lexistence-pure">Impossibilité de l’existence pure</h2>
+<p>Parce que j’ai un corps sensible, je suis ouvert au monde et il est impossible de supprimer toute <em>intention</em>. Vivre n’est pas seulement exister mais aussi percevoir, répondre à la proposition du corps d’entrer en relation avec le monde, en quelque sorte de le créer. Cela invalide toute possibilité d’une méditation pure.</p>
+<h2 id="sur-la-parole">Sur la parole</h2>
+<p>L’empirisme conçoit le langage comme suite de traces, d’images verbales, déclenchées par des stimuli sonores ou visuels. L’intellectualisme le conçoit comme manifestation de la pensée. “Dans la première conception, il n’y a personne qui parle, dans la seconde il y a un sujet mais un sujet <em>pensant</em>.” Le mot seul, isolé, en lui-même n’a pas de sens, mais les mots prononcés <em>ont un sens</em> : la pensée tend vers son expression verbale et reste confuse, ignorante d’elle-même tant qu’elle n’est pas formulée dans des mots. <em>Nommer</em> fait exister les choses pour nous.</p>
+<h2 id="perception-et-corps-propre">Perception et corps propre</h2>
+<p>La continuité du monde et de ma perception de celui-ci est une conséquence de de l’identité du corps propre au cours du mouvement : je perçois continûment parce que je <em>suis</em> continûment au travers de mon corps : je n’ai pas besoin de voir explicitement l’arrière d’un cube pour le poser, mon corps me permettrait de tourner autour et de de faire l’expérience du géometral du cube qui découle donc de cette identité.</p>
+<h2 id="langage-et-monde-conventionnel">Langage et monde conventionnel</h2>
+<p>Comme le geste nous relie au monde physique et nous permet de communiquer à propos de lui, de le partager avec d’autres, la parole nous relie au monde <em>social</em> et conventionnel, symbolique, nous permet de le partager avec d’autres au moyen de gestes linguistiques. Le signe, la parole, le langage ne sont pas arbitraires au sens de “Construits ex nihilo”, ils <em>doivent</em> être ce qu’ils sont en vertu de leur histoire, de contraintes physiques, d’influences, pour permettre de communiquer dans un certain cercle.</p>
+<h2 id="unité-de-la-perception">Unité de la perception</h2>
+<p>Lorsque nous percevons le monde autour de nous, nos sens sont utilisés simultanément et communiquent les uns avec les autres. Ce n’est que lorsque nous nous concentrons sur telle ou telle partie, lorsque nous analysons tel objet que ceux-ci acquièrent certaines qualités propres à tel ou tel sens. Les sons ont une résonnance visuelle ou tactile, les images et couleurs suscitent des émotions et sensations corporelles.</p>
+<h2 id="unité-perceptive-de-la-chose">Unité perceptive de la chose</h2>
+<p>“un tableau contient enn lui-même jusqu’à l’odeur du paysage” c’est à dire que toute perception d’une chose est association, les qualités sonores, visuelles, olfactives, tactiles accompagnent la vision, le toucher ou l’ouïe. L’acuité de l’expérience fait l’acuité des sens. Donc voir une chose est le signe de toute ses qualités : voir du feu nous “donne” sa chaleur, son crépitement…</p>
+<h2 id="le-sens-est-chargé-de-prédicats-anthropologiques">Le sens est chargé de prédicats anthropologiques</h2>
+<p>Parce que les choses existent pour nous, au travers de notre expérience, celle-ci et notre manière de la décrire, donc notre langage, sont chargés de notre situation dans le monde, des contraintes et caractéristiques de notre corps. C’est exactement ce que décrivent Lakoff et Johnson dans leur analyses des métaphores dont notre langage est saturé : c’est parce que nous existons et vivons que ces métaphores sont universellement présentes.</p>
+<h2 id="contiuité-et-inépuisabilité-du-monde">Contiuité et inépuisabilité du monde</h2>
+<p>Je n’ai pas une succession discontinue de points de vues, de perspectives, quand je perçois mais une interaction continue avec les choses et les paysages. Je ne pense pas chaque image mais chaque instant glisse dans l’autre. Modéliser la perception comme un processus discret, une succession d’images ou de sensations est incorrect. L’effort et la concentration produisent des jugements d’identités d’une chose, d’une succession de ses états, parce que prélevés sur un fond continu.</p>
+<p>Le monde n’est pas la somme des choses mais ce dont les choses proviennent, un “réservoir infini de choses”.</p>
+<h2 id="hallucinations-perceptions-et-rêves">Hallucinations, perceptions et rêves</h2>
+<p>La perception est très différente de l’hallucination car le monde y est tout entier engagé et les malades qui souffrent de visions sont parfaitement capables de faire la différence entre celles-ci et des objets réels. L’hallucination est entièrement projection de l’esprit, et pourtant elle <em>impressionne</em>, elle produit un effet sur le malade quand bien même celui-ci sait qu’elle n’est pas réelle. Et quid du rêve dont je ne peux faire la différence d’avec une perception <em>quand je le vis</em> ?</p>
+<p>C’est parce que le rêve, comme l’hallucination et comme la perception se déroule avant toute opération intellectuelle, dans cette relation au monde réel qui nous implique tout entier et qui est notre corps, avant tout jugement prédicatif.</p>
+<blockquote>
+<p>Le perçu, le rêvé, l’halluciné demeure en deça du doute et de la démonstration</p>
+</blockquote>
+<p>Il n’y a pas d’erreur possible là où il n’y a pas de vérité possible : le perçu <strong>est</strong> pour nous avant toute pensée.</p>
+<h2 id="temporalité">Temporalité</h2>
+<p>Quand je pense, je réfléchis sur moi, mes pensées passées, je suis déjà dans le futur et je ne peux qu’utiliser des souvenirs, des témoignages incertains. Dans toute réflexion s’insère le temps, dont l’épaisseur introduit du doute et de l’ambiguïté.</p>
+<h2 id="sur-la-possibilité-et-le-sens-du-cogito">Sur la possibilité et le sens du cogito</h2>
+<p>Je ne peux pas objectiver mes pensées : chaque pensée, le fait même de penser est un processus dont je ne peux vraiment garder la trace entièrement que dans la mémoire qui est elle même un processus. Réfléchir c’est donc toujours reprendre la pensés, la réactualiser à partir de bribes de souvenirs et d’autres pensées qui deviennent les objets du processus mais sont soumis à la même loi. La pensée n’est donc pas <em>Essence</em> mais <em>Existence</em> et le <em>Je suis</em> du cogito doit être entendu comme un <em>J’existe</em>. Mais il n’y a pas de relation de cause à conséquence entre les deux termes : ce n’est pas la pensée qui fait l’existence, ni l’existence qui fait la pensée.</p>
+<h2 id="vrai-et-faux-sentiment">Vrai et faux sentiment</h2>
+<p>Ce qui distingue le sentiment vrai du sentiment faux ou ambigu, de la fausse conscience c’est <em>l’action</em>. Le sentiment vrai est vrai parce que mon existence y est toute entière engagée, parce que je fais vivre ce sentiment dans mes actes. Être amoureux c’est agir avec amour envers l’être aimé, c’est vivre le sentiment de l’amour dans chaque moment de l’existence, être courageux c’est vivre avec courage et affronter le danger.</p>
+<p>Quand je m’engage dans le doute je fais cesser tout doute méta, toute régression à l’infini sur le doute de la réalité de ce que je ressens.</p>
+<h2 id="sujet-objet-présence">Sujet + objet = présence</h2>
+<p>Les choses n’ont un sens pour nous que parce que nous sommes dans une relation de présence à elles. Le sens suppose une position, une polarité donc un sujet qui crée les faits, les choses, le temps les phénomènes dans un certain sens. Le corps objectif, le monde objectif de la science n’est pas la vérité du corps phénoménal ou du monde phénoménal mais en est une image appauvrie, une représentation.</p>
+<h2 id="la-liberté-comme-être-au-monde">La liberté comme <em>être au monde</em></h2>
+<p>La liberté n’est pas l’infini des choix qu’une conscience isolée ferait, pure subjectivité, ou illusion totale déterminée par le monde. “Nous choisissons le monde comme lui nous choisit” il n’y a pas de liberté absolue car j’agis toujours en fonction d’une situation que m’offre le monde, mais il n’y a jamais absence de liberté car j’existe au mondne et agit sur lui.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>CodeMesh 2018</title>
     <link href="http://abailly.github.io/posts/codemesh-2018.html" />
     <id>http://abailly.github.io/posts/codemesh-2018.html</id>
@@ -516,185 +633,6 @@ checkPassword u p <span class="fu">=</span> <span class="fu">...</span>
 <li>I can leverage the power of the compiler to chose the level of correctness I want/need, from lousy to proof-like… I can actually code in Haskell like I would code in a dynamically typed language (e.g. use simple generic immutable structures like list, use primitives…) but I can also go for something close to proof-system.</li>
 </ol></li>
 </ol>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Weekly Review - Week 20</title>
-    <link href="http://abailly.github.io/posts/weekly-review-20.html" />
-    <id>http://abailly.github.io/posts/weekly-review-20.html</id>
-    <published>2017-05-22T00:00:00Z</published>
-    <updated>2017-05-22T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Weekly Review - Week 20</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on May 22, 2017</div>
-
-<p>This post is a summary of links related to coding and software I followed and read (sometimes, skimmed over) in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
-<h1 id="tuesday">2017-05-09 Tuesday</h1>
-<dl>
-<dt><a href="https://www.youtube.com/watch?v%3DcaSOTjr1z18">A Functional Programmer’s Guide to Homotopy Type Theory - YouTube</a></dt>
-<dd><p>Nice introduction to HoTT from a programmer’s perspective, with an example application from <em>patch theory</em></p>
-</dd>
-</dl>
-<h1 id="wednesday">2017-05-10 Wednesday</h1>
-<dl>
-<dt><a href="http://civs.cs.cornell.edu/proportional.html">Condorcet Internet Voting Service</a></dt>
-<dd><p>An online implementation of Condorcet’s voting system which uses voters’ ranking to select the result which is the most acceptable for all voters. Maybe the result of French Presidential elections would be best modelled with such a system…</p>
-</dd>
-<dt><a href="http://blog.sigfpe.com/2014/05/cofree-meets-free.html">A Neighborhood of Infinity: Cofree meets Free</a></dt>
-<dd><p>Great blog post which triggered <a href="https://github.com/dalaing/cofun">David Laing’s</a> series of posts and talks and my own work on <a href="https://github.com/abailly/hdo">hdo</a> a library to interact with Digital Ocean’s API</p>
-</dd>
-<dt><a href="http://math.ucr.edu/home/baez/information_loss.pdf">information<sub>loss</sub>.pdf</a></dt>
-<dd><p>Another theoretical look at Shannon’s entropy</p>
-</dd>
-</dl>
-<h1 id="thursday">2017-05-11 Thursday</h1>
-<dl>
-<dt><a href="https://barryoreilly.com/2016/08/29/the-most-important-metric-youll-ever-need/">The most important metric you’ll ever need | Barry O’Reilly</a></dt>
-<dd><p>Emphasizes the importance of <em>learning</em> in those day and age</p>
-</dd>
-<dt><a href="https://www.infoq.com/articles/scs-microservices-done-right">Self Contained Systems (SCS): Microservices Done Right</a></dt>
-<dd><p>I am not a great fan of <em>XYZ done right</em> style of blog posts which have a natural tendency to decay over time. This one suggests a somewhat disciplined approach on microservices that is interesting.</p>
-</dd>
-</dl>
-<h1 id="monday">2017-05-15 Monday</h1>
-<dl>
-<dt><a href="http://ttic.uchicago.edu/~dreyer/course/papers/wadler.pdf">free.dvi - wadler.pdf</a></dt>
-<dd><p>While preparing my talk, I thought this classical paper from Wadler could be a good example of <em>abstraction done right</em>!</p>
-</dd>
-<dt><a href="http://perevillega.com/understanding-free-monads">On Free Monads – Pere Villega</a></dt>
-<dd><p>An explanation (in Scala) of Free monads and what they are useful for</p>
-</dd>
-<dt><a href="http://blog.gardeviance.org/2012/07/adoption-cycles.html">Bits or pieces?: Adoption cycles</a></dt>
-<dd><p>Sarcastic post from Simon Wardley on how large organisations adopt emerging technologies</p>
-</dd>
-<dt><a href="https://medium.com/willbe-group/tous-artisans-au-21%25C3%25A8me-si%25C3%25A8cle-1f2addfb6862">Tous artisans au 21ème siècle ? – WillBe Group – Medium</a></dt>
-<dd><p>Merci à Ronan pour le lien sur ce très bon article consacré au futur de l’artisanat. A mettre en regard de <a href="https://medium.com/willbe-group/travail-la-r%25C3%25A9volution-remote-5ea29f32ad1a">Travail : la révolution Remote – WillBe Group – Medium</a>. Il y a aussi un <a href="https://www.youtube.com/watch?v=OIL_2vknseM&amp;feature=youtu.be&amp;t=3m10s">talk</a></p>
-</dd>
-</dl>
-<h1 id="wednesday-1">2017-05-17 Wednesday</h1>
-<dl>
-<dt><a href="http://dephasage.ocular-witness.com/pdf/SimondonGilbert.OnTheModeOfExistence.pdf">SimondonGilbert.OnTheModeOfExistence.pdf</a></dt>
-<dd><p>An English and partial version of Simondon’s classical book</p>
-</dd>
-<dt><a href="http://www.moo.mud.org/">MOO home page</a></dt>
-<dd><p>Thinking of usign a MOO as a communication channel to replace Slack for <em>Artisans du logiciel</em>…</p>
-</dd>
-</dl>
-<h1 id="thursday-1">2017-05-18 Thursday</h1>
-<dl>
-<dt><a href="http://akkartik.name/post/literate-programming">Literate programming: Knuth is doing it wrong</a></dt>
-<dd><p>I stumbled upon this blog post while attending <a href="http://ncrafts.io/speaker/matthiasnoback">Matthias Noback’s session on Living Documentation</a>. Literate programming would seem to make a lot of sense when one thinks about documenting software, yet it did not stick outside of academia. This post suggests improvements that could help literate programming go mainstream. This post lead me to <a href="https://awelonblue.wordpress.com/2014/09/29/introducing-wikilon/">Wikilon</a> which appears to be some attempt at building an interactive programming system along the line of Bret Victor’s <a href="http://worrydream.com/#!/LearnableProgramming">Learnable Programming</a></p>
-</dd>
-</dl>
-<h1 id="saturday">2017-05-20 Saturday</h1>
-<dl>
-<dt><a href="http://tomasp.net/coeffects/">Coeffects: Context-aware programming languages</a></dt>
-<dd><p>I had the pleasure to meet Tomas Petricek (apologies for missing diacritics…) at NewCrafts. This page is another attempt at providing living software instead of dead web pages to help people learn new concepts by playing with them.</p>
-</dd>
-<dt><a href="https://philipnilsson.github.io/Badness10k/posts/2017-05-07-escaping-hell-with-monads.html">Badness 10.000 - Escaping Hell with Monads</a></dt>
-<dd><p>Another explanation of why monad is a good abstraction</p>
-</dd>
-</dl>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Weekly Review - Week 18</title>
-    <link href="http://abailly.github.io/posts/weekly-review-18.html" />
-    <id>http://abailly.github.io/posts/weekly-review-18.html</id>
-    <published>2017-05-08T00:00:00Z</published>
-    <updated>2017-05-08T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Weekly Review - Week 18</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on May  8, 2017</div>
-
-<p>This post is a summary of links related to coding and software I followed and read (sometimes, skimmed over) in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
-<h1 id="monday">2017-05-01 Monday<a id="sec-1" name="sec-1"></a></h1>
-<dl>
-<dt><a href="https://github.com/abailly/xxi-century-typed/blob/master/idris/src/BottlesOfBeer.idr">99 Bottles of Beer</a></dt>
-<dd><p>I managed to complete my Idris implementation of the 99 Bottles of Beer classical Kata. This attempt was triggered by a discussion on Slack over <a href="https://www.sandimetz.com/99bottles">Sandi Metz’s book</a> which a couple of friends have read and is apparently excellent.</p>
-</dd>
-</dl>
-<h1 id="tuesday">2017-05-02 Tuesday<a id="sec-2" name="sec-2"></a></h1>
-<dl>
-<dt><a href="https://blog.acolyer.org/2017/05/02/corfu-a-distributed-shared-log/">Corfu: A distributed shared log | the morning paper</a><a id="sec-2-1" name="sec-2-1"></a></dt>
-<dd><p>Very interesting paper about an implementation of a distributed strongly consistent persistent log, something handy when one wants to implement event sourcing. The code is open-sourced as <a href="https://github.com/CorfuDB/CorfuDB">CorfuDB/CorfuDB</a> and there is a recent follow-up I did not delve into yet.</p>
-</dd>
-<dt><a href="https://news.ycombinator.com/item?id%3D13576236">Ask HN: What is the biggest untapped opportunity for startups? | Hacker News</a></dt>
-<dd><p>I found it funny the first answer to this question is exactly what I am trying to do with <a href="http://drcode.io">Dr.Code</a>: Short consulting sessions to help teams get over thorny issues or have access to affordable expert knowledge and skills.</p>
-</dd>
-<dt><a href="http://www.extremeprogramming.org/rules.html">Extreme Programming Rules</a><a id="sec-2-4" name="sec-2-4"></a></dt>
-<dd><p>Back to basics… XP is still unsurpassed as a coherent set of guidelines and practices for software development.</p>
-</dd>
-</dl>
-<h1 id="wednesday">2017-05-03 Wednesday<a id="sec-3" name="sec-3"></a></h1>
-<dl>
-<dt><a href="https://medium.com/travis-on-docker/multi-stage-docker-builds-for-creating-tiny-go-images-e0e1867efe5a">Multi-Stage Docker Builds for Creating Tiny Go Images</a><a id="sec-3-1" name="sec-3-1"></a></dt>
-<dd><p>Something I have been doing by hand for couple of years now and which is now a supported feature of docker: Use several containers in your build to trim down images size.</p>
-</dd>
-<dt><a href="https://gordon.readthedocs.io/en/latest/lambdas.html">Lambdas — Gordon 0.6.0 documentation</a><a id="sec-3-2" name="sec-3-2"></a></dt>
-<dd><p>I have been working last year on using Haskell to deploy <a href="https://github.com/abailly/aws-lambda-haskell">AWS Lambda</a> functions, a work that has been superseded by <a href="https://github.com/qmuli/qmuli/">qmuli</a> which aims at packaging properly Haskell executables and manage the workflow. Gordon does just that for officially supported runtimes.</p>
-</dd>
-</dl>
-<h1 id="thursday">2017-05-04 Thursday<a id="sec-4" name="sec-4"></a></h1>
-<dl>
-<dt><a href="http://nullprogram.com/blog/2013/02/06/">How to Make an Emacs Minor Mode « null program</a><a id="sec-4-1" name="sec-4-1"></a></dt>
-<dd><p>I am thinking of writing an proper indentation mode for a proprietary language I am working with and looked up what support Emacs provide for doing so. Still looks a bit daunting unfortunately.</p>
-</dd>
-</dl>
-<h1 id="friday">2017-05-05 Friday<a id="sec-5" name="sec-5"></a></h1>
-<dl>
-<dt><a href="https://www.youtube.com/watch?v%3DpqFgYCdiYz4">(13) 2 10 Elaborator Reflection: Extending Idris in Idris - YouTube</a><a id="sec-5-1" name="sec-5-1"></a></dt>
-<dd><p>Talk about using built-in elaborator engine in Idris to extend the language, similar to what one can achieve using Template Haskell.</p>
-</dd>
-<dt><a href="http://ericlefevre.net/wordpress/2009/03/06/is-fit-dead-a-debate-on-twitter/">Is Fit Dead? A debate on Twitter | Eric Lefevre-Ardant on Java &amp; Agile</a><a id="sec-5-2" name="sec-5-2"></a></dt>
-<dd><p>It looks there is not much debate going on anymore on BDD/ATDD and I am not sure whether this is due to the fact it is now considered mainstream or has been dropped altogether. I have always been a big fan of FitNesse and <em>Executable Specifications</em> approach but this is something that requires a lot of energy to setup properly on a project. Not all teams and settings are ready to invest the time to build a common language across developers and business analysts.</p>
-</dd>
-</dl>
-<h1 id="sunday">2017-05-07 Sunday<a id="sec-6" name="sec-6"></a></h1>
-<dl>
-<dt><a href="https://nstack.com/index.html">NStack - Composable Data Analytics</a><a id="sec-6-2" name="sec-6-2"></a></dt>
-<dd><p>An interesting new proposal in the distributed computing space, implemented in Haskell. I am however not a big fan of having to use a custom language instead of an already existing scripting or programming language to describe workflows. Code is available on github: <a href="https://github.com/nstack/nstack">nstack/nstack: Type-safe, composable microservices for data analytics</a><a id="sec-6-1" name="sec-6-1"></a></p>
-</dd>
-<dt><a href="http://simoneetlesphilosophes.fr/imaginer-linversion/">Exercice n°1: renverser pour mieux voir - Simone et les philosophes</a><a id="sec-6-3" name="sec-6-3"></a></dt>
-<dd><p>Exercer son esprit critique en commencant par le plus évident et le plus méconnu : les inégalités homme-femme.</p>
-</dd>
-</dl>
 
 
 <div id="disqus_thread"></div>
