@@ -71,7 +71,7 @@ C'est parce que le rêve, comme l'hallucination et comme la perception se dérou
 
 > Le perçu, le rêvé, l'halluciné demeure en deça du doute et de la démonstration
 
-Il n'y a pas d'erreur possible là où il n'y a pas d'erreur possible là où il n'y a pas de vérité possible : le perçu **est** pour nous avant toute pensée.
+Il n'y a pas d'erreur possible là où il n'y a pas de vérité possible : le perçu **est** pour nous avant toute pensée.
 
 ## Temporalité
 
