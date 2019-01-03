@@ -8,8 +8,116 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2019-01-01T00:00:00Z</updated>
+    <updated>2019-01-02T00:00:00Z</updated>
     <entry>
+    <title>Homero 2019</title>
+    <link href="http://abailly.github.io/posts/homero2019.html" />
+    <id>http://abailly.github.io/posts/homero2019.html</id>
+    <published>2019-01-02T00:00:00Z</published>
+    <updated>2019-01-02T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Homero 2019</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on January  2, 2019</div>
+
+<p>En écoutant <a href="https://www.franceinter.fr/emissions/les-histoires-du-monde/les-histoires-du-monde-02-janvier-2019">France inter</a> ce matin j’ai eu immédiatement envie de partager cette lecture collective sur twitter de l’Iliade en français. J’ai donc immédiatement tweeté les premiers vers du premier chant de l’Iiliade, avant de me rendre compte que la contrainte exigeait de twitter <em>un chant par semaine</em>. Il est donc devenu urgent d’écrire un programme pour faire en sorte de pouvoir générer ces tweets automatiquement au lieu de devoir laborieusement les taper un par un. Voici le fruit, brut de décoffrage de cette micro-aventure…</p>
+<p>Tout d’abord un peu de cérémonies pour que le fichier contenant le code soit interprétable comme un script:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">#!/usr/bin/env stack</span>
+<span class="co">-- stack runhaskell --resolver lts-12.5 --</span></code></pre></div>
+<p>Puis les inévitables extensions de langage et imports…</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE LambdaCase #-}</span>
+<span class="kw">import           </span><span class="dt">Control.Applicative</span>
+<span class="kw">import           </span><span class="dt">Data.Char</span>
+<span class="kw">import qualified</span> <span class="dt">Data.List</span>           <span class="kw">as</span> <span class="dt">List</span>
+<span class="kw">import           </span><span class="dt">Data.Monoid</span>
+<span class="kw">import           </span><span class="dt">System.Directory</span>
+<span class="kw">import           </span><span class="dt">System.Environment</span>
+<span class="kw">import           </span><span class="dt">System.IO</span></code></pre></div>
+<p>On va avoir envie de générer plus d’un tweet à la fois, et on va donc lire le nombre de tweets à générer en argument de la ligne de commande:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getNumTweets ::</span> <span class="dt">IO</span> <span class="dt">Int</span>
+getNumTweets <span class="fu">=</span> getArgs <span class="fu">&gt;&gt;=</span> \<span class="kw">case</span>
+  [] <span class="ot">-&gt;</span> pure <span class="dv">1</span>
+  (n<span class="fu">:</span>_) <span class="ot">-&gt;</span> pure <span class="fu">$</span> read n</code></pre></div>
+<p>Le principe de ce programme, concentré dans la fonction <code>makeTweets</code> est extrêmement simple, on pourrait même dire brutal:</p>
+<ul>
+<li>On va itérer jusqu’à ce que le nombre de tweets à générer soit de 0:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">makeTweets ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
+makeTweets <span class="dv">0</span> _ <span class="fu">=</span> pure ()
+makeTweets numTweets content <span class="fu">=</span> <span class="kw">do</span></code></pre></div>
+<ul>
+<li>On va lire le curseur depuis un fichier intitulé <code>.break</code> dans le répertoire courant, curseur qui stocke notre “état” sous la forme de l’index du premier mot du reste du texte. Si le fichier n’existe pas, on part tout simplement du début</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  start <span class="ot">&lt;-</span> readBreak <span class="fu">&lt;|&gt;</span> pure <span class="dv">0</span></code></pre></div>
+<ul>
+<li>On va travailler sur la liste des listes de mots du texte en entrée, où un mot est simplement une suite de lettres séparée par des espaces. Comme Haskell est un langage <em>paresseux</em>, cette liste ne va pas être construite explicitement si ce n’est pas nécessaire. Pour fluidifier la lecture on enlève du texte les renvois de notes qui apparaissent sous la forme de nombres</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="kw">let</span> ws <span class="fu">=</span> List.inits <span class="fu">.</span> drop start <span class="fu">.</span> words <span class="fu">.</span> filter (not <span class="fu">.</span> isDigit) <span class="fu">$</span> content</code></pre></div>
+<ul>
+<li>De cette liste de liste de mots, on va sélectionner la <em>dernière</em> occurence qui:
+<ol style="list-style-type: decimal">
+<li>à une longueur inférieure à 260 lorsqu’on reconstitue une phrase à partir des mots</li>
+<li>se termnine par un signe de ponctuation</li>
+</ol></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">      sentence <span class="fu">=</span> lastWithPunctuation <span class="fu">$</span> takeWhile ((<span class="fu">&lt;</span> <span class="dv">260</span>) <span class="fu">.</span> length <span class="fu">.</span> unwords) ws</code></pre></div>
+<ul>
+<li>Il ne reste plus qu’à mettre à jour notre “état” avec la longueur de la liste de mots sélectionnée, puis à imprimer la phrase ornée du hashtag <code>#homero2019</code> sur la sortie standard</li>
+<li>La récursion peut se poursuivre en réduisant le nombre de tweets et en conservant le même contenu</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">      end <span class="fu">=</span> start <span class="fu">+</span> length sentence
+  putStrLn <span class="fu">$</span> unwords sentence <span class="fu">&lt;&gt;</span> <span class="st">&quot; #homero2019&quot;</span>
+  writeBreak end
+  makeTweets (numTweets <span class="fu">-</span> <span class="dv">1</span>) content</code></pre></div>
+<p>La fonction auxiliaire <code>lastWithPunctuation</code> est particulièrement brutale et dangereuse, mais néanmoins amusante:</p>
+<ul>
+<li>On inverse l’ensemble des listes, soit 3 niveaux de listes imbriquées jusqu’à identifier le dernier caractère de chaque “phrase” candidate</li>
+<li>On passe toutes les phrases qui ne se terminent pas par un signe de ponctuation</li>
+<li>et on retourne la première occurence qui se termine par un tel signe.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">lastWithPunctuation ::</span> [[ <span class="dt">String</span> ]] <span class="ot">-&gt;</span> [<span class="dt">String</span>]
+lastWithPunctuation <span class="fu">=</span> head <span class="fu">.</span> dropWhile (\ s <span class="ot">-&gt;</span> not <span class="fu">$</span> isPunctuation <span class="fu">$</span> head <span class="fu">$</span> head <span class="fu">$</span> reverse <span class="fu">&lt;$&gt;</span> reverse s) <span class="fu">.</span> reverse</code></pre></div>
+<p>Les deux fonctions <code>readBreak</code> et <code>writeBreak</code> servent simplement à mettre à jour le fichier <code>.break</code> contenant l’état du flux de tweets.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">writeBreak ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
+writeBreak <span class="fu">=</span> writeFile <span class="st">&quot;.break&quot;</span> <span class="fu">.</span> show
+
+<span class="ot">readBreak ::</span> <span class="dt">IO</span> <span class="dt">Int</span>
+readBreak <span class="fu">=</span> <span class="kw">do</span>
+  exist <span class="ot">&lt;-</span> doesFileExist <span class="st">&quot;.break&quot;</span>
+  <span class="kw">if</span> exist
+    <span class="kw">then</span> read <span class="fu">&lt;$&gt;</span> readFile <span class="st">&quot;.break&quot;</span>
+    <span class="kw">else</span> pure <span class="dv">0</span></code></pre></div>
+<p>Il ne reste plus qu’à écrire le <code>main</code> dont le principal travail est d’appeler <code>makeTweets</code> avec le contenu lu depuis l’entrée standard:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span> <span class="kw">do</span>
+  numTweets <span class="ot">&lt;-</span> getNumTweets
+  getContents <span class="fu">&gt;&gt;=</span> makeTweets numTweets</code></pre></div>
+<p>En téléchargeant le Chant I depuis le <a href="https://lesbelleslettresblog.com/2015/03/25/homere-iliade-chant-i-en-version-integrale-dans-la-traduction-de-paul-mazon/">site officiel de l’éditeur</a> et en le copiant/collant dans un fichier <code>chant1</code>, on peut lancer le programme <code>tweets.hs</code>:</p>
+<pre><code>$ cat chant1 | ./tweets.hs 3
+Chante, déesse, la colère d’Achille, le fils de Pélée; détestable colère, qui aux Achéens valut des souffrances sans nombre et jeta en pâture à Hadès tant d’âmes fières de héros, #homero2019
+tandis que de ces héros mêmes elle faisait la proie des chiens et de tous les oiseaux du ciel – pour l’achèvement du dessein de Zeus. Pars du jour où une querelle tout d’abord divisa le fils d’Atrée, protecteur de son peuple, et le divin Achille. #homero2019
+Qui des dieux les mit donc aux prises en telle querelle et bataille ? Le fils de Létô et de Zeus. C’est lui qui, courroucé contre le roi, fit par toute l’armée grandir un mal cruel, dont les hommes allaient mourant; cela, #homero2019</code></pre>
+<p>j’aurais aimé pouvoir utiliser <a href="https://hackage.haskell.org/package/tweet-hs">tweet-hs</a> pour pouvoir effectivement tweeté ces textes mais malheureusement, le processus pour obtenir des clés OAuth sur twitter est long et pénible et je ne sais pas si j’aurais l’énergie nécessaire pour ce faire…</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>XP is the new SCRUM</title>
     <link href="http://abailly.github.io/posts/scrum-and-xp.html" />
     <id>http://abailly.github.io/posts/scrum-and-xp.html</id>
@@ -546,93 +654,6 @@
 <li><a href="http://comonad.com/reader/2011/free-monads-for-less-2/">The Comonad.Reader » Free Monads for Less (Part 2 of 3): Yoneda</a></li>
 <li><a href="http://comonad.com/reader/2011/free-monads-for-less-3/">The Comonad.Reader » Free Monads for Less (Part 3 of 3): Yielding IO</a></li>
 </ul>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Notes on Reliability &amp; Maintainability of Haskell Code</title>
-    <link href="http://abailly.github.io/posts/haskell-reliability.html" />
-    <id>http://abailly.github.io/posts/haskell-reliability.html</id>
-    <published>2017-05-24T00:00:00Z</published>
-    <updated>2017-05-24T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Notes on Reliability &amp; Maintainability of Haskell Code</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on May 24, 2017</div>
-
-<p>Those notes are my answer to a <a href="https://gist.github.com/heath/858a321b5fc96d3011d9b6ea4fca3cb9">question</a> asked on the <a href="https://elm-lang.slack.com/">Elm Slack</a></p>
-<ol style="list-style-type: decimal">
-<li>what are some methods you use to maintain a clean codebase?
-<ol style="list-style-type: decimal">
-<li>basic principles always apply: maintain low-coupling &amp; high-cohesion, separation of concerns</li>
-</ol>
-in the case of Haskell/FP, coupling across modules happen when one module depends on another module, possibly on details of data types (e.g. constructors) of this module. Even depending on exported types/functions introduces coupling. Modules should be as much self contained as possible
-<ol start="2" style="list-style-type: decimal">
-<li>clear separation between functional components of the system, each being vertically integrated instead of spread out over multiple technical layers</li>
-</ol>
-<p>By “vertically” I mean that a unit of deployment is a “function” of the system, something that’s meaningful from the point of view of the end-user/customer/business, e.g. a <em>bounded context</em> in the sense of Domain-Driven Design. This is opposed to a more technical view where units of deployment/organisation of the code are “horizontal” layers, e.g. Web service, applicative components, data access layer,…</p>
-<ol start="3" style="list-style-type: decimal">
-<li>minimal code sharing, limited to common types. Use common/standard libraries wherever possible, pack common dependencies as libraries</li>
-</ol>
-<p>Rather than depending on code at source level, depend on it at binary level, e.g. as a package.</p>
-<ol start="4" style="list-style-type: decimal">
-<li>standard module structure, repeated over all components of the system to ease navigation and understanding</li>
-<li>test, test, test at all levels: unit tests (including QC tests), integration tests (e.g. at boundaries like REST APIs), system level tests</li>
-<li>limit size of modules, components, functions (I always use a small 13’’ screen and everything should fit in it)</li>
-</ol>
-<p>Size matters when you need to refactor/edit/change any piece of code. GHC is smart enough to optimise code so there is usually nothing preventing dividing code in manageable chunks</p>
-<ol start="7" style="list-style-type: decimal">
-<li>no dependencies between components so that I can work on a single one at a time</li>
-</ol>
-<p><em>component</em> means <em>deployable unit of code</em>, e.g. might be a package or a service</p>
-<ol start="8" style="list-style-type: decimal">
-<li>type explicitly everything</li>
-<li>abstract away actual IO as much as possible. Explicit IO type should appear as late as possible (e.g. in main function), favor specific monads with limited effects</li>
-<li><p>use <em>actual types</em> wherever possible to represent domain concepts, avoid primitive types and above all <em>naked strings</em> (or <code>Text</code>) when they represent actual values</p>
-<p>Types are the interface of functions/modules and they should be as explicit as possible. Compare:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">checkPassword ::</span> <span class="dt">UserName</span> <span class="ot">-&gt;</span> <span class="dt">Password</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>
-checkPassword u p <span class="fu">=</span> <span class="fu">...</span>
-
-<span class="ot">checkPassword&#39; ::</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span><span class="ot">` </span>
-<span class="ot">checkPassword&#39; userName password = ...</span></code></pre></div>
-<p>Haskell provides <em>type synonyms</em> so it is tempting to have:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">UserName</span> <span class="fu">=</span> <span class="dt">Text</span>
-<span class="kw">type</span> <span class="dt">Password</span> <span class="fu">=</span> <span class="dt">Text</span></code></pre></div>
-<p>But aliases are syntactic and are replaced when typechecking code. Using aliases actually means depending on a concrete representation of the type. <code>newtype</code> are cheap in Haskell and it is easy to derive typeclasses to use constant strings or numbers when needed, but they are “actual types” and thus increases readibility and reliability of code.</p></li>
-<li>limit exposition of constructors esp. for ADTs, prefer exposing functions and “smart constructors”</li>
-</ol></li>
-<li>how does haskell help you to maintain a clean, decoupled codebase?
-<ol style="list-style-type: decimal">
-<li>being expressive leads to more compact code which means more information fits in a single function which helps focusing</li>
-<li>thanks to types, refactoring is very easy: change what’s needed to be changed and fix compiler errors</li>
-<li>thanks to types, it is easy to generalise cross-cutting concepts that appear in different contexts</li>
-<li>compositionality of functions helps defining and using small manageable chunks of logic</li>
-<li>“higher” type concepts (typeclasses, GADTs, functors and friends, type families) increase expressivity and allows introducing domain-relevant or technical abstractions at all levels</li>
-<li>types are very useful to model domain-related concepts and have some constraints checked by the compiler</li>
-<li>being both compiled and interpreted decreases the feedback loop when developing/tuning code: I can use the REPL to play with the code</li>
-</ol></li>
-<li>what system design benefits do you receive from a statically typed, pure language such as haskell, that you wouldn’t receive in a dynamically typed, but immutable language?
-<ol style="list-style-type: decimal">
-<li>I can have a strong and statically enforced separation between a core domain model’s functions and types and connections to the outside world, along the line of hexagonal architecture. Thanks to separation of effectful and pure functions, it is easy to test/QC/reason about the core domain without having to deal with the impurity of realworld computations. For example, I can let concurrency out the picture and later on use STMs (or something else) to manage concurrent access, or I can model my system with concurrency in mind (e.g. CRDTs, event streams) and still not embed effects until actual deployment</li>
-<li>I can leverage the power of the compiler to chose the level of correctness I want/need, from lousy to proof-like… I can actually code in Haskell like I would code in a dynamically typed language (e.g. use simple generic immutable structures like list, use primitives…) but I can also go for something close to proof-system.</li>
-</ol></li>
-</ol>
 
 
 <div id="disqus_thread"></div>
