@@ -4,7 +4,8 @@ subtitle: Experiments and musing with Propellor and DepTrack
 author: Arnaud Bailly - @dr_c0d3
 date: 2017-04-27
 theme: serif-compact
------------- 
+------------
+
 
 # Agenda
 
@@ -44,7 +45,7 @@ theme: serif-compact
 ## Basic Execution Flow
 
 1. Clone the code or run wrapper to get code in `~/.propellor`
-1. Hack! Hack! Hack! 
+1. Hack! Hack! Hack!
 2. Run `propellor <target host>`
 3. Propellor takes care of the next steps:
     4. Build executable
@@ -56,7 +57,7 @@ theme: serif-compact
 ## Security Model
 
 * **Key Question**: How not to disseminate confidential data (passwords, API tokens, keys, names...) while still allowing its use?
-* Propellor uses GPG to manage a set of public keys and a `privdata` file which is encrypted using *public keys* of all participants 
+* Propellor uses GPG to manage a set of public keys and a `privdata` file which is encrypted using *public keys* of all participants
 * `privdata` file is *committed* to the code repository
 * When a user needs to deploy, she needs to provide credentials to decrypt private data that is then sent to remote host
 
@@ -69,7 +70,7 @@ theme: serif-compact
 
 ## Core Types
 
----- 
+----
 
 ```haskell
 data Property metatypes
@@ -80,7 +81,7 @@ data Property metatypes
              [Propellor.Types.Core.ChildProperty]
 ```
 
----- 
+----
 
 ```haskell
 newtype Propellor p
@@ -92,7 +93,7 @@ instance Applicative Propellor
 instance Monoid (Propellor Propellor.Base.Result)
 ```
 
----- 
+----
 
 ```haskell
 -- | There can be three results of satisfying a Property.
@@ -109,18 +110,18 @@ data Result = NoChange | MadeChange | FailedChange
 * Developed by [Lucas di Cioccio](https://github.com/lucasdicioccio/deptrack-project) and recently open-sourced
 * Small codebase split in multiple "independent" packages to minimise footprint: Pay for what you need
 * Targets larger-scale infrastructure and *supervision* rather than only configuration
-* New and shiny! 
+* New and shiny!
 
 ## Basic Principles
 
 * A (monadic) language to describe *directed acyclic graph* of *operations* linked through *dependencies*
-* Generated graph provides *optimisations* opportunities (e.g. group package installation, remove redundancies) and inherent *parallelism* 
+* Generated graph provides *optimisations* opportunities (e.g. group package installation, remove redundancies) and inherent *parallelism*
 * Traverse graph in dependency order to concurrently run *functions* in each node, passing along results from each node's execution as needed
 * Each node provides basic supervision functions start/stop/check
 
 ## Types
 
------ 
+-----
 
 ```haskell
 type DepTrackT a m b = WriterT (DList (DepCrumb a)) m b
@@ -128,7 +129,7 @@ type DepTrackT a m b = WriterT (DList (DepCrumb a)) m b
 data DepCrumb a = Push | Pop a | SpadeIn | SpadeMiddle | SpadeOut
 ```
 
----- 
+----
 
 ```haskell
 type DevOpT m a = DepTrackT PreOp m a
@@ -156,15 +157,15 @@ data Op = Op { opDescription :: !OpDescription
 * Track record, user base and contributors base
 * Built-in interaction with Git to provide automatic configuration changes execution
 * Security model
-  
-## Propellor - Cons 
+
+## Propellor - Cons
 
 * Requires haskell toolchain on target hosts
 * Rigid workflow with automatic builds and commits
 * Big monolithic codebase which puts a heavy toll on build/run cycle
 * "Static" model
-  
-## DepTrack - Pros 
+
+## DepTrack - Pros
 
 * Clean model gracefully handling *dependencies* between tasks in an expressive and composable way
 * No requirements about specific properties of targeted infrastructure
@@ -181,4 +182,3 @@ data Op = Op { opDescription :: !OpDescription
 
 * **Infrastructure-As-Haskell-Code** is for real!
 * Go to [Lucas di Cioccio](https://github.com/lucasdicioccio/deptrack-project): Feedback most needed, PRs welcomed!
-

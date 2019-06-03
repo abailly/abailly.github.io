@@ -4,7 +4,8 @@ subtitle: Relations on the Land of Pure Functional Programming by a Mortal Being
 author: Arnaud Bailly
 date: 2016-04-22
 theme: old-english-devoxx
------------- 
+------------
+
 
 ## Table of Contents
 
@@ -30,7 +31,7 @@ theme: old-english-devoxx
 
 * This is not a Haskell tutorial
 * This is not a Monad tutorial
-* Let's stop thinking *"Haskell is good for your brain but not for practical use"* 
+* Let's stop thinking *"Haskell is good for your brain but not for practical use"*
 * I will be happy if you end up thinking: *I could try this cool stuff in my next microservice*
 * I will be even happier if you can put to **actual use** some of the stuff I present here
 
@@ -370,4 +371,3 @@ All the woodcuts illustrating this talk are drawn from the [Encyclopédie de Did
 * To all the fine people at Capital Match who made all this possible,
 * To Haskellers all over the world who fuel the fire with their wits and spirit,
 * To Haskell B. Curry who, among others, laid out the foundations for our daily job.
-

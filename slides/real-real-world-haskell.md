@@ -4,7 +4,8 @@ subtitle: Relations on the Land of Pure Functional Programming by a Mortal Being
 author: Arnaud Bailly
 date: 2016-04-22
 theme: old-english
------------- 
+------------
+
 
 ## Table of Contents
 
@@ -44,7 +45,7 @@ theme: old-english
 
 * This is not a Haskell tutorial
 * This is not a Monad tutorial
-* Let's stop thinking *"Haskell is good for your brain but not for practical use"* 
+* Let's stop thinking *"Haskell is good for your brain but not for practical use"*
 * I will be happy if you end up thinking: *I could try this cool stuff in my next microservice*
 * I will be even happier if you can put to **actual use** some of the stuff I present here
 
@@ -71,9 +72,9 @@ tips for the audience to be willing to adopt some of the customs of those strang
 * Haskell's syntax favours terseness and strives to be close to mathematical language, compare:
 
     ```haskell
-    [ (x, x * 2) | x <- [ 0 .. 100 ], x `mod` 3 == 0 ] 
+    [ (x, x * 2) | x <- [ 0 .. 100 ], x `mod` 3 == 0 ]
     ```
-  
+
 * with:
 
     $\{ (x, 2x) | x \in [1,100] \land x\ mod\ 3 = 0 \}$
@@ -87,7 +88,7 @@ tips for the audience to be willing to adopt some of the customs of those strang
 -----
 
 * Haskell language is geared towards making *composition* of expressions straightforward
-* *Referential transparency* allows one to factorize all kind of common sub-expressions to *remove redundancy* 
+* *Referential transparency* allows one to factorize all kind of common sub-expressions to *remove redundancy*
 * *Partial application* and composition of functions makes it easy to write *function pipelines* and build new functions out of old ones
 
     ```haskell
@@ -159,7 +160,7 @@ tips for the audience to be willing to adopt some of the customs of those strang
     toBase64Text :: ByteString -> Encoded Base64
     toHex        :: ByteString -> Encoded Hex
     ```
-    
+
 * Provide *thread-safety* by ensuring some type variables do not [escape local scope](https://wiki.haskell.org/Monad/ST)
 
 ## Where one discovers subtle differences cause more trouble than obvious ones
@@ -404,7 +405,7 @@ genAdminActions =
 
 ## Where types make mortal beings doubt about their sanity
 
-* Newer services are now developed with [Servant](https://github.com/haskell-servant/servant/) which provides a way to express APIs **at the type level** 
+* Newer services are now developed with [Servant](https://github.com/haskell-servant/servant/) which provides a way to express APIs **at the type level**
 
     ```haskell
     type CreateJob = ReqBody '[JSON] Job :> Post '[JSON] JobId
@@ -488,7 +489,7 @@ genAdminActions =
 * Development environment can be tricky to get - and stay - "right"
 * A lot of the material one can find is *research focused* which can be daunting
 * Avoid *partial functions* at all cost
-* It can be hard to find Haskell developers *locally* 
+* It can be hard to find Haskell developers *locally*
 
 # Acknowledgements
 

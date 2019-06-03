@@ -5,8 +5,7 @@ author: Arnaud Bailly - @dr_c0d3
 email: arnaud.bailly@symbiont.io
 date: 2017-09-19
 theme: serif-black-symbiont
------------- 
-
+------------
 
 # Agenda
 
@@ -69,7 +68,7 @@ theme: serif-black-symbiont
 * Byzantine Failures: Arbitrary messages mangling, Node identities "stealing"...
 
 <div class="notes">
-* see Distributed Algorithms, N.Lynch, pp.99-102 
+* see Distributed Algorithms, N.Lynch, pp.99-102
 * Stop failures means processes can stop working but otherwise abide by their specifications
 * Byzantine failures model means processes can change state and output messages arbitrarily
 </div>
@@ -92,19 +91,19 @@ theme: serif-black-symbiont
 ## Goals
 
 * Provide an _easy_ way to write system-level tests for use in development and testing
-* Abstract away _details_ of deployment 
+* Abstract away _details_ of deployment
 * Build complex models of system's behavior to generate _interesting_ test cases for asserting _correctness_ of the system in front of _faults_ => allow injecting arbitrary faults
-* Fine control over system's communication to generate _Byzantine failures_ 
+* Fine control over system's communication to generate _Byzantine failures_
 
 ## [Jepsen](https://aphyr.com/tags/jepsen) ##
 
-![](/images/call-me-maybe.jpg) 
+![](/images/call-me-maybe.jpg)
 
 <div class="notes">
-* Black-box testing tool 
-* Developed by Kyle Kingsbury aka. [aphyr](https://twitter.com/aphyr) 
+* Black-box testing tool
+* Developed by Kyle Kingsbury aka. [aphyr](https://twitter.com/aphyr)
 * A tool for checking consistency properties of distributed databases, lead to a series of post called Call Me Maybe
-* verifies *linearizability* of execution traces 
+* verifies *linearizability* of execution traces
 * Found a good number of flaws in various high-profile open-source and closed sources DBs, including ES, ZK, Mongo, Riak, Redis...
 </div>
 
@@ -114,7 +113,7 @@ theme: serif-black-symbiont
 * Deploy system over an actual cluster of machines
 * Generate (semi-)random sequence of operations representing concurrent clients interactions with the system
 * Generate *partitions* to trigger corner-cases and observe behaviour of system when network fails
-* Analyze resulting execution trace to detect violations of *model's properties* 
+* Analyze resulting execution trace to detect violations of *model's properties*
 
 <div class="notes">
 * Various *consistency* properties
@@ -123,7 +122,7 @@ theme: serif-black-symbiont
 
 ## Jepsen is complex
 
-![](/images/gasworks.jpg) 
+![](/images/gasworks.jpg)
 
 <div class="notes">
 * We are not that much interested in testing linearizability
@@ -160,7 +159,7 @@ theme: serif-black-symbiont
 <div class="notes">
 * Uses `iptable`/`tc` tools to modify behaviour of containers' network interfaces
 * Works `exec`uting commands inside containers => requires availability of software packages
-* Provide commands to set a given network in some defined state: 
+* Provide commands to set a given network in some defined state:
     * `slow`: Add random delay to deliver packets to some node(s)
     * `flaky`: Drop randomly packets to/from some node
     * `partition`: Break connections between nodes
@@ -175,7 +174,7 @@ theme: serif-black-symbiont
 * Exposes high-level ops available to setup/run/teardown the system
 * DSL is abstract e.g. not tied to a particular infrastructure => can be interpreted in different ways
     * local, with processes from the host
-    * docker 
+    * docker
     * docker-in-docker -> requires special handling of network
     * fully remote: Running tests against a production-like infrastructure
     * simulation
@@ -188,11 +187,11 @@ test
   :: Int -> Test e ()
 
 test numNodes = do
-  when (numNodes < 5) $ 
+  when (numNodes < 5) $
     exit "Split brain test should be run with at least 5 nodes"
   (adminKey, procs) <- setup "assembly" numNodes
   let mid = numNodes `div` 2
-  run1 <- mconcat <$> 
+  run1 <- mconcat <$>
          feedTransactions 1  (10 ///) (batchOf 10) (seconds 10)
   nemesis $ Partition [[ 1 .. mid - 1 ], [ mid .. numNodes ]]
 ~~~~
@@ -200,7 +199,7 @@ test numNodes = do
 <div class="notes">
 * tests are written in Haskell => compiled to an executable
 * test fragments can also be executed from the REPL => rapid prototyping and easy interaction with the system
-* contains operations for SUT *and* Nemesis actions (named inspired by Jepsen) 
+* contains operations for SUT *and* Nemesis actions (named inspired by Jepsen)
 * Tests are run *sequentially*
 </div>
 
@@ -217,12 +216,12 @@ test numNodes = do
 ![](/images/symbiont-circle-ci-assembly-sym-test.png)
 
 <div class="notes">
-* Tests are run in CI as part of distributed log's build 
-* Deployed on a custom GCP instance 
+* Tests are run in CI as part of distributed log's build
+* Deployed on a custom GCP instance
 * Run in dind mode from a known image tag
 </div>
 
-# Demo 
+# Demo
 
 # Conclusion
 
@@ -230,7 +229,7 @@ test numNodes = do
 
 * Docker is tremendously useful as an environment for system-level testing
 * There are lots of tools and utilities out there to help you doing that
-* There is great value in building a test DSL that reflects the way the system works and Haskell rocks as a tool to define such kind of DSLs 
+* There is great value in building a test DSL that reflects the way the system works and Haskell rocks as a tool to define such kind of DSLs
 * _This is just the beginning of the journey_
 
 ## What's next?
@@ -242,7 +241,7 @@ test numNodes = do
 * Provide an external parser to make it easier to write and modify tests
 * Complete support of remote infrastructure
 * Parallelization of tests execution
-* ... 
+* ...
 * => make it easier and faster to use it
 </div>
 
@@ -253,7 +252,7 @@ test numNodes = do
 <div class="notes">
 * Based on formal/executable models of the SUT
 * Requires instrumentation of some sort of the processes run
-* Similar to concurrent programs testing: [dejafu](https://github.com/barrucadu/dejafu) 
+* Similar to concurrent programs testing: [dejafu](https://github.com/barrucadu/dejafu)
 * Still an area of active research...
 </div>
 

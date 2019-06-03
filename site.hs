@@ -138,26 +138,26 @@ main = do
 
 --------------------------------------------------------------------------------
 homeCtx :: Context String
-homeCtx = titleField "Welcome" `mappend`
+homeCtx = titleField "Welcome" <>
     defaultContext
 
 postCtx :: Context String
 postCtx =
-  escaped   "title"            `mappend`
-  escaped   "subtitle"         `mappend`
-  field     "slug" slugify     `mappend`
-  dateField "date" "%B %e, %Y" `mappend`
+  escaped   "title"            <>
+  escaped   "subtitle"         <>
+  field     "slug" slugify     <>
+  dateField "date" "%B %e, %Y" <>
   defaultContext
 
 slidesCtx :: Context String
 slidesCtx =
-  escaped   "title"                  `mappend`
-  escaped   "subtitle"               `mappend`
-  field     "revealjs-url"  revealJs `mappend`
-  dateField "date" "%B %e, %Y"       `mappend`
+  escaped   "title"                     <>
+  escaped   "subtitle"                  <>
+  field     "revealjs-url"  revealJsUrl <>
+  dateField "date" "%B %e, %Y"          <>
   defaultContext
   where
-    revealJs = const $ return "/reveal.js"
+    revealJsUrl = const $ return "/reveal.js-3.8.0"
 
 slugify :: Item String -> Compiler String
 slugify item = do
@@ -179,4 +179,3 @@ stripPrefix = customRoute stripPrefixRoute
       where
         p = toFilePath ident
     dropFirstDirectory = joinPath . tail . splitPath . takeDirectory
-

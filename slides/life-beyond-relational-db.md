@@ -3,7 +3,8 @@ title: Life Beyond Relational Database
 author: Capital Match Team
 date: 2016-03-10
 theme: beige
------------- 
+------------
+
 
 # Agenda
 
@@ -69,7 +70,7 @@ theme: beige
 
 > Event Sourcing ensures that all changes to application state are stored as a sequence of events. Not just can we query these
 > events, we can also use the event log to reconstruct past states, and as a foundation to automatically adjust the state to cope
-> with retroactive changes. 
+> with retroactive changes.
 
 > [Martin Fowler](http://martinfowler.com/eaaDev/EventSourcing.html)
 
@@ -106,9 +107,9 @@ theme: beige
     ```haskell
     act :: Command -> Model -> Event
     ```
-    
+
 * Events modify model
-    
+
     ```haskell
     apply :: Event -> Model -> Model
     ```
@@ -135,12 +136,12 @@ newtype WebStateM g l m a = WebStateM { runWebM :: TVar g -> l -> m a }
 
 ```
 data StoredEvent s = StoredEvent { eventVersion :: EventVersion
-                                 , eventType    :: EventType s 
-                                 , eventDate    :: Date        
-                                 , eventUser    :: UserId      
-                                 , eventRequest :: Encoded Hex 
-                                 , eventSHA1    :: Encoded Hex 
-                                 , event        :: ByteString  
+                                 , eventType    :: EventType s
+                                 , eventDate    :: Date
+                                 , eventUser    :: UserId
+                                 , eventRequest :: Encoded Hex
+                                 , eventSHA1    :: Encoded Hex
+                                 , event        :: ByteString
                                  }
 ```
 
@@ -150,11 +151,11 @@ data StoredEvent s = StoredEvent { eventVersion :: EventVersion
 * Each event has a (monotonically increasing) version which is used for proper deserialization
 * Events carry useful information for troubleshooting and auditing: User who initiated the request, request id itself, SHA1
   representing version of appplication
-* Events Store serializes concurrent writes 
+* Events Store serializes concurrent writes
 
 # Software
 
-## 
+##
 
 ![In Practice](/images/workshop.jpg)
 
@@ -182,7 +183,7 @@ data StoredEvent s = StoredEvent { eventVersion :: EventVersion
 
 ## Make models resilient
 
-* Resilience of models $\longrightarrow$ *Replication* 
+* Resilience of models $\longrightarrow$ *Replication*
 * Use [Raft](http://raft.github.io/) to maintain strong consistency of models: [several](https://github.com/cartazio/haver-raft) [implementations](https://github.com/NicolasT/kontiki) [in](https://github.com/chrisnc/tangaroa) Haskell
 * Started implementation of practical cluster based on Raft, called [raptr](https://github.com/capital-match/raptr)
 
@@ -195,7 +196,7 @@ data StoredEvent s = StoredEvent { eventVersion :: EventVersion
 
 # Questions?
 
-## 
+##
 
 ![](/images/puzzled.jpg)
 

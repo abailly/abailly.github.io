@@ -4,15 +4,16 @@ subtitle: Modeste voyage en philosophie des techniques pour codeur insatisfait
 author: Arnaud Bailly - Aleryo/Symbiont - @dr_c0d3
 date: 2017-10-20
 theme: serif-black
------------- 
+------------
+
 
 # Génèse
 
 <div class="notes">
 * not native english speaker... => focus/willpower :)
-* different view on code, if not language then what ? 
+* different view on code, if not language then what ?
 * is code really for reading? do we need so much code?
-* living, experience something => 
+* living, experience something =>
 </div>
 
 ## Sponsors
@@ -52,17 +53,17 @@ theme: serif-black
 
     > We do not believe that these large patterns, which give so much structure to a town or of a neighborhood, can be created by centralized authority, or by laws, or by master plans.
     > A Pattern Language, p.3
-* patterns are supposed to be used in communicating with inhabitants, users, citizens and their use should be validated. They are really meant as a combinatory language with which one weaves a description of some building 
+* patterns are supposed to be used in communicating with inhabitants, users, citizens and their use should be validated. They are really meant as a combinatory language with which one weaves a description of some building
 </div>
 
------ 
+-----
 
 ![](/images/patterns.jpg)
 
 <div class="notes">
 * Software patterns are described in the *language* of software, as code samples and they can hardly be composed to form a coherent whole
 * Design Patterns are timed, located, grounded in some specialised dialect of the *solution* space. They were interesting and valuable but they suffered from *devaluation* over time as the paradigms they were grounded in (class based OO languages) are waning
-* Contrast with the continued relevance of Alexander's Patterns, even when he speaks about urbanisation, towns, neighbourhoods, houses... 
+* Contrast with the continued relevance of Alexander's Patterns, even when he speaks about urbanisation, towns, neighbourhoods, houses...
 * We don't wear Jacquard pull-overs nor nylon long sleeved shirts anymore but we still live in houses
 </div>
 
@@ -85,7 +86,7 @@ theme: serif-black
 
 <div class="notes">
 * medieval buildings were not *designed*
-    * modern buildings are *completed* before handover to inhabitants, strict separation between construction and living 
+    * modern buildings are *completed* before handover to inhabitants, strict separation between construction and living
     * medieval buildings were built using shapes, solid patterns made of wood. Stones are carved one by one and fit in place with other stones
 * *objects* --> *things*
 </div>
@@ -105,11 +106,11 @@ theme: serif-black
     * examples of kite, potery, reindeerman, cello: thing acts as a *transducer* between the gestures of a person and a material/nature
     * duration: preservation of shape (achievement, completion) vs. continuity of a process (ex. Moore's warrior)
     * correspondance, share experience through the exchange of letters, when I read a letter it is as if I was *with* the writer
-    * distinction between *interaction* and *correspondance* : 
+    * distinction between *interaction* and *correspondance* :
       * interaction is confrontation of two beings, stillness : none can move forward
       * correspondance is responding to the world through the mediation of transduction, attuning gestures and thoughts to the present world until they become undistinguishable through movement, through *making*
 
-* One operates on/with software through the basic tool of *transduction*, e.g. the translation from one formal language to another one. 
+* One operates on/with software through the basic tool of *transduction*, e.g. the translation from one formal language to another one.
     * High-level design languages: UML, formal specifications in B, type systems...
     * Programming languages at various levels from very "abstract" (Prolog, Haskell, Coq) to the very "concrete" (C, Assembly...)
     * Its transductions and code all the way down, down to the physical circuits and silicium cells
@@ -136,7 +137,7 @@ theme: serif-black
 <div class="notes">
 
 * Coding is an intense crafting activity whose medium is the same as the matter it manipulates.
-* One craft software with her hands, [typing on a keyboard](https://www.meetup.com/Mechanical-Keyboard/photos/27166931/452768389/?_locale=fr-FR) is so important that there are groups dedicated to it and hundreds of different types of keyboards. 
+* One craft software with her hands, [typing on a keyboard](https://www.meetup.com/Mechanical-Keyboard/photos/27166931/452768389/?_locale=fr-FR) is so important that there are groups dedicated to it and hundreds of different types of keyboards.
 * Each developer spends a lot of time customising her environment to be "more" efficient, dozens of books have been written on the subject of software craftmanship
 </div>
 
@@ -176,14 +177,14 @@ theme: serif-black
 <div class="notes">
 * Boundaries of *what* is a "piece of software" are more and more blurred
   * long-lived server parts
-  * support systems 
+  * support systems
   * thirparty services
   * short-lived cloud functions
   * custom/local elements (Excel, macros, notebooks)
 * Through individuation, the software loses its purely instrumental nature and starts *reflecting* on the humans it interacts with
     * Humans are *transformed* (transduced?) by the technical object, hence the software
 * *Web* of interconnected elements, individuation becomes difficult to characterise, every piece of code seems to come "alive" in interaction with more and more other pieces
-* Technical objects are *individuals* made of *technical elements* and part of a *technical ensemble* (network): Think of a car, made out of wheels and part of the general framework to make cars possible 
+* Technical objects are *individuals* made of *technical elements* and part of a *technical ensemble* (network): Think of a car, made out of wheels and part of the general framework to make cars possible
 * Form and function are forces that shape the technical object, but neither has the upper hand on the other: objects have some internal logic, a "life" of their own
 * Individuation has consequences on *legal property* of software => "viral" nature of some OSS licences ack the fact the border of what makes a software a single individual is blurry
 </div>
@@ -226,7 +227,7 @@ theme: serif-black
 # Éthique
 
 <div class="notes">
-* What does this all mean in practice? 
+* What does this all mean in practice?
 * What kind of ethics this view of the code induces?
 </div>
 
@@ -242,7 +243,7 @@ theme: serif-black
 * No need for authority (// cathedral builders)
 
 * Direct contact with people
-* Organic team, implicit knowledge of what needs to be done -> Just do it! 
+* Organic team, implicit knowledge of what needs to be done -> Just do it!
 * Beyond planning -> living with the code, making the code live
 </div>
 
@@ -263,7 +264,7 @@ theme: serif-black
 <div class="notes">
 * Legacy code is working code, people did things for a reason, because of some context and constraint
 * There is great value in *taking care of* and *improving* existing code
-* Listening to the people who made the code 
+* Listening to the people who made the code
 * Parallel w/ architecture of cities: Compare London and Paris, the tension between past, present and future. Sometimes you have to sacrifice the past to give way to the future, sometimes you have to take of the past
 * Coding is a *process*, a path => there is potentially no end, if I leave a project somebody will take it over
 * Take care of all aspects of the existence of software, from coding to produciton to maintainance to production
@@ -298,7 +299,7 @@ theme: serif-black
 ## Remerciements
 
 * Bernard Notarianni et Christophe Thibaut pour leur revue amicale mais néanmoins critique de ce foutoir
-* l'organisation de l'_Agile Tour Bordeaux_  pour m'avoir permis de donner cette conférence 
+* l'organisation de l'_Agile Tour Bordeaux_  pour m'avoir permis de donner cette conférence
 * https://artisans-du-logiciel.slack.com/ pour les discussions innombrables et passionantes
 
 ## Sponsors (bis)

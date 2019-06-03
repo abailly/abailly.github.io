@@ -6,7 +6,6 @@ date: 2018-07-05
 theme: serif-black-symbiont
 ------------
 
-
 # Agenda
 
 --------

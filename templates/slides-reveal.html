@@ -56,7 +56,7 @@ code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
 code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    </style>    
+    </style>
 $endif$
 $if(css)$
 $for(css)$
@@ -75,8 +75,7 @@ $endif$
         document.getElementsByTagName( 'head' )[0].appendChild( link );
       }
     </script>
-    <script type="text/javascript"
-            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
     <!--[if lt IE 9]>
     <script src="$revealjs-url$/lib/js/html5shiv.js"></script>
     <![endif]-->

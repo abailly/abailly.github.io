@@ -4,7 +4,8 @@ subtitle: Machine Learning for Dummies
 author: Arnaud Bailly
 date: 2016-09-05
 theme: black
------------- 
+------------
+
 
 # Motivation
 
@@ -25,7 +26,7 @@ theme: black
 
 as a silly coding challenge to apply for a job:
 
-> Extract the top 400 articles from Arxiv corresponding to the query `big data`, analyze 
+> Extract the top 400 articles from Arxiv corresponding to the query `big data`, analyze
 > their content using Google's word2vec algorithm, then run a principal component analysis over
 > the resulting words matrix and display the 100 most frequent words' position on a 2D figure.
 > In Haskell...
@@ -49,9 +50,9 @@ as a silly coding challenge to apply for a job:
 ## Principles
 
 * Goal: Build a *words embedding* model, e.g. a function $e: W \rightarrow R^d$ that maps each word from a given vocabulary $W$ to a high-dimensional *vector* space
-* Word2vec is actually more a *family* of models: 
-    * 2 basic models: Continuous Bag-of-Words (CBOW) and **Skip-Gram** and various optimisations 
-    * Several variations 
+* Word2vec is actually more a *family* of models:
+    * 2 basic models: Continuous Bag-of-Words (CBOW) and **Skip-Gram** and various optimisations
+    * Several variations
 
 ## Principles
 
@@ -92,16 +93,16 @@ $$
 
 ![](/images/w2v-backprop-input.png)
 
----- 
+----
 
 $$
 W_{new}' = W' - \alpha G_O
-$$ 
+$$
 
 
 $$
 w_I_{new} = w_I - \alpha h'
-$$ 
+$$
 
 ## (Naive) Code in Haskell
 
@@ -128,7 +129,7 @@ $$
 **Idea**: Approximate probability over $V$ with probabilities over *binary encoding* of $V$
 
 * Output vectors encode a word's *path* within the binary tree
-* Reduces complexity of model training to updating $\log(V)$ output vectors instead of $V$ 
+* Reduces complexity of model training to updating $\log(V)$ output vectors instead of $V$
 
 ## Huffman Tree
 
@@ -164,7 +165,7 @@ $$
 
 ![](https://www.tensorflow.org/versions/r0.10/images/linear-relationships.png)
 
----- 
+----
 
 * Find some way to reduce dimensionality of space
 * Most well-known technique is **Principal Component Analysis**
@@ -213,10 +214,10 @@ $$
 
 * There is no better way to understand algorithms than to implement them
 * For production, don't roll your own ML engine unless:
-    *  that's your core skills domain 
+    *  that's your core skills domain
     *  and/or you are prepared to spend time and money
 
-## References 
+## References
 
 * [Original word2vec paper](http://arxiv.org/pdf/1301.3781.pdf)
 * Word2vec implementations: [original C version](https://github.com/dav/word2vec), [gensim](https://radimrehurek.com/gensim/models/word2vec.html), [Google's TensorFlow](https://www.tensorflow.org/versions/r0.10/tutorials/word2vec/index.html), [spark-mllib](http://spark.apache.org/docs/latest/mllib-feature-extraction.html#word2vec), [Java](https://github.com/medallia/Word2VecJava)...
