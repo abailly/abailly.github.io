@@ -1,0 +1,186 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - How I (Try to) Develop Software</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://abailly.github.io"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="#">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="draft" id="main" role="main">
+<h1>How I (Try to) Develop Software</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on October 26, 2017</div>
+
+<p>This article is a hopefully short and to the point overview of my current state of practices when writing code, which those days is mostly Haskell.</p>
+<h1 id="tools">Tools</h1>
+<h2 id="hardware">Hardware</h2>
+<p>I write 100% of my code on the following machine:</p>
+<blockquote>
+<p>Model Name: MacBook Pro Model Identifier: MacBookPro13,2 Processor Name: Intel Core i7 Processor Speed: 3,3 GHz Number of Processors: 1 Total Number of Cores: 2 L2 Cache (per Core): 256 KB L3 Cache: 4 MB Memory: 16 GB</p>
+</blockquote>
+<p>Because I spend most of my time writing in globish, whether in code or articles like this one, I have a QWERTY keyboard with a US International layout with dead keys that allows to type accented characters.</p>
+<p>My previous machine was also a MacBook Air and I have worked on 13’’ laptop for the past 15 years. The main rationale behind this choice is that I am used to move between different places to work whether it be several offices, home or during long commutes by train. Having a small and easily transportable machine was a strong requirement. Now that I work most of the time from home, the habit of working at different places sticked and I keep moving with my laptop from the sofa, to a desk, to the kitchen’s bar.</p>
+<p>I don’t own another monitor and when I worked at locations where I had one, I never managed to get used to it. Because I have a small screen (and because as I get older, I cannot decrease the size of the fonts too much) I need to make sure the code I am working on fits in a small number of lines, e.g. something like 30 lines given my current editor’s configuration which implies I tend to write compact code which might sometimes come in tension with expressiveness. Note that while I write mostly “backend” code right now I used to write front-end code in some of my past jobs and the layout I used was identical.</p>
+<p>I have been pondering for a few years now the opportunity to move most of my development to the cloud, spinning VMs with all the need tools on demand and working through SSH. That’s the setting I use when pairing remotely but I did not made the step yet…</p>
+<h2 id="software">Software</h2>
+<ul>
+<li>I am mostly happy with MacOS so far: It does the job to manage GUIs and is very stable: I can’t remember having had an OS crash,</li>
+<li>I of course use <a href="https://brew.sh/">homebrew</a> as a package manager for everything which is not packaged as a proper MacOS app, e.g. most Unix-like tools,</li>
+<li>I use <a href="https://docs.docker.com/docker-for-mac/">docker for Mac</a> a lot: Most of the software I developed since 2014 has been packaged as docker images and it is extremely useful for testing (more on this later),</li>
+<li>My shell is plain <a href="https://www.gnu.org/software/bash/">bash</a> in <a href="https://www.iterm2.com/">iTerm2</a> and I have a small set of <a href="https://github.com/abailly/dotfiles">dotfiles</a> which are updated infrequently. I don’t spend much time customizing my environment: I agree with the general idea that <em>a good craftsperson chooses the best tools</em> and those tools need to be <em>honed</em> but time is at a premium and I prefer to spend it reading articles and books, thinking about design problems, discussing with fellow developers and coding rather than fiddling with tools,</li>
+</ul>
+<p>My editor of choice is <a href="https://www.gnu.org/software/emacs/download.html#macos">Emacs</a>: I chose it when I got back to university at the turn of the millenium and never looked back. I can edit files with vim and I even tried to use <a href="http://spacemacs.org/">spacemacs</a> for a couple of months but it did not stick. Just like my shell’s my emacs config is pretty basic and I probably use 5% of its power, but I am happy with it.</p>
+<p>I write Haskell code on Emacs using <a href="http://commercialhaskell.github.io/intero/">intero</a>. I used to have a more or less complex a <code>haskell-mode</code> configuration adapted from various sources on the internet but intero works just fine, if a bit slowly. It provides syntax coloring, some form of autocompletion, <code>TAGS</code> file handling, type information, REPL… Intero leverages stack and allows one to select the targets to load within a given project’s context which is handy when working on a large-ish codebase to select only a subset of the packages. The major shortcomings with intero is that:</p>
+<ul>
+<li>Inline errors feedback is slow,</li>
+<li>It stops working as soon as the file cannot be parsed.</li>
+</ul>
+<h1 id="practices">Practices</h1>
+<p>When writing code, I try to adhere to the <em>Test-Driven Development</em> discipline:</p>
+<ul>
+<li>Write a failing test: This is usually a <em>unit test</em> but from time to time can be a higher level test, whether an <em>acceptance test</em> or a <em>system test</em> when working on a larger feature,</li>
+<li>Make the test fail: This implies the test should compile, which usually leads to writing some code like basic types definitions and functions skeletons,</li>
+<li>Write needed code to make the test pass: Depending on the code and the situation, this step can be more or less large,</li>
+<li>Commit code to version control,</li>
+<li>Refactor if needed: This usually happens after a few tests have been written,</li>
+<li>Rinse and repeat,</li>
+<li>Integrate into <em>trunk</em>.</li>
+</ul>
+<p>This basic loop can be repeated several times a day depending on the features I am working on. Here are a few more details on each of those steps.</p>
+<h2 id="test-driven-development">Test Driven Development</h2>
+<p>I have become accustomed to write tests as part of my development loop and usually that’s the first thing I am tempted to do. When working in Haskell I can run my TDD feedback loop in 2 different ways:</p>
+<ol style="list-style-type: decimal">
+<li>Use <code>stack test my-projet --file-watch</code> from the command-line in order to have a continuous feedback loop running in the background,</li>
+<li>Use the REPL:
+<ol start="3" style="list-style-type: decimal">
+<li>(Re)Load the test file with <code>C-c C-l</code> or <code>:r</code> from the REPL,</li>
+<li>Run the tests using <code>hspec spec</code></li>
+</ol></li>
+</ol>
+<p>Writing tests brings me the following benefits:</p>
+<ul>
+<li>It allows me to design the code: Because I need to write code that must compile and execute properly, the design must be explicit and more importantly <em>testable</em> by construction,</li>
+<li>It makes refactoring easy: When you have tests that fail if behaviour of the code departs from expected outcome, refactoring is never an issue,</li>
+<li>It makes sharing the code easy: Having a test harness in place, anyone in the team can start poking at my code, suggest improvements and refactorings, without having to spend a lot of time studying it and fearing to break something,</li>
+<li>It provides a <em>cadence</em>: I find it very easy to get jump into a rabbit’s hole and get side-tracked to solve technical problems remotely relevant to the task at hand, writing a test gives a clear and unambiguous goal whose completion provides a warm feeling of achievement,</li>
+</ul>
+<p>In some circumstances, e.g. exploring a new idea, writing a spike, I write code without writing tests. If the code is not thrown away is always ends up being a bad idea.</p>
+<h3 id="haskell-tdd-specificities">Haskell TDD Specificities</h3>
+<dl>
+<dt>Types</dt>
+<dd><p>Because of its very expressive type system and its purity, I need to write fewer tests in Haskell than I would normally have to in another language, say Java, without significant boilerplate. As a very basic example, if I have a function <code>foo :: Natural -&gt; Natural -&gt; Bool</code> then I obviously don’t need to have tests for negative numbers. It is very easy in Haskell to create domain-specific types so I try to use and abuse this,</p>
+</dd>
+<dt>Compiler</dt>
+<dd><p>Haskell’s compiler (GHC) checks a lot of potential sources of errors that I would normally have to test:</p>
+<ul>
+<li>Function’s totality: When pattern matching on input GHC checks all <em>constructors</em> are matched by at least one clause. While this is not a full-blown totality proof and is rather coarse grained it still provides assurance no case is missed hence removes the need to have explicit tests for that,</li>
+<li>Typechecking: Combining precice domain-specific types with strong typechecking (and no cast!) gives a lot of guarantees about the correctness of the code. We don’t have to guard and test against potential invalid inputs,</li>
+</ul>
+</dd>
+<dt>Property-Based Testing</dt>
+<dd><p>QuickCheck-like tools which allows one to express properties about the code and generate random inputs to check those properties are much more commmonplace and usable in Haskell than in other languages. It is however not always easy to find relevant properties which are not as complex to express as the code they check. Some common usage patterns I have found are:</p>
+<ul>
+<li><p>Serialization: It’s trivial to write a property expressing encoding and decoding are isomorphic:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">decode <span class="fu">.</span> encode x <span class="fu">==</span> x</code></pre></div>
+although writing this code can be complex when interacting with external software</li>
+<li><p>Oracles: Checking a fast but complex implementation behaves identically to a slower but simpler one</p></li>
+</ul>
+</dd>
+<dt>Mocking</dt>
+<dd><p>Because we have a first-class functions and polymorphic data types, we don’t need any specialized framework or tool to use <a href>mocks</a> in Haskell. This makes it easy to identify <em>seams</em> in the design and write tests and functions accordingly. For example, if I have a function that needs to run a query against a database, I can easily pass the query execution <em>action</em> as a function resulting in some monadic action and provide a mock implementation for unit testing purpose. When the codebase grows, those functions can be grouped into a proper typeclass.</p>
+</dd>
+</dl>
+<h3 id="unit-tests-vs.integration-tests-vs.acceptance-tests-vs.">Unit Tests vs. Integration Tests vs. Acceptance Tests vs. …</h3>
+<h2 id="debugging">Debugging</h2>
+<p>I view debugging as a failure: When I have to debug my code, this means there is something I don’t understand about it which is a thought I find disturbing. Of course, the code I have written can fail in the field for a lot of reasons:</p>
+<ul>
+<li>I misunderstood how to use the result of a thirdparty library’s function call,</li>
+<li>I am talking to the system and did not properly check for failures or exceptional conditions,</li>
+<li>I implemented flawed logic w.r.t requirements and actual usage,</li>
+<li>…</li>
+</ul>
+<p>All these reasons are amenable to unit testing so my first reflex when I encounter a bug in the field is to write a proper test exposing the bug. Writing this test <em>might</em> require some thorough analysis which <em>might</em> require debugging but this should be exceptional and properly analysed to prevent it. When I really need to <em>debug</em> code, I seldom ever use GHCi’s debugger and usually resort to good old <code>printf</code>: Insert <code>Debug.Trace.trace</code> statements until I find the source of the problem.</p>
+<h2 id="team-work">Team Work</h2>
+<p>Being a fallible human I know that when left alone my natural laziness quickly takes over and I become tempted to code recklessly, foregoing all those nice principles and practices. Moreover there’s obviously more brain power in two minds than in one and `</p>
+<h2 id="version-control">Version Control</h2>
+<ul>
+<li>Small commits, try to write meaningful log messages</li>
+<li>Use issue tracking number in commits for linking</li>
+<li>Work on main branch (see Continuous integration) to minimize time to market: Software should be put in the hand of end users as fast as possible</li>
+<li>Favor a single line of history rather than complex branch/merge graphs: Makes it easier to identify which commit introduced some issues, make bisect useful</li>
+<li>Merging breeds bugs, even with proper unit test coverage -&gt; remove the need to merge</li>
+</ul>
+<h2 id="refactoring-continuous-integration">Refactoring &amp; Continuous Integration</h2>
+<ul>
+<li>Fix defects as soon as they are spotted rather than having to wait better times and suffer from long and painful refactorings</li>
+<li>Haskell’s type system coupled with proper TDD makes refactoring a breeze: Change what you need to then fix compilation and testing errors and you’re done</li>
+<li><a href="http://www.extremeprogramming.org/rules/refactor.html">Refactor Mercilessly</a> and <em>continously</em></li>
+<li>Requires proper <em>continuous integration</em>: Integrates small batches of changes to the system, check continously everything keeps working
+<ul>
+<li><em>Trunk Based Development</em> (See Version Control)</li>
+</ul></li>
+<li>Continuous Integration = software should be production ready 99% of the time =&gt; test harness is here to validate integration is fine</li>
+</ul>
+<h2 id="delivering-validating-software">Delivering &amp; Validating Software</h2>
+<ul>
+<li>Manual testing is important =&gt; make it easy to do so, provide staging environment(s) with latest available version(s) and relevant data set, e.g. production-like environment</li>
+<li>Packaging, delivery, deployment are part of the software: Having tools for testing at the system-level is a consequence and a cause of having easy to use deployment tools, both should be developed jointly</li>
+</ul>
+<h2 id="production-readiness">Production Readiness</h2>
+<ul>
+<li>Pay attention to logs: Logs are part of the software’s interface and they should be primarily usable for machine consumption, e.g. output in some structured format like JSON (not ideal but still better than free-form text…)</li>
+<li>Version numbers</li>
+<li>Status API/CLI tool: Pre-flight checks, current status, degrade gracefully, provide a <code>stop</code> command =&gt; make the system testable</li>
+</ul>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+  </div>
+</body>
+</html>

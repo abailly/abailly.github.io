@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="/reveal.js/css/reveal.css"/>
+  <link rel="stylesheet" href="/reveal.js-3.8.0/css/reveal.css"/>
     <style type="text/css">code{white-space: pre;}</style>
 
     <style type="text/css">code{white-space: pre;}</style>
@@ -52,10 +52,10 @@ code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
 code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    </style>    
+    </style>
 
 
-    <link rel="stylesheet" href="/reveal.js/css/theme/serif-compact.css" id="theme">
+    <link rel="stylesheet" href="/reveal.js-3.8.0/css/theme/serif-compact.css" id="theme">
 
     <!-- If the query includes 'print-pdf', include the PDF print sheet -->
     <script>
@@ -63,14 +63,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = '/reveal.js/css/print/pdf.css';
+        link.href = '/reveal.js-3.8.0/css/print/pdf.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
       }
     </script>
-    <script type="text/javascript"
-            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
     <!--[if lt IE 9]>
-    <script src="/reveal.js/lib/js/html5shiv.js"></script>
+    <script src="/reveal.js-3.8.0/lib/js/html5shiv.js"></script>
     <![endif]-->
 
 </head>
@@ -103,7 +102,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </section></section>
 <section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="why" class="slide level2">
-<h1>Why?</h1>
+<h2>Why?</h2>
 <ul>
 <li class="fragment">I noticed there were a lot of questions on the type <code>List a</code> on the <code>#beginners</code> channel in <code>elm-lang</code>’s Slack</li>
 <li class="fragment"><p><a href="http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html">Robert “Uncle Bob” Martin</a> on test coverage and types:</p>
@@ -114,7 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment"><p>Makign <em>Business Domains</em> more formal and executable</p></li>
 </ul>
 </section><section id="objectif" class="slide level2">
-<h1>Objectif</h1>
+<h2>Objectif</h2>
 <ul>
 <li class="fragment">Faire découvrir la richesse des systèmes de types des langages fonctionnels</li>
 <li class="fragment">Donner envie d’aller y voir de plus près</li>
@@ -127,12 +126,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </iframe>
 </section></section>
 <section><section id="elm" class="titleslide slide level1"><h1>Elm</h1></section><section id="fonctions-pures" class="slide level2">
-<h1>Fonctions pures</h1>
+<h2>Fonctions pures</h2>
 <figure>
 <img src="/images/picasso-demoiselles.jpg" />
 </figure>
 </section><section id="fonctions-pures-1" class="slide level2">
-<h1>Fonctions pures</h1>
+<h2>Fonctions pures</h2>
 <ul>
 <li class="fragment">Des <em>fonctions</em> sans effets de bord</li>
 <li class="fragment">De préférences totales…</li>
@@ -140,19 +139,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">Qui sont interprétées par le <em>runtime</em> qui encapsule l’ensemble des effets</li>
 </ul>
 </section><section id="fonctions-pures-2" class="slide level2">
-<h1>Fonctions pures</h1>
+<h2>Fonctions pures</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">init <span class="fu">:</span> ( <span class="dt">Model</span>, <span class="dt">Cmd</span> <span class="dt">Msg</span> )
 
 update <span class="fu">:</span> <span class="dt">Msg</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> ( <span class="dt">Model</span>, <span class="dt">Cmd</span> <span class="dt">Msg</span> )
 
 view <span class="fu">:</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">H.Html</span> <span class="dt">Msg</span></code></pre></div>
 </section><section id="types-de-données-algébriques" class="slide level2">
-<h1>Types de données algébriques</h1>
+<h2>Types de données algébriques</h2>
 <figure>
 <img src="/images/mondrian-composition.jpg" />
 </figure>
 </section><section id="types-de-données-algébriques-1" class="slide level2">
-<h1>Types de données algébriques</h1>
+<h2>Types de données algébriques</h2>
 <ul>
 <li class="fragment">Décrit les données comme engendrées par une structure <em>algébrique</em></li>
 <li class="fragment">Types construits par <em>composition</em> au moyen d’opérateurs <em>union</em> et <em>produit</em></li>
@@ -160,29 +159,29 @@ view <span class="fu">:</span> <span class="dt">Model</span> <span class="ot">-&
 <li class="fragment">Permet au compilateur de “garantir” la totalité d’une fonction</li>
 </ul>
 </section><section id="types-de-données-algébriques-2" class="slide level2">
-<h1>Types de données algébriques</h1>
+<h2>Types de données algébriques</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Msg</span>
     <span class="fu">=</span> <span class="dt">SubmitResponse</span> (<span class="dt">Maybe</span> <span class="dt">String</span>)
     <span class="fu">|</span> <span class="dt">UpdateResponse</span> <span class="dt">String</span>
     <span class="fu">|</span> <span class="dt">NoOp</span></code></pre></div>
 </section><section id="types-de-données-algébriques-récursifs" class="slide level2">
-<h1>Types de données algébriques récursifs</h1>
+<h2>Types de données algébriques récursifs</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"></code></pre></div>
 </section></section>
 <section><section id="haskell" class="titleslide slide level1"><h1>Haskell</h1></section><section id="classes-de-types" class="slide level2">
-<h1>Classes de types</h1>
+<h2>Classes de types</h2>
 <figure>
 <img src="/images/pollock-untitled.jpg" />
 </figure>
 </section><section id="classes-de-types-1" class="slide level2">
-<h1>Classes de types</h1>
+<h2>Classes de types</h2>
 <ul>
 <li class="fragment">Interface offerte par un type de données</li>
 <li class="fragment">Permet d’encapsuler l’implémentation concrète</li>
 <li class="fragment">Peut exprimer des relations complexes entre plusieurs types de données</li>
 </ul>
 </section><section id="classes-de-types-2" class="slide level2">
-<h1>Classes de types</h1>
+<h2>Classes de types</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> (<span class="dt">Eq</span> (<span class="dt">Answer</span> q)) <span class="ot">=&gt;</span> <span class="dt">Questionable</span> q <span class="kw">where</span>
   <span class="kw">type</span> <span class="dt">Answer</span><span class="ot"> q ::</span> <span class="fu">*</span>
 
@@ -194,12 +193,12 @@ view <span class="fu">:</span> <span class="dt">Model</span> <span class="ot">-&
 <span class="ot">  isCorrectAnswer ::</span> q <span class="ot">-&gt;</span> <span class="dt">Bool</span>
   isCorrectAnswer q <span class="fu">=</span> <span class="dt">Just</span> (expected q) <span class="fu">==</span> response q</code></pre></div>
 </section><section id="familles-de-types" class="slide level2">
-<h1>Familles de types</h1>
+<h2>Familles de types</h2>
 <figure>
 <img src="/images/bacon-triptyque.jpg" />
 </figure>
 </section><section id="familles-de-types-1" class="slide level2">
-<h1>Familles de types</h1>
+<h2>Familles de types</h2>
 <ul>
 <li class="fragment">Relation entre types</li>
 <li class="fragment">Rend le domaine d’une fonction dépendant du codomaine</li>
@@ -213,19 +212,19 @@ view <span class="fu">:</span> <span class="dt">Model</span> <span class="ot">-&
 <span class="kw">type</span> <span class="dt">Answer</span> <span class="dt">Grade</span> <span class="fu">=</span> <span class="dt">Int</span>
 <span class="kw">type</span> <span class="dt">Answer</span> <span class="dt">OpenQuestion</span> <span class="fu">=</span> <span class="dt">Text</span></code></pre></div>
 </section><section id="types-existentiels" class="slide level2">
-<h1>Types existentiels</h1>
+<h2>Types existentiels</h2>
 <figure>
 <img src="/images/magritte-pipe.jpg" />
 </figure>
 </section><section id="types-existentiels-1" class="slide level2">
-<h1>Types existentiels</h1>
+<h2>Types existentiels</h2>
 <ul>
 <li class="fragment">Encapsuler un ensemble de types dans un autre type de données</li>
 <li class="fragment">Renforce la distinction entre type abstrait et concret en rendant l’implémentation inaccessible</li>
 <li class="fragment">Garantit la <em>localité</em> des opérations sur un type: la variable de type est nécessairement locale</li>
 </ul>
 </section><section id="types-existentiels-2" class="slide level2">
-<h1>Types existentiels</h1>
+<h2>Types existentiels</h2>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Question</span> <span class="kw">where</span>
   <span class="dt">Question</span><span class="ot"> ::</span> (<span class="dt">Questionable</span> q)
            <span class="ot">=&gt;</span> q
@@ -233,40 +232,40 @@ view <span class="fu">:</span> <span class="dt">Model</span> <span class="ot">-&
            <span class="ot">-&gt;</span> <span class="dt">Question</span></code></pre></div>
 </section></section>
 <section><section id="idris" class="titleslide slide level1"><h1>Idris</h1></section><section id="types-abstraits-de-données-généralisés" class="slide level2">
-<h1>Types abstraits de données généralisés</h1>
+<h2>Types abstraits de données généralisés</h2>
 <figure>
 <img src="/images/kandinsky-comp-8.jpg" />
 </figure>
 </section><section id="types-abstraits-de-données-généralisés-1" class="slide level2">
-<h1>Types abstraits de données généralisés</h1>
+<h2>Types abstraits de données généralisés</h2>
 <ul>
 <li class="fragment">Applicable aux types paramétrés</li>
 <li class="fragment">Chaque constructeur d’un type peut retourner une type différent</li>
 <li class="fragment">Permet de spécialiser le paramètre en fonction du contexte dans lequel le type est appelé à s’insérer</li>
 </ul>
 </section><section id="types-abstraits-de-données-généralisés-2" class="slide level2">
-<h1>Types abstraits de données généralisés</h1>
+<h2>Types abstraits de données généralisés</h2>
 <div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">Command</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="ot">-&gt;</span> <span class="dt">Type</span> <span class="kw">where</span>
   <span class="dt">Prompt</span>         <span class="ot">:</span> <span class="dt">Question</span> <span class="ot">-&gt;</span> <span class="dt">Command</span> <span class="dt">Input</span>
   <span class="dt">AnswerQuestion</span> <span class="ot">:</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Command</span> <span class="dt">Bool</span>
   <span class="dt">Back</span>           <span class="ot">:</span> <span class="dt">Command</span> ()
   <span class="dt">Quit</span>           <span class="ot">:</span> <span class="dt">Command</span> ()</code></pre></div>
 </section><section id="hole-driven-development" class="slide level2">
-<h1>Hole-Driven Development</h1>
+<h2>Hole-Driven Development</h2>
 </section><section id="hole-driven-development-1" class="slide level2">
-<h1>Hole-Driven Development</h1>
+<h2>Hole-Driven Development</h2>
 <figure>
 <img src="/images/duchamp-pissotière.jpg" />
 </figure>
 </section><section id="hole-driven-development-2" class="slide level2">
-<h1>Hole-Driven Development</h1>
+<h2>Hole-Driven Development</h2>
 <ul>
 <li class="fragment">Utiliser l’inférence de type pour compléter le code par la structure attendue par le compilateur</li>
 <li class="fragment">Permet de s’assurer dés le départ qu’une fonction est totale</li>
 <li class="fragment">Permet à l’éditeur de compléter automatiquement le code</li>
 </ul>
 </section><section id="hole-driven-development-3" class="slide level2">
-<h1>Hole-Driven Development</h1>
+<h2>Hole-Driven Development</h2>
 <div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">runQuizz</span> <span class="ot">:</span> <span class="dt">Quizz</span> n <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
 runQuizz quizz<span class="fu">@</span>(<span class="dt">MkQuizz</span> answered current next) <span class="fu">=</span> <span class="kw">do</span>
   (input, quizz&#39;) <span class="ot">&lt;-</span> runCommand quizz (<span class="dt">Prompt</span> current)
@@ -276,64 +275,64 @@ runQuizz quizz<span class="fu">@</span>(<span class="dt">MkQuizz</span> answered
      (<span class="dt">GiveAnswer</span> x) <span class="ot">=&gt;</span> <span class="ot">?hole_3</span>
      <span class="dt">Garbage</span>        <span class="ot">=&gt;</span> <span class="ot">?hole_4</span></code></pre></div>
 </section><section id="types-dépendants" class="slide level2">
-<h1>Types dépendants</h1>
+<h2>Types dépendants</h2>
 <figure>
 <img src="/images/calle-sleepers.jpg" />
 </figure>
 </section><section id="types-dépendants-1" class="slide level2">
-<h1>Types dépendants</h1>
+<h2>Types dépendants</h2>
 <ul>
 <li class="fragment">Faire tomber la barrière entre les <em>types</em> et les <em>valeurs</em></li>
 <li class="fragment">Un type peut être définit par une fonction <em>dépendant</em> de la valeur d’un paramètre &lt;* Introduit une hiérarchie potentiellement infinie de types (quel est le type de <code>Type</code> ?)</li>
 <li class="fragment">Le <em>vérificateur de types</em> utilise la même sémantique que le <em>runtime</em></li>
 </ul>
 </section><section id="types-dépendants-2" class="slide level2">
-<h1>Types dépendants</h1>
+<h2>Types dépendants</h2>
 <div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">Quizz</span> <span class="ot">:</span> (numQuestions <span class="ot">:</span> <span class="dt">Nat</span>) <span class="ot">-&gt;</span> <span class="dt">Type</span> <span class="kw">where</span>
   <span class="dt">MkQuizz</span> <span class="ot">:</span>  (answered <span class="ot">:</span> <span class="dt">Vect</span> n <span class="dt">Answered</span>) <span class="ot">-&gt;</span>
              (current  <span class="ot">:</span> <span class="dt">Question</span>) <span class="ot">-&gt;</span>
              (next <span class="ot">:</span> <span class="dt">Vect</span> m <span class="dt">Question</span>) <span class="ot">-&gt;</span>
              <span class="dt">Quizz</span> (n <span class="fu">+</span> m)</code></pre></div>
 </section><section id="paires-dépendantes" class="slide level2">
-<h1>Paires dépendantes</h1>
+<h2>Paires dépendantes</h2>
 <figure>
 <img src="/images/bourgeois-together.jpg" />
 </figure>
 </section><section id="paires-dépendantes-1" class="slide level2">
-<h1>Paires dépendantes</h1>
+<h2>Paires dépendantes</h2>
 <ul>
 <li class="fragment">Empaqueter une valeur et un type dépendant de cette valeur dans une paire</li>
 <li class="fragment">Généralisation des types existentiels</li>
 <li class="fragment">Permet de <em>conserver</em> de l’information pour le compilateur</li>
 </ul>
 </section><section id="paires-dépendantes-2" class="slide level2">
-<h1>Paires dépendantes</h1>
+<h2>Paires dépendantes</h2>
 <div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">Answered</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
   <span class="dt">MkAnswered</span> <span class="ot">:</span> (question <span class="fu">**</span> <span class="dt">Answer</span> question) <span class="ot">-&gt;</span> <span class="dt">Answered</span></code></pre></div>
 </section><section id="type-égalité" class="slide level2">
-<h1>Type égalité</h1>
+<h2>Type égalité</h2>
 <figure>
 <img src="/images/klein-blue.jpg" />
 </figure>
 </section><section id="type-égalité-1" class="slide level2">
-<h1>Type égalité</h1>
+<h2>Type égalité</h2>
 <ul>
 <li class="fragment">Exprimer l’égalité entre deux types dans le système de types</li>
 <li class="fragment">Le type devient une <em>assertion</em> logique, une <em>proposition</em> qui doit être vérifiée par l’implémentation</li>
 <li class="fragment">La seule valeur qui <em>habite</em> ce type est <code>Refl</code> qui est donc une <em>preuve</em> que l’égalité est vérifiée</li>
 </ul>
 </section><section id="type-égalité-2" class="slide level2">
-<h1>Type égalité</h1>
+<h2>Type égalité</h2>
 <div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">plusOneCommutes</span> <span class="ot">:</span>  (n <span class="ot">:</span> <span class="dt">Nat</span>)
                 <span class="ot">-&gt;</span> (m <span class="ot">:</span> <span class="dt">Nat</span>)
                 <span class="ot">-&gt;</span> (n <span class="fu">+</span> <span class="dt">S</span> m <span class="fu">=</span> <span class="dt">S</span> n <span class="fu">+</span> m)</code></pre></div>
 </section><section id="types-proposition" class="slide level2">
-<h1>Types = Proposition</h1>
+<h2>Types = Proposition</h2>
 <figure>
 <img src="/images/malevitch-white-on-white.jpg" />
 </figure>
 </section><section id="types-proposition-1" class="slide level2">
-<h1>Types = Proposition</h1>
+<h2>Types = Proposition</h2>
 <ul>
 <li class="fragment">Mise en oeuvre concrète de Curry-Howard</li>
 <li class="fragment">Les types sont des <em>propositions</em>, les programmes des <em>preuves</em></li>
@@ -356,7 +355,7 @@ runQuizz quizz<span class="fu">@</span>(<span class="dt">MkQuizz</span> answered
 </ul>
 </section></section>
 <section><section id="colophon" class="titleslide slide level1"><h1>Colophon</h1></section><section id="quelques-références" class="slide level2">
-<h1>(Quelques) Références</h1>
+<h2>(Quelques) Références</h2>
 <ul>
 <li class="fragment"><a href="https://www.cis.upenn.edu/~bcpierce/tapl/">Types and Programming Languages</a>, B.Pierce</li>
 <li class="fragment">Advanced Types and Programming Languages, B.Pierce</li>
@@ -365,7 +364,7 @@ runQuizz quizz<span class="fu">@</span>(<span class="dt">MkQuizz</span> answered
 <li class="fragment"><a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/type-families-and-pokemon">Familles de types en Haskell</a></li>
 </ul>
 </section><section id="quelques-références-1" class="slide level2">
-<h1>(Quelques) Références</h1>
+<h2>(Quelques) Références</h2>
 <ul>
 <li class="fragment"><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/typefun.pdf?from=http%3A%2F%2Fresearch.microsoft.com%2F%7Esimonpj%2Fpapers%2Fassoc-types%2Ffun-with-type-funs%2Ftypefun.pdf">Fun with Type Functions</a></li>
 <li class="fragment"><a href="https://vimeo.com/162036084">Types + Properties = Software - Mark Seemann on Vimeo</a></li>
@@ -374,7 +373,7 @@ runQuizz quizz<span class="fu">@</span>(<span class="dt">MkQuizz</span> answered
 <li class="fragment"><a href="http://oxij.org/note/BrutalDepTypes/">Brutal {Meta}Introduction to Dependent Types in Agda</a></li>
 </ul>
 </section><section id="credits" class="slide level2">
-<h1>Credits</h1>
+<h2>Credits</h2>
 <ul>
 <li class="fragment"><a href="http://www.georgesbraque.org/images/gallery/gueridon.jpg">Guéridon</a>, G.Braque, 1913</li>
 <li class="fragment"><a href="https://c1.staticflickr.com/2/1305/563354141_dea564001f_b.jpg">Les demoiselles d’Avignon</a>, P.Picasso, 1907</li>
@@ -384,7 +383,7 @@ runQuizz quizz<span class="fu">@</span>(<span class="dt">MkQuizz</span> answered
 <li class="fragment"><a href="http://galeriegradiva.com/wp-content/uploads/2014/11/KLEIN_1.jpg">IKB 290</a>, Y.Klein, 1959</li>
 </ul>
 </section><section id="credits-1" class="slide level2">
-<h1>Credits</h1>
+<h2>Credits</h2>
 <ul>
 <li class="fragment"><a href="https://claudiabrigato.files.wordpress.com/2014/11/rothko-red.jpg">Orange et jaune</a>, M.Rothko, 1956</li>
 <li class="fragment"><a href="https://www.perrotin.com/images/2017/02/17/sophie_calle_the-sleepers_w1200xh630__003615.jpg">Dormeurs</a>, S.Calle, 1979</li>
@@ -395,15 +394,15 @@ runQuizz quizz<span class="fu">@</span>(<span class="dt">MkQuizz</span> answered
 <li class="fragment"><a href="http://www.renemagritte.org/images/paintings/the-treachery-of-images.jpg">La trahison des images</a>, R.Magritte, 1929</li>
 </ul>
 </section><section id="feedback" class="slide level2">
-<h1>Feedback</h1>
+<h2>Feedback</h2>
 <p><a href="https://goo.gl/forms/fwRYzEKSQMGhiA3f1">Questionnaire</a></p>
 </section></section>
     </div>
   </div>
 
 
-  <script src="/reveal.js/lib/js/head.min.js"></script>
-  <script src="/reveal.js/js/reveal.js"></script>
+  <script src="/reveal.js-3.8.0/lib/js/head.min.js"></script>
+  <script src="/reveal.js-3.8.0/js/reveal.js"></script>
 
   <script>
 
@@ -419,11 +418,11 @@ runQuizz quizz<span class="fu">@</span>(<span class="dt">MkQuizz</span> answered
 
         // Optional libraries used to extend on reveal.js
         dependencies: [
-          { src: '/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: '/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-          { src: '/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-//          { src: '/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
-//          { src: '/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+          { src: '/reveal.js-3.8.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '/reveal.js-3.8.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '/reveal.js-3.8.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: '/reveal.js-3.8.0/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '/reveal.js-3.8.0/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
 ]});
     </script>
 <script>

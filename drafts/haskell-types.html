@@ -1,0 +1,229 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - A Tale of Two Languages</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://abailly.github.io"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="#">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="draft" id="main" role="main">
+<h1>A Tale of Two Languages</h1>
+
+  <h2 class="subtitle">Making sense of Haskell (and Elm) Type System</h2>
+
+<div class="info">Posted on October 16, 2016</div>
+
+<p>This post was triggered by a short discussion in Elm’s Slack channel on how difficult learning Haskell is when compared with other languages, especially Elm, and by numerous questions I have seen over the past few weeks from beginners regarding the meaning of expressions like <code>List Int</code> or <code>foo : Int -&gt; String -&gt; Int</code>. It is an attempt to explain how it works targeted at programmers who have never been exposed to formal type theory, built on my own fifteen years’ old experience trying to understand Haskell’s type system, especially as it manifests itself in the form of more or less cryptic compilation errors. While this post is mostly focused on Haskell, I think it will also help people who come to Elm as its type system is quite close to Haskell’s and actually much simpler.</p>
+<h1 id="what-are-types">What are types?</h1>
+<p>Types often appear as a given in programming languages, as a intrisic part of the language one has to learn to live with, and hopefully master one day, but more often than not the actual <em>motivation</em> for types is lacking. This seems by contrast a good way to make untyped (or dynamically typed) languages more attractive and more sensible to a lot of programmers: With dynamicity, types cease to be an annoyance while writing programs but become a part of the runtime system, hence of the world the program lives in and something one can understand, play with, eventually cheat with…</p>
+<p>For want of the needed skill and knowledge, I won’t go into the details of the history of <em>types</em>. Suffice it to say that types as we know them were invented by XXst century mathematicians, most notably Bertrand Russell, as a way to solve paradoxes in naive set theory. Types (or hierarchy of types) are a way to <em>talk about things</em>, to <em>classify</em> them formally from the <em>outside</em> of a formal system those things form, because trying to classify things from the <em>inside</em> leads to inconsistencies. Gödel’s famous incompleteness theorems express this idea in a very precise way.</p>
+<p>This gives some insight on how to understand types in the case of Haskell (and Elm): Types are actually a formal system, a <em>language</em>, that allows us (and the compiler) to classify programs and expressions. The programmer should then think of Haskell not as a single language, but as as system made of 2 related but different languages: The language of <em>values</em>, which is what we use to actually <em>do</em> things with Haskell, and the language of <em>types</em>, which is used to annotate, classify, describe, constrain values. The great thing about Haskell’s type system is that the programmer can choose to let the latter stay implicit and within the confines of the typechecker’s execution, focusing on the first, more operational, language of values. But she can also choose to use explicitly to annotate his programs in a way which will help the typechecker <em>and</em> more importantly the next programmer. The language of types can then be viewed as a <em>model</em> of the program and a great way to provide precise (formal) descriptions of its behavior: By using precise, unambiguous, expressive types the programmer documents its code in a better way.</p>
+<h1 id="properties-of-the-haskell-type-language">Properties of the Haskell type language</h1>
+<ul>
+<li>Every expression has a type, or more precisely every expression <em>must</em> be assigned a single, unambiguous, most general type, to be considered valid by the typechecker. This is true for most constructs of a Haskell or Elm code fragment, except for type expressions themselves (but wait till we talk about <em>kinds</em>), import statements, modules declarations and of course comments,</li>
+<li>Types are often associated with the definition of data structures but this is not mandatory. Defining a new data structure always give rise to a new type but the converse is not true,</li>
+<li>A type <span class="math inline">\(T\)</span> is said to be <em>inhabited</em> if it is possible to define terms which can be typed with <span class="math inline">\(T\)</span>. The word “inhabited” is used to emphasize types <em>are not</em> sets and the things they type are not members of a set. The conflation of types and data structures gives rise to this ambiguity between types and sets,</li>
+<li>Types in Haskell and Elm are <em>inferred</em> by the typechecker and not be explicitly written by the programmer, through a process we will describe later,</li>
+<li>However type-level expressions can be written explicitly to <em>annotate</em> values, to document the (design of) the code as well as sometimes to help the typechecker resolve potentially ambiguous situations,</li>
+<li>Even in this case, the typechecker will run and make sure annotations written explicitly by the programmer are <em>compatible</em> with the inferred type. There is no such thing as <em>cast</em> or <em>type coercion</em> in Haskell, at least not in the way you can do it in C or Java,</li>
+<li>Explicit type annotations are a great way to document code and its design, and write code in a TDD-like way,</li>
+<li>The Haskell type-system is part of the family of Damas-Hindley-Milner type systems, which itself rests upon Martin-Löf’s work on intuitionistic typed logic and Girard’s System-F. The definitive “practical” guide on type systems for programmers is Benjamin Pierce’s <a href="http://www.cis.upenn.edu/~bcpierce/tapl/">Types and Applications to Programming Languages</a> or TAPL for short. It is a great (and heavy!) book that provides detailed proofs and algorithms for a wide variety of type systems.</li>
+</ul>
+<h2 id="typechecking-haskell-code">Typechecking Haskell code</h2>
+<p>For a formal exposition of typechecking in ML systems, please refer to TAPL. <a href="https://web.cecs.pdx.edu/~mpj/thih/thih.pdf">Typing Haskell in Haskell</a> is a great paper that provides lots of insights on how typechecking works by going through a detailed implementation in Haskell. Simon Peyton-Jones’ book <a href="http://research.microsoft.com/en-us/um/people/simonpj/papers/slpj-book-1987/">Implementation of Functional Programming Languages</a> is another classic source on the same topic. I only want to try to give an actionable intuition of how typechecking works in order to help programmers understand typing errors and better use types.</p>
+<p>Typechecking is a recursive process that tries to assign a most general type to each and every fragment of a program, within a given <em>context</em>. During that process, the typechecker will assign types to expressions and subexpressions depending on their <em>structure</em>. Oftentime, the typechecker will need to <em>unify</em> two potentially conflicting assignments for a single construction. This <em>unification</em> process is similar to the <a href="https://en.wikipedia.org/wiki/Unification_(computer_science)#A_unification_algorithm">Robinson’s unification algorithm</a> in logic programming and boils down to matching expression tree fragments.</p>
+<p>Informally it goes that way:</p>
+<ul>
+<li>Start from some context containing known assignments from <em>symbols</em> (names) to <em>types</em>. This context might be empty or, more often, prepopulated with basic definitions (e.g. called <code>Prelude</code> in Haskell) for common symbols,</li>
+<li>To typecheck any expression <span class="math inline">\(E\)</span> within a context <span class="math inline">\(C\)</span>:
+<ul>
+<li>If <span class="math inline">\(E\)</span> is an immediate value, e.g. a constant like <code>1</code>, <code>&quot;Foo&quot;</code> or <code>True</code>, assign to it the appropriate type,</li>
+<li>If <span class="math inline">\(E\)</span> is a function application, recursively typecheck both the function and its arguments, then <em>unify</em> the type of the function and the types of its arguments, creating new assignments if needed,</li>
+<li>If <span class="math inline">\(E\)</span> is a symbol, extend <span class="math inline">\(C\)</span> to <span class="math inline">\(C'\)</span> by assigning a fresh <em>type variable</em> <span class="math inline">\(t\)</span> as the type of <span class="math inline">\(E\)</span>: Without more information, this is the most general way we can type something, e.g. by saying <span class="math inline">\(E\)</span> can have <em>any</em> type,</li>
+<li>If <span class="math inline">\(E\)</span> is a symbol whose type is already known (because it is a library function, or because the user assigned it explicitly a type through an annotation), extend <span class="math inline">\(C\)</span> to <span class="math inline">\(C'\)</span> by assigning some type <span class="math inline">\(t\)</span> as the type of <span class="math inline">\(E\)</span>,</li>
+<li>There are similar rules for all syntactic constructions of the language…</li>
+<li>Recursively typecheck <span class="math inline">\(E\)</span>’s subexpressions within the context <span class="math inline">\(C'\)</span></li>
+</ul></li>
+<li>If a non-conflicting assignment of symbols to types can be built, typechecking succeeds, otherwise it fails and provides a hopefully useful message on what error the programmer made.</li>
+</ul>
+<p>One of the most interesting properties of the algorithm is that it is guaranteed to assign the <em>most general type</em> to any valid expression of the language, thus maximising reusability of defined expressions. When the user explicitly assign a type to an expression, the algorithm checks that this type can be unified with the inferred type: It is possible to assign a type only if it is <em>less general</em> than what the compiler infers. Contrary to what happens in other, more permissive languages like Java or C, there is no <em>cast</em> allowing you to pretend some expression has another type than what is inferred by the compiler.</p>
+<h1 id="the-haskell-types">The Haskell Types</h1>
+<h2 id="literal-types">Literal Types</h2>
+<ul>
+<li>The simplest types are the types of <em>atoms</em>, e.g. literal expressions of the language denoting immediate values:
+<ul>
+<li><code>()</code> aka. <em>unit</em> is the smallest type, which contains only one inhabitant also named <code>()</code>,</li>
+<li>Booleans have type <code>Bool</code> with 2 values, <code>True</code> and <code>False</code>,</li>
+<li>Numbers can have various types depending on precision and internal representation <code>12.1 :: Double</code>, <code>3 :: Int</code>, <code>1231323123123213 :: Integer</code>,</li>
+<li>Strings appear as a basic, primitive type <code>String</code> but actually are more complex.</li>
+</ul></li>
+</ul>
+<h2 id="constructing-types">Constructing Types</h2>
+<ul>
+<li>Types for literal are the basic building blocks of Haskell’s type language, but of course there is a need to be able to build more complex types out of simpler ones. This is the role of <strong>type constructors</strong> which are functions (or operators) that can be used to build other types.</li>
+<li><em>Tuples</em> are the types of values that are grouped together, also known as <em>product types</em> e.g. <code>(1, 2.0) :: (Int,Double)</code>, <code>(1,2,3) :: (Int,Int,Int)</code>. Note that <em>values</em> of tuple <em>types</em> are built using the same operator tupling symbols <code>(,)</code>, <code>(,,)</code> … than the type itself, which might be confusing.</li>
+<li><p><em>Functions</em> are of course one of the most ubiquitous types in a functional programming languages and they are types using the <code>-&gt;</code> operator:</p>
+<pre class=".haskell"><code>double :: Int -&gt; Int
+double i = 2 * i</code></pre></li>
+<li><p>The <code>-&gt;</code> operator is a <em>type constructor</em> that defines the type of a function taking its input from some type <code>a</code> and returning a value of some other type <code>b</code>. Because types can be built from other types, functions with more than one argument are actually built from functions with one argument:</p>
+<pre class=".haskell"><code>multiply :: Int -&gt; Int -&gt; Int
+multiply x y = x * y</code></pre></li>
+<li>The type of <code>multiply</code> above can be interpreted in 2 ways:</li>
+<li>It is a function that takes 2 <code>Int</code> arguments and returns an <code>Int</code></li>
+<li>It is a function that takes 1 <code>Int</code> argument and returns a function that takes 1 <code>Int</code> argument and returns an <code>Int</code>,</li>
+<li><p>This way of defining functions is known as <em>currying</em> and highlights the fact the type system is really a language very similar to other programming languages: Type expressions are built syntactically from basic building blocks and operators.</p></li>
+</ul>
+<h2 id="user-defined-types">User Defined Types</h2>
+<ul>
+<li><p>User defined types are introduced with the <code>data</code> keyword (which is a bit confusing for beginners) and by providing <em>value constructors</em></p>
+<p>The expression</p>
+<pre class=".haskell"><code>data Foo = Bar Int Bool</code></pre>
+defines a type <code>Foo</code> and a (value) <em>constructor</em> <code>Bar</code></li>
+<li><p>The constructor <code>Bar</code> is a <em>value-level</em> thing and declaring a constructor actually declares a function, the type of which depends on the constructor’s arguments adn the type of value it constructs. In this case, the above code is equivalent to declaring:</p>
+<pre class=".haskell"><code>Bar :: Int -&gt; Bool -&gt; Foo</code></pre>
+The compiler will provide the definition of the function, of course</li>
+<li><p>A powerful feature of Haskell’s types is that one can provide <em>several</em> ways of constructing values of the same type, thanks to <em>union types</em> (not to be confused with sum types that will be introduced later on):</p>
+<pre class=".haskell"><code>data Temperature = Farenheit Double | Celsius Double | Kelvin Double</code></pre>
+Each member of the union defines a different function that can be used to construct values of the enclosing declaring type</li>
+<li><p>Records are not a type-level construction in Haskell but syntactic sugar over <em>product types</em>:</p>
+<p>This expression:</p>
+<pre class=".haskell"><code>data User = User { firstname :: String, lastname :: String }</code></pre>
+<p>yields 3 functions that are defined by the compiler:</p>
+<ul>
+<li><code>User :: String -&gt; String -&gt; User</code></li>
+<li><code>firstname :: User -&gt; String</code></li>
+<li><code>lastname :: User -&gt; String</code></li>
+</ul></li>
+</ul>
+<h2 id="parametric-types">Parametric Types</h2>
+<p>Types seen so far are called <em>ground types</em> as their inhabitants are defined as part of the declaration of the type itself: Everything there is to know about them is immediate and does not require further work from the compiler. If we draw a parallel with the world of values, we could say that such types are the <em>constants</em> which form the building blocks of the types language. But the real power of HML type system comes from the fact types can actually be constructed through <em>functions</em> or <em>type constructors</em>: These are also called parametric types, rank-1 types or polymorphic types.</p>
+<ul>
+<li><p>A simple polymorphic type <code>Message</code> that pairs an arbitrary <code>payload</code> along with a timestamp can be defined as:</p>
+<pre class=".haskell"><code>data Message a = Message { date :: Date, payload :: a }</code></pre></li>
+</ul>
+<p>This declares <code>Message</code> as a <em>type constructor</em> or a <em>type level</em> function, that needs to be applied a <em>type</em> to yield another <em>type</em>, e.g.</p>
+<pre><code>~~~~~~~~~.haskell
+message :: Message Double
+message = Message 2016-09-10 23.4
+~~~~~~~~~</code></pre>
+<ul>
+<li>type synonyms allow defining <em>aliases</em> of other types, but they do not define new types:</li>
+</ul>
+<blockquote>
+<p>type Value = Message Double</p>
+</blockquote>
+<ul>
+<li>recursive use of type: A declared type can be used immediately within its constructors</li>
+</ul>
+<blockquote>
+<p>data Stream a = Cons a (Stream a)</p>
+</blockquote>
+<ul>
+<li>newtypes, like type synonyms on steroids: declares a new type but no overhead at runtime</li>
+</ul>
+<blockquote>
+<p>newtype Password = Password { password :: ByteString }</p>
+</blockquote>
+<ul>
+<li>constraints:</li>
+</ul>
+<blockquote>
+<p>sort :: (Ord a) =&gt; [a] -&gt; [a]</p>
+</blockquote>
+<ul>
+<li>type classes: interfaces with default implementations</li>
+</ul>
+<blockquote>
+<p>class</p>
+</blockquote>
+<ul>
+<li>Multi-parameter type classes: describe some relationship between two types</li>
+</ul>
+<blockquote>
+<p>class Nat f g where nat :: f a -&gt; g a</p>
+</blockquote>
+<h1 id="some-common-type-errors-and-their-meaning">Some common type errors and their meaning</h1>
+<ul>
+<li>skolem, rigid type variables -&gt; type variable cannot be unified because there is not enough information</li>
+</ul>
+<h1 id="type-level-literals">Type-level Literals</h1>
+<pre class=".haskell"><code>import           Data.Proxy
+import           GHC.TypeLits
+
+-- | Type list membership test.
+type family Find (x :: k) (ys :: [k]) :: Nat where
+  Find x ys      = Find' x ys 0
+
+type family Find' (x :: k) (ys :: [k]) (n :: Nat) :: Nat where
+  Find' x (x  ': xs) n = n
+  Find' x (x' ': xs) n = Find' x xs (n + 1)
+
+getProxy :: (n ~ Find x xs) =&gt; Proxy x -&gt; Proxy xs -&gt; Proxy n
+getProxy _ _ = Proxy
+
+find :: (Find x xs ~ n, KnownNat n) =&gt; Proxy x -&gt; Proxy xs -&gt; Integer
+find p p' = natVal (getProxy p p')
+
+-- &gt;&gt;&gt; find (Proxy :: Proxy Bool) (Proxy :: Proxy '[Int, Bool])
+-- 1
+--
+-- &gt;&gt;&gt;  find (Proxy :: Proxy Bool) (Proxy :: Proxy '[])
+-- 
+-- &lt;interactive&gt;:89:1: error:
+--     • No instance for (GHC.TypeLits.KnownNat
+--                          (Find' Bool '[] 0))
+--         arising from a use of ‘find’
+--     • In the expression:
+--         find (Proxy :: Proxy Bool) (Proxy :: Proxy '[])
+--       In an equation for ‘it’:
+--           it = find (Proxy :: Proxy Bool) (Proxy :: Proxy '[])</code></pre>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+  </div>
+</body>
+</html>

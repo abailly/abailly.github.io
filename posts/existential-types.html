@@ -110,8 +110,10 @@ answers user quizz <span class="fu">=</span>
     slugify <span class="fu">=</span> T.take <span class="dv">3</span> <span class="fu">.</span> question</code></pre></div>
 <p>In the type of <code>slugify</code> we are not forced to expose the constraint <code>Questionable q</code> because the type variable <code>q</code> at this point is the one brought in scope with the expression <code>q :: q</code>.</p>
 <h1 id="understanding-existential-types">Understanding Existential Types</h1>
-<p>What’s somewhat confusing for the average programmer who has not had a PhD in type theory is: Why are those types called <em>existential</em>? Especially given the fact they are introduced by <code>forall</code> keyword? <a href="http://stackoverflow.com/questions/10753073/whats-the-theoretical-basis-for-existential-types">This StackOverflow</a> does a great job at explaining how (intuitionistic) logic rules relate <span class="math inline">∀</span> and <span class="math inline">∃</span> quantifiers in the case of type constructors.</p>
-<p>In short, it comes from the fact that <br /><span class="math display">∀<em>x</em>.<em>Q</em>(<em>x</em>)⟹<em>P</em> = (∃<em>x</em>.<em>Q</em>(<em>x</em>)) ⟹ <em>P</em>.</span><br /></p>
+<p>What’s somewhat confusing for the average programmer who has not had a PhD in type theory is: Why are those types called <em>existential</em>? Especially given the fact they are introduced by <code>forall</code> keyword? <a href="http://stackoverflow.com/questions/10753073/whats-the-theoretical-basis-for-existential-types">This StackOverflow</a> does a great job at explaining how (intuitionistic) logic rules relate <span class="math inline">\(\forall\)</span> and <span class="math inline">\(\exists\)</span> quantifiers in the case of type constructors.</p>
+<p>In short, it comes from the fact that <span class="math display">\[
+\forall x. Q(x) \implies P  =  (\exists x. Q(x)) \implies P.
+\]</span></p>
 <h1 id="references">References</h1>
 <p>There are already a number of resources on the topic:</p>
 <ul>

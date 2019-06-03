@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="/reveal.js/css/reveal.css"/>
+  <link rel="stylesheet" href="/reveal.js-3.8.0/css/reveal.css"/>
     <style type="text/css">code{white-space: pre;}</style>
 
     <style type="text/css">code{white-space: pre;}</style>
@@ -52,10 +52,10 @@ code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
 code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    </style>    
+    </style>
 
 
-    <link rel="stylesheet" href="/reveal.js/css/theme/old-english.css" id="theme">
+    <link rel="stylesheet" href="/reveal.js-3.8.0/css/theme/old-english.css" id="theme">
 
     <!-- If the query includes 'print-pdf', include the PDF print sheet -->
     <script>
@@ -63,14 +63,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = '/reveal.js/css/print/pdf.css';
+        link.href = '/reveal.js-3.8.0/css/print/pdf.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
       }
     </script>
-    <script type="text/javascript"
-            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
     <!--[if lt IE 9]>
-    <script src="/reveal.js/lib/js/html5shiv.js"></script>
+    <script src="/reveal.js-3.8.0/lib/js/html5shiv.js"></script>
     <![endif]-->
 
 </head>
@@ -160,7 +159,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <ul>
 <li class="fragment"><p>Haskell’s syntax favours terseness and strives to be close to mathematical language, compare:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[ (x, x <span class="fu">*</span> <span class="dv">2</span>) <span class="fu">|</span> x <span class="ot">&lt;-</span> [ <span class="dv">0</span> <span class="fu">..</span> <span class="dv">100</span> ], x <span class="ot">`mod`</span> <span class="dv">3</span> <span class="fu">==</span> <span class="dv">0</span> ] </code></pre></div></li>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[ (x, x <span class="fu">*</span> <span class="dv">2</span>) <span class="fu">|</span> x <span class="ot">&lt;-</span> [ <span class="dv">0</span> <span class="fu">..</span> <span class="dv">100</span> ], x <span class="ot">`mod`</span> <span class="dv">3</span> <span class="fu">==</span> <span class="dv">0</span> ]</code></pre></div></li>
 <li class="fragment"><p>with:</p>
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mn>2</mn><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mn>100</mn><mo stretchy="false" form="postfix">]</mo><mo>∧</mo><mi>x</mi><mspace width="0.222em"></mspace><mi>m</mi><mi>o</mi><mi>d</mi><mspace width="0.222em"></mspace><mn>3</mn><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{ (x, 2x) | x \in [1,100] \land x\ mod\ 3 = 0 \}</annotation></semantics></math></p></li>
 <li class="fragment"><p>Haskellers don’t use lot of <em>punctuation</em> signs but favor using <em>indentation</em> to express nesting</p></li>
@@ -590,8 +589,8 @@ sample_v8_Events <span class="fu">=</span>
   </div>
 
 
-  <script src="/reveal.js/lib/js/head.min.js"></script>
-  <script src="/reveal.js/js/reveal.js"></script>
+  <script src="/reveal.js-3.8.0/lib/js/head.min.js"></script>
+  <script src="/reveal.js-3.8.0/js/reveal.js"></script>
 
   <script>
 
@@ -607,11 +606,11 @@ sample_v8_Events <span class="fu">=</span>
 
         // Optional libraries used to extend on reveal.js
         dependencies: [
-          { src: '/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: '/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-          { src: '/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-//          { src: '/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
-//          { src: '/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+          { src: '/reveal.js-3.8.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '/reveal.js-3.8.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '/reveal.js-3.8.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: '/reveal.js-3.8.0/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '/reveal.js-3.8.0/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
 ]});
     </script>
 <script>

@@ -1,0 +1,123 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - Refactoring with Freer Monads</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://abailly.github.io"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="#">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="draft" id="main" role="main">
+<h1>Refactoring with Freer Monads</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on July 27, 2017</div>
+
+<p>In a <a href="../posts/free.html">previous post</a> I talked about the principles behind <em>Free functors</em> construction and how to link them to <em>Co-free functors</em>. In this post I will expose an advanced implementation of <em>Free monads</em>, namely one provided by the <a href="https://github.com/TaktInc/freer">freer</a>, and how I have used it to refactor an application.</p>
+<h1 id="the-context">The Context</h1>
+<p><a href="https://symbiont.io">Symbiont.io</a> is building a smart contract platform, some parts of which are being developed in Haskell. The Haskell part, code named TXE, is an intricate piece of software which implements some proprietary algorithms to ensure privacy of transactions in the context of so-called <em>private blockchain</em>, roughly speaking a decentralised network of peers with limited trust. This service is itself composed of various components, with a definite interface and potentially varying implementations, each component depending on some others. On top of that, components rely on cross-cutting services like logging or monitoring.</p>
+<p>The components have been <a href="https://www.reddit.com/r/haskell/comments/6fn09r/dependency_injection_in_haskellfeedback_wanted/">initially</a> structured as concrete <em>datatypes</em> instantiating a <em>typeclass</em> expressing the interface of the component. In order to make the concrete datatypes manageable we ended up resorting to <em>existential quantification</em> of the dependencies, with constructs like:</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">MyComponent</span> m <span class="kw">where</span>
+   <span class="dt">MyComponent</span><span class="ot"> ::</span> (<span class="dt">Monad</span> m, <span class="dt">Database</span> m b, <span class="dt">Logger</span> m l) <span class="ot">=&gt;</span> l <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> <span class="dt">MyComponent</span> m
+
+<span class="kw">instance</span> (<span class="dt">Monad</span> m) <span class="ot">=&gt;</span> <span class="dt">MyInterface</span> m (<span class="dt">MyComponent</span> m) <span class="kw">where</span>
+  doSomething (<span class="dt">MyComponent</span> l b) <span class="fu">=</span> <span class="fu">...</span></code></pre></td></tr></table></div>
+<p>We had <em>wiring</em> functions that would take configuration parameters and build the dependency graph’s fragments one at a time. However, because we had different concrete types for different implementations of the same <em>typeclass</em>, we ended up hiding those types inside another existential wrapper, leading to the following kind of functions:</p>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">DatabaseImpl</span> <span class="kw">where</span>
+   <span class="dt">DatabaseImpl</span><span class="ot"> ::</span> (<span class="dt">Monad</span> m, <span class="dt">Database</span> m i) <span class="ot">=&gt;</span> i <span class="ot">-&gt;</span> <span class="dt">DatabaseImpl</span>
+
+<span class="ot">wireDatabase ::</span> (<span class="dt">MonadIO</span>) <span class="ot">=&gt;</span> <span class="dt">Options</span> <span class="ot">-&gt;</span> m <span class="dt">DatabaseImpl</span>
+wireDatabase (<span class="dt">Options</span> <span class="dt">UseA</span>) <span class="fu">=</span> return <span class="fu">$</span> <span class="dt">DatabaseImpl</span> <span class="fu">$</span> <span class="dt">DatabaseA</span>
+wireDatabase (<span class="dt">Options</span> <span class="dt">UseB</span>) <span class="fu">=</span> return <span class="fu">$</span> <span class="dt">DatabaseImpl</span> <span class="fu">$</span> <span class="dt">DatabaseB</span>
+
+<span class="ot">wireApp ::</span> <span class="dt">Options</span> <span class="ot">-&gt;</span> m <span class="dt">MyApp</span>
+wireApp options <span class="fu">=</span> <span class="kw">do</span>
+  <span class="dt">LoggerImpl</span> l <span class="ot">&lt;-</span> wireLogger options
+  <span class="dt">DatabaseImpl</span> c <span class="ot">&lt;-</span> wireDatabase options
+  <span class="co">-- inject c as dependency into another component</span>
+  component <span class="ot">&lt;-</span> wireComponent options c l
+  <span class="fu">...</span></code></pre></td></tr></table></div>
+<p>Over time, this proved cumbersome especially when we needed to <em>mock</em> some components for testing purpose, and specialised wiring functions started to accumulate. Moreover this scheme had a distinctive Object-Oriented flavour which does not fit into Haskell’s functional setting:</p>
+<ul>
+<li>We need to explicitly pass around concrete values of the components and their dependencies to properly instantiate typeclasses’ functions although those values do not carry any information,</li>
+<li>We have to hide polymorphism behind cumbersome existential types with boilerplate packing and unpacking<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>,</li>
+<li>We have to leak tests-only components in applicative code because of the need to hook into the wiring system.</li>
+</ul>
+<h1 id="freer-monads">Freer Monads</h1>
+<p>Freer monads are an extension of Free monads</p>
+<h1 id="refactoring">Refactoring</h1>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The lack of subtyping is something that often bites when one comes from an Object-Oriented<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+  </div>
+</body>
+</html>

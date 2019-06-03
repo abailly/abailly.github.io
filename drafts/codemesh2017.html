@@ -1,0 +1,778 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - CodeMesh 2017 - Takeaways</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://abailly.github.io"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="#">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="draft" id="main" role="main">
+<h1>CodeMesh 2017 - Takeaways</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on November 10, 2017</div>
+
+<p>Here is a summary and some quick takeaways from this year’s <a href="http://www.codemesh.io/codemesh2017">CodeMesh</a> conference. I must say I never had such an intense conference, with lot of fascinating and mind-blowing sessions which brood lots of new or old ideas in my mind. Thanks a lot to the organisers and the amazing speakers which made this event memorable.</p>
+<h1 id="day-1---wednesday">Day 1 - Wednesday</h1>
+<h2 id="margo-seltzers-keynote"><a href="http://www.codemesh.io/codemesh2017/margo-seltzer">Margo Seltzer’s Keynote</a></h2>
+<p>Margo Seltzer’s work starts from an observation: Humans get better with practice ; which leads to a question: “Could computers get faster with practice?” This question leads to a research program called Automatically Scalable Architecture which tries to extract information from repeated runs of the same program (fragment) to speed it up. The basic idea goes along the following lines, with lots of details omitted:</p>
+<ul>
+<li><p>Consider the program’s code as a state machine whose language is the instruction set of the assembly language and whose states are bit-vectors</p></li>
+<li>could computer gets faster with practice ?
+<ul>
+<li>programs don’t learn while they run…</li>
+<li>online training</li>
+<li>offline training -&gt; more improvements</li>
+</ul></li>
+<li>state space of 1 proc = register + memory
+<ul>
+<li>state transition per each insrtuction</li>
+<li>run == path in state space</li>
+<li>how to parallelize ?</li>
+<li>predict future location in state space and run parallel experiments -&gt; fast forward when hitting a location reached by one // experiement</li>
+<li>half of theoretical max</li>
+</ul></li>
+<li>automatically scalable arch (ASC)
+<ul>
+<li>speculative execution entered in a cache</li>
+<li>applied to parts of the programs, big chunks of side-effect free parts of hte program</li>
+</ul></li>
+<li>ScaleyASC: runs on VM, interpret all instructions, very slow but large scalability
+<ul>
+<li>predictors are stupid</li>
+<li>speculators are copies of the software on other VMs</li>
+<li>trajectory cache</li>
+<li>transform state space into a bit vector -&gt; execute instr -&gt; get a new bit vector</li>
+<li>recognizer : map Instr Pointer to state</li>
+<li>predictors: very simple, use weatherman/mean/log regression/linear regression on 32 bit features
+<ul>
+<li>weighted average of all predictors to get next bit</li>
+<li>update weights according to accuracy of predictions
+<ul>
+<li>-&gt; back prop ? gradient descent</li>
+</ul></li>
+</ul></li>
+<li>speculators:
+<ul>
+<li>use read/write masks and actual read/w values as cache entry</li>
+<li>checks only part of the state for cache hit/miss</li>
+</ul></li>
+</ul></li>
+<li>actual hardware
+<ul>
+<li>predictors: decision trees</li>
+<li>speculators run on same hardware</li>
+<li>Pin: dynamic instrumentation tool -&gt; pinned program, instrument some instructions. Overhead depends on how many instructions are instrumented</li>
+<li>offline pin jumps -&gt; count frequency -&gt; select those above some threshold</li>
+<li>ptrace tracks normal program, speculators run pinned -&gt; snapshot of state when reaching selected branch instructions</li>
+<li>dependency tracking between dependent part of the states
+<ul>
+<li>pintool -&gt; instrument load/stores</li>
+</ul></li>
+<li>trajectory cache:
+<ul>
+<li>keys are parts of bit vectors, different in each cache entry</li>
+<li>hash content of the live registers as keys</li>
+</ul></li>
+<li>allocator
+<ul>
+<li>speculators are running slower than main program -&gt; cannot achieve max speedup</li>
+<li>overhead when dispatching speculations</li>
+<li>matrix multiply : much less speedup, lot of load/store instucctions to instrument</li>
+<li>transaction memory could bring HW support to R/W sets -&gt; achieve speedups</li>
+</ul></li>
+</ul></li>
+<li>Qs:
+<ul>
+<li>PIN has a load of overhead -&gt; improvement in hardware</li>
+<li>what is the class of programs we can speedup? depends on loss function of state space trnasformation</li>
+<li>what is the best learner?</li>
+</ul></li>
+<li><p>using this in compiler</p></li>
+</ul>
+<h3 id="flying-spaghetti-monster">Flying Spaghetti Monster<a id="sec-0-1-2" name="sec-0-1-2"></a></h3>
+<ul>
+<li>FSM cult</li>
+<li>evolution is a fact of life for us… =&gt; no intelligent design</li>
+<li>Idris -&gt; philosophy of development</li>
+<li>microservices
+<ul>
+<li>do things in small pieces: small pieces of data, change code a little bit at a time, understand systems a bit at a time</li>
+<li>definition fuzzy</li>
+<li>trading freedom for strong consistency</li>
+<li>greenspun’s tenth rules of programming =&gt; incrementally evolving a system with breaking abstractions leads to pain</li>
+<li>ford’s tenth rule: any sufficiently complicated mservice arch contains a fucked up implementation of a distributed protocol</li>
+<li>breakthrough abstractions</li>
+<li>narrative is not enough -&gt; going through happy path is not enough -&gt; needs good observability</li>
+</ul></li>
+<li>finite-state machines:</li>
+<li>indexed monads -&gt; dominads ~~ like dominos :) when you place dominos you must match the last one</li>
+<li>quote: “types can’t help once network is involved”
+<ul>
+<li>fallability : dealing with failure of components IRL</li>
+<li>distribution: communicating across heterogeneous networks, how to actually distirbteu protoocol?</li>
+<li>reciprocity</li>
+</ul></li>
+<li>fallability
+<ul>
+<li>each failure is different, each system can fail in different ways</li>
+<li>non deterministic state machines -&gt; door might jam when opening it, multiple output for a given state/label =&gt; type of output is a function of actual result</li>
+<li>=&gt; enforces error checking</li>
+<li>type providers -&gt; borrow from F#, hook into compiler and generate types from external sources</li>
+<li>needs to allow IO at compile time in Idris -&gt; helps distributing protocols, use a single authoritative model/schema</li>
+</ul></li>
+<li>session types
+<ul>
+<li>multiparty interaction as a type</li>
+<li>project a global type into a local representation for each participant</li>
+<li>verify global proto from local properties (??)</li>
+<li>ex. SessionState, needs to model branch (deterministic or non det -&gt; chosen by other party)</li>
+<li>dual : Session -&gt; Session</li>
+<li>write type once, use it on both sides of a conversation</li>
+<li>Communicating state machines</li>
+</ul></li>
+<li>Conclusion:
+<ul>
+<li>types <strong>can</strong> help us understand how the network works</li>
+<li><a href="https://github.com/ctford/flying-spaghetti-monster" class="uri">https://github.com/ctford/flying-spaghetti-monster</a></li>
+</ul></li>
+</ul>
+<h3 id="fsm">FSM<a id="sec-0-1-3" name="sec-0-1-3"></a></h3>
+<ul>
+<li>Oskar Wickström</li>
+<li>journey: valley of programmer death -&gt; ADTs -&gt; MTL -&gt; type classes -&gt; Indexed monads</li>
+<li>State
+<ul>
+<li>implicit state -&gt; program does not explicitly define set of legal states, scattered across mutable vars</li>
+<li>-&gt; explicit -&gt; FSMs</li>
+<li>State x Event -&gt; Action x State</li>
+</ul></li>
+<li>State as Data types
+<ul>
+<li>ex: shopping cart checkout flow</li>
+<li>transitions coupled with IO</li>
+<li>legal transitions not enforced</li>
+</ul></li>
+<li>MTL (~~ extensible-effects)
+<ul>
+<li>typeclass encodes state transition</li>
+<li>events are typeclass methods</li>
+<li>state type is abstract</li>
+<li>instance performs side-effects</li>
+<li>states are empty Data types, use associated type in the typeclass defining state machine</li>
+<li>select event is more complex, several input/output states -&gt; use a dedicated type rather than encoding in either</li>
+<li>instance type : overload abstract type names as constructor names</li>
+<li>CheckoutT transformer -&gt; implement instance usign concrete State</li>
+<li>pattern matching in methods is limited to input type thansk to abstraction barrier</li>
+<li>example with timeouts</li>
+<li>encode valid state transitions</li>
+<li>pbs: not necessarily safe, side-effects can be performed illegally, does not enforce transition to final state, state values can be reused… -&gt; double spending</li>
+<li>move state value inside the monad -&gt;</li>
+</ul></li>
+<li>indexed monads
+<ul>
+<li><a href="https://gist.github.com/abailly/02dcc04b23d4c607f33dca20021bcd2f" class="uri">https://gist.github.com/abailly/02dcc04b23d4c607f33dca20021bcd2f</a></li>
+<li>Purescript has row kinds, e.g. type-level record -&gt; indices for record types and effects</li>
+</ul></li>
+<li>Idris
+<ul>
+<li>Control.ST library -&gt; “named” resources</li>
+<li><a href="http://docs.idris-lang.org/en/latest/st/" class="uri">http://docs.idris-lang.org/en/latest/st/</a></li>
+</ul></li>
+</ul>
+<p>Entered on <span class="timestamp-wrapper"><span class="timestamp">[2017-11-08 Wed 09:24]</span></span></p>
+<p><a href="file:///Users/arnaud/projects/aleryo/homomorphic-event-sourcing/sources/server/src/server.hs">&lt;file:///Users/arnaud/projects/aleryo/homomorphic-event-sourcing/sources/server/src/server.hs&gt; :: String -&gt; Application</a></p>
+<h2 id="code-mesh---wed-afternoon">Code Mesh - Wed afternoon<a id="sec-0-2" name="sec-0-2"></a></h2>
+<h3 id="infinite-lambda-calculues">Infinite LAmbda Calculues<a id="sec-0-2-1" name="sec-0-2-1"></a></h3>
+<ul>
+<li>a conversation on stage with the interpreter…</li>
+<li>ill-typed programs considered useful</li>
+<li>basic lambda rules</li>
+<li>church numerals</li>
+<li>proper programming -&gt; little schemer</li>
+<li>extend basic language with syntactic sugar</li>
+<li>recursion? -&gt; Kleene and rosser proved inconsistent -&gt; get infinite loops</li>
+<li>types were added to avoid infinite loops =&gt; find an expression that type checker rejects =&gt; gives us a good candidate for what we are looking…</li>
+<li>(\ x -&gt; x) (\ x -&gt; x) …-&gt; (\ x -&gt; x) (\ x -&gt; x)</li>
+<li>:install real-world</li>
+<li>to land a job, implement FizzBuzz with pure lambda calculus</li>
+<li><a href="http://llama-the-ultimate.org/lambdas.html" class="uri">http://llama-the-ultimate.org/lambdas.html</a></li>
+</ul>
+<h3 id="the-making-of-an-io">The Making of an IO<a id="sec-0-2-2" name="sec-0-2-2"></a></h3>
+<ul>
+<li>“IO Monad is boilerplate Haskell to appease Phil Wadler” -&gt; it’s really about Effects</li>
+<li>Effect = anything you can’t “just” do twice (or you can’t undo)
+<ul>
+<li>hard to test</li>
+<li>concurrency is hard</li>
+<li>foo(42) + foo(42) -/-&gt; val x = foo(42); x + x</li>
+<li>no referential transparency</li>
+<li>should be controlled –&gt; IO Monad</li>
+</ul></li>
+<li>IO Monad = build a description of the program to be run -&gt; description can be changed before it is evaluated -&gt; code as data
+<ul>
+<li>separate composition from declaration –&gt; Concurrency, dynamic scaling (backpressure, dynamic allocation…)</li>
+<li>sequential composition is guaranteed by parametric polymorphism of bind (flatMap in Scala)</li>
+</ul></li>
+<li>trait Monad in scala</li>
+<li>Haskell
+<ul>
+<li>all roads lead to IO</li>
+<li>all FFI is encapsulated in IO</li>
+<li>only way to construct an IO is through return</li>
+<li>concurrency managed throuhg IO monad</li>
+</ul></li>
+<li>Scala
+<ul>
+<li>can run any effect at any time</li>
+<li>native threads, explicit async IO, cannot block other things -&gt; in Haskell we have green threads, we can block it, very inexpensive</li>
+<li>no tail-call elimination</li>
+</ul></li>
+<li>IO monad in scala
+<ul>
+<li>stack safety</li>
+<li>strict/lazy/asynchronous evaluation modes</li>
+<li>FUture -&gt; memory leaks, memoizing, doesn’t encapsulate async execution -&gt; leaky</li>
+<li>Scalaz 7 IO -&gt; encourages thread blocking whcih does not work on JVM</li>
+<li>Scalaz Task -&gt; name too long (!!)
+<ul>
+<li>now/delay/async/fail</li>
+<li>quite ancient implementation, very slow, baroque actor-based code</li>
+<li>still no abstraction</li>
+</ul></li>
+</ul></li>
+<li>Thread BP
+<ul>
+<li>Thread best practices from <span class="citation">@djspiewak</span> : Computation = work-stealing non daemon, cpus bounded ; blocking IO -&gt; unbounded and cacheing ; event dispatchers -&gt; very small, high priority daemon</li>
+<li>Task -&gt; no resource management -&gt; one can run tasks in parallel without requiring proper resource cleanup</li>
+</ul></li>
+<li>fs2 and monix</li>
+<li>cats-effect -&gt; simpler, no actors, no concurrency, abstract typeclasses and laws
+<ul>
+<li>shift allows moving effect among threads -&gt; relocates computations after sequencing</li>
+<li>the only thread related function!</li>
+<li>ASycn request callbacks</li>
+</ul></li>
+<li>parametricity not enough to contain beahviour of typeclass
+<ul>
+<li>define set of laws as actual implementations, kind of TCKs -&gt; users can rely on implementation that have passed the tck</li>
+</ul></li>
+</ul>
+<h3 id="collapsing-towers-of-interpreters">Collapsing Towers of Interpreters<a id="sec-0-2-3" name="sec-0-2-3"></a></h3>
+<ul>
+<li>Nada Amin</li>
+<li>challenge: collapse a tower of interpreters into a single pass compiler
+<ul>
+<li>L0 &lt;- I1 &lt;- L1 &lt;-…. &lt;- Ln</li>
+<li>partial collapsing if needed (e.g. ship optimized code to the browser)</li>
+<li>ex. Regexp -&gt; Regex Matcher -&gt; Evaluator -&gt; … -&gt; Low Level</li>
+<li>Modified Evaluator -&gt; … -&gt; Low Level</li>
+<li>consider reflective and infinite tower of languages
+<ul>
+<li>can inspect and modify program at runtime at anyt level</li>
+<li>HL -&gt; LL == reify, going meta</li>
+<li>LL -&gt; HL == reflect, going to object</li>
+<li>L0 == most high level language, conceptually infinite number of interpreters =&gt; no bound on n</li>
+<li>can go up and down dynamically, consider finite exeuction because of default semantics</li>
+</ul></li>
+<li>Black language: <a href="https://github.com/readevalprintlove/black" class="uri">https://github.com/readevalprintlove/black</a>
+<ul>
+<li>changes the way I evaluate variables at the Meta-level</li>
+<li>EM == execute at metalevel (with same syntax)</li>
+<li>clambda == compiled function</li>
+<li>collapsing level at compilation</li>
+</ul></li>
+</ul></li>
+<li>solving the challenge:
+<ul>
+<li>partial evaluation (Futumara projection)</li>
+<li>specialization step for a given program</li>
+<li>sdtaged intepreter -&gt; compiler</li>
+<li>multilevel language: annotates lambda terms with the level n</li>
+<li>metaML: quote/splice/unquote/run quote</li>
+<li>in Scala: use types Rep[T] to distinguish stage (.. TH?)</li>
+</ul></li>
+<li>tower: stage each interpreter -&gt; composition of compilers…
+<ul>
+<li>pb with one-pass compiler : prevents reflection ?</li>
+</ul></li>
+<li>stage polymorphism
+<ul>
+<li>base language is multilevel lambda calc</li>
+<li>staged interpreter is the last stage</li>
+<li>pink = stage-polymorphic multilevel lamdba calculus</li>
+<li>purple = polytipic progra via type classes</li>
+<li>controlling collapse: compilation unite or explicit lifting</li>
+</ul></li>
+<li>multi level lambda calc:
+<ul>
+<li>Lift operator</li>
+<li>Let insertion –&gt; control order of operations</li>
+<li>stage polymorphism</li>
+<li>—&gt; online partial evaluation</li>
+<li>result of definitional evaluator can be a constant or some code -&gt; pass down expression to later stage reified</li>
+<li>Lift(Clo(..)) –&gt; reflectc(Lam(..))</li>
+</ul></li>
+<li>Stage polymorphic metacircular evaluator
+<ul>
+<li>environment can contain reified/reflected values</li>
+<li>maybe-lift: function to chose to lift or not</li>
+</ul></li>
+<li>potential applications:
+<ul>
+<li>towers in the wild w/ existing levels of interpreters Python -&gt; MAchine code</li>
+<li>modified semantics</li>
+<li>non standard interpretations -&gt; program analysis, verification, interpreter for one paradigm on top of another, abstracting abstract machines</li>
+<li>collapsing not only for performance but also for</li>
+<li><a href="https://github.com/TiarkRompf/collapsing-towers/tree/master/popl18" class="uri">https://github.com/TiarkRompf/collapsing-towers/tree/master/popl18</a></li>
+</ul></li>
+</ul>
+<h3 id="blockchains">Blockchains<a id="sec-0-2-4" name="sec-0-2-4"></a></h3>
+<ul>
+<li>blockweaves: a blockchain that shards</li>
+<li>proof of access
+<ul>
+<li>to mine the next block you need to have the last copy</li>
+</ul></li>
+<li>distributed storage: distribute blocks among nodes in the network</li>
+<li>building an internet archive: putting history on a blokckweave to prevent tampering
+<ul>
+<li>extension to the browser, walking through the history of a page</li>
+</ul></li>
+<li>apps on archain
+<ul>
+<li>no application on the blockchain people want to use</li>
+<li>different model: use archain to store the data</li>
+</ul></li>
+</ul>
+<p>entered on <span class="timestamp-wrapper"><span class="timestamp">[2017-11-08 Wed 13:38]</span></span></p>
+<p><a href="file:///Users/arnaud/projects/aleryo/homomorphic-event-sourcing/sources/server/src/server.hs" class="uri">file:///Users/arnaud/projects/aleryo/homomorphic-event-sourcing/sources/server/src/server.hs</a></p>
+<h1 id="thursday">2017-11-09 Thursday<a id="sec-1" name="sec-1"></a></h1>
+<h2 id="more-systems-programming-with-racket"><a href="https://download.racket-lang.org/releases/6.11/doc/more/index.html">More: Systems Programming with Racket</a><a id="sec-1-1" name="sec-1-1"></a></h2>
+<p>Captured On: <span class="timestamp-wrapper"><span class="timestamp">[2017-11-09 Thu 08:09]</span></span></p>
+<h2 id="codemesh---thursday-morning">CodeMesh - Thursday Morning<a id="sec-1-2" name="sec-1-2"></a></h2>
+<h3 id="david-turner---history-of-pl">David Turner - History of PL<a id="sec-1-2-1" name="sec-1-2-1"></a></h3>
+<ul>
+<li>1936: lambda-calculus</li>
+<li><p>polymorphic typed high-order pure lazy functionning PL</p></li>
+<li>theory of pure functions, constructive representation λ-calculus
+<ul>
+<li>church-rosser theorem: uinque convergence of reductions to normal forms if they exist</li>
+<li>reducing through leftmost redex leads to normal form =&gt; does not matter which one (innermost/outermost) you chose</li>
+<li>Böhm’s theorem: if 2 terms have distinct normal forms, you can define a predicate to separate them =&gt; lam is THE theory of normalising terms and pure functions</li>
+</ul></li>
+<li>lazy evaluation: 2nd church-rosser theorem -&gt; to find normal form, we meust substitute in unreduced form
+<ul>
+<li>efficiency advantage of call by value</li>
+<li>normal order recuction inefficiency can be overcome by reducing graphs (e.g. pointerS)</li>
+<li>compilation of λ-calculus to SK combinators</li>
+<li>extract programs specific combinators from source -&gt; λ-lifting</li>
+<li>SPJ -&gt; Spineless TAgless G-machine -&gt; GHC</li>
+<li>efficiency gain for lazy evaluation</li>
+</ul></li>
+<li>LISP 1960 McCarthy
+<ul>
+<li>S-expressions</li>
+<li>Garbage collection -&gt; not to burden the progframmer with mgmt of memory -&gt; most important thing in lisp</li>
+<li>M-language: first order FP language</li>
+<li>pure LISP does not exist</li>
+<li>LISP was not baed on λ-calculus -&gt; Kleene’s work on first-order recursrion</li>
+<li>in M-language you can pass functions as their text reprensentation -&gt; dynamic scoping of free variables</li>
+</ul></li>
+<li>static binding/invention of closures
+<ul>
+<li>Algol 60 : precise tehcnical writing</li>
+<li>could pass procs as parameters -&gt; maintains stack discipline</li>
+<li>default parameter rule : call by name -&gt; handle α-conversion explcitly in manual</li>
+<li>dynamic (link to caller) vs. static (definitino of variable) chain of stack frames</li>
+<li>Landin: returning procs as values -&gt; closures in the heap</li>
+<li>The next 700 programming languages: <a href="https://archive.alvb.in/msc/11_infomtpt/papers/the-next-700_Landin_dk.pdf" class="uri">https://archive.alvb.in/msc/11_infomtpt/papers/the-next-700_Landin_dk.pdf</a></li>
+<li>sugar: let, where, and, rec
+<ul>
+<li>offside rule, indentation to structure code</li>
+</ul></li>
+<li>assignment</li>
+<li>J operator: capture continuation -&gt; any kind of weird control structure</li>
+<li>ISWIM = λ-calc + assignment + control</li>
+<li>first appearance of ADTs</li>
+<li>ISWIM -&gt; PAL (68) GEDANKEN (70)</li>
+</ul></li>
+<li>PAL
+<ul>
+<li>applicative layer == sugared λ-calc, shallow pattern matching</li>
+<li>imperative layer = mutable vairables, labels and jumps -&gt; everything has to leave in the heap</li>
+<li>data types</li>
+<li>fringe problem: 2 different trees have same leaves -&gt; implement with coroutines</li>
+</ul></li>
+<li>St Andrews Static Language
+<ul>
+<li>simple denotational language, applicative subset of PAL -&gt; implementing in LISP over a week-end</li>
+<li>multilevel pattern matching, string as a list of chars</li>
+<li>using for teaching FP -&gt; no imperative features. correct scoping rules, multilevel pattern matching</li>
+<li>runtime typing -&gt; needed by computation over symbolic data</li>
+<li>evolution: drop rec to be recursive by default, multiline equational pattern matching to define functions, lazy evaluation</li>
+<li>laziness:
+<ul>
+<li>better for equational reasoning</li>
+<li>allows to write programs using infinite lists -&gt; interactive IOs</li>
+<li>makes exotic control structures unnecessarily -&gt; fringe problem’s lists evaluation is done has needed</li>
+<li>replacing failures by a list of successes -&gt; Wadler 85</li>
+</ul></li>
+<li>SASL had 27 implememntations!</li>
+</ul></li>
+<li>69: formal definition for recursive types definition -&gt; declaring ADTs
+<ul>
+<li>NPL had set expressions</li>
+<li>HOPE: higher order purely functional polymorphic</li>
+<li>ML -&gt; meta-language for LCF, sugared λ let letrec, had types, polymorphism, static typing</li>
+<li>Standard ML = HOPE + ML, not pure</li>
+</ul></li>
+<li>KRC: SASL w/o where (programming w/o local variables), drop conditional in favor ofguards -&gt; line oriented with line editor</li>
+<li>Miranda: guards + where, lexical distinction between constructors and functions: <a href="http://miranda.org.uk/" class="uri">http://miranda.org.uk/</a></li>
+<li>Haskell:
+<ul>
+<li>guards are switched to left-hand side</li>
+<li>typeclasses, monadic IOs, a module system</li>
+<li>much richer syntax</li>
+<li>case for typeless languages… -&gt; more complex to write some stuff</li>
+</ul></li>
+</ul>
+<h3 id="would-alien-understand-λ-calculus">Would alien understand λ-calculus?<a id="sec-1-2-2" name="sec-1-2-2"></a></h3>
+<ul>
+<li>Tomas Petricek
+<ul>
+<li>how do we do what we do and why?</li>
+<li>are pure functions invented or discovered?
+<ul>
+<li>I wonder if there is a paper about that?</li>
+<li>there is a whole discipline about that! -&gt; philosophy of mathematics</li>
+</ul></li>
+</ul></li>
+<li>crash course in phil of math
+<ul>
+<li>platonism: math objects exist independently of our thoughts -&gt; there will still be number 5 if universe explodes</li>
+<li>problem: great story but very intimidating and helps maintaining an elite (Lakoff &amp; Nunez) =&gt; looks like a perfect universal truth, elitist</li>
+<li>Lakatos: maths does not grow with more theorems, but by method of proofs and refutations -&gt; community, social process, exemple of polyhedra</li>
+<li>counterexamples causes refinement -&gt; “monstrosity” of some constructs</li>
+<li>culture dependent: (Lakoff) mathematical ideas have some cultural aspects in it</li>
+<li>western culture &lt;- ancient greeks
+<ul>
+<li>notiion of essence</li>
+<li>human reason is a form of logic</li>
+<li>foundations for a subject matter</li>
+</ul></li>
+<li>“Where maths come from” -&gt; embodied mathematics -&gt; we only know brain and mind maths (Kant’s phenomenon)
+<ul>
+<li>need to apply cognitive sciences to better understand maths</li>
+</ul></li>
+</ul></li>
+<li>Cognitive science of maths
+<ul>
+<li>metaphors are central to thought (Lakoff) -&gt; abstract concepts are understaood via metaphors in terms of more concrete concepts</li>
+<li>ex. abstract cat th concepts need to be understood through concrete things</li>
+<li>math ideas are acually mathematicizing ordinary ideas =&gt; derivatives is math equivalent of instantaneous change
+<ul>
+<li>some basic math concepts in babies -&gt; innate arith</li>
+<li>conceptual metapohores</li>
+<li>layering metaphors</li>
+</ul></li>
+<li>experiments w/ babies</li>
+<li>arithmetics is object collection: object collection -&gt; arithmetic
+<ul>
+<li>building arith concepts on top of objects collections manipulation</li>
+<li>linguistic examples: use “math” words for common things</li>
+<li>limits of metaphor: 0 ? -&gt; need other metaphor to understand 0</li>
+</ul></li>
+</ul></li>
+<li>“type theory and λ-calculus are eternal”
+<ul>
+<li>“λ-calculus is discovered, Angular is invented”</li>
+<li>λ-calculus linked to proofs and categories -&gt; deep truth in the universe !!??</li>
+<li>1 answer: category mistakes -&gt; can’t relate physical stuff (programs) to abstract stuff (proofs)
+<ul>
+<li>Fetzer 1988 : program verification is non-sense</li>
+</ul></li>
+<li>sociologist’s answer: analogy between all three is carefully constructed through process of proofs and refutations -&gt; human work made them fit
+<ul>
+<li>all 3 are the product of the work of similar people in the same network -&gt; community effect</li>
+</ul></li>
+<li>cognitive scientist argument: all 3 are derived from the same embodied experience -&gt; what would it be for λ-calculus? -&gt; what aliens would need to understand it?</li>
+</ul></li>
+<li>aliens
+<ul>
+<li>“any intelligent species is bound to have logic” -&gt; computer scientist answe w/o evidence</li>
+<li>“they’d also run into program-proof duality”</li>
+<li>cognitive science and λ-calculus/logic:
+<ul>
+<li>embodied experiement of membership in set through Container schema -&gt; construct math because this is how the way we perceive the world</li>
+<li>transitivity of containment –&gt; modus ponens –&gt; function application</li>
+</ul></li>
+<li>looking at the language we use:
+<ul>
+<li>β-**reduction** -&gt; requires a sense of direction</li>
+</ul></li>
+<li>Arrival movie: aliens w/ circular languages affecting perception of time -&gt; no notion of directiveness –&gt; only reversible computations ?</li>
+<li>Solaris: planet itself is sentient -&gt; would there be more numbers than one?</li>
+<li>interstellar dust cloud aliens: there is no boundaries in chaos, no inside/outside, no container schema metaphors</li>
+</ul></li>
+</ul>
+<h3 id="haxl---simon-marlow">Haxl - Simon Marlow<a id="sec-1-2-3" name="sec-1-2-3"></a></h3>
+<ul>
+<li>IO: slow, hard to test, hard to debug
+<ul>
+<li>all 3 problems are related -&gt; concurrency</li>
+<li>every language can do this</li>
+<li>what’s wrong?
+<ul>
+<li>got to remember explicitly</li>
+<li>might wait too early -&gt; limit amount of concurrency</li>
+<li>have to fix awaits when refactoring</li>
+<li>concurrency clutters the code -&gt; makes refactoring harder becuase of extra structure</li>
+</ul></li>
+<li>what bout side effects?
+<ul>
+<li>there are no side effects in gather data + make decisions part of the process</li>
+<li>technically, reading DB is a side-effect but usually you dno’t care -&gt; ignore the pb. cache things</li>
+</ul></li>
+</ul></li>
+<li>when there are no side-effects, concurrency is a better default</li>
+<li>how to test?
+<ul>
+<li>reserve a small part of the world for testing only?</li>
+<li>fake the world -&gt; Mock, hard to write manually, replay/record is hard, different for each kind of IO</li>
+<li>I want record/replay mock without effort</li>
+</ul></li>
+<li>what about debugging?
+<ul>
+<li>logging … meh:
+<ul>
+<li>i have to remembe to do it</li>
+<li>might not log enough stuff</li>
+<li>feedback loop too long</li>
+<li>clutters the code</li>
+</ul></li>
+<li>let me reproduce exactly what happened to diagnose it</li>
+</ul></li>
+<li>big hammers = a technology that solves one or more problems for good
+<ul>
+<li>non-trivial to adopt</li>
+<li>examples:
+<ul>
+<li>distributed source control</li>
+<li>garbage collection</li>
+<li>language independent RPC -&gt; write code in heterogeneous environments, sharing common data types</li>
+<li>Haxl!</li>
+</ul></li>
+</ul></li>
+<li>Haxl
+<ul>
+<li>ApplicativeDo</li>
+</ul></li>
+<li>example: Update script</li>
+<li>exploiting parallelism from dependency graph in computation</li>
+<li>how does it work?
+<ul>
+<li>data dependencie are first class -&gt; compiler support</li>
+<li>we don’t want to modify compiler</li>
+<li>do notation -&gt; bind operator expanded -&gt; every monad implemetns &gt;&gt;=</li>
+<li>pb: we have already lost, dependency explicitly baked in the bind operator =&gt; monads can only be sequential</li>
+<li>Applicative : &lt;*&gt; combines things concurrently -&gt; don’t want to write it by hand</li>
+<li>ApplicativeDo: analyzes dependencies between statements and use applicative wherever it can, e.g. when there are no dependencies between computations</li>
+<li>user implements <code>fetch</code> only</li>
+<li>computations happen in rounds</li>
+<li>pb: what if one of the operation in a round take much longer than others? -&gt; might be inherent in the way we write code</li>
+<li>refine dependency graph to maximimze //ism</li>
+</ul></li>
+<li>HAxl 2
+<ul>
+<li>drop requirement to complete everything in a round</li>
+<li>IO can be arbitrarily overlapped</li>
+<li>chnage contract w/ provider -&gt; passs a variable where provider can write the result to</li>
+<li>tradeoff: possibly less batching, things might happen in different times where they would have been batched before</li>
+<li>-&gt; latency reductions in production</li>
+</ul></li>
+<li>testing &amp; debugging
+<ul>
+<li>to use Haxl: write a data type to represent your IO, add some instances, implement fetch</li>
+<li>=&gt; turn IO into data</li>
+<li>HAxl stores all IOs in internal cache -&gt; memoizing IO computations</li>
+<li>improves modularity: same fetch in different parts of the program are referentially transparent</li>
+<li>caching =&gt; running again same program yields same behaviour</li>
+<li>dunmping cache in the form of a haskell program -&gt; can load it again to populate cache</li>
+<li>=&gt; make a unit test</li>
+<li>can synthesize cache by prepopulating requests results</li>
+<li>debugging -&gt; persist the cache on failure then reload for analysis</li>
+</ul></li>
+<li>Why Haxl =&gt;
+<ul>
+<li>fighting spam</li>
+<li>Sigma rule engine for abuse detection/remediation</li>
+<li>serving &gt; 1M req/sec</li>
+<li>hundreds of changes -&gt; deployed immediately</li>
+<li>fraxl</li>
+</ul></li>
+</ul>
+<h2 id="codemesh---thursday-afternoon">CodeMesh - Thursday Afternoon<a id="sec-1-3" name="sec-1-3"></a></h2>
+<h3 id="relational-interpreters">Relational interpreters<a id="sec-1-3-1" name="sec-1-3-1"></a></h3>
+<ul>
+<li>Will Byrd</li>
+<li>miniKanren
+<ul>
+<li>TRS-8000 -&gt; first program “draw a square 2’‘by 2’’” -&gt; Fail!</li>
+<li>Perlis, epigram in programming
+<ul>
+<li>if someone wants to program saying what to do, give him a lollipop</li>
+<li>=&gt; lollipop driven development</li>
+</ul></li>
+<li>make inference rules executable</li>
+<li>miniKanren == executable computable science metanotation</li>
+<li>math aquarium on Amiga</li>
+</ul></li>
+<li>environment passing interpreter in minikanren</li>
+<li>relational evaluator -&gt; evalo : expr -&gt; value -&gt; expr
+<ul>
+<li>unification variables</li>
+</ul></li>
+<li>generate scheme trees from targets</li>
+<li>99 ways to say I love you</li>
+<li>quine -&gt; find an expr e s.t. (eval e == e</li>
+<li>write the program in scheem -&gt; get relationality from evaluator</li>
+<li><a href="https://github.com/webyrd/Barliman" class="uri">https://github.com/webyrd/Barliman</a> -&gt; quickspec <a href="https://hackage.haskell.org/package/quickspec" class="uri">https://hackage.haskell.org/package/quickspec</a></li>
+<li>generate scheme expression from examples</li>
+<li>geenrate implementation from CS papers!</li>
+<li><a href="http://minikanren.org" class="uri">http://minikanren.org</a></li>
+</ul>
+<h3 id="code-and-architecture">COde and architecture<a id="sec-1-3-2" name="sec-1-3-2"></a></h3>
+<ul>
+<li>why do we need scripting?
+<ul>
+<li>design = form generation and pattern exploration</li>
+<li>how to construct complex forms? =&gt; panelization, how to make the small pieces of a curved surface</li>
+<li>data extraction</li>
+<li>budget</li>
+</ul></li>
+<li>visual programming tools</li>
+</ul>
+<h3 id="building-distr-systems">Building Distr Systems<a id="sec-1-3-3" name="sec-1-3-3"></a></h3>
+<ul>
+<li>PEter Van Roy</li>
+<li>big systems are complicated -&gt; making systems self managing -&gt; use feedback loops
+<ul>
+<li>combining feedback loops ?</li>
+<li>feedback structures</li>
+<li>bigger systems -&gt; weekly interacting feedback structures</li>
+</ul></li>
+<li>system == a set of components connected together to form a coherent whole -&gt; Wiener’s cybernetics
+<ul>
+<li>dist syst -&gt; nodes, connected by network single coherent</li>
+<li>autnomic computing -&gt; one loop</li>
+</ul></li>
+<li>feedback loops
+<ul>
+<li>actuating agent &lt;-&gt; monitor agent</li>
+<li>low level concets</li>
+<li>combining them , connecting to specificaitnos</li>
+<li>metastable systems ?</li>
+</ul></li>
+<li>example: hotel lobby
+<ul>
+<li>a primitive tribesman in a hotel lobby : 2 feedback loops, one with air conditioner and one with tribesman making fire -&gt; unstable situation</li>
+<li>how to debug this?</li>
+<li>management: one loops manages the other</li>
+<li>stigmergy: loops interact through the environment</li>
+<li>TCP uses same approach: adaptive change of size of packets</li>
+</ul></li>
+<li>example: erlang’s supervisor tree
+<ul>
+<li>linked processes</li>
+<li>supervisor trees</li>
+</ul></li>
+<li>obstacle avoiding robot</li>
+<li>human respiratory system
+<ul>
+<li>huge number of examples in biological systems</li>
+<li>4 feedback loops</li>
+<li>conscious control loop is very smart -&gt; sandwiched between 2 simpler ones -&gt; very powerful but may go wacko -&gt; needs protection mechanism</li>
+<li>state diagram</li>
+</ul></li>
+<li>feedback structures = a combination of feedback loops to maintain a desirable property</li>
+<li>scalable archiectur ein 4 steps
+<ul>
+<li>concurrent components</li>
+<li>feedback loops</li>
+<li>feedback strucutre -&gt; specification to maintain a property, loops manages each others</li>
+<li>weeakly interacting feedback structures -&gt; each property is maintained by 1 FS, some interaection between each FS, dependency graph</li>
+</ul></li>
+<li>Scalaris: HP self-managing K/V stores overlay network
+<ul>
+<li>conjunction of 6 properties, use 5 feedback structures: connect, route, replica, tx mgr, load</li>
+<li>connect: detect nodes failing, do something</li>
+<li>route: adapt to nodes topology</li>
+<li>dependency DAG</li>
+<li>structured overlay network
+<ul>
+<li>neighbours connectivity feedback loop</li>
+<li>fingers provide efficient routing</li>
+</ul></li>
+</ul></li>
+<li>smart components are essential
+<ul>
+<li>smart components solve a problem in a specific part of system</li>
+<li>outside of their opearting space they should be disabled</li>
+<li>power is built in, not added</li>
+<li>power of a system depends on the strength of its smart components</li>
+<li>intelligence is combination of many smart components</li>
+<li>“deep learning is a tsunami, you have to have it in your system”</li>
+</ul></li>
+</ul>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+  </div>
+</body>
+</html>

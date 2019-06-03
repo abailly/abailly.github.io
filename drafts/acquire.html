@@ -1,0 +1,94 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - Coding a Moderately Complex Game in Haskell and Elm</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://abailly.github.io"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="#">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="draft" id="main" role="main">
+<h1>Coding a Moderately Complex Game in Haskell and Elm</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on October 16, 2016</div>
+
+<p>In 2015, I started coding an Haskell implementation of <a href>Acquire</a>, an old boardgame I liked very much back in the days when I had time to play physical boardgames with friends. The initial goal was exploring how Haskell can help write such games, especially when it comes to <em>mapping</em> the rules to actual game: What’s the overhead of writing non ambiguous rules to be interpreted by a computer, how Haskell’s emphasis on pure lazy functional programming helps (or not) expressing those rules and translate them to types and expressions. Then of course it became interesting to actually play the game, possibly against other players, so I wrote a simple command-line based “shell” that allows to run games in client-server mode using only CLI. Finally, when I became interested in <a href="http://elm-lang.org">Elm</a> in mid-2016, I thought it would be a good idea to write an Elm client to provide a nicer interface and to play with WebSockets in both Elm and Haskell.</p>
+<p>This blog post is a summary of this experience that I hope will be useful for other people wanting to explore how to program using 2 different but similar pure functional languages.</p>
+<h1 id="the-game">The Game</h1>
+<p>I won’t say much about the details of the game itself as this is not what interested me. Detailed rules can be found <a href="http://www.webnoir.com/bob/sid/acquire.htm">here</a> or of course in a printed copy of the game. High-level characteristics of Acquire as a game are:</p>
+<ul>
+<li>It is a turn-based game: Play proceeds which each player doing some action in a fixed sequence of turns,</li>
+<li>Sequencing of actions can be complex: When mergers occur, possible actions deviate from standard course of the game which creates richer interactions and more complex decisions,</li>
+<li>It contains some randomness: Tiles are drawn at random from a set of available tiles,</li>
+<li>Information is partial: The set of playable tiles for each player is hidden, as well as the shares they owned,</li>
+<li>It is fast-paced: A game can be played in about an hour, depending on speed and number of players.</li>
+</ul>
+<p>Players can be either humans connecting to the server through CLI or Web UI, or robots. Robots are unsophisticated: They play randomly one move from all the possible moves according to current game state.</p>
+<p>Winner of the game can only be really known when game ends as it depends on valuation of companies’ shares held.</p>
+<h1 id="core-game-server">Core Game &amp; Server</h1>
+<p>This part is written in Haskell and is conceptually separated in three components:</p>
+<ul>
+<li>Core game handling: 100% pure and encodes the game’s rules and logic using a bunch of functions and data types,</li>
+<li>Players’ interaction: Handles I/O locally, with players and to store/load game state from persistent storage. This part is monadic and is based on the <a href="http://joeysmandatory.blogspot.com/2012/06/explaining-prompt-monad-with-simpler.html">Prompt</a> monad,</li>
+<li>Web server: Serves game over HTTP, managing interactions using <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API">WebSockets</a>.</li>
+</ul>
+<h2 id="pure-game-logic">Pure Game Logic</h2>
+<p>The game’s logic is encapsulated in a couple of functions:</p>
+<ul>
+<li><p>A function that generates the possible <code>Order</code>s given some <code>Game</code> state,</p>
+<pre class=".haskell"><code>possiblePlay :: Game -&gt; [ Order ]</code></pre></li>
+<li><p>A function that <em>applies</em> some <code>Order</code> to a <code>Game</code>, producing a new <code>Game</code>:</p>
+<pre class=".haskell"><code>play :: Game -&gt; Order -&gt; Game</code></pre></li>
+</ul>
+<p>Hence playing a game amounts to folding sequence of calls to <code>possiblePlay</code> and <code>play</code> over a starting game. Thanks to Haskell’s laziness, it is event possible to “generate” lazily the game tree which opens up a whole world of possibilities for coding smarter bots.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+  </div>
+</body>
+</html>
