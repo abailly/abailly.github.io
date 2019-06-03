@@ -21,10 +21,6 @@ transition: none
 ## Motivation
 
 * Discussions sur le canal `#beginners` dans le slack `elm-lang`: Beaucoup du questions sur le type de `List a`...
-* [Robert "Uncle Bob" Martin ](http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html) sur la couverture des tests et les types:
-
-    > You don’t need static type checking if you have 100% unit test coverage.
-
 * [Making Impossible States Impossible](https://www.youtube.com/watch?v=IcgmSRJHu_8)
 * Lien entre types et formalisation de *domaines métiers*
 
@@ -34,11 +30,10 @@ transition: none
 * Donner envie d'aller y voir de plus près
 * Comprendre comment utiliser ces systèmes pour des programmes "normaux"
 
+
 # Voyage au pays des types
 
 ----
-
-<iframe width="800" height="450" src="https://www.youtube.com/embed/y2R3FvS4xr4" frameborder="0" allowfullscreen></iframe>
 
 # Elm
 
@@ -286,6 +281,7 @@ plusOneCommutes :  (n : Nat)
 
 ## (Quelques) Références
 
+* [Thinking With Types](https://leanpub.com/thinking-with-types), S.Maguire
 * [Types and Programming Languages](https://www.cis.upenn.edu/~bcpierce/tapl/), B.Pierce
 * Advanced Types and Programming Languages, B.Pierce
 * [Typing Haskell in Haskell](https://web.cecs.pdx.edu/~mpj/thih/thih.pdf)
@@ -294,6 +290,7 @@ plusOneCommutes :  (n : Nat)
 
 ## (Quelques) Références
 
+* [Type-Driven Development with Idris](https://www.manning.com/books/type-driven-development-with-idris), E. Brady
 * [Fun with Type Functions](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/typefun.pdf?from=http%3A%2F%2Fresearch.microsoft.com%2F%7Esimonpj%2Fpapers%2Fassoc-types%2Ffun-with-type-funs%2Ftypefun.pdf)
 * [Types + Properties = Software - Mark Seemann on Vimeo](https://vimeo.com/162036084)
 * [idris-tutorial.pdf](https://www.cs.ox.ac.uk/projects/utgp/school/idris-tutorial.pdf)
@@ -321,4 +318,4 @@ plusOneCommutes :  (n : Nat)
 
 ## Feedback
 
-[Questionnaire](https://goo.gl/forms/fwRYzEKSQMGhiA3f1)
+[Questionnaire](https://goo.gl/forms/TCj3Z9pNorXgop4g1)

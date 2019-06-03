@@ -1,11 +1,11 @@
-------------
+---
 title: Le XXIème sera typé ou ne sera pas
 subtitle: ou Comment j'ai appris à aimer les types
 author: Arnaud Bailly - @dr_c0d3
-date: 2019-02-28
+date: 2019-03-26
 theme: serif-compact
 transition: none
-------------
+---
 
 # Plan #
 
@@ -319,4 +319,6 @@ plusOneCommutes :  (n : Nat)
 
 ## Feedback
 
-[Questionnaire](https://goo.gl/forms/TCj3Z9pNorXgop4g1)
+### Questionnaire
+
+[https://goo.gl/forms/TCj3Z9pNorXgop4g1](https://goo.gl/forms/TCj3Z9pNorXgop4g1)

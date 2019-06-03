@@ -57,6 +57,10 @@ main = do
         route   idRoute
         compile copyFileCompiler
 
+    match "reveal.js-3.8.0/**" $ do
+        route   idRoute
+        compile copyFileCompiler
+
     match "js/*" $ do
         route   idRoute
         compile copyFileCompiler
