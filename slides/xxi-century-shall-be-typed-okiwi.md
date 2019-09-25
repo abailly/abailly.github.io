@@ -1,5 +1,5 @@
 ---
-title: Le XXIème sera typé ou ne sera pas
+title: Le XXIème siècle sera typé ou ne sera pas
 subtitle: ou Comment j'ai appris à aimer les types
 author: Arnaud Bailly - @dr_c0d3
 date: 2019-09-24
@@ -13,7 +13,7 @@ transition: none
 
 * Introduction
 * Motivation
-* Expédition
+* Explication
 * Conclusion
 
 # Introduction #
@@ -32,7 +32,7 @@ transition: none
 
 # Motivation #
 
-# Expédition
+# Explication
 
 ----
 
