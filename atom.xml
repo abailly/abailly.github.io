@@ -8,51 +8,8 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2019-09-11T00:00:00Z</updated>
+    <updated>2019-09-06T00:00:00Z</updated>
     <entry>
-    <title>Kill Your Darlings</title>
-    <link href="http://abailly.github.io/posts/eff-no-more.html" />
-    <id>http://abailly.github.io/posts/eff-no-more.html</id>
-    <published>2019-09-11T00:00:00Z</published>
-    <updated>2019-09-11T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Kill Your Darlings</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on September 11, 2019</div>
-
-<p>After a few months of internal discussions and heated debate within the team, I have finally deleted nearly <em>all</em> Haskell code from my current project’s code-base. The only remaining part is the use of <a href="https://shakebuild.com">Shake</a> as our main build script but we are planning to decommission it in the short term. Being the kind of Haskell enthusiast I am this was a heartbreaking decision to make but a very rational one. Here I provide some details about the situation and the rationale behind this decision in the hope they are useful to other people or to my future self.</p>
-<ul>
-<li>Our codebase is mainly Python for the backend and React/Typescript for the frontend. Haskell was used either to build some services that would be deployed as part of the solution, or to build tools (code generation, analysis and build-related stuff) and as such was not essential to the core of the system</li>
-<li>We are trying very hard to ensure everyone in the team understands and can touch every part of the system. This means that all team members would have to pick enough Haskell to modify existing code</li>
-<li></li>
-</ul>
-<p>As they say, <a href="http://wiki.c2.com/?KillYourDarlings">Kill Your Darlings</a>!</p>
-<p>I have started working on my current project about a year ago. At that time, I was the only developer on the project and, although this project’s code was not going to be written in Haskell, it was natural for me use Haskell code for some non-essential parts of the projects, mainly falling in two areas:</p>
-<ul>
-<li>Additional API and “microservices” that could be deployed indepedently as part of the solution,</li>
-<li>Tooling and helpers that would help us build, analyse, maintain the whole system</li>
-</ul>
-<p>Because</p>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
     <title>Adventures in Dependently Typed Accounting</title>
     <link href="http://abailly.github.io/posts/dependently-typed-accounting.html" />
     <id>http://abailly.github.io/posts/dependently-typed-accounting.html</id>
@@ -835,6 +792,84 @@ Qui des dieux les mit donc aux prises en telle querelle et bataille ? Le fils de
 </dd>
 <dt><a href="https://blog.acolyer.org/2017/09/18/bringing-the-web-up-to-speed-with-webassembly/">Bringing the web up to speed with WebAssembly | the morning paper</a></dt>
 <dd><p>Speaking of languages, WebAssembly aims at providing a more solid foundation than Javascript as a the lingua franca for executing arbitrary code in browsers.</p>
+</dd>
+</dl>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
+    <title>Weekly Review - Week 36</title>
+    <link href="http://abailly.github.io/posts/weekly-review-36.html" />
+    <id>http://abailly.github.io/posts/weekly-review-36.html</id>
+    <published>2017-09-04T00:00:00Z</published>
+    <updated>2017-09-04T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Weekly Review - Week 36</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on September  4, 2017</div>
+
+<p>This post is a summary of my activities related to coding and software in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments…</p>
+<dl>
+<dt><a href="https://github.com/solo-io/squash">solo-io/squash: The debugger for microservices</a></dt>
+<dd><p>A tool to coordinate debugging of a bunch of processes running inside docker containers. Only for gdb and dlv based programs with VS Code editor</p>
+</dd>
+<dt><a href="https://github.com/jrclogic/smcdel">jrclogic/SMCDEL: A symbolic model checker for Dynamic Epistemic Logic.</a></dt>
+<dd><p>I have been fascinated by model-checking and non standard logics since I discovered this in 2000. Too bad I never invested the time to genuinely master that field. Looks like past years have seen much advance in the field and this MC for epistemic logic interested me because it’s written in Haskell and implements BDD, something I might need for work I am currently doing on distributed systems testing.</p>
+</dd>
+<dt><a href="https://apfelmus.nfshost.com/blog/2013/08/21-space-invariants.html">apfelmus - Reasoning about space leaks with space invariants</a></dt>
+<dd><p>Thanks to my coworker <a href="https://www.linkedin.com/in/alexbabkin/">Alex Babkin</a> for this post. It helped me get a deeper understanding of laziness and space-time tradeoffs in Haskell.</p>
+</dd>
+<dt><a href="https://ocharles.org.uk/blog/posts/2016-01-26-transformers-free-monads-mtl-laws.html">Monad transformers, free monads, mtl, laws and a new approach</a></dt>
+<dd><p>An interesting approach to offer the best of both free monads/effects and monad transformers. Materialized in the <a href="https://ocharles.org.uk/blog/posts/2016-04-23-transformers-eff.html">transformers-eff</a> package</p>
+</dd>
+<dt><a href="http://www.janis-voigtlaender.eu/papers/AsymptoticImprovementOfComputationsOverFreeMonads.pdf">Asymptotic Improvement Of Computations Over Free Monads</a></dt>
+<dd><p>An important stop in my journey towards better understanding of free monads.</p>
+</dd>
+<dt><a href="http://homepages.inf.ed.ac.uk/slindley/papers/handlers.pdf">Handlers in action</a></dt>
+<dd><p>An alternative approach to composable effects and transformers, based on a custom DSL for expressing effects. Uses TH’s quasi-quoters which I am not a big fan of…</p>
+</dd>
+<dt><a href="http://okmij.org/ftp/Haskell/extensible/param-eff.pdf">Parameterized Effects</a></dt>
+<dd><p>Follow-up over <em>extensible effects</em> paper taking into account parametric monads. The goal is to be able to embed and check state transitions at the type level making it impossible to write things like reading a file before opening it</p>
+</dd>
+<dt><a href="https://blog.acolyer.org/2017/08/30/a-concurrent-perspective-on-smart-contracts/">A concurrent perspective on smart contracts | the morning paper</a></dt>
+<dd><p>This week’s TMP was dedicated to a series of papers on Smart Contracts, a subject I have a keen interest in given that I am currently working for a company developing a platform for Smart Contracts! Also of interest is <a href="https://blog.acolyer.org/2017/08/31/adding-concurrency-to-smart-contracts/">Adding concurrency to smart contracts</a> and <a href="https://blog.acolyer.org/2017/09/01/step-by-step-towards-creating-a-safe-smart-contract-lessons-from-a-cryptocurrency-lab/">Step by step towards creating a safe smart contract: lessons from a cryptocurrency lab | the morning paper</a></p>
+</dd>
+<dt><a href="http://why3.lri.fr/">Why3</a></dt>
+<dd><p>A platform for theorem-prover-based program verification providing a “front-end” on top of 2 dozens theorem proving tools, including Coq.</p>
+</dd>
+<dt><a href="https://www.tweag.io/posts/2017-08-24-linear-types-packed-data.html">Tweag I/O - Compact normal forms + linear types = efficient network communication</a></dt>
+<dd><p>Nice insights on <em>linear types</em> from the people implementing them in GHC. Did I say how cool the people at http://tweag.io were?</p>
+</dd>
+<dt><a href="https://jship.github.io/posts/2017-08-27-monad-transformer-commutativity.html">jship - Monad Transformer Commutativity</a></dt>
+<dd><p>Understanding how to stack your monad transformers</p>
+</dd>
+<dt><a href="http://idlewords.com/talks/web_design_first_100_years.htm">Web Design - The First 100 Years</a></dt>
+<dd><p>Read this great talk thanks to my friend Bernard. Contains some important insights on how much we suck at predicting the future and an implicit call to arms to steer the future of the internet in the <em>right</em> direction</p>
+</dd>
+<dt><a href="https://github.com/barrucadu/dejafu">barrucadu/dejafu: Systematic concurrency testing meets Haskell.</a></dt>
+<dd><p>Discovered this package thanks to Mathieu Boespflug from tweag.io! A great tool to systematically check concurrent programs.</p>
+</dd>
+<dt><a href="http://reasonablypolymorphic.com/blog/information-effects">Review: Information Effects :: Reasonably Polymorphic</a></dt>
+<dd><p>Mind-boggling blog post on how to implement a language to define typed reversible computations in Haskell</p>
+</dd>
+<dt><a href="http://www.cs.utexas.edu/users/mckinley/papers/bpor-oopsla-2013.pdf">Partial Order Reduction</a></dt>
+<dd><p>State explosion is the bane of model-checkers. This paper proposes algorithms (implemented in dejafu) to reduce the number of states to explore based on some notion of <em>equivalence relations</em> between states.</p>
 </dd>
 </dl>
 
