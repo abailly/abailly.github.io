@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+
+  <meta name="author" content="Arnaud Bailly - @dr_c0d3" />
+
+
+  <meta name="dcterms.date" content="February  7, 2020" />
+
+  <title>DDD, meet TDD</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="/reveal.js-3.8.0/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    </style>
+
+
+    <link rel="stylesheet" href="/reveal.js-3.8.0/css/theme/serif-compact.css" id="theme">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '/reveal.js-3.8.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+    <!--[if lt IE 9]>
+    <script src="/reveal.js-3.8.0/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section>
+    <h1 class="title">DDD, meet TDD</h1>
+
+  <h2 class="subtitle">More powerful types for better domain modelling</h2>
+
+
+    <h3 class="author">Arnaud Bailly - @dr_c0d3</h3>
+
+
+    <h3 class="date">February  7, 2020</h3>
+</section>
+
+
+
+<section id="double-entry-accounting-domain" class="slide level2">
+<h2>Double-Entry Accounting Domain</h2>
+<blockquote>
+<p>In the double-entry accounting system, at least two accounting entries are required to record each financial transaction. [..] Recording of a debit amount to one or more accounts and an equal credit amount to one or more accounts results in total debits being equal to total credits for all accounts in the general ledger. …</p>
+</blockquote>
+</section>
+<section id="business-rules" class="slide level2">
+<h2>Business rules</h2>
+<ul>
+<li class="fragment">A <em>transaction</em> comprises at least 2 <em>entries</em></li>
+<li class="fragment">An <em>entry</em> records a <em>debit</em> or <em>credit</em> amount in an <em>account</em></li>
+<li class="fragment">An <em>account</em> can fall into 5 different categories: <em>asset</em>, <em>liability</em>, <em>equity</em>, <em>expense</em>, or <em>revenue</em></li>
+<li class="fragment">The aggregate debit and credit <em>balance</em> of all accounts should be equal</li>
+<li class="fragment">A <em>book of accounts</em> should preserve a <em>fundamental equation</em> that ensures <code>asset = liability + equity</code></li>
+</ul>
+</section>
+<section id="first-model" class="slide level2">
+<h2>First Model</h2>
+<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="dt">Balance</span> <span class="ot">:</span> <span class="dt">Type</span>
+<span class="dt">Balance</span> <span class="fu">=</span> (<span class="dt">Nat</span>, <span class="dt">Direction</span>)
+
+<span class="kw">data</span> <span class="dt">Account</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
+  <span class="dt">MkAccount</span> <span class="ot">:</span> <span class="dt">String</span> <span class="ot">-&gt;</span> { type <span class="ot">:</span> <span class="dt">AccountType</span> } <span class="ot">-&gt;</span> <span class="dt">Account</span>
+
+<span class="kw">record</span> <span class="dt">Entry</span> <span class="kw">where</span>
+  constructor <span class="dt">MkEntry</span>
+  <span class="fu">amount</span> <span class="ot">:</span> <span class="dt">Balance</span>
+  <span class="fu">account</span> <span class="ot">:</span> <span class="dt">Account</span></code></pre></div>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">Entries</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
+  <span class="dt">MkEntries</span> <span class="ot">:</span> (entries <span class="ot">:</span> <span class="dt">Vect</span> n <span class="dt">Entry</span>) <span class="ot">-&gt;</span>
+              { <span class="kw">auto</span> need2Entries <span class="ot">:</span> <span class="dt">LTE</span> <span class="dv">2</span> n } <span class="ot">-&gt;</span>
+              { <span class="kw">auto</span> balanced <span class="ot">:</span> balance entries <span class="fu">=</span> (<span class="dv">0</span>, <span class="dt">Cr</span>) } <span class="ot">-&gt;</span>
+              <span class="dt">Entries</span>
+
+<span class="kw">record</span> <span class="dt">Transaction</span> <span class="kw">where</span>
+  constructor <span class="dt">Tx</span>
+  <span class="fu">label</span> <span class="ot">:</span> <span class="dt">String</span>
+  <span class="fu">date</span> <span class="ot">:</span> <span class="dt">Date</span>
+  <span class="fu">entries</span> <span class="ot">:</span> <span class="dt">Entries</span></code></pre></div>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">BookOfAccounts</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
+  <span class="dt">BookTransactions</span> <span class="ot">:</span>
+      (txs <span class="ot">:</span> <span class="dt">Vect</span> k <span class="dt">Transaction</span>) <span class="ot">-&gt;</span>
+      { <span class="kw">auto</span> fundamentalEquation <span class="ot">:</span>
+         invert (assets txs <span class="fu">&lt;+&gt;</span> expenses txs) <span class="fu">=</span>
+                 liabilities txs <span class="fu">&lt;+&gt;</span> capital txs <span class="fu">&lt;+&gt;</span> revenues txs }
+                 <span class="ot">-&gt;</span> <span class="dt">BookOfAccounts</span></code></pre></div>
+</section>
+<section id="testing-with-the-compiler" class="slide level2">
+<h2>Testing with the Compiler</h2>
+<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">valid2</span> <span class="ot">:</span> balance [ <span class="dt">MkEntry</span> (<span class="dv">100</span>, <span class="dt">Cr</span>) <span class="dt">Bank</span>,
+                  <span class="dt">MkEntry</span> (<span class="dv">100</span>, <span class="dt">Dr</span>) <span class="dt">Capital</span> ] <span class="fu">=</span> (<span class="dv">0</span>, <span class="dt">Cr</span>)
+valid2 <span class="fu">=</span> <span class="dt">Refl</span>
+
+<span class="fu">invalid</span> <span class="ot">:</span> <span class="dt">Not</span> (balance [ <span class="dt">MkEntry</span> (<span class="dv">100</span>, <span class="dt">Cr</span>) <span class="dt">Bank</span>,
+                         <span class="dt">MkEntry</span> (<span class="dv">101</span>, <span class="dt">Dr</span>) <span class="dt">Capital</span> ] <span class="fu">=</span> (<span class="dv">0</span>, <span class="dt">Cr</span>))
+invalid <span class="fu">=</span> <span class="fu">\</span> <span class="dt">Refl</span> <span class="kw">impossible</span></code></pre></div>
+</section>
+<section id="enforcing-invariants-at-the-hexagons-sides" class="slide level2">
+<h2>Enforcing Invariants at the Hexagon’s Sides</h2>
+<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">parseEntries</span> <span class="ot">:</span> <span class="dt">Parser</span> <span class="dt">Entries</span>
+parseEntries <span class="fu">=</span> <span class="kw">do</span>
+  e1 <span class="ot">&lt;-</span> parseEntry
+  endOfLine
+  e2 <span class="ot">&lt;-</span> parseEntry
+  endOfLine
+  es <span class="ot">&lt;-</span> sepBy parseEntry endOfLine
+  <span class="kw">let</span> entries <span class="fu">=</span> e1 <span class="ot">::</span> e2 <span class="ot">::</span> fromList es
+  <span class="kw">case</span> decEq (balance entries) <span class="dt">Zero</span> <span class="kw">of</span>
+    (<span class="dt">Yes</span> prf) <span class="ot">=&gt;</span> pure <span class="fu">$</span> <span class="dt">MkEntries</span> entries
+    (<span class="dt">No</span>  <span class="fu">_</span>)   <span class="ot">=&gt;</span> fail <span class="st">&quot;Entries are not balanced, total debits minus total credits should be 0&quot;</span></code></pre></div>
+</section>
+<section id="a-flaw-in-the-model" class="slide level2">
+<h2>A Flaw in the Model</h2>
+<p>Trying to prove the <code>Monoid</code> properties for a <code>Balance</code> forced me to realize my model was wrong:</p>
+<ul>
+<li class="fragment">I am conflating two concepts: The <em>Balance</em> and the <em>Amount</em> of each entry</li>
+<li class="fragment"><code>Balance</code> should have a proper domain-relevant representation</li>
+<li class="fragment">Idris’ compiler has a good way to tell you your design is wrong: Proving properties becomes increasingly difficult</li>
+</ul>
+</section>
+<section id="better-types" class="slide level2">
+<h2>Better Types</h2>
+<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">Amount</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
+  <span class="dt">MkAmount</span> <span class="ot">:</span> (n <span class="ot">:</span> <span class="dt">Nat</span>) <span class="ot">-&gt;</span> { <span class="kw">auto</span> notZero <span class="ot">:</span> <span class="dt">LTE</span> <span class="dv">1</span> n } <span class="ot">-&gt;</span> <span class="dt">Amount</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">Balance</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
+  <span class="dt">Zero</span> <span class="ot">:</span> <span class="dt">Balance</span>
+  <span class="dt">Bal</span> <span class="ot">:</span> (n <span class="ot">:</span> <span class="dt">Amount</span>) <span class="ot">-&gt;</span> (d <span class="ot">:</span> <span class="dt">Direction</span>) <span class="ot">-&gt;</span> <span class="dt">Balance</span></code></pre></div>
+</section>
+<section id="the-dark-side-of-the-moon" class="slide level2">
+<h2>The Dark Side of the Moon</h2>
+<p>Things start to get tricky when trying (again) to prove <code>Monoid</code> properties on a <code>Balance</code>:</p>
+<ul>
+<li class="fragment"><a href="https://github.com/abailly/xxi-century-typed/blob/master/idris/src/Accounting/Proofs.idr">Proofs</a> of <em>associativity</em> quickly became bogged down into a maze of various cases</li>
+<li class="fragment">Embedding proofs in <em>data types</em> means we have to <em>discharge</em> those proofs to construct values, which leds to more work</li>
+<li class="fragment">The <code>Balance</code> representation is probably still wrong and needs to be <em>distilled</em></li>
+</ul>
+</section>
+<section id="conclusion" class="slide level2">
+<h2>Conclusion</h2>
+<ul>
+<li class="fragment">Proving things about your domain’s model is <em>fun</em> and <em>rewarding</em></li>
+<li class="fragment">Working with a “smart” compiler providing powerful type system and REPL helps you refine your domain <em>incrementally</em> and <em>iteratively</em></li>
+<li class="fragment">Relating domain-level concepts to more abstract concepts can be a source of insights on the domain itself</li>
+<li class="fragment">Trying to prove the relevant properties gives more insights on the <em>representation</em> used</li>
+</ul>
+</section>
+<section id="references" class="slide level2">
+<h2>References</h2>
+<ul>
+<li class="fragment">This talk is actually from a <a href="http://abailly.github.io/posts/dependently-typed-accounting.html">blog post</a></li>
+<li class="fragment">You can find the code on <a href="https://github.com/abailly/xxi-century-typed/blob/master/idris/src/Accounting.idr">github</a></li>
+<li class="fragment">I am <a href="https://twitter.com/dr_c0d3">dr_c0d3</a> on Twitter</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+
+  <script src="/reveal.js-3.8.0/lib/js/head.min.js"></script>
+  <script src="/reveal.js-3.8.0/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'old-english', // available themes are in /css/theme
+        transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '/reveal.js-3.8.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '/reveal.js-3.8.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '/reveal.js-3.8.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: '/reveal.js-3.8.0/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '/reveal.js-3.8.0/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
