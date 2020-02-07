@@ -111,7 +111,7 @@ data BookOfAccounts : Type where
                      BookOfAccounts
 ~~~~
 
-Note that we have modified the `fundamentalEquation` to take into account `expenses` and `revenues`. It is actually the case that `asset = liability + equity` only when taking into account the profit or deficit that is the difference between revenues and expenses. In actual accounting practices, a "normal" transaction always involves an expense or revenue account and or more balance sheet account.
+Note that we have modified the `fundamentalEquation` to take into account `expenses` and `revenues`. It is actually the case that `asset = liability + equity` only when taking into account the profit or deficit that is the difference between revenues and expenses. In actual accounting practices, a "normal" transaction always involves an expense or revenue account and one or more balance sheet account.
 
 ## Testing
 
