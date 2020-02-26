@@ -1,0 +1,290 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[a4paper,margin=0.75in]{geometry}
+\usepackage[english]{babel}
+\usepackage{resume}
+
+\begin{document}
+\sloppy
+
+\maintitle{Arnaud Bailly}{26 avril 1969}{Last update on \today}
+
+\noindent\href{mailto:arnaud.at.pankzsoft.dot.com}{arnaud\mbox{}@\mbox{}pankzsoft.com}\sbull
+\textsmaller{+}33(0)617121978\sbull
+{\newnums arnaud-bailly} \emph{(Skype)}\sbull{\texttt dr\_c0d3} \emph{(twitter)}\sbull
+\href{http://www.linkedin.com/in/arnaudbailly}{www.linkedin.com/in/arnaudbailly} \sbull
+\href{https://github.com/abailly}{https://github.com/abailly} \\
+6, rue de Clermont\sbull
+44000 Nantes\sbull
+France
+
+\spacedhrule{0.9em}{-0.4em}  % a horizontal line with some vertical spacing before and after
+
+\roottitle{Summary}  % a root section title
+
+\begin{multicols}{2}  % open a multicolumn environment
+  I am an experienced technical lead, architect and software engineer with a proven track record of delivering business-focused high-quality solutions quickly and efficiently. I have a wide array of skills and knowledge in anything software-related with a particular focus on software engineering, language design and implementation, functional programming, automated testing and DevOps.
+
+  I currently focus on finding novel and efficient ways to develop distributed and decentralized applications and systems, particularly looking into statically typed languages-based solutions like Haskell or Idris. I also have an interest in maintaining existing applications, whether using legacy or brand-new technologies.
+
+  Strong team player and seasoned team leader, I am always on the look for better ways to collaboratively develop and maintain software stack, hence my decade-old interest in \emph{Agile development} theory and practice with a focus on actual coding techniques rather than organisational tools.
+\end{multicols}
+
+%% TECHNICAL SKILLS
+
+
+%% Java
+%% Javascript
+%% Java Concurrency
+%% Scala
+%% Akka
+%% Open Source
+%% MongoDB
+%% Ruby
+%% Maven
+%% Clojure
+%% Kubernetes
+%% Docker
+%% AWS
+%% GCP
+%% Haskell
+%% Idris
+%% Continuous Integration (Jenkins, TravisCI, CircleCI…)
+%% Test-Driven Development
+%% Distributed Computing
+%% Automated Testing
+%% eXtreme Programming
+%% SCRUM
+%% Blockchain & Smart contracts
+%% Behaviour Driven Development
+
+\roottitle{Work Experience}
+
+\headedsection{Symbiont.io}{New-York, USA (remote)}{%
+
+  \headedsubsection
+      {Lead Software Engineer}
+      {Jun 2018 -- Dec 2019}
+      {\begin{itemize}
+          \item
+          Design and implement a fullstack loans management solution on top of Symbiont's Smart Contracts platform
+          \item
+          Hire and lead a distributed (USA, UK, France) team of engineers working in close collaboration with the product management team
+          \item
+          Deliver incrementally a working solution testable by the end-users, based on eXtreme Programming principles: Test-Driven Development, Pair and Mob Programming, Whole Team integration, Short feedback loops...
+          \item
+          \textbf{Technology stack}: eXtreme Programming, Custom Blockchain language, Typescript, React, GraphQL, Python, Haskell, Docker, Kubernetes
+        \end{itemize}
+      }
+
+      \headedsubsection
+          {Senior Software Engineer}
+          {Jul 2017 -- May 2018}
+          {
+          \begin{itemize}
+          \item
+            Implement a key component of the platform responsible for the execution of a distributed ledger's atomic transactions.
+          \item
+            Coach the team getting up to speed on Haskell development eco-system and best practices, esp. regarding application architecture, property-based testing, components structuring...
+          \item
+            Design and develop a distributed model-based testing solution for the platform, inspired by Jepsen. This became the standard integration and system-level testing solution for the company. It defines a high-level \emph{Domain-Specific Language} to describe the various actions available to clients and topology of the system.
+          \item
+            \textbf{Technology stack}: Haskell, Blockchain, Docker, Kubernetes, GCP, Microservices
+          \end{itemize}
+          }
+}
+
+\headedsection{GorillaSpace}{Singapore (remote)}{%
+  \headedsubsection
+      {CTO and Co-Founder}
+      {Dec 2016 -- Mar 2017}
+      {\begin{itemize}
+        \item Designed and implemented a prototype solution for office space marketplace enabling actors in the commercial property market to increase the yield of their spaces
+        \item \textbf{Technology stack}: Haskell, Elm, Docker, GCP, AWS, Micro-services
+      \end{itemize}}
+}
+
+\headedsection{Capital Match}{Singapore (remote)}{%
+  \headedsubsection
+      {CTO and Co-Founder}
+      {Aug 2014 -- Mar 2016}
+      {\begin{itemize}
+
+        \item Designed and grew the leading peer-to-peer lending platform in Singapore, managing S\$7.5M+ loans and 2K+ investors: Features included complete loan payment processing, emails alerting, bank reconciliation, profile and user’s management, accounting...
+        \item Designed and built infrastructure management software for secure and safe operations of the platform: continuous integration through self-hosted git push, automated build and deployment of docker-based services, version-controlled configuration management...
+        \item Hired and managed a distributed team of 3 software engineers- Setup and facilitated lightweight kanban-style development process
+        \item Use Haskell for most software in the stack, including custom event-sourced data storage, REST API, build and production infrastructure software- aggressive automation for provisioning and managing hosts, Riemann monitoring, digital ocean and AWS hosting
+        \item \textbf{Technology stack}: Clojurescript, React, Haskell, Docker, Microservices
+      \end{itemize}}
+}
+
+\headedsection{Murex}{Paris, France}{%
+
+  \headedsubsection
+      {Freelance Consultant}
+      {Jun 2016 -- Jul 2016}
+      {\par
+        As part of the R\&D Team, I studied potential integration of several open-source distributed data streams processing tools within existing system.
+        \begin{itemize}
+        \item Survey of existing OSS platforms, most notably Spark eco-system
+        \item Analysis of existing code and system's features and coding of exemplar use cases in Spark
+        \item Suggestions for future improvements and integration roadmap.
+        \item \textbf{Technology stack}: Java, Scala, Spark
+        \end{itemize}%
+      }
+
+   \headedsubsection
+       {Solution Architect and Developer}
+       {Jun 2013 -- Aug 2014}
+       {\begin{itemize}
+         \item I designed and developed a distributed solution based on REST principles and web technology to operate the MX.3 platform, providing a central configuration endpoint for orchestrating a multi-site MX.3 environment
+         \item Exposes a REST API to start/stop services across a cluster and provide live feedback on startup/shutdown process and status
+         \item Worked with Singapore team to implement the solution for real customers and helped making it live in production
+         \item \textbf{Tech stack}: Java, REST API, Docker, Jenkins
+         \end{itemize}
+       }
+
+
+   \headedsubsection
+      {Senior Developer \& Consultant}
+      {Sep 2012 -- May 2013}
+      {%
+        \par
+        As member of cross-functional team, I help functional teams and project improve their software development process, coding and designing in Java. I also work on proposing global best practices and standardizing key components and practices to improve velocity and quality of developments.
+      }
+
+    \headedsubsection
+        {Senior Developer \& Architect}
+        {May 2010 -- Sep 2011}{%
+          \begin{itemize}
+          \item Lead developer for performance improvement, code cleaning and scalability
+          \item Member of a team of 10+ people, working on a middleware platform for Murex
+          \item Core developer for the platform, involved in evolving the architecture and design to ensure and maintain production-quality software, including build engineering, release engineering, backlog and roadmap maintenance
+          \end{itemize}
+        }
+
+    \headedsubsection
+        {Agile Enabler}
+        {Jun 2009 -- Apr 2010}{%
+          \begin{itemize}
+          \item Within a team of 4 people, help Murex' software developers community reduce lead-time and defects by applying "modern" software development techniques and tools: eXtreme Programming, Lean, TDD, and provide services and tools to help them improve their development effort(reduce lead-time, reduce defects)
+          \item Introduced and help spread Test Driven-Development, Pair Programming, BDD and various XP/Agile techniques
+          \item Work on improving build system (cross-platform mixed C/C++/Java)
+          \item \textbf{Technology stack}: Java, C/C++, Jenkins, Oracle
+          \end{itemize}
+        }
+}
+
+\headedsection{PolySpot}{Paris, France}{%
+
+  \headedsubsection
+      {Lead Developer \& Architect}
+      {Sep 2011 -- Aug 2012}{%
+        \begin{itemize}
+        \item I lead a small team of developers working on a component part of the next major release of PolySpot's product, PolySpot Enterprise Search.
+        \item This component is responsible for storing metadata of documents and managing transformation, indexation and querying over this large dataset
+        \item \textbf{Technical stack}: Java, MongoDB, Akka, NLP
+        \end{itemize}
+      }
+}
+
+\headedsection{OQube}{Lille, France}{%
+  \headedsubsection
+      {Consultant}
+      {Jun 2006 -- Jan 2010}{\par
+        I provided consulting services, short term, long term, part-time or full-time to help improve software engineering practices with a strong Agile / XP slant, mostly in an open source Java/J2EE environment, including:
+          \begin{itemize}
+            \item XP coaching / mentoring and technical leadership- code and design practices and training
+            \item XP tools and techniques setup and training: Test-driven development, continuous integration, pair programming, incremental design, automate acceptance testing
+            \item prototyping and exploratory development
+          \end{itemize}
+      }
+}
+
+\headedsection{Courtanet}{Paris, France}{%
+  \headedsubsection
+      {Coach \& Architect}
+      {Apr 208 -- Mar 2009}{%
+        \begin{itemize}
+        \item Part of R\&D team developing an insurance policy comparison platform
+        \item Coached a team of 6 engineers on Agile software development practices: Test and Behaviour driven development, continuous integration and continuous delivery, iterative planning…
+        \item \textbf{Technology stack}: Javascript, Java, XUL
+        \end{itemize}
+      }
+}
+
+\headedsection{Norsys}{Lille, France}{%
+  \headedsubsection
+      {Research Engineer}
+      {Sep 2001 -- Mar 2006}{\par
+        During my PhD thesis, I took part in various prototype and proof-of-concepts projects for several customers:
+        \begin{itemize}
+        \item Implementation of a mobile (WAP) commercial website of a retail company
+        \item Code analysis and generation for reimplementation in Java of a legacy application
+        \item Design and implementation of asynchronous message-passing platform for batch processing
+        \item Training and coaching of developers teams in testing, continuous integration
+        \item Implementation of software quality analysis tools
+        \end{itemize}
+      }
+}
+
+\headedsection{Sans Peur et Sans Reproche}{Lille, France}{%
+  \headedsubsection
+      {Co-Founder}
+      {Apr 1994 -- Dec 1997}{%
+        \begin{itemize}
+        \item Founded Role Playing Game and Boardgame publishing company with 3 friends
+        \item Managed print publishing process, relationship with printers, technical infrastructure and software for professional publishing- Took part in writing, editing, typesetting all our products
+        \item Coded a Point-of-Sale management software for our RPG shop
+        \end{itemize}
+      }
+}
+
+\headedsection{Crédit Agricole}{Lille, France}{%
+  \headedsubsection
+  {Account Manager}
+  {Feb 1991 -- Mar 1994}
+  {\par
+    Within the Small Businesses Department of a regional retail bank, I managed a portfolio of about 60 customers, dealing with all the aspects of business banking: Loan underwriting, treasury, delinquent loans recovery...}
+}
+
+\roottitle{Education}
+
+\headedsection{Université des Sciences et Technologies de Lille}{Lille, France}{%
+  \headedsubsection
+      {PHD, Computer Science}
+      {Sep 2001 -- Sep 2005}
+      {\par
+        Thesis subject: \emph{Test and Validation of Component Software}}
+
+      \headedsubsection
+          {MsC, Computer Science}
+          {Sep 1998 -- Jun 2001}
+          {}
+}
+
+\headedsection{SKEMA Business School}{Lille, France}{%
+  \headedsubsection
+      {Master, Business administration}
+      {Sep 1987 -- Sep 1990}{}
+}
+
+\roottitle{Skills}
+\inlineheadsection
+    {Technical expertise:}
+    {Over the years, I have accumulated experience and knowledge on a wide array of fields related to software architecting, engineering and development, with a bias towards hands-on coding excellence.
+      \begin{itemize}
+      \item \emph{Software design and implementation:} Strong emphasis on \emph{testing}, e.g. Test-Driven Development, System-level testing, Property and Model-Based Testing, Test cases generation, Behaviour Driven Development to foster business-developers collaboration (FitNesse, Cucumber) ; \emph{Distributed Systems} design and implementation
+      \item \emph{Agile software development practices}: eXtreme Programming, Scrum, Continuous integration processes and tools, Domain-Driven Design
+      \item \emph{Functional Programming}: Haskell, Idris, Elm, Clojure, Scala, OCaml
+      \item \emph{Object-Oriented Programming}: Java, a bit of C++ and .Net, Design Patterns, UML
+      \item \emph{Web technologies}: Solid knowledge of HTTP, HTML, CSS, REST APIs, Javascript-based programming (React/Redux, Clojurescript, Typescript)
+      \item \emph{Cloud technologies}: (Docker, GCP, DigitalOcean, Azure, AWS, DevOps)
+      \end{itemize}
+    }
+    \inlineheadsection
+        {Natural languages:}
+        {French (\emph{mother tongue}), English (\emph{full professional proficiency}), Spanish (\emph{rusty}), 中文 (\emph{beginner})}
+\roottitle{Interests}
+\inlineheadsection
+    {Non-exhaustive list, in random order:}{philosophy (esp. philosophy of the mind and phenomenology), sociology, literature (french, russian classics), art (modern and contemporary), sport (mostly to stay fit), coding and programming, (un)conferences on software, cooking...}
+\end{document}

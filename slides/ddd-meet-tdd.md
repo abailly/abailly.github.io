@@ -1,6 +1,6 @@
 ------------
 title: DDD, meet TDD
-subtitle: More powerful types for better domain modelling
+subtitle: More powerful types for better domain modeling
 author: Arnaud Bailly - @dr_c0d3
 date: 2020-02-07
 theme: serif-compact
@@ -127,8 +127,12 @@ Things start to get tricky when trying (again) to prove `Monoid` properties on a
 * Relating domain-level concepts to more abstract concepts can be a source of insights on the domain itself
 * Trying to prove the relevant properties gives more insights on the _representation_ used
 
+## The Book
+
+![](https://images.manning.com/720/960/resize/book/1/453215a-afa1-443f-9f2d-3b6bf24c34db/Brady-TDDI-HI.png)
+
 ## References
 
-* This talk is actually from a [blog post](http://abailly.github.io/posts/dependently-typed-accounting.html)
-* You can find the code on [github](https://github.com/abailly/xxi-century-typed/blob/master/idris/src/Accounting.idr)
+* This talk is actually from a blog post: [http://abailly.github.io/posts/dependently-typed-accounting.html](http://abailly.github.io/posts/dependently-typed-accounting.html)
+* You can find the code on Github: [https://github.com/abailly/xxi-century-typed](https://github.com/abailly/xxi-century-typed/blob/master/idris/src/Accounting.idr)
 * I am [dr_c0d3](https://twitter.com/dr_c0d3) on Twitter
