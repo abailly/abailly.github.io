@@ -65,6 +65,10 @@ main = do
         route   idRoute
         compile copyFileCompiler
 
+    match "cv/*.pdf" $ do
+        route   idRoute
+        compile copyFileCompiler
+
     match "css/*" $ do
         route   idRoute
         compile compressCssCompiler
