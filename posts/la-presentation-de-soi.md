@@ -1,6 +1,7 @@
 ------------
 title: Sur "La mise en scène de la vie quotidienne"
 subtitle: "La présentation de soi"
+description: Le livre est une analyse des interactions sociales vues comme une pièce de théâtre, un jeu de rôles dans lequel les membres d'une équipe collaborent pour donner un spectacle à des spectateurs
 author: Arnaud Bailly
 date: 2020-02-26
 ------------
