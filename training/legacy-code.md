@@ -1,46 +1,47 @@
 ------------
 title: Maîtriser le code légataire
-author: Arnaud Bailly 
+author: Arnaud Bailly
 date: 2013-04-25
 ------------
 
 Durant ces deux journées de formation, vous apprendrez à améliorer la
 conception d'un logiciel pas à pas, tout en continuant à produire de
-la valeur pour vos clients. 
+la valeur pour vos clients.
 
 Tout le monde voudrait un logiciel qui fonctionne parfaitement, qui
 soit un plaisir à maintenir et faire évoluer. En pratique, il y a
 toujours des bugs à corriger et des clients à satisfaire
 rapidement. Des raccourcis sont pris et la dette technique s'accumule
-produisant in fine du *code légataire* : du code sans tests. 
+produisant in fine du *code légataire* : du code sans tests.
 
 Vous voudriez améliorer le code petit à petit, le *refactorer* c'est à
 dire améliorer sa conception sans toucher à son comportement. Mais
 c'est le dilemme de l'oeuf et de la poule: pour *refactorer*
 sereinement, il faut des tests automatisés qui préviennent les
 régressions. Pour ajouter des tests, il d'abord rendre le code
-modulaire en le *refactorant* ! 
+modulaire en le *refactorant* !
 
 Tout espoir n'est pas perdu ! Au travers de présentations, de
 démonstrations et d'exercices, d'étude de case, vous apprendrez à
 identifier les "mauvaises odeurs", briser les dépendances,
 *refactorer* et ajouter des tests sur du code légataire chaotique, de
 manière à pouvoir ajouter de nouvelles fonctionnalités avec facilité
-et confiance. 
+et confiance.
 
 Les techniques apprises dans cette formation sont aussi utiles pour
 les nouveaux projets afin de prévenir leur transformation en code
 légataire. Elles vous permettent de réparer rapidement vos erreurs et
-d'empêcher qu'elles ne se reproduisent.  
+d'empêcher qu'elles ne se reproduisent.
 
-## Benefits ##
+## Benefits
+
 
 A l'issu de ce cours, vous saurez:
 
 * utiliser différentes techniques pour briser les dépendances
-  indésirables dans le code ; 
+  indésirables dans le code ;
 * commencer à changer du code et ajouter des tests simplement et de
-  manière responsable ;  
+  manière responsable ;
 * identifier la dynamique systémique d'accumulation de la dette
   technique ;
 * prioriser, planifier et exécuter un *refactoring* d'importance en
@@ -55,7 +56,7 @@ Nous mettons un point d'honneur à faire en sorte que les participants
 à nos formations vivent une expérience riche, intense et varié. Pour
 ce faire, nous utilisons différents supports (web, présentation,
 papier) et surtout beaucoup d'ateliers et de cas pratiques,
-d'exercices, de simulations. 
+d'exercices, de simulations.
 
 Nous avons aussi à coeur d'ajuster la formation aux besoins et
 attentes réels du public et c'est pourquoi une *rétrospective* a lieu
@@ -86,7 +87,7 @@ Cette formation intensive s'étend sur deux jours.
 * Introduction aux techniques de *refactoring*, aux *odeurs* du code
 et à la coupure des dépendances par la détection des "coutures" dans
 le code. Cette introduction se fera par un mélange de de
-présentations, démonstrations et exercices pratiques. 
+présentations, démonstrations et exercices pratiques.
 * Compréhension du cycle des  causes  et effets systémiques produisant
   du code légataire, afin d'être à même de sortir du cercle vicieux
 
@@ -99,10 +100,9 @@ les différentes techniques apprises: travailler sur une grosse base de
 code sans se perdre, utiliser le vocabulaire des "odeurs", du
 refactoring, des "coutures" et dépendances pour coordonner, planifier
 et exécuter ce refactoring en équipe. Et le faire de manière sûre même
-en l'absence initiale de tests automatisés. 
+en l'absence initiale de tests automatisés.
 
 | Nombre de participants | 8-12 |
 | Tarif                  | 1050€/p |
 | Session intra-entreprise | nous consulter |
 | Langage/plate-forme  | Java, Javascript |
-

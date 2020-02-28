@@ -1,12 +1,12 @@
 ------------
 title:  Développement de systèmes orienté-objets
-author: Arnaud Bailly 
+author: Arnaud Bailly
 date: 2013-04-25
 ------------
 
 Passez à la vitesse supérieure en conception et programmation
 orienté-objet avec cette formation pratique et ludique. Apprenez à
-utiliser le test unitaire pour guider votre conception. 
+utiliser le test unitaire pour guider votre conception.
 
 Cette formation vous permettra d'explorer de nombreuses techniques et
 de nombreux outils pour le développement orienté-objet, tels que les
@@ -32,7 +32,7 @@ En participant à cette formation, vous:
   les freins à la mise en place de bonnes pratiques de conception ;
 * Découvrirez comment travailler en équipe pour réduire et prévenir
   l'accumulation de dette technique.
-  
+
 ## Pré-requis ##
 
 Une connaissance liminaire de la programmation orientée-objet et du
@@ -41,7 +41,7 @@ développement correspondant au support de cours est indispensable.
 
 Ce cours est proposé dans les langages Java, Ruby et Javascript. Un
 ordinateur portable est indispensable : nous pouvons mettre à
-disposition des ordinateurs préparés pour la durée de la formation. 
+disposition des ordinateurs préparés pour la durée de la formation.
 
 ## Programme ##
 

@@ -1,6 +1,6 @@
 ------------
 title:  Masterclass - Test-Driven Development
-author: Arnaud Bailly 
+author: Arnaud Bailly
 date: 2013-04-25
 ------------
 
@@ -31,17 +31,18 @@ Cette formation nécessite une bonne connaissance des concepts de la
 programmation orientée-objet, une expérience dans un langage OO (Java,
 C#, C++, Ruby) et des connaissances de base dans le tests
 automatisé. Une expérience pratique d'un projet de développement
-logiciel est utile. 
+logiciel est utile.
 
 Ce cours est proposé dans les langages Java, Ruby et Javascript. Un
 ordinateur portable est indispensable : nous pouvons mettre à
-disposition des ordinateurs préparés pour la durée de la formation. 
+disposition des ordinateurs préparés pour la durée de la formation.
 
 ## Programme ##
 
 Cette formation est organisée essentiellement sous la forme
 d'exercices pratiques et d'études de cas, entrecoupés courtes
 présentations théoriques. Parmi les thèmes abordés:
+
 * Pourquoi écrire des tests unitaires ?
 * Introduction au *Développement guidé par les tests* (TDD)
 * Pousser le TDD aux limites
@@ -51,4 +52,3 @@ présentations théoriques. Parmi les thèmes abordés:
   *bouchons*, des *ersatz*...
 * Insérer des tests dans le code : briser les dépendances
 * Clinique du test unitaire
-

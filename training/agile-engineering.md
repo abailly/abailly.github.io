@@ -1,6 +1,6 @@
 ------------
 title: Ingénierie Agile
-author: Arnaud Bailly 
+author: Arnaud Bailly
 date: 2013-04-19
 ------------
 
@@ -19,12 +19,12 @@ l'intégration continue.
 
 Vous comprendrez comment ces pratiques s'insèrent dans Scrum et
 comment elles améliorent la prévisibilité tout en accroissant le
-vélocité. 
+vélocité.
 
 ## Bénéfices ##
 
 A l'issue de cette formation, vous aurez acquis les compétences et
-connaissances suivantes: 
+connaissances suivantes:
 
 * comment livrer des projets de développement dans les coûts et délais
   fixés, sans compromis sur la qualité ;
@@ -38,9 +38,9 @@ connaissances suivantes:
   incrémentale ;
 * l'importance du test et du TDD dans le développement agile ;
 * comment toutes ces techniques s'articulent en expérimentant avec un
-  mini-projet. 
-  
-... tout cela dans une ambiance détendue et ludique. 
+  mini-projet.
+
+... tout cela dans une ambiance détendue et ludique.
 
 ## Méthodes ##
 
@@ -48,7 +48,7 @@ Nous mettons un point d'honneur à faire en sorte que les participants
 à nos formations vivent une expérience riche, intense et varié. Pour
 ce faire, nous utilisons différents supports (web, présentation,
 papier) et surtout beaucoup d'ateliers et de cas pratiques,
-d'exercices, de simulations. 
+d'exercices, de simulations.
 
 Nous avons aussi à coeur d'ajuster la formation aux besoins et
 attentes réels du public et c'est pourquoi une *rétrospective* a lieu
@@ -60,7 +60,7 @@ participants d'ajuster le contenu.
 Développeurs, architectes, chefs de projet techniques, testeurs,
 ... bref toute personne directement impliquée dans la production ou
 l'évolution d'un logiciel ;
-  
+
 ## Pré-requis ##
 
 * Une connaissance préalable du développement agile et de la

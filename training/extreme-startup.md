@@ -1,6 +1,6 @@
 ------------
 title: eXtreme Startup
-author: Arnaud Bailly 
+author: Arnaud Bailly
 date: 2013-04-25
 ------------
 
@@ -22,7 +22,7 @@ d'un *business* et comment elles s'articulent avec les principes du
 
 ## Bénéfices ##
 
-* Savoir utiliser les pratiques XP dans un contexte de forte pression ; 
+* Savoir utiliser les pratiques XP dans un contexte de forte pression ;
 * Construire un logiciel résistant au changement, et apprendre à
   réagir à ce changement ;
 * Anticiper les *risques du succès* et être capable de réagir
@@ -39,7 +39,7 @@ Dans
 la version de base d'[eXtreme Startup](https://github.com/rchatley/extreme_startup), les participants forment un binôme simulant une
 start-up qui doit prendre le maximum de parts de marché. Chaque binôme
 développe un serveur qui doit s'adapter aux exigences fluctuantes du
-marché, marquer le plus de points face à la compétition. 
+marché, marquer le plus de points face à la compétition.
 
 Dans cet atelier, nous utilisons une version étendue de ce
 logiciel afin de simuler une plus grande variété d'événements affectant la
