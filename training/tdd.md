@@ -15,6 +15,7 @@ de meilleure qualité et susceptible d'évoluer plus rapidement suivant
 les demandes des clients.
 
 En participant à cette formation, vous acquérez:
+
 * une meilleure compréhension de ce qu'un test unitaire *est* ;
 * des techniques et des conseils pour écrire et maintenir vos tests ;
 * la capacité de tester votre code isolément grâce aux techniques de

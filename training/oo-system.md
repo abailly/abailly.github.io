@@ -21,6 +21,7 @@ manière structurée, de le rendre plus sûr et plus évolutif.
 ## Bénéfices ##
 
 En participant à cette formation, vous:
+
 * Améliorerez vos compétences dans la conception OO par la pratique ;
 * Acquérerez des outils simples et pragmatiques pour créer des
   architectures simples, robustes et évolutives ;
