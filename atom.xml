@@ -8,8 +8,98 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2020-03-21T00:00:00Z</updated>
+    <updated>2020-10-08T00:00:00Z</updated>
     <entry>
+    <title>Team Practices: Daily Log</title>
+    <link href="http://abailly.github.io/posts/team-log.html" />
+    <id>http://abailly.github.io/posts/team-log.html</id>
+    <published>2020-10-08T00:00:00Z</published>
+    <updated>2020-10-08T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Team Practices: Daily Log</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on October  8, 2020</div>
+
+<p>Writing a personal diary is pretty commonplace and there exists quite a few tools out there to do that. I personally favor Emacs for casual personal journalling and have been using <a href="">org-mode</a> since at least 2014, and some other tools prior to that like <a href="">remember.el</a>. For a few years now, I have been trying to extend that practice from the individual to the collective by writing a <strong>Team’s Log</strong>. I stole the idea from a talk Dan North gave where he mentioned the <em>Captain’s Log</em> as one of the “advanced agile” or “post-agile” practices he thought effective to improve a team’s efficiency and effectiveness.</p>
+<h1 id="why-do-it">Why do it?</h1>
+<p>I usually work in teams on software products that are created, evolved and maintained over the course of months, years or even a lifetime. I often feel the need to informations from the past, for various reasons:</p>
+<ul>
+<li>to understand the context in which some decision was made,</li>
+<li>to check if an issue I am working on is really the same issue I worked on a while ago,</li>
+<li>to find some details of a discussion that did not translate to a commit message or a specific wiki page,</li>
+<li>to quickly catch-up with the team when I have been off for a few days or even weeks,</li>
+<li>…</li>
+</ul>
+<p>More generally, I like the idea of keeping in a written form something that I call a <em>Collective Stream of Consciousness</em>, a collection of more or less detailed contextual notes that detail what we think of a problem at some point in time, how we resolved some issue, even which sequence of commands or actions we had to run in order to reach some conclusion or extract some data.</p>
+<p>Writing things is essential to structure, learn and share. In his series of book on groupthink and decision making, <a href="decisions-absurdes.html">Christian Morel</a> motivates the importance of writing things down for organisations in order to breed a culture of safety and continuous learning. By insisting that knowledge be written, structured, and continuously read and reviewed, organisations build an operational <em>Body of Knowledge</em> that helps turn unexpected or novel events into routine, spreads knowledge among the organisation’s members, speeds up newcomers onboarding.</p>
+<p>In the first volume series of book on Quality Software Management, <a href="https://geraldmweinberg.com/Site/QSM_vol_1.html">System Thinking</a>, Jerry Weinberg proposes a hierarchy of <em>patterns</em> for organisations that ranges from the <em>Oblivious</em> to the <em>Congruent</em>. A key factor in taming chaos is collecting information, data, and making that information and data <em>open</em> for everyone to see. At first, we might fail to collect the right data or measure the right thing, and we might fail to collect it in the right way, confusing precision, accuracy and relevance. But this is the first step towards improving the level of understanding and control we have on the <em>process</em> and the <em>Culture</em> of the organization.</p>
+<p>I view building this <em>Collective Stream of Consciousness</em> as a way to gather raw material for further analysis and synthesis: By writing things down, I am more prone to memorize events and notice patterns that can later be refined into more specific documents.</p>
+<h1 id="how-to-do-it">How to do it?</h1>
+<h2 id="practice">Practice</h2>
+<p>My current practice is actually pretty simple: In the team’s wiki, there is one page for each (working) day, which is used by all team members as a shared notebook to log what they do, problems they have, solutions they find… When a month is over, we move relevant pages</p>
+<p>Here is a screen capture from our team’s wiki (in this case Azure DevOps) showing a random page’s content:</p>
+<div class="figure">
+<img src="/images/sample-team-log.png" style="width:100.0%" />
+
+</div>
+<p>In this case, I was trying to understand why tests were slow and I graphed the distrbution of execution times for “writes” using some <a href="http://www.gnuplot.info/">GNUPlot</a> script. This picture also shows the tree of daily log entries, with daily pages “archived” under each month.</p>
+<p>Other category of fragments I<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> write in the log are:</p>
+<ul>
+<li>Action plan for the day, often listing actions people talked about in the daily meeting,</li>
+<li>Comments and “narratives” while working on some issue, along with a link to the issue tracker,</li>
+<li>Details about operations, like configuring a service or troubleshooting a malfunction in Azure, complete with detailed commands run, output, problems and solutions I faced….</li>
+<li>Meeting minutes, which I sometimes move to their own page under the <code>Meetings</code> section when they are recurring meetings (retrospectives, sprint planning),</li>
+<li>Random thoughts on some topic which does not warrant having its own page yet.</li>
+</ul>
+<p>Pair Programming lends itself nicely to journaling: The navigator can write down decisions, problems, actions, or questions while the driver writes code. When switching role, the new navigator can quickly go through the log and catch up with previous navigator’s thought process.</p>
+<p>I try to use as much hyperlinks to other parts of our “information system” (issue tracker, code repository, CI, tests reports) as I can in order to enrich the context and allow readers, whether other team members or my future self, to be able to gather as much details as they need to make this information useful.</p>
+<h2 id="tools">Tools</h2>
+<p>As mentioned previously, in my current team we are using the standard <a href="https://docs.microsoft.com/en-us/azure/devops/project/wiki/about-readme-wiki">DevOps Wiki</a> as our infrastructure is 100% Azure-based. Over the past few years, I have tried various options:</p>
+<ul>
+<li>As an avid Emacs and casual <a href="https://orgmode.org/">org-mode</a> user, I initially tried to maintain an org-mode journal in the source tree, committing it like any other piece of documentation. While this works fine when working alone, it does not scale to multiple users and team use due to merge conflicts: Everyone is editing the same file over and over, usually in close places,</li>
+<li>An online wiki is easier to use but most wikis out there do not support concurrent editing of same page by different users, thus leading to the same merge conflict issues. Moreover, wikis are usually edited directly in the browser which means I need to switch tools when programming,</li>
+<li><a href="https://docs.google.com">Google docs</a><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> provides good support for collaborative online editing. This is my go-to option when there’s no in-house Wiki solution as wiki are more hyperlinks-friendly esp. when integrated in a development environment,</li>
+<li>Out of online tools I have used, <a href="https://www.notion.so/">Notions</a> offers the best experience when working in a larger team with 2 or 3 groups of people simultaneously editing the same daily log page.</li>
+</ul>
+<p>I have yet to discover the perfect tool to support that practice. Such a tool would at least:</p>
+<ul>
+<li>Support collaborative concurrent editing of the same “note” with automatic conflicts resolution,</li>
+<li>Provide seamless integration into common tools used in software development in order to easily capture contextual information when creating notes,</li>
+<li>Enable easy linking to other notes through completion and navigation,</li>
+<li>Efficiently index notes and provide powerful search capabilities.</li>
+</ul>
+<p><a href="https://www.orgroam.com/">org-roam</a> is a recent evolution of org-mode inspired by the Zettelkasten method that provides some of these capabilities, but it does not provide collective editing support nor online storage and retrieval of notes.</p>
+<h1 id="assessment">Assessment</h1>
+<p>I have found the practice of writing a Team’s log very helpful in various circumstances, whether it be to lookup some command I have used before, to investigate recurring bugs and issues, or more generally to dump random ideas and thoughts that sometimes happen to be useful to me or teammates. Writing things down helps structure one’s thought process bringing order and persistance to the somewhat confusing, idiosyncratic and transient stream of consciousness. This is not only valuable at a personal level but also at a the team’s level as it fosters key eXtreme Programming practices like <a href="">Collective Code Ownership</a> and <a href="">Coding Standards</a>.</p>
+<p>Turning implicit assumptions, conclusions, perceptions, and ideas into an explicit <em>Stream of consciousness</em> takes the collective to another level whereby it’s not only the <em>Code</em> that’s collectively owned but the <em>process</em> that produces the code, which unlocks the potential for the organisation, at the team level or higher, to apply pattern 3, 4 or even 5 organisations.</p>
+<p>Of course, this only works if all the team’s members are willing to engage with that practice, writing and <em>reading</em> the log and actively curating its content.</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Yes, this should be <em>we</em> but it’s very often <em>I</em>. More on this later,<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Or any other kind of collaborative editing tool like <a href="https://framapad.org/en/">Framapad</a><a href="#fnref2">↩</a></p></li>
+</ol>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Sur &quot;Le maniement des hommes&quot;</title>
     <link href="http://abailly.github.io/posts/maniement-des-hommes.html" />
     <id>http://abailly.github.io/posts/maniement-des-hommes.html</id>
@@ -796,80 +886,6 @@ Qui des dieux les mit donc aux prises en telle querelle et bataille ? Le fils de
 <li><em>Coroutine explained</em> was a great overview of this sometimes confusing construct which can appear in various guises: Cooperative threads, asynchronous computations, first-class continuations. Coroutines are useful to simplify cooperative multitasking code, alleviating the pain of callback hell or even chain of promises, and removing context-switching overhead. It was interesting to see how async/await computations, and in general coroutines, are “compiled” to state-machines. I learnt about the difference between <em>stackful</em> and <em>stackless</em> coroutines, Lua being a representative of the former while JS implements the latter. The presentor highlighted some caveats when working with coroutines, liek painful stack traces, convoluted debugging and hard to maintain thread safety when using both coroutines and multithreading.</li>
 <li>The last talk I attended was given by <a href="https://heather.miller.am/">Heather Miller</a> and aimed at providing a 10000 feet view of the state of research in distributed systems support from programming language theory. This talk was really awesome and treaded quite a lot of ground, from different consistency guarantees on data structures, to Heather Miller’s own Function Passing, through Session Types. <a href="https://heather.miller.am/blog/towards-language-support-for-distributed-systems-references.html">This URL</a> is supposed to host a collection of references to the various work cited: Can’t wait to see it filled.</li>
 </ul>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>LambdaConf 2018</title>
-    <link href="http://abailly.github.io/posts/rock-solid-haskell-services.html" />
-    <id>http://abailly.github.io/posts/rock-solid-haskell-services.html</id>
-    <published>2018-06-05T00:00:00Z</published>
-    <updated>2018-06-05T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>LambdaConf 2018</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on June  5, 2018</div>
-
-<h1 id="rock-solid-haskell-services">Rock-Solid Haskell Services</h1>
-<ul>
-<li>The workshop is presented by Roman Gonzales who is working for FP Complete and it leverages the company’s experience building highly-reliable services in Haskell</li>
-<li>The overall architecture of the system is based on Matt Parson’s <a href="http://www.parsonsmatt.org/2018/03/22/three_layer_haskell_cake.html">Three Layer Haskell Cake</a>, which is very reminiscent of Alistair Cockburn’s Hexagonal Architecture and DDD</li>
-<li>It boils down to enforcing a strict separation between <em>resources</em>, <em>business services</em> and <em>core domain logic</em></li>
-<li>To those 3 layers, Roman, drawing from his experience as a Clojure developer, adds a <em>Zero Layer</em> which is responsible for managing the lifecycle of <em>components</em> in such a way that they can be disposed of and <em>restarted</em> at will. This gives the developer the ability to interact with the “complete” system directly in the REPL and be able to reload any part of it at will</li>
-<li>The <a href="http://hackage.haskell.org/package/componentm">componentm</a> library provides the needed tools for this, and the ability to report failures at startup/teardown time, as well as some timings on how much time each component took to startup and teardown. Note that I am slightly annoyed that all logging done happens to be text-based which to me seems like an anti-pattern: Logging issued at the application level should be structured and only ever converted to human-readable format when it is needed</li>
-<li>Of course the greatest benefit of this approach is the shortening of the feedback loop it provides</li>
-<li>Roman spends quite a long time presenting another tool he wrote to manage configuration, <a href="https://hackage.haskell.org/package/etc">etc</a>.</li>
-<li><code>etc</code> allows one to define a lot of different sources of configuration like files, env variables, command-line flags, and merge them in a single JSON tree that can then be used by the application</li>
-<li>I must say I am not a big fan of those big Yaml configurtion files although I must confess I sometimes indulge in them</li>
-<li>Following a discussion with my colleague <a href="https://twitter.com/cvogt">Chris Vogt</a>, I more and more like the idea of limiting configuration to the bare minimum, e.g. to 0</li>
-<li>Having non configurable executables that are produced and packaged for specific environment, which means moving the configuration up the stack, say at compile time</li>
-<li>when we need to change some dependency, we recompile a process and redeploy it</li>
-<li>this implies a solid deployment strategy and thec capability to rollback on errors</li>
-<li>need to couple that with supervision trees in order to manage errors in an orderly manner</li>
-<li>the presenter then introduces <a href="https://github.com/roman/Haskell-capataz">capataz</a> which is a Haskell implementation of <em>supervision</em> trees</li>
-<li>supervision trees provide the ability to automatically restart components or components trees when an error happens</li>
-<li>the workshop proceeds to deployment and production concerns, with <a href="https://pragprog.com/book/mnee2/release-it-second-edition">Release It!</a> as a reference pooint, and some definitions on various issues that can happen to a system:</li>
-<li><em>impulses</em> are rapid shocks to the system</li>
-<li><em>strain</em> is stress over time, which might be caused by dependency on another system that starts operating at half-capacity
-<ul>
-<li>signs are unresponsive app, spikes on system-level metrics, excess I/O</li>
-</ul></li>
-<li>strain produce <em>Cracks</em> that can lead <em>cascading failures</em></li>
-<li><em>faults</em> =&gt; <em>errors</em> =&gt; <em>failures</em></li>
-<li>source of strains:</li>
-<li>lack of timeouts on outbound requests</li>
-<li>resource pools drained because of failures at lower level</li>
-<li>system resource exhaustion (files, ports, RAM…)</li>
-<li>not limiting size of resources (bounded queues)</li>
-<li>limiting size of query results</li>
-<li>timeouts are very rarely transient which means retries should be delayed</li>
-<li><em>circuit breakers</em> allow keeping track of the state of a 3rd party system</li>
-<li>when num of failures pass some threshold -&gt; make all subsequent requests fail or return default value, marking the circuit open</li>
-<li>after some time -&gt; try again (canary requests) and close the circuit again if it succeeds (e.g. 3rd party system goes back to normal state)</li>
-<li>use timeouts on every use of allocated resource</li>
-<li>the last stage of the workshop goes to deploying all the services that have bben built. The presenter introduces (localstack)[https://localstack.cloud/] a tool to simulate part of AWS stack locally.</li>
-</ul>
-<h1 id="from-zero-to-live-with-functional-javascript">From Zero to Live with Functional Javascript</h1>
-<p>This 2 hours workshop was given by Ian Thomas, CTO of SkyBet. It was a fast-paced overview on how to build modern javascript applications based on FP principles. The workshop is based on his <a href="https://github.com/anatomic/zero-to-live-fp-js-workshop">git repo</a> and builds a complete 12 factor app from the ground up. It contains lot of materials and the session was way too short to get more than a glimpse of it, but it’s definitely interesting material when one wants to build JS-based microservices.</p>
-<p>Ian Thomas also gave a keynote on how FP helps break the <em>fear cycle</em> which prevents large code bases from changing.</p>
-<h1 id="seeking-refuge-from-unsafe-javascript">Seeking Refuge from Unsafe JavaScript</h1>
-<p>Another workshop dedicated to Functional Javascript, presented by David Chambers. It goes through the various pure FP constructs provided by <a href="">sanctuary</a>, a library which basically provides Haskell on top of JS. Sanctuary provides algebraic data types and all the classical functions we have come to love from Haskell, and more.</p>
 
 
 <div id="disqus_thread"></div>
