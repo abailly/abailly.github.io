@@ -9,7 +9,7 @@ For a few years now, I have been trying to extend that practice from the individ
 
 # Why do it?
 
-I usually work in teams on software products that are created, evolved and maintained over the course of months, years or even a lifetime. I often feel the need to informations from the past, for a variety of reasons:
+I usually work in teams on software products that are created, evolved and maintained over the course of months, years or even a lifetime. I often feel the need to informations from the past, for various reasons:
 
 - to understand the context in which some decision was made,
 - to check if an issue I am working on is really the same issue I worked on a while ago,
@@ -55,10 +55,25 @@ As mentioned previously, in my current team we are using the standard [DevOps Wi
 
 - As an avid Emacs and casual [org-mode](https://orgmode.org/) user, I initially tried to maintain an org-mode journal in the source tree, committing it like any other piece of documentation. While this works fine when working alone, it does not scale to multiple users and team use due to merge conflicts: Everyone is editing the same file over and over, usually in close places,
 - An online wiki is easier to use but most wikis out there do not support concurrent editing of same page by different users, thus leading to the same merge conflict issues. Moreover, wikis are usually edited directly in the browser which means I need to switch tools when programming,
-- [Google docs](https://docs.google.com)[^2] support collaborative editing online. This is my go-to option when there's no in-house Wiki solution as wiki are more hyperlinks-friendly esp. when integrated in a development environment,
+- [Google docs](https://docs.google.com)[^2] provides good support for collaborative online editing. This is my go-to option when there's no in-house Wiki solution as wiki are more hyperlinks-friendly esp. when integrated in a development environment,
 - Out of online tools I have used, [Notions](https://www.notion.so/) offers the best experience when working in a larger team with 2 or 3 groups of people simultaneously editing the same daily log page.
 
-#
+I have yet to discover the perfect tool to support that practice. Such a tool would at least:
+
+- Support collaborative concurrent editing of the same "note" with automatic conflicts resolution,
+- Provide seamless integration into common tools used in software development in order to easily capture contextual information when creating notes,
+- Enable easy linking to other notes through completion and navigation,
+- Efficiently index notes and provide powerful search capabilities.
+
+[org-roam](https://www.orgroam.com/) is a recent evolution of org-mode inspired by the Zettelkasten method that provides some of these capabilities, but it does not provide collective editing support nor online storage and retrieval of notes.
+
+# Assessment
+
+I have found the practice of writing a Team's log very helpful in various circumstances, whether it be to lookup some command I have used before, to investigate recurring bugs and issues, or more generally to dump random ideas and thoughts that sometimes happen to be useful to me or teammates. Writing things down helps structure one's thought process bringing order and persistance to the somewhat confusing, idiosyncratic and transient stream of consciousness. This is not only valuable at a personal level but also at a the team's level as it fosters key eXtreme Programming practices like [Collective Code Ownership]() and [Coding Standards]().
+
+Turning implicit assumptions, conclusions, perceptions, and ideas into an explicit _Stream of consciousness_ takes the collective to another level whereby it's not only the _Code_ that's collectively owned but the _process_ that produces the code, which unlocks the potential for the organisation, at the team level or higher, to apply pattern 3, 4 or even 5 organisations.
+
+Of course, this only works if all the team's members are willing to engage with that practice, writing and _reading_ the log and actively curating its content.
 
 [^1]: Yes, this should be _we_ but it's very often _I_. More on this later,
 
