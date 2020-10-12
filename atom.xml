@@ -8,8 +8,146 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2020-10-08T00:00:00Z</updated>
+    <updated>2020-10-12T00:00:00Z</updated>
     <entry>
+    <title>Modern Emacs for Haskell</title>
+    <link href="http://abailly.github.io/posts/a-modern-haskell-env.html" />
+    <id>http://abailly.github.io/posts/a-modern-haskell-env.html</id>
+    <published>2020-10-12T00:00:00Z</published>
+    <updated>2020-10-12T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Modern Emacs for Haskell</h1>
+
+  <h2 class="subtitle">Setting up a more modern development environment with LSP</h2>
+
+<div class="info">Posted on October 12, 2020</div>
+
+<p>For a couple of years now there has been an upsurge of activity on the front of Haskell Tooling and IDE support. As explained in <a href="https://neilmitchell.blogspot.com/2020/01/one-haskell-ide-to-rule-them-all.html">this blog post</a> from Neil Mitchell, there is a need, and now a will, to equip Haskell with a more modern development environment based on the now standard <a href="https://microsoft.github.io/language-server-protocol/">Language Server Protocol</a> introduced by Visual Studio Code. This initiative gave rise to the <a href="https://github.com/haskell/haskell-language-server">Haskell Language Server</a> which aims at fully supporting LSP for the Haskell eco-system and becoming the standard “IDE”.</p>
+<p>I have used various solutions for hacking Haskell in Emacs which all are now either extinct or on the path towards extinction:</p>
+<ul>
+<li><a href="http://haskell.github.io/haskell-mode/">haskell-mode</a> is the oldest one and the one I of course started with,</li>
+<li>At some point I switched to <a href="https://github.com/DanielG/ghc-mod">ghc-mod</a> which at the time, ca. 2013-2014 was offering the best experience. It was the first tool to provide basic things like autocompletion, jump to definition and other niceties we’ve come to appreciate from our IDEs,</li>
+<li>Then <a href="https://chrisdone.github.io/intero/">intero</a> came out as <a href="https://docs.haskellstack.org/en/stable/README/">stack</a> usage grew and I have used happily for a few years. It was a breeze to install in Emacs and integrated nicely with stack, reusing its configuration files to automatically provide all needed dependencies and enabling fast turnaround from a properly configured REPL. Sadly intero development stopped a couple years ago,</li>
+<li>I have also used <a href="https://github.com/ndmitchell/ghcid">ghcid</a> which is pretty much editor or IDE-agnostic, it was (is?) great for providing ultra fast edit-compile-test cycle and it was the only tool that enable me to do <a href="https://medium.com/@kentbeck_7670/test-commit-revert-870bbd756864">Test-Commit-Revert</a> in Haskell,</li>
+<li>I am not doing anymore Haskell development in my day job so I have switched back to using haskell-mode which at least worked and provided basic support. I never spent the time however to delve into its configuration details hence my environment was pretty simple and I mostly used syntax highlighting and REPL interaction.</li>
+</ul>
+<p>This week-end, following the announcement in the Haskell Weekly News that HLS supported case-splitting and hole resolution, I decided to bite the bullet and reconfigure my Emacs to use it. Here are the steps I went through in the hope it will be useful for someone else.</p>
+<p>First, I spent a lot of time fiddling with my <code>.emacs</code> and packages: I somehow lost a bunch of packages when I tried to install the relevant packages needed for LSP, possibly as a consequence of running <code>package-autoremove</code> without really understand what I was doing, so I add to fix my configuration one <code>require</code> at a time to ensure packages would be resolved if non existent.</p>
+<p>I ended with the following configuration with is mostly copied verbatim from <a href="https://github.com/haskell/ghcide/#using-with-emacs">ghcide</a>’s configuration, except for the variables related to process execution in the <code>lsp-haskell</code> package</p>
+<pre><code>(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode t))
+(use-package yasnippet
+  :ensure t)
+(use-package lsp-mode
+  :ensure t
+  :hook (haskell-mode . lsp)
+  :commands lsp)
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode)
+(use-package lsp-haskell
+  :ensure t
+  :config
+ (setq lsp-haskell-server-path &quot;haskell-language-server-wrapper&quot;)
+ (setq lsp-haskell-server-args ())
+   ;; Comment/uncomment this line to see interactions between lsp client/server.
+  (setq lsp-log-io t))</code></pre>
+<p>I then proceeded to install <a href="https://github.com/haskell/ghcide">ghcide</a> but it turned out to not be a good idea.</p>
+<p>Then I installed <a href="https://github.com/haskell/haskell-language-server">haskell-language-server</a>. I opted for the “install from source” option as it seemed the simplest and safest to me. Cloning, building and isntalling it was pretty straightforward:</p>
+<pre><code>&gt; git clone https://github.com/haskell/haskell-language-server
+&gt; cd haskell-language-server
+&gt; stack install.hs hls-8.8.4</code></pre>
+<p>As this is done through <code>stack</code>, it will install the relevant GHC version automatically in its own directory, and the binary for the server will be installed in <code>~/.local/bin</code> by default.</p>
+<pre><code>&gt; ls -l ~/.local/bin/haskell-*
+-rwxr-xr-x  3 arnaud  staff  124958940 Oct 11 11:20 /Users/arnaud/.local/bin/haskell-language-server
+-rwxr-xr-x  3 arnaud  staff  124958940 Oct 11 11:20 /Users/arnaud/.local/bin/haskell-language-server-8.8
+-rwxr-xr-x  3 arnaud  staff  124958940 Oct 11 11:20 /Users/arnaud/.local/bin/haskell-language-server-8.8.4
+-rwxr-xr-x  1 arnaud  staff    3168996 Oct 11 11:20 /Users/arnaud/.local/bin/haskell-language-server-wrapper</code></pre>
+<p>As I understand it, the executable that needs to be pointed to is the <code>xxx-wrapper</code> which is responsible for starting the server and delegates the actual parsing and compiling to the correct backend:</p>
+<div class="figure">
+<img src="/images/emacs-lsp-process-tree.png" />
+
+</div>
+<p>Emacs needs to be able to find the executable. In my case, I have added the directory top the <code>exec-path</code> variable of Emacs and to the <code>PATH</code> environment variable:</p>
+<pre><code>(setenv &quot;PATH&quot; (concat (getenv &quot;HOME&quot;) &quot;/.local/bin:&quot; &quot;/usr/local/bin:&quot; (getenv &quot;PATH&quot;)))
+
+(setq exec-path
+      (reverse
+       (append
+        (reverse exec-path)
+        (list (concat (getenv &quot;HOME&quot;) &quot;/.local/bin&quot;)  &quot;/usr/local/bin&quot; ))))</code></pre>
+<p>It did not worked the first time I tried to open an Haskell source file and it was useful to be able to got to <code>*lsp-log*</code> and other log buffers generated by the various processes to try to understand why the LSP server was crashing at start. After some tests and poking around on the web, I realised I was missing <strong>the critically important part</strong>: Correct configuration for <a href="https://github.com/mpickering/hie-bios">hie-bios</a> which is a low-level library that’s responsible for providing the correct GHC configuration for a given project or set of files.</p>
+<p><a href="https://github.com/mpickering/hie-bios">hie-bios</a> is configured through a <code>hie.yaml</code> file which it locates somewhere up the path from where it’s started. If it does not find one, it uses a default configuration which is most probably incorrect for the project, unless it’s something very simple like a single file. So I ended up writing a <code>hie.yaml</code> at the <strong>root</strong> of the project which is considered to be where the <code>.git</code> directory lives. I am using stack and have no plans to switch, but this implies GHC might be installed by stack and not in the PATH, so we need to tell the server to use a stack-based configuration</p>
+<pre><code>cradle:
+  stack:</code></pre>
+<p>This is however not enough if you have more than one component and the <code>stack.yaml</code> file is not located in the current directory, so I needed to add relevant configuration to ensure it finds all the dependencies, both for the library <em>and</em> for the tests. So here is how a configuration for a library with tests look like:</p>
+<pre><code>cradle:
+  stack:
+  - path: &quot;./src&quot;
+    component: &quot;hstore:lib&quot;
+  - path: &quot;./test&quot;
+    component: &quot;hstore:test:hstore-test&quot;</code></pre>
+<p>It’s a little bit annoying one has to maintain this file by hand as it could easily be generated from the <code>package.yaml</code> or <code>.cabal</code> files. An <a href="https://github.com/mpickering/hie-bios/issues/122">issue</a> is open in hie-bios and shall be resolved for <a href="https://github.com/haskell/cabal/pull/6241">cabal</a> soon.</p>
+<p>So after a couple hours, I was finally able to open a Haskell file and enjoy the pleasure of being able to case-split, introduce lambdas and resolve holes automatically from within Emacs, thanks to the universal <code>s-l a a</code> keys (where <code>s-l</code> stand for <code>Super + l</code>, with <code>Super</code> being <code>Command</code> on a Mac).</p>
+<p>This can give surprising results when, for example, give the following code:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Foo</span> <span class="fu">=</span> <span class="dt">Bar</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Baz</span> <span class="dt">String</span>
+
+<span class="ot">frobnicate ::</span> <span class="dt">Foo</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
+frobnicate <span class="fu">=</span> _</code></pre></div>
+<p>one uses <code>Attempt to fill hole</code> command:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Foo</span> <span class="fu">=</span> <span class="dt">Bar</span> <span class="dt">Int</span> <span class="fu">|</span> <span class="dt">Baz</span> <span class="dt">String</span>
+
+<span class="ot">frobnicate ::</span> <span class="dt">Foo</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
+frobnicate <span class="fu">=</span> (\ f
+   <span class="ot">-&gt;</span> <span class="kw">case</span> f <span class="kw">of</span>
+        (<span class="dt">Bar</span> i) <span class="ot">-&gt;</span> []
+        (<span class="dt">Baz</span> l_c)
+          <span class="ot">-&gt;</span> <span class="kw">case</span> l_c <span class="kw">of</span>
+               [] <span class="ot">-&gt;</span> l_c
+               ((<span class="fu">:</span>) c l_c3)
+                 <span class="ot">-&gt;</span> (<span class="fu">:</span>)
+                      (<span class="kw">case</span> l_c3 <span class="kw">of</span>
+                         [] <span class="ot">-&gt;</span> c
+                         ((<span class="fu">:</span>) c4 l_c5) <span class="ot">-&gt;</span> c4)
+                      (<span class="kw">case</span> l_c3 <span class="kw">of</span>
+                         [] <span class="ot">-&gt;</span> l_c3
+                         ((<span class="fu">:</span>) c4 l_c5) <span class="ot">-&gt;</span> l_c5))</code></pre></div>
+<p>More interestingly, case-split is particularly useful to cover all constructors of a datatype. Given:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">fun ::</span> <span class="dt">Foo</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
+fun x <span class="fu">=</span> _</code></pre></div>
+<p>Typing <code>s-l a a</code> then selecting <code>Case...</code> when the cursor is on the hole yields:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">fun ::</span> <span class="dt">Foo</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
+fun x <span class="fu">=</span> (<span class="kw">case</span> x <span class="kw">of</span>
+   (<span class="dt">Bar</span> i) <span class="ot">-&gt;</span> _
+   (<span class="dt">Baz</span> l_c) <span class="ot">-&gt;</span> _)</code></pre></div>
+<p>Then I can <code>Replace with []</code> on the first hole and <code>Homomorphic case-split...</code> on the second hole, yielding:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">fun ::</span> <span class="dt">Foo</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
+fun x <span class="fu">=</span> (<span class="kw">case</span> x <span class="kw">of</span>
+   (<span class="dt">Bar</span> i) <span class="ot">-&gt;</span> []
+   (<span class="dt">Baz</span> l_c) <span class="ot">-&gt;</span> (<span class="kw">case</span> l_c <span class="kw">of</span>
+      [] <span class="ot">-&gt;</span> []
+      ((<span class="fu">:</span>) c l_c3) <span class="ot">-&gt;</span> (<span class="fu">:</span>) _ _))</code></pre></div>
+<p>I have yet to test this new setup on a significant project but I am already quite pleased by the speed of the provided feedback which matches ghcid and the integration in Emacs.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Team Practices: Daily Log</title>
     <link href="http://abailly.github.io/posts/team-log.html" />
     <id>http://abailly.github.io/posts/team-log.html</id>
@@ -847,45 +985,6 @@ Qui des dieux les mit donc aux prises en telle querelle et bataille ? Le fils de
 <p>Les choses n’ont un sens pour nous que parce que nous sommes dans une relation de présence à elles. Le sens suppose une position, une polarité donc un sujet qui crée les faits, les choses, le temps les phénomènes dans un certain sens. Le corps objectif, le monde objectif de la science n’est pas la vérité du corps phénoménal ou du monde phénoménal mais en est une image appauvrie, une représentation.</p>
 <h2 id="la-liberté-comme-être-au-monde">La liberté comme <em>être au monde</em></h2>
 <p>La liberté n’est pas l’infini des choix qu’une conscience isolée ferait, pure subjectivité, ou illusion totale déterminée par le monde. “Nous choisissons le monde comme lui nous choisit” il n’y a pas de liberté absolue car j’agis toujours en fonction d’une situation que m’offre le monde, mais il n’y a jamais absence de liberté car j’existe au mondne et agit sur lui.</p>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>CodeMesh 2018</title>
-    <link href="http://abailly.github.io/posts/codemesh-2018.html" />
-    <id>http://abailly.github.io/posts/codemesh-2018.html</id>
-    <published>2018-11-17T00:00:00Z</published>
-    <updated>2018-11-17T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>CodeMesh 2018</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on November 17, 2018</div>
-
-<p>Once again I have been lucky enough to attend this year’s <a href="https://codesync.global/conferences/code-mesh-2018/">codemesh</a> conference, but this time I was not only attending but also presenting with my friend <a href="https://twitter.com/abolibibelot">Yann Schwartz</a>, speaking of something we have been working on for a few months and thinking of for a few years: How to leverage the power of those billions of lines of logs our systems generate?</p>
-<p>I only attended the first day of the conference so the following notes reflect only a fraction of the conference. Rumors have it that the second day was much better than the first, unfortunately.</p>
-<ul>
-<li>The first keynote was given by Carl Hewitt, of <a href="http://www.erights.org/history/actors.html">Actors</a> fame, and titled <em>Ultraconcurrency for the future</em>. This was some kind of research program or vision statement about the future of computing systems and different technologies and paradigms, from actors to <em>citadels</em> through <em>inference and planning systems</em> would led to <em>Scalable Intelligent Applications</em>. I must admit the talk was hard to follow…</li>
-<li><a href="https://codesync.global/speaker/carlos-baquero-moreno/">Carlos Baquero Moreno</a> then talked about <a href="https://hal.inria.fr/inria-00555588">Convergent/Commutative/Conflict-free Replicated Data Types</a> of which he is one of the original creator. His talk was an introduction to CRDTs and it succeeded in giving a good intuition of some of the basic data structures you could build and the principles underlying both state and operation based CRDTs. Of special note was his use of a beautiful <em>isochronous map</em> drawn by Galton in the XIXth century coloring various parts of the planet according to the time it takes to reach them from then the Center of the World, London.</li>
-<li>I was both excited and intrigued by the next talk, entitled <em>Verifying a distributed system with combinatorial topology</em>, so I was sorely disappointed when I realised it was a 40 minutes long rant about how inane current development practice of distributed systems are, and how mathematics, and more precisely combinatorial topology, could help solve our problems, without any single fact or even vaguely enlightening example to support this claim. Given that Maurice Herlihy recently published a <a href="https://www.amazon.com/Distributed-Computing-Through-Combinatorial-Topology/dp/0124045782">book</a> on this subject, I am 100% sure this is an interesting topic from which us practitioners could get deep insights, but this presentation failed to convey any useful intuition.</li>
-<li><em>Coroutine explained</em> was a great overview of this sometimes confusing construct which can appear in various guises: Cooperative threads, asynchronous computations, first-class continuations. Coroutines are useful to simplify cooperative multitasking code, alleviating the pain of callback hell or even chain of promises, and removing context-switching overhead. It was interesting to see how async/await computations, and in general coroutines, are “compiled” to state-machines. I learnt about the difference between <em>stackful</em> and <em>stackless</em> coroutines, Lua being a representative of the former while JS implements the latter. The presentor highlighted some caveats when working with coroutines, liek painful stack traces, convoluted debugging and hard to maintain thread safety when using both coroutines and multithreading.</li>
-<li>The last talk I attended was given by <a href="https://heather.miller.am/">Heather Miller</a> and aimed at providing a 10000 feet view of the state of research in distributed systems support from programming language theory. This talk was really awesome and treaded quite a lot of ground, from different consistency guarantees on data structures, to Heather Miller’s own Function Passing, through Session Types. <a href="https://heather.miller.am/blog/towards-language-support-for-distributed-systems-references.html">This URL</a> is supposed to host a collection of references to the various work cited: Can’t wait to see it filled.</li>
-</ul>
 
 
 <div id="disqus_thread"></div>
