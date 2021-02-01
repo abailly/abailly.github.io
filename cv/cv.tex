@@ -1,0 +1,315 @@
+\documentclass[a4paper,MMMyyyy,nonstopmode]{simpleresumecv}
+
+\newcommand{\CVAuthor}{Arnaud Bailly}
+\newcommand{\CVTitle}{Arnaud Bailly's CV}
+\newcommand{\CVNote}{CV compiled on {\today}}
+\newcommand{\CVWebpage}{http://abailly.github.com/}
+
+% PDF settings and properties.
+\hypersetup{
+pdftitle={\CVTitle},
+pdfauthor={\CVAuthor},
+pdfsubject={\CVWebpage},
+pdfcreator={XeLaTeX},
+pdfproducer={},
+pdfkeywords={},
+unicode=true,
+bookmarks=true,
+bookmarksopen=true,
+pdfstartview=FitH,
+pdfpagelayout=OneColumn,
+pdfpagemode=UseOutlines,
+hidelinks,
+breaklinks}
+
+% Shorthand.
+\newcommand{\Code}[1]{\mbox{\textbf{#1}}}
+\newcommand{\CodeCommand}[1]{\mbox{\textbf{\textbackslash{#1}}}}
+
+\begin{document}
+
+\Title{\CVAuthor}
+
+\begin{SubTitle}
+6, rue de Clermont, 44000 Nantes, France
+\par
+\href{mailto:arnaud@pankzsoft.com}
+{arnaud@pankzsoft.com}
+\,\SubBulletSymbol\,
++33\,(6)\,171-121-978
+\,\SubBulletSymbol\,
+\href{\CVWebpage}
+{\url{\CVWebpage}}
+\end{SubTitle}
+
+\begin{Body}
+
+  \Section{}{}{}
+  \begin{Detail}
+    I am an experienced technical lead, architect and software engineer with a proven track record of delivering business-focused high-quality solutions quickly and efficiently, with an emphasis on complex distributed systems. I have a wide array of skills and knowledge in anything software-related with a particular focus on software engineering, language design and implementation, functional programming, automated testing and DevOps.
+  \end{Detail}
+
+%% TECHNICAL SKILLS
+
+
+%% Java
+%% Javascript
+%% Java Concurrency
+%% Scala
+%% Akka
+%% Open Source
+%% MongoDB
+%% Ruby
+%% Maven
+%% Clojure
+%% Kubernetes
+%% Docker
+%% AWS
+%% GCP
+%% Haskell
+%% Idris
+%% Continuous Integration (Jenkins, TravisCI, CircleCI…)
+%% Test-Driven Development
+%% Distributed Computing
+%% Automated Testing
+%% eXtreme Programming
+%% SCRUM
+%% Blockchain & Smart contracts
+%% Behaviour Driven Development
+
+
+
+\Section{Work Experience}{Work Experience}{PDF:WorkExperience}
+
+\SubSection{Symbiont.io}{Symbiont.io}{PDF:Symbiont.io}
+
+\Entry
+Lead Software Engineer
+\hfill
+\DatestampYMD{2018}{06}{01} --
+\DatestampYMD{2019}{12}{31}
+
+\begin{Detail}
+  \BulletItem
+  Design and implement a fullstack loans management solution on top of Symbiont's Smart Contracts platform
+  \BulletItem
+  Hire and lead a distributed (USA, UK, France) team of engineers working in close collaboration with the product management team
+  \BulletItem
+  Deliver incrementally a working solution testable by the end-users, based on eXtreme Programming principles: Test-Driven Development, Pair and Mob Programming, Whole Team integration, Short feedback loops...
+  \BulletItem
+\textbf{Technology stack}: eXtreme Programming, Custom Blockchain language, Typescript, React, GraphQL, Python, Haskell, Docker, Kubernetes
+\end{Detail}
+
+
+\Entry
+Senior Software Engineer
+\hfill
+\DatestampYMD{2017}{06}{01} --
+\DatestampYMD{2018}{05}{31}
+\begin{Detail}
+  \BulletItem
+  Implement a key component of the platform responsible for the execution of a distributed ledger's atomic transactions.
+  \BulletItem
+  Coach the team getting up to speed on Haskell development eco-system and best practices, esp. regarding application architecture, property-based testing, components structuring...
+  \BulletItem
+  Design and develop a distributed model-based testing solution for the platform, inspired by Jepsen. This became the standard integration and system-level testing solution for the company. It defines a high-level \emph{Domain-Specific Language} to describe the various actions available to clients and topology of the system.
+  \BulletItem
+  \textbf{Technology stack}: Haskell, Blockchain, Docker, Kubernetes, GCP, Microservices
+\end{Detail}
+
+\SubSection{GorillaSpace}{GorillaSpace}{PDF:GorillaSpace}
+\Entry
+CTO and Co-Founder
+\hfill
+\DatestampYMD{2016}{12}{01} --
+\DatestampYMD{2017}{03}{31}
+\begin{Detail}
+
+  \BulletItem Designed and implemented a prototype solution for office space marketplace enabling actors in the commercial property market to increase the yield of their spaces
+  \BulletItem \textbf{Technology stack}: Haskell, Elm, Docker, GCP, AWS, Micro-services
+\end{Detail}
+
+\SubSection{Capital Match (Singapore)}{Capital Match}{PDF:CapitalMatch}
+\Entry
+CTO and Co-Founder
+\hfill
+\DatestampYMD{2014}{08}{01} --
+\DatestampYMD{2016}{03}{31}
+\begin{Detail}
+
+  \BulletItem Designed and grew the leading peer-to-peer lending platform in Singapore, managing S\$7.5M+ loans and 2K+ investors: Features included complete loan payment processing, emails alerting, bank reconciliation, profile and user’s management, accounting...
+  \BulletItem Designed and built infrastructure management software for secure and safe operations of the platform: continuous integration through self-hosted git push, automated build and deployment of docker-based services, version-controlled configuration management...
+  \BulletItem Hired and managed a distributed team of 3 software engineers- Setup and facilitated lightweight kanban-style development process
+  \BulletItem Use Haskell for most software in the stack, including custom event-sourced data storage, REST API, build and production infrastructure software- aggressive automation for provisioning and managing hosts, Riemann monitoring, digital ocean and AWS hosting
+  \BulletItem \textbf{Technology stack}: Clojurescript, React, Haskell, Docker, Microservices
+
+\end{Detail}
+
+\SubSection{Murex}{Murex}{PDF:Murex}
+
+\Entry
+Freelance Consultant
+\hfill
+\DatestampYMD{2016}{06}{01} --
+\DatestampYMD{2016}{07}{31}
+\begin{Detail}
+  \BulletItem As part of the R\&D Team, I studied potential integration of several open-source distributed data streams processing tools within existing system.
+  \SubBulletItem Survey of existing OSS platforms, most notably Spark eco-system
+  \SubBulletItem Analysis of existing code and system's features and coding of exemplar use cases in Spark
+  \SubBulletItem Suggestions for future improvements and integration roadmap.
+  \BulletItem \textbf{Technology stack}: Java, Scala, Spark
+\end{Detail}
+
+
+\Entry
+Solution Architect \& Developer
+\hfill
+\DatestampYMD{2013}{06}{01} --
+\DatestampYMD{2014}{08}{31}
+\begin{Detail}
+\BulletItem I designed and developed a distributed solution based on REST principles and web technology to operate the MX.3 platform, providing a central configuration endpoint for orchestrating a multi-site MX.3 environment
+\BulletItem Exposes a REST API to start/stop services across a cluster and provide live feedback on startup/shutdown process and status
+\BulletItem Worked with Singapore team to implement the solution for real customers and helped making it live in production
+\BulletItem \textbf{Tech stack}: Java, REST API, Docker, Jenkins
+\end{Detail}
+
+\Entry
+Senior Developer \& Consultant
+\hfill
+\DatestampYMD{2012}{09}{01} --
+\DatestampYMD{2013}{05}{31}
+\begin{Detail}
+As member of cross-functional team, I help functional teams and project improve their software development process, coding and designing in Java. I also work on proposing global best practices and standardizing key components and practices to improve velocity and quality of developments.
+\end{Detail}
+
+\Entry
+Senior Developer \& Architect
+\hfill
+\DatestampYMD{2010}{05}{01} --
+\DatestampYMD{2011}{09}{30}
+\begin{Detail}
+\BulletItem Lead developer for performance improvement, code cleaning and scalability
+\BulletItem Member of a team of 10+ people, working on a middleware platform for Murex
+\BulletItem Core developer for the platform, involved in evolving the architecture and design to ensure and maintain production-quality software, including build engineering, release engineering, backlog and roadmap maintenance
+\end{Detail}
+
+\Entry
+Agile Enabler
+\hfill
+\DatestampYMD{2009}{06}{01} --
+\DatestampYMD{2010}{04}{30}
+\begin{Detail}
+\BulletItem Within a team of 4 people, help Murex' software developers community reduce lead-time and defects by applying "modern" software development techniques and tools: eXtreme Programming, Lean, TDD, and provide services and tools to help them improve their development effort(reduce lead-time, reduce defects)
+\BulletItem Introduced and help spread Test Driven-Development, Pair Programming, BDD and various XP/Agile techniques
+\BulletItem Work on improving build system (cross-platform mixed C/C++/Java)
+\BulletItem \textbf{Technology stack}: Java, C/C++, Jenkins, Oracle
+\end{Detail}
+
+
+\SubSection{PolySpot}{PolySpot}{PDF:PolySpot}
+\Entry
+Lead Developer \& Architect
+\hfill
+\DatestampYMD{2011}{09}{01} --
+\DatestampYMD{2012}{08}{31}
+\begin{Detail}
+\BulletItem I lead a small team of developers working on a component part of the next major release of PolySpot's product, PolySpot Enterprise Search.
+\BulletItem This component is responsible for storing metadata of documents and managing transformation, indexation and querying over this large dataset
+\BulletItem \textbf{Technical stack}: Java, MongoDB, Akka, NLP
+\end{Detail}
+
+\SubSection{OQube}{OQube}{PDF:OQube}
+\Entry
+Consultant
+\hfill
+\DatestampYMD{2006}{05}{01} --
+\DatestampYMD{2010}{01}{31}
+\begin{Detail}
+\BulletItem I provided consulting services, short term, long term, part-time or full-time to help improve software engineering practices with a strong Agile / XP slant, mostly in an open source Java/J2EE environment, including:
+\SubBulletItem XP coaching / mentoring and technical leadership- code and design practices and training
+\SubBulletItem XP tools and techniques setup and training: Test-driven development, continuous integration, pair programming, incremental design, automate acceptance testing
+\SubBulletItem prototyping and exploratory development
+\end{Detail}
+
+\SubSection{Courtanet}{Courtanet}{PDF:Courtanet}
+\Entry
+Coach \& Architect
+\hfill
+\DatestampYMD{2008}{04}{01} --
+\DatestampYMD{2009}{03}{31}
+\begin{Detail}
+  \BulletItem Part of R\&D team developing an insurance policy comparison platform
+  \BulletItem Coached a team of 6 engineers on Agile software development practices: Test and Behaviour driven development, continuous integration and continuous delivery, iterative planning…
+  \BulletItem \textbf{Technology stack}: Javascript, Java, XUL
+\end{Detail}
+
+%% 2001 - 2006
+\SubSection{Norsys}{Norsys}{PDF:Norsys}
+\Entry
+Research Engineer
+\hfill
+\DatestampYMD{2001}{09}{01} --
+\DatestampYMD{2006}{03}{31}
+\begin{Detail}
+During my PhD thesis, I took part in various prototype and proof-of-concepts projects for several customers:
+\BulletItem Implementation of a mobile (WAP) commercial website of a retail company
+\BulletItem Code analysis and generation for reimplementation in Java of a legacy application
+\BulletItem Design and implementation of asynchronous message-passing platform for batch processing
+\BulletItem Training and coaching of developers teams in testing, continuous integration
+\BulletItem Implementation of software quality analysis tools
+\end{Detail}
+
+\SubSection{Sans Peur et Sans Reproche}{SPSR}{PDF:SPSR}
+\Entry
+Co-Founder
+\hfill
+\DatestampYMD{1994}{04}{01} --
+\DatestampYMD{1997}{12}{31}
+\begin{Detail}
+\BulletItem Founded Role Playing Game and Boardgame publishing company with 3 friends
+\BulletItem Managed print publishing process, relationship with printers, technical infrastructure and software for professional publishing- Took part in writing, editing, typesetting all our products
+\BulletItem Coded a Point-of-Sale management software for our RPG shop
+\end{Detail}
+
+%% 1991 - 1994
+\SubSection{Crédit Agricole}{Crédit Agricol}{PDF:CreditAgricole}
+\Entry
+Account Manager
+\hfill
+\DatestampYMD{1991}{02}{01} --
+\DatestampYMD{1994}{03}{31}
+\begin{Detail}
+  Within the Small Businesses Department of a regional retail bank, I managed a portfolio of about 60 customers, dealing with all the aspects of business banking: Loan underwriting, treasury, delinquent loans recovery...
+\end{Detail}
+
+\Section{Education}{Education}{PDF:Education}
+\SubSection{Université des Sciences et Technologies de Lille}{USTL}{PDF:USTL}
+\Entry
+PHD, Computer Science
+\hfill
+\DatestampYMD{2001}{09}{01} --
+\DatestampYMD{2005}{09}{30}
+\begin{Detail}
+  Thesis subject: \emph{Test and Validation of Component Software}
+\end{Detail}
+\Entry
+MsC, Computer Science
+\hfill
+\DatestampYMD{1998}{09}{01} --
+\DatestampYMD{2001}{06}{31}
+
+
+\SubSection{SKEMA Business School}{SKEMA}{PDF:SKEMA}
+\Entry
+Master, Business administration
+\hfill
+\DatestampYMD{1987}{09}{01} --
+\DatestampYMD{1990}{09}{30}
+
+%% LANGUAGES
+%% Français (Native)
+%% 中文 (Elementary)
+%% Anglais (Full Professional)
+
+\end{Body}
+\end{document}
