@@ -8,8 +8,108 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2020-10-12T00:00:00Z</updated>
+    <updated>2021-01-31T00:00:00Z</updated>
     <entry>
+    <title>Sur &quot;Énigmes et complots&quot; de Luc Boltanski</title>
+    <link href="http://abailly.github.io/posts/enigmes-et-complots.html" />
+    <id>http://abailly.github.io/posts/enigmes-et-complots.html</id>
+    <published>2021-01-31T00:00:00Z</published>
+    <updated>2021-01-31T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Sur &quot;Énigmes et complots&quot; de Luc Boltanski</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on January 31, 2021</div>
+
+<p>Luc Boltanski est un sociologue dont j’ai beaucoup apprécié <a href="http://www.gallimard.fr/Catalogue/GALLIMARD/Tel/Le-nouvel-esprit-du-capitalisme">Le nouvel esprit du capitalisme</a> - co-écrit avec Eve Chiapello - et <a href="http://www.gallimard.fr/Catalogue/GALLIMARD/NRF-Essais/Enrichissement">Enrichissement</a> - co-écrit avec Arnaud Esquerre. Le complotisme est un sujet d’actualité et ils ne sont pas nombreux les livres qui cherchent à comprendre ce que recouvre cette croyance, quelle est son histoire et sa signification contemporaine. Cet article synthètise quelques unes des réflexions qu’il m’a inspiré, en espérant qu’il donne envie de lire l’original bien sûr.</p>
+<h1 id="résumé">Résumé</h1>
+<p>Dans son livre, Boltanski part du constat que la même période historique qui va, en gros, du second Empire à la première guerre mondiale, voit :</p>
+<ul>
+<li>l’invention et le succès populaire croissant du roman policier, suivi de peu par le roman d’espionnage, succès qui ne se démentira plus ;</li>
+<li>la “découverte” et la caractérisation par la psychiatrie de la <em>paranoïa</em> ;</li>
+<li>la constitution de la sociologie comme une science humaine <em>enquêtant</em> sur la réalité sociale vécue par tout un chacun ;</li>
+<li>la diffusion et l’utilisation politique du thème du complot dont <a href="https://fr.wikipedia.org/wiki/Les_Protocoles_des_Sages_de_Sion">Les protocoles des sages de Sion</a> est l’exemple canonique ;</li>
+<li>le développement d’un <em>paradigme indiciaire</em><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> en histoire et en histoire de l’art sous l’impulsion de <a href="https://fr.wikipedia.org/wiki/Giovanni_Morelli">Giovanni Morelli</a> ;</li>
+<li>enfin, le parachèvement, en Occident toujours, de la transformation du monde d’Ancien Régime et une société démocratique et industrialisée de plus en plus complexe.</li>
+</ul>
+<p>Le premier chapitre intitulé “RÉALITÉ / contre / <em>réalité</em>” lie ensemble ces phénomènes autour de la question de la définition de la <em>Réalité</em> : à l’effondrement des religions et des traditions comme source ultime d’explication de la réalité répond l’extension de l’État moderne qui, en contrôlant de plus en plus de pans de l’existence des individus - droit, travail, éducation, armée, police… - cherche à combler ce vide et reprendre le monopole de la définition de ce qui est “réel” ou non, ou à tout le moins du discours légitime sur cette réalité, à être le dépositaire du sens de l’existence de la Nation à laquelle il s’identifie. Cette construction de l’État-Nation moderne ne va pas sans provoquer des tensions dans la société et les individus, tensions que les différents phénomènes manifestent chacun à leur manière, soit qu’ils visent à les résorber, soit qu’ils les exacerbent en une critique de la réalité.</p>
+<p>Chacun des chapitres suivants enquête donc sur ces phénomènes :</p>
+<ul>
+<li><em>Les enquêtes du détective londonien</em>, analyse les enquêtes de Sherlock Holmes et l’oeuvre de Conan Doyle comme le pur produit de la société victorienne, sûre de sa légitimité et de sa puissance, le détective solitaire et génial “réparant les accrocs” à la réalité que sont les crimes ;</li>
+<li>le chapitre <em>Les enquêtes du policier parisien</em> s’attache au cas de Maigret et à l’oeuvre de Simenon ; il montre la spécificité française du genre policier comme vecteur de critique sociale et les différences entre les conceptions françaises de l’État comme machine administrative indépendante du politique, et anglaises comme garant du Droit ;</li>
+<li><em>L’identification des agents secrets</em> traite de l’émergence du roman d’espionnage à la veille de la Première Guerre Mondiale et de son développement futur, et du thème du complot, que ce soit en tant que subversion de l’état et de l’ordre existant, ou comme partie intégrante de l’État lui-même et outil de contrôle de la société par les “dominants” ou les “puissants” ; et donc de l’extension du domaine de la lutte pour la définition de la réalité ;</li>
+<li><em>L’interminable enquête des paranoïaques</em> élargit encore le sujet et s’intéresse à l’émergence de la théorie du complot d’abord vue comme maladie mentale, puis comme “maladie” du corps social, à mesure que se parachève la construction de la société libérale et capitaliste du XXème siècle ;</li>
+<li><em>La police de l’enquête sociologique</em> enfin, traite de la sociologie et des tentatives de disqualification qu’elle a subi et subit encore de la part de nombres d’intellectuel·le·s.</li>
+</ul>
+<h1 id="idées-analyse">Idées &amp; Analyse</h1>
+<h2 id="sherlock-holmes-gardien-de-lordre-bourgeois">Sherlock Holmes, gardien de l’ordre bourgeois</h2>
+<p>Le détective privé, parce qu’il n’est pas assujeti aux règles du fonctionnaire et parce qu’il est, au fond, du même monde que l’élite bourgeoise et aristocratique qui l’emploie, peut se permettre d’appliquer des règles morales “supérieures” difficiles à transcrire dans la loi car applicables uniquement aux “être supérieurs” ayant reçu l’éducation nécessaire : honneur, dignité, “noblesse oblige”, rectitude. Ce faisant il rétablit <em>l’ordre</em> menacé par le <em>crime</em> qui, d’une manière ou d’une autre, vise toujours à transgresser cet ordre, voire à le subvertir. Implicitement, le criminel est un anarchiste en puissance dont les activités ne peuvent mener qu’à la <em>révolution</em>.</p>
+<p>Il permet de résoudre la tension entre un État égalitaire et libéral, et une société stratifiée, profondément inégalitaire et marquée par l’autoritarisme. L’État lié par des lois et règles démocratiques, ne peut restaurer l’ordre quand celui-ci est menacé par des individus faisant partie de cette élite destinée par sa naissance et son appartenance à la classe dirigeante, à être les garants et <em>tuteurs</em> de cet ordre.</p>
+<h2 id="maigret-fonctionnaire-prolétaire">Maigret, fonctionnaire prolétaire</h2>
+<p>La fonction publique, les organes de l’État, cherchent à s’émanciper dans leurs règles de fonctionnement, promotions, recrutements, de la tutelle politique, de sorte qu’elle (ou il) constitue un <em>champ</em> comme le montre P.Bourdieu dans <a href="https://www.seuil.com/ouvrage/sur-l-etat-pierre-bourdieu/9782020662246">Sur l’État</a>. Ce faisant, elle induit chez ses membres un <em>dédoublement</em> nécessaire entre la personne publique dépositaire de l’autorité de l’État et la personne privée avec ses affects propres. L’administration est sa propre finalité ce qui peut tendre à produire une <em>perte de sens</em> du travail bureaucratique.</p>
+<p>Parce qu’il est <em>à la fois</em> un prolétaire, c’est-à-dire un travailleur qui n’a aucun contrôle sur les conditions matérielles de son existence, intégralement assujeties aux règles de l’administration, et un serviteur de l’État investi d’une fraction de son autorité ; donc parce qu’il est un homme ou une femme ordinaire chargée d’interpréter des situations complexes au moyen de règles nécessairement contradictoires et incomplètes, le fonctionnaire fait souvent preuve de “sadisme” : il ou elle jouit de son pouvoir sur autrui et simultanément de la compassion qu’il éprouve envers ses “administrés”. C’est ainsi que Maigret peut, en tant que policier, envoyer des criminels à l’échafaud, tout en faisant preuve de compassions pour leurs proches.</p>
+<h2 id="libéralisme-aristocratique-contre-conservatisme-populaire">Libéralisme aristocratique contre conservatisme populaire</h2>
+<blockquote>
+<p>“… la tonalité de gauche de Maigret renvoit à une expression particulière de la gauche antilibérale. Celle qu’elle a pris dans le vichisme, attachée à forger un compromis entre étatisme autoritaire, omniprésence de l’administration, idéologie patriarcale, traditionnalisme, célébration du bon sens populaire, xénophobie et nationalisme exacerbé” p. 174</p>
+</blockquote>
+<p>Sherlock et le roman anglais renvoient l’image d’un État de droit, libéral, dominé par une classe ou caste de privilégiés donc d’ordre <em>aristocratique</em> ; quand Simenon et Maigret renvoient celle d’un État bureaucratique et d’une société fragmentée en “milieux” plutôt que stratifiée en classes sociales.</p>
+<h2 id="lessence-de-létat-cest-la-guerre">L’essence de l’État, c’est la guerre</h2>
+<p>Ce que montre le roman d’espionnage c’est d’abord que même dans les apparences de la paix, l’État est toujours en guerre et donc que l’esence de l’état ou sa <em>raison d’être</em>, son <em>effort pour persister dans son être</em> comme le dirait Spinoza, c’est la <em>guerre</em> puisque par nature il rivalise, voire lutte pour son existence, contre d’autres états. On peut se demander si ce n’est pas une vision historiquement datée, produit des états-nations européens impérialistes et colonialistes.</p>
+<h2 id="peuple-de-droite-et-peuple-de-gauche">Peuple de droite et peuple de gauche</h2>
+<p>Dans la critique “révolutionnaire” de droite, nationaliste, des premiers romans d’espionnage comme <a href="https://fr.wikipedia.org/wiki/Les_39_Marches_(roman)">Les 39 marches</a> le peuple désigne la <em>nation</em>, c’est-à-dire les “natifs”, par opposition aux élites capitalistes corrompues et aux révolutionnaires, tous deux “internationalistes” ou “cosmopolites” alors que dans la critique de gauche, le peuple désigne les prolétaires, les dominés. On assiste dans les années 2000 à une convergence de ces “deux peuples” dans la populisme souverainiste, à la fois social et nationaliste, ou souverainiste.</p>
+<h2 id="limmédiat-de-lexpérience-comme-antidote-au-complot">L’immédiat de l’expérience comme antidote au complot</h2>
+<p>Le complotisme nait de la médiation de nos pensées et de nos sentiments, du fait que nous nous sentons <em>agis</em>, que nous n’avons pas accès au monde mais à sa représentation dont les multiples possibilités, l’infinie régression des interprétations, des commentaires, des gloses et des opinions nous font vivre dans un labyrinthe de miroirs se réfléchissant à l’infini. Seule la croyance <em>absolue</em> en tel ou tel principe est alors à même de nous empêcher de sombrer, croyance que rien ne pourra ébranler car nous l’avons nous même placée au fondement de notre existence.</p>
+<p>Seule la suspension de toute médiation, donc l’expérience directement vécue, l’évidence de la vie réellement vécue<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> et non <em>représentée</em>, peut nous faire sortir du labyrinthe en supprimant toute possibilité de délégation ou de réinterprétation. Ce que je ressens, c’est moi qui le ressent.</p>
+<h2 id="la-paranoïa-comme-arme-sociale">La paranoïa comme arme sociale</h2>
+<p>La définition clinique de <em>paranoïa</em> émerge au tournant du XXème siècle des travaux de psychiatres et médecins pour caractériser une forme de comportement, considéré comme pathologique, de remise en question radicale de la réalité. Plus tard, le concept de <em>paranoïa</em>, étendu de la psychologie à la sociologie devient <em>théorie du complot</em> ou <em>complotisme</em>, la croyance en une réalité cachée.</p>
+<p>Cette caractérisation en termes psychiatriques n’est que la version moderne d’une critique sociale <em>conservatrice</em> récurrente depuis le XVIIème siècle disqualifiant les “demi-savants”<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>, les “intellectuels sans emploi”, toutes ces personnes dont le niveau d’éducation et les connaissances ne s’accompagnent pas d’une position sociale digne d’elles et chez qui le ressentiment se transforme en critique radicale de la société, dont Rousseau est le saint patron.</p>
+<p>Autrement dit, l’accusation de <em>complotisme</em> est aussi, ou peut-être surtout, un moyen de disaqualifier du jeu politique et social tous ceux qui n’en acceptent pas les règles.</p>
+<blockquote>
+<p>“Il est donc possible que l’essor des théories de la conspiration, témoignant d’une épidémie de paranoïa mondiale, au rang de problème majeur soit surtout le résultat d’un effet de représentation”</p>
+</blockquote>
+<h2 id="sociologie-critique-et-théorie-du-complot">Sociologie critique et théorie du complot</h2>
+<p>Quel est l’objet de la sociologie ? Si ce sont des groupes pré-existants ou pré-identifiés, ou constitués par l’enquête sociologique, ne court on pas le risque de prêter des intentions à ces entités sociales construites et donc de verser dans le complotisme puisque ces groupes étant constitués d’individus, leur “intention” ne peut provenir que de leur collusion ? C’est l’argument développé par <a href="https://fr.wikipedia.org/wiki/Nathalie_Heinich">Nathalie Heinich</a> dans sa critique de la “sociologie du soupçon”, c’est surtout l’argument développé dès les années 40 par <a href="https://www.persee.fr/doc/phlou_0035-3841_1960_num_58_60_5062_t1_0632_0000_1">Karl Popper</a>, entre autres, pour attaquer notamment le marxisme, l’hégelianisme et in fine le communisme.</p>
+<p>À cette “sociologie collective” s’oppose une “sociologie individualiste” qui pour rendre compte des interactions entre individus et des phénomènes sociaux s’appuie essentiellement sur le concept de <em>marché</em> versant rapidement vers une vision libérale - ou néo-libérale, voire darwiniste - des rapports sociaux.</p>
+<h2 id="dépasser-la-malédiction-de-popper">Dépasser la “Malédiction de Popper”</h2>
+<p>Comment la sociologie peut-elle échapper à cette critique, produire un travail scientifique c’est-à-dire une certain objectivation des phénomènes ? Une première solution est proposée par l’école bourdieusienne, c’est le concept d’<em>habitus</em> soit “la capacité des agents à s’orienter dans le monde social et à adopter des conduites adaptées aux conditions objectives sans obéir à une règle”<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>, habitus qui est le produit des conditions de vie concrètes des individus et donc dépendant d’un <em>milieu</em>, des groupes dont l’individu fait partie, et aussi celui des actions et discours des individus. L’habitus permet de dépasser la dichotomie rigide entre déterminisme et individualisme, il laisse de la place à l’initiative individuelle, à l’improvisation, à l’adaptation et à l’innovation, tout en prenant en compte le poids de l’environnement.</p>
+<p>Une seconde solution, développée notamment par Bruno Latour mais déjà présente dans les travaux de Gabriel Tarde dans <a href="http://classiques.uqac.ca/classiques/tarde_gabriel/lois_imitation/tarde_lois_imitation.pdf">Les lois de l’imitation</a>, est de considérer l’individu comme inséré dans un <em>réseau</em> social dont les multiples interactions et relations produisent des entités collectives, à la manière dont un comportement émerge d’interactions simples dans un système complexe.</p>
+<h2 id="privé-et-public">Privé et public</h2>
+<p>La distinction entre le <em>privé</em> et le <em>public</em> est au coeur du libéralisme : c’est en séparant la figure publique, les charges et offices exercées sous le régime de la transparence ; de la figure privée protégée par le droit à la <em>vie privée</em> et les libertés fondamentales, que se crée le <em>citoyen</em>, l’État moderne, les institutions de <em>l’état de droit</em>. Jusqu’au XVIIIème siècle en Europe, il n’y a pas de séparation entre sphères publiques et privées, les individus, des roturiers aux nobles et aux princes sont liés les uns aux autres par des droits et obligations les engageant entièrement, sous le regard de Dieu.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Comme je le disais en introduction, je retire de ce livre une position plus nuancée qu’auparavant sur le <em>complotisme</em>, et surtout sur l’usage qui est fait de ce terme pour disqualifier toute position critique vis-à-vis d’une certaine vision de la <em>réalité</em>, qu’elle soit d’ailleurs majoritaire ou minoritaire, dominante ou dominée.</p>
+<p>La question à laquelle il ne répond pas, ou très indirectement, est de savoir comment faire ou refaire société dans un monde où s’affrontent non plus des idées ou des conceptions politiques, mais des <em>réalités</em> et des systèmes de croyances complets ? Comment débattre, discuter, convaincre - ou se laisser convaincre - quand “la réalité est ailleurs”, quand c’est toute le processus de réflexion lui-même qui est remis en cause par des anathèmes croisés ?</p>
+<div class="figure">
+<img src="/images/2021-01-libe-chronique.jpg" alt="Article paru dans Libération du 23 janvier 2021" style="width:100.0%" />
+<p class="caption">Article paru dans <em>Libération</em> du 23 janvier 2021</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Ce terme est emprunté à <a href="https://fr.wikipedia.org/wiki/Carlo_Ginzburg">Carlo Ginzburg</a> dans l’article <a href="https://f.hypotheses.org/wp-content/blogs.dir/2002/files/2016/09/Ginzburg-Signes-traces-pistes.pdf">Signes, traces, pistes</a> repris dans le livre <a href="https://editions-verdier.fr/livre/mythes-emblemes-traces/">Mythes emblèmes traces</a>. Cet article et ce livre mériteraient eux aussi un article en bonne et dûe forme, d’autant plus qu’il est abondamment cité par Boltanski, mais les journées ne font que 24 heures.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Les situationnistes qui “ne cessent de dévoiler le peu de réalité de la réalité” comme le dit Boltanski porteront à l’incandescence au XXème siècle cette critique de la représentation, cette <a href="http://www.gallimard.fr/Catalogue/GALLIMARD/Blanche/La-Societe-du-Spectacle">Société du spectacle</a>.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>Il est savoureux que ce même terme soit utilisé par Pierre Bourdieu à de nombreuses reprises pour disqualifier ces mêmes critiques “conservateurs” proliférant notamment dans les médias.<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p><a href="https://www.cnrseditions.fr/catalogue/philosophie-et-histoire-des-idees/dictionnaire-international-bourdieu/">Dictionnaire international Bourdieu</a>, p.397, Gisèle Sapiro (dir.), Paris, CNRS, 2020.<a href="#fnref4">↩</a></p></li>
+</ol>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Modern Emacs for Haskell</title>
     <link href="http://abailly.github.io/posts/a-modern-haskell-env.html" />
     <id>http://abailly.github.io/posts/a-modern-haskell-env.html</id>
@@ -908,83 +1008,6 @@ Qui des dieux les mit donc aux prises en telle querelle et bataille ? Le fils de
 <li>SCRUM was explicitly advocated as a <em>process</em> to “quickly and seamlessly implement XP”, a promise it mostly failed to deliver or that was lost in the fury of <em>agile transformations</em> that arose in the wake of SCRUM takeovers of the software development methods scene.</li>
 </ul>
 <p>Will 2019 be the year we’ll finally see XP being recognised?</p>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Sur &quot;Phénoménologie de la perception&quot;</title>
-    <link href="http://abailly.github.io/posts/pheno-perception.html" />
-    <id>http://abailly.github.io/posts/pheno-perception.html</id>
-    <published>2018-11-20T00:00:00Z</published>
-    <updated>2018-11-20T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Sur &quot;Phénoménologie de la perception&quot;</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on November 20, 2018</div>
-
-<h2 id="sur-lempirisme">Sur l’empirisme</h2>
-<p>“On ne peut pas réfuter une pensée qui s’ignore elle même.” L’empirisme ignore l’expérience, soit la rencontre entre un <em>sujet</em> et le <em>monde</em>. Les constructions théoriques seront toujours plus <em>réels</em> car plus “dures”, plus précises que ce dont l’expérience peut rendre compte. L’objectivation est irréfutable car elle supprime la conscience du sujet ou bien plutôt sa relation au monde, et réciproquement la relation que le monde entretient avec le sujet, l’inclusion de celui-ci dans celui-là. L’inévitable conséquence en est le dualisme.</p>
-<h2 id="sur-lintellectualisme">Sur l’intellectualisme</h2>
-<p>La réflexion manque de se réfléchir elle même et rend implicite l’existence du <em>sujet connaissant</em> et la possibilité théorique de <em>tout connaître</em>. Elle manque ainsi le <em>phénomène de la pensée</em> elle même dans son analyse des conditions de possibilité de la connaissance. “Que puis-je connaître ?” présuppose qu’il y a quelque chose à connaître par un sujet connaissant, mais ignore complètement la situation concrète de ce sujet. Toute réflexion est absolue, détachée du corps, de l’espace et du temps, détachée des autres.</p>
-<h2 id="primat-de-la-vision">Primat de la vision</h2>
-<p>L’objet est saisi en tant qu’objet parce qu’il s’inscrit sur un <em>horizon</em> et qu’avec moi d’autres objets le “regardent”. Je peux saisir l’objet dans sa profondeur grâce aux autres objets, en construisant les relations qu’ils entretiennent les uns avec les autres, en me mettant à leur place, adoptant un point de vue multiple.</p>
-<h2 id="relation-du-corps-au-monde">Relation du corps au monde</h2>
-<p>Le corps n’est pas <em>dans</em> l’espace et le temps, il les <em>habite</em> et il leur donne forme. C’est parce que nous avons un corps qu’il y a un espace-temps à explorer pour nous. L’étude des conséquences de lésions nerveuses et maladies dégéneratives montre - par contraste - qu’en l’état dit “normal” nous n’avons pas <em>connaissance</em> du monde, nous n’avons pas à l’objectifier pour agir et se mouvoir : le monde est ce qui est là pour nous, à notre portée. Quand je bouge mon bras pour prendre un objet je ne planifie pas mon acte avant de l’accomplir, ce que doit faire un malade. Le corps est porteur de sens, ou plutôt il est le moyen pour nous de signifier, de donner sens aux choses du monde en nous mettant en relation avec elles.</p>
-<h2 id="le-corps-comme-oeuvre-dart">Le corps comme oeuvre d’art</h2>
-<p>Comme le corps, l’oeuvre d’art est individualité, à la fois expression et exprimé. Les sens sont fondamentalement unis dans l’appréhension du corps. Je ne suis pas <em>dans</em> mon corps, je <em>suis</em> mon corps.</p>
-<h2 id="mimer-un-état-pour-le-faire-advenir">Mimer un état pour le faire advenir</h2>
-<p>Quand je veux m’endormir, je <em>mime</em> l’état du sommeil, calme et paisible, et c’est mon corps qui répond à cette imitation en s’endormant “réellement”. Similairement la croyance est la conséquence de la pratique religieuse et non sa cause : je crois parce que j’accomplis régulièrement des rituels prescrits.</p>
-<h2 id="impossibilité-de-lexistence-pure">Impossibilité de l’existence pure</h2>
-<p>Parce que j’ai un corps sensible, je suis ouvert au monde et il est impossible de supprimer toute <em>intention</em>. Vivre n’est pas seulement exister mais aussi percevoir, répondre à la proposition du corps d’entrer en relation avec le monde, en quelque sorte de le créer. Cela invalide toute possibilité d’une méditation pure.</p>
-<h2 id="sur-la-parole">Sur la parole</h2>
-<p>L’empirisme conçoit le langage comme suite de traces, d’images verbales, déclenchées par des stimuli sonores ou visuels. L’intellectualisme le conçoit comme manifestation de la pensée. “Dans la première conception, il n’y a personne qui parle, dans la seconde il y a un sujet mais un sujet <em>pensant</em>.” Le mot seul, isolé, en lui-même n’a pas de sens, mais les mots prononcés <em>ont un sens</em> : la pensée tend vers son expression verbale et reste confuse, ignorante d’elle-même tant qu’elle n’est pas formulée dans des mots. <em>Nommer</em> fait exister les choses pour nous.</p>
-<h2 id="perception-et-corps-propre">Perception et corps propre</h2>
-<p>La continuité du monde et de ma perception de celui-ci est une conséquence de de l’identité du corps propre au cours du mouvement : je perçois continûment parce que je <em>suis</em> continûment au travers de mon corps : je n’ai pas besoin de voir explicitement l’arrière d’un cube pour le poser, mon corps me permettrait de tourner autour et de de faire l’expérience du géometral du cube qui découle donc de cette identité.</p>
-<h2 id="langage-et-monde-conventionnel">Langage et monde conventionnel</h2>
-<p>Comme le geste nous relie au monde physique et nous permet de communiquer à propos de lui, de le partager avec d’autres, la parole nous relie au monde <em>social</em> et conventionnel, symbolique, nous permet de le partager avec d’autres au moyen de gestes linguistiques. Le signe, la parole, le langage ne sont pas arbitraires au sens de “Construits ex nihilo”, ils <em>doivent</em> être ce qu’ils sont en vertu de leur histoire, de contraintes physiques, d’influences, pour permettre de communiquer dans un certain cercle.</p>
-<h2 id="unité-de-la-perception">Unité de la perception</h2>
-<p>Lorsque nous percevons le monde autour de nous, nos sens sont utilisés simultanément et communiquent les uns avec les autres. Ce n’est que lorsque nous nous concentrons sur telle ou telle partie, lorsque nous analysons tel objet que ceux-ci acquièrent certaines qualités propres à tel ou tel sens. Les sons ont une résonnance visuelle ou tactile, les images et couleurs suscitent des émotions et sensations corporelles.</p>
-<h2 id="unité-perceptive-de-la-chose">Unité perceptive de la chose</h2>
-<p>“un tableau contient enn lui-même jusqu’à l’odeur du paysage” c’est à dire que toute perception d’une chose est association, les qualités sonores, visuelles, olfactives, tactiles accompagnent la vision, le toucher ou l’ouïe. L’acuité de l’expérience fait l’acuité des sens. Donc voir une chose est le signe de toute ses qualités : voir du feu nous “donne” sa chaleur, son crépitement…</p>
-<h2 id="le-sens-est-chargé-de-prédicats-anthropologiques">Le sens est chargé de prédicats anthropologiques</h2>
-<p>Parce que les choses existent pour nous, au travers de notre expérience, celle-ci et notre manière de la décrire, donc notre langage, sont chargés de notre situation dans le monde, des contraintes et caractéristiques de notre corps. C’est exactement ce que décrivent Lakoff et Johnson dans leur analyses des métaphores dont notre langage est saturé : c’est parce que nous existons et vivons que ces métaphores sont universellement présentes.</p>
-<h2 id="contiuité-et-inépuisabilité-du-monde">Contiuité et inépuisabilité du monde</h2>
-<p>Je n’ai pas une succession discontinue de points de vues, de perspectives, quand je perçois mais une interaction continue avec les choses et les paysages. Je ne pense pas chaque image mais chaque instant glisse dans l’autre. Modéliser la perception comme un processus discret, une succession d’images ou de sensations est incorrect. L’effort et la concentration produisent des jugements d’identités d’une chose, d’une succession de ses états, parce que prélevés sur un fond continu.</p>
-<p>Le monde n’est pas la somme des choses mais ce dont les choses proviennent, un “réservoir infini de choses”.</p>
-<h2 id="hallucinations-perceptions-et-rêves">Hallucinations, perceptions et rêves</h2>
-<p>La perception est très différente de l’hallucination car le monde y est tout entier engagé et les malades qui souffrent de visions sont parfaitement capables de faire la différence entre celles-ci et des objets réels. L’hallucination est entièrement projection de l’esprit, et pourtant elle <em>impressionne</em>, elle produit un effet sur le malade quand bien même celui-ci sait qu’elle n’est pas réelle. Et quid du rêve dont je ne peux faire la différence d’avec une perception <em>quand je le vis</em> ?</p>
-<p>C’est parce que le rêve, comme l’hallucination et comme la perception se déroule avant toute opération intellectuelle, dans cette relation au monde réel qui nous implique tout entier et qui est notre corps, avant tout jugement prédicatif.</p>
-<blockquote>
-<p>Le perçu, le rêvé, l’halluciné demeure en deça du doute et de la démonstration</p>
-</blockquote>
-<p>Il n’y a pas d’erreur possible là où il n’y a pas de vérité possible : le perçu <strong>est</strong> pour nous avant toute pensée.</p>
-<h2 id="temporalité">Temporalité</h2>
-<p>Quand je pense, je réfléchis sur moi, mes pensées passées, je suis déjà dans le futur et je ne peux qu’utiliser des souvenirs, des témoignages incertains. Dans toute réflexion s’insère le temps, dont l’épaisseur introduit du doute et de l’ambiguïté.</p>
-<h2 id="sur-la-possibilité-et-le-sens-du-cogito">Sur la possibilité et le sens du cogito</h2>
-<p>Je ne peux pas objectiver mes pensées : chaque pensée, le fait même de penser est un processus dont je ne peux vraiment garder la trace entièrement que dans la mémoire qui est elle même un processus. Réfléchir c’est donc toujours reprendre la pensés, la réactualiser à partir de bribes de souvenirs et d’autres pensées qui deviennent les objets du processus mais sont soumis à la même loi. La pensée n’est donc pas <em>Essence</em> mais <em>Existence</em> et le <em>Je suis</em> du cogito doit être entendu comme un <em>J’existe</em>. Mais il n’y a pas de relation de cause à conséquence entre les deux termes : ce n’est pas la pensée qui fait l’existence, ni l’existence qui fait la pensée.</p>
-<h2 id="vrai-et-faux-sentiment">Vrai et faux sentiment</h2>
-<p>Ce qui distingue le sentiment vrai du sentiment faux ou ambigu, de la fausse conscience c’est <em>l’action</em>. Le sentiment vrai est vrai parce que mon existence y est toute entière engagée, parce que je fais vivre ce sentiment dans mes actes. Être amoureux c’est agir avec amour envers l’être aimé, c’est vivre le sentiment de l’amour dans chaque moment de l’existence, être courageux c’est vivre avec courage et affronter le danger.</p>
-<p>Quand je m’engage dans le doute je fais cesser tout doute méta, toute régression à l’infini sur le doute de la réalité de ce que je ressens.</p>
-<h2 id="sujet-objet-présence">Sujet + objet = présence</h2>
-<p>Les choses n’ont un sens pour nous que parce que nous sommes dans une relation de présence à elles. Le sens suppose une position, une polarité donc un sujet qui crée les faits, les choses, le temps les phénomènes dans un certain sens. Le corps objectif, le monde objectif de la science n’est pas la vérité du corps phénoménal ou du monde phénoménal mais en est une image appauvrie, une représentation.</p>
-<h2 id="la-liberté-comme-être-au-monde">La liberté comme <em>être au monde</em></h2>
-<p>La liberté n’est pas l’infini des choix qu’une conscience isolée ferait, pure subjectivité, ou illusion totale déterminée par le monde. “Nous choisissons le monde comme lui nous choisit” il n’y a pas de liberté absolue car j’agis toujours en fonction d’une situation que m’offre le monde, mais il n’y a jamais absence de liberté car j’existe au mondne et agit sur lui.</p>
 
 
 <div id="disqus_thread"></div>
