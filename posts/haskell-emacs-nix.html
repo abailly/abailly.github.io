@@ -1,0 +1,149 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - Haskell + Emacs + Nix</title>
+
+  <meta name="description" content="Crafting code since 1994">
+
+  <meta name="author" content="Arnaud Bailly">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+  <script type="text/javascript"
+          src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="/"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="http://drcode.io">Dr.Code</a>
+          </li>
+          <li>
+          <a href="/about.html">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div id="main" role="main">
+<h1>Haskell + Emacs + Nix</h1>
+
+  <h2 class="subtitle">Making of sense of Nix for Haskell development</h2>
+
+<div class="info">Posted on February  2, 2021</div>
+
+<p>In a <a href="a-modern-haskell-env.html">previous post</a> I detailed how to set up a LSP server for Haskell using Emacs as client. Now, despite my good friend Sam Halliday’s <a href="https://levelup.gitconnected.com/delivering-with-haskell-a347d8359597">advice</a>, I wanted to add Nix in the mix. Both <a href="common-dev-environment.html">standardized and shared development environment</a> and reproducibility of such environments are relevant and important. But I could argue that the wealth of virtualization tools available nowadays, from the humble <code>chroot</code> to full-blown virtual machines through containers of all kind, makes it much easier to produce and reproduce identical environments than when nix was started 15 years ago.</p>
+<p>There are <a href="https://www.tweag.io/blog/2020-08-20-how-nix-grew-a-marketing-team/">teams</a> and people in the Haskell community that support and use nix, and I wanted to get my feet wet and taste the water, to see how it feels to develop using nix. This short essay reports on my experience so far trying to:</p>
+<ul>
+<li>Set up a development environment for Haskell code based on Nix, Emacs and LSP,</li>
+<li>Nixify a cabal-based Haskell project.</li>
+</ul>
+<p>I wouldn’t have succeeded in this endeavor but for the support of fine people from the <a href="https://fpchat-invite.herokuapp.com/">Functional Programming Slack</a> community, the <a href="https://funprog.srid.ca/">FP Zulip</a> community, and online documentation:</p>
+<ul>
+<li>IOHK’s <a href="https://input-output-hk.github.io/haskell.nix">Haskell &amp; Nix Tutorial</a> which covers the <a href="https://github.com/input-output-hk/haskell.nix/">haskell.nix</a> infrastructure,</li>
+<li>nixpkgs <a href="https://haskell4nix.readthedocs.io/">Haskell infrastructure</a> guides, although they are somewhat conflicting with the former,</li>
+<li><a href="https://nixos.org/guides/nix-pills">Nix Pills</a> which are invaluable to better understand how nix is working.</li>
+</ul>
+<p>Please note the source code for provisioning a virtual machine with such an environment is available on <a href="https://github.com/abailly/nix-haskell-dev-vm">GitHub</a>.</p>
+<h1 id="configure-emacs-and-lsp">Configure Emacs and LSP</h1>
+<p>The tricky bits for me was to configure Emacs in such a way that when it opens a <code>*.hs</code> file it automatically fires up <code>lsp-mode</code> and connects to the <em>right version</em> of the <a href="https://github.com/haskell/haskell-language-server">Haskell Language Server</a>. As explained on HLS’s GitHub page, the LSP client must connect to a LSP server that’s compiled with the correct GHC version and uses the correct dependencies. In Emacs’ <code>lsp-mode</code> this is normally done through the use of the binary program <code>haskell-language-server-wrapper</code> which will itself spawn the correct version of <code>haskell-language-server</code> binary depending on the project’s configuration which can be given by a <code>stack.yaml</code> file or a <code>xxx.cabal</code> file.</p>
+<p>The Nix way of providing such a configuration is to set the dependencies in a context-specific way, using a <code>default.nix</code> which will be picked up by all nix tools when we don’t provide them a specific file containing a nix expression to evaluate. Then a <code>shell.nix</code> file references the <code>default.nix</code> as its sources for packages and gives the user a customized shell updated with whatever packages it exposes. Note that in this case, there is no need to provide a wrapper over <code>haskell-language-server</code> because, by virtue of Nix providing a customised environment through a fixed set of packages, the “correct” HLS version will be installed, as explained in this <a href="https://github.com/input-output-hk/haskell.nix/pull/1015#issuecomment-768160999">PR Comment</a>. There is a section on <a href="https://input-output-hk.github.io/haskell.nix/tutorials/development/#emacs-ide-support">configuring Emacs</a> in haskell.nix doc but it applies to Dante and not LSP.</p>
+<p>So we need to configure Emacs to:</p>
+<ol style="list-style-type: decimal">
+<li>Use <code>haskell-language-server</code> as the name of the executable for Haskell LSP server,</li>
+<li>And more importantly, use the environment provided by <code>nix-shell</code>.</li>
+</ol>
+<p>The latter could be achieved by wrapping the HLS invocation in <code>nix-shell</code> but <a href="https://direnv.net/">direnv</a> seems to be the way to go as it provides a declarative way of setting up Nix on a per-directory basis. In my case, it amounts to:</p>
+<ul>
+<li>Write a <code>.envrc</code> file containing a single line, <code>use nix</code>, at the top level of the project’s directory,</li>
+<li>Configure Emacs to use <code>direnv-mode</code>: <code>(use-package direnv :ensure t :config (direnv-mode))</code></li>
+</ul>
+<p>When emacs now visits a file located in the project’s directory or one of its sub-directories, <code>direnv-mode</code> will kick in and set the current environment, and most notably the <code>exec-path</code> according to the instructions given in <code>.envrc</code> which here means executing <code>nix-shell</code>. However, this did not work out-of-the-box and took me some time to understand why. The LSP client that <code>lsp-mode</code> runs kept saying it could not find an LSP server implementation for my language, even though I could assert that:</p>
+<ol style="list-style-type: decimal">
+<li><code>direnv</code> was working and ran nix-shell to setup the environment,</li>
+<li><code>haskell-language-server</code> was installed in the shell and available from the ambient <code>PATH</code>.</li>
+</ol>
+<p>It turned out the problem seemed to be caused by a <em>race condition</em> between the LSP client and the <code>direnv</code> setup: The LSP client tries to connect to the server before the environment is properly setup which happens because entering <code>nix-shell</code> takes a few seconds. <em>Deferring</em> the connection attempt until the point where the file is properly loaded fixed this issue, leading to this LSP configuration:</p>
+<pre><code>(use-package lsp-mode
+  :ensure t
+  :hook ((haskell-mode . lsp-deferred))
+  :commands (lsp lsp-deferred))
+
+(use-package lsp-haskell
+  :ensure t)</code></pre>
+<h1 id="speed-up-nix">Speed-up Nix</h1>
+<p>So I have a nice and working Nix/Haskell/Emacs/LSP configuration setup for my project, but there’s a major issue: <code>haskell.nix</code> does not provide a cache of the packages it exposes derivation for, which means everything must be rebuilt from scratch every time I destroy and recreate the VM. And as the <code>default.nix</code> configuration retrieves its packages from the <code>master</code>, every time we enter <code>nix-shell</code> we run the risk of having to update some depedencies which might take ages.</p>
+<p><a href="https://input-output-hk.github.io/haskell.nix/tutorials/getting-started/#pinning-the-haskellnix-version">Pinning down</a> the version of the packages used remediates the second problem, so we are left with the question of caching the binaries built by Nix in such a way as to be able to share them across different VMs. Enters <a href="https://cachix.org/">cachix</a> which is a hosted service with a free 500MB tier specifically built to cache Nix derivations’ output. After having created an account and a cache instance called <code>hydra-sim</code>, I installed and configured <code>cachix</code> on the development environment, and then could push/pull binaries produced.</p>
+<p>Local configuration requires the following steps:</p>
+<p>Install cachix which is most easily done through nix:</p>
+<pre><code>nix-env -iA cachix -f https://cachix.org/api/v1/install</code></pre>
+<p>Assuming nix is installed globally and runs as a daemon, the user running <code>cachix</code> must be authorized to create and manipulate caches. This is defined in <code>/etc/nix/nix/.conf</code> which looks like:</p>
+<pre><code>max-jobs = 6
+cores = 0
+trusted-users = root curry
+substituters = https://cache.nixos.org https://hydra.iohk.io https://iohk.cachix.org
+trusted-public-keys = iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=</code></pre>
+<p>Retrieve an authentication token for the <code>hydra-sim</code> cache from cachix and configure local environment to use it:</p>
+<pre><code>cachix authtoken &lt;the token&gt;</code></pre>
+<p>Finally, use the cache</p>
+<pre><code>cachix use hydra-sim</code></pre>
+<p>Pushing to the cache can be done from the output of the project’s build</p>
+<pre><code>$ nix-build -A hydra-sim | cachix push hydra-sim</code></pre>
+<p>and using the <a href="https://fzakaria.com/2020/08/11/caching-your-nix-shell.html">nix-shell configuration</a>. This is important as it means the tools, and most notably <code>haskell-language-server</code>, will be part of the cache:</p>
+<pre><code>nix-store --query --references $(nix-instantiate shell.nix) | \
+     xargs nix-store --realise | \
+     xargs nix-store --query --requisites | \
+     cachix push hydra-sim</code></pre>
+<h1 id="conclusion">Conclusion</h1>
+<p>This is the beginning of my journey in Nix-land and it’s a bit early to say whether I like the tool or not. Right now, it seems like a bit of time-waste as I have spent several hours scattered over a week to get my environment “right” using Nix on a dedicated VM, where doing this using the standard tools provided by Haskell to install packages and utilities, namely <a href="https://www.haskell.org/ghcup/">ghcup</a> and <a href="https://cabal.readthedocs.io/en/3.4/index.html">cabal</a>, took me approximately twenty minutes.</p>
+<p>As is often the case with non-mainstream open source tools, there is a lot of information “out there” written by enthusiastic people like tutorials, guides, and blog entries. This information is often fragmentary, dependent on a specific environment, operating system, component of the stack, or specific flavor of the tools. Hence one has to invest time to recombine those fragments in a way that suits his or her needs and taste. This implies investing time in understanding <em>how</em> those tools work in order to be able to tweak configuration and parameters, which might gives one that <a href="https://www.urbandictionary.com/define.php?term=yak%20shaving">yak shaving</a> feeling.</p>
+<p>Yet when I compare that experience with my past year working mostly with proprietary or semi-proprietary language and tools (C#, Windows, Visual Studio, Citrix, <a href="https://www.appeon.com/products/powerbuilder">Powerbuilder</a>), I wouldn’t want to go back at any price. When something is wrong in proprietary land, you don’t even get a chance to understand <em>what</em> is wrong, you are dependent on the whims of a software publisher. The time that’s gained in shrinkwrapped tooling and environments, pre-packaged components, guided processes, is valuable only in the short-term at the onset of a project. As soon as <em>essential complexity</em> of the business domain creeps in, the abstraction barriers the proprietary tooling carefully built to hide implementation details breaks, leaving the hapless developer struggling with patches, workarounds, opaque procedures to get things done.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

@@ -8,8 +8,299 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2021-01-31T00:00:00Z</updated>
+    <updated>2021-02-02T00:00:00Z</updated>
     <entry>
+    <title>Haskell + Emacs + Nix</title>
+    <link href="http://abailly.github.io/posts/haskell-emacs-nix.html" />
+    <id>http://abailly.github.io/posts/haskell-emacs-nix.html</id>
+    <published>2021-02-02T00:00:00Z</published>
+    <updated>2021-02-02T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Haskell + Emacs + Nix</h1>
+
+  <h2 class="subtitle">Making of sense of Nix for Haskell development</h2>
+
+<div class="info">Posted on February  2, 2021</div>
+
+<p>In a <a href="a-modern-haskell-env.html">previous post</a> I detailed how to set up a LSP server for Haskell using Emacs as client. Now, despite my good friend Sam Halliday’s <a href="https://levelup.gitconnected.com/delivering-with-haskell-a347d8359597">advice</a>, I wanted to add Nix in the mix. Both <a href="common-dev-environment.html">standardized and shared development environment</a> and reproducibility of such environments are relevant and important. But I could argue that the wealth of virtualization tools available nowadays, from the humble <code>chroot</code> to full-blown virtual machines through containers of all kind, makes it much easier to produce and reproduce identical environments than when nix was started 15 years ago.</p>
+<p>There are <a href="https://www.tweag.io/blog/2020-08-20-how-nix-grew-a-marketing-team/">teams</a> and people in the Haskell community that support and use nix, and I wanted to get my feet wet and taste the water, to see how it feels to develop using nix. This short essay reports on my experience so far trying to:</p>
+<ul>
+<li>Set up a development environment for Haskell code based on Nix, Emacs and LSP,</li>
+<li>Nixify a cabal-based Haskell project.</li>
+</ul>
+<p>I wouldn’t have succeeded in this endeavor but for the support of fine people from the <a href="https://fpchat-invite.herokuapp.com/">Functional Programming Slack</a> community, the <a href="https://funprog.srid.ca/">FP Zulip</a> community, and online documentation:</p>
+<ul>
+<li>IOHK’s <a href="https://input-output-hk.github.io/haskell.nix">Haskell &amp; Nix Tutorial</a> which covers the <a href="https://github.com/input-output-hk/haskell.nix/">haskell.nix</a> infrastructure,</li>
+<li>nixpkgs <a href="https://haskell4nix.readthedocs.io/">Haskell infrastructure</a> guides, although they are somewhat conflicting with the former,</li>
+<li><a href="https://nixos.org/guides/nix-pills">Nix Pills</a> which are invaluable to better understand how nix is working.</li>
+</ul>
+<p>Please note the source code for provisioning a virtual machine with such an environment is available on <a href="https://github.com/abailly/nix-haskell-dev-vm">GitHub</a>.</p>
+<h1 id="configure-emacs-and-lsp">Configure Emacs and LSP</h1>
+<p>The tricky bits for me was to configure Emacs in such a way that when it opens a <code>*.hs</code> file it automatically fires up <code>lsp-mode</code> and connects to the <em>right version</em> of the <a href="https://github.com/haskell/haskell-language-server">Haskell Language Server</a>. As explained on HLS’s GitHub page, the LSP client must connect to a LSP server that’s compiled with the correct GHC version and uses the correct dependencies. In Emacs’ <code>lsp-mode</code> this is normally done through the use of the binary program <code>haskell-language-server-wrapper</code> which will itself spawn the correct version of <code>haskell-language-server</code> binary depending on the project’s configuration which can be given by a <code>stack.yaml</code> file or a <code>xxx.cabal</code> file.</p>
+<p>The Nix way of providing such a configuration is to set the dependencies in a context-specific way, using a <code>default.nix</code> which will be picked up by all nix tools when we don’t provide them a specific file containing a nix expression to evaluate. Then a <code>shell.nix</code> file references the <code>default.nix</code> as its sources for packages and gives the user a customized shell updated with whatever packages it exposes. Note that in this case, there is no need to provide a wrapper over <code>haskell-language-server</code> because, by virtue of Nix providing a customised environment through a fixed set of packages, the “correct” HLS version will be installed, as explained in this <a href="https://github.com/input-output-hk/haskell.nix/pull/1015#issuecomment-768160999">PR Comment</a>. There is a section on <a href="https://input-output-hk.github.io/haskell.nix/tutorials/development/#emacs-ide-support">configuring Emacs</a> in haskell.nix doc but it applies to Dante and not LSP.</p>
+<p>So we need to configure Emacs to:</p>
+<ol style="list-style-type: decimal">
+<li>Use <code>haskell-language-server</code> as the name of the executable for Haskell LSP server,</li>
+<li>And more importantly, use the environment provided by <code>nix-shell</code>.</li>
+</ol>
+<p>The latter could be achieved by wrapping the HLS invocation in <code>nix-shell</code> but <a href="https://direnv.net/">direnv</a> seems to be the way to go as it provides a declarative way of setting up Nix on a per-directory basis. In my case, it amounts to:</p>
+<ul>
+<li>Write a <code>.envrc</code> file containing a single line, <code>use nix</code>, at the top level of the project’s directory,</li>
+<li>Configure Emacs to use <code>direnv-mode</code>: <code>(use-package direnv :ensure t :config (direnv-mode))</code></li>
+</ul>
+<p>When emacs now visits a file located in the project’s directory or one of its sub-directories, <code>direnv-mode</code> will kick in and set the current environment, and most notably the <code>exec-path</code> according to the instructions given in <code>.envrc</code> which here means executing <code>nix-shell</code>. However, this did not work out-of-the-box and took me some time to understand why. The LSP client that <code>lsp-mode</code> runs kept saying it could not find an LSP server implementation for my language, even though I could assert that:</p>
+<ol style="list-style-type: decimal">
+<li><code>direnv</code> was working and ran nix-shell to setup the environment,</li>
+<li><code>haskell-language-server</code> was installed in the shell and available from the ambient <code>PATH</code>.</li>
+</ol>
+<p>It turned out the problem seemed to be caused by a <em>race condition</em> between the LSP client and the <code>direnv</code> setup: The LSP client tries to connect to the server before the environment is properly setup which happens because entering <code>nix-shell</code> takes a few seconds. <em>Deferring</em> the connection attempt until the point where the file is properly loaded fixed this issue, leading to this LSP configuration:</p>
+<pre><code>(use-package lsp-mode
+  :ensure t
+  :hook ((haskell-mode . lsp-deferred))
+  :commands (lsp lsp-deferred))
+
+(use-package lsp-haskell
+  :ensure t)</code></pre>
+<h1 id="speed-up-nix">Speed-up Nix</h1>
+<p>So I have a nice and working Nix/Haskell/Emacs/LSP configuration setup for my project, but there’s a major issue: <code>haskell.nix</code> does not provide a cache of the packages it exposes derivation for, which means everything must be rebuilt from scratch every time I destroy and recreate the VM. And as the <code>default.nix</code> configuration retrieves its packages from the <code>master</code>, every time we enter <code>nix-shell</code> we run the risk of having to update some depedencies which might take ages.</p>
+<p><a href="https://input-output-hk.github.io/haskell.nix/tutorials/getting-started/#pinning-the-haskellnix-version">Pinning down</a> the version of the packages used remediates the second problem, so we are left with the question of caching the binaries built by Nix in such a way as to be able to share them across different VMs. Enters <a href="https://cachix.org/">cachix</a> which is a hosted service with a free 500MB tier specifically built to cache Nix derivations’ output. After having created an account and a cache instance called <code>hydra-sim</code>, I installed and configured <code>cachix</code> on the development environment, and then could push/pull binaries produced.</p>
+<p>Local configuration requires the following steps:</p>
+<p>Install cachix which is most easily done through nix:</p>
+<pre><code>nix-env -iA cachix -f https://cachix.org/api/v1/install</code></pre>
+<p>Assuming nix is installed globally and runs as a daemon, the user running <code>cachix</code> must be authorized to create and manipulate caches. This is defined in <code>/etc/nix/nix/.conf</code> which looks like:</p>
+<pre><code>max-jobs = 6
+cores = 0
+trusted-users = root curry
+substituters = https://cache.nixos.org https://hydra.iohk.io https://iohk.cachix.org
+trusted-public-keys = iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=</code></pre>
+<p>Retrieve an authentication token for the <code>hydra-sim</code> cache from cachix and configure local environment to use it:</p>
+<pre><code>cachix authtoken &lt;the token&gt;</code></pre>
+<p>Finally, use the cache</p>
+<pre><code>cachix use hydra-sim</code></pre>
+<p>Pushing to the cache can be done from the output of the project’s build</p>
+<pre><code>$ nix-build -A hydra-sim | cachix push hydra-sim</code></pre>
+<p>and using the <a href="https://fzakaria.com/2020/08/11/caching-your-nix-shell.html">nix-shell configuration</a>. This is important as it means the tools, and most notably <code>haskell-language-server</code>, will be part of the cache:</p>
+<pre><code>nix-store --query --references $(nix-instantiate shell.nix) | \
+     xargs nix-store --realise | \
+     xargs nix-store --query --requisites | \
+     cachix push hydra-sim</code></pre>
+<h1 id="conclusion">Conclusion</h1>
+<p>This is the beginning of my journey in Nix-land and it’s a bit early to say whether I like the tool or not. Right now, it seems like a bit of time-waste as I have spent several hours scattered over a week to get my environment “right” using Nix on a dedicated VM, where doing this using the standard tools provided by Haskell to install packages and utilities, namely <a href="https://www.haskell.org/ghcup/">ghcup</a> and <a href="https://cabal.readthedocs.io/en/3.4/index.html">cabal</a>, took me approximately twenty minutes.</p>
+<p>As is often the case with non-mainstream open source tools, there is a lot of information “out there” written by enthusiastic people like tutorials, guides, and blog entries. This information is often fragmentary, dependent on a specific environment, operating system, component of the stack, or specific flavor of the tools. Hence one has to invest time to recombine those fragments in a way that suits his or her needs and taste. This implies investing time in understanding <em>how</em> those tools work in order to be able to tweak configuration and parameters, which might gives one that <a href="https://www.urbandictionary.com/define.php?term=yak%20shaving">yak shaving</a> feeling.</p>
+<p>Yet when I compare that experience with my past year working mostly with proprietary or semi-proprietary language and tools (C#, Windows, Visual Studio, Citrix, <a href="https://www.appeon.com/products/powerbuilder">Powerbuilder</a>), I wouldn’t want to go back at any price. When something is wrong in proprietary land, you don’t even get a chance to understand <em>what</em> is wrong, you are dependent on the whims of a software publisher. The time that’s gained in shrinkwrapped tooling and environments, pre-packaged components, guided processes, is valuable only in the short-term at the onset of a project. As soon as <em>essential complexity</em> of the business domain creeps in, the abstraction barriers the proprietary tooling carefully built to hide implementation details breaks, leaving the hapless developer struggling with patches, workarounds, opaque procedures to get things done.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
+    <title>Team Practices: Shared Development Environment</title>
+    <link href="http://abailly.github.io/posts/common-dev-environment.html" />
+    <id>http://abailly.github.io/posts/common-dev-environment.html</id>
+    <published>2021-02-01T00:00:00Z</published>
+    <updated>2021-02-01T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Team Practices: Shared Development Environment</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on February  1, 2021</div>
+
+<p>This is another post in a series I plan to write on interesting team-wide practices I have found and still find to be effective to further and support eXtreme Programming. In this post, I present how to promote <em>Collective Code Ownership</em> and <em>Coding Standards</em> to a new level through the use of a <em>Shared Development Environment</em>. The goal is to ensure as much as possible standardization in the process and tools from design to deployment, in order to avoid the all too common “Works on my machine” syndrome that plagues software development teams.</p>
+<h1 id="standardizing-development-environment">Standardizing Development Environment</h1>
+<p>The <em>intention</em> behind <em>Collective code ownership</em> and <em>Coding standards</em> practices is to increase the <em>Standardization</em> of the development process within a specific team (or group of teams working closely enough together), but <em>why</em> should we want to standardize the development process, practices and tools in the first place?</p>
+<p>After all, each developer has his or her own unique set of skills, backgrounds, habits, and idiosyncrasies that make him or her productive ; and each of us has honed his or her coding katas, carefully crafted keyboard shortcuts, personal information and note taking system, favorite editor, specialised configuration, preferred packages, OSes, laptop brands, keyboard layout, color themes and whatnot, not speaking of languages, idioms, patterns, or architecture preferences.</p>
+<p>This is all fine and good in a context where the goal is to maximise each developer’s productivity, and each developer’s work has little to no impact on others’. This is most common in organisations where each developer is responsible for a <em>component</em>, whatever that actually means, and works mostly in isolation on his or her part of the system, where the system’s functionalities are designed and planned in advance, then broken down in various development tasks pertaining to various components, which are picked up by each responsible developer, then assembled, QCed, and released by other teams.</p>
+<p>But this ideal situation never actually happens except in the extreme case of a <em>single developer software development</em>. Even the most siloed organisations feel the need to standardize <em>some part</em> of the development process, a need that leads to increased formalism, bureaucracy, and organisational bloat in order to provide a sense of control on what’s going on, which is what gives standardization, understood as top-down imposed norms and rules, a bad reputation among developers and, in return, leads to even more individualism and customization in order to alleviate the feeling one is but a cog in a gigantic machine.</p>
+<p>XP proposes another route: Instead of stratifying the development process by tying together highly productive but siloed individualistic development practices with “scientific management”, it aims to maximise productivity of the <em>whole process</em> which means maximising productivity at the <em>team level</em>. Moreover, XP seeks to maintain or even increase that productivity as time passes and the software grows and evolves, the team changes, new versions of the technology or even new technologies emerge, new or changing requirements put pressure on the software.</p>
+<p>Maximizing team productivity as a whole means, among many other things:</p>
+<ul>
+<li>Ensuring smooth and fast training and onboarding for newcomers, and transitions from senior to junior developers or from leaving to incoming team members,</li>
+<li>Maintaining an adequate level of understandability of the overall system, ie. not only the code itself but also all the supporting components that are needed to make the code releasable,</li>
+<li>Fostering <a href="https://hbr.org/2017/08/high-performing-teams-need-psychological-safety-heres-how-to-create-it">Psychological safety</a> within team by making sure everyone can work with everyone else comfortably and fearlessly,</li>
+<li>Increasing the <a href="https://en.wikipedia.org/wiki/Bus_factor">bus factor</a> to reduce the risks a project grinds to halt because a single member suddenly is missing,</li>
+<li>…</li>
+</ul>
+<p>What Kent Beck promoted more than 20 years is now backed by a lot of scientific studies, including the famous one Google conducted to determine <a href="https://rework.withgoogle.com/guides/understanding-team-effectiveness/steps/introduction/">what makes a team effective</a>.</p>
+<p>In a sense <em>Standardization</em> is just what happens when people actually collaborate effectively together on a continuous basis: They settle on common practices, idioms, languages, tools that they feel provide the more benefits to the team as <em>whole</em>. And conversely, standards that emerge from negotiations <em>within</em> the team pave the route towards effectively collaborating together as a <em>whole</em>.</p>
+<p><a href="http://wiki.c2.com/?CodingStandard">Coding Standards</a> and <a href="http://wiki.c2.com/?CollectiveCodeOwnership">Collective code ownership</a> are XP’s ways of promoting standardization of the development process across the team.</p>
+<h2 id="coding-standards">Coding Standards</h2>
+<p>According to <a href="https://wiki.haskell.org/Wadler&#39;s_Law">Wadler’s Law</a>, the hottest discussions among developers happen on the smallest and least significance matters of syntax. It is therefore “natural” to address the issue of <em>code formatting</em> first. But of course, coding standards do not stop at syntax and the team should, step by step, increase the coverage of its standards to include more and more semantics.</p>
+<h3 id="formatting-code">Formatting Code</h3>
+<p>The code’s formatting rules is one particular area where standardization, across a team or even a whole programming environment, can and <em>should</em> be automatically enforced: . There have been, and will be, endless discussions among developers on such critically important topics as where to put curly braces, whether or not to use tabulations or spaces for indentation, how much space to put in various places of the code, etc. These discussions are a source of considerable bikeshedding, waste of time, and contribute exactly zero value to the end product; automating application of standard code format <a href="https://prettier.io/docs/en/precommit.html">before commit</a> or, even better, before <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html">saving files</a>.</p>
+<p>However, this is dependent on the particular setup of each development environment and various problems might arise:</p>
+<ul>
+<li>The rules might be encoded in different tools to support different IDEs, which necessarily will lead to differences cropping up,</li>
+<li>There might not be an overall agreed upon set of rules for the language which makes it hard for the team to settle the question,</li>
+<li>The language itself might be hardly amenable to <a href="http://modernperlbooks.com/mt/2009/08/on-parsing-perl-5.html">parsing</a> and pretty-printing,</li>
+<li>…</li>
+</ul>
+<p>I thus view it as a great step forward that some formatting tools decide to provide no configuration options, like the <a href="https://github.com/google/google-java-format">google-java-format</a> for Java, <a href="https://hackage.haskell.org/package/ormolu">Ormolu</a>, <a href="https://github.com/avh4/elm-format">elm-format</a> for Elm, or <a href="https://golang.org/cmd/gofmt/">gofmt</a> for Go. The next logical step would be for the compiler itself to enforce the formatting rules1 and only accept programs in <em>Normal Form</em><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>: This would guarantee a uniform layout across all code bases using this language and would have the added advantage of greatly simplifying parsing and more generally development of tools to manipulate the language.</p>
+<h3 id="beyond-code-formatting">Beyond Code Formatting</h3>
+<p>In the past, these took the form of extensive <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines">Coding style guides</a> but as our tools mature, more and more standards can and are implemented as automated checks that are run as part of the software deployment pipeline. <a href="https://www.sonarqube.org/">SonarQube</a> is one of the many tools that automates coding standards, best practices, and rules. One thing to note is that coding standards encompass a wide range of different activities and code artefacts, from lexical and syntactic rules to design principles, through naming conventions and prescriptions. There are probably things which are not amenable to automation but there’s nevertheless a relentless effort from practitioners and researchers alike to Automate All The Things, and verify things like <a href="https://innig.net/macker/guide/">software architecture</a> or <a href="https://lgtm.com/">security</a>.</p>
+<h2 id="collective-code-ownership">Collective Code Ownership</h2>
+<p>Collective Code Ownership is that XP practice which strives to make all parts of the code collectively owned, meaning that every team member has the right and the duty to work on the whole software stack. There is no “preserve” that would be exclusive to some team members for reasons of skills, purpose, sensitivity, or seniority. A corollary to this strong statement is that every team member should feel at ease in every part of the code, and be able to understand what’s going on and make relevant changes and improvements in a way that any other team member can vouch for it.</p>
+<p>Pair Programming or Mob Programming are XP practices which are conducive to building such a collectively shared understanding of the code, much more so than Pull Requests or Code Reviews<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. But they are only effective if all the people coding together can actually do so effectively and efficiently: If I pair program with an expert Vim golfer and I drive, then chances are I will be very slow and clumsy, at least initially; it will take time for me to get accustomed to my mate’s development environment, to use his or her keyboard shortcuts, commands, links, productively. And this is not specific to Vim of course, cognitive dissonance can come from every part of the environment: The keyboard (Dvorak/Colemak/Qwerty/Azerty/Bépo), the OS (Mac/Windows/flavors of Linux), the language settings, the window manager (tiling/non-tiling), the shell (Bash/fish/zsh), the IDE (VS/VS Code/IDEA/Eclipse), the color settings (dark vs. light colors, small vs. large screens) are all potential sources of pain for the newcomer.</p>
+<p>Collective Code Ownership should be understood not only as an imperative to share understanding of the code but also to share understanding, knowledge, and skills of the tools to produce and work on that code. Everyone has his or her own idiosyncrasies, preferences, disgusts, personal history that accumulate over time and crystallize in specific tools and environments we feel comfortable with. This is of course totally fine. But this should not come in the way of building an inter-subjective experience of the code: if we all insist on viewing and manipulating the code through our own private lenses, chances are we will fail in developing any form of shared understanding, vision, or comprehensive knowledge of the code<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
+<h1 id="building-a-shared-environment">Building a Shared Environment</h1>
+<p>Working remotely is actually a great opportunity to overcome particularism and standardize the team’s practices through a <em>Shared Development Environment</em>, that is some virtual machines (or containers) whose configuration is versioned alongside the code the team is working on. The idea hinges on <a href="https://en.wikipedia.org/wiki/Infrastructure_as_code">Infrastructure as Code</a> principles: Manage the infrastructure supporting the process using the same tools and principles with which we manage the product, but one step beyond. Do not only manage the production infrastructure, but also the development infrastructure, so that the whole stack of tools used to produce the code is shared by everyone, versioned in the source code, deployable at will.</p>
+<p>Here is a description of the environment we have built in my previous teams on a Linux system.</p>
+<h2 id="defining-the-image">Defining the image</h2>
+<p>The first step is to define the virtual machine image. This we do using Hashicorp’s <a href="https://packer.io">Packer</a> which provides a way to build VM images deployable to most major clouds (at least GCP and AWS). Packer is configured with a JSON file that looks the following (I have shown only the configuration for building a GCP image):</p>
+<pre><code>{
+    &quot;builders&quot;: [
+        {
+            &quot;type&quot;: &quot;googlecompute&quot;,
+            &quot;account_file&quot;: &quot;google-keys.json&quot;,
+            &quot;project_id&quot;: &quot;my-project&quot;,
+            &quot;source_image&quot;: &quot;ubuntu-1804-bionic-v20190212a&quot;,
+            &quot;ssh_username&quot;: &quot;curry&quot;,
+            &quot;image_family&quot;: &quot;build&quot;,
+            &quot;image_name&quot;: &quot;build-{{timestamp}}&quot;,
+            &quot;zone&quot;: &quot;eu-west1-b&quot;
+        }
+    ],
+    &quot;provisioners&quot;: [{
+    &quot;type&quot;: &quot;shell&quot;,
+        &quot;inline&quot;: [
+            &quot;sleep 30&quot;
+        ]
+    },{
+        &quot;type&quot;: &quot;shell&quot;,
+        &quot;script&quot;: &quot;build-env.sh&quot;
+    }]
+}</code></pre>
+<p>There are much more sophisticated options to configure the image than using a plain shell script but this is sufficient for our needs. I won’t go into the details of the script here but it is pretty straightforward: it installs all the tools we need for development, which in this case includes docker, gcloud tools, and a whole bunch of utilities like curl, git, tmux, graphviz, wget, jq, python3, bzip2, neovim, ag… We settled on using Emacs as our code editor so it was also part of the installed packages.</p>
+<p>Running <code>packer build build.json</code> will build a new image with the given name ready to be deployed over the configured infrastructure providers.</p>
+<h2 id="defining-infrastructure">Defining Infrastructure</h2>
+<p>The most interesting part is the definition of the infrastructure itself, which uses Terraform. The set of .tf files is interpreted by the terraform tool, it checks the consistency of the defined infrastructure, and compares it with the latest known persistent state drawn from cloud storage, to decide what to do: create, delete or modify various components of the infrastructure.</p>
+<p>There is a module defining the standard configuration of a development VM:</p>
+<pre><code>variable &quot;name&quot; {
+  description = &quot;The name of the machine.&quot;
+}
+
+variable &quot;ssh_keys&quot; {
+  description = &quot;The file containing ssh_keys.&quot;
+}</code></pre>
+<p>The variable ssh_keys contains the name of a file which lists the public keys of people who can access the machine. This makes it possible to control who can access the development environment through a file committed to the version control repository.</p>
+<pre><code>output &quot;address&quot; {
+  value = &quot;${google_compute_address.dev-address.address}&quot;
+}
+
+resource &quot;google_compute_address&quot; &quot;dev-address&quot; {
+  name = &quot;${var.name}-address&quot;
+}</code></pre>
+<p>This output variable will show the IP address of the VM once it’s deployed, so we need to allocate a public IP address for this machine.</p>
+<pre><code>resource &quot;google_compute_instance&quot; &quot;dev&quot; {
+  name                      = &quot;${var.name}&quot;
+  machine_type              = &quot;n2-standard-8&quot;
+  zone                      = &quot;eu-west1-c&quot;
+  allow_stopping_for_update = true
+
+  tags = [ &quot;dev&quot;]
+
+  boot_disk {
+    auto_delete = true
+
+    initialize_params {
+      size  = 200
+      image = &quot;build/build-1546597455&quot;
+    }
+  }
+
+  network_interface {
+    network = &quot;default&quot;
+
+    access_config {
+      nat_ip = &quot;${google_compute_address.dev-address.address}&quot;
+    }
+  }
+
+  metadata {
+    sshKeys = &quot;${file(var.ssh_keys)}&quot;
+  }
+
+  service_account {
+    email  = &quot;build@my-project.iam.gserviceaccount.com&quot;
+    scopes = [&quot;compute-rw&quot;, &quot;storage-rw&quot;, &quot;https://www.googleapis.com/auth/cloudkms&quot;]
+  }</code></pre>
+<p>This sets the core features of our VM: Machine type, location, boot disk size… The sshKeys metadata reads its content from the file we defined earlier, and the service_account definition requests the creation of a new service account with the given authorizations.</p>
+<pre><code>provisioner &quot;file&quot; {
+    source      = &quot;dev/bash_aliases&quot;
+    destination = &quot;/home/curry/.bash_aliases&quot;
+
+    connection {
+      type = &quot;ssh&quot;
+      user = &quot;curry&quot;
+    }
+  }
+# ...
+# more filea uploaded
+# ...
+  provisioner &quot;file&quot; {
+    source      = &quot;dev/configure.sh&quot;
+    destination = &quot;/home/curry/configure.sh&quot;
+
+    connection {
+      type = &quot;ssh&quot;
+      user = &quot;curry&quot;
+    }
+  }</code></pre>
+<p>We then upload configuration files (aka. dotfiles) which are also versioned and stored in the source tree, including configuration for the shell, the tmux, emacs, and a configuration script.</p>
+<pre><code> provisioner &quot;remote-exec&quot; {
+    inline = [
+      &quot;chmod +x /home/curry/configure.sh&quot;,
+      &quot;/home/curry/configure.sh&quot;,
+    ]
+
+    connection {
+      type = &quot;ssh&quot;
+      user = &quot;curry&quot;
+    }
+  }
+}</code></pre>
+<p>And finally we execute the configuration script that’s responsible for retrieving the source code, possibly cached build artifacts, and last minute configuration steps. There are a lot of possible variations on this baseline but the end goal is to ensure the team has at its disposal development environments which everyone can use and which are guaranteed to be consistently configured, thus making pair and mob programming sessions simple and easy to set up.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>In this post I have motivated why a shared development environment is desirable and useful, and demonstrated how easily it can be set up using basic IAAC tools. This practice can also be very useful in more complicated settings. I am working in a team which has to maintain a legacy piece of software built using a 4GL IDE called PowerBuilder, which is only available on Windows. One of the first things I did when joining the team was to create a couple of VMs on Azure cloud with several tools installed, including the PowerBuilder IDE, SQL Management Studio, Git, in order to make it straightforward to work collaboratively on the code. The experience is not quite as smooth as sharing a terminal through tmux or tmate, but it still only takes a few seconds to switch driver/navigator roles: Simply log into the VM and share screen. Not being an expert in Windows automation I have not yet gone beyond documenting the manual steps needed to configure the machine but this is only a matter of investing some time or finding the right person to help me.</p>
+<p>Sharing the development environment is something that requires negotiation within the team, and that takes time to grow. Team members need to overcome their personal preferences and accept the discomfort of coding in an environment to which they might not be, at least initial, a hundred percent atuned to. The goal is not to impose The One True Way but on the contrary to share the knowledge and take the best that each setup has to offer. A versioned and pre-configured VM can perfectly host both Emacs and Vim, or can expose a VNC server that makes it easier to share graphical tools, or basically offer any kind of environment.</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I thought this was the case for Elm and Go but it seems they do not still fail to compile ill-formatted source code.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>As my friend Christophe Thibaut used to say: “Code reviews is Pair programming for people who don’t fully trust each other”<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>What is developer productivity is still something that needs to be defined. Does writing more lines of code than other developers make you more productive?<a href="#fnref3">↩</a></p></li>
+</ol>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Sur &quot;Énigmes et complots&quot; de Luc Boltanski</title>
     <link href="http://abailly.github.io/posts/enigmes-et-complots.html" />
     <id>http://abailly.github.io/posts/enigmes-et-complots.html</id>
@@ -860,154 +1151,6 @@ valid1 <span class="fu">=</span> <span class="dt">Refl</span></code></pre></div>
 <li id="fn2"><p>Short of cheating using something like <a href="https://www.idris-lang.org/docs/current/prelude_doc/docs/%5Bbuiltins%5D.html#believe_me">believe_me</a> of course that will <em>subvert the typechecker</em>.<a href="#fnref2">↩</a></p></li>
 </ol>
 </div>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Homero 2019</title>
-    <link href="http://abailly.github.io/posts/homero2019.html" />
-    <id>http://abailly.github.io/posts/homero2019.html</id>
-    <published>2019-01-02T00:00:00Z</published>
-    <updated>2019-01-02T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Homero 2019</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on January  2, 2019</div>
-
-<p>En écoutant <a href="https://www.franceinter.fr/emissions/les-histoires-du-monde/les-histoires-du-monde-02-janvier-2019">France inter</a> ce matin j’ai eu immédiatement envie de partager cette lecture collective sur twitter de l’Iliade en français. J’ai donc immédiatement tweeté les premiers vers du premier chant de l’Iiliade, avant de me rendre compte que la contrainte exigeait de twitter <em>un chant par semaine</em>. Il est donc devenu urgent d’écrire un programme pour faire en sorte de pouvoir générer ces tweets automatiquement au lieu de devoir laborieusement les taper un par un. Voici le fruit, brut de décoffrage de cette micro-aventure…</p>
-<p>Tout d’abord un peu de cérémonies pour que le fichier contenant le code soit interprétable comme un script:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">#!/usr/bin/env stack</span>
-<span class="co">-- stack runhaskell --resolver lts-12.5 --</span></code></pre></div>
-<p>Puis les inévitables extensions de langage et imports…</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE LambdaCase #-}</span>
-<span class="kw">import           </span><span class="dt">Control.Applicative</span>
-<span class="kw">import           </span><span class="dt">Data.Char</span>
-<span class="kw">import qualified</span> <span class="dt">Data.List</span>           <span class="kw">as</span> <span class="dt">List</span>
-<span class="kw">import           </span><span class="dt">Data.Monoid</span>
-<span class="kw">import           </span><span class="dt">System.Directory</span>
-<span class="kw">import           </span><span class="dt">System.Environment</span>
-<span class="kw">import           </span><span class="dt">System.IO</span></code></pre></div>
-<p>On va avoir envie de générer plus d’un tweet à la fois, et on va donc lire le nombre de tweets à générer en argument de la ligne de commande:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getNumTweets ::</span> <span class="dt">IO</span> <span class="dt">Int</span>
-getNumTweets <span class="fu">=</span> getArgs <span class="fu">&gt;&gt;=</span> \<span class="kw">case</span>
-  [] <span class="ot">-&gt;</span> pure <span class="dv">1</span>
-  (n<span class="fu">:</span>_) <span class="ot">-&gt;</span> pure <span class="fu">$</span> read n</code></pre></div>
-<p>Le principe de ce programme, concentré dans la fonction <code>makeTweets</code> est extrêmement simple, on pourrait même dire brutal:</p>
-<ul>
-<li>On va itérer jusqu’à ce que le nombre de tweets à générer soit de 0:</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">makeTweets ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
-makeTweets <span class="dv">0</span> _ <span class="fu">=</span> pure ()
-makeTweets numTweets content <span class="fu">=</span> <span class="kw">do</span></code></pre></div>
-<ul>
-<li>On va lire le curseur depuis un fichier intitulé <code>.break</code> dans le répertoire courant, curseur qui stocke notre “état” sous la forme de l’index du premier mot du reste du texte. Si le fichier n’existe pas, on part tout simplement du début</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  start <span class="ot">&lt;-</span> readBreak <span class="fu">&lt;|&gt;</span> pure <span class="dv">0</span></code></pre></div>
-<ul>
-<li>On va travailler sur la liste des listes de mots du texte en entrée, où un mot est simplement une suite de lettres séparée par des espaces. Comme Haskell est un langage <em>paresseux</em>, cette liste ne va pas être construite explicitement si ce n’est pas nécessaire. Pour fluidifier la lecture on enlève du texte les renvois de notes qui apparaissent sous la forme de nombres</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="kw">let</span> ws <span class="fu">=</span> List.inits <span class="fu">.</span> drop start <span class="fu">.</span> words <span class="fu">.</span> filter (not <span class="fu">.</span> isDigit) <span class="fu">$</span> content</code></pre></div>
-<ul>
-<li>De cette liste de liste de mots, on va sélectionner la <em>dernière</em> occurence qui:
-<ol style="list-style-type: decimal">
-<li>à une longueur inférieure à 260 lorsqu’on reconstitue une phrase à partir des mots</li>
-<li>se termnine par un signe de ponctuation</li>
-</ol></li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">      sentence <span class="fu">=</span> lastWithPunctuation <span class="fu">$</span> takeWhile ((<span class="fu">&lt;</span> <span class="dv">260</span>) <span class="fu">.</span> length <span class="fu">.</span> unwords) ws</code></pre></div>
-<ul>
-<li>Il ne reste plus qu’à mettre à jour notre “état” avec la longueur de la liste de mots sélectionnée, puis à imprimer la phrase ornée du hashtag <code>#homero2019</code> sur la sortie standard</li>
-<li>La récursion peut se poursuivre en réduisant le nombre de tweets et en conservant le même contenu</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">      end <span class="fu">=</span> start <span class="fu">+</span> length sentence
-  putStrLn <span class="fu">$</span> unwords sentence <span class="fu">&lt;&gt;</span> <span class="st">&quot; #homero2019&quot;</span>
-  writeBreak end
-  makeTweets (numTweets <span class="fu">-</span> <span class="dv">1</span>) content</code></pre></div>
-<p>La fonction auxiliaire <code>lastWithPunctuation</code> est particulièrement brutale et dangereuse, mais néanmoins amusante:</p>
-<ul>
-<li>On inverse l’ensemble des listes, soit 3 niveaux de listes imbriquées jusqu’à identifier le dernier caractère de chaque “phrase” candidate</li>
-<li>On passe toutes les phrases qui ne se terminent pas par un signe de ponctuation</li>
-<li>et on retourne la première occurence qui se termine par un tel signe.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">lastWithPunctuation ::</span> [[ <span class="dt">String</span> ]] <span class="ot">-&gt;</span> [<span class="dt">String</span>]
-lastWithPunctuation <span class="fu">=</span> head <span class="fu">.</span> dropWhile (\ s <span class="ot">-&gt;</span> not <span class="fu">$</span> isPunctuation <span class="fu">$</span> head <span class="fu">$</span> head <span class="fu">$</span> reverse <span class="fu">&lt;$&gt;</span> reverse s) <span class="fu">.</span> reverse</code></pre></div>
-<p>Les deux fonctions <code>readBreak</code> et <code>writeBreak</code> servent simplement à mettre à jour le fichier <code>.break</code> contenant l’état du flux de tweets.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">writeBreak ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> ()
-writeBreak <span class="fu">=</span> writeFile <span class="st">&quot;.break&quot;</span> <span class="fu">.</span> show
-
-<span class="ot">readBreak ::</span> <span class="dt">IO</span> <span class="dt">Int</span>
-readBreak <span class="fu">=</span> <span class="kw">do</span>
-  exist <span class="ot">&lt;-</span> doesFileExist <span class="st">&quot;.break&quot;</span>
-  <span class="kw">if</span> exist
-    <span class="kw">then</span> read <span class="fu">&lt;$&gt;</span> readFile <span class="st">&quot;.break&quot;</span>
-    <span class="kw">else</span> pure <span class="dv">0</span></code></pre></div>
-<p>Il ne reste plus qu’à écrire le <code>main</code> dont le principal travail est d’appeler <code>makeTweets</code> avec le contenu lu depuis l’entrée standard:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
-main <span class="fu">=</span> <span class="kw">do</span>
-  numTweets <span class="ot">&lt;-</span> getNumTweets
-  getContents <span class="fu">&gt;&gt;=</span> makeTweets numTweets</code></pre></div>
-<p>En téléchargeant le Chant I depuis le <a href="https://lesbelleslettresblog.com/2015/03/25/homere-iliade-chant-i-en-version-integrale-dans-la-traduction-de-paul-mazon/">site officiel de l’éditeur</a> et en le copiant/collant dans un fichier <code>chant1</code>, on peut lancer le programme <code>tweets.hs</code>:</p>
-<pre><code>$ cat chant1 | ./tweets.hs 3
-Chante, déesse, la colère d’Achille, le fils de Pélée; détestable colère, qui aux Achéens valut des souffrances sans nombre et jeta en pâture à Hadès tant d’âmes fières de héros, #homero2019
-tandis que de ces héros mêmes elle faisait la proie des chiens et de tous les oiseaux du ciel – pour l’achèvement du dessein de Zeus. Pars du jour où une querelle tout d’abord divisa le fils d’Atrée, protecteur de son peuple, et le divin Achille. #homero2019
-Qui des dieux les mit donc aux prises en telle querelle et bataille ? Le fils de Létô et de Zeus. C’est lui qui, courroucé contre le roi, fit par toute l’armée grandir un mal cruel, dont les hommes allaient mourant; cela, #homero2019</code></pre>
-<p>j’aurais aimé pouvoir utiliser <a href="https://hackage.haskell.org/package/tweet-hs">tweet-hs</a> pour pouvoir effectivement tweeté ces textes mais malheureusement, le processus pour obtenir des clés OAuth sur twitter est long et pénible et je ne sais pas si j’aurais l’énergie nécessaire pour ce faire…</p>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>XP is the new SCRUM</title>
-    <link href="http://abailly.github.io/posts/scrum-and-xp.html" />
-    <id>http://abailly.github.io/posts/scrum-and-xp.html</id>
-    <published>2019-01-01T00:00:00Z</published>
-    <updated>2019-01-01T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>XP is the new SCRUM</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on January  1, 2019</div>
-
-<p>This is the blurb that introduces <a href="https://www.amazon.fr/SCHWABER-AGILE-SCRUM_p1-United-States/dp/0130676349/ref=sr_1_2?ie=UTF8&amp;qid=1546375554&amp;sr=8-2&amp;keywords=ken+schwaber">Agile Software Development with SCRUM</a>, the seminal book by Ken Schwaber and Mike Beedle that explained Scrum, or rather <em>SCRUM</em> as it should be correctly spelled, to a wide audience.</p>
-<blockquote>
-<p>eXtreme Programming is an ideal many software shops would love to reach, but with the constant pressures to produce software quickly, they cannot actually implement it. The Agile software process allows a company to implement eXtreme Programming quickly and immediately-and to begin producing software incrementally in as little as 30 days! Implementing eXtreme Programming is easier said than done. The process can be time consuming and actually slow down current software projects that are in process. This book shows readers how to use SCRUM, an Agile software development process, to quickly and seamlessly implement XP in their shop-while still producing actual software. Using SCRUM and the Agile process can virtually eliminate all downtime during an XP implementation.</p>
-</blockquote>
-<p>This message in a bottle from a not-so-distant past - the book was published in 2001 - is interesting in at least 2 respects:</p>
-<ul>
-<li>Its first statement is still valid, eighteen years later: XP is still an “ideal many software shops would love to reach” but find unattainable because of various forms of pressure,</li>
-<li>SCRUM was explicitly advocated as a <em>process</em> to “quickly and seamlessly implement XP”, a promise it mostly failed to deliver or that was lost in the fury of <em>agile transformations</em> that arose in the wake of SCRUM takeovers of the software development methods scene.</li>
-</ul>
-<p>Will 2019 be the year we’ll finally see XP being recognised?</p>
 
 
 <div id="disqus_thread"></div>
