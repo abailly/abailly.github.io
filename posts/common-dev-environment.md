@@ -1,7 +1,7 @@
 ------------
 title: "Team Practices: Shared Development Environment"
 author: Arnaud Bailly
-date: 2020-02-01
+date: 2021-02-01
 ------------
 
 This is another post in a series I plan to write on interesting team-wide practices I have found and still find to be effective to further and support eXtreme Programming. In this post, I present how to promote _Collective Code Ownership_ and _Coding Standards_ to a new level through the use of a _Shared Development Environment_. The goal is to ensure as much as possible standardization in the process and tools from design to deployment, in order to avoid the all too common “Works on my machine” syndrome that plagues software development teams.
