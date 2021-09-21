@@ -8,8 +8,75 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2021-06-16T00:00:00Z</updated>
+    <updated>2021-09-05T00:00:00Z</updated>
     <entry>
+    <title>Sur &quot;Misère de l&#39;historicisme&quot;</title>
+    <link href="http://abailly.github.io/posts/misere-historicisme.html" />
+    <id>http://abailly.github.io/posts/misere-historicisme.html</id>
+    <published>2021-09-05T00:00:00Z</published>
+    <updated>2021-09-05T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>Sur &quot;Misère de l&#39;historicisme&quot;</h1>
+
+  <h2 class="subtitle">Quelle méthode pour les sciences sociales ?</h2>
+
+<div class="info">Posted on September  5, 2021</div>
+
+<p><a href="https://www.babelio.com/livres/Popper-Misere-de-lhistoricisme/153793">Misère de l’historicisme</a> est un livre de <a href="https://fr.wikipedia.org/wiki/Karl_Popper">Karl Popper</a>, un des plus important philosophe du XXème siècle en particulier dans le domaine de l’épistémologie et de la philosophie des sciences. Popper est célèbre pour son <em>principe de réfutabilité</em> permettant de distinguer les théories scientifiques des autres : une théorie ne peut être scientifique que si elle est est réfutable, c’est à dire s’il est possible de concevoir une <em>expérience</em> permettant de la <em>tester</em>. La conséquence principale de ce principe épistémologique est que toute théorie scientifique est “en sursis”, elle conserve toujours le statut d’une hypothèse que des faits futurs pourraient invalider en tout ou partie. C’est arrivé régulièrement au cours de l’histoire, par exemple dans le domaine de la physique avec l’invalidation de la théorie du <a href="https://fr.wikipedia.org/wiki/Phlogistique">phlogistique</a>, en astronomie avec la réfutation de l’astronomie Ptoléméenne par Galilée et Copernic, en biologie avec la <a href="https://fr.wikipedia.org/wiki/Th%C3%A9orie_des_humeurs">théorie des humeurs</a>.</p>
+<h1 id="synthèse">Synthèse</h1>
+<p><em>Misère de l’historicisme</em> est un livre de “combat”, écrit par Popper en 1945 explicitement pour lutter contre les idéologies fascistes et surtout communistes. En premier page du livre on trouve ainsi cette épigraphe :</p>
+<blockquote>
+<p>En mémoire des innombrables hommes, femmes et enfants qui succombèrent, victimes de la croyance fasciste et communiste en des lois inexorables de la destinée historique.</p>
+</blockquote>
+<p>Le programme du livre est donc clair : réfuter logiquement les courants de pensées <em>historicistes</em> soit essentiellement le marxisme, mais aussi toutes les formes de systèmes de type hégeliens, ou même platoniciens, et prouver leur totale absence de scientificité. La critique de Popper va donc porter sur des questions de méthodes en sciences sociales puisque l’historicisme tel qu’il le présente vise à produire des théories <em>prédictives</em> à partir de méthodes <em>fondamentalement</em> différentes de celle utilisées dans les sciences naturelles et physiques.</p>
+<p>En filigrane, on voit bien que Popper s’attaque à la théorie marxiste de la lutte des classes devant conduire inexorablement à l’effondrement du capitalisme sous le poids de ses contradictions internes et à la dictature du prolétariat. Popper est un social-démocrate mais ce n’est pas un ultra-libéral, même s’il est proche de <a href="https://fr.wikipedia.org/wiki/Friedrich_Hayek">Friedrich von Hayek</a> qu’il cite abondamment dans son livre en tant que modèle de scientificité pour les sciences humaines, seule l’économie et un peu la psychologie trouvant grâce à ses yeux. Il est connu par ailleurs pour défendre l’intervention de l’État et la nécessité d’un progrès social pour tous et il reconnait à Marx le grand mérite d’avoir défendu la cause des ouvriers opprimés.</p>
+<h2 id="lhistoricisme">L’historicisme</h2>
+<p>Schématiquement, l’historicisme est cette idée en apparence logique que, puisqu’un état donné des sociétés humaines est la conséquence de multiples décisions, choix, ou événements passés, la seule possibilité de découvrir des lois régissant les comportements humains individuels et sociaux est d’analyser ce passé et d’en déduire des tendances, des règles, des <em>motifs</em> à partir desquels réaliser des prédictions. L’historicisme est souvent - mais pas toujours - couplé à un certain nombre d’autres principes épistémologiques :</p>
+<ul>
+<li>le <em>totalisme</em> ou <em>holisme</em>, soit l’idée que les phénomènes sociaux ne peuvent se comprendre et s’analyser que globalement, au niveau de la société toute entière voire de l’humanité, car ils sont dépendants de multiples facteurs et d’une infinité de boucles de rétroactions ;</li>
+<li>la <em>compréhension intuitive</em> : les phénomènes sociaux ne peuvent faire l’objet d’hypothèses ou de déductions, mais doivent être saisis <em>intuitivement</em> ;</li>
+<li>l’impossibilité de <em>l’expérimentation</em> du fait de la complexité des interactions sociales, de la réflexivité dont sont dotés les acteurs sociaux et de l’intrication de l’observateur dans le processus expérimental ;</li>
+<li>le rejet de <em>méthodes quantitatives</em>.</li>
+</ul>
+<p>Le <em>totalisme</em> est particulièrement ciblé par la critique de Popper car il conduit, lorsque l’on souhaite passer de la théorie à la pratique, au <em>totalitarisme</em> : les changements sociaux impliqués par la théorie ne peuvent être mis en oeuvre qu’à l’échelle de la société toute entière, ce qui implique une <em>révolution</em>.</p>
+<h2 id="sa-critique">Sa critique</h2>
+<p>La première critique de Popper s’attaque au fondement même de l’historicisme soit la possibilité de <em>prédire</em> les développements futurs. Cette critique est d’ordre logique et se résume assez simplement :</p>
+<ol style="list-style-type: decimal">
+<li>Le futur des sociétés humaines dépend essentiellement de l’état de ses connaissances ;</li>
+<li>Il est logiquement impossible de prédire l’état des connaissances futur puisque par définition, ces connaissances ne sont pas connues ;</li>
+<li>par conséquent il est impossible de prédire le futur des sociétés humaines. ■</li>
+</ol>
+<p>Cette erreur sur le caractère prédictif des “lois historiques” provient selon Popper, d’une part de l’incompréhension de ce que sont les lois scientifiques de la part des historicistes, d’autre part de l’aveuglement sur les conditions de possibilités de toute connaissance, scientifique ou non.</p>
+<p>Les lois scientifiques ne sont pas des lois “absolues”, au sens où elles seraient vraies en tous temps et tous lieux, ce sont des <em>fonctions</em> ou des <em>relations</em> liant des conditions initiales à des observations et des comportements prévisibles. L’historicisme et son “Sens de l’histoire” postulent des lois indépendantes des conditions initiales, en fait des <em>tendances</em> observées dans un flux d’événements mais qui n’ont pas du tout le caractère de lois scientifiques, en particulier parce qu’elles ne sont pas falsifiables.</p>
+<p>Par ailleurs, ces “lois” ou “tendances” inférées par l’observateur le sont <em>a posteriori</em> depuis un certain point dans le temps, donc par application des principes historicistes sont aussi le produit des conditions historiques de leur énonciation, de la situation particulière de l’énonciateur, et surtout de ses biais personnels. L’histoire humaine est un flux infini d’événements et de faits sur lequel on en prélève certains, considérés comme plus importants que d’autres, que l’on réinterprète depuis le futur donc avec de grandes chances de glisser vers une argumentation <em>téléologique</em>, ie. considérer que ce qui est arrivé et que l’on vit dans le présent était nécessairement ce qui devait arriver en vertu de “lois” donc.</p>
+<p>Sur le problème de l’expérimentation, Popper fait remarquer que la situation des sciences sociales est similaire à celle des sciences du vivant : il est impossible de disséquer un organisme vivant sans le tuer, ce qui n’empêche pas les sciences naturelles d’expérimenter et de produire des connaissances théoriques empiriquement vérifiées. Et depuis les développements de la mécanique quantique, la physique elle-même, reine des sciences dures, est confrontée à ce problème de l’interaction entre l’expérimentateur et l’expérimentation.</p>
+<p>S’il est certain que les faits sociaux sont extrêmement complexes du fait de multiples interactions et bouccles de rétroaction, c’est aussi le cas des faits physiques <em>concrets</em> toujours bruités, parasités par de multiples phénomènes dont il appartient au chercheur de séparé ce qui est pertinent pour son problème de ce qui ne l’est pas. D’une certain manière les faits physiques peuvent être beaucoup plus complexes que les faits sociaux car les êtres humains se comportent dans l’immense majorité des circonstances de manière rationnelle, donc compréhensible et prévisible, ce qui n’est pas le cas des phénomènes physiques.</p>
+<p>Popper se situe résolumment du côté de Kant : le but de la science n’est pas de connaître ce que <em>sont</em> les choses, mais de décrire et comprendre comment elles se <em>comportent</em>, et l’approche scientifique ne peut faire abstraction du sujet connaissant : les lois de la science sont des modèles que <em>nous</em> élaborons, les expériences sont toujours porteuses d’un point de vue. C’est en vertu de ce <em>nominalisme</em> méthodologique que Popper critique ce qu’il appelle <em>l’essentialisme</em> dont est affecté l’historicisme, soit la propension à vouloir définir ce que <em>sont</em> les fait sociaux par leur histoire, plutôt que comment ces faits sociaux fonctionnent pour nous.</p>
+<p>Et c’est ce qui conduit Popper à promouvoir ce qu’il appelle une <em>sociologie technologique</em>, une approche <em>fragmentaire</em>, locale et expérimentale des sciences sociales qui rejette toute méthode globale et toute vision surplombante du savant. Les institutions humaines constituant le monde social doivent être considérées comme des mécanismes sur le fonctionnement desquels on peut émettre des hypothèses, que l’on peut valider ou réfuter expérimentalement, et à améliorer par “petites touches”, par essais et erreurs.</p>
+<p>Pour lui, au delà des différences évidentes de domaine de recherche, les sciences partagent une <em>méthode</em> unique, la méthode hypothético-déductive, basée sur la formulation d’hypothèses expérimentalement <em>réfutables</em>. Les sciences sont en fait <em>caractérisées</em> par cette méthode : une science est un corpus de connaissances construit par cette méthode.</p>
+<h1 id="analyse">Analyse</h1>
+<p><em>Misère de l’historicisme</em> est un livre clair et limpide, à l’argumentation logique imparable, et il explicite quelque chose qui m’a toujours gêné dans la rhétorique marxiste, cette croyance en une inéluctabilité de l’histoire qui n’est pas sans emprunter ses accents eschatologiques au christianisme.</p>
+<p>Popper est un auteur souvent classé plutôt à droite : il est indubitablement libéral c’est à dire attaché aux libertés individuelles, à une société ouverte (c’est d’ailleurs le titre de l’un de ses ouvrages), à un gouvernement démocratique et à l’économie de marché. Et son livre est aussi un livre de circonstances, comme toute pensée humaine ancrée dans une histoire et un moment particulier. Il parait à un moment où les anciens alliés contre l’Allemagne nazie deviennent rivaux et ennemis, où la “Guerre froide” remplace la “Guerre chaude”, où Churchill évoque le “Rideau de fer” tombé sur l’Europe. On peut lui reprocher sa vision partiale et partielle de la pensée de Marx influencée à son époque par les dévoiements de l’Union soviétique, du léninisme et du stalinisme, sa propension à “jeter le bébé avec l’eau du bain”.</p>
+<p>Mais son approche résolumment empirique des sciences sociales et sa vision d’une unicité fondamentale des sciences, d’un grand “manteau sans couture” qui unit dans une même méthode les sciences physiques, naturelles et sociales, résonnent avec mon expérience et mes réflexions personnelles dans le petit domaine qui est le mien, le développement en équipe de logiciels. <em>eXtreme Programming</em> en particulier, est évidemment ancré dans cette méthode scientifique que défend Popper, dans l’expérimentation à partir d’hypothèses, l’observation et l’analyse des résultats observés, l’ajustement permanent des hypothèses.</p>
+<p>De toute évidence, Popper n’aime pas les révolutionnaires, et une critique facile (et historiciste) qui peut lui être faite est de ne pas critiquer ses propres biais, de ne pas analyser la position “d’où il parle”, de prendre pour acquises la certitude d’être dans le vrai. Mais ce à quoi il nous invite, ce n’est pas non plus à une vision statique des choses ou conservatrices des sociétés, c’est à plus de modestie dans notre prétention à savoir ce qui est “bon” ou “mauvais” à l’échelle d’une société ou même des individus, à plus de rigueur dans notre prétention à toute démarche scientifique, à mettre en oeuvre une démarche expérimentale rigoureuse et précise y compris dans les domaines qui touchent à l’humain.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>On &quot;On the Origin of Species&quot;</title>
     <link href="http://abailly.github.io/posts/origin-of-species.html" />
     <id>http://abailly.github.io/posts/origin-of-species.html</id>
@@ -860,69 +927,6 @@ fun x <span class="fu">=</span> (<span class="kw">case</span> x <span class="kw"
     <published>2020-02-26T00:00:00Z</published>
     <updated>2020-02-26T00:00:00Z</updated>
     <summary type="html"><![CDATA[Le livre est une analyse des interactions sociales vues comme une pièce de théâtre, un jeu de rôles dans lequel les membres d'une équipe collaborent pour donner un spectacle à des spectateurs]]></summary>
-</entry>
-<entry>
-    <title>Sur &quot;Libres d&#39;obéir&quot;</title>
-    <link href="http://abailly.github.io/posts/libres-d-obeir.html" />
-    <id>http://abailly.github.io/posts/libres-d-obeir.html</id>
-    <published>2020-01-18T00:00:00Z</published>
-    <updated>2020-01-18T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Sur &quot;Libres d&#39;obéir&quot;</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on January 18, 2020</div>
-
-<p><em>Libres d’obéir</em>, sous-titré <em>Le management, du nazisme à aujourd’hui</em> est un essai historique qui vise à mettre en lumière la “modernité du nazisme”, à analyser comment la vision radicale de la société et de l’humanité promue et développée par les nazis durant les 12 ans qu’aura durant le IIIème Reich n’est par sortie, par quelque portail transdimensionel magique<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, d’un univers parallèle mais a des racines et des prolongements dans <em>notre</em> modernité.</p>
-<h1 id="synthèse">Synthèse</h1>
-<p>Le livre se concentre essentiellement sur la vie de Reinhard Höhn, juriste, penseur du nazisme et de son organisation, <em>SS Oberführer</em> pendant la guerre puis fondateur et directeur de l’école de <em>management</em> de Bad-Harzburg, et aussi prolifique auteur de livres sur l’histoire militaire et le management. Höhn est pris ici comme un exemple archétypique de ces hauts-gradés du nazisme, penseurs de la pureté raciale et de l’espace vital pan-germanique, qui ont mis leur intelligence et leurs talents au service du projet national-socialiste ;<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> et qui après la guerre ont trouvé à recycler ces mêmes talents, édulcorés des éléments idéologiques les plus sulfureux, au sein de la social-démocratie.</p>
-<p>Les premiers chapitres, suivant l’ordre chronologique, développent la conception de l’État national-socialiste proposée par Höhn et d’autres, et sa mise en oeuvre en Allemagne avant la guerre puis dans toute l’Europe pendant.</p>
-<p>Premier étonnement : le totalitarisme nazi n’aime pas l’État, considéré comme une construction rationnelle d’inspiration romaine et française. L’État et ses fonctionnaires sont vus comme antagoniste à la vision naturaliste et vitaliste du lien organique entre le <em>peuple</em> et son <em>chef</em>. Le <em>führer</em> nazi n’est pas un dictateur, un autocrate, mais il émerge “naturellement” du peuple pour le guider, il ne le “représente” pas comme un élu, il l’incarne, il en est l’émanation naturelle, immanente et par conséquent incontestable : qui est contre le führer est contre le peuple.</p>
-<p>L’organisation nazie va donc systématiquement chercher à réduire les pouvoirs de l’État en créant une multitudes d’organismes - d’organes - parallèles, très souvent concurrents les uns des autres, qui vont prendre en charge au nom du peuple tel ou tel aspect de la vie publique, ce qui, combiné à la rapacité et à la haine que se vouent les uns aux autres les différents barons du nazisme, conduit rapidement à un système extrêmement chaotique et mouvant.</p>
-<p>Vitaliste, l’idéologie nazie voit dans la profusion d’officines et la compétition un phénomène naturel, le pendant au niveau du groupe de la lutte pour la vie que mènent les races et les être vivants entre eux. Par la compétition, seuls les meilleurs et les plus forts survivent et renforcent donc le grand corps du <em>peuple</em>, et ce qui est vrai des individus l’est aussi des groupes.</p>
-<p>L’unité organique entre le chef et le peuple se décline aussi dans les organisations, usines et bureaux : le chef émerge du groupe naturellement, par ses compétences et son leadership ; ce qui n’empêche pas le capitalisme de s’accomoder parfaitement du nazisme car ce principe ne remet pas en cause la propriété des moyens de production, pour autant que ces moyens de production soient mis au service du peuple et du projet national-socialiste.</p>
-<p>Compte-tenu de la réalité des conditions économiques de l’Allemagne, ruinée par la guerre et la crise économique, cette idéologie permet de mobiliser les “travailleurs” pour reconstruire le pays et accomplir le destin du peuple germanique de conquérir son espace vital, occupé par des races subalternes (slaves, latins) ou noyauté par les juifs.</p>
-<p>Second étonnement : la propagande ne suffit pas, il faut “Manager et ménager la ‘ressource humaine’” comme l’indique le titre d’un chapitre ; il faut en quelque sorte <em>acheter</em> le consentement du peuple. Ce qui sera fait au travers d’une politique sociale généreuse - au moins en apparence - organisant vacances et croisières, loisirs, aides sociales en tout genre proposées par la <em>Kraft durch Freude</em> ou <em>Force par la joie</em>, intégré au <em>Deutsche Arbeitsfront</em> le syndicat unique.</p>
-<p>C’est dans ce cadre que Höhn, alors professeur à Berlin et conseiller du Sicherheitsdienst (SD), le service de sécurité et d’espionnage de la SS et du parti, développe et peaufine ses théories du “management”, inspirées notamment par les réformes militaires de <a href="https://en.wikipedia.org/wiki/Gerhard_von_Scharnhorst">von Scharnhorst</a><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>. Au coeur de ces principes se trouve l’<em>Auftragstaktik</em> ou <em>tactique par la mission</em> : l’officier se voit confié une mission par ses supérieurs, charge pour lui de mettre en oeuvre <em>tous</em> les moyens pour parvenir à remplir l’objectif<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>.</p>
-<p>Höhn “disparait” à la fin de la guerre ce qui lui permet d’éviter la douloureuse épreuve des procès de dénazification, et reparait au début des années 50, après que la RFA a voté des lois d’amnistie pour les seconds couteaux. Il recommence à publier et fonde une école de management à <a href="https://de.wikipedia.org/wiki/Akademie_f%C3%BCr_F%C3%BChrungskr%C3%A4fte_der_Wirtschaft">Bad-Harzburg</a> qui verra passer 600000 cadres de toutes origines (jusqu’à 35000 par à son apogée en 1974) : industrie, services, privé et public…</p>
-<p>Décliné en théorie du management, l’<em>Auftragstaktik</em> permet à l’organisation une grande souplesse et une performance maximale et devient le <em>management par objectif</em>. Les “managers” et employés à tous niveaux se voient confiés des missions et objectifs dont ils deviennent responsables, pour l’atteinte desquels tous les moyens sont bons. Ce principe sera développé dans la gestion des “ressources humaines”, notamment avec l’accent mis sur les “fiches de poste” et “lettres de mission”.</p>
-<p>Dans les années 70, une nouvelle génération n’accepte plus les compromis fait par la RFA avec le passé nazi pour permettre la reconstruction et le “miracle économique” allemand. Des articles révèlent le passé nazi de Höhn, le forçant à prendre sa retraite. Son école fera faillite mais sera reprise, l’enseignement mis au goût du jour. Höhn meurt en 2000.</p>
-<h1 id="analyse">Analyse</h1>
-<p>J’ai eu l’occasion de discuter de ce livre - avant de l’avoir lu, suivant les conseils de Pierre Bayard - sur le <em>Slack</em> “Les agiliste”, suite à une interview de <a href="https://www.liberation.fr/debats/2020/01/05/johann-chapoutot-le-nazisme-a-ete-une-matrice-du-management-moderne_1771724">Johann Chapoutot</a> parue dans Libération. Il est clair que l’interview est beaucoup moins nuancée que le livre et que l’amalgame qui y est fait entre le management moderne et le nazisme ressemble fort à la volonté d’atteindre le point Godwin en un coup.</p>
-<p>Le livre, en retraçant le parcours intellectuel et professionnel de Reinhard Höhn, permet sinon de révéler du moins de rappeler que la modernité est soluble dans le nazisme malgré, ou peut-être grâce à, l’extraordinaire incohérence dans le <em>discours</em> nazi et dans sa mise en oeuvre : entre l’exaltation des forces de la Nature et l’asservissement de la technicité la moins naturelle, la critique radicale de l’État et l’incroyable enchevêtrement bureaucratique créé par les diginitaires nazis, l’asservissement de l’individu à la communauté, à la “race” et la fascination pour les héros, les individus exceptionnels ; et, donc, la flexibilité et l’agilité requise dans les strates intermédiaires des organisations et la rigidité des objectifs et des hiérarchies.</p>
-<p>Bien évidemment, ce livre est surtout une critique du “management”, montrant la filiation directe qui relie les méthodes qui ont aujourd’hui le vent en poupe - délégation, bonheur au travail, flexibilité - aux techniques de <em>Menschenfürung</em> développées par Höhn et ses semblables dans le but de maximiser la “productivité” de la machine de guerre nazie. Le parallèle pourrait même être poussé un cran plus loin en soulignant à quel point l’attention accordée aux employés et cadres des grandes organisations contemporaines a pour contrepoint l’exploitation de masse dans des pays à bas coût de main d’oeuvre, de même que le bonheur du travailleur allemand était indexé sur la mise en coupe réglée et l’esclavage d’une grande partie de l’Europe.</p>
-<p>Il par ailleurs souligne la perversité de ces méthodes “modernes” qui d’un côté sont aux petits soins pour les individus, s’occupent des moindres détails de leur bien-être ; et de l’autre les responsabilisent à outrance en leur fixant des objectifs souvent inaccessibles par des voies “normales”, produisant de la charge de travail supplémentaire et parfois des comportements violents. Cette dissociation de la responsabilité entre les fins et les moyens est incroyablement perverse car elle permet à tous les échelons de se défausser : les chefs, en disant qu’ils n’ont pas voulu ça et que les subordonnés ont pris trop d’initiatives, les subordonnés en disant qu’ils n’ont fait que le travail qui leur été demandé et qu’ils n’étaient que des rouages dans la machine.</p>
-<p>Le “mystère” nazi - comment une nation parmi les plus civilisées du monde a pu sombrer dans la barbarie industrialisée - n’en est évidemment pas un : en séparant les <em>moyens</em> des <em>fins</em> et en jouant sur les affects d’une population meurtrie et déboussolée, tout devient possible.</p>
-<p>“Libres d’obéir” offre aussi d’autres pistes de réflexion qui font écho à toute une littérature sociologique et anthropologique sur la domination, sa fatalité, ses mécanismes, ses masques, en tout premier lieu bien sûr au travail de Bourdieu. Je pense en particulier à ses cours <a href="http://www.seuil.com/ouvrage/sur-l-etat-pierre-bourdieu/9782020662246">Sur l’État</a> et à son analyse de la formation de l’État moderne comme constitution d’un <em>champ</em> autonome permettant à toute une classe de lettrés d’acquérir du pouvoir face à la noblesse et au clergé, qui répond à la théorie nazi de formation de l’État comme instrument au service du Prince contre le Peuple.</p>
-<p>Cette vision de l’État comme antithétique à la communauté du peuple ou de la race semble curieusement peu éloignée de certaines conceptions d’inspirations rousseauistes ou libertaires, à cette différence fondamentale près que là où les nazis postulent une communauté d’origine naturelle, constituée par le sang et bornée par la pureté raciale, Rousseau et la tradition anarchiste libertaire ne posent aucune limite à la manière dont les individus libres s’associent pour former communauté.</p>
-<p>Plus simplement et plus concrètement, ce livre constitue à mon sens un salutaire rappel sur la généalogie plus que douteuse des organisations modernes et sur la nécessité de “refaire société” sur des bases qui tiennent compte et des <strong>moyens</strong>, et des <strong>fins</strong>, ce qui suppose un changement radical des modes de constitution et de gouvernement des entreprises, syndicats et services publics ; et sur notre responsabilité, en tant que membre de ces organisations.</p>
-<p>Il souligne enfin que la domination d’une partie de la population sur une autre ne peut se faire uniquement par la force, ni même principalement par elle : il y faut du consentement.</p>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>L’altérité radicale du Mal est un thème essentiel dans les films et comics de super-héros. Dans le film <em>Avengers</em>, le monde est menacé par des aliens qui surgissent d’un portail transdimensionnel, appelés par Loki, et sauvé par des super-héros qui, s’ils sont divers et parfois étranges n’en sont pas moins tous profondément <em>américains</em>. Il y a des super-vilains américains bien sûr, mais ils sont “normaux”, ils ne menacent pas vraiment l’équilibre du monde, ils sont mauvais mais ne sont pas le <em>Mal</em>.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Un exemple plus connu est celui d’<a href="https://en.wikipedia.org/wiki/Albert_Speer">Albert Speer</a>, dont le génie organisateur a grandement aidé l’Allemagne, comparativement pauvre en ressources, à développer une économie de guerre extrêmement efficace. La lecture de ses mémoires, <a href="https://www.fayard.fr/pluriel/au-coeur-du-troisieme-reich-9782818500118">Au coeur du IIIème Reich</a>, vaut le détour.<a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>Von Scharnhorst est le général qui a réformé l’armée prussienne, sclérosée dans les méthodes et la pensée de Frédéric II et laminée par Napoléon en 1806-1807.<a href="#fnref3">↩</a></p></li>
-<li id="fn4"><p>Dans les wargames sur la seconde guerre mondiale, les chefs intermédiaires allemands bénéficient toujours d’un “bonus” d’initiative par rapport aux autres nations ; et les fameux <em>Kampfgruppe</em>, groupements ad hoc d’unités combattantes diverses, représentent la traduction de cette flexibilité dans les moyens mis en oeuvre pour atteindre l’objectif.<a href="#fnref4">↩</a></p></li>
-</ol>
-</div>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
 </entry>
 
 </feed>
