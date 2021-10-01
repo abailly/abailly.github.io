@@ -7,7 +7,7 @@ date: 2021-09-26
 
 J'ai lu _L'invention du quotidien_, vol.1, de [Michel de Certeau](https://en.wikipedia.org/wiki/Michel_de_Certeau), fréquemment cité par Tim Ingold dans _Une histoire des lignes_. Il me semble aussi que James C. Scott et, de manière allusive, Bourdieu dans ses cours au Collège de France, le citent. Il fait partie de cette famille de penseurs critiques que mai 68 a cristallisée, qui s'est plus tard exportée aux USA sous le nom de "French Theory", produisant les _Cultural studies_ et plus récemment toute la famille des théories critiques de la société moderne : _Gender studies_, _Critical Race Theory_,...
 
-Par ailleurs, Michel de Certeau a une formation de théologien et d'historien et a contribué au développement d'une école que l'on appelle _micro-histoire_, dont l'objectif est de faire l'histoire de ceux qui n'ont pas d'histoire : les "petites gens", les marginaux, les faits anecdotiques et la vie quotidienne, les pratiques anciennes. Bref c'est un auteur que l'on peut définitivement classer à "gauche".
+Michel de Certeau a par ailleurs une formation de théologien et d'historien et a contribué au développement d'une école que l'on appelle _micro-histoire_, dont l'objectif est de faire l'histoire de ceux qui n'ont pas d'histoire : les "petites gens", les marginaux, les faits anecdotiques et la vie quotidienne, les pratiques anciennes. Bref c'est un auteur que l'on peut définitivement classer à "gauche".
 
 Ce premier volume est issu d'une étude sur les pratiques culturelles s'étalant sur plusieurs années, et fût suivi d'un second volume rédigé par d'autres auteurs centrés sur les pratiques culinaires et la vie domestique (pas encore lu).
 
