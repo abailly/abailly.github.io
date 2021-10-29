@@ -19,20 +19,21 @@ Here is a concrete example drawn from my current project, Hydra, implemented in 
 
 Because we are using a functional language, this interface is expressed as a function which itself takes other functions (callbacks), a recurring pattern we documented in an [Architectural Decision Record](https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/docs/adr/0007-with-pattern-component-interfaces.md):
 
-```.haskell
+~~~~~ {.haskell}
 type ChainComponent tx m a = ChainCallback tx m -> (Chain tx m -> m a) -> m a
-```
+~~~~~
 
 where
-```.haskell
+
+~~~~~ {.haskell}
 type ChainCallback tx m = OnChainTx tx -> m ()
 
 newtype Chain tx m = Chain  { postTx :: MonadThrow m => PostChainTx tx -> m () }
-```
+~~~~~
 
 The details of the messages we are sending and receiving are defined as two separate data types, one representing outbound transactions, eg. transactions we'll post to the chain:
 
-```.haskell
+~~~~~ {.haskell}
 data PostChainTx tx
   = InitTx {headParameters :: HeadParameters}
   | CommitTx {party :: Party, committed :: Utxo tx}
@@ -41,11 +42,11 @@ data PostChainTx tx
   | CloseTx {snapshot :: Snapshot tx}
   | ContestTx {snapshot :: Snapshot tx}
   | FanoutTx {utxo :: Utxo tx}
-```
+~~~~~
 
 and the other representing inbound messages, eg. transactions and errors observed on the chain:
 
-```.haskell
+~~~~~ {.haskell}
 data OnChainTx tx
   = OnInitTx {contestationPeriod :: ContestationPeriod, parties :: [Party]}
   | OnCommitTx {party :: Party, committed :: Utxo tx}
@@ -55,7 +56,7 @@ data OnChainTx tx
   | OnContestTx
   | OnFanoutTx
   | PostTxFailed
-```
+~~~~~
 
 Had we coded in an Object-Oriented language, or used a [final tagless encoding](https://peddie.github.io/encodings/encodings-text.html), these would have been expressed as two separate interfaces with one method for each type. The important point here is that _we_ are in control of this interface, _we_ define the patterns of interactions with the external system we depend on and abstract away all the nitty-gritty details a dependency on a concrete implementation would entail. Our system is now _loosely coupled_ to the other system as we have [separated concerns](https://en.wikipedia.org/wiki/Separation_of_concerns).
 
