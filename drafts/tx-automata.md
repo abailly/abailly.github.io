@@ -25,3 +25,31 @@ One way to reason about the ledger is to think of transactions as _transitions_ 
 ![](/images/automata.png)
 
 Here, what's obvious is not the _dependency_ between transactions but rather which ones are (pairwise) indeependent, a fact that's represented by the characteristic _diamond-shape_ of parts involving independent transactions. The concurrency inherent to this _independence relation_ is modelled as the _possible interleaving_ of all the transactions. This is interesting in itself because, in practice in a ledger, transactions are applied sequentially anyway.
+
+What's also obvious is the combinatorial blow-up this explicit representation entails: Every pair of independent transactions can happen in any order, which means that if all transactions are independent then the number of states and transitions of the automata is exponential in the number of transactions.
+
+However, transactions being _independent_ implies they can be processed by concurrent processes, with dependent transactions being  synchronizing points between those concurrent processes. What we can do then, is _decompose_ the global automata and, taking into account the dependencies between transactions, find _local automata_ whose "composition" provides the same behaviour. By composition, we mean more precisely composition through _synchronisation product_, a particular operator which we'll precisely define later.
+
+From the previous dependencies statement, we can define one automata to just be `tx1` followed by `tx4`
+![](/images/automata2.png)
+
+and another one to have possible interleaving of `tx1` and `tx2`, followed by `tx3`
+![](/images/automata1.png)
+
+Note that this decomposition is not necessarily unique, nor minimal. In that particular case we could have introduced another decomposition in three automata:
+
+* One automata with `tx1 -> tx4`,
+* One with `tx1 -> tx3`,
+* One with `tx2 -> tx3`.
+
+The finest grain decomposition would be one where each individual automaton would have either one transition, if the transaction it represents is independent, or two transitions if one depends on the  other. Then the _synchronisation product_ will take care of producing a global trace from those simple, atomic atutomata.
+
+What this gives us is a drastic reduction in complexity as we can now reason locally, on each atomic automata, to understand the sequential part of the behaviour of the system, and only take care of the composition and global state to reason on the synchronised part, for example to detect deadlocks or loopholes.
+
+## Formal Model
+
+Note: These definitions are drawn from [Partial Commutation and Traces](https://www.researchgate.net/publication/280851316_Partial_Commutation_and_Traces).
+
+Formally, given an alphabet $\Sigma$ and an independence relation $I \subseteq \Sigma \times \Sigma$ a _trace language_ $T$ is a subset of the _free partially commutative monoid_ denoted $\mathbb{M}(\Sigma, I)$. A _trace_ denoted $[w]$ is the equivalence class of words in $\Sigma^*$ under the congruence relation $\cong_I$ induced by independence set $I$, where
+
+$$ab \cong_I ba, (a,b) \in I.$$
