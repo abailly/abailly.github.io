@@ -1,0 +1,141 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - UTxO as Asynchronous Automata</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://abailly.github.io"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="#">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="draft" id="main" role="main">
+<h1>UTxO as Asynchronous Automata</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on November  3, 2021</div>
+
+<p>There’s been somewhat of a stir recently in the <a href="https://cardano.org/">Cardano</a> and crypto community as some doubts were raised about the concurrency level one could achieve with the UTxO model for Smart contracts applications. Being myself involved in the development of <a href="https://github.com/input-output-hk/plutus">Plutus-based</a> application, I have had to go wrap my head around the <a href="https://iohk.io/en/research/library/papers/the-extended-utxo-model/">eUTxO</a> programming model, which lead me to explore ways of designing such applications in an easier way, taking into account the inherent concurrency the eUTxO model entails.</p>
+<p>Concurrency is hard to reason about, and there’s been quite a few models invented since <em>Computer Science</em> became a thing. Among those many models, the theory of <a href="https://en.wikipedia.org/wiki/Trace_theory">Mazurkiewicz traces</a> presents the advantage of being “simple”, for some definition of “simple”, resting on the already well-known theory of regular languages and automata.</p>
+<p>This short post investigates the relationship between a UTxO ledger and <em>Asynchronous automata</em>, a class of automata that can recognise trace languages.</p>
+<h2 id="working-through-an-example">Working through an Example</h2>
+<p>Let’s start with a simple example, some graph of (abstract) transactions consuming and producing UTxOs:</p>
+<div class="figure">
+<img src="../images/txs.png" alt="Ledger transactions" />
+<p class="caption">Ledger transactions</p>
+</div>
+<p>Among the 4 depicted transactions it’s pretty obvious that:</p>
+<ul>
+<li><code>tx4</code> only depends on <code>tx1</code>,</li>
+<li><code>tx3</code> depends on both <code>tx1</code> and <code>tx2</code>.</li>
+</ul>
+<p>One way to reason about the ledger is to think of transactions as <em>transitions</em> in an automata (or state-machine) where the state is a set of UTxO. If we try to give such an automata theoretic representation of the above transactions, we get the following picture:</p>
+<div class="figure">
+<img src="../images/automata.png" alt="Global automaton (\cal{A})" />
+<p class="caption">Global automaton (<span class="math inline">\(\cal{A}\)</span>)</p>
+</div>
+<p>Here, what’s obvious is not the <em>dependency</em> between transactions but rather which ones are (pairwise) indeependent, a fact that’s represented by the characteristic <em>diamond-shape</em> of parts involving independent transactions. The concurrency inherent to this <em>independence relation</em> is modelled as the <em>possible interleaving</em> of all the transactions. This is interesting in itself because, in practice in a ledger, transactions are applied sequentially anyway.</p>
+<p>What’s also obvious is the combinatorial blow-up this explicit representation entails: Every pair of independent transactions can happen in any order, which means that if all transactions are independent then the number of states and transitions of the automata is exponential in the number of transactions.</p>
+<p>However, transactions being <em>independent</em> implies they can be processed by concurrent processes, with dependent transactions being synchronizing points between those concurrent processes. What we can do then, is <em>decompose</em> the global automata and, taking into account the dependencies between transactions, find <em>local automata</em> whose “composition” provides the same behaviour. By composition, we mean more precisely composition through <em>synchronisation product</em>, a particular operator which we’ll precisely define later.</p>
+<p>From the previous dependencies statement, we can define one automata to just be <code>tx1</code> followed by <code>tx4</code></p>
+<div class="figure">
+<img src="../images/automata2.png" alt="Local automaton 1 (\cal{A}_1)" />
+<p class="caption">Local automaton 1 (<span class="math inline">\(\cal{A}_1\)</span>)</p>
+</div>
+<p>and another one to have possible interleaving of <code>tx1</code> and <code>tx2</code>, followed by <code>tx3</code></p>
+<div class="figure">
+<img src="../images/automata1.png" alt="Local automaton 2 (\cal{A}_2)" />
+<p class="caption">Local automaton 2 (<span class="math inline">\(\cal{A}_2\)</span>)</p>
+</div>
+<p>Note that this decomposition is not necessarily unique, nor minimal. In that particular case we could have introduced another decomposition in three automata:</p>
+<ul>
+<li>One automata with <code>tx1 -&gt; tx4</code>,</li>
+<li>One with <code>tx1 -&gt; tx3</code>,</li>
+<li>One with <code>tx2 -&gt; tx3</code>.</li>
+</ul>
+<p>The finest grain decomposition would be one where each individual automaton would have either one transition, if the transaction it represents is independent, or two transitions if one depends on the other. Then the <em>synchronisation product</em> will take care of producing a global trace from those simple, atomic atutomata.</p>
+<p>What this gives us is a drastic reduction in complexity as we can now reason locally, on each atomic automata, to understand the sequential part of the behaviour of the system, and only take care of the composition and global state to reason on the synchronised part, for example to detect deadlocks or loopholes.</p>
+<h2 id="formal-model">Formal Model</h2>
+<p>Note: These definitions are drawn from <a href="https://www.researchgate.net/publication/280851316_Partial_Commutation_and_Traces">Partial Commutation and Traces</a>.</p>
+<p>Formally, given an alphabet <span class="math inline">\(\Sigma\)</span> and an independence relation <span class="math inline">\(I \subseteq \Sigma \times \Sigma\)</span> a <em>trace language</em> <span class="math inline">\(T\)</span> is a subset of the <em>free partially commutative monoid</em> denoted <span class="math inline">\(\mathbb{M}(\Sigma, I)\)</span>. A <em>trace</em> denoted <span class="math inline">\([w]\)</span> is the equivalence class of words in <span class="math inline">\(\Sigma^*\)</span> under the congruence relation <span class="math inline">\(\cong_I\)</span> induced by independence set <span class="math inline">\(I\)</span>, where</p>
+<p><span class="math display">\[ab \cong_I ba, (a,b) \in I.\]</span></p>
+<p>From our previous example we can define the trace language <span class="math inline">\(\cal{L}\)</span> over alphabet <span class="math inline">\(\Sigma=\{\texttt{tx}_1,\texttt{tx}_3,\texttt{tx}_3,\texttt{tx}_4\}\)</span> and independence relation <span class="math inline">\(I = \{(\texttt{tx}_1,\texttt{tx}_2),(\texttt{tx}_2,\texttt{tx}_4), (\texttt{tx}_3,\texttt{tx}_4)\}\)</span>, as</p>
+<p><span class="math display">\[\cal{L} = \{\lbrack \texttt{tx}_1, \texttt{tx}_2,\texttt{tx}_3,\texttt{tx}_4\rbrack\}.\]</span></p>
+<p><em>Zielonka’s Theorem</em> is a deep result from trace theory that states a <em>trace language</em> is <em>recognizable</em> if and only if it is recognized by some <em>asynchronous automaton</em>. An asynchronous automaton over a set of processes <span class="math inline">\(J\)</span> is an automaton <span class="math inline">\(\cal{A} = (Q,\Sigma,\delta,q_0,F)\)</span> where</p>
+<ul>
+<li><span class="math inline">\(Q = \prod_{i \in J} Q_i\)</span>, where <span class="math inline">\(Q_i\)</span> is a the <em>local state</em> of process <span class="math inline">\(i\)</span>,</li>
+<li><span class="math inline">\(\Sigma\)</span> is the alphabet, with a function <span class="math inline">\(\textrm{dom} : \Sigma \rightarrow J\)</span> defining a <em>domain</em> function as the subset of <span class="math inline">\(\Sigma\)</span> local to each process,</li>
+<li><span class="math inline">\(q_0 \in Q\)</span> is the initial state,</li>
+<li><span class="math inline">\(F \subseteq Q\)</span> are the final states,</li>
+<li><span class="math inline">\(\delta \in Q \times \Sigma \times Q\)</span> is the transition relation over global state resulting from the “conjunction” of each transition relation <span class="math inline">\(\delta_i\)</span> for each process <span class="math inline">\(i\)</span>. In other words, <span class="math display">\[\delta((q_1, .., q_n), a) = (q'_1, .., q'_n) \Leftrightarrow \delta_i(q_i, a) = q'_i, \forall i\in J\]</span></li>
+</ul>
+<p>Note this means the transition relation is defined for some state <span class="math inline">\(q\)</span> and some letter <span class="math inline">\(a\)</span> iff it is defined for <em>all</em> <span class="math inline">\(\delta_i\)</span>. It is customary to turn the (partial) <span class="math inline">\(\delta_i\)</span> relations into functions by adding a sink state <span class="math inline">\(q_\bot\)</span> and transitions:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\delta(q,a) = q\)</span> if <span class="math inline">\(i \not\in \mathrm{dom}(a),\)</span></li>
+<li><span class="math inline">\(\delta(q,a) = q_\bot\)</span> otherwise.</li>
+</ol>
+<p>The link between a rational trace language and an asynchronous automata is complex to establish formally, but intuitively the idea is that the independence relation <span class="math inline">\(I\)</span> represents letters from <span class="math inline">\(\Sigma\)</span> that can commute with each other, thus expressing concurrency through interleaving. Letters are dependent when their order is constrained by at least one process.</p>
+<p>Then, given a set <span class="math inline">\(\cal{A}_i, i \in J\)</span> of local automata, defined over an alphabet <span class="math inline">\(\Sigma\)</span>, we can construct an <em>asynchronous automaton</em> using the <em>synchronization product</em> <span class="math inline">\(\cal{A}_{i_1} \otimes \cal{A}_{i_2} \dots \otimes \cal{A}_{i_n}\)</span>. The synchronization product operator <span class="math inline">\(\cal{A}_i \otimes \cal{L}_j\)</span> can be defined informally as the cartesian product of the two automata, <em>synchronized</em> on the letters in <span class="math inline">\(\Sigma_i \cap \Sigma_j\)</span>, where <span class="math inline">\(\Sigma_i = \{ a \in \Sigma \mid a \in \text{dom}(i))\}\)</span>:</p>
+<ul>
+<li>Transitions <span class="math inline">\((q_i, q_j) \xrightarrow[(a,b)]{} (q'_i, q'_j)\)</span> are possible iff either <span class="math inline">\(a \not\in \Sigma_i\)</span>, <span class="math inline">\(b \not\in \Sigma_j\)</span>, or <span class="math inline">\(a=b\)</span>.</li>
+</ul>
+<p>In other words the shared letters of each automata represent <em>synchronization points</em> where they are required to advance in lock step, otherwise being free to run locally in isolation.</p>
+<p>In our ongoing example, we have <span class="math inline">\(\Sigma\)</span> defined as before and</p>
+<ul>
+<li><span class="math inline">\(\Sigma_1 = \{ \texttt{tx}_1, \texttt{tx}_4 \},\)</span></li>
+<li><span class="math inline">\(\Sigma_2 = \{ \texttt{tx}_1, \texttt{tx}_2, \texttt{tx}_3 \},\)</span></li>
+<li><span class="math inline">\(\cal{A} = \cal{A}_1 \otimes \cal{A}_2.\)</span></li>
+</ul>
+<p>The <em>synchronization product</em> gives us a way to define implicitly the behaviour of a global system as some composition of the behaviour of each local system, in a constructive way.</p>
+<h2 id="so-what">So What?</h2>
+<p>Writing fancy mathematics in <span class="math inline">\(\LaTeX\)</span> is cool but one could ask: What’s the point of all this formalisation? Does it solve any practical problem? While I don’t have a definitive answer to this question, I believe that in the context of a UTxO based blockchain it could be interesting to explore how we can use the idea of <em>synchronized product</em> and <em>asynchronous automaton</em> to build large systems from smaller ones taking advantage of the inherent <em>concurrency</em> introduced by the UTxO model.</p>
+<p>When designing a smart-contracts based application, the state machine model is appealing as a way to structure the relevant sequence of transactions, so much so that it’s been baked in Plutus as a specific <a href="https://github.com/input-output-hk/plutus-apps/tree/40e8e93dec35cebb830af317b1ddb64d275014e2/plutus-contract/src/Plutus/Contract/StateMachine">State Machine module</a>. However, such a state machine is inherently <em>sequential</em> and does not take into account the possibility of multiple actors <em>synchronised</em> through the blockchain. In such a case, we could still model the interaction of the application with each actor as a single sequential state machine and reason about the global behaviour of the system usign the <em>synchronised product</em> of a finite number of such state machines. While it’s prohibitively expensive to effectively build the asynchronous automaton, we could build the automaton <em>on-line</em>, eg. while <em>running</em> each of the individual automata. This approach would give us a way to explore the resulting system, either for generating test cases and check the actual execution on chain, or to simulate this execution and ensures some properties are “ensured”.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+  </div>
+</body>
+</html>
