@@ -17,7 +17,7 @@ The precise definition of an architect's role depends obviously on the organisat
 
 Architecture is an activity that's always done, consciously or unconsciously whereas architect is a role that's only needed "at scale".
 
-For some people, an architect is someone that draws a lot of boxes and arrows, and who likes . Or it's just a title that's given in some organisations to appraise particular individuals or justify a higher paycheck?
+Perhaps less seriously, an architect is someone that draws a lot of boxes and arrows, and who likes . Or it's just a title that's given in some organisations to appraise particular individuals or justify a higher paycheck.
 
 Some links:
 
