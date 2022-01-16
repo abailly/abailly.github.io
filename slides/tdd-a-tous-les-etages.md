@@ -7,12 +7,25 @@ theme: serif-compact
 transition: none
 ------------
 
+## La boucle TDD
+
+## Généraliser la boucle TDD
+
+![](http://www.growing-object-oriented-software.com/cover.jpg)
+
+## Outside-In TDD
+
+- Article de [Thomas Pierrain](http://tpierrain.blogspot.com/2021/03/outside-in-diamond-tdd-1-style-made.html)
+
 ## BDD & Acceptance Testing
+
+## Performance Testing & Benchmarks
+
+## Production Testing
 
 ## Property-Based Testing
 
 ## Model-Based Testing
-
 
 ## Documentation Testing
 
@@ -27,4 +40,3 @@ transition: none
 * [QuickCheck](https://hackage.haskell.org/package/QuickCheck)
 * [hypothesis](https://hypothesis.readthedocs.io/en/latest/)
 * [Idris](https://github.com/idris-lang/Idris2)
-*
