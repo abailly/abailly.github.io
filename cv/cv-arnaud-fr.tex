@@ -1,0 +1,270 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[a4paper,margin=0.75in]{geometry}
+\usepackage[french]{babel}
+\usepackage{resume}
+\usepackage[slantfont, boldfont]{xeCJK}
+
+\begin{document}
+\sloppy
+
+\maintitle{Arnaud Bailly}{26 avril 1969}{Mise à jour: \today}
+
+\noindent\href{mailto:arnaud.at.pankzsoft.dot.com}{arnaud\mbox{}@\mbox{}pankzsoft.com}\sbull
+\textsmaller{+}33(0)617121978\sbull
+{\newnums arnaud-bailly} \emph{(Skype)}\sbull{\texttt dr\_c0d3} \emph{(twitter)}\sbull
+\href{http://www.linkedin.com/in/arnaudbailly}{www.linkedin.com/in/arnaudbailly} \sbull
+\href{https://github.com/abailly}{https://github.com/abailly} \\
+6, rue de Clermont\sbull
+44000 Nantes\sbull
+France
+
+\spacedhrule{0.9em}{-0.4em}  % a horizontal line with some vertical spacing before and after
+
+\roottitle{Résumé}  % a root section title
+
+\begin{multicols}{2}  % open a multicolumn environment
+  En tant que chercheur, architecte, responsable technique, directeur technique et co-fondateur de \emph{startups}, ou consultant ayant développé, mis en production et maintenu plusieurs systèmes logiciels, j'ai acquis une expérience riche et variée, et possède une palette de connaissances et compétences liées au développement logiciel très large.
+
+  Je m'intéresse plus particulièrement aux problèmes liés à la conception et au développement de langages au sens large, au génie logiciel, à la vérification et validation de systèmes, au \emph{DevOps} et à l'intégration de l'ensemble du cycle de vie du logiciel. Depuis quelques années je me concentre plus particulièrement sur les systèmes répartis, robustes et décentralisés, et j'ai développé une expertise dans les langages fonctionnels statiquement typés tels qu'Haskell ou Idris. Je m'intéresse aussi aux utilisateurs des logiciels et j'ai une certaine appétence pour la maintenance et la rénovation d'applications dites patrimoniales.
+
+  Je préfère travailler en équipe et j'ai l'expérience du \emph{leadership}, et suis toujours à l'affût de nouvelles techniques et outils pour développer des systèmes logiciels, d'où mon intérêt depuis de nombreuses années pour les \emph{méthodes agiles} et plus particulièrement pour \emph{l'eXtreme Programming}.
+\end{multicols}
+
+\roottitle{Expériences professionnelles}
+
+\headedsection{Input Output Global}{Singapore (remote)}{%
+  \headedsubsection
+      {Hydra -- Architecte Technique}
+      {mars 2021 -- présent}\\
+      {Cardano est une \emph{chaîne de blocs} publique basée sur une technique innovante de \emph{preuve d'enjeu}, développée en Haskell à partir de travaux de recherches. Dans le cadre du passage à l'échelle de Cardano, le projet Hydra a pour but d'implémenter un algorithme et une plate-forme permettant de maximiser la quantité de transactions réalisées au prix d'une réduction de la portée du réseau, solution dite \emph{Layer 2}.
+        \begin{itemize}
+        \item Architecture, conception et implémentation d'un noeud de calcul réparti permettant de construire un réseau de niveau 2
+        \item Conception et implémentation des \emph{Smart contracts} nécessaires à la sécurisation des opérations de la plate-forme
+          \item Mise en place d'une méthodologie de développement \emph{Agile} et plus particulièrement du \emph{Développement dirigé par les tests} et de \emph{programmation en groupe}
+          \item Soutien technique et promotion du projet au sein de la communauté Cardano et auprès de partenaires potentiels
+          \item \textbf{Technologies}: eXtreme Programming, Haskell, Plutus, \emph{Smart Contracts}, \emph{Blockchain}, Cardano, Docker, GCP
+        \end{itemize}
+      }
+}
+
+\headedsection{Solina Group}{Rennes, France}{%
+  \headedsubsection
+      {Co-responsable technique}
+      {jan. 2020 -- fév. 2021}\\
+      {Dans le cadre du projet de refonte de la plate-forme PIM/PLM du groupe Solina, j'ai accompagné l'équipe de développement et son responsable dans la migration d'une application \emph{Powerbuilder} vers une architecture micro-services sur Azure.
+        \begin{itemize}
+          \item Accompagnement de l'équipe dans la mise en place de pratiques de développements: TDD, binômage, livraison incrémentale et itérative
+          \item Identification des cas d'usages principaux, travail de priorisation avec l'équipe produit
+          \item Développement d'un \emph{framework} de tests unitaires et d'intégration continue pour \emph{Powerbuilder}
+          \item \textbf{Technologies}: Powerbuilder, C\#, Angular, Azure, eXtreme Programming
+        \end{itemize}
+      }
+}
+
+\headedsection{Symbiont.io}{New-York, USA (remote)}{%
+
+  \headedsubsection
+      {Responsable d'équipe technique}
+      {juin 2018 -- déc. 2019}
+      {\begin{itemize}
+        \item
+          Conception et développement d'une solution complète de gestion de prêts immobiliers sur la plate-forme de \emph{Smart contracts} développée par Symbiont
+        \item
+          Recrutement et pilotage d'une équipe d'ingénieure répartie (USA, UK, France) travaillant en étroite collaboration avec l'équipe produit
+        \item
+          Développement incrémentale d'une solution testable par les utilisateurs finaux en utilisant les techniques de  \emph{eXtreme Programming}
+          \item
+          \textbf{Technologies}: eXtreme Programming, Custom Blockchain language, Typescript, React, GraphQL, Python, Haskell, Docker, Kubernetes
+        \end{itemize}
+      }
+
+      \headedsubsection
+          {Ingénieur sénior}
+          {jui. 2017 -- mai 2018}
+          {
+          \begin{itemize}
+          \item
+            Développement d'un composant clé de la plate-forme Symbiont responsable de l'exécution des transactions d'une \emph{blockchain}
+          \item
+            Accompagnement de l'équipe dans l'apprentissage du développement en Haskell et la découverte de l'éco-système, notamment sur les aspects architecturaux, les techniques de \emph{test de propriété}, \dots
+          \item
+            Conception et réalisation d'une solution de test dirigé par les \emph{modèles} inspirée de \emph{Jepsen}. Cet outil est devenu l'outil normalisé pour le test de niveau système pour l'ensemble de l'organisation
+          \item
+            \textbf{Technologies}: Haskell, Blockchain, Docker, Kubernetes, GCP, Microservices
+          \end{itemize}
+          }
+}
+
+\headedsection{GorillaSpace}{Singapore (remote)}{%
+  \headedsubsection
+      {Directeur technique and co-fondateur}
+      {déc. 2016 -- mars 2017}
+      {\begin{itemize}
+        \item Conception et réalisation d'un prototype de place de marché pour la location d'espaces de bureaux
+        \item \textbf{Technologie}: Haskell, Elm, Docker, GCP, AWS, Micro-services
+      \end{itemize}}
+}
+
+\headedsection{Capital Match}{Singapore (remote)}{%
+  \headedsubsection
+      {Directeur technique and co-fondateur}
+      {août 2014 -- mars 2016}
+      {\begin{itemize}
+        \item
+          Conception et développement de la principale plate-forme de \emph{prêts crowdsourcés} de Singapore, gérant un encours S\$7.5M+ et 2K+ investisseurs
+        \item Conception et mise en place d'outils de gestion automatisée des aspects opérationnels de la plate-forme : intégration continue, \emph{build} automatisé, déploiement automatique basé sur \emph{docker}\dots
+        \item Recrutement et gestion d'une équipe répartie de 4 personnes
+        \item Utilisation d'Haskell pour l'ensemble des composants techniques, y compris le stockage \emph{event sourced}, l'API REST, la gestion de l'infrastructure, la télémétrie avec \emph{Riemann}
+        \item \textbf{Technologie}: Clojurescript, React, Haskell, Docker, Microservices, AWS
+      \end{itemize}}
+}
+
+\headedsection{Murex}{Paris, France}{%
+
+  \headedsubsection
+      {Consultant freelance}
+      {juin 2016 -- jui. 2016}
+      {\par
+        Au sein de l'équipe de R\&D, j'ai étudié l'intégration de plusieurs solutions \emph{open source} pour le traitement de flux et d'événements
+        \begin{itemize}
+        \item \textbf{Technologie}: Java, Scala, Spark
+        \end{itemize}%
+      }
+
+   \headedsubsection
+       {Architecte}
+       {juin 2013 -- août 2014}
+       {\par
+         J'ai conçu et développé une solution répartie de gestion de la plate-forme MX.3, coeur de métier de la société Murex. Cette solution fournit une interface de type REST unifiée pour le pilotage de multiples instances de l'application et de l'ensemble de ses services, elle est devenue au fil des années l'outil de référence pour l'ensemble des utilisateurs de MX.3
+         \begin{itemize}
+         \item \textbf{Technologie}: Java, REST API, Docker, Jenkins
+         \end{itemize}
+       }
+
+
+   \headedsubsection
+      {Développeur sénior \& Consultant}
+      {sept. 2012 -- mai 2013}
+      {%
+        \par
+        En tant que membre d'une équipe transverse, j'ai accompagné les équipes métiers dans l'amélioration de leurs processus et pratiques de développement en Java.
+      }
+
+    \headedsubsection
+        {Développeur sénior \& Consultant}
+        {mai 2010 -- sept. 2011}{\par
+          Au sein d'une équipe chargée du développement d'une plate-forme de calcul répartie, j'ai été plus particulièrement responsable de l'amélioration des performances du système, de la qualité et de la robustesse de la solution.
+        }
+
+    \headedsubsection
+        {Coach agile}
+        {juin 2009 -- avr. 2010}{%
+          \par
+          Au sein d'une équipe de 4 personnes, j'ai aidé les équipes de développement à réduire leur temps de cycle et améliorer la qualité du code produit en appliquant des techniques ``modernes'' de développement: eXtreme Programming, Lean, TDD
+        }
+}
+
+\headedsection{PolySpot}{Paris, France}{%
+
+  \headedsubsection
+      {Développeur principal \& architecte}
+      {sept. 2011 -- août 2012}{%
+        \par
+        J'ai dirigé une petite équipe travaillant sur un des composants de la prochaine version majeure de la plate-forme PolySpot, moteur de recherche d'entreprises.
+        \begin{itemize}
+        \item \textbf{Technologie}: Java, MongoDB, Akka, NLP
+        \end{itemize}
+      }
+}
+
+\headedsection{OQube}{Lille, France}{%
+  \headedsubsection
+      {Consultant}
+      {juin 2006 -- jan. 2010}{\par
+        Réalisation de missions de conseil, formation, accompagnement auprès de diverses organisations sur l'amélioration des pratiques de développement et la mise en place de méthodes \emph{Agiles}, plus particulièrement dans l'environnement Java/J2EE.
+      }
+}
+
+\headedsection{Courtanet}{Paris, France}{%
+  \headedsubsection
+      {Coach \& architecte}
+      {apr. 2008 -- mars 2009}{%
+        \par
+        Dans l'équipe de R\&D d'une plate-forme de comparateurs d'assurances (devenue \texttt{les-furets.com}), j'ai encadré une équipe de 6 ingénieurs pour la mise en place de méthodes \emph{Agiles}, plus particulièrement focalisé sur le TDD, l'intégration et la mise en production en continu, la planification itérative\dots
+        \begin{itemize}
+        \item \textbf{Technologie}: Javascript, Java, XUL
+        \end{itemize}
+      }
+}
+
+\headedsection{Norsys}{Lille, France}{%
+  \headedsubsection
+      {Ingénieur de recherche}
+      {sept. 2001 -- mars 2006}{\par
+        Durant ma thèse de doctorat, j'ai pris part à la conception et au développement de plusieurs prototypes et preuves de concepts pour divers clients.
+      }
+}
+
+\headedsection{Sans Peur et Sans Reproche}{Lille, France}{%
+  \headedsubsection
+      {Co-fondateur}
+      {avr. 1994 -- déc. 1997}{%
+        \par
+        Création d'une société d'édition de jeux de rôles et jeux de plateaux avec 3 amis, gestion de l'ensemble du processus de production des ouvrages, depuis la mise en page jusqu'à l'impression et la livraison.
+      }
+}
+
+\headedsection{Crédit Agricole}{Lille, France}{%
+  \headedsubsection
+      {Chargé d'affaires}
+      {fév. 1991 -- mars 1994}
+      {%
+        \par
+        Dans le service dédié à la clientèle de PME de 10 à 100 MF de chiffre d'affaire, j'ai géré un portefeuille de 60 clients.
+        }
+}
+
+\roottitle{Formation}
+
+\headedsection{Université des Sciences et Technologies de Lille}{Lille, France}{%
+  \headedsubsection
+      {Doctorat, Informatique}
+      {sept. 2001 -- sept. 2005}
+      {\par
+        Sujet: \emph{Test et Validation de composants logiciels}}
+
+      \headedsubsection
+          {DEA, Informatique}
+          {sept. 1998 -- juin 2001}
+          {}
+}
+
+\headedsection{SKEMA Business School}{Lille, France}{%
+  \headedsubsection
+      {Diplôme d'École de commerce}
+      {sept. 1987 -- sept. 1990}{}
+}
+
+\roottitle{Compétences}
+\inlineheadsection
+    {Expertise technique:}
+    {
+      \begin{itemize}
+      \item \emph{Conception \& réalisation:} expertise dans le \emph{Développement dirigé par les tests}, les tests systèmes, les tests de propriété et génératif, le BDD pour favoriser la collaboration avec les experts métiers (FitNesse, Cucumber)
+      \item \emph{Systèmes répartis}: spécifications et tests (Jepsen), blockchain, réseau TCP/IP, cryptographie (GPG, RSA, courbes elliptiques\dots), Smart contracts
+      \item \emph{Développement agile}: eXtreme Programming, Scrum, intégration continue, Domain-Driven Design
+      \item \emph{Programmation fonctionnelle}: Haskell, Idris, Elm, Clojure, Scala, OCaml
+      \item \emph{Programmation orientée-objet}: Java, C\#, C++ and .Net, Design Patterns, UML
+      \item \emph{Web}: HTTP, HTML, CSS, REST APIs, Javascript sous différentes formes (React/Redux, Clojurescript, Typescript)
+      \item \emph{Cloud}: Docker, GCP, DigitalOcean, Azure, AWS, DevOps
+      \end{itemize}
+    }
+
+    \vspace{1em}
+\inlineheadsection
+    {Langues:}
+    {Français (\emph{langue maternelle}), English (\emph{full professional proficiency}), Castellano (\emph{rouillé}), 中文 (\emph{débutant})}
+\roottitle{Centres d'intérêt}
+\inlineheadsection
+    {List non exhaustive dans un ordre aléatoire: }{philosophie (particulièrement la philosophie de l'esprit et la phénoménologie), sociologie, littérature (française, anglaise, classiques russes), art (modern et contemporain), sport (à visée hygiénique), codage et programmation, (un)conferences sur le logiciel, cuisine, wargames, jeux de plateaux...}
+\end{document}
