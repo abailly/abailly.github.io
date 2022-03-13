@@ -56,6 +56,7 @@ Man is an auto-interpretative being.
 According to Weber and Habermas, each culture favors one or the other form of relation to the worlds, classified along 2 pairs of opposition: Active or Passive attitude, whereby the Self is an intentional subject actively engaging with the World, or merely a receptacle of whatever the World throws at her ; Affirmation or Negation as ways to evaluate one's relationship to the world.
 
 |             | Active                    | Passive                        |
+|-------------|---------------------------|--------------------------------|
 | Affirmation | Adaptation (Confucianism) | Contemplation (Ancient Greece) |
 | Negation    | Domination (Capitalism)   | Escape (hinduism, buddhism)    |
 
