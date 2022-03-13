@@ -7,9 +7,7 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - Why mocking is a good idea</title>
-
   <meta name="description" content="Crafting code since 1994">
-
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -41,69 +39,186 @@
     </header>
     <div id="main" role="main">
 <h1>Why mocking is a good idea</h1>
+  <h2 class="subtitle">… when done right</h2>
+<div class="info">Posted on 2021-10-29</div>
 
-  <h2 class="subtitle">... when done right</h2>
-
-<div class="info">Posted on October 29, 2021</div>
-
-<p>Someone wrote a <a href="https://cs-syd.eu/posts/2021-10-22-why-mocking-is-a-bad-idea">recent post</a> debunking what the author thinks are <em>Mocks</em>. I say “thinks” because actually, what the author describes are not what <em>Mock objects</em> really are or how they were thought to be used, as this post demonstrates.</p>
+<p>Someone wrote a <a
+href="https://cs-syd.eu/posts/2021-10-22-why-mocking-is-a-bad-idea">recent
+post</a> debunking what the author thinks are <em>Mocks</em>. I say
+“thinks” because actually, what the author describes are not what
+<em>Mock objects</em> really are or how they were thought to be used, as
+this post demonstrates.</p>
 <h1 id="what-are-mock-objects-really">What are Mock Objects really?</h1>
-<p>The history of the <em>Mock object pattern</em> for <em>Test-Driven Development</em> is explained by <a href="http://www.mockobjects.com/">Steve Freeman</a> its inventor. He wrotes, with Nat Pryce, the book <a href="http://www.growing-object-oriented-software.com/">Growing Object-Oriented Software Guided by Test</a> which is a must read even if one does only functional programming. There’s also a shorter <a href="http://jmock.org/oopsla2004.pdf">OOPSLA 2004 paper</a> and an <a href="https://web.tecgraf.puc-rio.br/~ismael/Cursos/Cidade_MA/aulas/downloads/mockobjects.pdf">XP 2000 paper</a>. The very same idea was also exposed in the context of refactoring legacy code by Michael Feathers in his seminal <a href="https://understandlegacycode.com/blog/key-points-of-working-effectively-with-legacy-code/">Working Effectively with Legacy Code book</a> which is another must read, even if one does functional programming.</p>
-<p>The key insight about Mock objects dawned on me when I realised these were really <em>Design tools</em>, much like one harvests most of the benefits of TDD when she conceives tests as a force to drive software design and not merely as a safety net against regression. In other words, one <em>does not</em> use Mock objects, or mock <em>interfaces</em>, only to replace a cumbersome dependency, but rather mocks roles that emerge from the needs of some piece or component of the system, to express the expectations of this component regarding some dependency without having to depend on the implementation details. Mocks are used to design <em>interfaces</em> between moving parts of the system, or to let <em>seams</em> appear as M.Feathers names those.</p>
+<p>The history of the <em>Mock object pattern</em> for <em>Test-Driven
+Development</em> is explained by <a
+href="http://www.mockobjects.com/">Steve Freeman</a> its inventor. He
+wrotes, with Nat Pryce, the book <a
+href="http://www.growing-object-oriented-software.com/">Growing
+Object-Oriented Software Guided by Test</a> which is a must read even if
+one does only functional programming. There’s also a shorter <a
+href="http://jmock.org/oopsla2004.pdf">OOPSLA 2004 paper</a> and an <a
+href="https://web.tecgraf.puc-rio.br/~ismael/Cursos/Cidade_MA/aulas/downloads/mockobjects.pdf">XP
+2000 paper</a>. The very same idea was also exposed in the context of
+refactoring legacy code by Michael Feathers in his seminal <a
+href="https://understandlegacycode.com/blog/key-points-of-working-effectively-with-legacy-code/">Working
+Effectively with Legacy Code book</a> which is another must read, even
+if one does functional programming.</p>
+<p>The key insight about Mock objects dawned on me when I realised these
+were really <em>Design tools</em>, much like one harvests most of the
+benefits of TDD when she conceives tests as a force to drive software
+design and not merely as a safety net against regression. In other
+words, one <em>does not</em> use Mock objects, or mock
+<em>interfaces</em>, only to replace a cumbersome dependency, but rather
+mocks roles that emerge from the needs of some piece or component of the
+system, to express the expectations of this component regarding some
+dependency without having to depend on the implementation details. Mocks
+are used to design <em>interfaces</em> between moving parts of the
+system, or to let <em>seams</em> appear as M.Feathers names those.</p>
 <h1 id="the-proof-is-in-the-pudding">The proof is in the pudding</h1>
-<p>Here is a concrete example drawn from my current project, Hydra, implemented in Haskell. The Hydra node we are building needs to interact with a <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/src/Hydra/Chain.hs">Chain</a> component, both to submit transactions and to receive them. Instead of having to depend on the <a href="https://github.com/input-output-hk/cardano-node">somewhat complicated implementation details</a> of a real Cardano node, we instead defined an <em>interface</em> which expresses in a concise and implementation independent way the information we send and receive.</p>
-<p>Because we are using a functional language, this interface is expressed as a function which itself takes other functions (callbacks), a recurring pattern we documented in an <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/docs/adr/0007-with-pattern-component-interfaces.md">Architectural Decision Record</a>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">ChainComponent</span> tx m a <span class="fu">=</span> <span class="dt">ChainCallback</span> tx m <span class="ot">-&gt;</span> (<span class="dt">Chain</span> tx m <span class="ot">-&gt;</span> m a) <span class="ot">-&gt;</span> m a</code></pre></div>
+<p>Here is a concrete example drawn from my current project, Hydra,
+implemented in Haskell. The Hydra node we are building needs to interact
+with a <a
+href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/src/Hydra/Chain.hs">Chain</a>
+component, both to submit transactions and to receive them. Instead of
+having to depend on the <a
+href="https://github.com/input-output-hk/cardano-node">somewhat
+complicated implementation details</a> of a real Cardano node, we
+instead defined an <em>interface</em> which expresses in a concise and
+implementation independent way the information we send and receive.</p>
+<p>Because we are using a functional language, this interface is
+expressed as a function which itself takes other functions (callbacks),
+a recurring pattern we documented in an <a
+href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/docs/adr/0007-with-pattern-component-interfaces.md">Architectural
+Decision Record</a>:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">ChainComponent</span> tx m a <span class="ot">=</span> <span class="dt">ChainCallback</span> tx m <span class="ot">-&gt;</span> (<span class="dt">Chain</span> tx m <span class="ot">-&gt;</span> m a) <span class="ot">-&gt;</span> m a</span></code></pre></div>
 <p>where</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">ChainCallback</span> tx m <span class="fu">=</span> <span class="dt">OnChainTx</span> tx <span class="ot">-&gt;</span> m ()
-
-<span class="kw">newtype</span> <span class="dt">Chain</span> tx m <span class="fu">=</span> <span class="dt">Chain</span>  {<span class="ot"> postTx ::</span> <span class="dt">MonadThrow</span> m <span class="ot">=&gt;</span> <span class="dt">PostChainTx</span> tx <span class="ot">-&gt;</span> m () }</code></pre></div>
-<p>The details of the messages we are sending and receiving are defined as two separate data types, one representing outbound transactions, eg. transactions we’ll post to the chain:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">PostChainTx</span> tx
-  <span class="fu">=</span> <span class="dt">InitTx</span> {<span class="ot">headParameters ::</span> <span class="dt">HeadParameters</span>}
-  <span class="fu">|</span> <span class="dt">CommitTx</span> {<span class="ot">party ::</span> <span class="dt">Party</span>,<span class="ot"> committed ::</span> <span class="dt">Utxo</span> tx}
-  <span class="fu">|</span> <span class="dt">AbortTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}
-  <span class="fu">|</span> <span class="dt">CollectComTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}
-  <span class="fu">|</span> <span class="dt">CloseTx</span> {<span class="ot">snapshot ::</span> <span class="dt">Snapshot</span> tx}
-  <span class="fu">|</span> <span class="dt">ContestTx</span> {<span class="ot">snapshot ::</span> <span class="dt">Snapshot</span> tx}
-  <span class="fu">|</span> <span class="dt">FanoutTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}</code></pre></div>
-<p>and the other representing inbound messages, eg. transactions and errors observed on the chain:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">OnChainTx</span> tx
-  <span class="fu">=</span> <span class="dt">OnInitTx</span> {<span class="ot">contestationPeriod ::</span> <span class="dt">ContestationPeriod</span>,<span class="ot"> parties ::</span> [<span class="dt">Party</span>]}
-  <span class="fu">|</span> <span class="dt">OnCommitTx</span> {<span class="ot">party ::</span> <span class="dt">Party</span>,<span class="ot"> committed ::</span> <span class="dt">Utxo</span> tx}
-  <span class="fu">|</span> <span class="dt">OnAbortTx</span>
-  <span class="fu">|</span> <span class="dt">OnCollectComTx</span>
-  <span class="fu">|</span> <span class="dt">OnCloseTx</span> {<span class="ot">contestationDeadline ::</span> <span class="dt">UTCTime</span>,<span class="ot"> snapshotNumber ::</span> <span class="dt">SnapshotNumber</span>}
-  <span class="fu">|</span> <span class="dt">OnContestTx</span>
-  <span class="fu">|</span> <span class="dt">OnFanoutTx</span>
-  <span class="fu">|</span> <span class="dt">PostTxFailed</span></code></pre></div>
-<p>Had we coded in an Object-Oriented language, or used a <a href="https://peddie.github.io/encodings/encodings-text.html">final tagless encoding</a>, these would have been expressed as two separate interfaces with one method for each type. The important point here is that <em>we</em> are in control of this interface, <em>we</em> define the patterns of interactions with the external system we depend on and abstract away all the nitty-gritty details a dependency on a concrete implementation would entail. Our system is now <em>loosely coupled</em> to the other system as we have <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">separated concerns</a>.</p>
-<p>This has allowed us to focus on the core functionality of our software, to build a complete implementation of the <a href="https://iohk.io/en/research/library/papers/hydrafast-isomorphic-state-channels/">Hydra off-chain protocol</a>, <a href="https://www.youtube.com/watch?v=3D_SAC4nyVM">demonstrate a network of Hydra nodes</a> and have automated <a href="https://github.com/input-output-hk/hydra-poc/blob/master/local-cluster/test/Test/EndToEndSpec.hs#L99">end-to-end tests</a> all without the hassle of dealing with a full Cardano node implementation. Instead, we have several <em>Mock</em> implementations of the <code>Chain</code> interface described above suitable for various use cases: - A very fast <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/test/Hydra/BehaviorSpec.hs#L380">in-process</a> mock for Behaviour-driven testing of Hydra cluster, - A <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/src/Hydra/Chain/ZeroMQ.hs">0MQ-based</a> implementation that allows us to spin-up a cluster of Hydra nodes, completely mocking an <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/exe/mock-chain/Main.hs">external chain</a>.</p>
-<p>Note that: - We are not side-stepping the integration problem as demonstrated by the fact we are also testing <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/local-cluster/test/Test/LocalClusterSpec.hs#L51">interaction with Cardano node</a>, and we definitely will enhance our End-to-End tests to “Close the loop” once the <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/local-cluster/test/Test/DirectChainSpec.hs#L30">Chain tests</a> demonstrate the <em>concrete implementation</em> of our abstract transactions work correctly on a real Cardano network, - We have been careful to <a href="https://testing.googleblog.com/2020/07/testing-on-toilet-dont-mock-types-you.html">Mock types we own</a> in order to not fall into the trap of relying on a dumbed down and probably wrong implementation of some system we depend on.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">ChainCallback</span> tx m <span class="ot">=</span> <span class="dt">OnChainTx</span> tx <span class="ot">-&gt;</span> m ()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Chain</span> tx m <span class="ot">=</span> <span class="dt">Chain</span>  {<span class="ot"> postTx ::</span> <span class="dt">MonadThrow</span> m <span class="ot">=&gt;</span> <span class="dt">PostChainTx</span> tx <span class="ot">-&gt;</span> m () }</span></code></pre></div>
+<p>The details of the messages we are sending and receiving are defined
+as two separate data types, one representing outbound transactions, eg.
+transactions we’ll post to the chain:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">PostChainTx</span> tx</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> <span class="dt">InitTx</span> {<span class="ot">headParameters ::</span> <span class="dt">HeadParameters</span>}</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">CommitTx</span> {<span class="ot">party ::</span> <span class="dt">Party</span>,<span class="ot"> committed ::</span> <span class="dt">Utxo</span> tx}</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">AbortTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">CollectComTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">CloseTx</span> {<span class="ot">snapshot ::</span> <span class="dt">Snapshot</span> tx}</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">ContestTx</span> {<span class="ot">snapshot ::</span> <span class="dt">Snapshot</span> tx}</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">FanoutTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}</span></code></pre></div>
+<p>and the other representing inbound messages, eg. transactions and
+errors observed on the chain:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">OnChainTx</span> tx</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> <span class="dt">OnInitTx</span> {<span class="ot">contestationPeriod ::</span> <span class="dt">ContestationPeriod</span>,<span class="ot"> parties ::</span> [<span class="dt">Party</span>]}</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnCommitTx</span> {<span class="ot">party ::</span> <span class="dt">Party</span>,<span class="ot"> committed ::</span> <span class="dt">Utxo</span> tx}</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnAbortTx</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnCollectComTx</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnCloseTx</span> {<span class="ot">contestationDeadline ::</span> <span class="dt">UTCTime</span>,<span class="ot"> snapshotNumber ::</span> <span class="dt">SnapshotNumber</span>}</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnContestTx</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnFanoutTx</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">PostTxFailed</span></span></code></pre></div>
+<p>Had we coded in an Object-Oriented language, or used a <a
+href="https://peddie.github.io/encodings/encodings-text.html">final
+tagless encoding</a>, these would have been expressed as two separate
+interfaces with one method for each type. The important point here is
+that <em>we</em> are in control of this interface, <em>we</em> define
+the patterns of interactions with the external system we depend on and
+abstract away all the nitty-gritty details a dependency on a concrete
+implementation would entail. Our system is now <em>loosely coupled</em>
+to the other system as we have <a
+href="https://en.wikipedia.org/wiki/Separation_of_concerns">separated
+concerns</a>.</p>
+<p>This has allowed us to focus on the core functionality of our
+software, to build a complete implementation of the <a
+href="https://iohk.io/en/research/library/papers/hydrafast-isomorphic-state-channels/">Hydra
+off-chain protocol</a>, <a
+href="https://www.youtube.com/watch?v=3D_SAC4nyVM">demonstrate a network
+of Hydra nodes</a> and have automated <a
+href="https://github.com/input-output-hk/hydra-poc/blob/master/local-cluster/test/Test/EndToEndSpec.hs#L99">end-to-end
+tests</a> all without the hassle of dealing with a full Cardano node
+implementation. Instead, we have several <em>Mock</em> implementations
+of the <code>Chain</code> interface described above suitable for various
+use cases: - A very fast <a
+href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/test/Hydra/BehaviorSpec.hs#L380">in-process</a>
+mock for Behaviour-driven testing of Hydra cluster, - A <a
+href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/src/Hydra/Chain/ZeroMQ.hs">0MQ-based</a>
+implementation that allows us to spin-up a cluster of Hydra nodes,
+completely mocking an <a
+href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/exe/mock-chain/Main.hs">external
+chain</a>.</p>
+<p>Note that: - We are not side-stepping the integration problem as
+demonstrated by the fact we are also testing <a
+href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/local-cluster/test/Test/LocalClusterSpec.hs#L51">interaction
+with Cardano node</a>, and we definitely will enhance our End-to-End
+tests to “Close the loop” once the <a
+href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/local-cluster/test/Test/DirectChainSpec.hs#L30">Chain
+tests</a> demonstrate the <em>concrete implementation</em> of our
+abstract transactions work correctly on a real Cardano network, - We
+have been careful to <a
+href="https://testing.googleblog.com/2020/07/testing-on-toilet-dont-mock-types-you.html">Mock
+types we own</a> in order to not fall into the trap of relying on a
+dumbed down and probably wrong implementation of some system we depend
+on.</p>
 <h1 id="there-is-more-to-it">There is more to it</h1>
-<p>This whole idea has been applied in a couple other areas of the system, most notably the <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/src/Hydra/Network.hs">Network</a> interface: Here again we express some requirements from the point of view of the Hydra node, letting those emerge from tests we write.</p>
-<p>While it does not respect the <em>Mock types you own</em> mantra, we have also used this technique to great profit leveraging the <a href="https://github.com/input-output-hk/ouroboros-network/tree/3f16f617f8ada5e0e8f560b5b2d9635ec0d803f3/io-sim">io-sim</a> and <a href="https://github.com/input-output-hk/ouroboros-network/tree/3f16f617f8ada5e0e8f560b5b2d9635ec0d803f3/io-classes">io-classes</a>, as exposed in <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/docs/adr/0005-use-io-sim-classes.md">another ADR</a>. This has allowed us to test-drive the development of the protocol in an outside-in way, expressing expected <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/test/Hydra/BehaviorSpec.hs#L123">observable behaviour</a> in a cluster of nodes, in a safe and fast way, as pure functions.</p>
-<p>Of course, this is a dangerous path to tread and we need to also run tests with the real <em>Multi-threaded Runtime System</em> to ensure proper coverage, like the End-to-end tests I already talked about and <a href="https://github.com/input-output-hk/hydra-poc/tree/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/local-cluster/bench">load testing</a>.</p>
+<p>This whole idea has been applied in a couple other areas of the
+system, most notably the <a
+href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/src/Hydra/Network.hs">Network</a>
+interface: Here again we express some requirements from the point of
+view of the Hydra node, letting those emerge from tests we write.</p>
+<p>While it does not respect the <em>Mock types you own</em> mantra, we
+have also used this technique to great profit leveraging the <a
+href="https://github.com/input-output-hk/ouroboros-network/tree/3f16f617f8ada5e0e8f560b5b2d9635ec0d803f3/io-sim">io-sim</a>
+and <a
+href="https://github.com/input-output-hk/ouroboros-network/tree/3f16f617f8ada5e0e8f560b5b2d9635ec0d803f3/io-classes">io-classes</a>,
+as exposed in <a
+href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/docs/adr/0005-use-io-sim-classes.md">another
+ADR</a>. This has allowed us to test-drive the development of the
+protocol in an outside-in way, expressing expected <a
+href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/test/Hydra/BehaviorSpec.hs#L123">observable
+behaviour</a> in a cluster of nodes, in a safe and fast way, as pure
+functions.</p>
+<p>Of course, this is a dangerous path to tread and we need to also run
+tests with the real <em>Multi-threaded Runtime System</em> to ensure
+proper coverage, like the End-to-end tests I already talked about and <a
+href="https://github.com/input-output-hk/hydra-poc/tree/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/local-cluster/bench">load
+testing</a>.</p>
 <h1 id="conclusion">Conclusion</h1>
-<p>I hope this post managed to convince the reader that using <em>Mock objects</em> is actually a good idea as soon as one embraces it the way it’s been intended to be used, namely as a <em>Test-driving technique</em> also called <em>London School TDD</em>, and not as a mere technical artifact to ease testing <em>after the fact</em>. As I already advocated a while ago TDD has a <a href="https://abailly.github.io/posts/tdd.html">fractal dimension</a>: It can, and in my opinion must, be applied at all stages of a system’s development and at all level of abstractions.</p>
-<p>“Mock objects” is just a name for the technique that lets one work outside-in, precisely and formally (in code) expressing and testing each component first in isolation, but within a broader context: As soon as a concrete, production-ready implementation of an interface is ready, it should be integrated in the higher level tests. This is also something we wrote down in an <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/docs/adr/0012-testing-strategy.md">ADR on Testing strategy</a> as it deeply impacts the architecture of the system.</p>
+<p>I hope this post managed to convince the reader that using <em>Mock
+objects</em> is actually a good idea as soon as one embraces it the way
+it’s been intended to be used, namely as a <em>Test-driving
+technique</em> also called <em>London School TDD</em>, and not as a mere
+technical artifact to ease testing <em>after the fact</em>. As I already
+advocated a while ago TDD has a <a
+href="https://abailly.github.io/posts/tdd.html">fractal dimension</a>:
+It can, and in my opinion must, be applied at all stages of a system’s
+development and at all level of abstractions.</p>
+<p>“Mock objects” is just a name for the technique that lets one work
+outside-in, precisely and formally (in code) expressing and testing each
+component first in isolation, but within a broader context: As soon as a
+concrete, production-ready implementation of an interface is ready, it
+should be integrated in the higher level tests. This is also something
+we wrote down in an <a
+href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/docs/adr/0012-testing-strategy.md">ADR
+on Testing strategy</a> as it deeply impacts the architecture of the
+system.</p>
 
 
 <div id="disqus_thread"></div>
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-  
+
     s.src = '//arnaudsblog.disqus.com/embed.js';
-  
+
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

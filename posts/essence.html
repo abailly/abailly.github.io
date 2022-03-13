@@ -7,9 +7,7 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - Essence &amp; Accident</title>
-
   <meta name="description" content="Crafting code since 1994">
-
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -41,46 +39,115 @@
     </header>
     <div id="main" role="main">
 <h1>Essence &amp; Accident</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on November 10, 2013</div>
+<div class="info">Posted on 2013-11-10</div>
 
 <h1 id="on-out-of-the-tar-pit">On Out of the Tar Pit</h1>
-<p>Some thoughts on accidental vs. essential complexity triggered while reading <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.93.8928">Out of the Tar Pit</a> by Peter Marks and Ben Moseley</p>
+<p>Some thoughts on accidental vs. essential complexity triggered while
+reading <a
+href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.93.8928">Out
+of the Tar Pit</a> by Peter Marks and Ben Moseley</p>
 <ul>
-<li>Quoting <a href="http://en.wikipedia.org/wiki/The_Mythical_Man-Month">Brooks</a> they separate <em>Essential</em> from <em>Accidental</em> complexity:</li>
-<li>“Essential complexity is inherent in, and the essence of, the problem (as seen by the users)”</li>
-<li>“Accidental complexity is all the rest - complexity with which the development team would not have to deal in the ideal world (eg. complexity arising from performance issues and from suboptimal language and infrastructure)”</li>
-<li>This is actually not Brooks’ definition of accident and essence, and it seems I can trace back this misunderstanding to <a href="http://www.ibm.com/developerworks/java/library/j-eaed1/index.html">another definition by N.Ford</a>.</li>
-<li>Brooks actually talks about the <em>essential complexity</em> of <em>software development</em>, irrespective of the problem or usage software is put to use:</li>
-</ul>
+<li><p>Quoting <a
+href="http://en.wikipedia.org/wiki/The_Mythical_Man-Month">Brooks</a>
+they separate <em>Essential</em> from <em>Accidental</em>
+complexity:</p>
+<ul>
+<li>“Essential complexity is inherent in, and the essence of, the
+problem (as seen by the users)”</li>
+<li>“Accidental complexity is all the rest - complexity with which the
+development team would not have to deal in the ideal world (eg.
+complexity arising from performance issues and from suboptimal language
+and infrastructure)”</li>
+</ul></li>
+<li><p>This is actually not Brooks’ definition of accident and essence,
+and it seems I can trace back this misunderstanding to <a
+href="http://www.ibm.com/developerworks/java/library/j-eaed1/index.html">another
+definition by N.Ford</a>.</p></li>
+<li><p>Brooks actually talks about the <em>essential complexity</em> of
+<em>software development</em>, irrespective of the problem or usage
+software is put to use:</p>
 <blockquote>
-<p>The essence of a software entity is a construct of interlocking concepts [..] This essence is abstract, in that the conceptual constructs is the same under many different representations.</p>
-<p>The complexity of software is an essential property, not an accidental one</p>
+<p>The essence of a software entity is a construct of interlocking
+concepts [..] This essence is abstract, in that the conceptual
+constructs is the same under many different representations.</p>
+<p>The complexity of software is an essential property, not an
+accidental one</p>
 <p>Brooks, The MMM, p.182 sq.</p>
-</blockquote>
-<ul>
-<li>In essence (ha!ha!) what Brooks says is: “No matter how sophisticated your tools may be, developing software is complex”. It uses this uses this assertion to undermine various efforts to reduce complexity of software through languages, patterns, tools (eg. software).</li>
-<li>Looks like another form of the irreflexive nature of most formalisms: No computational formalism is powerful enough to talk about itself.</li>
-<li>Then they derive a methodology from this initial requirement that we need to deal only with the essential complexity, methodology which goes through another form of formal declarative requirement language meant to ignore accidental issues of <em>how</em> the system is about to perform anything</li>
-<li>The problem is that:
-<ol style="list-style-type: decimal">
+</blockquote></li>
+<li><p>In essence (ha!ha!) what Brooks says is: “No matter how
+sophisticated your tools may be, developing software is complex”. It
+uses this uses this assertion to undermine various efforts to reduce
+complexity of software through languages, patterns, tools (eg.
+software).</p></li>
+<li><p>Looks like another form of the irreflexive nature of most
+formalisms: No computational formalism is powerful enough to talk about
+itself.</p></li>
+<li><p>Then they derive a methodology from this initial requirement that
+we need to deal only with the essential complexity, methodology which
+goes through another form of formal declarative requirement language
+meant to ignore accidental issues of <em>how</em> the system is about to
+perform anything</p></li>
+<li><p>The problem is that:</p>
+<ol type="1">
 <li>reality bites you very quickly</li>
 <li>the solution quickly becomes part of the problem</li>
 </ol></li>
-<li>Any technical device, and software makes no exception to it, changes its users and the way they interact with the “world”. They create relations between various things, various beings that were previously unrelated, while at the same time sending other beings into oblivion.</li>
-<li>This is at the heart of Activity Theory, among many others (see also Habermas, Simondon, more recently Stéphane Vial and of course Latour).</li>
-<li>“It is not the business of the user to know what they want” - S.Jobs. Users don’t know what they want until they see it, and when they see it they want something else or different</li>
-<li>Software is a by-product of technical acts, the result of various acts and transformations forming a network extending over space and time. In <a href="../posts/eme.html">Latour</a>’s term, they are leftovers from the passing of [TEC] beings within some group of people, a specific <em>folding</em> of materials and immaterials other beings that, when completed and put to use, produce some efficicent effect.</li>
-<li>Essential/accidental dichotomy is another avatar of [DC], <em>double-click</em>, the evil spirit of modernity that aims at suppressing all mediations to enforce its binary view of the world (somewhat ironical when dealing with software!): Users are separated from developers, usage from development, ideal world of perfect function from real world of bits and bytes.</li>
-<li>But for anything to happen, a mediation must occur, things need to be moved, put in correspondance, changed, carved, designed, transformed, and not only inanimate and “material” things but also people, rules, ideas, laws, beliefs…</li>
-<li>Complexity is always the result of some history, some web of interaction between constraints, desires, organizations, projects, physical laws. If it must be reduced it is not because of some idealistic image of what <em>could be done</em> but to meet the intrisic <em>truth</em> of the technicalities: fitness, quality, elegance, simplicity and a form of obviousness and obliviousness. Good technical objects are those which make themselves invisible <em>after being tamed</em> and accurately and efficiently mediate some other course of actions.</li>
-<li>Remember: “There is no silver bullet”, “there is no free lunch”. We <em>must</em> take care of the technical detours lest they produce some monster behind our back.</li>
-<li>Thinking in terms essence/accident is just a way of rejecting what is properly <em>technical</em>, with its own risks and rewards, in the name of the value of simplicity.</li>
-<li>To take another perspective on it, it is just as if all situations were amenable to the Known/Knowable half of the Cynefin quadrant, the <em>ordered</em> part of existence, ignoring exerything Complex or Chaotic.</li>
-<li>Latour talks (in AIME) about Habit [HAB] as “the mode of existence of essence”: Essence is what is left when we forget how we got there, when this path lies just beneath the surface of our consciousness in order to not encumber it but ready to be brought back at first need (eg. when circumstances change possibly conflicting with habits).</li>
-<li>This implies that there is no <em>essence</em>, there is no fundamental truth from which everything derives, there is no transcending that would not be explained or explainable by some course of action, beyond our <em>habits</em></li>
+<li><p>Any technical device, and software makes no exception to it,
+changes its users and the way they interact with the “world”. They
+create relations between various things, various beings that were
+previously unrelated, while at the same time sending other beings into
+oblivion.</p></li>
+<li><p>This is at the heart of Activity Theory, among many others (see
+also Habermas, Simondon, more recently Stéphane Vial and of course
+Latour).</p></li>
+<li><p>“It is not the business of the user to know what they want” -
+S.Jobs. Users don’t know what they want until they see it, and when they
+see it they want something else or different</p></li>
+<li><p>Software is a by-product of technical acts, the result of various
+acts and transformations forming a network extending over space and
+time. In <a href="/posts/eme.html">Latour</a>’s term, they are leftovers
+from the passing of [TEC] beings within some group of people, a specific
+<em>folding</em> of materials and immaterials other beings that, when
+completed and put to use, produce some efficicent effect.</p></li>
+<li><p>Essential/accidental dichotomy is another avatar of [DC],
+<em>double-click</em>, the evil spirit of modernity that aims at
+suppressing all mediations to enforce its binary view of the world
+(somewhat ironical when dealing with software!): Users are separated
+from developers, usage from development, ideal world of perfect function
+from real world of bits and bytes.</p></li>
+<li><p>But for anything to happen, a mediation must occur, things need
+to be moved, put in correspondance, changed, carved, designed,
+transformed, and not only inanimate and “material” things but also
+people, rules, ideas, laws, beliefs…</p></li>
+<li><p>Complexity is always the result of some history, some web of
+interaction between constraints, desires, organizations, projects,
+physical laws. If it must be reduced it is not because of some
+idealistic image of what <em>could be done</em> but to meet the intrisic
+<em>truth</em> of the technicalities: fitness, quality, elegance,
+simplicity and a form of obviousness and obliviousness. Good technical
+objects are those which make themselves invisible <em>after being
+tamed</em> and accurately and efficiently mediate some other course of
+actions.</p></li>
+<li><p>Remember: “There is no silver bullet”, “there is no free lunch”.
+We <em>must</em> take care of the technical detours lest they produce
+some monster behind our back.</p></li>
+<li><p>Thinking in terms essence/accident is just a way of rejecting
+what is properly <em>technical</em>, with its own risks and rewards, in
+the name of the value of simplicity.</p></li>
+<li><p>To take another perspective on it, it is just as if all
+situations were amenable to the Known/Knowable half of the Cynefin
+quadrant, the <em>ordered</em> part of existence, ignoring exerything
+Complex or Chaotic.</p></li>
+<li><p>Latour talks (in AIME) about Habit [HAB] as “the mode of
+existence of essence”: Essence is what is left when we forget how we got
+there, when this path lies just beneath the surface of our consciousness
+in order to not encumber it but ready to be brought back at first need
+(eg. when circumstances change possibly conflicting with
+habits).</p></li>
+<li><p>This implies that there is no <em>essence</em>, there is no
+fundamental truth from which everything derives, there is no
+transcending that would not be explained or explainable by some course
+of action, beyond our <em>habits</em></p></li>
 </ul>
 
 
@@ -88,17 +155,14 @@
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-  
+
     s.src = '//arnaudsblog.disqus.com/embed.js';
-  
+
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

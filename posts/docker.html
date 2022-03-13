@@ -7,9 +7,7 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - Using Docker for Building</title>
-
   <meta name="description" content="Crafting code since 1994">
-
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -41,23 +39,30 @@
     </header>
     <div id="main" role="main">
 <h1>Using Docker for Building</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on November 25, 2013</div>
+<div class="info">Posted on 2013-11-25</div>
 
 <ul>
-<li>Goal: ensure repeatability and reliability of builds across OS (dev’ing on Windows, CI on linux, deploying on unix/solaris)</li>
-<li>Using docker inside a Linux VM on VirtualBox on windows</li>
-<li>Start from docker’s github repo, use vagrant to generate VM with docker configured</li>
-<li>Create docker image from base (eg. ubuntu…)</li>
-<li>Install jdk, maven…</li>
-<li>Snapshot after first build =&gt; provides already loaded repository</li>
-<li>Beware of network connectivity. Had an issue while running tests, code was trying to connect to a server that was not reachable, HTTP client hanged in timeout which caused the test to fail as the test itself was timeouted </li>
-<li>Issue with repository update when offline =&gt; use host’s local repository as remote </li>
-<li>probably not that useful to build java on linux =&gt; only execute tests!!</li>
-<li>mount local repository</li>
-<li>run mvn test:test</li>
+<li><p>Goal: ensure repeatability and reliability of builds across OS
+(dev’ing on Windows, CI on linux, deploying on unix/solaris)</p></li>
+<li><p>Using docker inside a Linux VM on VirtualBox on windows</p></li>
+<li><p>Start from docker’s github repo, use vagrant to generate VM with
+docker configured</p></li>
+<li><p>Create docker image from base (eg. ubuntu…)</p></li>
+<li><p>Install jdk, maven…</p></li>
+<li><p>Snapshot after first build =&gt; provides already loaded
+repository</p></li>
+<li><p>Beware of network connectivity. Had an issue while running tests,
+code was trying to connect to a server that was not reachable, HTTP
+client hanged in timeout which caused the test to fail as the test
+itself was timeouted</p></li>
+<li><p>Issue with repository update when offline =&gt; use host’s local
+repository as remote</p></li>
+<li><p>probably not that useful to build java on linux =&gt; only
+execute tests!!</p>
+<ul>
+<li>mount local repository</li>
+<li>run mvn test:test</li>
+</ul></li>
 </ul>
 
 
@@ -65,17 +70,14 @@
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-  
+
     s.src = '//arnaudsblog.disqus.com/embed.js';
-  
+
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

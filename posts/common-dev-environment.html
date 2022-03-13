@@ -6,10 +6,9 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Arnaud Bailly - Team Practices: Shared Development Environment</title>
-
+  <title>Arnaud Bailly - Team Practices: Shared Development
+Environment</title>
   <meta name="description" content="Crafting code since 1994">
-
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -41,52 +40,220 @@
     </header>
     <div id="main" role="main">
 <h1>Team Practices: Shared Development Environment</h1>
+<div class="info">Posted on 2021-02-01</div>
 
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on February  1, 2021</div>
-
-<p>This is another post in a series I plan to write on interesting team-wide practices I have found and still find to be effective to further and support eXtreme Programming. In this post, I present how to promote <em>Collective Code Ownership</em> and <em>Coding Standards</em> to a new level through the use of a <em>Shared Development Environment</em>. The goal is to ensure as much as possible standardization in the process and tools from design to deployment, in order to avoid the all too common “Works on my machine” syndrome that plagues software development teams.</p>
-<h1 id="standardizing-development-environment">Standardizing Development Environment</h1>
-<p>The <em>intention</em> behind <em>Collective code ownership</em> and <em>Coding standards</em> practices is to increase the <em>Standardization</em> of the development process within a specific team (or group of teams working closely enough together), but <em>why</em> should we want to standardize the development process, practices and tools in the first place?</p>
-<p>After all, each developer has his or her own unique set of skills, backgrounds, habits, and idiosyncrasies that make him or her productive ; and each of us has honed his or her coding katas, carefully crafted keyboard shortcuts, personal information and note taking system, favorite editor, specialised configuration, preferred packages, OSes, laptop brands, keyboard layout, color themes and whatnot, not speaking of languages, idioms, patterns, or architecture preferences.</p>
-<p>This is all fine and good in a context where the goal is to maximise each developer’s productivity, and each developer’s work has little to no impact on others’. This is most common in organisations where each developer is responsible for a <em>component</em>, whatever that actually means, and works mostly in isolation on his or her part of the system, where the system’s functionalities are designed and planned in advance, then broken down in various development tasks pertaining to various components, which are picked up by each responsible developer, then assembled, QCed, and released by other teams.</p>
-<p>But this ideal situation never actually happens except in the extreme case of a <em>single developer software development</em>. Even the most siloed organisations feel the need to standardize <em>some part</em> of the development process, a need that leads to increased formalism, bureaucracy, and organisational bloat in order to provide a sense of control on what’s going on, which is what gives standardization, understood as top-down imposed norms and rules, a bad reputation among developers and, in return, leads to even more individualism and customization in order to alleviate the feeling one is but a cog in a gigantic machine.</p>
-<p>XP proposes another route: Instead of stratifying the development process by tying together highly productive but siloed individualistic development practices with “scientific management”, it aims to maximise productivity of the <em>whole process</em> which means maximising productivity at the <em>team level</em>. Moreover, XP seeks to maintain or even increase that productivity as time passes and the software grows and evolves, the team changes, new versions of the technology or even new technologies emerge, new or changing requirements put pressure on the software.</p>
-<p>Maximizing team productivity as a whole means, among many other things:</p>
+<p>This is another post in a series I plan to write on interesting
+team-wide practices I have found and still find to be effective to
+further and support eXtreme Programming. In this post, I present how to
+promote <em>Collective Code Ownership</em> and <em>Coding Standards</em>
+to a new level through the use of a <em>Shared Development
+Environment</em>. The goal is to ensure as much as possible
+standardization in the process and tools from design to deployment, in
+order to avoid the all too common “Works on my machine” syndrome that
+plagues software development teams.</p>
+<h1 id="standardizing-development-environment">Standardizing Development
+Environment</h1>
+<p>The <em>intention</em> behind <em>Collective code ownership</em> and
+<em>Coding standards</em> practices is to increase the
+<em>Standardization</em> of the development process within a specific
+team (or group of teams working closely enough together), but
+<em>why</em> should we want to standardize the development process,
+practices and tools in the first place?</p>
+<p>After all, each developer has his or her own unique set of skills,
+backgrounds, habits, and idiosyncrasies that make him or her productive
+; and each of us has honed his or her coding katas, carefully crafted
+keyboard shortcuts, personal information and note taking system,
+favorite editor, specialised configuration, preferred packages, OSes,
+laptop brands, keyboard layout, color themes and whatnot, not speaking
+of languages, idioms, patterns, or architecture preferences.</p>
+<p>This is all fine and good in a context where the goal is to maximise
+each developer’s productivity, and each developer’s work has little to
+no impact on others’. This is most common in organisations where each
+developer is responsible for a <em>component</em>, whatever that
+actually means, and works mostly in isolation on his or her part of the
+system, where the system’s functionalities are designed and planned in
+advance, then broken down in various development tasks pertaining to
+various components, which are picked up by each responsible developer,
+then assembled, QCed, and released by other teams.</p>
+<p>But this ideal situation never actually happens except in the extreme
+case of a <em>single developer software development</em>. Even the most
+siloed organisations feel the need to standardize <em>some part</em> of
+the development process, a need that leads to increased formalism,
+bureaucracy, and organisational bloat in order to provide a sense of
+control on what’s going on, which is what gives standardization,
+understood as top-down imposed norms and rules, a bad reputation among
+developers and, in return, leads to even more individualism and
+customization in order to alleviate the feeling one is but a cog in a
+gigantic machine.</p>
+<p>XP proposes another route: Instead of stratifying the development
+process by tying together highly productive but siloed individualistic
+development practices with “scientific management”, it aims to maximise
+productivity of the <em>whole process</em> which means maximising
+productivity at the <em>team level</em>. Moreover, XP seeks to maintain
+or even increase that productivity as time passes and the software grows
+and evolves, the team changes, new versions of the technology or even
+new technologies emerge, new or changing requirements put pressure on
+the software.</p>
+<p>Maximizing team productivity as a whole means, among many other
+things:</p>
 <ul>
-<li>Ensuring smooth and fast training and onboarding for newcomers, and transitions from senior to junior developers or from leaving to incoming team members,</li>
-<li>Maintaining an adequate level of understandability of the overall system, ie. not only the code itself but also all the supporting components that are needed to make the code releasable,</li>
-<li>Fostering <a href="https://hbr.org/2017/08/high-performing-teams-need-psychological-safety-heres-how-to-create-it">Psychological safety</a> within team by making sure everyone can work with everyone else comfortably and fearlessly,</li>
-<li>Increasing the <a href="https://en.wikipedia.org/wiki/Bus_factor">bus factor</a> to reduce the risks a project grinds to halt because a single member suddenly is missing,</li>
+<li>Ensuring smooth and fast training and onboarding for newcomers, and
+transitions from senior to junior developers or from leaving to incoming
+team members,</li>
+<li>Maintaining an adequate level of understandability of the overall
+system, ie. not only the code itself but also all the supporting
+components that are needed to make the code releasable,</li>
+<li>Fostering <a
+href="https://hbr.org/2017/08/high-performing-teams-need-psychological-safety-heres-how-to-create-it">Psychological
+safety</a> within team by making sure everyone can work with everyone
+else comfortably and fearlessly,</li>
+<li>Increasing the <a
+href="https://en.wikipedia.org/wiki/Bus_factor">bus factor</a> to reduce
+the risks a project grinds to halt because a single member suddenly is
+missing,</li>
 <li>…</li>
 </ul>
-<p>What Kent Beck promoted more than 20 years is now backed by a lot of scientific studies, including the famous one Google conducted to determine <a href="https://rework.withgoogle.com/guides/understanding-team-effectiveness/steps/introduction/">what makes a team effective</a>.</p>
-<p>In a sense <em>Standardization</em> is just what happens when people actually collaborate effectively together on a continuous basis: They settle on common practices, idioms, languages, tools that they feel provide the more benefits to the team as <em>whole</em>. And conversely, standards that emerge from negotiations <em>within</em> the team pave the route towards effectively collaborating together as a <em>whole</em>.</p>
-<p><a href="http://wiki.c2.com/?CodingStandard">Coding Standards</a> and <a href="http://wiki.c2.com/?CollectiveCodeOwnership">Collective code ownership</a> are XP’s ways of promoting standardization of the development process across the team.</p>
+<p>What Kent Beck promoted more than 20 years is now backed by a lot of
+scientific studies, including the famous one Google conducted to
+determine <a
+href="https://rework.withgoogle.com/guides/understanding-team-effectiveness/steps/introduction/">what
+makes a team effective</a>.</p>
+<p>In a sense <em>Standardization</em> is just what happens when people
+actually collaborate effectively together on a continuous basis: They
+settle on common practices, idioms, languages, tools that they feel
+provide the more benefits to the team as <em>whole</em>. And conversely,
+standards that emerge from negotiations <em>within</em> the team pave
+the route towards effectively collaborating together as a
+<em>whole</em>.</p>
+<p><a href="http://wiki.c2.com/?CodingStandard">Coding Standards</a> and
+<a href="http://wiki.c2.com/?CollectiveCodeOwnership">Collective code
+ownership</a> are XP’s ways of promoting standardization of the
+development process across the team.</p>
 <h2 id="coding-standards">Coding Standards</h2>
-<p>According to <a href="https://wiki.haskell.org/Wadler's_Law">Wadler’s Law</a>, the hottest discussions among developers happen on the smallest and least significance matters of syntax. It is therefore “natural” to address the issue of <em>code formatting</em> first. But of course, coding standards do not stop at syntax and the team should, step by step, increase the coverage of its standards to include more and more semantics.</p>
+<p>According to <a
+href="https://wiki.haskell.org/Wadler&#39;s_Law">Wadler’s Law</a>, the
+hottest discussions among developers happen on the smallest and least
+significance matters of syntax. It is therefore “natural” to address the
+issue of <em>code formatting</em> first. But of course, coding standards
+do not stop at syntax and the team should, step by step, increase the
+coverage of its standards to include more and more semantics.</p>
 <h3 id="formatting-code">Formatting Code</h3>
-<p>The code’s formatting rules is one particular area where standardization, across a team or even a whole programming environment, can and <em>should</em> be automatically enforced: . There have been, and will be, endless discussions among developers on such critically important topics as where to put curly braces, whether or not to use tabulations or spaces for indentation, how much space to put in various places of the code, etc. These discussions are a source of considerable bikeshedding, waste of time, and contribute exactly zero value to the end product; automating application of standard code format <a href="https://prettier.io/docs/en/precommit.html">before commit</a> or, even better, before <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html">saving files</a>.</p>
-<p>However, this is dependent on the particular setup of each development environment and various problems might arise:</p>
+<p>The code’s formatting rules is one particular area where
+standardization, across a team or even a whole programming environment,
+can and <em>should</em> be automatically enforced: . There have been,
+and will be, endless discussions among developers on such critically
+important topics as where to put curly braces, whether or not to use
+tabulations or spaces for indentation, how much space to put in various
+places of the code, etc. These discussions are a source of considerable
+bikeshedding, waste of time, and contribute exactly zero value to the
+end product; automating application of standard code format <a
+href="https://prettier.io/docs/en/precommit.html">before commit</a> or,
+even better, before <a
+href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html">saving
+files</a>.</p>
+<p>However, this is dependent on the particular setup of each
+development environment and various problems might arise:</p>
 <ul>
-<li>The rules might be encoded in different tools to support different IDEs, which necessarily will lead to differences cropping up,</li>
-<li>There might not be an overall agreed upon set of rules for the language which makes it hard for the team to settle the question,</li>
-<li>The language itself might be hardly amenable to <a href="http://modernperlbooks.com/mt/2009/08/on-parsing-perl-5.html">parsing</a> and pretty-printing,</li>
+<li>The rules might be encoded in different tools to support different
+IDEs, which necessarily will lead to differences cropping up,</li>
+<li>There might not be an overall agreed upon set of rules for the
+language which makes it hard for the team to settle the question,</li>
+<li>The language itself might be hardly amenable to <a
+href="http://modernperlbooks.com/mt/2009/08/on-parsing-perl-5.html">parsing</a>
+and pretty-printing,</li>
 <li>…</li>
 </ul>
-<p>I thus view it as a great step forward that some formatting tools decide to provide no configuration options, like the <a href="https://github.com/google/google-java-format">google-java-format</a> for Java, <a href="https://hackage.haskell.org/package/ormolu">Ormolu</a>, <a href="https://github.com/avh4/elm-format">elm-format</a> for Elm, or <a href="https://golang.org/cmd/gofmt/">gofmt</a> for Go. The next logical step would be for the compiler itself to enforce the formatting rules1 and only accept programs in <em>Normal Form</em><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>: This would guarantee a uniform layout across all code bases using this language and would have the added advantage of greatly simplifying parsing and more generally development of tools to manipulate the language.</p>
+<p>I thus view it as a great step forward that some formatting tools
+decide to provide no configuration options, like the <a
+href="https://github.com/google/google-java-format">google-java-format</a>
+for Java, <a
+href="https://hackage.haskell.org/package/ormolu">Ormolu</a>, <a
+href="https://github.com/avh4/elm-format">elm-format</a> for Elm, or <a
+href="https://golang.org/cmd/gofmt/">gofmt</a> for Go. The next logical
+step would be for the compiler itself to enforce the formatting rules1
+and only accept programs in <em>Normal Form</em><a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:
+This would guarantee a uniform layout across all code bases using this
+language and would have the added advantage of greatly simplifying
+parsing and more generally development of tools to manipulate the
+language.</p>
 <h3 id="beyond-code-formatting">Beyond Code Formatting</h3>
-<p>In the past, these took the form of extensive <a href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines">Coding style guides</a> but as our tools mature, more and more standards can and are implemented as automated checks that are run as part of the software deployment pipeline. <a href="https://www.sonarqube.org/">SonarQube</a> is one of the many tools that automates coding standards, best practices, and rules. One thing to note is that coding standards encompass a wide range of different activities and code artefacts, from lexical and syntactic rules to design principles, through naming conventions and prescriptions. There are probably things which are not amenable to automation but there’s nevertheless a relentless effort from practitioners and researchers alike to Automate All The Things, and verify things like <a href="https://innig.net/macker/guide/">software architecture</a> or <a href="https://lgtm.com/">security</a>.</p>
+<p>In the past, these took the form of extensive <a
+href="http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines">Coding
+style guides</a> but as our tools mature, more and more standards can
+and are implemented as automated checks that are run as part of the
+software deployment pipeline. <a
+href="https://www.sonarqube.org/">SonarQube</a> is one of the many tools
+that automates coding standards, best practices, and rules. One thing to
+note is that coding standards encompass a wide range of different
+activities and code artefacts, from lexical and syntactic rules to
+design principles, through naming conventions and prescriptions. There
+are probably things which are not amenable to automation but there’s
+nevertheless a relentless effort from practitioners and researchers
+alike to Automate All The Things, and verify things like <a
+href="https://innig.net/macker/guide/">software architecture</a> or <a
+href="https://lgtm.com/">security</a>.</p>
 <h2 id="collective-code-ownership">Collective Code Ownership</h2>
-<p>Collective Code Ownership is that XP practice which strives to make all parts of the code collectively owned, meaning that every team member has the right and the duty to work on the whole software stack. There is no “preserve” that would be exclusive to some team members for reasons of skills, purpose, sensitivity, or seniority. A corollary to this strong statement is that every team member should feel at ease in every part of the code, and be able to understand what’s going on and make relevant changes and improvements in a way that any other team member can vouch for it.</p>
-<p>Pair Programming or Mob Programming are XP practices which are conducive to building such a collectively shared understanding of the code, much more so than Pull Requests or Code Reviews<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. But they are only effective if all the people coding together can actually do so effectively and efficiently: If I pair program with an expert Vim golfer and I drive, then chances are I will be very slow and clumsy, at least initially; it will take time for me to get accustomed to my mate’s development environment, to use his or her keyboard shortcuts, commands, links, productively. And this is not specific to Vim of course, cognitive dissonance can come from every part of the environment: The keyboard (Dvorak/Colemak/Qwerty/Azerty/Bépo), the OS (Mac/Windows/flavors of Linux), the language settings, the window manager (tiling/non-tiling), the shell (Bash/fish/zsh), the IDE (VS/VS Code/IDEA/Eclipse), the color settings (dark vs. light colors, small vs. large screens) are all potential sources of pain for the newcomer.</p>
-<p>Collective Code Ownership should be understood not only as an imperative to share understanding of the code but also to share understanding, knowledge, and skills of the tools to produce and work on that code. Everyone has his or her own idiosyncrasies, preferences, disgusts, personal history that accumulate over time and crystallize in specific tools and environments we feel comfortable with. This is of course totally fine. But this should not come in the way of building an inter-subjective experience of the code: if we all insist on viewing and manipulating the code through our own private lenses, chances are we will fail in developing any form of shared understanding, vision, or comprehensive knowledge of the code<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
-<h1 id="building-a-shared-environment">Building a Shared Environment</h1>
-<p>Working remotely is actually a great opportunity to overcome particularism and standardize the team’s practices through a <em>Shared Development Environment</em>, that is some virtual machines (or containers) whose configuration is versioned alongside the code the team is working on. The idea hinges on <a href="https://en.wikipedia.org/wiki/Infrastructure_as_code">Infrastructure as Code</a> principles: Manage the infrastructure supporting the process using the same tools and principles with which we manage the product, but one step beyond. Do not only manage the production infrastructure, but also the development infrastructure, so that the whole stack of tools used to produce the code is shared by everyone, versioned in the source code, deployable at will.</p>
-<p>Here is a description of the environment we have built in my previous teams on a Linux system.</p>
+<p>Collective Code Ownership is that XP practice which strives to make
+all parts of the code collectively owned, meaning that every team member
+has the right and the duty to work on the whole software stack. There is
+no “preserve” that would be exclusive to some team members for reasons
+of skills, purpose, sensitivity, or seniority. A corollary to this
+strong statement is that every team member should feel at ease in every
+part of the code, and be able to understand what’s going on and make
+relevant changes and improvements in a way that any other team member
+can vouch for it.</p>
+<p>Pair Programming or Mob Programming are XP practices which are
+conducive to building such a collectively shared understanding of the
+code, much more so than Pull Requests or Code Reviews<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.
+But they are only effective if all the people coding together can
+actually do so effectively and efficiently: If I pair program with an
+expert Vim golfer and I drive, then chances are I will be very slow and
+clumsy, at least initially; it will take time for me to get accustomed
+to my mate’s development environment, to use his or her keyboard
+shortcuts, commands, links, productively. And this is not specific to
+Vim of course, cognitive dissonance can come from every part of the
+environment: The keyboard (Dvorak/Colemak/Qwerty/Azerty/Bépo), the OS
+(Mac/Windows/flavors of Linux), the language settings, the window
+manager (tiling/non-tiling), the shell (Bash/fish/zsh), the IDE (VS/VS
+Code/IDEA/Eclipse), the color settings (dark vs. light colors, small
+vs. large screens) are all potential sources of pain for the
+newcomer.</p>
+<p>Collective Code Ownership should be understood not only as an
+imperative to share understanding of the code but also to share
+understanding, knowledge, and skills of the tools to produce and work on
+that code. Everyone has his or her own idiosyncrasies, preferences,
+disgusts, personal history that accumulate over time and crystallize in
+specific tools and environments we feel comfortable with. This is of
+course totally fine. But this should not come in the way of building an
+inter-subjective experience of the code: if we all insist on viewing and
+manipulating the code through our own private lenses, chances are we
+will fail in developing any form of shared understanding, vision, or
+comprehensive knowledge of the code<a href="#fn3" class="footnote-ref"
+id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
+<h1 id="building-a-shared-environment">Building a Shared
+Environment</h1>
+<p>Working remotely is actually a great opportunity to overcome
+particularism and standardize the team’s practices through a <em>Shared
+Development Environment</em>, that is some virtual machines (or
+containers) whose configuration is versioned alongside the code the team
+is working on. The idea hinges on <a
+href="https://en.wikipedia.org/wiki/Infrastructure_as_code">Infrastructure
+as Code</a> principles: Manage the infrastructure supporting the process
+using the same tools and principles with which we manage the product,
+but one step beyond. Do not only manage the production infrastructure,
+but also the development infrastructure, so that the whole stack of
+tools used to produce the code is shared by everyone, versioned in the
+source code, deployable at will.</p>
+<p>Here is a description of the environment we have built in my previous
+teams on a Linux system.</p>
 <h2 id="defining-the-image">Defining the image</h2>
-<p>The first step is to define the virtual machine image. This we do using Hashicorp’s <a href="https://packer.io">Packer</a> which provides a way to build VM images deployable to most major clouds (at least GCP and AWS). Packer is configured with a JSON file that looks the following (I have shown only the configuration for building a GCP image):</p>
+<p>The first step is to define the virtual machine image. This we do
+using Hashicorp’s <a href="https://packer.io">Packer</a> which provides
+a way to build VM images deployable to most major clouds (at least GCP
+and AWS). Packer is configured with a JSON file that looks the following
+(I have shown only the configuration for building a GCP image):</p>
 <pre><code>{
     &quot;builders&quot;: [
         {
@@ -110,11 +277,26 @@
         &quot;script&quot;: &quot;build-env.sh&quot;
     }]
 }</code></pre>
-<p>There are much more sophisticated options to configure the image than using a plain shell script but this is sufficient for our needs. I won’t go into the details of the script here but it is pretty straightforward: it installs all the tools we need for development, which in this case includes docker, gcloud tools, and a whole bunch of utilities like curl, git, tmux, graphviz, wget, jq, python3, bzip2, neovim, ag… We settled on using Emacs as our code editor so it was also part of the installed packages.</p>
-<p>Running <code>packer build build.json</code> will build a new image with the given name ready to be deployed over the configured infrastructure providers.</p>
+<p>There are much more sophisticated options to configure the image than
+using a plain shell script but this is sufficient for our needs. I won’t
+go into the details of the script here but it is pretty straightforward:
+it installs all the tools we need for development, which in this case
+includes docker, gcloud tools, and a whole bunch of utilities like curl,
+git, tmux, graphviz, wget, jq, python3, bzip2, neovim, ag… We settled on
+using Emacs as our code editor so it was also part of the installed
+packages.</p>
+<p>Running <code>packer build build.json</code> will build a new image
+with the given name ready to be deployed over the configured
+infrastructure providers.</p>
 <h2 id="defining-infrastructure">Defining Infrastructure</h2>
-<p>The most interesting part is the definition of the infrastructure itself, which uses Terraform. The set of .tf files is interpreted by the terraform tool, it checks the consistency of the defined infrastructure, and compares it with the latest known persistent state drawn from cloud storage, to decide what to do: create, delete or modify various components of the infrastructure.</p>
-<p>There is a module defining the standard configuration of a development VM:</p>
+<p>The most interesting part is the definition of the infrastructure
+itself, which uses Terraform. The set of .tf files is interpreted by the
+terraform tool, it checks the consistency of the defined infrastructure,
+and compares it with the latest known persistent state drawn from cloud
+storage, to decide what to do: create, delete or modify various
+components of the infrastructure.</p>
+<p>There is a module defining the standard configuration of a
+development VM:</p>
 <pre><code>variable &quot;name&quot; {
   description = &quot;The name of the machine.&quot;
 }
@@ -122,7 +304,10 @@
 variable &quot;ssh_keys&quot; {
   description = &quot;The file containing ssh_keys.&quot;
 }</code></pre>
-<p>The variable ssh_keys contains the name of a file which lists the public keys of people who can access the machine. This makes it possible to control who can access the development environment through a file committed to the version control repository.</p>
+<p>The variable ssh_keys contains the name of a file which lists the
+public keys of people who can access the machine. This makes it possible
+to control who can access the development environment through a file
+committed to the version control repository.</p>
 <pre><code>output &quot;address&quot; {
   value = &quot;${google_compute_address.dev-address.address}&quot;
 }
@@ -130,7 +315,9 @@ variable &quot;ssh_keys&quot; {
 resource &quot;google_compute_address&quot; &quot;dev-address&quot; {
   name = &quot;${var.name}-address&quot;
 }</code></pre>
-<p>This output variable will show the IP address of the VM once it’s deployed, so we need to allocate a public IP address for this machine.</p>
+<p>This output variable will show the IP address of the VM once it’s
+deployed, so we need to allocate a public IP address for this
+machine.</p>
 <pre><code>resource &quot;google_compute_instance&quot; &quot;dev&quot; {
   name                      = &quot;${var.name}&quot;
   machine_type              = &quot;n2-standard-8&quot;
@@ -164,7 +351,10 @@ resource &quot;google_compute_address&quot; &quot;dev-address&quot; {
     email  = &quot;build@my-project.iam.gserviceaccount.com&quot;
     scopes = [&quot;compute-rw&quot;, &quot;storage-rw&quot;, &quot;https://www.googleapis.com/auth/cloudkms&quot;]
   }</code></pre>
-<p>This sets the core features of our VM: Machine type, location, boot disk size… The sshKeys metadata reads its content from the file we defined earlier, and the service_account definition requests the creation of a new service account with the given authorizations.</p>
+<p>This sets the core features of our VM: Machine type, location, boot
+disk size… The sshKeys metadata reads its content from the file we
+defined earlier, and the service_account definition requests the
+creation of a new service account with the given authorizations.</p>
 <pre><code>provisioner &quot;file&quot; {
     source      = &quot;dev/bash_aliases&quot;
     destination = &quot;/home/curry/.bash_aliases&quot;
@@ -186,7 +376,9 @@ resource &quot;google_compute_address&quot; &quot;dev-address&quot; {
       user = &quot;curry&quot;
     }
   }</code></pre>
-<p>We then upload configuration files (aka. dotfiles) which are also versioned and stored in the source tree, including configuration for the shell, the tmux, emacs, and a configuration script.</p>
+<p>We then upload configuration files (aka. dotfiles) which are also
+versioned and stored in the source tree, including configuration for the
+shell, the tmux, emacs, and a configuration script.</p>
 <pre><code> provisioner &quot;remote-exec&quot; {
     inline = [
       &quot;chmod +x /home/curry/configure.sh&quot;,
@@ -199,35 +391,71 @@ resource &quot;google_compute_address&quot; &quot;dev-address&quot; {
     }
   }
 }</code></pre>
-<p>And finally we execute the configuration script that’s responsible for retrieving the source code, possibly cached build artifacts, and last minute configuration steps. There are a lot of possible variations on this baseline but the end goal is to ensure the team has at its disposal development environments which everyone can use and which are guaranteed to be consistently configured, thus making pair and mob programming sessions simple and easy to set up.</p>
+<p>And finally we execute the configuration script that’s responsible
+for retrieving the source code, possibly cached build artifacts, and
+last minute configuration steps. There are a lot of possible variations
+on this baseline but the end goal is to ensure the team has at its
+disposal development environments which everyone can use and which are
+guaranteed to be consistently configured, thus making pair and mob
+programming sessions simple and easy to set up.</p>
 <h1 id="conclusion">Conclusion</h1>
-<p>In this post I have motivated why a shared development environment is desirable and useful, and demonstrated how easily it can be set up using basic IAAC tools. This practice can also be very useful in more complicated settings. I am working in a team which has to maintain a legacy piece of software built using a 4GL IDE called PowerBuilder, which is only available on Windows. One of the first things I did when joining the team was to create a couple of VMs on Azure cloud with several tools installed, including the PowerBuilder IDE, SQL Management Studio, Git, in order to make it straightforward to work collaboratively on the code. The experience is not quite as smooth as sharing a terminal through tmux or tmate, but it still only takes a few seconds to switch driver/navigator roles: Simply log into the VM and share screen. Not being an expert in Windows automation I have not yet gone beyond documenting the manual steps needed to configure the machine but this is only a matter of investing some time or finding the right person to help me.</p>
-<p>Sharing the development environment is something that requires negotiation within the team, and that takes time to grow. Team members need to overcome their personal preferences and accept the discomfort of coding in an environment to which they might not be, at least initial, a hundred percent atuned to. The goal is not to impose The One True Way but on the contrary to share the knowledge and take the best that each setup has to offer. A versioned and pre-configured VM can perfectly host both Emacs and Vim, or can expose a VNC server that makes it easier to share graphical tools, or basically offer any kind of environment.</p>
-<div class="footnotes">
+<p>In this post I have motivated why a shared development environment is
+desirable and useful, and demonstrated how easily it can be set up using
+basic IAAC tools. This practice can also be very useful in more
+complicated settings. I am working in a team which has to maintain a
+legacy piece of software built using a 4GL IDE called PowerBuilder,
+which is only available on Windows. One of the first things I did when
+joining the team was to create a couple of VMs on Azure cloud with
+several tools installed, including the PowerBuilder IDE, SQL Management
+Studio, Git, in order to make it straightforward to work collaboratively
+on the code. The experience is not quite as smooth as sharing a terminal
+through tmux or tmate, but it still only takes a few seconds to switch
+driver/navigator roles: Simply log into the VM and share screen. Not
+being an expert in Windows automation I have not yet gone beyond
+documenting the manual steps needed to configure the machine but this is
+only a matter of investing some time or finding the right person to help
+me.</p>
+<p>Sharing the development environment is something that requires
+negotiation within the team, and that takes time to grow. Team members
+need to overcome their personal preferences and accept the discomfort of
+coding in an environment to which they might not be, at least initial, a
+hundred percent atuned to. The goal is not to impose The One True Way
+but on the contrary to share the knowledge and take the best that each
+setup has to offer. A versioned and pre-configured VM can perfectly host
+both Emacs and Vim, or can expose a VNC server that makes it easier to
+share graphical tools, or basically offer any kind of environment.</p>
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>I thought this was the case for Elm and Go but it seems they do not still fail to compile ill-formatted source code.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>As my friend Christophe Thibaut used to say: “Code reviews is Pair programming for people who don’t fully trust each other”<a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>What is developer productivity is still something that needs to be defined. Does writing more lines of code than other developers make you more productive?<a href="#fnref3">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>I thought this was the case for Elm
+and Go but it seems they do not still fail to compile ill-formatted
+source code.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>As my friend Christophe Thibaut used
+to say: “Code reviews is Pair programming for people who don’t fully
+trust each other”<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>What is developer productivity is
+still something that needs to be defined. Does writing more lines of
+code than other developers make you more productive?<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</div>
+</section>
 
 
 <div id="disqus_thread"></div>
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-  
+
     s.src = '//arnaudsblog.disqus.com/embed.js';
-  
+
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

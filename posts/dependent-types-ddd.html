@@ -6,10 +6,9 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Arnaud Bailly - Domain Driven Design, meet Dependent Types</title>
-
+  <title>Arnaud Bailly - Domain Driven Design, meet Dependent
+Types</title>
   <meta name="description" content="Crafting code since 1994">
-
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -41,139 +40,253 @@
     </header>
     <div id="main" role="main">
 <h1>Domain Driven Design, meet Dependent Types</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on April  6, 2017</div>
+<div class="info">Posted on 2017-04-06</div>
 
 <blockquote>
-<p>This article aims to be the first post in a series exploring connection between <a href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven Design</a> and <a href="https://en.wikipedia.org/wiki/Dependent_type">Dependent types</a> as implemented in <a href="http://idris-lang.org">Idris</a>. I plan to go through all the examples scattered across Eric Evan’s <a href="https://www.abebooks.com/products/isbn/9780321125217/22376984258">seminal book</a>, revisiting them in the light of functional programming with dependent types. My intuition is that using DT languages will allow us to produce better and safer designs.</p>
+<p>This article aims to be the first post in a series exploring
+connection between <a
+href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven
+Design</a> and <a
+href="https://en.wikipedia.org/wiki/Dependent_type">Dependent types</a>
+as implemented in <a href="http://idris-lang.org">Idris</a>. I plan to
+go through all the examples scattered across Eric Evan’s <a
+href="https://www.abebooks.com/products/isbn/9780321125217/22376984258">seminal
+book</a>, revisiting them in the light of functional programming with
+dependent types. My intuition is that using DT languages will allow us
+to produce better and safer designs.</p>
 </blockquote>
-<p>Let’s go first through some ceremonies in order to please the Gods of programming:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> <span class="kw">module</span> <span class="dt">Cargo</span>
-<span class="fu">&gt;</span> <span class="kw">import</span> <span class="dt">Data</span><span class="fu">.</span><span class="dt">List</span>
-<span class="fu">&gt;</span> <span class="kw">%default</span> <span class="kw">total</span></code></pre></div>
-<p>We will go through the first example Eric Evans gives, p.17 of his book: A simple model describing booking of <code>Cargo</code> for <code>Voyage</code>s. We have some very simple data structure describing cargos and voyages. A cargo is described by its identification string and a size.</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> <span class="kw">record</span> <span class="dt">Cargo</span> <span class="kw">where</span>
-<span class="fu">&gt;</span>   constructor <span class="dt">MkCargo</span>
-<span class="fu">&gt;</span>   cargo_id <span class="ot">:</span> <span class="dt">String</span>
-<span class="fu">&gt;</span>   size <span class="ot">:</span> <span class="dt">Int</span></code></pre></div>
-<p>And a <code>Voyage</code> is a list of cargos, a total capacity and a confirmation order<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> <span class="kw">record</span> <span class="dt">Voyage</span> <span class="kw">where</span>
-<span class="fu">&gt;</span>   constructor <span class="dt">MkVoyage</span>
-<span class="fu">&gt;</span>   capacity <span class="ot">:</span> <span class="dt">Int</span>
-<span class="fu">&gt;</span>   orderConfirmation <span class="ot">:</span> <span class="dt">Int</span>
-<span class="fu">&gt;</span>   cargos <span class="ot">:</span> <span class="dt">List</span> <span class="dt">Cargo</span></code></pre></div>
-<p>Given a voyage, it is simple matter to compute the total booked cargo size for this voyage:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> bookedCargoSize <span class="ot">:</span> <span class="dt">Voyage</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
-<span class="fu">&gt;</span> bookedCargoSize <span class="fu">=</span> sum <span class="fu">.</span> map size <span class="fu">.</span> cargos</code></pre></div>
-<p>Then booking a <code>Cargo</code> for a <code>Voyage</code> checks the voyage can accomodate the given cargo’s size before adding it to its load:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> makeBooking <span class="ot">:</span> <span class="dt">Cargo</span> <span class="ot">-&gt;</span> <span class="dt">Voyage</span> <span class="ot">-&gt;</span> <span class="dt">Voyage</span>
-<span class="fu">&gt;</span> makeBooking cargo voyage <span class="fu">=</span>
-<span class="fu">&gt;</span>   <span class="kw">if</span> bookedCargoSize voyage <span class="fu">+</span> size cargo <span class="fu">&lt;</span> capacity voyage
-<span class="fu">&gt;</span>   <span class="kw">then</span> <span class="kw">record</span> { cargos <span class="fu">=</span> cargo <span class="ot">::</span> cargos voyage } voyage
-<span class="fu">&gt;</span>   <span class="kw">else</span> voyage</code></pre></div>
-<p>However, it is customary for shipping company to accept <em>overbooking</em>, say 10%. Our booking function then becomes:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> makeBooking' <span class="ot">:</span> <span class="dt">Cargo</span> <span class="ot">-&gt;</span> <span class="dt">Voyage</span> <span class="ot">-&gt;</span> <span class="dt">Voyage</span>
-<span class="fu">&gt;</span> makeBooking' cargo<span class="fu">@</span>(<span class="dt">MkCargo</span> <span class="fu">_</span> size) voyage<span class="fu">@</span>(<span class="dt">MkVoyage</span> capacity orderConfirmation cargos) 
-<span class="fu">&gt;</span>              <span class="fu">=</span>  <span class="kw">if</span> cast (bookedCargoSize voyage <span class="fu">+</span> size) <span class="fu">&gt;</span> <span class="dv">1</span><span class="fu">.</span><span class="dv">1</span> <span class="fu">*</span> cast capacity
-<span class="fu">&gt;</span>                    <span class="kw">then</span>  voyage
-<span class="fu">&gt;</span>                    <span class="kw">else</span> <span class="kw">record</span> { cargos <span class="fu">=</span> cargo <span class="ot">::</span> cargos } voyage </code></pre></div>
-<p>Obviously, this has the huge drawback of mixing different concerns: Updating the voyage with the cargo and computing the overbooking rule. What we want to do is to make this <em>overbooking policy</em> more explicit, say in a type:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> <span class="dt">OverbookingPolicy</span> <span class="ot">:</span> <span class="dt">Type</span> 
-<span class="fu">&gt;</span> <span class="dt">OverbookingPolicy</span> <span class="fu">=</span> <span class="dt">Cargo</span> <span class="ot">-&gt;</span> <span class="dt">Voyage</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></code></pre></div>
-<p>Then our standard 10% overbooking policy is reified in its own function:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> tenPercentOverbooking <span class="ot">:</span> <span class="dt">OverbookingPolicy</span>
-<span class="fu">&gt;</span> tenPercentOverbooking cargo<span class="fu">@</span>(<span class="dt">MkCargo</span> <span class="fu">_</span> size) voyage<span class="fu">@</span>(<span class="dt">MkVoyage</span> capacity orderConfirmation cargos) <span class="fu">=</span> 
-<span class="fu">&gt;</span>   cast (bookedCargoSize voyage <span class="fu">+</span> size) <span class="fu">&gt;</span> <span class="dv">1</span><span class="fu">.</span><span class="dv">1</span> <span class="fu">*</span> cast capacity</code></pre></div>
+<p>Let’s go first through some ceremonies in order to please the Gods of
+programming:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> <span class="kw">module</span> <span class="dt">Cargo</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> <span class="kw">import</span> <span class="dt">Data</span><span class="fu">.</span><span class="dt">List</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> <span class="kw">%default</span> <span class="kw">total</span></span></code></pre></div>
+<p>We will go through the first example Eric Evans gives, p.17 of his
+book: A simple model describing booking of <code>Cargo</code> for
+<code>Voyage</code>s. We have some very simple data structure describing
+cargos and voyages. A cargo is described by its identification string
+and a size.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> <span class="kw">record</span> <span class="dt">Cargo</span> <span class="kw">where</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   <span class="kw">constructor</span> <span class="dt">MkCargo</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   cargo_id <span class="ot">:</span> <span class="dt">String</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   size <span class="ot">:</span> <span class="dt">Int</span></span></code></pre></div>
+<p>And a <code>Voyage</code> is a list of cargos, a total capacity and a
+confirmation order<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> <span class="kw">record</span> <span class="dt">Voyage</span> <span class="kw">where</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   <span class="kw">constructor</span> <span class="dt">MkVoyage</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   capacity <span class="ot">:</span> <span class="dt">Int</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   orderConfirmation <span class="ot">:</span> <span class="dt">Int</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   cargos <span class="ot">:</span> <span class="dt">List</span> <span class="dt">Cargo</span></span></code></pre></div>
+<p>Given a voyage, it is simple matter to compute the total booked cargo
+size for this voyage:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> bookedCargoSize <span class="ot">:</span> <span class="dt">Voyage</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> bookedCargoSize <span class="fu">=</span> sum <span class="fu">.</span> map size <span class="fu">.</span> cargos</span></code></pre></div>
+<p>Then booking a <code>Cargo</code> for a <code>Voyage</code> checks
+the voyage can accomodate the given cargo’s size before adding it to its
+load:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> makeBooking <span class="ot">:</span> <span class="dt">Cargo</span> <span class="ot">-&gt;</span> <span class="dt">Voyage</span> <span class="ot">-&gt;</span> <span class="dt">Voyage</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> makeBooking cargo voyage <span class="fu">=</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   <span class="kw">if</span> bookedCargoSize voyage <span class="fu">+</span> size cargo <span class="fu">&lt;</span> capacity voyage</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   <span class="kw">then</span> <span class="kw">record</span> { cargos <span class="fu">=</span> cargo <span class="ot">::</span> cargos voyage } voyage</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   <span class="kw">else</span> voyage</span></code></pre></div>
+<p>However, it is customary for shipping company to accept
+<em>overbooking</em>, say 10%. Our booking function then becomes:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> makeBooking&#39; <span class="ot">:</span> <span class="dt">Cargo</span> <span class="ot">-&gt;</span> <span class="dt">Voyage</span> <span class="ot">-&gt;</span> <span class="dt">Voyage</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> makeBooking&#39; cargo<span class="fu">@</span>(<span class="dt">MkCargo</span> <span class="fu">_</span> size) voyage<span class="fu">@</span>(<span class="dt">MkVoyage</span> capacity orderConfirmation cargos) </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>              <span class="fu">=</span>  <span class="kw">if</span> cast (bookedCargoSize voyage <span class="fu">+</span> size) <span class="fu">&gt;</span> <span class="dv">1</span><span class="fu">.</span><span class="dv">1</span> <span class="fu">*</span> cast capacity</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>                    <span class="kw">then</span>  voyage</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>                    <span class="kw">else</span> <span class="kw">record</span> { cargos <span class="fu">=</span> cargo <span class="ot">::</span> cargos } voyage </span></code></pre></div>
+<p>Obviously, this has the huge drawback of mixing different concerns:
+Updating the voyage with the cargo and computing the overbooking rule.
+What we want to do is to make this <em>overbooking policy</em> more
+explicit, say in a type:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> <span class="dt">OverbookingPolicy</span> <span class="ot">:</span> <span class="dt">Type</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> <span class="dt">OverbookingPolicy</span> <span class="fu">=</span> <span class="dt">Cargo</span> <span class="ot">-&gt;</span> <span class="dt">Voyage</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></span></code></pre></div>
+<p>Then our standard 10% overbooking policy is reified in its own
+function:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> tenPercentOverbooking <span class="ot">:</span> <span class="dt">OverbookingPolicy</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> tenPercentOverbooking cargo<span class="fu">@</span>(<span class="dt">MkCargo</span> <span class="fu">_</span> size) voyage<span class="fu">@</span>(<span class="dt">MkVoyage</span> capacity orderConfirmation cargos) <span class="fu">=</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   cast (bookedCargoSize voyage <span class="fu">+</span> size) <span class="fu">&gt;</span> <span class="dv">1</span><span class="fu">.</span><span class="dv">1</span> <span class="fu">*</span> cast capacity</span></code></pre></div>
 <p>and later on used to compute booking:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> makeBooking'' <span class="ot">:</span> <span class="dt">Cargo</span> <span class="ot">-&gt;</span> <span class="dt">Voyage</span> <span class="ot">-&gt;</span> <span class="dt">OverbookingPolicy</span> <span class="ot">-&gt;</span> <span class="dt">Voyage</span>
-<span class="fu">&gt;</span> makeBooking'' cargo voyage isAllowed
-<span class="fu">&gt;</span>              <span class="fu">=</span>  <span class="kw">if</span> isAllowed cargo voyage
-<span class="fu">&gt;</span>                    <span class="kw">then</span> voyage
-<span class="fu">&gt;</span>                    <span class="kw">else</span> <span class="kw">record</span> { cargos <span class="fu">=</span> cargo <span class="ot">::</span> cargos } voyage </code></pre></div>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> makeBooking&#39;&#39; <span class="ot">:</span> <span class="dt">Cargo</span> <span class="ot">-&gt;</span> <span class="dt">Voyage</span> <span class="ot">-&gt;</span> <span class="dt">OverbookingPolicy</span> <span class="ot">-&gt;</span> <span class="dt">Voyage</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> makeBooking&#39;&#39; cargo voyage isAllowed</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>              <span class="fu">=</span>  <span class="kw">if</span> isAllowed cargo voyage</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>                    <span class="kw">then</span> voyage</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>                    <span class="kw">else</span> <span class="kw">record</span> { cargos <span class="fu">=</span> cargo <span class="ot">::</span> cargos } voyage </span></code></pre></div>
 <p>Simple and efficient.</p>
-<p>However, this function is somewhat lacking with respect to how much information it provides in its type: We know nothing about the transformed <code>voyage</code> that it produces and in particular we don’t know if the <code>OverbookingPolicy</code> has been applied or not and if the <code>cargo</code> is part of the load. Having this information around in the type system would be handy to clients that need to take more decisions from this booking…</p>
-<p>Enters dependent types: We will use a type to express the <em>proposition</em> that some <code>Voyage</code> contains some <code>Cargo</code> load which will be part of the outcome of the <code>makeBooking</code> function. This means we would like our <code>makeBooking</code> function to have the following signature:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">makeBooking''</span> <span class="ot">:</span> (cargo <span class="ot">:</span> <span class="dt">Cargo</span>) <span class="ot">-&gt;</span> <span class="dt">Voyage</span> 
-              <span class="ot">-&gt;</span> <span class="dt">OverbookingPolicy</span> 
-              <span class="ot">-&gt;</span> (voyage' <span class="ot">:</span> <span class="dt">Voyage</span> <span class="fu">**</span> <span class="dt">Dec</span> (<span class="dt">HasCargo</span> cargo voyage'))</code></pre></div>
-<p>The return type is a <em>dependent pair</em> which associates an instance of <code>Voyage</code>, a value, with another value whose type depends on <code>voyage'</code>. Just like a standard pair this allows us to pack more information in our return type, namely the possibly updated <code>voyage</code> and a <em>proof</em> that <code>cargo</code> is part of <code>voyage'</code>, or not.</p>
-<p>In order to decide whether a voyage <code>HasCargo</code> or not, we need to be able to decide whethere two <code>Cargo</code>s are equal or not which in Idris terms means implementing the interface <code>DecEq</code> for the <code>Cargo</code> type:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> mutual
-<span class="fu">&gt;</span>   implementation <span class="dt">DecEq</span> <span class="dt">Cargo</span> <span class="kw">where</span>
-<span class="fu">&gt;</span>     decEq (<span class="dt">MkCargo</span> cid <span class="fu">_</span>) (<span class="dt">MkCargo</span> cid <span class="fu">_</span>) <span class="fu">=</span> 
-<span class="fu">&gt;</span>       <span class="kw">case</span> decEq cid cid <span class="kw">of</span> 
-<span class="fu">&gt;</span>         (<span class="dt">Yes</span> prf)   <span class="ot">=&gt;</span> <span class="kw">rewrite</span> prf <span class="kw">in</span> <span class="dt">Yes</span> <span class="dt">Refl</span>
-<span class="fu">&gt;</span>         (<span class="dt">No</span> contra) <span class="ot">=&gt;</span> <span class="dt">No</span> <span class="fu">$</span> contra <span class="fu">.</span> fst <span class="fu">.</span> cargoInj</code></pre></div>
-<p>The <code>cargoInj</code> is a utility function that allows us to relate a proof that the two cargo’s ids differ (<code>contra</code>) to actual <code>Cargo</code> inhabitants.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span>   <span class="kw">private</span>
-<span class="fu">&gt;</span>   cargoInj <span class="ot">:</span> (<span class="dt">MkCargo</span> cid s <span class="fu">=</span> <span class="dt">MkCargo</span> cid' s') <span class="ot">-&gt;</span> (cid <span class="fu">=</span> cid', s <span class="fu">=</span> s')
-<span class="fu">&gt;</span>   cargoInj <span class="dt">Refl</span> <span class="fu">=</span> (<span class="dt">Refl</span>, <span class="dt">Refl</span>)</code></pre></div>
+<p>However, this function is somewhat lacking with respect to how much
+information it provides in its type: We know nothing about the
+transformed <code>voyage</code> that it produces and in particular we
+don’t know if the <code>OverbookingPolicy</code> has been applied or not
+and if the <code>cargo</code> is part of the load. Having this
+information around in the type system would be handy to clients that
+need to take more decisions from this booking…</p>
+<p>Enters dependent types: We will use a type to express the
+<em>proposition</em> that some <code>Voyage</code> contains some
+<code>Cargo</code> load which will be part of the outcome of the
+<code>makeBooking</code> function. This means we would like our
+<code>makeBooking</code> function to have the following signature:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">makeBooking&#39;&#39;</span> <span class="ot">:</span> (cargo <span class="ot">:</span> <span class="dt">Cargo</span>) <span class="ot">-&gt;</span> <span class="dt">Voyage</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>              <span class="ot">-&gt;</span> <span class="dt">OverbookingPolicy</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>              <span class="ot">-&gt;</span> (voyage&#39; <span class="ot">:</span> <span class="dt">Voyage</span> <span class="fu">**</span> <span class="dt">Dec</span> (<span class="dt">HasCargo</span> cargo voyage&#39;))</span></code></pre></div>
+<p>The return type is a <em>dependent pair</em> which associates an
+instance of <code>Voyage</code>, a value, with another value whose type
+depends on <code>voyage'</code>. Just like a standard pair this allows
+us to pack more information in our return type, namely the possibly
+updated <code>voyage</code> and a <em>proof</em> that <code>cargo</code>
+is part of <code>voyage'</code>, or not.</p>
+<p>In order to decide whether a voyage <code>HasCargo</code> or not, we
+need to be able to decide whethere two <code>Cargo</code>s are equal or
+not which in Idris terms means implementing the interface
+<code>DecEq</code> for the <code>Cargo</code> type:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> <span class="kw">mutual</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   <span class="kw">implementation</span> <span class="dt">DecEq</span> <span class="dt">Cargo</span> <span class="kw">where</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>     decEq (<span class="dt">MkCargo</span> cid <span class="fu">_</span>) (<span class="dt">MkCargo</span> cid <span class="fu">_</span>) <span class="fu">=</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>       <span class="kw">case</span> decEq cid cid <span class="kw">of</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>         (<span class="dt">Yes</span> prf)   <span class="ot">=&gt;</span> <span class="kw">rewrite</span> prf <span class="kw">in</span> <span class="dt">Yes</span> <span class="dt">Refl</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>         (<span class="dt">No</span> contra) <span class="ot">=&gt;</span> <span class="dt">No</span> <span class="fu">$</span> contra <span class="fu">.</span> fst <span class="fu">.</span> cargoInj</span></code></pre></div>
+<p>The <code>cargoInj</code> is a utility function that allows us to
+relate a proof that the two cargo’s ids differ (<code>contra</code>) to
+actual <code>Cargo</code> inhabitants.<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   <span class="kw">private</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   cargoInj <span class="ot">:</span> (<span class="dt">MkCargo</span> cid s <span class="fu">=</span> <span class="dt">MkCargo</span> cid&#39; s&#39;) <span class="ot">-&gt;</span> (cid <span class="fu">=</span> cid&#39;, s <span class="fu">=</span> s&#39;)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   cargoInj <span class="dt">Refl</span> <span class="fu">=</span> (<span class="dt">Refl</span>, <span class="dt">Refl</span>)</span></code></pre></div>
 <p>We can now define <code>HasCargo</code> type:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> <span class="kw">data</span> <span class="dt">HasCargo</span> <span class="ot">:</span> (cargo <span class="ot">:</span> <span class="dt">Cargo</span>) <span class="ot">-&gt;</span> (voyage <span class="ot">:</span> <span class="dt">Voyage</span>) <span class="ot">-&gt;</span> <span class="dt">Type</span> <span class="kw">where</span>
-<span class="fu">&gt;</span>   <span class="dt">CargoConfirmed</span> <span class="ot">:</span> { <span class="kw">auto</span> prf <span class="ot">:</span> <span class="dt">Elem</span> cargo cargos } 
-                   <span class="ot">-&gt;</span> <span class="dt">HasCargo</span> cargo (<span class="dt">MkVoyage</span> cap order cargos)</code></pre></div>
-<p><code>HasCargo</code>’s only constructor, <code>CargoConfirmed</code>, given a proof that <code>cargo</code> is an element of <code>voyage</code>’s <code>cargos</code>, yields a proof that <code>cargo</code> is confirmed to be part of <code>voyage</code>. This is a convoluted way to assert the fact a cargo is inside the list of cargos carried by a voyage. Note that we expect the compiler to be able to provide the proof autoatically from the environment and so it is left <em>implicit</em>.</p>
-<p>To be useful in our <code>makeBooking</code> function, we need to equip this type with a decision procedure, e.g. a function that produces a <code>DecEq (HasCargo ...)</code> instance given some cargo and some voyage:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> mutual
-<span class="fu">&gt;</span>   hasCargo <span class="ot">:</span> (cargo <span class="ot">:</span> <span class="dt">Cargo</span>) <span class="ot">-&gt;</span> (voyage <span class="ot">:</span> <span class="dt">Voyage</span>) <span class="ot">-&gt;</span> <span class="dt">Dec</span> (<span class="dt">HasCargo</span> cargo voyage)
-<span class="fu">&gt;</span>   hasCargo cargo (<span class="dt">MkVoyage</span> capacity orderConfirmation []) <span class="fu">=</span> <span class="dt">No</span> voyageIsEmpty</code></pre></div>
-<p>The case where the list of <code>cargos</code> of a <code>voyage</code> is empty is easy: Simply return a <code>No</code> with a contradiction <code>voyageIsEmpty</code> (see later). The non-empty case is a little bit trickier:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span>   hasCargo cargo (<span class="dt">MkVoyage</span> capacity orderConfirmation cargos) <span class="fu">=</span> </code></pre></div>
-<p>First we pattern-match to check whether or not the <code>cargo</code> is in the list which gives us a <code>DecEq (Elem cargo cargos)</code> instance:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span>     <span class="kw">case</span> isElem cargo cargos <span class="kw">of</span></code></pre></div>
-<p>In the <code>Yes</code> case, we simply produce <code>CargoConfirmed</code> and the compiler can use the <code>prf</code> proof of membership in scope to satisfy the requirements of the constructor:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span>       (<span class="dt">Yes</span> prf)   <span class="ot">=&gt;</span> <span class="dt">Yes</span> <span class="dt">CargoConfirmed</span></code></pre></div>
-<p>In the <code>No</code> case, we need to transform our proof by contradiction an element is not present in a proof by contradiction <code>HasCargo</code> does not hold, which means (again) composing functions to extract the proof from a <code>CargoConfirmed</code> instance and pass it to <code>contra</code>:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span>       (<span class="dt">No</span> contra) <span class="ot">=&gt;</span> <span class="dt">No</span> (contra <span class="fu">.</span> cargoConfirmed)</code></pre></div>
-<p>This code makes use of the following utility functions as contradictions:</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> 
-<span class="fu">&gt;</span>   voyageIsEmpty <span class="ot">:</span> <span class="dt">HasCargo</span> cargo (<span class="dt">MkVoyage</span> capacity orderConfirmation []) 
-<span class="fu">&gt;</span>                 <span class="ot">-&gt;</span> <span class="dt">Void</span>
-<span class="fu">&gt;</span>   voyageIsEmpty <span class="dt">CargoConfirmed</span> <span class="kw">impossible</span>
-<span class="fu">&gt;</span> 
-<span class="fu">&gt;</span>   cargoConfirmed <span class="ot">:</span> <span class="dt">HasCargo</span> cargo (<span class="dt">MkVoyage</span> capacity orderConfirmation cargos)
-<span class="fu">&gt;</span>                  <span class="ot">-&gt;</span> <span class="dt">Elem</span> cargo cargos
-<span class="fu">&gt;</span>   cargoConfirmed (<span class="dt">CargoConfirmed</span> {prf}) <span class="fu">=</span> prf</code></pre></div>
-<p>We are now fully armed to define <code>makeBooking'''</code> function which is just our <code>makeBooking''</code> function augmented with an actual proof telling us whether or not the <code>cargo</code> has been actually confirmed.</p>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">&gt;</span> makeBooking''' <span class="ot">:</span> (cargo <span class="ot">:</span> <span class="dt">Cargo</span>) <span class="ot">-&gt;</span> <span class="dt">Voyage</span> 
-<span class="fu">&gt;</span>                <span class="ot">-&gt;</span> <span class="dt">OverbookingPolicy</span>
-<span class="fu">&gt;</span>                <span class="ot">-&gt;</span> (voyage' <span class="ot">:</span> <span class="dt">Voyage</span> <span class="fu">**</span> <span class="dt">Dec</span> (<span class="dt">HasCargo</span> cargo voyage'))
-<span class="fu">&gt;</span> makeBooking''' cargo voyage<span class="fu">@</span>(<span class="dt">MkVoyage</span> capacity orderConfirmation cargos) isAllowed <span class="fu">=</span> 
-<span class="fu">&gt;</span>   <span class="kw">let</span> voyage' <span class="fu">=</span> <span class="kw">if</span> isAllowed cargo voyage
-<span class="fu">&gt;</span>                   <span class="kw">then</span> <span class="dt">MkVoyage</span> capacity orderConfirmation (cargo <span class="ot">::</span> cargos)
-<span class="fu">&gt;</span>                   <span class="kw">else</span> voyage
-<span class="fu">&gt;</span>   <span class="kw">in</span> (voyage' <span class="fu">**</span> hasCargo cargo voyage') </code></pre></div>
-<p>In the original function (or method) defined in the book, <code>makeBooking</code> returned an integer which was supposed to be booking confirmation order, or -1 if the booking could not be confirmed. It seems to me the above formulation improves over this simple but potentially obscure <em>coding</em> of return type, explicitly embodying the success or failure to add the cargo to the voyage in the return <em>type</em> while concurrently updating the voyage. What I found really interesting is that while we are not only improving the cohesion/coupling through the separation of concerns <code>OverbookingPolicy</code> yields, we are also <em>opening</em> the function to other use thanks to the more precise return type.</p>
-<p>Dependent types (or even non-obviously-dependent-yet-sophisticated type systems like Haskell’s or OCaml’s) really allows (or forces) us to reason in two stages: Things we can reason about at compile time and things we can reason about at run-time, with the added value of being able to express the two using the same expressions. I suspect these capabilities could be useful to provide more robust and expressive designs for real-world problems, and not only as a tool for automated theorem proving, and this is what I intend to explore in the next installments of this series.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> <span class="kw">data</span> <span class="dt">HasCargo</span> <span class="ot">:</span> (cargo <span class="ot">:</span> <span class="dt">Cargo</span>) <span class="ot">-&gt;</span> (voyage <span class="ot">:</span> <span class="dt">Voyage</span>) <span class="ot">-&gt;</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   <span class="dt">CargoConfirmed</span> <span class="ot">:</span> { <span class="kw">auto</span> prf <span class="ot">:</span> <span class="dt">Elem</span> cargo cargos } </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                   <span class="ot">-&gt;</span> <span class="dt">HasCargo</span> cargo (<span class="dt">MkVoyage</span> cap order cargos)</span></code></pre></div>
+<p><code>HasCargo</code>’s only constructor,
+<code>CargoConfirmed</code>, given a proof that <code>cargo</code> is an
+element of <code>voyage</code>’s <code>cargos</code>, yields a proof
+that <code>cargo</code> is confirmed to be part of <code>voyage</code>.
+This is a convoluted way to assert the fact a cargo is inside the list
+of cargos carried by a voyage. Note that we expect the compiler to be
+able to provide the proof autoatically from the environment and so it is
+left <em>implicit</em>.</p>
+<p>To be useful in our <code>makeBooking</code> function, we need to
+equip this type with a decision procedure, e.g. a function that produces
+a <code>DecEq (HasCargo ...)</code> instance given some cargo and some
+voyage:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> <span class="kw">mutual</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   hasCargo <span class="ot">:</span> (cargo <span class="ot">:</span> <span class="dt">Cargo</span>) <span class="ot">-&gt;</span> (voyage <span class="ot">:</span> <span class="dt">Voyage</span>) <span class="ot">-&gt;</span> <span class="dt">Dec</span> (<span class="dt">HasCargo</span> cargo voyage)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   hasCargo cargo (<span class="dt">MkVoyage</span> capacity orderConfirmation []) <span class="fu">=</span> <span class="dt">No</span> voyageIsEmpty</span></code></pre></div>
+<p>The case where the list of <code>cargos</code> of a
+<code>voyage</code> is empty is easy: Simply return a <code>No</code>
+with a contradiction <code>voyageIsEmpty</code> (see later). The
+non-empty case is a little bit trickier:</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   hasCargo cargo (<span class="dt">MkVoyage</span> capacity orderConfirmation cargos) <span class="fu">=</span> </span></code></pre></div>
+<p>First we pattern-match to check whether or not the <code>cargo</code>
+is in the list which gives us a <code>DecEq (Elem cargo cargos)</code>
+instance:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>     <span class="kw">case</span> isElem cargo cargos <span class="kw">of</span></span></code></pre></div>
+<p>In the <code>Yes</code> case, we simply produce
+<code>CargoConfirmed</code> and the compiler can use the
+<code>prf</code> proof of membership in scope to satisfy the
+requirements of the constructor:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>       (<span class="dt">Yes</span> prf)   <span class="ot">=&gt;</span> <span class="dt">Yes</span> <span class="dt">CargoConfirmed</span></span></code></pre></div>
+<p>In the <code>No</code> case, we need to transform our proof by
+contradiction an element is not present in a proof by contradiction
+<code>HasCargo</code> does not hold, which means (again) composing
+functions to extract the proof from a <code>CargoConfirmed</code>
+instance and pass it to <code>contra</code>:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>       (<span class="dt">No</span> contra) <span class="ot">=&gt;</span> <span class="dt">No</span> (contra <span class="fu">.</span> cargoConfirmed)</span></code></pre></div>
+<p>This code makes use of the following utility functions as
+contradictions:</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   voyageIsEmpty <span class="ot">:</span> <span class="dt">HasCargo</span> cargo (<span class="dt">MkVoyage</span> capacity orderConfirmation []) </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>                 <span class="ot">-&gt;</span> <span class="dt">Void</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   voyageIsEmpty <span class="dt">CargoConfirmed</span> <span class="kw">impossible</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   cargoConfirmed <span class="ot">:</span> <span class="dt">HasCargo</span> cargo (<span class="dt">MkVoyage</span> capacity orderConfirmation cargos)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>                  <span class="ot">-&gt;</span> <span class="dt">Elem</span> cargo cargos</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   cargoConfirmed (<span class="dt">CargoConfirmed</span> {prf}) <span class="fu">=</span> prf</span></code></pre></div>
+<p>We are now fully armed to define <code>makeBooking'''</code> function
+which is just our <code>makeBooking''</code> function augmented with an
+actual proof telling us whether or not the <code>cargo</code> has been
+actually confirmed.</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> makeBooking&#39;&#39;&#39; <span class="ot">:</span> (cargo <span class="ot">:</span> <span class="dt">Cargo</span>) <span class="ot">-&gt;</span> <span class="dt">Voyage</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>                <span class="ot">-&gt;</span> <span class="dt">OverbookingPolicy</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>                <span class="ot">-&gt;</span> (voyage&#39; <span class="ot">:</span> <span class="dt">Voyage</span> <span class="fu">**</span> <span class="dt">Dec</span> (<span class="dt">HasCargo</span> cargo voyage&#39;))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span> makeBooking&#39;&#39;&#39; cargo voyage<span class="fu">@</span>(<span class="dt">MkVoyage</span> capacity orderConfirmation cargos) isAllowed <span class="fu">=</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   <span class="kw">let</span> voyage&#39; <span class="fu">=</span> <span class="kw">if</span> isAllowed cargo voyage</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>                   <span class="kw">then</span> <span class="dt">MkVoyage</span> capacity orderConfirmation (cargo <span class="ot">::</span> cargos)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>                   <span class="kw">else</span> voyage</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">&gt;</span>   <span class="kw">in</span> (voyage&#39; <span class="fu">**</span> hasCargo cargo voyage&#39;) </span></code></pre></div>
+<p>In the original function (or method) defined in the book,
+<code>makeBooking</code> returned an integer which was supposed to be
+booking confirmation order, or -1 if the booking could not be confirmed.
+It seems to me the above formulation improves over this simple but
+potentially obscure <em>coding</em> of return type, explicitly embodying
+the success or failure to add the cargo to the voyage in the return
+<em>type</em> while concurrently updating the voyage. What I found
+really interesting is that while we are not only improving the
+cohesion/coupling through the separation of concerns
+<code>OverbookingPolicy</code> yields, we are also <em>opening</em> the
+function to other use thanks to the more precise return type.</p>
+<p>Dependent types (or even non-obviously-dependent-yet-sophisticated
+type systems like Haskell’s or OCaml’s) really allows (or forces) us to
+reason in two stages: Things we can reason about at compile time and
+things we can reason about at run-time, with the added value of being
+able to express the two using the same expressions. I suspect these
+capabilities could be useful to provide more robust and expressive
+designs for real-world problems, and not only as a tool for automated
+theorem proving, and this is what I intend to explore in the next
+installments of this series.</p>
 <blockquote>
-<p>Thanks to <a href="https://twitter.com/rhwy">Rui Carvalho</a> for the feedback and to <a href="https://www.meetup.com/fr-FR/Crafting-Software/events/238241119/">Crafting Software Meetup</a> to give me the incentive to explore these topics</p>
+<p>Thanks to <a href="https://twitter.com/rhwy">Rui Carvalho</a> for the
+feedback and to <a
+href="https://www.meetup.com/fr-FR/Crafting-Software/events/238241119/">Crafting
+Software Meetup</a> to give me the incentive to explore these topics</p>
 </blockquote>
-<div class="footnotes">
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>This one I copied verbatim from the book but I don’t use really in the code…<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>I borrowed the technique from <code>Reflection.idr</code> source code. It is another instance of Curry-Howard where function composition is equated to transitivity of implication.<a href="#fnref2">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>This one I copied verbatim from the
+book but I don’t use really in the code…<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>I borrowed the technique from
+<code>Reflection.idr</code> source code. It is another instance of
+Curry-Howard where function composition is equated to transitivity of
+implication.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
-</div>
+</section>
 
 
 <div id="disqus_thread"></div>
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-  
+
     s.src = '//arnaudsblog.disqus.com/embed.js';
-  
+
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

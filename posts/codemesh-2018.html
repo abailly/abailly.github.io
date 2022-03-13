@@ -7,9 +7,7 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - CodeMesh 2018</title>
-
   <meta name="description" content="Crafting code since 1994">
-
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -41,19 +39,74 @@
     </header>
     <div id="main" role="main">
 <h1>CodeMesh 2018</h1>
+<div class="info">Posted on 2018-11-17</div>
 
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on November 17, 2018</div>
-
-<p>Once again I have been lucky enough to attend this year’s <a href="https://codesync.global/conferences/code-mesh-2018/">codemesh</a> conference, but this time I was not only attending but also presenting with my friend <a href="https://twitter.com/abolibibelot">Yann Schwartz</a>, speaking of something we have been working on for a few months and thinking of for a few years: How to leverage the power of those billions of lines of logs our systems generate?</p>
-<p>I only attended the first day of the conference so the following notes reflect only a fraction of the conference. Rumors have it that the second day was much better than the first, unfortunately.</p>
+<p>Once again I have been lucky enough to attend this year’s <a
+href="https://codesync.global/conferences/code-mesh-2018/">codemesh</a>
+conference, but this time I was not only attending but also presenting
+with my friend <a href="https://twitter.com/abolibibelot">Yann
+Schwartz</a>, speaking of something we have been working on for a few
+months and thinking of for a few years: How to leverage the power of
+those billions of lines of logs our systems generate?</p>
+<p>I only attended the first day of the conference so the following
+notes reflect only a fraction of the conference. Rumors have it that the
+second day was much better than the first, unfortunately.</p>
 <ul>
-<li>The first keynote was given by Carl Hewitt, of <a href="http://www.erights.org/history/actors.html">Actors</a> fame, and titled <em>Ultraconcurrency for the future</em>. This was some kind of research program or vision statement about the future of computing systems and different technologies and paradigms, from actors to <em>citadels</em> through <em>inference and planning systems</em> would led to <em>Scalable Intelligent Applications</em>. I must admit the talk was hard to follow…</li>
-<li><a href="https://codesync.global/speaker/carlos-baquero-moreno/">Carlos Baquero Moreno</a> then talked about <a href="https://hal.inria.fr/inria-00555588">Convergent/Commutative/Conflict-free Replicated Data Types</a> of which he is one of the original creator. His talk was an introduction to CRDTs and it succeeded in giving a good intuition of some of the basic data structures you could build and the principles underlying both state and operation based CRDTs. Of special note was his use of a beautiful <em>isochronous map</em> drawn by Galton in the XIXth century coloring various parts of the planet according to the time it takes to reach them from then the Center of the World, London.</li>
-<li>I was both excited and intrigued by the next talk, entitled <em>Verifying a distributed system with combinatorial topology</em>, so I was sorely disappointed when I realised it was a 40 minutes long rant about how inane current development practice of distributed systems are, and how mathematics, and more precisely combinatorial topology, could help solve our problems, without any single fact or even vaguely enlightening example to support this claim. Given that Maurice Herlihy recently published a <a href="https://www.amazon.com/Distributed-Computing-Through-Combinatorial-Topology/dp/0124045782">book</a> on this subject, I am 100% sure this is an interesting topic from which us practitioners could get deep insights, but this presentation failed to convey any useful intuition.</li>
-<li><em>Coroutine explained</em> was a great overview of this sometimes confusing construct which can appear in various guises: Cooperative threads, asynchronous computations, first-class continuations. Coroutines are useful to simplify cooperative multitasking code, alleviating the pain of callback hell or even chain of promises, and removing context-switching overhead. It was interesting to see how async/await computations, and in general coroutines, are “compiled” to state-machines. I learnt about the difference between <em>stackful</em> and <em>stackless</em> coroutines, Lua being a representative of the former while JS implements the latter. The presentor highlighted some caveats when working with coroutines, liek painful stack traces, convoluted debugging and hard to maintain thread safety when using both coroutines and multithreading.</li>
-<li>The last talk I attended was given by <a href="https://heather.miller.am/">Heather Miller</a> and aimed at providing a 10000 feet view of the state of research in distributed systems support from programming language theory. This talk was really awesome and treaded quite a lot of ground, from different consistency guarantees on data structures, to Heather Miller’s own Function Passing, through Session Types. <a href="https://heather.miller.am/blog/towards-language-support-for-distributed-systems-references.html">This URL</a> is supposed to host a collection of references to the various work cited: Can’t wait to see it filled.</li>
+<li>The first keynote was given by Carl Hewitt, of <a
+href="http://www.erights.org/history/actors.html">Actors</a> fame, and
+titled <em>Ultraconcurrency for the future</em>. This was some kind of
+research program or vision statement about the future of computing
+systems and different technologies and paradigms, from actors to
+<em>citadels</em> through <em>inference and planning systems</em> would
+led to <em>Scalable Intelligent Applications</em>. I must admit the talk
+was hard to follow…</li>
+<li><a
+href="https://codesync.global/speaker/carlos-baquero-moreno/">Carlos
+Baquero Moreno</a> then talked about <a
+href="https://hal.inria.fr/inria-00555588">Convergent/Commutative/Conflict-free
+Replicated Data Types</a> of which he is one of the original creator.
+His talk was an introduction to CRDTs and it succeeded in giving a good
+intuition of some of the basic data structures you could build and the
+principles underlying both state and operation based CRDTs. Of special
+note was his use of a beautiful <em>isochronous map</em> drawn by Galton
+in the XIXth century coloring various parts of the planet according to
+the time it takes to reach them from then the Center of the World,
+London.</li>
+<li>I was both excited and intrigued by the next talk, entitled
+<em>Verifying a distributed system with combinatorial topology</em>, so
+I was sorely disappointed when I realised it was a 40 minutes long rant
+about how inane current development practice of distributed systems are,
+and how mathematics, and more precisely combinatorial topology, could
+help solve our problems, without any single fact or even vaguely
+enlightening example to support this claim. Given that Maurice Herlihy
+recently published a <a
+href="https://www.amazon.com/Distributed-Computing-Through-Combinatorial-Topology/dp/0124045782">book</a>
+on this subject, I am 100% sure this is an interesting topic from which
+us practitioners could get deep insights, but this presentation failed
+to convey any useful intuition.</li>
+<li><em>Coroutine explained</em> was a great overview of this sometimes
+confusing construct which can appear in various guises: Cooperative
+threads, asynchronous computations, first-class continuations.
+Coroutines are useful to simplify cooperative multitasking code,
+alleviating the pain of callback hell or even chain of promises, and
+removing context-switching overhead. It was interesting to see how
+async/await computations, and in general coroutines, are “compiled” to
+state-machines. I learnt about the difference between <em>stackful</em>
+and <em>stackless</em> coroutines, Lua being a representative of the
+former while JS implements the latter. The presentor highlighted some
+caveats when working with coroutines, liek painful stack traces,
+convoluted debugging and hard to maintain thread safety when using both
+coroutines and multithreading.</li>
+<li>The last talk I attended was given by <a
+href="https://heather.miller.am/">Heather Miller</a> and aimed at
+providing a 10000 feet view of the state of research in distributed
+systems support from programming language theory. This talk was really
+awesome and treaded quite a lot of ground, from different consistency
+guarantees on data structures, to Heather Miller’s own Function Passing,
+through Session Types. <a
+href="https://heather.miller.am/blog/towards-language-support-for-distributed-systems-references.html">This
+URL</a> is supposed to host a collection of references to the various
+work cited: Can’t wait to see it filled.</li>
 </ul>
 
 
@@ -61,17 +114,14 @@
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-  
+
     s.src = '//arnaudsblog.disqus.com/embed.js';
-  
+
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
