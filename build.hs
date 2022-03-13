@@ -54,7 +54,7 @@ runShake pwd uid = shakeArgs options $ do
         "--template",
         "templates/template-index.html",
         "-s",
-        "_site/content.html"
+        "content.html"
       ]
 
   -- build post entries
@@ -100,4 +100,4 @@ makeIndex posts = do
 
       reversedDate (_, _, d) (_, _, d') = compare d' d
 
-  writeFile' "_site/content.html" ("<ul>" <> postList <> "</ul>")
+  writeFile' "content.html" ("<ul>" <> postList <> "</ul>")
