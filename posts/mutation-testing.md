@@ -1,9 +1,9 @@
-------------
+---
 title: Mutation-Based TDD
 subtitle: Developing Plutus contracts with QuickCheck
 author: Arnaud Bailly
 date: 2022-01-31
-------------
+---
 
 # Smart Contracts & Cardano
 

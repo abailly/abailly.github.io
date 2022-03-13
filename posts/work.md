@@ -1,9 +1,9 @@
-------------
+---
 title: On "Work"
 subtitle: A History of How We Spend Our Time
 author: Arnaud Bailly
 date: 2022-01-14
-------------
+---
 
 [Work](https://www.bloomsbury.com/uk/work-9781526604996/) is a book by James Suzman which seems to be a popular version of his academic works.
 

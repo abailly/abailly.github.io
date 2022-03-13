@@ -1,9 +1,9 @@
-------------
+---
 title: Debord / Baudrillard
 subtitle: Le situationnisme est un humanisme
 author: Arnaud Bailly
 date: 2022-01-29
-------------
+---
 
 La lecture récente de [Simulacres et simulations](http://www.editions-galilee.fr/f/index.php?sp=liv&livre_id=2631) de [Jean Baudrillard](https://fr.wikipedia.org/wiki/Jean_Baudrillard) m'a laissée un peu perplexe. Si le livre est très bien écrit et s'il est indéniable que Baudrillard a été visionnaire dans sa critique de l'hypertrophie du sens et du discours qui noie le réel, son nihilisme assumé m'ennuie. J'ai eu envie dans ce court texte de confronter ce que j'ai compris de sa pensée à celle d'un autre grand contempteur de la société capitaliste, Guy Debord.
 
