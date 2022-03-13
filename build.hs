@@ -44,7 +44,7 @@ runShake pwd uid = shakeArgs options $ do
   "_site//index.html" %> \index -> do
     cs <- getDirectoryFiles "posts" ["//*.md"]
     let posts = ["_site" </> "posts" </> c -<.> "html" | c <- cs]
-    need ["template-index.html"]
+    need ["templates/template-index.html"]
     need posts
     makeIndex cs
     cmd
@@ -52,14 +52,14 @@ runShake pwd uid = shakeArgs options $ do
       [ "-o",
         index,
         "--template",
-        "template-index.html",
+        "templates/template-index.html",
         "-s",
         "_site/content.html"
       ]
 
   -- build post entries
   "_site//posts//*.html" %> \html -> do
-    need ["template.html"]
+    need ["templates/template.html"]
     let post = dropDirectory1 $ html -<.> "md"
     need [post]
     cmd
@@ -67,7 +67,7 @@ runShake pwd uid = shakeArgs options $ do
       [ "-o",
         html,
         "--template",
-        "template.html",
+        "templates/template.html",
         "-s",
         post
       ]
