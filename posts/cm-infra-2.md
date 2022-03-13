@@ -1,8 +1,8 @@
-------------
+---
 title: Haskell-based Infrastructure
 author: Arnaud Bailly 
 date: 2016-05-24
-------------
+---
 
 In my [previous post](/posts/cm-infra-1.html) I focused on the build and development tools. This post will conclude my series on Capital Match by focusing on the last stage of the rocket: How we build and manage our development and production infrastructure. As already emphasized in the previous post, I am not a systems engineer by trade, I simply needed to get up and running something while building our startup. Comments and feedback most welcomed!
 

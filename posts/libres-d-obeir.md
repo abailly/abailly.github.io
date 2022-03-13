@@ -1,8 +1,8 @@
-------------
+---
 title: Sur "Libres d'obéir"
 author: Arnaud Bailly
 date: 2020-01-18
-------------
+---
 
 
 _Libres d'obéir_, sous-titré _Le management, du nazisme à aujourd'hui_ est un

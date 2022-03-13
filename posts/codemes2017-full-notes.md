@@ -1,8 +1,8 @@
-------------
+---
 title: CodeMesh 2017 - Full Notes
 author: Arnaud Bailly
 date: 2017-11-10
-------------
+---
 
 Here is a summary and some quick takeaways from this year's [CodeMesh](http://www.codemesh.io/codemesh2017) conference. I must say I never had such an intense conference, with lot of fascinating and mind-blowing sessions which brood lots of new or old ideas in my mind. Thanks a lot to the organisers and the amazing speakers which made this event memorable.
 

@@ -1,8 +1,8 @@
-------------
+---
 title: Sur "Du mode d'existence des objets techniques"
 author: Arnaud Bailly 
 date: 2015-11-07
-------------
+---
 
 Je suis un grand [admirateur](/posts/eme.html) de Bruno Latour, même si je ne suis pas certain de comprendre l'ensemble des
 concepts qu'il développe. Mais il y a une chose que je crois comprendre et qui m'attire dans sa pensée, c'est l'idée, développée en

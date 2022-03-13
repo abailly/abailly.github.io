@@ -1,8 +1,8 @@
-------------
+---
 title: Sur "La lutte pour la reconnaissance"
 author: Arnaud Bailly 
 date: 2017-04-03
-------------
+---
 
 Quelques notes sur un ouvrage d'[Axel Honneth](http://philosophy.columbia.edu/directories/faculty/axel-honneth), philosophe allemand disciple de l'École de Francfort et de sa philosophie critique, [La lutte pour la reconnaissance](http://www.gallimard.fr/Catalogue/GALLIMARD/Folio/Folio-essais/La-lutte-pour-la-reconnaissance).
 

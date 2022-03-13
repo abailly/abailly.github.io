@@ -1,8 +1,8 @@
-------------
+---
 title: CodeMesh 2017 - Takeaways
 author: Arnaud Bailly
 date: 2017-11-13
-------------
+---
 
 here are some key takeaways from this year's [codemesh](http://www.codemesh.io/codemesh2017) conference. i must say i never had such an intense conference, with lot of fascinating and mind-blowing sessions which bred lots of new or old ideas in my mind. thanks a lot to the organisers and the amazing speakers which made this event memorable.
 

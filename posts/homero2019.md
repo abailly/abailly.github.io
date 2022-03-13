@@ -1,8 +1,8 @@
-------------
+---
 title: Homero 2019
 author: Arnaud Bailly
 date: 2019-01-02
-------------
+---
 
 En écoutant [France inter](https://www.franceinter.fr/emissions/les-histoires-du-monde/les-histoires-du-monde-02-janvier-2019) ce matin j'ai eu immédiatement envie de partager cette lecture collective sur twitter de l'Iliade en français. J'ai donc immédiatement tweeté les premiers vers du premier chant de l'Iiliade, avant de me rendre compte que la contrainte exigeait de twitter _un chant par semaine_. Il est donc devenu urgent d'écrire un programme pour faire en sorte de pouvoir générer ces tweets automatiquement au lieu de devoir laborieusement les taper un par un. Voici le fruit, brut de décoffrage de cette micro-aventure...
 

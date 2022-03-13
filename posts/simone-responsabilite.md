@@ -1,9 +1,9 @@
-------------
+---
 title: Les après-midi de Simone
 subtitle: Celui qui appuie sur le bouton est-il le seul coupable ?
 author: Arnaud Bailly 
 date: 2017-03-27
-------------
+---
 
 Cette question des après-midi de Simone fait partie du *fil vert* soit des séances permettant d'articuler des questions philosophiques avec le context professionnel des participants, majoritairement programmeur/euse/s. Elle conjoint deux problèmes philosophiques, celui de **l'action** et celui de la **culpabilité** ou **responsabilité**. La séance s'organise en:
 

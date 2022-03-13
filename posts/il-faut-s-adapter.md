@@ -1,8 +1,8 @@
-------------
+---
 title: Sur "Il faut s'adapter"
 author: Arnaud Bailly
 date: 2021-11-05
-------------
+---
 
 C'est à Fabien Lamarque et à sa [recension](https://fabien-lamarque.eu/Il-faut-s'adapter/) du livre de Barbara Stiegler que je dois l'impulsion de sa lecture. [_Il faut s'adapter_](http://www.gallimard.fr/Catalogue/GALLIMARD/NRF-Essais/Il-faut-s-adapter#) est une étude fouillée des écrits de [Walter Lippmann](https://en.wikipedia.org/wiki/Walter_Lippmann) considéré comme le père du "néolibéralisme", et sa confrontation avec les écrits de [John Dewey](https://en.wikipedia.org/wiki/John_Dewey), l'un des fondateurs du _pragmatisme_.
 

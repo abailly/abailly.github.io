@@ -1,8 +1,8 @@
-------------
+---
 title: Adventures in Dependently Typed Accounting
 author: Arnaud Bailly
 date: 2019-09-06
-------------
+---
 
 > This article is the [third installment](/posts/dependently-typed-date.html) of a series of articles exploring connection between [Domain Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) and [Dependent types](https://en.wikipedia.org/wiki/Dependent_type) as implemented in [Idris](http://idris-lang.org). It's been written as prepaatory work to a talk given at the [Okiwi meetup](https://www.meetup.com/software-craftsmanship-bdx/events/264578542/) in Bordeaux.
 

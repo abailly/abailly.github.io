@@ -1,8 +1,8 @@
-------------
+---
 title: Sur "Critique de la raison pure"
 author: Arnaud Bailly 
 date: 2016-05-05
-------------
+---
 
 Ceci est une retranscription d'un cours improvisé par [Peggy Penez-Avez](https://directory.unamur.be/staff/pavez) lors d'une session d'[Agile Open France 2016](http://agenda-agile.org/showevent.php?id=487), conçu plus ou moins comme une expérimentation du [Dojo Philo](http://dojophilo.net/). J'ai pu ajouté quelques notes personnelles...
 

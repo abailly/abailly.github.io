@@ -1,8 +1,8 @@
-------------
+---
 title: Notes on Reliability & Maintainability of Haskell Code
 author: Arnaud Bailly 
 date: 2017-05-24
-------------
+---
 
 Those notes are my answer to a [question](https://gist.github.com/heath/858a321b5fc96d3011d9b6ea4fca3cb9) asked on the [Elm Slack](https://elm-lang.slack.com/)
 

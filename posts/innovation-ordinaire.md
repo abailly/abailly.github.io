@@ -1,8 +1,8 @@
-------------
+---
 title: Notes sur "L'innovation ordinaire"
 author: Arnaud Bailly 
 date: 2013-02-28
-------------
+---
 
 L'innovation n'est pas l'invention mais la pratique sociale par laquelle une invention se diffuse dans une organisation ou une
 société. Innover c'est donc transgresser le jeu social, l'état courant du monde pour le transformer, y apporter de nouvelles

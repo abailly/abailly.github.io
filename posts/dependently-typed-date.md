@@ -1,8 +1,8 @@
-------------
+---
 title: A Dependently Typed Date
 author: Arnaud Bailly 
 date: 2017-04-19
-------------
+---
 
 > This article is the [second installment](/posts/dependent-types-ddd.html) of a planned series of articles exploring connection between [Domain Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) and [Dependent types](https://en.wikipedia.org/wiki/Dependent_type) as implemented in [Idris](http://idris-lang.org), revisiting examples and patterns from Eric Evan's [book](https://www.abebooks.com/products/isbn/9780321125217/22376984258).
 

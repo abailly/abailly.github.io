@@ -1,8 +1,8 @@
-------------
+---
 title: On "On the Origin of Species"
 author: Arnaud Bailly
 date: 2021-06-16
-------------
+---
 
 I am indebted to Adèle van Reeth's [Les chemins de la philotophie](https://www.franceculture.fr/emissions/les-chemins-de-la-philosophie/les-chemins-de-la-philosophie-emission-du-lundi-08-fevrier-2021) for enthusing me in reading Darwin's controversial masterpiece [On the Origin of Species](https://global.oup.com/academic/product/on-the-origin-of-species-9780199219223). We live in a time when creationism under the guise of so-called _Intelligent design_ is again on the rise, when more and more people from developed countries, including highly-educated people, can believe [Earth is flat](https://physicsworld.com/a/fighting-flat-earth-theory/), when _post-truth_ is a thing, and people can attract and retain the attention of millions with any kind of [bullshit](http://journal.sjdm.org/15/15923a/jdm15923a.html). Darwin published his book in the middle of the XIXth century, at a time when creationism was still dominant, and the religious dogma considered relevant on the matter of truth of natural sciences' theories, especially ones dependent on pre-historical and geological times facts. So it seemed important to me to understand _how_ Darwin exposed his theory, how he actually practiced science and conveyed scientific truth.
 

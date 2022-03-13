@@ -1,8 +1,8 @@
-------------
+---
 title: Notes sur "Métamorphoses du travail"
 author: Arnaud Bailly 
 date: 2013-07-23
-------------
+---
 
 Je découvre [André Gorz](http://fr.wikipedia.org/wiki/Andr%C3%A9_Gorz)
 par cet ouvrage,

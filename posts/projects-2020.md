@@ -1,8 +1,8 @@
-------------
+---
 title: My Projects for 2020
 author: Arnaud Bailly
 date: 2020-01-01
-------------
+---
 
 This year 2019 has been exciting in many respects, but it's coming to an end and the time is ripe to look forward: 2020, here I come!
 For my own personal records, I have written up a list of things I would like to work on, investigate, learn, discover and more generally spend some time tinkering with. I look forward to the 31st of December, 2020, to check by which margin I overestimated the time I could reasonably put into side projects!

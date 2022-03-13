@@ -1,8 +1,8 @@
-------------
+---
 title: Sur "Technological Revolutions and Financial Capital"
 author: Arnaud Bailly 
 date: 2015-11-06
-------------
+---
 
 Il y a quelques mois j'ai eu l'occasion d'assister à une [conférence](http://conseil-developpement.loire-atlantique.fr/assaut-numerique-decrypte-devant-100-citoyens-et-professionnels-de-loire-atlantique/) de [Nicolas Collin](https://twitter.com/Nicolas_Colin) donnée à
 l'Hôtel de Département dans le cadre du

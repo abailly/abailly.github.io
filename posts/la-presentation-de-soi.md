@@ -1,10 +1,10 @@
-------------
+---
 title: Sur "La mise en scène de la vie quotidienne"
 subtitle: "La présentation de soi"
 description: Le livre est une analyse des interactions sociales vues comme une pièce de théâtre, un jeu de rôles dans lequel les membres d'une équipe collaborent pour donner un spectacle à des spectateurs
 author: Arnaud Bailly
 date: 2020-02-26
-------------
+---
 
 
 [La mise en scène de la vie quotidienne](http://www.leseditionsdeminuit.com/livre-La_Pr%C3%A9sentation_de_soi._La_Mise_en_sc%C3%A8ne_de_la_vie_quotidienne_I-2089-1-1-0-1.html) est un livre d'[Erving Goffman](https://en.wikipedia.org/wiki/Erving_Goffman), un des plus influents sociologues du XXème siècle. Cet article est une synthèse de mes notes de lecture sur le volume I, _La présentation de soi_, en attendant de lire le volume II, _Les relations en public_.

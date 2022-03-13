@@ -1,9 +1,9 @@
-------------
+---
 title: Modern Emacs for Haskell
 subtitle: Setting up a more modern development environment with LSP
 author: Arnaud Bailly
 date: 2020-10-12
-------------
+---
 
 For a couple of years now there has been an upsurge of activity on the front of Haskell Tooling and IDE support. As explained in [this blog post](https://neilmitchell.blogspot.com/2020/01/one-haskell-ide-to-rule-them-all.html) from Neil Mitchell, there is a need, and now a will, to equip Haskell with a more  modern development environment based on the now standard [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) introduced by Visual Studio Code. This initiative gave rise to the [Haskell Language Server](https://github.com/haskell/haskell-language-server) which aims at fully supporting LSP for the Haskell eco-system and becoming the standard "IDE".
 

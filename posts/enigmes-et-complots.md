@@ -1,8 +1,8 @@
-------------
+---
 title: Sur "Énigmes et complots" de Luc Boltanski
 author: Arnaud Bailly
 date: 2021-01-31
-------------
+---
 
 Luc Boltanski est un sociologue dont j'ai beaucoup apprécié [Le nouvel esprit du capitalisme](http://www.gallimard.fr/Catalogue/GALLIMARD/Tel/Le-nouvel-esprit-du-capitalisme) - co-écrit avec Eve Chiapello - et [Enrichissement](http://www.gallimard.fr/Catalogue/GALLIMARD/NRF-Essais/Enrichissement) - co-écrit avec Arnaud Esquerre. Le complotisme est un sujet d'actualité et ils ne sont pas nombreux les livres qui cherchent à comprendre ce que recouvre cette croyance, quelle est son histoire et sa signification contemporaine. Cet article synthètise quelques unes des réflexions qu'il m'a inspiré, en espérant qu'il donne envie de lire l'original bien sûr.
 

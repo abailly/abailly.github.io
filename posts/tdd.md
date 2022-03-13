@@ -1,8 +1,8 @@
-------------
+---
 title: On Test-Driven Development
 author: Arnaud Bailly 
 date: 2013-11-16
-------------
+---
 
 * Within Agile circles, TDD is thought to be one of the techniques promoted by XP that is only for developers
 * This is something I have been practicing for years now, and I still have to master 

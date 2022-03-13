@@ -1,9 +1,9 @@
-------------
+---
 title: Haskell + Emacs + Nix
 subtitle: Making of sense of Nix for Haskell development
 author: Arnaud Bailly
 date: 2021-02-02
-------------
+---
 
 
 In a [previous post](a-modern-haskell-env.html) I detailed how to set up a LSP server for Haskell using Emacs as client. Now, despite my good friend Sam Halliday's [advice](https://levelup.gitconnected.com/delivering-with-haskell-a347d8359597), I wanted to add Nix in the mix. Both [standardized and shared development environment](common-dev-environment.html) and reproducibility of such environments are relevant and important. But I could argue that the wealth of virtualization tools available nowadays, from the humble `chroot` to full-blown virtual machines through containers of all kind, makes it much easier to produce and reproduce identical environments than when nix was started 15 years ago.

@@ -1,8 +1,8 @@
-------------
+---
 title: Sur "Phénoménologie de la perception"
 author: Arnaud Bailly
 date: 2018-11-20
-------------
+---
 
 ## Sur l'empirisme
 

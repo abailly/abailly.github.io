@@ -1,8 +1,8 @@
-------------
+---
 title: Understanding the Java Memory Model
 author: Arnaud Bailly 
 date: 2013-04-16
-------------
+---
 
 Like most Java developer I have been accustomed over the years to use the concurrency
 capabilities of the Java language and platform to build multi-threaded

@@ -1,8 +1,8 @@
-------------
+---
 title: Weekly Review - Week 13
 author: Arnaud Bailly 
 date: 2017-04-02
-------------
+---
 
 [Ethically aligned design | the morning paper](https://blog.acolyer.org/2017/03/27/ethically-aligned-design/)
 

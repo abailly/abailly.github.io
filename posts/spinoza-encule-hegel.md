@@ -1,8 +1,8 @@
-------------
+---
 title: Sur "Spinoza encule Hegel"
 author: Arnaud Bailly
 date: 2016-04-23
-------------
+---
 
 Une France post-apocalyptique et comme suspendue. Des gangs sillonent l'ex-capitale et le pays pour s'entretuer. Ils ont nom *Sang Noir de Bakounine*, *Docteur Jdanov*, *Planète Potlatch*, *Jeunes Hégeliens*... Julius Puech est le chef de la *Fraction Armée Spinoziste*. Il porte des bottes de lézard mauves et voue une haine farouche aux Hégeliens dont le chef s'appelle Thorez. Il aime Spinoza et François. Il a de la sympathie pour le Diable. Tout ça finira très mal.
 

@@ -1,9 +1,9 @@
-------------
+---
 title: Sur "Le maniement des hommes"
 subtitle: Éssai sur la rationalité managériale
 author: Arnaud Bailly
 date: 2020-03-21
-------------
+---
 
 [_Le maniement des hommes_](https://www.editionsladecouverte.fr/catalogue/index-Le_maniement_des_hommes-9782707190260.html) est un essai de Thibault Le Texier qui est paru en 2016 aux éditions _La découverte_, et comme le sont très souvent les livres de cet éditeur, c'est un ouvrage intelligent et passionnant. Son propos est d'exposer comment le _management_ à partir des écrits fondateurs de Frederick Taylor constitue une _rationalité_ propre, avec son langage, ses modes de pensées, ses buts. Le _management scientifique_ n'a de fait rien de scientifique, c'est-à-dire qu'il n'est pas une science, qu'il ne fait pas partie du domaine de rationalité spécifique de la science expérimentale[^1], ni d'ailleurs de celui des sciences humaines qui s'élabore à peu près à la même période, au tournant du XXème siècle.
 

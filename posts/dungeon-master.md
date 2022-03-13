@@ -1,8 +1,8 @@
-------------
+---
 title: The Dungeon Master 
 author: Arnaud Bailly 
 date: 2016-06-03
-------------
+---
 
 This post was triggered by a [tweet from Alberto Brandolini](https://twitter.com/ziobrando/status/737619202538758145) on  [The rise and fall of the Dungeon Master](https://medium.com/@ziobrando/the-rise-and-fall-of-the-dungeon-master-c2d511eed12f#.erkso3y88). This revived old memories from my youth and the desire to share this part of my story, in the hope that it might shed some light on what a "Dungeon Master" role actually should be and what team work is all about. My life revolved around Role Playing Games between the the age of fifteen to about twenty-eight and this experience shaped my way of thinking probably more than anything else.
 

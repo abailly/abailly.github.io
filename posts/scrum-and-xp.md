@@ -1,8 +1,8 @@
-------------
+---
 title: XP is the new SCRUM
 author: Arnaud Bailly
 date: 2019-01-01
-------------
+---
 
 This is the blurb that introduces [Agile Software Development with SCRUM](https://www.amazon.fr/SCHWABER-AGILE-SCRUM_p1-United-States/dp/0130676349/ref=sr_1_2?ie=UTF8&qid=1546375554&sr=8-2&keywords=ken+schwaber), the seminal book by Ken Schwaber and Mike Beedle that explained Scrum, or rather _SCRUM_  as it should be correctly spelled, to a wide audience.
 

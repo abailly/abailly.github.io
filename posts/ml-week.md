@@ -1,8 +1,8 @@
-------------
+---
 title: Some Notes on ML in Haskell following MLWeek 
 author: Arnaud Bailly 
 date: 2015-11-06
-------------
+---
 
 
 From Monday 2/11 to Thursday 5/11 I attended [ML Week](http://www.ml-week.com/fr), a training session lead by

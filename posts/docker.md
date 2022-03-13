@@ -1,8 +1,8 @@
-------------
+---
 title: Using Docker for Building
 author: Arnaud Bailly 
 date: 2013-11-25
-------------
+---
 
 * Goal: ensure repeatability and reliability of builds across OS (dev'ing on Windows, CI on linux, deploying on unix/solaris)
 * Using docker inside a Linux VM on VirtualBox on windows

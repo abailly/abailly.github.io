@@ -1,8 +1,8 @@
-------------
+---
 title: Notes on Failing to Understand Software Transactional Memory
 author: Arnaud Bailly 
 date: 2016-05-22
-------------
+---
 
 I am writing some library to easily implement event sourced services in Haskell based on previous experience at Capital Match, and while doing so I rewrote a simple file-based event store. This store communicates with core service using [TBQueue](https://hackage.haskell.org/package/stm-2.4.4.1/docs/Control-Concurrent-STM-TBQueue.html), a bounded queue implemented over Haskell's STM. It took me couple of hours on Friday to solve a [BlockedIndefinitelyOnSTM](http://hackage.haskell.org/package/base-4.8.2.0/docs/Control-Exception-Base.html#t:BlockedIndefinitelyOnSTM) bug I was facing while testing this simple store. So today I posted a [question about STM](http://stackoverflow.com/questions/37376419/what-is-the-precise-reason-i-got-blocked-on-stm) on Stack Overflow, as I did not have a clear intuition on why my code was failing, hence why my fix was correct.
 

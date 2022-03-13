@@ -1,8 +1,8 @@
-------------
+---
 title: On Free DSLs and Cofree interpreters
 author: Arnaud Bailly 
 date: 2015-06-04
-------------
+---
 
 This post has been triggered by a [tweet](https://twitter.com/etorreborre/status/605562458279944192) from Eric Torreborre on a talk
 by David Laing presenting the interaction of Free DSLs and Cofree interpreters at the Brisbane Functional Programming Group. I am

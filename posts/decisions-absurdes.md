@@ -1,8 +1,8 @@
-------------
+---
 title: Notes sur "Les décisions absurdes"
 author: Arnaud Bailly 
 date: 2013-12-31
-------------
+---
 
 Qu'y-a-t'il de commun entre l'explosion de la navette *Challenger*, la collision entre deux pétroliers dans le Golfe Persique, la
 transformation d'une université d'entreprise en institut de formation externe, la persistance de transparents surchargés et

@@ -1,8 +1,8 @@
-------------
+---
 title: Essence & Accident
 author: Arnaud Bailly 
 date: 2013-11-10
-------------
+---
 
 # On Out of the Tar Pit
 

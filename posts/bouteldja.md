@@ -1,8 +1,8 @@
-------------
+---
 title: Sur "Les Blancs, les Juifs et nous"
 author: Arnaud Bailly 
 date: 2016-06-21
-------------
+---
 
 J'ai lu récemment [Les Blancs, les Juifs et nous](http://www.lafabrique.fr/catalogue.php?idArt=952) de
 [Houria Bouteldja](https://fr.wikipedia.org/wiki/Houria_Bouteldja), fondatrice du Mouvement puis Parti des

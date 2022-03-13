@@ -1,8 +1,8 @@
-------------
+---
 title: Life Beyond Relational Database in Haskell - The case for Event Sourcing
 author: Arnaud Bailly 
 date: 2016-05-12
-------------
+---
 
 This post contains the code I demonstrated as part of my talk at [nCrafts](http://ncrafts.io). This work is based on the following
 references (stepping on the shoulders of giants, as always...):

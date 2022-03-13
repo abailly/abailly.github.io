@@ -1,9 +1,9 @@
-------------
+---
 title: Sur "Misère de l'historicisme"
 subtitle: Quelle méthode pour les sciences sociales ?
 author: Arnaud Bailly
 date: 2021-09-05
-------------
+---
 
 [Misère de l'historicisme](https://www.babelio.com/livres/Popper-Misere-de-lhistoricisme/153793) est un livre de [Karl Popper](https://fr.wikipedia.org/wiki/Karl_Popper), un des plus important philosophe du XXème siècle en particulier dans le domaine de l'épistémologie et de la philosophie des sciences. Popper est célèbre pour son _principe de réfutabilité_ permettant de distinguer les théories scientifiques des autres : une théorie ne peut être scientifique que si elle est est réfutable, c'est à dire s'il est possible de concevoir une _expérience_ permettant de la _tester_. La conséquence principale de ce principe épistémologique est que toute théorie scientifique est "en sursis", elle conserve toujours le statut d'une hypothèse que des faits futurs pourraient invalider en tout ou partie. C'est arrivé régulièrement au cours de l'histoire, par exemple dans le domaine de la physique avec l'invalidation de la théorie du [phlogistique](https://fr.wikipedia.org/wiki/Phlogistique), en astronomie avec la réfutation de l'astronomie Ptoléméenne par Galilée et Copernic, en biologie avec la [théorie des humeurs](https://fr.wikipedia.org/wiki/Th%C3%A9orie_des_humeurs).
 

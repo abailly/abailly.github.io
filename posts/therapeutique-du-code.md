@@ -1,8 +1,8 @@
-------------
+---
 title: Pour une  thérapeutique du code
 author: Arnaud Bailly 
 date: 2017-04-14
-------------
+---
 
 Cela fait désormais de nombreuses années que j'écris du code qui a vocation à se retrouver dans des logiciels, eux-mêmes ayant vocation à répondre à des fonctions diverses et variées. Dans ma relation au code, je fait régulièrement l'expérience d'une véritable difficulté physique, d'une douleur : je suis en train de travailler sur un programme, un algorithme, un bout de truc pour déployer une application ; le temps passe et cela ne fonctionne pas correctement, je m'obstine et c'est comme si je poussais un rocher de plus en plus lourd ; la lucidité s'émousse, la clairvoyance sur les moyens et les fins s'embrume par l'accumulation de détails apparemment absurdes et un dédale de pages *web* prodiguant des solutions à tel problème qui font naître d'autres problèmes de plus en plus éloignés du but recherché[^2] ; et dans mon cas se manifeste une douleur physique là, entre les omoplates, une tension musculaire dépassant le seuil de l'inconfort pour se transformer en brûlure, et c'est comme si j'avais dû traîner une lourde charge sur plusieurs centaines de mètres, un rocher de Sysiphe en miniature.
 

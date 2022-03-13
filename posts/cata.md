@@ -1,8 +1,8 @@
-------------
+---
 title: Comprendre les catamorphismes
 author: Arnaud Bailly
 date: 2014-01-11
-------------
+---
 
 # Bananes, lentilles, enveloppes et barbelés
 

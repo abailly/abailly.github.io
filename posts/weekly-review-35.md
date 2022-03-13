@@ -1,8 +1,8 @@
-------------
+---
 title: Weekly Review - Week 35
 author: Arnaud Bailly 
 date: 2017-08-28
-------------
+---
 
 This post is a summary of my activities related to coding and software in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments...
 

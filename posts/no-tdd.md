@@ -1,8 +1,8 @@
-------------
+---
 title:  Ten "Good" Reasons Not to Do TDD
 author: Arnaud Bailly 
 date: 2014-01-31
-------------
+---
 
 When trying to introduce *Test-Driven Development* in a team or company, it is normal to encounter resistance: Change is always
 hard, whatever it may be, for *everybody*. It is a transgression of the current norm and rules that most people would not accept

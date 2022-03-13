@@ -1,8 +1,8 @@
-------------
+---
 title: Anatomy of a Haskell-based Application
 author: Arnaud Bailly
 date: 2015-11-16
-------------
+---
 
 This is the first post of a series I am planning to write about my experience developing software as CTO of
 [Capital Match](http://www.capital-match.com), a Singapore-based startup providing a peer-to-peer lending marketplace for Small and

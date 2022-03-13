@@ -1,8 +1,8 @@
-------------
+---
 title: On "The World Beyond Your Head"
 author: Arnaud Bailly 
 date: 2016-04-28
-------------
+---
 
 I have read Matthew Crawford's [Éloge du carburateur](http://www.editionsladecouverte.fr/catalogue/index-__loge_du_carburateur-9782707160065.html) or [Shop Class as Soulcraft](http://www.matthewbcrawford.com/new-page-1-1-2/) a few years ago, in French and really liked the way it praised manual work, of the kind one does in a mechanics shop, and reconciled it with intellectual work. I bought [The World Beyond Your Head](http://www.matthewbcrawford.com/new-page-1-1/) and read it in English this time.
 

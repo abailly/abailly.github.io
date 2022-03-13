@@ -1,8 +1,8 @@
-------------
+---
 title: A Personal Retrospective
 author: Arnaud Bailly 
 date: 2016-04-12
-------------
+---
 
 From August 2014 to April 2016 I have been working as CTO of a startup based in Singapore, developing a peer-to-peer lending
 platform using Haskell programming language and environment. This experience has now come to an end and this short blog post is

@@ -1,8 +1,8 @@
-------------
+---
 title: On "Cakes, Custard + Category Theory"
 author: Arnaud Bailly 
 date: 2016-04-18
-------------
+---
 
 I am not a mathematician, and this is probably the only regret of my life. When I was young I was too lazy to work seriously
 enough in High School to be accepted at one of the "Grandes Écoles". Or rather I was way too much interested by role-playing games to

@@ -1,8 +1,8 @@
-------------
+---
 title: CodeMesh 2018
 author: Arnaud Bailly
 date: 2018-11-17
-------------
+---
 
 Once again I have been lucky enough to attend this year's [codemesh](https://codesync.global/conferences/code-mesh-2018/) conference, but this time I was not only attending but also presenting with my friend [Yann Schwartz](https://twitter.com/abolibibelot), speaking of something we have been working on for a few months and thinking of for a few years: How to leverage the power of those billions of lines of logs our systems generate?
 

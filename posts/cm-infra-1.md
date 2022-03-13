@@ -1,8 +1,8 @@
-------------
+---
 title: Haskell-based Development Environment
 author: Arnaud Bailly 
 date: 2016-05-23
-------------
+---
 
 In a [previous post](/posts/cm-arch-design.html) I described the overall design and architecture of Capital Match's core system. I now turn to providing more details on our development and operations environment which uses mostly Haskell tools and code. As there are quite a lot of moving parts, this large topic will be covered in two posts: The present one will focus on basic principles, build tools and development environment ; it shall be followed by another post on configuration management, deployment and monitoring. I consider both development and production environments as a single integrated system as, obviously, there is a porous membrane between the two especially in a small company with 4 developers. Although I have been interested in that topic since my first systems programming course in university, some 18 years ago, I do not consider myself a genuine systems administrator and I made a lot of mistakes while building Capital Match platform. But I do believe in the *"you build it, you run it"* motto and this is all the more true for a small startup team. Hence I have tried to pay attention to building a flexible yet robust system. 
 

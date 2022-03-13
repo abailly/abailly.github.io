@@ -1,8 +1,8 @@
-------------
+---
 title: Sur "Une histoire des inégalités"
 author: Arnaud Bailly
 date: 2021-06-08
-------------
+---
 
 Le succès du [Capital au XXIème siècle](https://www.seuil.com/ouvrage/le-capital-au-xxie-siecle-thomas-piketty/9782021082289) de Thomas Piketty a remis à l'ordre du jour la question des inégalités économiques, de leur justification, de leur évolution, et de la manière de lutter contre leur extension voire de les réduire. [Capital et idéologie](https://www.seuil.com/ouvrage/capital-et-ideologie-thomas-piketty/9782021338041) du même auteur, s'intéresse d'ailleurs plus précisèment à la manière dont différentes sociétés justifient, ou pas, les inégalités et leurs trajectoires dans différents pays au cours du siècle précédent.
 

@@ -1,8 +1,8 @@
-------------
+---
 title: Sur "Critique de la raison pure" (2)
 author: Arnaud Bailly 
 date: 2017-04-15
-------------
+---
 
 Quelques notes supplémentaires sur Kant, la [Critique de la raison pure](https://fr.wikipedia.org/wiki/Critique_de_la_raison_pure) et les [Fondements de la métaphysique des moeurs](https://fr.wikipedia.org/wiki/Fondation_de_la_m%C3%A9taphysique_des_m%C5%93urs). Ce billet fait suite à [d'autres notes](/posts/kant.html) prises lors d'une session d'AOF 2016.
 

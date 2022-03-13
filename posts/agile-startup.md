@@ -1,8 +1,8 @@
-------------
+---
 title: Using agile in a startup
 author: Arnaud Bailly 
 date: 2016-04-24
-------------
+---
 
 This post is a follow-up to my [previous post](/posts/cm-arch-design.html) on designing an application in Haskell and part of a
 series of post I intend to write that reflect on my experience as CTO of Haskell-based startup. Whereas the previous post was very

@@ -1,8 +1,8 @@
-------------
+---
 title: Understanding Existential Types
 author: Arnaud Bailly 
 date: 2017-03-31
-------------
+---
 
 Existential types are a less well-known extension to Haskell's type system and Damas-Hindley-Milner type theory, although they are a logical consequence of the identification of type theory with predicate logic: If type variables can be universally quantified then it seems logical they can also be existentially quantified. I have used existential types in Haskell on several occasions but my brain always struggled to really understand what was going on and how to fix the dreaded error messages I got back from the compiler.
 

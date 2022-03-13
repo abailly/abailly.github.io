@@ -1,8 +1,8 @@
-------------
+---
 title: LambdaConf 2018
 author: Arnaud Bailly
 date: 2018-06-05
-------------
+---
 
 # Rock-Solid Haskell Services
 

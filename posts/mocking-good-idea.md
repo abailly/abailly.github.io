@@ -1,9 +1,9 @@
-------------
+---
 title: Why mocking is a good idea
 subtitle: ... when done right
 author: Arnaud Bailly
 date: 2021-10-29
-------------
+---
 
 Someone wrote a [recent post](https://cs-syd.eu/posts/2021-10-22-why-mocking-is-a-bad-idea) debunking what the author thinks are _Mocks_. I say "thinks" because actually, what the author describes are not what _Mock objects_ really are or how they were thought to be used, as this post demonstrates.
 

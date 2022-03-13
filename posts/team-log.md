@@ -1,8 +1,8 @@
-------------
+---
 title: "Team Practices: Daily Log"
 author: Arnaud Bailly
 date: 2020-10-08
-------------
+---
 
 Writing a personal diary is pretty commonplace and there exists quite a few tools out there to do that. I personally favor Emacs for casual personal journalling and have been using [org-mode]() since at least 2014, and some other tools prior to that like [remember.el]().
 For a few years now, I have been trying to extend that practice from the individual to the collective by writing a **Team's Log**. I stole the idea from a talk Dan North gave where he mentioned the _Captain's Log_ as one of the "advanced agile" or "post-agile" practices he thought effective to improve a team's efficiency and effectiveness.

@@ -1,8 +1,8 @@
-------------
+---
 title: Weekly Review - Week 39
 author: Arnaud Bailly 
 date: 2017-09-25
-------------
+---
 
 This post is a summary of my activities related to coding and software in the past week. Its purpose is both to serve as a high-level personal log and as a potential source of interesting (or not so interesting) links. Entries are provided in no particular order with minimal comments...
 

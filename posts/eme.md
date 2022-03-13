@@ -1,8 +1,8 @@
-------------
+---
 title: Notes sur "Enquête sur les modes d'existence"
 author: Arnaud Bailly 
 date: 2013-01-27
-------------
+---
 
 ## [RES] Le Réseau
 
