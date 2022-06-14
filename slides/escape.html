@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Arnaud Bailly - @dr_c0d3">
+  <meta name="dcterms.date" content="2022-06-14">
+  <title>Timeo danaos et dona ferentes</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/white.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Timeo danaos et dona ferentes</h1>
+  <p class="subtitle">A response to “Notations. There is no escape”</p>
+  <p class="author">Arnaud Bailly - <span class="citation"
+data-cites="dr_c0d3">@dr_c0d3</span></p>
+  <p class="date">2022-06-14</p>
+</section>
+
+<section id="caveat-emptor" class="slide level1">
+<h1>Caveat Emptor</h1>
+<figure>
+<img data-src="./images/masque-grec.png"
+alt="https://upload.wikimedia.org/wikipedia/commons/e/ee/NAMA_Masque_esclave.jpg" />
+<figcaption
+aria-hidden="true">https://upload.wikimedia.org/wikipedia/commons/e/ee/NAMA_Masque_esclave.jpg</figcaption>
+</figure>
+<aside class="notes">
+<ul>
+<li>Not sure what a “respondent” is supposed to do…</li>
+<li>I am just a practitioner, practicing “philosophy” as an amateur</li>
+</ul>
+</aside>
+</section>
+<section id="whats-the-curse-about" class="slide level1">
+<h1>What’s the Curse About?</h1>
+</section>
+<section class="slide level1">
+
+<p><img data-src="./images/notation-1.svg" /></p>
+<aside class="notes">
+<ul>
+<li>Notation as a negotiation between a Human and a Machine</li>
+<li>It can be more or less detached from the actual computing model (eg.
+abstract)</li>
+</ul>
+</aside>
+</section>
+<section class="slide level1">
+
+<p><img data-src="./images/notation-2.svg" /></p>
+<aside class="notes">
+<ul>
+<li>Notation as a negotiation between a “domain” and “computing”</li>
+<li>Programmability dimension, how far can you depart from what’s
+pre-built in the notation</li>
+<li>Problematic in itself: Domains do not exist in vacuum, they are also
+changed by their relation to machines</li>
+</ul>
+</aside>
+</section>
+<section class="slide level1">
+
+<p><img data-src="./images/notation-3a.svg" /></p>
+<aside class="notes">
+<ul>
+<li>Notation as a representation of how humans talk about their
+domains</li>
+<li>Domain Specific Languages, “trade jargon”</li>
+</ul>
+</aside>
+</section>
+<section class="slide level1">
+
+<p><img data-src="./images/notation-3b.svg" /></p>
+<aside class="notes">
+<ul>
+<li>The dream of BDD: Expressing the “problem” in the language of the
+“domain experts”</li>
+<li>DDD: using the language of the domain in the “solution space”</li>
+<li>Removing intermediates (eg. Business Analysts, Product
+Managers)</li>
+</ul>
+</aside>
+</section>
+<section class="slide level1">
+
+<p><img data-src="./images/notation-4.svg" /></p>
+<aside class="notes">
+<ul>
+<li>Notation as way to negotiate meaning between humans</li>
+<li>Famous Abelson &amp; Sussman quote about reading vs. writing, human
+consumption</li>
+<li>Programming is a <em>translation</em> process between “domains”, but
+it’s impure</li>
+</ul>
+</aside>
+</section>
+<section id="notations-are-social-too" class="slide level1">
+<h1>Notations are Social Too</h1>
+<ul>
+<li>Taking the <em>Linguistic approach</em> seriously: Notations are
+social through and through
+<ul>
+<li>Structure of powers are embedded in notations and their use</li>
+</ul></li>
+<li>Distiguishing “High-level” vs “Low-level” languages entail a certain
+world view</li>
+<li>“Design” vs. “Implementation” reenacts the old dichotomy of thought
+vs. matter, thinking vs. doing, Poiesis vs. Praxis</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Use of more or less complex formalisms to provide “semantics” to
+notations</li>
+<li>“My language is bigger than yours” phenomenon, aka. C++ syndrom</li>
+<li>Failure of separating Design (UML) from implementation (Code
+generation + some remains…) -&gt; code fights back</li>
+</ul>
+</aside>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^4//dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@^4//plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^4//plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
