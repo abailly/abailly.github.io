@@ -1,0 +1,16 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 231.35339077993865 213.19022529736606" width="462.7067815598773" height="426.3804505947321">
+  <!-- svg-source:excalidraw -->
+  
+  <defs>
+    <style>
+      @font-face {
+        font-family: "Virgil";
+        src: url("https://excalidraw.com/Virgil.woff2");
+      }
+      @font-face {
+        font-family: "Cascadia";
+        src: url("https://excalidraw.com/Cascadia.woff2");
+      }
+    </style>
+  </defs>
+  <rect x="0" y="0" width="231.35339077993865" height="213.19022529736606" fill="#ffffff"></rect><g transform="translate(23.392578125 10) rotate(0 33.5 12.5)"><text x="0" y="18" font-family="Virgil, Segoe UI Emoji" font-size="20px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">Domain</text></g><g transform="translate(10 178.19022529736606) rotate(0 45 12.5)"><text x="0" y="18" font-family="Virgil, Segoe UI Emoji" font-size="20px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">Computer</text></g><g stroke-linecap="round"><g transform="translate(56.98252476399489 45.65606689453125) rotate(0 -0.31919348571648243 62.18462747752889)"><path d="M-0.76 -0.85 C-0.85 20.17, -1.1 104.38, -1.08 125.22 M1.04 1.32 C0.9 22.09, -1.36 102.88, -1.67 123.55" stroke="#000000" stroke-width="1" fill="none"></path></g><g transform="translate(56.98252476399489 45.65606689453125) rotate(0 -0.31919348571648243 62.18462747752889)"><path d="M-12.72 96.28 C-7.61 104.24, -6.93 111.04, -1.24 125.26 M-11.29 96.12 C-9.13 100.96, -7.39 107.77, -1.44 124.49" stroke="#000000" stroke-width="1" fill="none"></path></g><g transform="translate(56.98252476399489 45.65606689453125) rotate(0 -0.31919348571648243 62.18462747752889)"><path d="M7.8 96.73 C7.7 104.45, 3.16 111.14, -1.24 125.26 M9.23 96.57 C6.89 101.18, 4.13 107.89, -1.44 124.49" stroke="#000000" stroke-width="1" fill="none"></path></g></g><g transform="translate(71.35339077993865 81.67153230584177) rotate(0 75 12.5)"><text x="0" y="18" font-family="Virgil, Segoe UI Emoji" font-size="20.02581965776877px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">Programmability</text></g></svg>
