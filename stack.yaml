@@ -1,4 +1,5 @@
 flags: {}
 packages:
 - '.'
-resolver: lts-17.2
+resolver: lts-19.11
+
