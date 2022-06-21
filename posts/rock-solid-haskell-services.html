@@ -7,7 +7,9 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - LambdaConf 2018</title>
+
   <meta name="description" content="Crafting code since 1994">
+
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -39,80 +41,41 @@
     </header>
     <div id="main" role="main">
 <h1>LambdaConf 2018</h1>
-<div class="info">Posted on 2018-06-05</div>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on June  5, 2018</div>
 
 <h1 id="rock-solid-haskell-services">Rock-Solid Haskell Services</h1>
 <ul>
-<li>The workshop is presented by Roman Gonzales who is working for FP
-Complete and it leverages the company’s experience building
-highly-reliable services in Haskell</li>
-<li>The overall architecture of the system is based on Matt Parson’s <a
-href="http://www.parsonsmatt.org/2018/03/22/three_layer_haskell_cake.html">Three
-Layer Haskell Cake</a>, which is very reminiscent of Alistair Cockburn’s
-Hexagonal Architecture and DDD</li>
-<li>It boils down to enforcing a strict separation between
-<em>resources</em>, <em>business services</em> and <em>core domain
-logic</em></li>
-<li>To those 3 layers, Roman, drawing from his experience as a Clojure
-developer, adds a <em>Zero Layer</em> which is responsible for managing
-the lifecycle of <em>components</em> in such a way that they can be
-disposed of and <em>restarted</em> at will. This gives the developer the
-ability to interact with the “complete” system directly in the REPL and
-be able to reload any part of it at will</li>
-<li>The <a
-href="http://hackage.haskell.org/package/componentm">componentm</a>
-library provides the needed tools for this, and the ability to report
-failures at startup/teardown time, as well as some timings on how much
-time each component took to startup and teardown. Note that I am
-slightly annoyed that all logging done happens to be text-based which to
-me seems like an anti-pattern: Logging issued at the application level
-should be structured and only ever converted to human-readable format
-when it is needed</li>
-<li>Of course the greatest benefit of this approach is the shortening of
-the feedback loop it provides</li>
-<li>Roman spends quite a long time presenting another tool he wrote to
-manage configuration, <a
-href="https://hackage.haskell.org/package/etc">etc</a>.
+<li>The workshop is presented by Roman Gonzales who is working for FP Complete and it leverages the company’s experience building highly-reliable services in Haskell</li>
+<li>The overall architecture of the system is based on Matt Parson’s <a href="http://www.parsonsmatt.org/2018/03/22/three_layer_haskell_cake.html">Three Layer Haskell Cake</a>, which is very reminiscent of Alistair Cockburn’s Hexagonal Architecture and DDD</li>
+<li>It boils down to enforcing a strict separation between <em>resources</em>, <em>business services</em> and <em>core domain logic</em></li>
+<li>To those 3 layers, Roman, drawing from his experience as a Clojure developer, adds a <em>Zero Layer</em> which is responsible for managing the lifecycle of <em>components</em> in such a way that they can be disposed of and <em>restarted</em> at will. This gives the developer the ability to interact with the “complete” system directly in the REPL and be able to reload any part of it at will</li>
+<li>The <a href="http://hackage.haskell.org/package/componentm">componentm</a> library provides the needed tools for this, and the ability to report failures at startup/teardown time, as well as some timings on how much time each component took to startup and teardown. Note that I am slightly annoyed that all logging done happens to be text-based which to me seems like an anti-pattern: Logging issued at the application level should be structured and only ever converted to human-readable format when it is needed</li>
+<li>Of course the greatest benefit of this approach is the shortening of the feedback loop it provides</li>
+<li>Roman spends quite a long time presenting another tool he wrote to manage configuration, <a href="https://hackage.haskell.org/package/etc">etc</a>.
 <ul>
-<li><code>etc</code> allows one to define a lot of different sources of
-configuration like files, env variables, command-line flags, and merge
-them in a single JSON tree that can then be used by the application</li>
-<li>I must say I am not a big fan of those big Yaml configurtion files
-although I must confess I sometimes indulge in them</li>
-<li>Following a discussion with my colleague <a
-href="https://twitter.com/cvogt">Chris Vogt</a>, I more and more like
-the idea of limiting configuration to the bare minimum, e.g. to 0</li>
-<li>Having non configurable executables that are produced and packaged
-for specific environment, which means moving the configuration up the
-stack, say at compile time</li>
-<li>when we need to change some dependency, we recompile a process and
-redeploy it</li>
-<li>this implies a solid deployment strategy and thec capability to
-rollback on errors</li>
-<li>need to couple that with supervision trees in order to manage errors
-in an orderly manner</li>
+<li><code>etc</code> allows one to define a lot of different sources of configuration like files, env variables, command-line flags, and merge them in a single JSON tree that can then be used by the application</li>
+<li>I must say I am not a big fan of those big Yaml configurtion files although I must confess I sometimes indulge in them</li>
+<li>Following a discussion with my colleague <a href="https://twitter.com/cvogt">Chris Vogt</a>, I more and more like the idea of limiting configuration to the bare minimum, e.g. to 0</li>
+<li>Having non configurable executables that are produced and packaged for specific environment, which means moving the configuration up the stack, say at compile time</li>
+<li>when we need to change some dependency, we recompile a process and redeploy it</li>
+<li>this implies a solid deployment strategy and thec capability to rollback on errors</li>
+<li>need to couple that with supervision trees in order to manage errors in an orderly manner</li>
 </ul></li>
-<li>the presenter then introduces <a
-href="https://github.com/roman/Haskell-capataz">capataz</a> which is a
-Haskell implementation of <em>supervision</em> trees
+<li>the presenter then introduces <a href="https://github.com/roman/Haskell-capataz">capataz</a> which is a Haskell implementation of <em>supervision</em> trees
 <ul>
-<li>supervision trees provide the ability to automatically restart
-components or components trees when an error happens</li>
+<li>supervision trees provide the ability to automatically restart components or components trees when an error happens</li>
 </ul></li>
-<li>the workshop proceeds to deployment and production concerns, with <a
-href="https://pragprog.com/book/mnee2/release-it-second-edition">Release
-It!</a> as a reference pooint, and some definitions on various issues
-that can happen to a system:
+<li>the workshop proceeds to deployment and production concerns, with <a href="https://pragprog.com/book/mnee2/release-it-second-edition">Release It!</a> as a reference pooint, and some definitions on various issues that can happen to a system:
 <ul>
 <li><em>impulses</em> are rapid shocks to the system</li>
-<li><em>strain</em> is stress over time, which might be caused by
-dependency on another system that starts operating at half-capacity
+<li><em>strain</em> is stress over time, which might be caused by dependency on another system that starts operating at half-capacity
 <ul>
-<li>signs are unresponsive app, spikes on system-level metrics, excess
-I/O</li>
+<li>signs are unresponsive app, spikes on system-level metrics, excess I/O</li>
 </ul></li>
-<li>strain produce <em>Cracks</em> that can lead <em>cascading
-failures</em></li>
+<li>strain produce <em>Cracks</em> that can lead <em>cascading failures</em></li>
 <li><em>faults</em> =&gt; <em>errors</em> =&gt; <em>failures</em></li>
 </ul></li>
 <li>source of strains:
@@ -123,56 +86,37 @@ failures</em></li>
 <li>not limiting size of resources (bounded queues)</li>
 <li>limiting size of query results</li>
 </ul></li>
-<li>timeouts are very rarely transient which means retries should be
-delayed</li>
-<li><em>circuit breakers</em> allow keeping track of the state of a 3rd
-party system
+<li>timeouts are very rarely transient which means retries should be delayed</li>
+<li><em>circuit breakers</em> allow keeping track of the state of a 3rd party system
 <ul>
-<li>when num of failures pass some threshold -&gt; make all subsequent
-requests fail or return default value, marking the circuit open</li>
-<li>after some time -&gt; try again (canary requests) and close the
-circuit again if it succeeds (e.g. 3rd party system goes back to normal
-state)</li>
+<li>when num of failures pass some threshold -&gt; make all subsequent requests fail or return default value, marking the circuit open</li>
+<li>after some time -&gt; try again (canary requests) and close the circuit again if it succeeds (e.g. 3rd party system goes back to normal state)</li>
 <li>use timeouts on every use of allocated resource</li>
 </ul></li>
-<li>the last stage of the workshop goes to deploying all the services
-that have bben built. The presenter introduces
-(localstack)[https://localstack.cloud/] a tool to simulate part of AWS
-stack locally.</li>
+<li>the last stage of the workshop goes to deploying all the services that have bben built. The presenter introduces (localstack)[https://localstack.cloud/] a tool to simulate part of AWS stack locally.</li>
 </ul>
-<h1 id="from-zero-to-live-with-functional-javascript">From Zero to Live
-with Functional Javascript</h1>
-<p>This 2 hours workshop was given by Ian Thomas, CTO of SkyBet. It was
-a fast-paced overview on how to build modern javascript applications
-based on FP principles. The workshop is based on his <a
-href="https://github.com/anatomic/zero-to-live-fp-js-workshop">git
-repo</a> and builds a complete 12 factor app from the ground up. It
-contains lot of materials and the session was way too short to get more
-than a glimpse of it, but it’s definitely interesting material when one
-wants to build JS-based microservices.</p>
-<p>Ian Thomas also gave a keynote on how FP helps break the <em>fear
-cycle</em> which prevents large code bases from changing.</p>
-<h1 id="seeking-refuge-from-unsafe-javascript">Seeking Refuge from
-Unsafe JavaScript</h1>
-<p>Another workshop dedicated to Functional Javascript, presented by
-David Chambers. It goes through the various pure FP constructs provided
-by <a href="">sanctuary</a>, a library which basically provides Haskell
-on top of JS. Sanctuary provides algebraic data types and all the
-classical functions we have come to love from Haskell, and more.</p>
+<h1 id="from-zero-to-live-with-functional-javascript">From Zero to Live with Functional Javascript</h1>
+<p>This 2 hours workshop was given by Ian Thomas, CTO of SkyBet. It was a fast-paced overview on how to build modern javascript applications based on FP principles. The workshop is based on his <a href="https://github.com/anatomic/zero-to-live-fp-js-workshop">git repo</a> and builds a complete 12 factor app from the ground up. It contains lot of materials and the session was way too short to get more than a glimpse of it, but it’s definitely interesting material when one wants to build JS-based microservices.</p>
+<p>Ian Thomas also gave a keynote on how FP helps break the <em>fear cycle</em> which prevents large code bases from changing.</p>
+<h1 id="seeking-refuge-from-unsafe-javascript">Seeking Refuge from Unsafe JavaScript</h1>
+<p>Another workshop dedicated to Functional Javascript, presented by David Chambers. It goes through the various pure FP constructs provided by <a href>sanctuary</a>, a library which basically provides Haskell on top of JS. Sanctuary provides algebraic data types and all the classical functions we have come to love from Haskell, and more.</p>
 
 
 <div id="disqus_thread"></div>
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-
+  
     s.src = '//arnaudsblog.disqus.com/embed.js';
-
+  
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

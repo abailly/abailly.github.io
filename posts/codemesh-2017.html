@@ -7,7 +7,9 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - CodeMesh 2017 - Takeaways</title>
+
   <meta name="description" content="Crafting code since 1994">
+
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -39,62 +41,24 @@
     </header>
     <div id="main" role="main">
 <h1>CodeMesh 2017 - Takeaways</h1>
-<div class="info">Posted on 2017-11-13</div>
 
-<p>here are some key takeaways from this year’s <a
-href="http://www.codemesh.io/codemesh2017">codemesh</a> conference. i
-must say i never had such an intense conference, with lot of fascinating
-and mind-blowing sessions which bred lots of new or old ideas in my
-mind. thanks a lot to the organisers and the amazing speakers which made
-this event memorable.</p>
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on November 13, 2017</div>
+
+<p>here are some key takeaways from this year’s <a href="http://www.codemesh.io/codemesh2017">codemesh</a> conference. i must say i never had such an intense conference, with lot of fascinating and mind-blowing sessions which bred lots of new or old ideas in my mind. thanks a lot to the organisers and the amazing speakers which made this event memorable.</p>
 <ul>
-<li>How to apply simple machine learning techniques and speculative
-execution to optimise repeated executions of programs or program
-fragments, caching pre-computed execution path to skip some
-computations,</li>
-<li>Using <em>session types</em> to design applicative protocols as
-<em>finite state machines</em> enforced by the type system hence
-statically verified, with some encoding examples in haskel and
-idris,</li>
-<li>An answer to the classical <a
-href="http://wiki.c2.com/?FizzBuzzTest">fizzbuzz</a> interview test
-where one the y combinator and church numerals from scratch using a pure
-untyped λ-calculus, in the spirit of the now famous piece by Aphyr <a
-href="https://aphyr.com/posts/342-typing-the-technical-interview">Typing
-the technical interview</a>,</li>
-<li>Why it is actually a good idea to model <code>IO</code> as a monad
-even in an impure language like scala, as it gives the compiler the
-capability to verify and enforce proper use of <em>side effects</em>
-statically,</li>
-<li>How messy and imprecise the <em>Computer Science Metanotation</em>,
-a language which is ubiquitous in PLT research papers to define
-<em>formal systems</em>, has become over the past 30 or 40 years,</li>
-<li>How to write (potentially infinite) <em>towers of interpreters</em>,
-with reflection and reification capabilities between each layer, and
-collapse the resulting tower in a single-pass compiler. This year’s <a
-href="http://lampwww.epfl.ch/~amin/">favorite</a>, ex aequo with Tomas
-Petricek’s talk,</li>
-<li>Whence does Haskell come and what’s the history of Miranda, where
-one learns there was no λ-calculus nor first-class functions in
-McCarthy’s LISP and the Programming Languages’ history is far from the
-linear reconstruction we often are told it is,</li>
-<li>Would aliens be able to understand λ-calculus which amounts to
-asking classical philosophy of mathematics question: Are mathematical
-objects <em>discovered</em> from the the land of eternal truths they are
-part of or <em>invented</em> hence subjects to historical and
-sociological contingencies. With fascinating references to works by
-Lakatos and Lakoff on the history and sociology of mathematics,</li>
-<li>What benefits one can reap from abstracting concurrent IOs with <a
-href="https://github.com/facebook/Haxl/">Haxl</a>, a great library
-developed at Facebook by <a href="http://simonmar.github.io/">Simon
-Marlow</a>,</li>
-<li>How to derive <em>implementations</em> of functions from examples
-thanks to <a href="https://github.com/webyrd/Barliman/">Barliman</a> and
-logic programming with <a
-href="http://minikanren.org/">miniKanren</a>,</li>
-<li>The use of the concept of <em>Feedback Loops</em> and <em>Feedback
-Structures</em> to design and develop complex self-regulated distributed
-systems.</li>
+<li>How to apply simple machine learning techniques and speculative execution to optimise repeated executions of programs or program fragments, caching pre-computed execution path to skip some computations,</li>
+<li>Using <em>session types</em> to design applicative protocols as <em>finite state machines</em> enforced by the type system hence statically verified, with some encoding examples in haskel and idris,</li>
+<li>An answer to the classical <a href="http://wiki.c2.com/?FizzBuzzTest">fizzbuzz</a> interview test where one the y combinator and church numerals from scratch using a pure untyped λ-calculus, in the spirit of the now famous piece by Aphyr <a href="https://aphyr.com/posts/342-typing-the-technical-interview">Typing the technical interview</a>,</li>
+<li>Why it is actually a good idea to model <code>IO</code> as a monad even in an impure language like scala, as it gives the compiler the capability to verify and enforce proper use of <em>side effects</em> statically,</li>
+<li>How messy and imprecise the <em>Computer Science Metanotation</em>, a language which is ubiquitous in PLT research papers to define <em>formal systems</em>, has become over the past 30 or 40 years,</li>
+<li>How to write (potentially infinite) <em>towers of interpreters</em>, with reflection and reification capabilities between each layer, and collapse the resulting tower in a single-pass compiler. This year’s <a href="http://lampwww.epfl.ch/~amin/">favorite</a>, ex aequo with Tomas Petricek’s talk,</li>
+<li>Whence does Haskell come and what’s the history of Miranda, where one learns there was no λ-calculus nor first-class functions in McCarthy’s LISP and the Programming Languages’ history is far from the linear reconstruction we often are told it is,</li>
+<li>Would aliens be able to understand λ-calculus which amounts to asking classical philosophy of mathematics question: Are mathematical objects <em>discovered</em> from the the land of eternal truths they are part of or <em>invented</em> hence subjects to historical and sociological contingencies. With fascinating references to works by Lakatos and Lakoff on the history and sociology of mathematics,</li>
+<li>What benefits one can reap from abstracting concurrent IOs with <a href="https://github.com/facebook/Haxl/">Haxl</a>, a great library developed at Facebook by <a href="http://simonmar.github.io/">Simon Marlow</a>,</li>
+<li>How to derive <em>implementations</em> of functions from examples thanks to <a href="https://github.com/webyrd/Barliman/">Barliman</a> and logic programming with <a href="http://minikanren.org/">miniKanren</a>,</li>
+<li>The use of the concept of <em>Feedback Loops</em> and <em>Feedback Structures</em> to design and develop complex self-regulated distributed systems.</li>
 </ul>
 
 
@@ -102,14 +66,17 @@ systems.</li>
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-
+  
     s.src = '//arnaudsblog.disqus.com/embed.js';
-
+  
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

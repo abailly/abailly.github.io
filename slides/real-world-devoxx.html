@@ -92,339 +92,235 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<section id="table-of-contents" class="slide level2">
-<h2>Table of Contents</h2>
-<ul>
-<li class="fragment">How I Came to Reside in the Land of Haskell and Why It Matters</li>
-<li class="fragment">On Various Aspects of Haskelland Civilisation and The Mores of Its Inhabitants</li>
-<li class="fragment">Some Ways this Wonderful Journey Could Inspire the Reader</li>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul class="incremental">
+<li>How I Came to Reside in the Land of Haskell and Why It Matters</li>
+<li>On Various Aspects of Haskelland Civilisation and The Mores of Its Inhabitants</li>
+<li>Some Ways this Wonderful Journey Could Inspire the Reader</li>
 </ul>
-</section>
-<section><section id="how-i-came-to-visit-haskelland" class="titleslide slide level1"><h1>How I Came to Visit Haskelland</h1></section><section class="slide level2">
-
-<figure>
-<img src="/images/geographie.jpg" />
-</figure>
-</section><section id="where-the-author-dares-to-present-himself" class="slide level2">
-<h2>Where the author dares to present himself</h2>
-<figure>
-<img src="/images/ebeniste.jpg" />
-</figure>
-</section><section id="on-the-company-which-i-travelled-to-haskelland-for" class="slide level2">
-<h2>On the Company which I travelled to Haskelland for</h2>
-<figure>
-<img src="/images/cm-website.png" />
-</figure>
-</section><section id="where-it-is-demonstrated-why-the-interest-of-the-honorable-reader-might-be-aroused" class="slide level2">
-<h2>Where it is demonstrated why the interest of the honorable reader might be aroused</h2>
-<ul>
-<li class="fragment">This is not a Haskell tutorial</li>
-<li class="fragment">This is not a Monad tutorial</li>
-<li class="fragment">Let’s stop thinking <em>“Haskell is good for your brain but not for practical use”</em></li>
-<li class="fragment">I will be happy if you end up thinking: <em>I could try this cool stuff in my next microservice</em></li>
-<li class="fragment">I will be even happier if you can put to <strong>actual use</strong> some of the stuff I present here</li>
+<h1 id="how-i-came-to-visit-haskelland">How I Came to Visit Haskelland</h1>
+<hr />
+<p><img src="/images/geographie.jpg" /></p>
+<h2 id="where-the-author-dares-to-present-himself">Where the author dares to present himself</h2>
+<p><img src="/images/ebeniste.jpg" /></p>
+<h2 id="on-the-company-which-i-travelled-to-haskelland-for">On the Company which I travelled to Haskelland for</h2>
+<p><img src="/images/cm-website.png" /></p>
+<h2 id="where-it-is-demonstrated-why-the-interest-of-the-honorable-reader-might-be-aroused">Where it is demonstrated why the interest of the honorable reader might be aroused</h2>
+<ul class="incremental">
+<li>This is not a Haskell tutorial</li>
+<li>This is not a Monad tutorial</li>
+<li>Let’s stop thinking <em>“Haskell is good for your brain but not for practical use”</em></li>
+<li>I will be happy if you end up thinking: <em>I could try this cool stuff in my next microservice</em></li>
+<li>I will be even happier if you can put to <strong>actual use</strong> some of the stuff I present here</li>
 </ul>
-</section></section>
-<section><section id="on-various-aspects-of-haskelland" class="titleslide slide level1"><h1>On Various Aspects of Haskelland</h1></section><section class="slide level2">
-
-<figure>
-<img src="/images/frontispice.jpg" />
-</figure>
-</section><section class="slide level2">
-
-<p>Where the author tries to cover the most important aspects of Haskeller’s civilisation in an extremely short span of time, thus probably missing lot of important points and generating frustration in the informed reader, but nevertheless hoping to convey enough tips for the audience to be willing to adopt some of the customs of those strange people.</p>
-</section></section>
-<section><section id="language" class="titleslide slide level1"><h1>Language</h1></section><section id="on-some-minor-differences-between-haskell-language-and-more-common-ones" class="slide level2">
-<h2>On some minor differences between Haskell Language and more Common ones</h2>
-<figure>
-<img src="/images/analyse.jpg" />
-</figure>
-</section><section id="on-the-importance-of-composition-in-haskell" class="slide level2">
-<h2>On the importance of composition in Haskell</h2>
-<figure>
-<img src="/images/musique.jpg" />
-</figure>
-</section><section class="slide level2">
-
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">transactionsFromCashflows ::</span> <span class="dt">AccountId</span>
-                          <span class="ot">-&gt;</span> (<span class="dt">CashFlow</span> <span class="ot">-&gt;</span> [<span class="dt">Transaction</span>])
-                          <span class="ot">-&gt;</span> [<span class="dt">CashFlow</span>] <span class="ot">-&gt;</span> [<span class="dt">Transaction</span>]
-transactionsFromCashflows pivot generator <span class="fu">=</span>
-    concatMap <span class="fu">$</span> map (normalize <span class="fu">.</span> balance pivot) <span class="fu">.</span> generator</code></pre></div>
-</section><section id="on-the-virtue-of-being-lazy" class="slide level2">
-<h2>On the virtue of being lazy</h2>
-<figure>
-<img src="/images/femme-allongee.jpg" />
-</figure>
-</section><section id="on-some-of-the-less-desirable-aspects-of-the-language" class="slide level2">
-<h2>On some of the less desirable aspects of the language</h2>
-<figure>
-<img src="/images/catacombes.jpg" />
-</figure>
-</section></section>
-<section><section id="philosophy" class="titleslide slide level1"><h1>Philosophy</h1></section><section id="on-the-importance-of-types-for-haskellers" class="slide level2">
-<h2>On the importance of Types for Haskellers</h2>
-<figure>
-<img src="/images/astronomie.jpg" />
-</figure>
-</section><section id="where-one-discovers-types-do-not-impose-extra-burden-at-runtime" class="slide level2">
-<h2>Where one discovers types do not impose extra burden at runtime</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">AccountNr</span> <span class="fu">=</span> <span class="dt">AccountNr</span> {<span class="ot"> accountNr ::</span> <span class="dt">T.Text</span> }
-                    <span class="kw">deriving</span> (<span class="dt">Eq</span>,<span class="dt">Ord</span>,<span class="dt">Show</span>,<span class="dt">Read</span>)
-
-
-<span class="kw">instance</span> <span class="dt">IsString</span> <span class="dt">AccountNr</span> <span class="kw">where</span>
-    fromString <span class="fu">=</span> <span class="dt">AccountNr</span> <span class="fu">.</span> T.pack</code></pre></div>
-</section><section id="where-it-is-shown-types-can-even-conjure-the-undead" class="slide level2">
-<h2>Where it is shown types can even conjure the undead</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Base64</span>
-<span class="kw">data</span> <span class="dt">Hex</span>
-<span class="kw">newtype</span> <span class="dt">Encoded</span> code <span class="fu">=</span> <span class="dt">Encoded</span> {<span class="ot"> encodedText ::</span> <span class="dt">Text</span> }
-<span class="ot">toBase64Text ::</span> <span class="dt">ByteString</span> <span class="ot">-&gt;</span> <span class="dt">Encoded</span> <span class="dt">Base64</span>
-<span class="ot">toHex        ::</span> <span class="dt">ByteString</span> <span class="ot">-&gt;</span> <span class="dt">Encoded</span> <span class="dt">Hex</span></code></pre></div>
-</section><section id="where-one-discovers-subtle-differences-cause-more-trouble-than-obvious-ones" class="slide level2">
-<h2>Where one discovers subtle differences cause more trouble than obvious ones</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> (<span class="dt">Eq</span> a) <span class="ot">=&gt;</span> <span class="dt">Differ</span> a <span class="kw">where</span>
-<span class="ot">  uniqueId    ::</span> a <span class="ot">-&gt;</span> <span class="dt">Id</span> a
-<span class="ot">  constructor ::</span> a <span class="ot">-&gt;</span> <span class="dt">Entity</span> b
-<span class="ot">  equals      ::</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Bool</span></code></pre></div>
-</section><section id="where-one-starts-to-wonder-if-there-is-an-end-to-recursion" class="slide level2">
-<h2>Where one starts to wonder if there is an end to recursion</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> (<span class="dt">ToJSON</span> (<span class="dt">Command</span> a)) <span class="ot">=&gt;</span> <span class="dt">BusinessModel</span> a <span class="kw">where</span>
-  <span class="kw">data</span> <span class="dt">Event</span><span class="ot"> a   ::</span> <span class="fu">*</span>
-  <span class="kw">data</span> <span class="dt">Command</span><span class="ot"> a ::</span> <span class="fu">*</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> family <span class="dt">Id</span><span class="ot"> a ::</span> <span class="fu">*</span>
-<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Id</span> <span class="dt">Account</span>       <span class="fu">=</span> <span class="dt">AccountId</span>
-<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Id</span> <span class="dt">Transaction</span>   <span class="fu">=</span> <span class="dt">TransactionId</span></code></pre></div>
-</section><section id="where-it-is-shown-how-more-constraints-makes-one-more-free" class="slide level2">
-<h2>Where it is shown how more constraints makes one more Free</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Gratis</span> f a <span class="fu">=</span> <span class="dt">Effectless</span> a
-      <span class="fu">|</span> forall x<span class="fu">.</span> <span class="dt">Effectful</span> (f x) (x <span class="ot">-&gt;</span> <span class="dt">Gratis</span> f a)
-
-<span class="kw">data</span> <span class="dt">EmailServiceF</span> a <span class="kw">where</span>
-  <span class="dt">DoMail</span><span class="ot"> ::</span> <span class="dt">Emailer</span> <span class="ot">-&gt;</span> <span class="dt">Email</span> <span class="ot">-&gt;</span> <span class="dt">EmailServiceF</span> <span class="dt">EmailStatus</span>
-  <span class="dt">GetAllEmails</span><span class="ot"> ::</span> <span class="dt">Confirmation</span> <span class="ot">-&gt;</span> <span class="dt">EmailServiceF</span> [<span class="dt">EmailWithStatus</span>]
-
-<span class="kw">type</span> <span class="dt">MailService</span> <span class="fu">=</span> <span class="dt">Gratis</span> <span class="dt">EmailServiceF</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">liftFF ::</span> <span class="dt">EmailServiceF</span> a <span class="ot">-&gt;</span> <span class="dt">MailService</span> a
-liftFF c <span class="fu">=</span> <span class="dt">Effectful</span> c pure
-
-<span class="ot">doMail ::</span> <span class="dt">Emailer</span> <span class="ot">-&gt;</span> <span class="dt">Email</span> <span class="ot">-&gt;</span> <span class="dt">MailService</span> <span class="dt">EmailStatus</span>
-doMail mailer mail <span class="fu">=</span> liftFF <span class="fu">$</span> <span class="dt">DoMail</span> mailer mail
-
-<span class="ot">doGetAllEmails ::</span> <span class="dt">Confirmation</span> <span class="ot">-&gt;</span> <span class="dt">MailService</span> [ <span class="dt">EmailWithStatus</span> ]
-doGetAllEmails <span class="fu">=</span> liftFF <span class="fu">.</span> <span class="dt">GetAllEmails</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">interpret ::</span> <span class="dt">MailService</span> a <span class="ot">-&gt;</span> <span class="dt">ExceptT</span> <span class="dt">L.Text</span> (<span class="dt">WebStateM</span> s l m) a
-interpret (<span class="dt">Effectful</span> (<span class="dt">DoMail</span> mailer mail) f)        <span class="fu">=</span>
-  lift (liftIO <span class="fu">$</span> mailer mail <span class="fu">&gt;&gt;=</span> handleSendingResult) <span class="fu">&gt;&gt;=</span> interpret <span class="fu">.</span> f
-interpret (<span class="dt">Effectful</span> (<span class="dt">GetAllEmails</span> confirmation) f) <span class="fu">=</span>
-  lift (runWithEmails <span class="fu">$</span> doGetEmails confirmation)     <span class="fu">&gt;&gt;=</span> interpret <span class="fu">.</span> f
-interpret (<span class="dt">Effectless</span> a)                            <span class="fu">=</span> return a</code></pre></div>
-</section></section>
-<section><section id="mores-daily-life" class="titleslide slide level1"><h1>Mores &amp; Daily Life</h1></section><section id="where-the-amazed-foreigner-discovers-how-much-can-be-done-with-crude-tools" class="slide level2">
-<h2>Where the amazed foreigner discovers how much can be done with crude tools</h2>
-<figure>
-<img src="/images/menuisier.jpg" />
-</figure>
-</section><section class="slide level2">
-
-<figure>
-<img src="/images/emacs.png" />
-</figure>
-</section><section class="slide level2">
-
-<figure>
-<img src="/images/ihaskell.png" />
-</figure>
-</section><section id="on-the-usefulness-and-efficiency-of-interacting-with-the-machine" class="slide level2">
-<h2>On the usefulness and efficiency of interacting with the machine</h2>
-<figure>
-<img src="/images/tourneur.jpg" />
-</figure>
-</section><section id="on-the-typical-day-of-a-commoner-in-haskelland" class="slide level2">
-<h2>On the typical day of a commoner in Haskelland</h2>
-<ol type="1">
-<li class="fragment">Write a skeletal test file, e.g. <code>test/FooTest.hs</code></li>
-<li class="fragment">Start REPL in Emacs by loading file <code>C-c C-l</code></li>
-<li class="fragment">See it fail to compile</li>
-<li class="fragment"><code>:r</code>eload until it compiles</li>
-<li class="fragment">Run the test and see it fail: <code>hspec myTest</code></li>
-<li class="fragment">Fill in code until test passes</li>
-<li class="fragment">Do a full compile and test run before pushing to CI</li>
+<h1 id="on-various-aspects-of-haskelland">On Various Aspects of Haskelland</h1>
+<hr />
+<p><img src="/images/frontispice.jpg" /></p>
+<hr />
+<p>Where the author tries to cover the most important aspects of Haskeller’s civilisation in an extremely short span of time, thus
+probably missing lot of important points and generating frustration in the informed reader, but nevertheless hoping to convey enough
+tips for the audience to be willing to adopt some of the customs of those strange people.</p>
+<h1 id="language">Language</h1>
+<h2 id="on-some-minor-differences-between-haskell-language-and-more-common-ones">On some minor differences between Haskell Language and more Common ones</h2>
+<p><img src="/images/analyse.jpg" /></p>
+<h2 id="on-the-importance-of-composition-in-haskell">On the importance of composition in Haskell</h2>
+<p><img src="/images/musique.jpg" /></p>
+<hr />
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ot">transactionsFromCashflows ::</span> <span class="dt">AccountId</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                          <span class="ot">-&gt;</span> (<span class="dt">CashFlow</span> <span class="ot">-&gt;</span> [<span class="dt">Transaction</span>])</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                          <span class="ot">-&gt;</span> [<span class="dt">CashFlow</span>] <span class="ot">-&gt;</span> [<span class="dt">Transaction</span>]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>transactionsFromCashflows pivot generator <span class="ot">=</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">concatMap</span> <span class="op">$</span> <span class="fu">map</span> (normalize <span class="op">.</span> balance pivot) <span class="op">.</span> generator</span></code></pre></div>
+<h2 id="on-the-virtue-of-being-lazy">On the virtue of being lazy</h2>
+<p><img src="/images/femme-allongee.jpg" /></p>
+<h2 id="on-some-of-the-less-desirable-aspects-of-the-language">On some of the less desirable aspects of the language</h2>
+<p><img src="/images/catacombes.jpg" /></p>
+<h1 id="philosophy">Philosophy</h1>
+<h2 id="on-the-importance-of-types-for-haskellers">On the importance of Types for Haskellers</h2>
+<p><img src="/images/astronomie.jpg" /></p>
+<h2 id="where-one-discovers-types-do-not-impose-extra-burden-at-runtime">Where one discovers types do not impose extra burden at runtime</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">AccountNr</span> <span class="ot">=</span> <span class="dt">AccountNr</span> {<span class="ot"> accountNr ::</span> <span class="dt">T.Text</span> }</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">deriving</span> (<span class="dt">Eq</span>,<span class="dt">Ord</span>,<span class="dt">Show</span>,<span class="dt">Read</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">IsString</span> <span class="dt">AccountNr</span> <span class="kw">where</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    fromString <span class="ot">=</span> <span class="dt">AccountNr</span> <span class="op">.</span> T.pack</span></code></pre></div>
+<h2 id="where-it-is-shown-types-can-even-conjure-the-undead">Where it is shown types can even conjure the undead</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Base64</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Hex</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Encoded</span> code <span class="ot">=</span> <span class="dt">Encoded</span> {<span class="ot"> encodedText ::</span> <span class="dt">Text</span> }</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ot">toBase64Text ::</span> <span class="dt">ByteString</span> <span class="ot">-&gt;</span> <span class="dt">Encoded</span> <span class="dt">Base64</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ot">toHex        ::</span> <span class="dt">ByteString</span> <span class="ot">-&gt;</span> <span class="dt">Encoded</span> <span class="dt">Hex</span></span></code></pre></div>
+<h2 id="where-one-discovers-subtle-differences-cause-more-trouble-than-obvious-ones">Where one discovers subtle differences cause more trouble than obvious ones</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> (<span class="dt">Eq</span> a) <span class="ot">=&gt;</span> <span class="dt">Differ</span> a <span class="kw">where</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  uniqueId    ::</span> a <span class="ot">-&gt;</span> <span class="dt">Id</span> a</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ot">  constructor ::</span> a <span class="ot">-&gt;</span> <span class="dt">Entity</span> b</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ot">  equals      ::</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Bool</span></span></code></pre></div>
+<h2 id="where-one-starts-to-wonder-if-there-is-an-end-to-recursion">Where one starts to wonder if there is an end to recursion</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> (<span class="dt">ToJSON</span> (<span class="dt">Command</span> a)) <span class="ot">=&gt;</span> <span class="dt">BusinessModel</span> a <span class="kw">where</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">data</span> <span class="dt">Event</span><span class="ot"> a   ::</span> <span class="op">*</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">data</span> <span class="dt">Command</span><span class="ot"> a ::</span> <span class="op">*</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">family</span> <span class="dt">Id</span><span class="ot"> a ::</span> <span class="op">*</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Id</span> <span class="dt">Account</span>       <span class="ot">=</span> <span class="dt">AccountId</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Id</span> <span class="dt">Transaction</span>   <span class="ot">=</span> <span class="dt">TransactionId</span></span></code></pre></div>
+<h2 id="where-it-is-shown-how-more-constraints-makes-one-more-free">Where it is shown how more constraints makes one more Free</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Gratis</span> f a <span class="ot">=</span> <span class="dt">Effectless</span> a</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>      <span class="op">|</span> <span class="kw">forall</span> x<span class="op">.</span> <span class="dt">Effectful</span> (f x) (x <span class="ot">-&gt;</span> <span class="dt">Gratis</span> f a)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">EmailServiceF</span> a <span class="kw">where</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">DoMail</span><span class="ot"> ::</span> <span class="dt">Emailer</span> <span class="ot">-&gt;</span> <span class="dt">Email</span> <span class="ot">-&gt;</span> <span class="dt">EmailServiceF</span> <span class="dt">EmailStatus</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">GetAllEmails</span><span class="ot"> ::</span> <span class="dt">Confirmation</span> <span class="ot">-&gt;</span> <span class="dt">EmailServiceF</span> [<span class="dt">EmailWithStatus</span>]</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">MailService</span> <span class="ot">=</span> <span class="dt">Gratis</span> <span class="dt">EmailServiceF</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ot">liftFF ::</span> <span class="dt">EmailServiceF</span> a <span class="ot">-&gt;</span> <span class="dt">MailService</span> a</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>liftFF c <span class="ot">=</span> <span class="dt">Effectful</span> c <span class="fu">pure</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ot">doMail ::</span> <span class="dt">Emailer</span> <span class="ot">-&gt;</span> <span class="dt">Email</span> <span class="ot">-&gt;</span> <span class="dt">MailService</span> <span class="dt">EmailStatus</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>doMail mailer mail <span class="ot">=</span> liftFF <span class="op">$</span> <span class="dt">DoMail</span> mailer mail</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ot">doGetAllEmails ::</span> <span class="dt">Confirmation</span> <span class="ot">-&gt;</span> <span class="dt">MailService</span> [ <span class="dt">EmailWithStatus</span> ]</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>doGetAllEmails <span class="ot">=</span> liftFF <span class="op">.</span> <span class="dt">GetAllEmails</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ot">interpret ::</span> <span class="dt">MailService</span> a <span class="ot">-&gt;</span> <span class="dt">ExceptT</span> <span class="dt">L.Text</span> (<span class="dt">WebStateM</span> s l m) a</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>interpret (<span class="dt">Effectful</span> (<span class="dt">DoMail</span> mailer mail) f)        <span class="ot">=</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  lift (liftIO <span class="op">$</span> mailer mail <span class="op">&gt;&gt;=</span> handleSendingResult) <span class="op">&gt;&gt;=</span> interpret <span class="op">.</span> f</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>interpret (<span class="dt">Effectful</span> (<span class="dt">GetAllEmails</span> confirmation) f) <span class="ot">=</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  lift (runWithEmails <span class="op">$</span> doGetEmails confirmation)     <span class="op">&gt;&gt;=</span> interpret <span class="op">.</span> f</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>interpret (<span class="dt">Effectless</span> a)                            <span class="ot">=</span> <span class="fu">return</span> a</span></code></pre></div>
+<h1 id="mores-daily-life">Mores &amp; Daily Life</h1>
+<h2 id="where-the-amazed-foreigner-discovers-how-much-can-be-done-with-crude-tools">Where the amazed foreigner discovers how much can be done with crude tools</h2>
+<p><img src="/images/menuisier.jpg" /></p>
+<hr />
+<p><img src="/images/emacs.png" /></p>
+<hr />
+<p><img src="/images/ihaskell.png" /></p>
+<h2 id="on-the-usefulness-and-efficiency-of-interacting-with-the-machine">On the usefulness and efficiency of interacting with the machine</h2>
+<p><img src="/images/tourneur.jpg" /></p>
+<h2 id="on-the-typical-day-of-a-commoner-in-haskelland">On the typical day of a commoner in Haskelland</h2>
+<ol class="incremental" type="1">
+<li>Write a skeletal test file, e.g. <code>test/FooTest.hs</code></li>
+<li>Start REPL in Emacs by loading file <code>C-c C-l</code></li>
+<li>See it fail to compile</li>
+<li><code>:r</code>eload until it compiles</li>
+<li>Run the test and see it fail: <code>hspec myTest</code></li>
+<li>Fill in code until test passes</li>
+<li>Do a full compile and test run before pushing to CI</li>
 </ol>
-</section></section>
-<section><section id="government" class="titleslide slide level1"><h1>Government</h1></section><section id="where-we-discover-haskellers-also-value-experimentation" class="slide level2">
-<h2>Where we discover Haskellers also value experimentation</h2>
-<figure>
-<img src="/images/chymie.jpg" />
-</figure>
-</section><section id="where-we-see-empiricism-going-hand-in-hand-with-formalism" class="slide level2">
-<h2>Where we see empiricism going hand in hand with formalism</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Arbitrary</span> <span class="dt">ScaleRatio</span> <span class="kw">where</span>  arbitrary <span class="fu">=</span> <span class="fu">...</span>
-<span class="kw">instance</span> <span class="dt">Arbitrary</span> <span class="dt">Transaction</span> <span class="kw">where</span>  arbitrary <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prop_scaled_transaction_is_normalized ::</span> <span class="dt">Transaction</span> <span class="ot">-&gt;</span> <span class="dt">ScaleRatio</span>
-                                       <span class="ot">-&gt;</span> <span class="dt">Bool</span>
-prop_scaled_transaction_is_normalized tx (<span class="dt">ScaleRatio</span> ratio) <span class="fu">=</span>
-  isNormalized tx&#39; <span class="fu">&amp;&amp;</span> isBalanced tx&#39;
-  <span class="kw">where</span>
-    tx&#39; <span class="fu">=</span> scale ratio tx</code></pre></div>
-</section><section id="where-one-discovers-quickcheck-can-be-useful-beside-testing-properties" class="slide level2">
-<h2>Where one discovers QuickCheck can be useful beside testing properties</h2>
+<h1 id="government">Government</h1>
+<h2 id="where-we-discover-haskellers-also-value-experimentation">Where we discover Haskellers also value experimentation</h2>
+<p><img src="/images/chymie.jpg" /></p>
+<h2 id="where-we-see-empiricism-going-hand-in-hand-with-formalism">Where we see empiricism going hand in hand with formalism</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Arbitrary</span> <span class="dt">ScaleRatio</span> <span class="kw">where</span>  arbitrary <span class="ot">=</span> <span class="op">...</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Arbitrary</span> <span class="dt">Transaction</span> <span class="kw">where</span>  arbitrary <span class="ot">=</span> <span class="op">...</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ot">prop_scaled_transaction_is_normalized ::</span> <span class="dt">Transaction</span> <span class="ot">-&gt;</span> <span class="dt">ScaleRatio</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                                       <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>prop_scaled_transaction_is_normalized tx (<span class="dt">ScaleRatio</span> ratio) <span class="ot">=</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  isNormalized tx&#39; <span class="op">&amp;&amp;</span> isBalanced tx&#39;</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    tx&#39; <span class="ot">=</span> scale ratio tx</span></code></pre></div>
+<h2 id="where-one-discovers-quickcheck-can-be-useful-beside-testing-properties">Where one discovers QuickCheck can be useful beside testing properties</h2>
 <h3 id="generating-sample-data-to-test-migration">Generating sample data to test migration</h3>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">sample_v8_Events ::</span> [<span class="dt">ByteString</span>]
-sample_v8_Events <span class="fu">=</span>
-  [<span class="st">&quot;{\&quot;tag\&quot;:\&quot;AddedDocuments\&quot;,\&quot;contents\&quot;:[\&quot;c1f09023b3a9398a1d8a257c372392ab\&quot;,[]]}&quot;</span>
-  , <span class="st">&quot;{\&quot;tag\&quot;:\&quot;UpdatedInvestor\&quot;,\&quot;contents\&quot;:{\&quot;invDocuments\&quot;:[],</span>
-<span class="st">     \&quot;invBankAccount\&quot;:{\&quot;bankBranch\&quot;:\&quot;Ge\&quot;,\&quot;bankAccountName\&quot;:\&quot;1W\&quot;,\&quot;bankAccountNo\&quot;:\&quot;nN\&quot;,\&quot;bankName\&quot;:\&quot;AU\&quot;},</span>
-<span class="st">     \&quot;invId\&quot;:\&quot;46ed3336bc60a5a423962e9b6343c003\&quot;,\&quot;invReferralCode\&quot;:{\&quot;refer\&quot;:\&quot;\&quot;},\&quot;invAccepttandcs\&quot;:false,</span>
-<span class="st">     \&quot;invLegalEntity\&quot;:{\&quot;tag\&quot;:\&quot;Corporate\&quot;,\&quot;primaryContactPosition\&quot;:{\&quot;tag\&quot;:\&quot;OtherPosition\&quot;,\&quot;contents\&quot;:\&quot;jZ\&quot;},\&quot;primaryContact\&quot;:{\&quot;personTitle\&quot;:\&quot;Y8\&quot;,\&quot;personFirstName\&quot;:\&quot;qf\&quot;,\&quot;personLastName\&quot;:\&quot;pz\&quot;,\&quot;personIdNumber\&quot;:\&quot;yC\&quot;,\&quot;personTelephone\&quot;:\&quot;nC\&quot;,\&quot;personEmail\&quot;:\&quot;xwmRJAstJRrvBy1x8FnJ4Y2.6nmGy@opBpRq.sg\&quot;},\&quot;company\&quot;:{\&quot;companyPostcode\&quot;:\&quot;kT\&quot;,\&quot;companyName\&quot;:\&quot;-o\&quot;,\&quot;companyUEN\&quot;:\&quot;LA\&quot;,\&quot;legalForm\&quot;:\&quot;LTD\&quot;,\&quot;companyAddress\&quot;:\&quot;oh\&quot;}}}}&quot;</span>
-   , <span class="st">&quot;{\&quot;tag\&quot;:\&quot;NoEvent\&quot;,\&quot;contents\&quot;:[]}&quot;</span>
-   , <span class="st">&quot;{\&quot;tag\&quot;:\&quot;AddedDocuments\&quot;,\&quot;contents\&quot;:[\&quot;b9973afdd569f11269fe0be736086049\&quot;,[]]}&quot;</span></code></pre></div>
-</section><section class="slide level2">
-
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ot">sample_v8_Events ::</span> [<span class="dt">ByteString</span>]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>sample_v8_Events <span class="ot">=</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  [<span class="st">&quot;{\&quot;tag\&quot;:\&quot;AddedDocuments\&quot;,\&quot;contents\&quot;:[\&quot;c1f09023b3a9398a1d8a257c372392ab\&quot;,[]]}&quot;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  , <span class="st">&quot;{\&quot;tag\&quot;:\&quot;UpdatedInvestor\&quot;,\&quot;contents\&quot;:{\&quot;invDocuments\&quot;:[],</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="st">     \&quot;invBankAccount\&quot;:{\&quot;bankBranch\&quot;:\&quot;Ge\&quot;,\&quot;bankAccountName\&quot;:\&quot;1W\&quot;,\&quot;bankAccountNo\&quot;:\&quot;nN\&quot;,\&quot;bankName\&quot;:\&quot;AU\&quot;},</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="st">     \&quot;invId\&quot;:\&quot;46ed3336bc60a5a423962e9b6343c003\&quot;,\&quot;invReferralCode\&quot;:{\&quot;refer\&quot;:\&quot;\&quot;},\&quot;invAccepttandcs\&quot;:false,</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="st">     \&quot;invLegalEntity\&quot;:{\&quot;tag\&quot;:\&quot;Corporate\&quot;,\&quot;primaryContactPosition\&quot;:{\&quot;tag\&quot;:\&quot;OtherPosition\&quot;,\&quot;contents\&quot;:\&quot;jZ\&quot;},\&quot;primaryContact\&quot;:{\&quot;personTitle\&quot;:\&quot;Y8\&quot;,\&quot;personFirstName\&quot;:\&quot;qf\&quot;,\&quot;personLastName\&quot;:\&quot;pz\&quot;,\&quot;personIdNumber\&quot;:\&quot;yC\&quot;,\&quot;personTelephone\&quot;:\&quot;nC\&quot;,\&quot;personEmail\&quot;:\&quot;xwmRJAstJRrvBy1x8FnJ4Y2.6nmGy@opBpRq.sg\&quot;},\&quot;company\&quot;:{\&quot;companyPostcode\&quot;:\&quot;kT\&quot;,\&quot;companyName\&quot;:\&quot;-o\&quot;,\&quot;companyUEN\&quot;:\&quot;LA\&quot;,\&quot;legalForm\&quot;:\&quot;LTD\&quot;,\&quot;companyAddress\&quot;:\&quot;oh\&quot;}}}}&quot;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>   , <span class="st">&quot;{\&quot;tag\&quot;:\&quot;NoEvent\&quot;,\&quot;contents\&quot;:[]}&quot;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>   , <span class="st">&quot;{\&quot;tag\&quot;:\&quot;AddedDocuments\&quot;,\&quot;contents\&quot;:[\&quot;b9973afdd569f11269fe0be736086049\&quot;,[]]}&quot;</span></span></code></pre></div>
+<hr />
 <h3 id="generating-execution-sequences-representing-typical-scenarios">Generating execution sequences representing typical scenarios</h3>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">genAdminActions <span class="fu">=</span>
-  frequency [ (<span class="dv">1</span>,  return [])
-            , (<span class="dv">1</span>,  <span class="kw">do</span>
-                   f <span class="ot">&lt;-</span> <span class="dt">NewListing</span> <span class="fu">&lt;$&gt;</span> arbitrary <span class="fu">&lt;*&gt;</span> newFacility <span class="fu">&lt;*&gt;</span> rate <span class="fu">&lt;*&gt;</span> risk
-                   (f<span class="fu">:</span>) <span class="fu">&lt;$&gt;</span> genAdminActions)
-            , (<span class="dv">10</span>, (<span class="dt">AcceptSomeFacility</span><span class="fu">:</span>) <span class="fu">&lt;$&gt;</span> genAdminActions)
-            , (<span class="dv">5</span>,  (<span class="dt">LookupFacilities</span><span class="fu">:</span>) <span class="fu">&lt;$&gt;</span> genAdminActions)
-            , (<span class="dv">6</span>,  (<span class="dt">AdvanceDay</span><span class="fu">:</span>) <span class="fu">.</span> (<span class="dt">ConfirmRepayments</span><span class="fu">:</span>) <span class="fu">&lt;$&gt;</span> genAdminActions)
-            ]</code></pre></div>
-</section><section id="on-the-use-of-different-level-of-testing" class="slide level2">
-<h2>On the use of different level of testing</h2>
-<figure>
-<img src="/images/pyramide.jpg" />
-</figure>
-</section></section>
-<section><section id="architecture" class="titleslide slide level1"><h1>Architecture</h1></section><section id="on-the-importance-of-laying-out-strong-foundations" class="slide level2">
-<h2>On the importance of laying out strong foundations</h2>
-<figure>
-<img src="/images/architecture.jpg" />
-</figure>
-</section><section id="on-the-intricacies-of-building-complex-software-with-a-cabal-of-scholars" class="slide level2">
-<h2>On the intricacies of building complex software with a Cabal of scholars</h2>
-<figure>
-<img src="/images/horlogerie.jpg" />
-</figure>
-</section><section id="where-haskellers-demonstrate-how-easily-they-can-adopt-foreigners-practice" class="slide level2">
-<h2>Where Haskellers demonstrate how easily they can adopt foreigners practice</h2>
-<figure>
-<img src="/images/event-sourcing.png" />
-</figure>
-</section><section class="slide level2">
-
-<figure>
-<img src="/images/services-architecture.png" />
-</figure>
-</section></section>
-<section><section id="diplomacy" class="titleslide slide level1"><h1>Diplomacy</h1></section><section id="where-we-separate-that-which-is-pure-from-that-which-is-impure" class="slide level2">
-<h2>Where we separate that which is pure from that which is impure</h2>
-<figure>
-<img src="/images/pure-impure.jpg" />
-</figure>
-</section><section id="where-we-learn-we-can-have-our-cake-and-eat-it-too" class="slide level2">
-<h2>Where we learn we can have our cake and eat it too</h2>
-<figure>
-<img src="/images/boulanger.jpg" />
-</figure>
-</section><section id="where-haskellers-prove-they-know-how-to-communicate-with-the-rest-of-the-world" class="slide level2">
-<h2>Where Haskellers prove they know how to communicate with the REST of the world</h2>
-<figure>
-<img src="/images/marine.jpg" />
-</figure>
-</section><section id="where-some-types-make-mortal-beings-doubt-about-their-sanity" class="slide level2">
-<h2>Where some types make mortal beings doubt about their sanity</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">CreateJob</span> <span class="fu">=</span> <span class="dt">ReqBody</span> <span class="ch">&#39;[JSON] Job :&gt; Post &#39;</span>[<span class="dt">JSON</span>] <span class="dt">JobId</span>
-<span class="kw">type</span> <span class="dt">ListJobs</span>  <span class="fu">=</span> <span class="dt">Get</span> <span class="ch">&#39;[JSON] [Job]</span>
-<span class="kw">type</span> <span class="dt">RemoveJob</span> <span class="fu">=</span> <span class="dt">Capture</span> <span class="st">&quot;jobid&quot;</span> <span class="dt">JobId</span> <span class="fu">:&gt;</span> <span class="dt">Delete</span> <span class="ch">&#39;[JSON] JobId</span>
-
-<span class="kw">type</span> <span class="dt">SchedulerApi</span> <span class="fu">=</span> <span class="st">&quot;api&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;jobs&quot;</span> <span class="fu">:&gt;</span> <span class="dt">CreateJob</span>
-               <span class="fu">:&lt;|&gt;</span> <span class="st">&quot;api&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;jobs&quot;</span> <span class="fu">:&gt;</span> <span class="dt">ListJobs</span>
-               <span class="fu">:&lt;|&gt;</span> <span class="st">&quot;api&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="fu">:&gt;</span> <span class="st">&quot;jobs&quot;</span> <span class="fu">:&gt;</span> <span class="dt">RemoveJob</span></code></pre></div>
-</section><section id="on-some-ways-data-is-persisted-to-stable-storage" class="slide level2">
-<h2>On some ways data is persisted to stable storage</h2>
-<figure>
-<img src="/images/marbrerie.jpg" />
-</figure>
-</section></section>
-<section><section id="war" class="titleslide slide level1"><h1>War</h1></section><section id="where-peaceful-haskellers-prepare-themselves-to-wage-war" class="slide level2">
-<h2>Where peaceful Haskellers prepare themselves to wage war</h2>
-<figure>
-<img src="/images/machines-de-guerre.jpg" />
-</figure>
-</section><section class="slide level2">
-
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">lendingHost ::</span> <span class="dt">Service</span>
-            <span class="ot">-&gt;</span> <span class="dt">Property</span> <span class="dt">HasInfo</span>
-lendingHost svc <span class="fu">=</span> propertyList <span class="fu">$</span> props
-    <span class="fu">&amp;</span> installLatestDocker
-    <span class="fu">&amp;</span> dockerComposeInstalled
-    <span class="fu">&amp;</span> File.dirExists certPath
-    <span class="fu">&amp;</span> writeSslKey <span class="st">&quot;nginx-private-key&quot;</span> <span class="st">&quot;lending.capital-match.com&quot;</span>
-    <span class="fu">&amp;</span> restrictToOwner (certPath <span class="fu">&lt;/&gt;</span> <span class="st">&quot;ssl.key&quot;</span>)
-    <span class="fu">&amp;</span> writeCertificateChain <span class="st">&quot;nginx-public-cert&quot;</span> <span class="st">&quot;lending.capital-match.com&quot;</span>
-    <span class="fu">&amp;</span> (certPath <span class="fu">&lt;&gt;</span> <span class="st">&quot;ssl-unified.crt&quot;</span>) <span class="ot">`File.mode`</span>
-      combineModes [ownerWriteMode, ownerReadMode]
-    <span class="fu">&amp;</span> hasDataContainer <span class="st">&quot;cm-data&quot;</span> dataImage
-    <span class="fu">&amp;</span> composeUp <span class="dt">True</span> <span class="st">&quot;/home/build/docker-compose.yml&quot;</span>
-      (<span class="dt">Just</span> [(<span class="st">&quot;ROOT_PASSWORD&quot;</span>,rootPassword)])</code></pre></div>
-</section><section id="on-the-war-time-organisation-of-haskells-legions" class="slide level2">
-<h2>On the war-time organisation of Haskell’s legions</h2>
-<figure>
-<img src="/images/militaire.jpg" />
-</figure>
-</section><section class="slide level2">
-
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">    <span class="dt">ImageName</span> <span class="st">&quot;capitalmatch/nginx&quot;</span> <span class="ot">`buildImageBy`</span> \imageName <span class="ot">-&gt;</span> <span class="kw">do</span>
-       need [<span class="st">&quot;nginx/Dockerfile&quot;</span>,<span class="st">&quot;nginx/reload_nginx.sh&quot;</span>
-            , <span class="st">&quot;nginx/forego&quot;</span>, <span class="st">&quot;nginx/Procfile&quot;</span>]
-       cmdDockerBuild imageName <span class="st">&quot;nginx&quot;</span>
-
-    <span class="st">&quot;docker//source-version.txt&quot;</span> <span class="fu">%&gt;</span> \versionFile <span class="ot">-&gt;</span> <span class="kw">do</span>
-      alwaysRerun
-      <span class="dt">Stdout</span> v <span class="ot">&lt;-</span> cmd <span class="st">&quot;git&quot;</span> [<span class="st">&quot;rev-parse&quot;</span>, <span class="st">&quot;HEAD&quot;</span>]
-      writeFileChanged versionFile v</code></pre></div>
-</section><section id="on-the-capabilities-to-wage-war-outside-of-haskelland" class="slide level2">
-<h2>On the capabilities to wage war outside of Haskelland</h2>
-<figure>
-<img src="/images/marine-formation.jpg" />
-</figure>
-</section><section class="slide level2">
-
-<figure>
-<img src="/images/system-architecture.png" />
-</figure>
-</section></section>
-<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="what-benefits-one-can-expect-from-visiting-haskelland" class="slide level2">
-<h2>What benefits one can expect from visiting Haskelland</h2>
-<figure>
-<img src="/images/paix-utrecht.jpg" />
-</figure>
-</section><section id="what-the-cautious-traveller-should-be-aware-of-when-ashoring-haskelland" class="slide level2">
-<h2>What the cautious traveller should be aware of when ashoring Haskelland</h2>
-<figure>
-<img src="/images/rhinoceros.jpg" />
-</figure>
-</section></section>
-<section><section id="acknowledgements" class="titleslide slide level1"><h1>Acknowledgements</h1></section><section id="credits" class="slide level2">
-<h2>Credits</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>genAdminActions <span class="ot">=</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  frequency [ (<span class="dv">1</span>,  <span class="fu">return</span> [])</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>            , (<span class="dv">1</span>,  <span class="kw">do</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                   f <span class="ot">&lt;-</span> <span class="dt">NewListing</span> <span class="op">&lt;$&gt;</span> arbitrary <span class="op">&lt;*&gt;</span> newFacility <span class="op">&lt;*&gt;</span> rate <span class="op">&lt;*&gt;</span> risk</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                   (f<span class="op">:</span>) <span class="op">&lt;$&gt;</span> genAdminActions)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>            , (<span class="dv">10</span>, (<span class="dt">AcceptSomeFacility</span><span class="op">:</span>) <span class="op">&lt;$&gt;</span> genAdminActions)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>            , (<span class="dv">5</span>,  (<span class="dt">LookupFacilities</span><span class="op">:</span>) <span class="op">&lt;$&gt;</span> genAdminActions)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>            , (<span class="dv">6</span>,  (<span class="dt">AdvanceDay</span><span class="op">:</span>) <span class="op">.</span> (<span class="dt">ConfirmRepayments</span><span class="op">:</span>) <span class="op">&lt;$&gt;</span> genAdminActions)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>            ]</span></code></pre></div>
+<h2 id="on-the-use-of-different-level-of-testing">On the use of different level of testing</h2>
+<p><img src="/images/pyramide.jpg" /></p>
+<h1 id="architecture">Architecture</h1>
+<h2 id="on-the-importance-of-laying-out-strong-foundations">On the importance of laying out strong foundations</h2>
+<p><img src="/images/architecture.jpg" /></p>
+<h2 id="on-the-intricacies-of-building-complex-software-with-a-cabal-of-scholars">On the intricacies of building complex software with a Cabal of scholars</h2>
+<p><img src="/images/horlogerie.jpg" /></p>
+<h2 id="where-haskellers-demonstrate-how-easily-they-can-adopt-foreigners-practice">Where Haskellers demonstrate how easily they can adopt foreigners practice</h2>
+<p><img src="/images/event-sourcing.png" /></p>
+<hr />
+<p><img src="/images/services-architecture.png" /></p>
+<h1 id="diplomacy">Diplomacy</h1>
+<h2 id="where-we-separate-that-which-is-pure-from-that-which-is-impure">Where we separate that which is pure from that which is impure</h2>
+<p><img src="/images/pure-impure.jpg" /></p>
+<h2 id="where-we-learn-we-can-have-our-cake-and-eat-it-too">Where we learn we can have our cake and eat it too</h2>
+<p><img src="/images/boulanger.jpg" /></p>
+<h2 id="where-haskellers-prove-they-know-how-to-communicate-with-the-rest-of-the-world">Where Haskellers prove they know how to communicate with the REST of the world</h2>
+<p><img src="/images/marine.jpg" /></p>
+<h2 id="where-some-types-make-mortal-beings-doubt-about-their-sanity">Where some types make mortal beings doubt about their sanity</h2>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">CreateJob</span> <span class="ot">=</span> <span class="dt">ReqBody</span> &#39;[<span class="dt">JSON</span>] <span class="dt">Job</span> <span class="op">:&gt;</span> <span class="dt">Post</span> &#39;[<span class="dt">JSON</span>] <span class="dt">JobId</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">ListJobs</span>  <span class="ot">=</span> <span class="dt">Get</span> &#39;[<span class="dt">JSON</span>] [<span class="dt">Job</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">RemoveJob</span> <span class="ot">=</span> <span class="dt">Capture</span> <span class="st">&quot;jobid&quot;</span> <span class="dt">JobId</span> <span class="op">:&gt;</span> <span class="dt">Delete</span> &#39;[<span class="dt">JSON</span>] <span class="dt">JobId</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">SchedulerApi</span> <span class="ot">=</span> <span class="st">&quot;api&quot;</span> <span class="op">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="op">:&gt;</span> <span class="st">&quot;jobs&quot;</span> <span class="op">:&gt;</span> <span class="dt">CreateJob</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>               <span class="op">:&lt;|&gt;</span> <span class="st">&quot;api&quot;</span> <span class="op">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="op">:&gt;</span> <span class="st">&quot;jobs&quot;</span> <span class="op">:&gt;</span> <span class="dt">ListJobs</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>               <span class="op">:&lt;|&gt;</span> <span class="st">&quot;api&quot;</span> <span class="op">:&gt;</span> <span class="st">&quot;scheduler&quot;</span> <span class="op">:&gt;</span> <span class="st">&quot;jobs&quot;</span> <span class="op">:&gt;</span> <span class="dt">RemoveJob</span></span></code></pre></div>
+<h2 id="on-some-ways-data-is-persisted-to-stable-storage">On some ways data is persisted to stable storage</h2>
+<p><img src="/images/marbrerie.jpg" /></p>
+<h1 id="war">War</h1>
+<h2 id="where-peaceful-haskellers-prepare-themselves-to-wage-war">Where peaceful Haskellers prepare themselves to wage war</h2>
+<p><img src="/images/machines-de-guerre.jpg" /></p>
+<hr />
+<div class="sourceCode" id="cb15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ot">lendingHost ::</span> <span class="dt">Service</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>            <span class="ot">-&gt;</span> <span class="dt">Property</span> <span class="dt">HasInfo</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>lendingHost svc <span class="ot">=</span> propertyList <span class="op">$</span> props</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span> installLatestDocker</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span> dockerComposeInstalled</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span> File.dirExists certPath</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span> writeSslKey <span class="st">&quot;nginx-private-key&quot;</span> <span class="st">&quot;lending.capital-match.com&quot;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span> restrictToOwner (certPath <span class="op">&lt;/&gt;</span> <span class="st">&quot;ssl.key&quot;</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span> writeCertificateChain <span class="st">&quot;nginx-public-cert&quot;</span> <span class="st">&quot;lending.capital-match.com&quot;</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span> (certPath <span class="op">&lt;&gt;</span> <span class="st">&quot;ssl-unified.crt&quot;</span>) <span class="ot">`File.mode`</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>      combineModes [ownerWriteMode, ownerReadMode]</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span> hasDataContainer <span class="st">&quot;cm-data&quot;</span> dataImage</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span> composeUp <span class="dt">True</span> <span class="st">&quot;/home/build/docker-compose.yml&quot;</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>      (<span class="dt">Just</span> [(<span class="st">&quot;ROOT_PASSWORD&quot;</span>,rootPassword)])</span></code></pre></div>
+<h2 id="on-the-war-time-organisation-of-haskells-legions">On the war-time organisation of Haskell’s legions</h2>
+<p><img src="/images/militaire.jpg" /></p>
+<hr />
+<div class="sourceCode" id="cb16"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>    <span class="dt">ImageName</span> <span class="st">&quot;capitalmatch/nginx&quot;</span> <span class="ot">`buildImageBy`</span> \imageName <span class="ot">-&gt;</span> <span class="kw">do</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>       need [<span class="st">&quot;nginx/Dockerfile&quot;</span>,<span class="st">&quot;nginx/reload_nginx.sh&quot;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>            , <span class="st">&quot;nginx/forego&quot;</span>, <span class="st">&quot;nginx/Procfile&quot;</span>]</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>       cmdDockerBuild imageName <span class="st">&quot;nginx&quot;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;docker//source-version.txt&quot;</span> <span class="op">%&gt;</span> \versionFile <span class="ot">-&gt;</span> <span class="kw">do</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>      alwaysRerun</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">Stdout</span> v <span class="ot">&lt;-</span> cmd <span class="st">&quot;git&quot;</span> [<span class="st">&quot;rev-parse&quot;</span>, <span class="st">&quot;HEAD&quot;</span>]</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>      writeFileChanged versionFile v</span></code></pre></div>
+<h2 id="on-the-capabilities-to-wage-war-outside-of-haskelland">On the capabilities to wage war outside of Haskelland</h2>
+<p><img src="/images/marine-formation.jpg" /></p>
+<hr />
+<p><img src="/images/system-architecture.png" /></p>
+<h1 id="conclusion">Conclusion</h1>
+<h2 id="what-benefits-one-can-expect-from-visiting-haskelland">What benefits one can expect from visiting Haskelland</h2>
+<p><img src="/images/paix-utrecht.jpg" /></p>
+<h2 id="what-the-cautious-traveller-should-be-aware-of-when-ashoring-haskelland">What the cautious traveller should be aware of when ashoring Haskelland</h2>
+<p><img src="/images/rhinoceros.jpg" /></p>
+<h1 id="acknowledgements">Acknowledgements</h1>
+<h2 id="credits">Credits</h2>
 <p>All the woodcuts illustrating this talk are drawn from the <a href="http://planches.eu">Encyclopédie de Diderot et d’Alembert</a> with the exception of:</p>
-<ul>
-<li class="fragment"><a href="http://40.media.tumblr.com/8b72c0e766b096a0d83c6a98f6586a1d/tumblr_n8m8bas4Xe1tgg8dko1_1280.jpg">Durer’s “Artist drawing a couching woman”</a>,</li>
-<li class="fragment">The <a href="https://upload.wikimedia.org/wikipedia/commons/3/3b/Pyramide_Austerlitz_1805.jpg">Austerlitz Pyramid</a>,</li>
-<li class="fragment"><a href="https://alicegonella.files.wordpress.com/2013/04/durers-rhino-1515.jpg">Durer’s Rhinoceros</a>,</li>
-<li class="fragment"><a href="http://gallica.bnf.fr/ark:/12148/btv1b8408177f/f1.highres">Allégorie à la Paix d’Utrecht</a>.</li>
+<ul class="incremental">
+<li><a href="http://40.media.tumblr.com/8b72c0e766b096a0d83c6a98f6586a1d/tumblr_n8m8bas4Xe1tgg8dko1_1280.jpg">Durer’s “Artist drawing a couching woman”</a>,</li>
+<li>The <a href="https://upload.wikimedia.org/wikipedia/commons/3/3b/Pyramide_Austerlitz_1805.jpg">Austerlitz Pyramid</a>,</li>
+<li><a href="https://alicegonella.files.wordpress.com/2013/04/durers-rhino-1515.jpg">Durer’s Rhinoceros</a>,</li>
+<li><a href="http://gallica.bnf.fr/ark:/12148/btv1b8408177f/f1.highres">Allégorie à la Paix d’Utrecht</a>.</li>
 </ul>
-</section><section id="thanks" class="slide level2">
-<h2>Thanks</h2>
-<ul>
-<li class="fragment">To all the fine people at Capital Match who made all this possible,</li>
-<li class="fragment">To Haskellers all over the world who fuel the fire with their wits and spirit,</li>
-<li class="fragment">To Haskell B. Curry who, among others, laid out the foundations for our daily job.</li>
+<h2 id="thanks">Thanks</h2>
+<ul class="incremental">
+<li>To all the fine people at Capital Match who made all this possible,</li>
+<li>To Haskellers all over the world who fuel the fire with their wits and spirit,</li>
+<li>To Haskell B. Curry who, among others, laid out the foundations for our daily job.</li>
 </ul>
-</section></section>
     </div>
   </div>
 

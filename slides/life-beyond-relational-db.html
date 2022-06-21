@@ -92,132 +92,111 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<section><section id="agenda" class="titleslide slide level1"><h1>Agenda</h1></section><section id="agenda-1" class="slide level2">
-<h2>Agenda</h2>
-<ul>
-<li class="fragment">Introduction</li>
-<li class="fragment">Event-Sourcing Model</li>
-<li class="fragment">Implementation &amp; Usage</li>
-<li class="fragment">Future works</li>
+<h1 id="agenda">Agenda</h1>
+<hr />
+<h2 id="agenda-1">Agenda</h2>
+<ul class="incremental">
+<li>Introduction</li>
+<li>Event-Sourcing Model</li>
+<li>Implementation &amp; Usage</li>
+<li>Future works</li>
 </ul>
-</section></section>
-<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="who-are-we" class="slide level2">
-<h2>Who are we?</h2>
-<figure>
-<img src="/images/cm-website.png" />
-</figure>
-</section><section id="who-are-we-1" class="slide level2">
-<h2>Who are we?</h2>
-<ul>
-<li class="fragment">Capital Match is the leading plaform in Singapore for peer-to-peer lending to SMEs</li>
-<li class="fragment">Backend system developed in Haskell, frontend in Clojurescript/Om since 2014</li>
-<li class="fragment">Core Development team of 3 + 1: Amar, Arnaud, Guo Liang, Zhou Yu</li>
+<h1 id="introduction">Introduction</h1>
+<hr />
+<h2 id="who-are-we">Who are we?</h2>
+<p><img src="/images/cm-website.png" /></p>
+<h2 id="who-are-we-1">Who are we?</h2>
+<ul class="incremental">
+<li>Capital Match is the leading plaform in Singapore for peer-to-peer lending to SMEs</li>
+<li>Backend system developed in Haskell, frontend in Clojurescript/Om since 2014</li>
+<li>Core Development team of 3 + 1: Amar, Arnaud, Guo Liang, Zhou Yu</li>
 </ul>
-</section></section>
-<section><section id="relational-model" class="titleslide slide level1"><h1>Relational Model</h1></section><section class="slide level2">
-
-<figure>
-<img src="/images/relational-model.gif" />
-</figure>
-</section><section id="whats-good-with-relational-model" class="slide level2">
-<h2>What’s good with Relational Model?</h2>
-<ul>
-<li class="fragment">Really great for querying <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> <em>SQL Rocks!</em></li>
-<li class="fragment">Conceptually simple to understand: <em>Everything is a Table</em></li>
-<li class="fragment">Ubiquitous</li>
+<h1 id="relational-model">Relational Model</h1>
+<hr />
+<p><img src="/images/relational-model.gif" /></p>
+<h2 id="whats-good-with-relational-model">What’s good with Relational Model?</h2>
+<ul class="incremental">
+<li>Really great for querying <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> <em>SQL Rocks!</em></li>
+<li>Conceptually simple to understand: <em>Everything is a Table</em></li>
+<li>Ubiquitous</li>
 </ul>
-</section><section id="whats-wrong-with-relational-model" class="slide level2">
-<h2>What’s wrong with Relational Model?</h2>
-<ul>
-<li class="fragment">Writes/updates are complex</li>
-<li class="fragment"><em>Impedance Mismatch</em>: Lot of data is more tree-ish or graph-ish</li>
-<li class="fragment">One single Database for everything <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> <em>SPOF</em></li>
-<li class="fragment"><strong>Mutable State</strong></li>
+<h2 id="whats-wrong-with-relational-model">What’s wrong with Relational Model?</h2>
+<ul class="incremental">
+<li>Writes/updates are complex</li>
+<li><em>Impedance Mismatch</em>: Lot of data is more tree-ish or graph-ish</li>
+<li>One single Database for everything <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> <em>SPOF</em></li>
+<li><strong>Mutable State</strong></li>
 </ul>
-</section><section class="slide level2">
-
-<figure>
-<img src="/images/one-ring.jpg" />
-</figure>
-</section></section>
-<section><section id="event-sourcing" class="titleslide slide level1"><h1>Event Sourcing</h1></section><section id="state-vs.transitions" class="slide level2">
-<h2>State vs. Transitions</h2>
-<figure>
-<img src="/images/state-transitions.png" />
-</figure>
-</section><section id="state-vs.transitions-1" class="slide level2">
-<h2>State vs. Transitions</h2>
-<ul>
-<li class="fragment">RDBMS stores the <strong>state</strong> of the model at some point in time…</li>
-<li class="fragment">… But we are also interested in the <strong>transitions</strong> …</li>
-<li class="fragment">… And state can always be reconstructed from a <em>sequence of transitions</em>.</li>
+<hr />
+<p><img src="/images/one-ring.jpg" /></p>
+<h1 id="event-sourcing">Event Sourcing</h1>
+<h2 id="state-vs.-transitions">State vs. Transitions</h2>
+<p><img src="/images/state-transitions.png" /></p>
+<h2 id="state-vs.-transitions-1">State vs. Transitions</h2>
+<ul class="incremental">
+<li>RDBMS stores the <strong>state</strong> of the model at some point in time…</li>
+<li>… But we are also interested in the <strong>transitions</strong> …</li>
+<li>… And state<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> can always be reconstructed from a <em>sequence of transitions</em>.</li>
 </ul>
-</section><section id="the-event-sourcing-model" class="slide level2">
-<h2>The Event Sourcing Model</h2>
+<h2 id="the-event-sourcing-model">The Event Sourcing Model</h2>
 <blockquote>
-<p>Event Sourcing ensures that all changes to application state are stored as a sequence of events. Not just can we query these events, we can also use the event log to reconstruct past states, and as a foundation to automatically adjust the state to cope with retroactive changes.</p>
+<p>Event Sourcing ensures that all changes to application state are stored as a sequence of events. Not just can we query these
+events, we can also use the event log to reconstruct past states, and as a foundation to automatically adjust the state to cope
+with retroactive changes.</p>
 </blockquote>
 <blockquote>
 <p><a href="http://martinfowler.com/eaaDev/EventSourcing.html">Martin Fowler</a></p>
 </blockquote>
-</section><section id="events-makes-it-easier-to" class="slide level2">
-<h2>Events makes it easier to…</h2>
-<ul>
-<li class="fragment">Audit current state and what lead to it</li>
-<li class="fragment">Implement generic undo/redo mechanism</li>
-<li class="fragment">Run simulations with different hypothesis over live data</li>
-<li class="fragment">Cope with data format migrations</li>
-<li class="fragment">Handle potentially conflicting changes</li>
+<h2 id="events-makes-it-easier-to">Events makes it easier to…</h2>
+<ul class="incremental">
+<li>Audit current state and what lead to it</li>
+<li>Implement generic undo/redo mechanism<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
+<li>Run simulations with different hypothesis over live data</li>
+<li>Cope with data format migrations</li>
+<li>Handle potentially conflicting changes<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
 </ul>
-</section><section id="events-drive-business" class="slide level2">
-<h2>Events Drive Business</h2>
-<ul>
-<li class="fragment">Events are what makes a model dynamic: What affects it, how it reacts to outside world…</li>
-<li class="fragment">Provide foundation for <a href="http://www.amazon.fr/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">Domain Driven Design</a> techniques <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> Better business models, Ubiquitous language</li>
-<li class="fragment">Lead to <a href="http://ziobrando.blogspot.sg/2013/11/introducing-event-storming.html">Event Storming</a> technique for “requirements” elicitation and business domain modelling</li>
+<h2 id="events-drive-business">Events Drive Business</h2>
+<ul class="incremental">
+<li>Events are what makes a model dynamic: What affects it, how it reacts to outside world…</li>
+<li>Provide foundation for <a href="http://www.amazon.fr/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">Domain Driven Design</a> techniques <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> Better business models, Ubiquitous language</li>
+<li>Lead to <a href="http://ziobrando.blogspot.sg/2013/11/introducing-event-storming.html">Event Storming</a> technique for “requirements” elicitation and business domain modelling<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></li>
 </ul>
-</section></section>
-<section><section id="in-practice" class="titleslide slide level1"><h1>In Practice</h1></section><section id="overview" class="slide level2">
-<h2>Overview</h2>
-<figure>
-<img src="/images/event-sourcing.png" />
-</figure>
-</section><section id="pure-business-models" class="slide level2">
-<h2>Pure Business Models</h2>
-<ul>
-<li class="fragment">Each model delimits a <em>Bounded Context</em>: It is responsible for a single cohesive part of the domain</li>
-<li class="fragment">Models are <strong>pure</strong> immutable data structures</li>
-<li class="fragment">Distinguish <em>Commands</em> from <em>Events</em></li>
+<h1 id="in-practice">In Practice</h1>
+<h2 id="overview">Overview</h2>
+<p><img src="/images/event-sourcing.png" /></p>
+<h2 id="pure-business-models">Pure Business Models</h2>
+<ul class="incremental">
+<li>Each model delimits a <em>Bounded Context</em>: It is responsible for a single cohesive part of the domain</li>
+<li>Models are <strong>pure</strong> immutable data structures</li>
+<li>Distinguish <em>Commands</em> from <em>Events</em></li>
 </ul>
-</section><section id="pure-business-models-2" class="slide level2">
-<h2>Pure Business Models (2)</h2>
-<ul>
-<li class="fragment"><p>Commands compute Event from State</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">act ::</span> <span class="dt">Command</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Event</span></code></pre></div></li>
-<li class="fragment"><p>Events modify model</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">apply ::</span> <span class="dt">Event</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Model</span></code></pre></div></li>
+<h2 id="pure-business-models-2">Pure Business Models (2)</h2>
+<ul class="incremental">
+<li><p>Commands compute Event from State</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ot">act ::</span> <span class="dt">Command</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Event</span></span></code></pre></div></li>
+<li><p>Events modify model</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">apply ::</span> <span class="dt">Event</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Model</span></span></code></pre></div></li>
 </ul>
-</section><section id="effectful-services" class="slide level2">
-<h2>Effectful Services</h2>
+<h2 id="effectful-services">Effectful Services</h2>
 <blockquote>
 <p>Services are used to orchestrate interaction between one or more business models and the outside world</p>
 </blockquote>
-<ul>
-<li class="fragment">Services are functions operating <em>across several contexts</em></li>
-<li class="fragment">They can be synchronous or asynchronous (we use mostly synchronous)</li>
-<li class="fragment">There are no <em>distributed transactions</em>: Service has to cope with failures from each context</li>
+<ul class="incremental">
+<li>Services are functions operating <em>across several contexts</em></li>
+<li>They can be synchronous or asynchronous (we use mostly synchronous)<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></li>
+<li>There are no <em>distributed transactions</em>: Service has to cope with failures from each context</li>
 </ul>
-</section><section id="effectful-services-2" class="slide level2">
-<h2>Effectful Services (2)</h2>
-<ul>
-<li class="fragment"><p>We have a monad to express effects and sequencing on each context: <code>WebStateM</code></p>
-<pre><code>newtype WebStateM g l m a = WebStateM { runWebM :: TVar g -&gt; l -&gt; m a }</code></pre></li>
-<li class="fragment"><code>g</code> is a “global” Model which can be accessed concurrently <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> protected in STM</li>
-<li class="fragment"><code>l</code> is local data, contextual to a single service execution</li>
-<li class="fragment"><p><code>m</code> is underlying monad, usually <code>IO</code></p></li>
+<h2 id="effectful-services-2">Effectful Services (2)</h2>
+<ul class="incremental">
+<li>We have a monad to express effects and sequencing on each context: <code>WebStateM</code></li>
 </ul>
-</section><section id="events-storage" class="slide level2">
-<h2>Events Storage</h2>
+<pre><code>newtype WebStateM g l m a = WebStateM { runWebM :: TVar g -&gt; l -&gt; m a }</code></pre>
+<ul class="incremental">
+<li><code>g</code> is a “global” Model which can be accessed concurrently <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> protected in STM</li>
+<li><code>l</code> is local data, contextual to a single service execution</li>
+<li><code>m</code> is underlying monad, usually <code>IO</code></li>
+</ul>
+<h2 id="events-storage">Events Storage</h2>
 <pre><code>data StoredEvent s = StoredEvent { eventVersion :: EventVersion
                                  , eventType    :: EventType s
                                  , eventDate    :: Date
@@ -226,69 +205,77 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
                                  , eventSHA1    :: Encoded Hex
                                  , event        :: ByteString
                                  }</code></pre>
-</section><section id="events-storage-2" class="slide level2">
-<h2>Events Storage (2)</h2>
-<ul>
-<li class="fragment">We use a simple Append-only file store, writing serialized events (mostly JSON) packed with metadata</li>
-<li class="fragment">Each event has a (monotonically increasing) version which is used for proper deserialization</li>
-<li class="fragment">Events carry useful information for troubleshooting and auditing: User who initiated the request, request id itself, SHA1 representing version of appplication</li>
-<li class="fragment">Events Store serializes concurrent writes</li>
+<h2 id="events-storage-2">Events Storage (2)</h2>
+<ul class="incremental">
+<li>We use a simple Append-only file store, writing serialized events (mostly JSON) packed with metadata</li>
+<li>Each event has a (monotonically increasing) version which is used for proper deserialization</li>
+<li>Events carry useful information for troubleshooting and auditing: User who initiated the request, request id itself, SHA1
+representing version of appplication</li>
+<li>Events Store serializes concurrent writes</li>
 </ul>
-</section></section>
-<section><section id="software" class="titleslide slide level1"><h1>Software</h1></section><section id="section" class="slide level2">
-<h2></h2>
+<h1 id="software">Software</h1>
+<h2 id="section"></h2>
 <figure>
-<img src="/images/workshop.jpg" alt="In Practice" /><figcaption>In Practice</figcaption>
+<img src="/images/workshop.jpg" alt="In Practice" />
+<figcaption aria-hidden="true">In Practice</figcaption>
 </figure>
-</section><section id="demo" class="slide level2">
-<h2>Demo</h2>
-<ul>
-<li class="fragment">Anatomy of a complete business model
-<ul>
-<li class="fragment">Web layer w/ servant</li>
-<li class="fragment">Service layer (w/ Free monads…)</li>
-<li class="fragment">Business model</li>
-<li class="fragment">Migration code</li>
-<li class="fragment">Standalone service</li>
+<h2 id="demo">Demo</h2>
+<ul class="incremental">
+<li>Anatomy of a complete business model
+<ul class="incremental">
+<li>Web layer w/ servant</li>
+<li>Service layer (w/ Free monads…)</li>
+<li>Business model</li>
+<li>Migration code</li>
+<li>Standalone service</li>
 </ul></li>
-<li class="fragment">Using Haskell scripts for operational queries and updates</li>
+<li>Using Haskell scripts for operational queries and updates</li>
 </ul>
-</section></section>
-<section><section id="future-works" class="titleslide slide level1"><h1>Future Works</h1></section><section id="section-1" class="slide level2">
-<h2></h2>
-<figure>
-<img src="/images/monolith-2001.jpg" />
-</figure>
-</section><section id="implement-better-cqrs" class="slide level2">
-<h2>Implement Better CQRS</h2>
-<ul>
-<li class="fragment">Separate <em>Read Model</em> from <em>Write Model</em></li>
-<li class="fragment"><em>Write Model</em>: Append-only linear data store per context, very fast, minimize locking/write time</li>
-<li class="fragment"><em>Read model</em>: Optimized for specific querying, may be relational if needed in order to make it more user-friendly</li>
+<h1 id="future-works">Future Works</h1>
+<h2 id="section-1"></h2>
+<p><img src="/images/monolith-2001.jpg" /></p>
+<h2 id="implement-better-cqrs">Implement Better CQRS</h2>
+<ul class="incremental">
+<li>Separate <em>Read Model</em> from <em>Write Model</em></li>
+<li><em>Write Model</em>: Append-only linear data store per context, very fast, minimize locking/write time</li>
+<li><em>Read model</em>: Optimized for specific querying, may be relational if needed in order to make it more user-friendly</li>
 </ul>
-</section><section id="make-models-resilient" class="slide level2">
-<h2>Make models resilient</h2>
-<ul>
-<li class="fragment">Resilience of models <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> <em>Replication</em></li>
-<li class="fragment">Use <a href="http://raft.github.io/">Raft</a> to maintain strong consistency of models: <a href="https://github.com/cartazio/haver-raft">several</a> <a href="https://github.com/NicolasT/kontiki">implementations</a> <a href="https://github.com/chrisnc/tangaroa">in</a> Haskell</li>
-<li class="fragment">Started implementation of practical cluster based on Raft, called <a href="https://github.com/capital-match/raptr">raptr</a></li>
+<h2 id="make-models-resilient">Make models resilient</h2>
+<ul class="incremental">
+<li>Resilience of models <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> <em>Replication</em></li>
+<li>Use <a href="http://raft.github.io/">Raft</a> to maintain strong consistency of models: <a href="https://github.com/cartazio/haver-raft">several</a> <a href="https://github.com/NicolasT/kontiki">implementations</a> <a href="https://github.com/chrisnc/tangaroa">in</a> Haskell</li>
+<li>Started implementation of practical cluster based on Raft, called <a href="https://github.com/capital-match/raptr">raptr</a></li>
 </ul>
-</section><section id="make-models-secure" class="slide level2">
-<h2>Make models secure</h2>
-<ul>
-<li class="fragment">Turn event stream into a <em>source of truth</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> Blockchain and beyond…</li>
-<li class="fragment">Juno: <a href="https://github.com/buckie/juno">Smart contracts</a> over Raft cluster</li>
-<li class="fragment">Uses cryptographically signed events to ensure history cannot be tampered with</li>
-<li class="fragment">Turns journal into a “legally binding ledger”?</li>
+<h2 id="make-models-secure">Make models secure</h2>
+<ul class="incremental">
+<li>Turn event stream into a <em>source of truth</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math> Blockchain<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> and beyond…</li>
+<li>Juno: <a href="https://github.com/buckie/juno">Smart contracts</a> over Raft cluster
+<ul class="incremental">
+<li>Uses cryptographically signed events to ensure history cannot be tampered with</li>
+<li>Turns journal into a “legally binding ledger”?</li>
+</ul></li>
 </ul>
-</section></section>
-<section><section id="questions" class="titleslide slide level1"><h1>Questions?</h1></section><section id="section-2" class="slide level2">
-<h2></h2>
-<figure>
-<img src="/images/puzzled.jpg" />
-</figure>
-</section></section>
-<section><section id="credits" class="titleslide slide level1"><h1>Credits</h1></section></section>
+<h1 id="questions">Questions?</h1>
+<h2 id="section-2"></h2>
+<p><img src="/images/puzzled.jpg" /></p>
+<h1 id="credits">Credits</h1>
+<ul class="incremental">
+<li><a href="http://observationdeck.kinja.com/the-monoliths-have-faces-interstellar-answers-2001-a-1659091453">HAL-9000</a></li>
+<li><a href="https://c1.staticflickr.com/1/62/164351244_5c26d331a0_b.jpg">Puzzled</a></li>
+</ul>
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Assuming state is deterministic of course<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>May require invertible events<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>That’s the way RDBMS handle transactional isolation: Record a <em>log</em> of all operations on data then reconcile when transactions are committed<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>I never know how many <code>l</code>s modelling takes…<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>Synchronicity is a property of the business domain, e.g. depends on what client expects from the service and whether or not he
+wants to “pay” for synchronous confirmation<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>Blockchain is all rage in the FinTech ecosystem those days, although early implementation like Bitcoins or Dogecoins failed to
+deliver all their promises.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
     </div>
   </div>
 

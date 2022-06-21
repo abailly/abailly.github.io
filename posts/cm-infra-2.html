@@ -7,7 +7,9 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - Haskell-based Infrastructure</title>
+
   <meta name="description" content="Crafting code since 1994">
+
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -39,63 +41,23 @@
     </header>
     <div id="main" role="main">
 <h1>Haskell-based Infrastructure</h1>
-<div class="info">Posted on 2016-05-24</div>
 
-<p>In my <a href="/posts/cm-infra-1.html">previous post</a> I focused on
-the build and development tools. This post will conclude my series on
-Capital Match by focusing on the last stage of the rocket: How we build
-and manage our development and production infrastructure. As already
-emphasized in the previous post, I am not a systems engineer by trade, I
-simply needed to get up and running something while building our
-startup. Comments and feedback most welcomed!</p>
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on May 24, 2016</div>
+
+<p>In my <a href="../posts/cm-infra-1.html">previous post</a> I focused on the build and development tools. This post will conclude my series on Capital Match by focusing on the last stage of the rocket: How we build and manage our development and production infrastructure. As already emphasized in the previous post, I am not a systems engineer by trade, I simply needed to get up and running something while building our startup. Comments and feedback most welcomed!</p>
 <h1 id="continuous-integration">Continuous Integration</h1>
-<p><a
-href="http://www.extremeprogramming.org/rules/integrateoften.html">Continuous
-Integration</a> is a cornerstone of Agile Development practices and
-something I couldn’t live without. CI is a prerequisite for
-<em>Continuous Deployment</em> or <a
-href="http://martinfowler.com/bliki/ContinuousDelivery.html">Continuous
-Delivery</a>: It should ensure each and every change in code of our
-system is actually working and did not break anything. CI is
-traditionally implemented using servers like <a
-href="https://jenkins.io/">Jenkins</a> or online services like <a
-href="https://travis-ci.org/">Travis</a> that trigger a build each time
-code is pushed to a source control repository. But people like <a
-href="http://blog.javabien.net/2009/12/01/serverless-ci-with-git/">David
-Gageot</a>, among <a
-href="http://www.yegor256.com/2014/10/08/continuous-integration-is-dead.html">others</a>,
-have shown us that doing CI without a server was perfectly possible. The
-key point is that <em>it should not be possible to deploy something
-which has not been verified and validated by CI</em>.</p>
+<p><a href="http://www.extremeprogramming.org/rules/integrateoften.html">Continuous Integration</a> is a cornerstone of Agile Development practices and something I couldn’t live without. CI is a prerequisite for <em>Continuous Deployment</em> or <a href="http://martinfowler.com/bliki/ContinuousDelivery.html">Continuous Delivery</a>: It should ensure each and every change in code of our system is actually working and did not break anything. CI is traditionally implemented using servers like <a href="https://jenkins.io/">Jenkins</a> or online services like <a href="https://travis-ci.org/">Travis</a> that trigger a build each time code is pushed to a source control repository. But people like <a href="http://blog.javabien.net/2009/12/01/serverless-ci-with-git/">David Gageot</a>, among <a href="http://www.yegor256.com/2014/10/08/continuous-integration-is-dead.html">others</a>, have shown us that doing CI without a server was perfectly possible. The key point is that <em>it should not be possible to deploy something which has not been verified and validated by CI</em>.</p>
 <h2 id="ci-server">CI Server</h2>
-<p>We settled on using a central git repository and CI server, hosted on
-a dedicated build machine:</p>
+<p>We settled on using a central git repository and CI server, hosted on a dedicated build machine:</p>
 <ul>
-<li><p>Git repository’s master branch is “morally” locked: Although
-technically it is still possible to push to it, we never do that and
-instead push to a <code>review</code> branch which is merged to the
-<code>master</code> only when build passes,</p></li>
-<li><p>The git repository is configured with a git deploy
-hook](https://www.digitalocean.com/community/tutorials/how-to-use-git-hooks-to-automate-development-and-deployment-tasks)
-that triggers a call to the CI server when we push on the
-<code>review</code> branch,</p></li>
-<li><p>Our CI server is implemented with <a
-href="https://github.com/ndmitchell/bake">bake</a>, a robust and simple
-CI engine built - guess what? - in Haskell. Bake has a client/server
-architecture where the server is responsible for orchestrating builds
-that are run by registered clients, which are supposed to represent
-different build environments or configurations. Bake has a very simple
-web interface that looks like</p>
-<p><img src="/images/bake-screenshot.png" /></p></li>
-<li><p>Bake provides the framework for executing “tests”, reporting
-their results and merging changes to <code>master</code> branch upon
-successful build, but does not tell you <em>how</em> your software is
-built: This is something we describe in Haskell as a set of steps (bake
-calls them all <em>tests</em>) that are linked through dependencies and
-possibly dependent on the capabilities of the client. Here is a fragment
-of the code for building Capital Match:</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Action</span> <span class="ot">=</span> <span class="dt">Cleanup</span></span>
+<li><p>Git repository’s master branch is “morally” locked: Although technically it is still possible to push to it, we never do that and instead push to a <code>review</code> branch which is merged to the <code>master</code> only when build passes,</p></li>
+<li><p>The git repository is configured with a git deploy hook](https://www.digitalocean.com/community/tutorials/how-to-use-git-hooks-to-automate-development-and-deployment-tasks) that triggers a call to the CI server when we push on the <code>review</code> branch,</p></li>
+<li><p>Our CI server is implemented with <a href="https://github.com/ndmitchell/bake">bake</a>, a robust and simple CI engine built - guess what? - in Haskell. Bake has a client/server architecture where the server is responsible for orchestrating builds that are run by registered clients, which are supposed to represent different build environments or configurations. Bake has a very simple web interface that looks like</p>
+<p><img src="../images/bake-screenshot.png" /></p></li>
+<li><p>Bake provides the framework for executing “tests”, reporting their results and merging changes to <code>master</code> branch upon successful build, but does not tell you <em>how</em> your software is built: This is something we describe in Haskell as a set of steps (bake calls them all <em>tests</em>) that are linked through dependencies and possibly dependent on the capabilities of the client. Here is a fragment of the code for building Capital Match:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Action</span> <span class="ot">=</span> <span class="dt">Cleanup</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>            <span class="op">|</span> <span class="dt">Compile</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>            <span class="op">|</span> <span class="dt">Dependencies</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="op">|</span> <span class="dt">RunDocker</span></span>
@@ -127,54 +89,25 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a 
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  opt <span class="ot">&lt;-</span> addPath [<span class="st">&quot;.&quot;</span>] []</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  () <span class="ot">&lt;-</span> cmd opt <span class="st">&quot;./build.sh test&quot;</span></span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  incrementalDone</span></code></pre></div>
-<p>The code is pretty straightforward and relies on the toplevel build
-script <code>build.sh</code> which is actually a simple wrapper for
-running our Shake build with various targets.</p></li>
-<li><p>The output of the CI process, when it succeeds, is made of a
-bunch of docker containers deployed to Dockerhub, each tagged with the
-SHA1 of the commit that succeeded,</p></li>
-<li><p>We extended bake to use <a
-href="https://git-scm.com/docs/git-notes">git notes</a> to identify
-successful builds: We attach a simple note saying <code>Build
-successful</code> to those commits which actually pass all the tests. We
-also notify outcome of the build in our main <a
-href="https://slack.com/">Slack</a> channel,</p></li>
-<li><p>Bake server and client are packaged and deployed as docker
-containers, which means we can pull and use those containers from any
-docker-enabled machine in order to reproduce a CI environment or trigger
-builds through bake’s command-line interface,</p></li>
-<li><p>As the last stage of a successful build we deploy a test
-environment, using anonymized and redacted sample of production
-data.</p></li>
+<p>The code is pretty straightforward and relies on the toplevel build script <code>build.sh</code> which is actually a simple wrapper for running our Shake build with various targets.</p></li>
+<li><p>The output of the CI process, when it succeeds, is made of a bunch of docker containers deployed to Dockerhub, each tagged with the SHA1 of the commit that succeeded,</p></li>
+<li><p>We extended bake to use <a href="https://git-scm.com/docs/git-notes">git notes</a> to identify successful builds: We attach a simple note saying <code>Build successful</code> to those commits which actually pass all the tests. We also notify outcome of the build in our main <a href="https://slack.com/">Slack</a> channel,</p></li>
+<li><p>Bake server and client are packaged and deployed as docker containers, which means we can pull and use those containers from any docker-enabled machine in order to reproduce a CI environment or trigger builds through bake’s command-line interface,</p></li>
+<li><p>As the last stage of a successful build we deploy a test environment, using anonymized and redacted sample of production data.</p></li>
 </ul>
 <h2 id="testing">Testing</h2>
-<p>An significant time slice of our build is dedicated to running tests.
-Unit and server-side integration tests are pretty straightforward as
-they consist in a single executable built from Haskell source code which
-is run at <code>IntegrationTest</code> stage of the CI build process.
-Running UI-side tests is a little bit more involved as it requires an
-environment with PhantomJS and full ClojureScript stack to run
-leiningen. But the most interesting tests are the end-to-end ones which
-run Selenium tests against the full system.</p>
+<p>An significant time slice of our build is dedicated to running tests. Unit and server-side integration tests are pretty straightforward as they consist in a single executable built from Haskell source code which is run at <code>IntegrationTest</code> stage of the CI build process. Running UI-side tests is a little bit more involved as it requires an environment with PhantomJS and full ClojureScript stack to run leiningen. But the most interesting tests are the end-to-end ones which run Selenium tests against the full system.</p>
 <ul>
-<li><p>The complete ETE tests infrastructure is packaged as - guess
-what? - a set of containers orchestrated with
-<code>docker-compose</code> and mimicking production setup:</p>
+<li><p>The complete ETE tests infrastructure is packaged as - guess what? - a set of containers orchestrated with <code>docker-compose</code> and mimicking production setup:</p>
 <ul>
 <li>One container per service,</li>
 <li>One container for the nginx front-end,</li>
-<li>One container for the <a
-href="https://github.com/SeleniumHQ/docker-selenium">SeleniumHub</a>,</li>
-<li>One container for a Firefox node in debug mode (this allows us to
-use VNC to log into the container and see the Firefox instance executing
-the tests),</li>
+<li>One container for the <a href="https://github.com/SeleniumHQ/docker-selenium">SeleniumHub</a>,</li>
+<li>One container for a Firefox node in debug mode (this allows us to use VNC to log into the container and see the Firefox instance executing the tests),</li>
 <li>and one container for the test driver itself,</li>
 </ul></li>
-<li><p>Tests are written in Haskell using <a
-href="https://github.com/kallisti-dev/hs-webdriver">hs-webdriver</a>,
-and we try to write them in a high-level yielding something like:</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<li><p>Tests are written in Haskell using <a href="https://github.com/kallisti-dev/hs-webdriver">hs-webdriver</a>, and we try to write them in a high-level yielding something like:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>it <span class="st">&quot;Investor can withdraw cash given enough balance on account&quot;</span> <span class="op">$</span> runWithImplicitWait <span class="op">$</span> <span class="kw">do</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  liftIO <span class="op">$</span> invokeApp appServer <span class="op">$</span> <span class="kw">do</span></span>
@@ -189,95 +122,36 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a 
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  cashBalanceIs <span class="st">&quot;S$\n500.01&quot;</span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  userLogsOut</span></code></pre></div></li>
-<li><p>Those tests only need a single URL pointing at an arbitrary
-instance of the system, which makes it “easy” to run them during
-development outside of docker containers. It’s even possible to run from
-the REPL which greatly simplifies their development,</p></li>
-<li><p>Getting the docker-based infrastructure right and reliable in CI
-was a bit challenging: There are quite a few moving parts and feedback
-cycle when working with containers is slow. We ran into subtle issues
-with things like:</p>
+<li><p>Those tests only need a single URL pointing at an arbitrary instance of the system, which makes it “easy” to run them during development outside of docker containers. It’s even possible to run from the REPL which greatly simplifies their development,</p></li>
+<li><p>Getting the docker-based infrastructure right and reliable in CI was a bit challenging: There are quite a few moving parts and feedback cycle when working with containers is slow. We ran into subtle issues with things like:</p>
 <ul>
-<li>Differing versions of Firefox between local environment and
-container leading to different behaviours, like how visibility of DOM
-elements is handled which may or may not prevent <code>click</code>
-actions to complete</li>
-<li>Timezone differences between various containers yielding different
-interpretations of the same timestamp (official Selenium docker images
-are configured to use PST whereas test driver container uses SGT,</li>
-<li>Connections and timeouts issues between all the containers depending
-on open ports and network state,</li>
+<li>Differing versions of Firefox between local environment and container leading to different behaviours, like how visibility of DOM elements is handled which may or may not prevent <code>click</code> actions to complete</li>
+<li>Timezone differences between various containers yielding different interpretations of the same timestamp (official Selenium docker images are configured to use PST whereas test driver container uses SGT,</li>
+<li>Connections and timeouts issues between all the containers depending on open ports and network state,</li>
 <li>…</li>
 </ul></li>
-<li><p>However, once in place and executing reliably, those tests really
-payoff in terms of how much confidence we have in our system. We don’t
-aim to provide 100% feature coverage of course and try to keep <a
-href="http://martinfowler.com/bliki/TestPyramid.html">ETE tests
-small</a>: The goal is to ensure our system’s main features are still
-usable after each change.</p></li>
+<li><p>However, once in place and executing reliably, those tests really payoff in terms of how much confidence we have in our system. We don’t aim to provide 100% feature coverage of course and try to keep <a href="http://martinfowler.com/bliki/TestPyramid.html">ETE tests small</a>: The goal is to ensure our system’s main features are still usable after each change.</p></li>
 </ul>
 <h1 id="deployment">Deployment</h1>
-<h2 id="provisioning-infrastructure">Provisioning &amp;
-Infrastructure</h2>
-<p>We are using <a
-href="https://www.digitalocean.com/">DigitalOcean</a>’s cloud as our
-infrastructure provided: DO provides a much simpler deployment and
-billing model than what provides AWS at the expense of some loss of
-flexibility. They also provide a simple and consistent RESTful API which
-makes it very easy to automate provisioning and manage VMs.</p>
+<h2 id="provisioning-infrastructure">Provisioning &amp; Infrastructure</h2>
+<p>We are using <a href="https://www.digitalocean.com/">DigitalOcean</a>’s cloud as our infrastructure provided: DO provides a much simpler deployment and billing model than what provides AWS at the expense of some loss of flexibility. They also provide a simple and consistent RESTful API which makes it very easy to automate provisioning and manage VMs.</p>
 <ul>
-<li>I wrote a Haskell client for DO called <a
-href="https://github.com/capital-match/hdo">hdo</a> which covers the
-basics of DO API: CRUD operations on VMs and listing keys,</li>
-<li>Provisioning is not automated as we do not need capacity adjustments
-on the go: When we need a machine we simply run the script with
-appropriate credentials. Having a simple way to provision VMs however
-has a nice side-effect: It makes it a no-brainer to fire copy of any
-environment we use (Dev, Ci or Production) and configure it. This was
-particularly useful for pairing sessions and staging deployment of
-sensitive features,</li>
-<li>We also use AWS for a couple of services: S3 to backup data and host
-our static web site and CloudFront to provide HTTPS endpoint to
-website.</li>
+<li>I wrote a Haskell client for DO called <a href="https://github.com/capital-match/hdo">hdo</a> which covers the basics of DO API: CRUD operations on VMs and listing keys,</li>
+<li>Provisioning is not automated as we do not need capacity adjustments on the go: When we need a machine we simply run the script with appropriate credentials. Having a simple way to provision VMs however has a nice side-effect: It makes it a no-brainer to fire copy of any environment we use (Dev, Ci or Production) and configure it. This was particularly useful for pairing sessions and staging deployment of sensitive features,</li>
+<li>We also use AWS for a couple of services: S3 to backup data and host our static web site and CloudFront to provide HTTPS endpoint to website.</li>
 </ul>
 <h2 id="configuration-management">Configuration Management</h2>
-<p>Configuration of provisioned hosts is managed by <a
-href="http://propellor.branchable.com/">propellor</a>, a nice and very
-actively developed Haskell tool. Configuration in propellor are written
-as Haskell code using a specialized “declarative” embedded DSL
-describing <em>properties</em> of the target machine. Propellor’s model
-is the following:</p>
+<p>Configuration of provisioned hosts is managed by <a href="http://propellor.branchable.com/">propellor</a>, a nice and very actively developed Haskell tool. Configuration in propellor are written as Haskell code using a specialized “declarative” embedded DSL describing <em>properties</em> of the target machine. Propellor’s model is the following:</p>
 <ul>
-<li>Configuration code is tied to a git repository, which may be only
-local or shared,</li>
-<li>When running <code>./propellor some.host</code>, it automatically
-builds then commits local changes, pushing them to remote repository if
-one is defined. All commits are expected to be signed,</li>
-<li>Then propellor connects through SSH to <code>some.host</code> and
-tries to clone itself there, either by plain cloning from local code if
-<code>some.host</code> has never been configured, or by merging missing
-commits if host has already been configured (this implies there is a
-copy of git repository containing configuration code on each
-machine),</li>
-<li>In case architectures are different, propellor needs to compile
-itself on the target host, which might imply installing additional
-software (e.g. a Haskell compiler and needed libraries…),</li>
-<li>Finally, it runs remote binary which triggers verification and
-enforcement of the various “properties” defined for this host.</li>
+<li>Configuration code is tied to a git repository, which may be only local or shared,</li>
+<li>When running <code>./propellor some.host</code>, it automatically builds then commits local changes, pushing them to remote repository if one is defined. All commits are expected to be signed,</li>
+<li>Then propellor connects through SSH to <code>some.host</code> and tries to clone itself there, either by plain cloning from local code if <code>some.host</code> has never been configured, or by merging missing commits if host has already been configured (this implies there is a copy of git repository containing configuration code on each machine),</li>
+<li>In case architectures are different, propellor needs to compile itself on the target host, which might imply installing additional software (e.g. a Haskell compiler and needed libraries…),</li>
+<li>Finally, it runs remote binary which triggers verification and enforcement of the various “properties” defined for this host.</li>
 </ul>
-<p>Propellor manages security, e.g. storing and deploying authentication
-tokens, passwords, ssh keys…, in a way that seems quite clever to me: It
-maintains a “store” containing sensitive data <em>inside</em> its git
-repository, encrypted with the public keys of accredited “users”,
-alongside a keyring containing those keys. This store can thus be hosted
-in a public repository, it is decrypted only upon deployment and
-decryption requires the deployer to provide her key’s password.</p>
-<p>Here is an example configuration fragment. Each statement separated
-by <code>&amp;</code> is a property that propellor will try to validate.
-In practice this means that some system-level code is run to check if
-the property is set and if not, to set it.</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ot">ciHost ::</span> <span class="dt">Property</span> <span class="dt">HasInfo</span></span>
+<p>Propellor manages security, e.g. storing and deploying authentication tokens, passwords, ssh keys…, in a way that seems quite clever to me: It maintains a “store” containing sensitive data <em>inside</em> its git repository, encrypted with the public keys of accredited “users”, alongside a keyring containing those keys. This store can thus be hosted in a public repository, it is decrypted only upon deployment and decryption requires the deployer to provide her key’s password.</p>
+<p>Here is an example configuration fragment. Each statement separated by <code>&amp;</code> is a property that propellor will try to validate. In practice this means that some system-level code is run to check if the property is set and if not, to set it.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ot">ciHost ::</span> <span class="dt">Property</span> <span class="dt">HasInfo</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ciHost <span class="ot">=</span> propertyList <span class="st">&quot;creating Continuous Integration server configuration&quot;</span> <span class="op">$</span> props</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="op">&amp;</span> setDefaultLocale en_us_UTF_8</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              <span class="op">&amp;</span> ntpWithTimezone <span class="st">&quot;Asia/Singapore&quot;</span></span>
@@ -286,227 +160,74 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a 
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>              <span class="op">&amp;</span> dockerComposeInstalled</span></code></pre></div>
 <p>In practice, we did the following:</p>
 <ul>
-<li>All known hosts configurations are defined in a configuration file
-(a simple text file containing a Haskell data structure that can be
-<code>Read</code>) and tells, for each known IP/hostname, what type of
-configuration should be deployed there and for production hosts what is
-the <strong>tag</strong> for containers to be deployed there. As this
-information is versioned and committed upon each deployment run, we
-always know which version of the system is deployed on which machine by
-looking at this configuration,</li>
-<li>We also defined a special <em>clone</em> configuration which allows
-us to deploy some version of the system using cloned data from another
-system,</li>
-<li>We ensure the application is part of the boot of the underlying VM:
-Early on we had some surprises when our provider decided to reboot the
-VM and we found our application was not available anymore…</li>
+<li>All known hosts configurations are defined in a configuration file (a simple text file containing a Haskell data structure that can be <code>Read</code>) and tells, for each known IP/hostname, what type of configuration should be deployed there and for production hosts what is the <strong>tag</strong> for containers to be deployed there. As this information is versioned and committed upon each deployment run, we always know which version of the system is deployed on which machine by looking at this configuration,</li>
+<li>We also defined a special <em>clone</em> configuration which allows us to deploy some version of the system using cloned data from another system,</li>
+<li>We ensure the application is part of the boot of the underlying VM: Early on we had some surprises when our provider decided to reboot the VM and we found our application was not available anymore…</li>
 </ul>
 <h2 id="deployment-to-production">Deployment to Production</h2>
-<p>Given all the components of the application are containerized the
-main thing we need to configure on production hosts apart from basic
-user information and firewall rules is docker itself. Apart from docker,
-we also configure our <a href="http://nginx.org">nginx</a> frontend: The
-executable itself is a container but the configuration is more dynamic
-and is part of the hosts deployment. In retrospect, we could probably
-make use of pre-canned configurations deployed as data-only containers
-and set the remaining bits as environment variables.</p>
-<p>Doing actual deployment of a new version of the system involves the
-following steps, all part of propellor configuration:</p>
+<p>Given all the components of the application are containerized the main thing we need to configure on production hosts apart from basic user information and firewall rules is docker itself. Apart from docker, we also configure our <a href="http://nginx.org">nginx</a> frontend: The executable itself is a container but the configuration is more dynamic and is part of the hosts deployment. In retrospect, we could probably make use of pre-canned configurations deployed as data-only containers and set the remaining bits as environment variables.</p>
+<p>Doing actual deployment of a new version of the system involves the following steps, all part of propellor configuration:</p>
 <ul>
-<li>We first check or create our data containers: Those are the
-containers which will be linked with the services containers and will
-host the persisted event streams (see <a
-href="/posts/cm-archi.html">post on architecture</a>),</li>
-<li>We then do a full backup of the data, just in case something goes
-wrong…</li>
-<li>And finally rely on <a
-href="https://docs.docker.com/v1.8/compose/">docker-compose</a> to start
-all the containers. The <code>docker-compose.yml</code> configuration
-file is actually generated by propellor from some high-level description
-of the system which is stored in our hosts configuration file: We define
-for each deployable service the needed version (docker repository
-<em>tag</em>) and use knowledge of the required topology of services
-dependencies to generate the needed docker links, ports and names.</li>
+<li>We first check or create our data containers: Those are the containers which will be linked with the services containers and will host the persisted event streams (see <a href="../posts/cm-archi.html">post on architecture</a>),</li>
+<li>We then do a full backup of the data, just in case something goes wrong…</li>
+<li>And finally rely on <a href="https://docs.docker.com/v1.8/compose/">docker-compose</a> to start all the containers. The <code>docker-compose.yml</code> configuration file is actually generated by propellor from some high-level description of the system which is stored in our hosts configuration file: We define for each deployable service the needed version (docker repository <em>tag</em>) and use knowledge of the required topology of services dependencies to generate the needed docker links, ports and names.</li>
 </ul>
-<p>The net result is the something like the following. The dark boxes
-represent services/processes while the lighter grayed boxes represent
-containers:</p>
-<p><img src="/images/services-architecture.png" /></p>
-<p>We were lucky enough to be able to start our system with few
-constraints which means we did not have to go through the complexity of
-setting up a blue/green or rolling deployment and we can live with
-deploying everything on a single machine, thus alleviating to use more
-sophisticated container orchestration tools.</p>
+<p>The net result is the something like the following. The dark boxes represent services/processes while the lighter grayed boxes represent containers:</p>
+<p><img src="../images/services-architecture.png" /></p>
+<p>We were lucky enough to be able to start our system with few constraints which means we did not have to go through the complexity of setting up a blue/green or rolling deployment and we can live with deploying everything on a single machine, thus alleviating to use more sophisticated container orchestration tools.</p>
 <h3 id="rollbacks">Rollbacks</h3>
-<p><a href="/posts/cm-archi.html">Remember</a> our data is a simple
-persistent stream of events? This has some interesting consequences in
-case we need to rollback a deployment:</p>
+<p><a href="../posts/cm-archi.html">Remember</a> our data is a simple persistent stream of events? This has some interesting consequences in case we need to rollback a deployment:</p>
 <ul>
-<li>If the version number has not been incremented, rollbacking simply
-means reverting the containers’ tag to previous value and redeploying:
-Even if some events have been recorded before we are notified of an
-issue implying rollback is needed, they should be correctly interpreted
-by the system,</li>
-<li>If the version has changed during deployment, then either we cannot
-rollback because new events have been generated and stored and we must
-roll-forward ; or we can rollback at the expense of losing data. This is
-usually not an option but still is possible if stored events are
-“harmless” business-wise, like authentication events (logins/logouts): A
-user will simply have to login again.</li>
+<li>If the version number has not been incremented, rollbacking simply means reverting the containers’ tag to previous value and redeploying: Even if some events have been recorded before we are notified of an issue implying rollback is needed, they should be correctly interpreted by the system,</li>
+<li>If the version has changed during deployment, then either we cannot rollback because new events have been generated and stored and we must roll-forward ; or we can rollback at the expense of losing data. This is usually not an option but still is possible if stored events are “harmless” business-wise, like authentication events (logins/logouts): A user will simply have to login again.</li>
 </ul>
 <h2 id="monitoring">Monitoring</h2>
-<p>Monitoring is one the few areas in Capital Match system where we
-cheated on Haskell: I fell in love with <a
-href="http://riemann.io">riemann</a> and chose to use it to centralize
-log collections and monitoring of our system.</p>
+<p>Monitoring is one the few areas in Capital Match system where we cheated on Haskell: I fell in love with <a href="http://riemann.io">riemann</a> and chose to use it to centralize log collections and monitoring of our system.</p>
 <ul>
-<li>Riemann is packaged as a couple of containers: One for the server
-and one for the <a
-href="http://riemann.io/dashboard.html">dashboard</a>, and deployed on a
-dedicated (small) VM. Both server and dashboard configuration are
-managed by propellor and versioned,</li>
-<li>As part of the deployment of the various VMs, we setup and configure
-<a href="https://www.stunnel.org/index.html">stunnel</a>s containers
-which allow encrypted traffic between monitored hosts and monitoring
-server: On the monitoring host there is a stunnel server that redirects
-inbound connections to running docker containers, whereas on monitored
-hosts the stunnel server is referenced by clients and encapsulate
-traffic to remote monitoring host transparently,</li>
+<li>Riemann is packaged as a couple of containers: One for the server and one for the <a href="http://riemann.io/dashboard.html">dashboard</a>, and deployed on a dedicated (small) VM. Both server and dashboard configuration are managed by propellor and versioned,</li>
+<li>As part of the deployment of the various VMs, we setup and configure <a href="https://www.stunnel.org/index.html">stunnel</a>s containers which allow encrypted traffic between monitored hosts and monitoring server: On the monitoring host there is a stunnel server that redirects inbound connections to running docker containers, whereas on monitored hosts the stunnel server is referenced by clients and encapsulate traffic to remote monitoring host transparently,</li>
 <li>Riemann is fed 2 types of events:
 <ul>
-<li>System level events which are produced by a <a
-href="https://collectd.org/">collectd</a> installed on each deployed
-host,</li>
-<li>Applicative level events which are produced by the deployed services
-as part of our logging system,</li>
+<li>System level events which are produced by a <a href="https://collectd.org/">collectd</a> installed on each deployed host,</li>
+<li>Applicative level events which are produced by the deployed services as part of our logging system,</li>
 </ul></li>
-<li>Applicative events are quite simple at the moment, mostly up/down
-status and a couple of metrics on HTTP requests and disk storage latency
-and throughput,</li>
-<li>There is a simple riemann dashboard that presents those collected
-events in a synoptic way,</li>
-<li>It is very easy to extend riemann with new clients or external
-connectors: At one point I considered using <a
-href="http://logmatic.io">LogMatic</a> to host some business-level
-dashboards and it took me a few hours to build a <a
-href="https://github.com/capital-match/riemann-logmatic">riemann
-plugin</a> to send events to Logmatic’s API,</li>
-<li>Riemann’s event model is very simple and flexible hence it is an
-ideal candidate for being a one-stop sink for all your events: Dump all
-events to riemann using a single connector in the application and
-configure riemann server to massage the events and feed specialized
-clients,</li>
-<li>There a couple of alerts configured in Riemann that notifies
-<em>slack</em> when disks fill up or hosts are down.</li>
+<li>Applicative events are quite simple at the moment, mostly up/down status and a couple of metrics on HTTP requests and disk storage latency and throughput,</li>
+<li>There is a simple riemann dashboard that presents those collected events in a synoptic way,</li>
+<li>It is very easy to extend riemann with new clients or external connectors: At one point I considered using <a href="http://logmatic.io">LogMatic</a> to host some business-level dashboards and it took me a few hours to build a <a href="https://github.com/capital-match/riemann-logmatic">riemann plugin</a> to send events to Logmatic’s API,</li>
+<li>Riemann’s event model is very simple and flexible hence it is an ideal candidate for being a one-stop sink for all your events: Dump all events to riemann using a single connector in the application and configure riemann server to massage the events and feed specialized clients,</li>
+<li>There a couple of alerts configured in Riemann that notifies <em>slack</em> when disks fill up or hosts are down.</li>
 </ul>
-<p>We also have set up external web monitoring of both application and
-web site using <a href="https://checkmy.ws/fr/">Check My
-Website</a>.</p>
+<p>We also have set up external web monitoring of both application and web site using <a href="https://checkmy.ws/fr/">Check My Website</a>.</p>
 <h1 id="discussion">Discussion</h1>
 <h2 id="some-takeaways">Some takeaways</h2>
 <ul>
-<li>Docker has its shortcomings, is far from being perfect and is
-becoming bloated like all enterprise software, but packaging all parts
-of a system as containers is a good thing. It allowed us to grow a
-flexible yet consistent system made of a lot of moving parts with
-diverse technological requirements. Containers are obviously great for
-<em>development</em>, providing a simple and efficient way of packaging
-complex tools and environments in an easy to use way. But they are also
-great for <em>operations</em>: They are more flexible than VMs, they can
-be as secure if one takes care to trim them down to the bare minimum,
-and pretty compact, they give you great flexibility in terms of
-deployment,</li>
-<li>I still don’t have much experience, apart from small experiments, on
-how to deploy docker over multiple machines. However the ecosystem of
-tools for managing more complex deployments is growing and maturing fast
-and beside I have a couple ideas on how to do it in a “simple way” using
-<a href="https://github.com/openvswitch/ovs/">OpenVSwitch</a>,</li>
-<li>Docker containers should do one and only one thing and they should
-be kept minimal: Don’t use default fat images and try to trim them down
-to the bare minimum (e.g. executable + support libraries + configuration
-files),</li>
-<li>I did not pay enough attention to build time, or more precisely I
-did not pay attention often enough,</li>
-<li>Automating as much as possible of the whole system is an investment:
-If you are going to throw it away in a few months, don’t do it ; but if
-you are going to live with it for years, do it <strong>now</strong>
-because later it will be too late to really payoff,</li>
-<li>Having automated ETE tests is a great thing but they should be kept
-to a minimum: Always consider the relative size of the layers in the
-pyramid and do not try to cover bugs or “deviant” behaviour at the level
-of ETE tests,</li>
-<li>Monitoring must be baked into the system from the onset, even if
-with simple solutions and basic alerts. It is then easy to extend when
-business starts to understand they could leverage this information,</li>
-<li>propellor is a great tool for provisioning. I tried things like Chef
-or Puppet before and the comfort of working in Haskell and not having to
-delve into the intricacies of complex “recipes” or custom DSL is
-invaluable. Propellor is simple and suits my requirements pretty well,
-however there are a couple of pain points I would like to find some time
-to alleviate:
+<li>Docker has its shortcomings, is far from being perfect and is becoming bloated like all enterprise software, but packaging all parts of a system as containers is a good thing. It allowed us to grow a flexible yet consistent system made of a lot of moving parts with diverse technological requirements. Containers are obviously great for <em>development</em>, providing a simple and efficient way of packaging complex tools and environments in an easy to use way. But they are also great for <em>operations</em>: They are more flexible than VMs, they can be as secure if one takes care to trim them down to the bare minimum, and pretty compact, they give you great flexibility in terms of deployment,</li>
+<li>I still don’t have much experience, apart from small experiments, on how to deploy docker over multiple machines. However the ecosystem of tools for managing more complex deployments is growing and maturing fast and beside I have a couple ideas on how to do it in a “simple way” using <a href="https://github.com/openvswitch/ovs/">OpenVSwitch</a>,</li>
+<li>Docker containers should do one and only one thing and they should be kept minimal: Don’t use default fat images and try to trim them down to the bare minimum (e.g. executable + support libraries + configuration files),</li>
+<li>I did not pay enough attention to build time, or more precisely I did not pay attention often enough,</li>
+<li>Automating as much as possible of the whole system is an investment: If you are going to throw it away in a few months, don’t do it ; but if you are going to live with it for years, do it <strong>now</strong> because later it will be too late to really payoff,</li>
+<li>Having automated ETE tests is a great thing but they should be kept to a minimum: Always consider the relative size of the layers in the pyramid and do not try to cover bugs or “deviant” behaviour at the level of ETE tests,</li>
+<li>Monitoring must be baked into the system from the onset, even if with simple solutions and basic alerts. It is then easy to extend when business starts to understand they could leverage this information,</li>
+<li>propellor is a great tool for provisioning. I tried things like Chef or Puppet before and the comfort of working in Haskell and not having to delve into the intricacies of complex “recipes” or custom DSL is invaluable. Propellor is simple and suits my requirements pretty well, however there are a couple of pain points I would like to find some time to alleviate:
 <ul>
-<li>Tying deployment runs to git commits is really a good thing but this
-should be more customizable: I would like to keep deployment code in the
-same repository than production code but this currently would yield a
-lot of identically named commits and pollute the log of the
-repository,</li>
-<li>Propellor needs to be built on the target machine as it is an
-executable: It can upload itself when architecture matches hence it
-would be better to run deployment inside a dedicated container that
-match the target OS in order to remove the need to install GHC
-toolchain,</li>
-<li>It is hard to write and maintain <em>idempotent properties</em>: It
-would be simpler to be able to run propellor only once on a machine,
-forcing immutable infrastructure.</li>
+<li>Tying deployment runs to git commits is really a good thing but this should be more customizable: I would like to keep deployment code in the same repository than production code but this currently would yield a lot of identically named commits and pollute the log of the repository,</li>
+<li>Propellor needs to be built on the target machine as it is an executable: It can upload itself when architecture matches hence it would be better to run deployment inside a dedicated container that match the target OS in order to remove the need to install GHC toolchain,</li>
+<li>It is hard to write and maintain <em>idempotent properties</em>: It would be simpler to be able to run propellor only once on a machine, forcing immutable infrastructure.</li>
 </ul></li>
 </ul>
 <h2 id="conclusion">Conclusion</h2>
-<p>Growing such a system was (and still is) a time-consuming and complex
-task, especially given our choice of technology which is not exactly
-mainstream. One might get the feeling we kept reinventing wheels and
-discovering problems that were already solved: After all, had we chosen
-to develop our system using PHP, Rails, Node.js or even Java we could
-have benefited from a huge ecosystem of tools and services to build,
-deploy and manage it. Here are some benefits I see from this
-“full-stack” approach:</p>
+<p>Growing such a system was (and still is) a time-consuming and complex task, especially given our choice of technology which is not exactly mainstream. One might get the feeling we kept reinventing wheels and discovering problems that were already solved: After all, had we chosen to develop our system using PHP, Rails, Node.js or even Java we could have benefited from a huge ecosystem of tools and services to build, deploy and manage it. Here are some benefits I see from this “full-stack” approach:</p>
 <ul>
-<li>We <strong>know</strong> how our system works down to the system
-level, which allows us to take informed decisions on every part of it
-while understanding the global picture. The knowledge gained in the
-process of growing this system has a value in and of itself but is also
-an asset for the future: The better we know how the system works, the
-faster we can adpat it to changing requirements and constantly evolving
-environment,</li>
-<li>It has been definitely frustrating at time but immensely fun to
-experiment, learn, tweak, fail or succeed, with all those moving
-parts,</li>
-<li>It forces us to really think in terms of a single unified
-<strong>system</strong>: Being in charge of the whole lifecycle of your
-code, from writing the first line to deployment to production to
-retirement yields a sense of responsibility one does not gain from
-working in silos and throwing some bunch of code over the wall to ops
-team. This is truly <a
-href="http://www.jedi.be/blog/2010/02/12/what-is-this-devops-thing-anyway/">DevOps</a>
-in the way Patrick Debois initially coined the term, as a kind of
-system-thinking process and genuinely drives you to the <a
-href="http://queue.acm.org/detail.cfm?id=1142065">You build it, you run
-it</a> culture,</li>
-<li>Managing operations, even at a small scale, is demanding, hence the
-need to think about automation, monitoring and short deployment cycles
-as early as possible in order to minimize the need for manual
-interventions.</li>
+<li>We <strong>know</strong> how our system works down to the system level, which allows us to take informed decisions on every part of it while understanding the global picture. The knowledge gained in the process of growing this system has a value in and of itself but is also an asset for the future: The better we know how the system works, the faster we can adpat it to changing requirements and constantly evolving environment,</li>
+<li>It has been definitely frustrating at time but immensely fun to experiment, learn, tweak, fail or succeed, with all those moving parts,</li>
+<li>It forces us to really think in terms of a single unified <strong>system</strong>: Being in charge of the whole lifecycle of your code, from writing the first line to deployment to production to retirement yields a sense of responsibility one does not gain from working in silos and throwing some bunch of code over the wall to ops team. This is truly <a href="http://www.jedi.be/blog/2010/02/12/what-is-this-devops-thing-anyway/">DevOps</a> in the way Patrick Debois initially coined the term, as a kind of system-thinking process and genuinely drives you to the <a href="http://queue.acm.org/detail.cfm?id=1142065">You build it, you run it</a> culture,</li>
+<li>Managing operations, even at a small scale, is demanding, hence the need to think about automation, monitoring and short deployment cycles as early as possible in order to minimize the need for manual interventions.</li>
 </ul>
-<p>This completes a series of post I have written over the past few
-months, describing my experience building Capital Match platform:</p>
+<p>This completes a series of post I have written over the past few months, describing my experience building Capital Match platform:</p>
 <ul>
-<li><a href="/posts/cm-arch-design.html">Anatomy of a Haskell-based
-Application</a> described the overall design and architecture of the
-application,</li>
-<li><a href="/posts/agile-startup.html">Using agile in a startup</a>
-detailed our development process,</li>
-<li><a href="/posts/cm-infra-1.html">Haskell-based Development
-Environment</a> focused on the build system and development
-environment.</li>
+<li><a href="../posts/cm-arch-design.html">Anatomy of a Haskell-based Application</a> described the overall design and architecture of the application,</li>
+<li><a href="../posts/agile-startup.html">Using agile in a startup</a> detailed our development process,</li>
+<li><a href="../posts/cm-infra-1.html">Haskell-based Development Environment</a> focused on the build system and development environment.</li>
 </ul>
 
 
@@ -514,14 +235,17 @@ environment.</li>
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-
+  
     s.src = '//arnaudsblog.disqus.com/embed.js';
-
+  
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

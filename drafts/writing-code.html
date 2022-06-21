@@ -45,7 +45,15 @@
 <h2 id="hardware">Hardware</h2>
 <p>I write 100% of my code on the following machine:</p>
 <blockquote>
-<p>Model Name: MacBook Pro Model Identifier: MacBookPro13,2 Processor Name: Intel Core i7 Processor Speed: 3,3 GHz Number of Processors: 1 Total Number of Cores: 2 L2 Cache (per Core): 256 KB L3 Cache: 4 MB Memory: 16 GB</p>
+<p>Model Name: MacBook Pro
+Model Identifier: MacBookPro13,2
+Processor Name: Intel Core i7
+Processor Speed: 3,3 GHz
+Number of Processors: 1
+Total Number of Cores: 2
+L2 Cache (per Core): 256 KB
+L3 Cache: 4 MB
+Memory: 16 GB</p>
 </blockquote>
 <p>Because I spend most of my time writing in globish, whether in code or articles like this one, I have a QWERTY keyboard with a US International layout with dead keys that allows to type accented characters.</p>
 <p>My previous machine was also a MacBook Air and I have worked on 13’’ laptop for the past 15 years. The main rationale behind this choice is that I am used to move between different places to work whether it be several offices, home or during long commutes by train. Having a small and easily transportable machine was a strong requirement. Now that I work most of the time from home, the habit of working at different places sticked and I keep moving with my laptop from the sofa, to a desk, to the kitchen’s bar.</p>
@@ -78,10 +86,10 @@
 <p>This basic loop can be repeated several times a day depending on the features I am working on. Here are a few more details on each of those steps.</p>
 <h2 id="test-driven-development">Test Driven Development</h2>
 <p>I have become accustomed to write tests as part of my development loop and usually that’s the first thing I am tempted to do. When working in Haskell I can run my TDD feedback loop in 2 different ways:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>Use <code>stack test my-projet --file-watch</code> from the command-line in order to have a continuous feedback loop running in the background,</li>
 <li>Use the REPL:
-<ol start="3" style="list-style-type: decimal">
+<ol start="3" type="1">
 <li>(Re)Load the test file with <code>C-c C-l</code> or <code>:r</code> from the REPL,</li>
 <li>Run the tests using <code>hspec spec</code></li>
 </ol></li>
@@ -97,29 +105,33 @@
 <h3 id="haskell-tdd-specificities">Haskell TDD Specificities</h3>
 <dl>
 <dt>Types</dt>
-<dd><p>Because of its very expressive type system and its purity, I need to write fewer tests in Haskell than I would normally have to in another language, say Java, without significant boilerplate. As a very basic example, if I have a function <code>foo :: Natural -&gt; Natural -&gt; Bool</code> then I obviously don’t need to have tests for negative numbers. It is very easy in Haskell to create domain-specific types so I try to use and abuse this,</p>
+<dd>
+<p>Because of its very expressive type system and its purity, I need to write fewer tests in Haskell than I would normally have to in another language, say Java, without significant boilerplate. As a very basic example, if I have a function <code>foo :: Natural -&gt; Natural -&gt; Bool</code> then I obviously don’t need to have tests for negative numbers. It is very easy in Haskell to create domain-specific types so I try to use and abuse this,</p>
 </dd>
 <dt>Compiler</dt>
-<dd><p>Haskell’s compiler (GHC) checks a lot of potential sources of errors that I would normally have to test:</p>
+<dd>
+<p>Haskell’s compiler (GHC) checks a lot of potential sources of errors that I would normally have to test:</p>
 <ul>
 <li>Function’s totality: When pattern matching on input GHC checks all <em>constructors</em> are matched by at least one clause. While this is not a full-blown totality proof and is rather coarse grained it still provides assurance no case is missed hence removes the need to have explicit tests for that,</li>
 <li>Typechecking: Combining precice domain-specific types with strong typechecking (and no cast!) gives a lot of guarantees about the correctness of the code. We don’t have to guard and test against potential invalid inputs,</li>
 </ul>
 </dd>
 <dt>Property-Based Testing</dt>
-<dd><p>QuickCheck-like tools which allows one to express properties about the code and generate random inputs to check those properties are much more commmonplace and usable in Haskell than in other languages. It is however not always easy to find relevant properties which are not as complex to express as the code they check. Some common usage patterns I have found are:</p>
+<dd>
+<p>QuickCheck-like tools which allows one to express properties about the code and generate random inputs to check those properties are much more commmonplace and usable in Haskell than in other languages. It is however not always easy to find relevant properties which are not as complex to express as the code they check. Some common usage patterns I have found are:</p>
 <ul>
 <li><p>Serialization: It’s trivial to write a property expressing encoding and decoding are isomorphic:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">decode <span class="fu">.</span> encode x <span class="fu">==</span> x</code></pre></div>
-although writing this code can be complex when interacting with external software</li>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>decode <span class="op">.</span> encode x <span class="op">==</span> x</span></code></pre></div>
+<p>although writing this code can be complex when interacting with external software</p></li>
 <li><p>Oracles: Checking a fast but complex implementation behaves identically to a slower but simpler one</p></li>
 </ul>
 </dd>
 <dt>Mocking</dt>
-<dd><p>Because we have a first-class functions and polymorphic data types, we don’t need any specialized framework or tool to use <a href>mocks</a> in Haskell. This makes it easy to identify <em>seams</em> in the design and write tests and functions accordingly. For example, if I have a function that needs to run a query against a database, I can easily pass the query execution <em>action</em> as a function resulting in some monadic action and provide a mock implementation for unit testing purpose. When the codebase grows, those functions can be grouped into a proper typeclass.</p>
+<dd>
+<p>Because we have a first-class functions and polymorphic data types, we don’t need any specialized framework or tool to use <a href>mocks</a> in Haskell. This makes it easy to identify <em>seams</em> in the design and write tests and functions accordingly. For example, if I have a function that needs to run a query against a database, I can easily pass the query execution <em>action</em> as a function resulting in some monadic action and provide a mock implementation for unit testing purpose. When the codebase grows, those functions can be grouped into a proper typeclass.</p>
 </dd>
 </dl>
-<h3 id="unit-tests-vs.integration-tests-vs.acceptance-tests-vs.">Unit Tests vs. Integration Tests vs. Acceptance Tests vs. …</h3>
+<h3 id="unit-tests-vs.-integration-tests-vs.-acceptance-tests-vs.">Unit Tests vs. Integration Tests vs. Acceptance Tests vs. …</h3>
 <h2 id="debugging">Debugging</h2>
 <p>I view debugging as a failure: When I have to debug my code, this means there is something I don’t understand about it which is a thought I find disturbing. Of course, the code I have written can fail in the field for a lot of reasons:</p>
 <ul>

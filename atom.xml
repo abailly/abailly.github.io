@@ -8,8 +8,325 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2022-01-31T00:00:00Z</updated>
+    <updated>2022-06-21T00:00:00Z</updated>
     <entry>
+    <title>HaPoP-5</title>
+    <link href="http://abailly.github.io/posts/hapop-5.html" />
+    <id>http://abailly.github.io/posts/hapop-5.html</id>
+    <published>2022-06-21T00:00:00Z</published>
+    <updated>2022-06-21T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>HaPoP-5</h1>
+
+  <h2 class="subtitle">History and Philosophy of Programming</h2>
+
+<div class="info">Posted on June 21, 2022</div>
+
+<p>I have a long standing interest for Philosophy, and I was thus delighted when <a href="https://twitter.com/tomaspetricek">Tomas Petricek</a> proposed me to join the <em>Program Committee</em> for the <a href="https://www.shift-society.org/hapop5/">HaPoP-5</a> conference, more than two years ago. The conference was initially supposed to take place in 2020, co-located with NCrafts, but both events were cancelled because of <em>You Know What</em>. Here are some notes along with personal comments about each of the conference’s sessions. Another blog post will cover my notes from the <a href="https://programme.hypotheses.org/spring-workshop-iii-what-is-a-computer-program-final-conference">PROGRAMme workshop</a> which took place in the same location right after HaPoP-5.</p>
+<h2 id="warren-sack---miniatures-demos-and-artworks-three-kinds-of-computer-program-their-uses-and-abuses">Warren Sack - Miniatures, Demos and Artworks: Three Kinds of Computer Program, Their Uses and Abuses</h2>
+<p>Warren Sacks is the author of <a href="https://mitpress.mit.edu/books/software-arts">Software Arts</a></p>
+<ul>
+<li>Those three kinds of programs look superficially close but are actually very different artefacts</li>
+<li><em>Miniatures</em> are like <em>philosophical statements in code</em>, the goal is to rewrite a system in a miniature form in order to clarify what’s specific about it, its “essence”
+<ul>
+<li><a href="https://www.amazon.com/Inside-Computer-Understanding-Miniatures-Intelligence-ebook/dp/B00J4BRAMM">Inside Computer Understanding</a> is a great example, it’s a book containing the description of 5 systems along with their miniatures</li>
+<li>Another example is Minix built for the purpose of teaching and understanding operating systems</li>
+<li>Notebooks, literate programming are other examples of miniatures</li>
+</ul></li>
+<li><em>Demos</em> are <em>rhetoric</em> in nature, demonstration in the prime sense (proving) very often to the purpose of getting more funding</li>
+<li><em>Artworks</em> are <em>aesthetic</em> endeavours, of course. Software art is inscribed in the history of art esp. the emergence of modern and then conceptual art which detaches the artwork from its concrete realisation</li>
+<li>Miniatures are pedagogical, demos persuasive, artworks pleasurable</li>
+</ul>
+<blockquote>
+<p>I don’t know much about software arts but this talk gave me the desire to discover more of it. I liked the attempt at classifying various artifacts which share the common theme of <em>Programming-in-the-small</em> but serve very different purposes. It seems to me however that this classification does not do justice to the “Demo scene” whose artifacts lie at the intersection of all three classes.</p>
+<p>Another very interesting category of programs which would have been worthy of analysis is what I would call “Constrained Competitive programming”, things like the <a href="https://www.ioccc.org/">IOCCC</a>, or programs written in very alien languages. There is an <em>exploratory</em> dimension that would deserve a category of its own.</p>
+</blockquote>
+<h2 id="shoshana-simons---programming-practice-as-a-microcosmos-of-human-labor-and-knowledge-relations">Shoshana Simons - Programming practice as a microcosmos of human labor and knowledge relations</h2>
+<ul>
+<li>The main thesis of this work is that technical practices are not separate from the rest of the world and are historically situated which implies the programmer embeds its worldview in their work</li>
+<li>Starting examples are:
+<ul>
+<li>Runtime analysis of a program completely ignores the actual labor involved in executing the program</li>
+<li>Buying an apple at a grocery store ignores and hides the labor involved in bringing the apple, shrinkwrapped, to the store</li>
+<li>The <em>command-line</em> metaphor reflects the division of labor between those who give command and those who execute them</li>
+</ul></li>
+<li>Technical practice is hegemonic, it’s a training ground for capitalism</li>
+<li>There are 2 main approaches to ethics esp. as it relates to programming and tech:
+<ul>
+<li>Ethics as values: People have values they impose on otherwise neutral data/technologies</li>
+<li>Ethics as consequences: Technology is a given, what are its impacts and how to make it work for the greater good</li>
+</ul></li>
+<li>These 2 views keep technology as a <em>black-box</em> they are like the 2 sides of a same coin, the input and output of “function” whose workings are ignored</li>
+<li>The <em>How</em> matters, we need to open the black-box if we really want to improve our ethical approach to tech</li>
+<li>Practice <em>Critical Journaling</em> which is a daily reflection on one’s own relation to tech, critiquing what is unethical in it and hopefully improving it</li>
+</ul>
+<blockquote>
+<p>Another interesting and somewhat provocative talk, even though the critique of the idea that scientific theories, and even more so practices, are a-historical and independent of the social context in which they are produced is somewhat mainstream nowadays. Although this talk takes a more political stance on the question, this reminds me of early Latour’s work, esp. in <a href="https://www.editionsladecouverte.fr/la_science_en_action-9782707145468">La science en action</a> in which he demonstrates how scientists are not pure minds completely detached from the mundane practicalities of this world, like money, power status, ego…</p>
+<p>I find teaching the practice of <em>Critical Journaling</em> a great idea, and also the emphasis on “unpacking” the black-box relevant in a world where technology is unquestioned and appears somewhat “magical”, with its impacts on the real world and real people’s life being ignored (think how food delivery startups take advantage of loopholes in law to employ workers without paying the full benefits and taking the responsibilities an employer has, how AirBnB’s pricing algorithms impact housing prices in metropolis…)</p>
+</blockquote>
+<h2 id="lucas-bang---program-size-a-call-for-inquiry">Lucas Bang - Program Size: A Call for Inquiry</h2>
+<p>https://mitpress.mit.edu/books/making-sense</p>
+<ul>
+<li>Blum’s Size theorem states that a total program equivalent to a non-total program would suffer from an exponential blow-up in size. Intuitively, non-total languages allow one to “compact” the behaviour of a program
+<ul>
+<li>Computing GCD takes 2 lines in Python but 400 in (total) Idris</li>
+</ul></li>
+<li>A general program could be:
+<ol type="1">
+<li>Most general purpose PL are too general</li>
+<li>Let’s write more programs into restricted (total) PL</li>
+<li>Blum’s theorem might bite you</li>
+</ol></li>
+<li>“If you want to optimise your code, you have to write more code”</li>
+<li>We need developers to pay more attention to program size</li>
+</ul>
+<blockquote>
+<p>I was completely ignorant of Blum’s theorem and even though its results are somewhat obvious, the fact it talks about total programming languages is very interesting and resonates with my personal investigations on <a href="./dependently-typed-accounting.html">practical use of Dependent Types</a>.</p>
+<p>The “call to arms” to developers to start taking care of their program size makes of course a lot of sense, and it’s well-known that program size is <a href="https://www.researchgate.net/publication/220204439_Cyclomatic_Complexity_and_Lines_of_Code_Empirical_Evidence_of_a_Stable_Linear_Relationship">good measure for complexity</a> or at least as good as any other measure, and taming complexity is a major problem in software engineering.</p>
+<p>In a way, Lucas is advocating for more polyglot programming, whereby teams and projects will use the “right tool” for the job and not reach out for whatever hammer that happens to be “ready-at-hand” at one point in time for everything. Using total languages (eg. Idris), or <em>restricted languages</em> (<a href="https://dhall-lang.org/">Dhall</a> or <a href="https://github.com/Gabriella439/grace">Grace</a>), for the relevant parts of a system entails significant advantages in terms of quality, testing, security (eg. reduction of attack surface). My intuition is that those advantages, in the long run, offset the drawback of having to manage several languages/toolchains.</p>
+</blockquote>
+<h2 id="andre-dickson---the-disturbance-of-death-and-debt">Andre Dickson - The disturbance of death and debt</h2>
+<ul>
+<li>Major disturbances of programs are
+<ul>
+<li>Death (Peter Naur, <a href="https://pages.cs.wisc.edu/~remzi/Naur.pdf">Programming as Theory Building</a>, or <a href="https://gist.github.com/dpritchett/fd7115b6f556e40103ef">here</a> for a markdown)
+&gt; The death of a program happens when the programmer team possessing its theory is dissolved. A dead program may continue to be used for execution in a computer and to produce useful results. The actual state of death becomes visible when demands for modifications of the program cannot be intelligently answered. Revival of a program is the rebuilding of its theory by a new programmer team.</li>
+<li>Conceptual Integrity (Brooks)</li>
+<li>Debt (Ward Cunningham)</li>
+</ul></li>
+<li>In Naur’s views, programs die over time because the programmers lose understanding of the underlying theory, or because there is no theory
+<ul>
+<li>Naur’s theory is implicit whereas <a href="https://plato.stanford.edu/entries/ryle">Ryle</a>’s explicit</li>
+<li>The problem with Naur’s view is that theories erase the program as an <em>equipment</em> (in phenomenological sense following Heidegger), a set of tools, rules and languages to make the practice of programming explicit</li>
+</ul></li>
+<li><em>Programs are equipments</em></li>
+</ul>
+<blockquote>
+<p>This talk was one of the most philosophical of the conferences, drawing on Heidegger’s phenomenology to criticize, or shed a different light on Naur’s and Cunnigham’s notions and how they “disturb” the “lifecycle” of a program. We have had a follow-up discussion by mail with the presenter which somehow clarified his point of view. In my words, the idea is that a program (and the whole environment in which it is taken care of by programmers) is an <em>equipment</em> in the sense of Heidegger.</p>
+<p>This talk prompted me to think again about this <em>conceptual integrity</em> concept, and to somehow reject Peter Naur’s (and Brooks’) idea that a program is somehow the “embodiment” or the “realisation” of a <em>theory</em>. This feels a lot like classical Aristotelian shape/matter duality which in my opinion is a common plague of our industry and possibly of our civilisation as it conveys the idea that what <em>matters</em> most is the shape, the idea, the theory that one bestows on matter in a god-like gesture, like how antique gods modelled humanity out of clay and infused them with life.</p>
+</blockquote>
+<h2 id="daniel-kuby---towards-a-linguistic-conception-of-programming"><a href="https://twitter.com/danielkuby">Daniel Kuby</a> - Towards a linguistic conception of programming</h2>
+<ul>
+<li>Linguistics is concerned with human languages whereas prog languages are the realm of <em>formal languages</em> theory</li>
+<li>What is a PL? We can take the machine centric view or use the formal language sense, but talking about <em>language</em> for PLs is a metaphor
+<ul>
+<li>Linguistics make use of formal languages but they are not its subject of study</li>
+</ul></li>
+<li>Goal of the talk is to reframe PL as <em>natural languages</em>. According to studies in <a href="https://www.researchgate.net/publication/333481200_The_Language_of_Programming_A_Cognitive_Perspective">cognitive linguistics</a> programming activates the same brain areas than <em>talking</em> and not <em>problem solving</em>
+<ul>
+<li><a href="https://www.researchgate.net/publication/263743154_When_Technology_Became_Language_The_Origins_of_the_Linguistic_Conception_of_Computer_Programming_1950-1960">Nofre et al., 2014</a> provides an inquiry into the links between linguistics and programming</li>
+</ul></li>
+<li>The fact that the design of PL is linguistic engineerings is new only in philosophy. Famous quote from <a href="https://en.wikipedia.org/wiki/Structure_and_Interpretation_of_Computer_Programs">Abelson and Sussman</a> about readability of programs dates back to the 80’s</li>
+<li>There are 2 traditions that take interest in specific languages:
+<ul>
+<li>Wittgenstein and his primitive language then later <em>language games</em></li>
+<li>Frege and the microscope analogy about math/science notation vs. ordinary language</li>
+<li>Poverty/simplicity of a language does not mean <em>deficiency</em> but <em>fitness for use</em></li>
+</ul></li>
+<li>This leads to the notion of <em>Restricted Languages</em> related to applied linguistics, the study of <em>usage</em> of languages
+<ul>
+<li><em>restriction</em> is an operator on <em>natural language</em> to produce sublanguages</li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Spontaneous</th>
+<th style="text-align: left;">Engineered</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Restricted</td>
+<td style="text-align: left;">sublanguages</td>
+<td style="text-align: left;">Controlled languages</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">(medicine)</td>
+<td style="text-align: left;">eg. PL</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Unrestricted</td>
+<td style="text-align: left;">Natural languages</td>
+<td style="text-align: left;">Planned languages</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">eg. Esperanto</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>We keep talking about <em>languages</em> in the context of programming but outside of CS this is understood asa metaphor and linguistics usually ignores programming languages. I like the idea of applying linguistic tools and categories to PL, considering those as part of a continuum of symbolic systems. Us practitioners are always concerned with the readability and expressivity of our programs, perhaps a little too much sometimes. Perhaps this line of research will provide insights that could inform future languages development, or possibly engineering of DSLs.</p>
+</blockquote>
+<h2 id="nicolas-nalpon-and-alice-martin---why-semantics-are-not-only-about-expressiveness---the-reactive-programming-case">Nicolas Nalpon and Alice Martin - Why semantics are not only about expressiveness - The reactive programming case</h2>
+<ul>
+<li>Concerned with the <em>epistemic</em> difference (and cost) of different semantics: How a given formal semantics represent a system and its behaviour matters for the end user</li>
+<li>Having identical semantic expressiveness does not imply identical semantic representation</li>
+<li>Example: Reactive programming for UI. To give a semantic to sush a system requires dealing with 2 distinct parts: An algorithmic part and a reactive part. Experiment with 2 formalisms:
+<ul>
+<li><a href="https://core.ac.uk/download/pdf/82274932.pdf">Bigraphs theory</a> is a formalism from Robin Milner (of CCS and π-calculus fame)</li>
+<li>λ-calculus</li>
+</ul></li>
+<li>Possible solution is using hybrid semantics, eg. different fwks for different parts of the system at the cost of increasing complexity in code generation</li>
+<li>What’s the quantitative impact of various formalisms wrt to length of derivation/execution steps?</li>
+</ul>
+<blockquote>
+<p>Going beyond the obvious but useless Turing completeness yardstick to compare formal languages makes a lot of sense, and the example provided while simple makes a good case about how different representations can have different “epistemic” costs. I am too sure about the usability of bigraph formalism which I am unfamiliar with but if I think about something simpler like π-calculus, the classical reduction of λ-calculus to it (and vice-versa) already demonstrates how different notations for different aspects of system can be more or less painful to work with. It’s another good argument for polyglot programming, this time when it comes to formal specifications.</p>
+</blockquote>
+<h2 id="robin-hill---hello-world-an-interrogation">Robin Hill - Hello World? An Interrogation</h2>
+<ul>
+<li>HW is about writing complete program, end-to-end</li>
+<li>It’s about helping students’ relationship with code to evolve from <a href="https://eternalisedofficial.com/2021/02/02/ready-to-hand-and-present-at-hand-heidegger/">present-at-hand_ to _ready-at-hand</a></li>
+<li>Why investigate HW?
+<ul>
+<li>Wikipedia has a page that exists since 2001 and has been constantly updated</li>
+<li>There’s a common metric to compare PL, the <em>Time To Hello World</em> or TTHW</li>
+<li>HW is a <em>meme</em></li>
+</ul></li>
+<li>HW does nothing, it has nothing to do about programming and is born of expedience. It is stripped of all the “interesting” parts of programming (eg. algorithms, problem solving…)</li>
+<li>It stems from the fact students need first hand experience, to learn basic things that hard to articulate and make the programming environment <em>ready-at-hand</em>
+<ul>
+<li>For example, HW shows that programming is about <em>ordering</em> (do one thing, then one thing)</li>
+<li>Code is <em>materiality without matter</em>, it presents possibilities and resistances</li>
+</ul></li>
+<li>There are analogs from other crafts like stitching fabrics together when learning to sew
+<ul>
+<li>Goal is to show <em>how</em> and <em>that</em></li>
+</ul></li>
+<li>Important realisation is that coding involves code to do coding -&gt; <em>we use programs to write programs</em> which is something specific to this activity</li>
+<li>programming = materiality + computational thinking ?</li>
+</ul>
+<blockquote>
+<p>The last talk of the conference proposes a phenomenological inquiry into the humble yet ubiquitous “Hellow World” program.</p>
+<p>I found it interesting this analysis lead to the somewhat obvious but yet ignored truth that <em>coding involves code</em>: Even though it’s possible to write programs with pencil and paper, to actual <em>code</em> and <em>program</em> requires some other program to actually do something. HW is the first artefact a wannabe developer encounters that helps to acquire that insight. It reminds me of how puzzled I was before I learnt systems programming, when I reading books about Computer hardware and CPU, that were hinting at assembly or C code and I was pretty much clueless on how to actually <em>write</em> and <em>execute</em> those. I only have ever programmed using high-level applications like Multiplan or Access and did not know there was another reality behind those applications.</p>
+<p>Robin Hill’s work, while seemingly simple, highlights this fact there is a <em>huge</em> amount of implicit knowledge behind even the simplest task of programming.</p>
+</blockquote>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
+    <title>On &quot;Resonance&quot;</title>
+    <link href="http://abailly.github.io/posts/resonance.html" />
+    <id>http://abailly.github.io/posts/resonance.html</id>
+    <published>2022-03-12T00:00:00Z</published>
+    <updated>2022-03-12T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>On &quot;Resonance&quot;</h1>
+
+  <h2 class="subtitle">Part I, On relations to the World</h2>
+
+<div class="info">Posted on March 12, 2022</div>
+
+<p><a href="https://www.editionsladecouverte.fr/resonance-9782348067358">Resonance</a> is a book by Harmut Rosa, a famous contemporary German sociologist and philosopher who theorised <em>Acceleration</em> as a core impact modernity has on society in a previous book. I have read the first part of this book in French but the ideas he set forth <em>resonated</em> - pun intended - so much with me I wanted to share them with a wider audience, hence this English summary.</p>
+<p>My notes don’t do justice to the richness of the book which is very well written even if quite dense, and more importantly packed with concrete examples and actual results from studies in the field and experiments, whether from neurosciences, sociology, psychology… Something that’s rare enough in a theoretical book to be worthy of emphasis.</p>
+<p>This small article tries to summarise the core ideas I understood from this rich book, and how those ideas relate to other ideas, feelings, experiences I have had in the past. It’s (un)structured as a loosely organised collection of notes, and my goal is to give the reader enough clues and intriguing ideas that she or he would want to have a closer look and read this important book.</p>
+<h2 id="how-does-a-resonating-life-looks-like">How does a resonating life looks like?</h2>
+<p>Our life is essentially experienced as weaving bonds with beings and things, whether objects, practices, beliefs, groups), as a continuous stream of phenomenons manifesting that something outside of us <em>Affects</em> use. Rosa introduces his book with the description of the contrasted life of three pairs of people:
+* One person that seeks to maximise resonance of every single experience, versus one who tries to maximise the number of variety of lived experiences,
+* One that perceives the world as full of resonating bonds versus one the only feels alienated,
+* One that relates to the world and other beings through <em>command &amp; control</em>, as instruments to suit her purpose, versus one that relates to others through <em>mimetic assimilation</em>.</p>
+<p>Resonance thus occurs either <em>horizontally</em>, with other human beings (friends, relatives, lovers, activists…), <em>diagonally</em> with things, animals, ideas, or <em>vertically</em> with transcending “totalities” like The World, Nature, God, Humanity.</p>
+<h2 id="embodiment-of-resonance">Embodiment of Resonance</h2>
+<p>Our body is what allows us to resonate with otheres, skin is our first communication medium: It’s first through touch and being touched that we experience the world, following the eerie state of the baby in his or her mother’s placenta. The skin is a membrane through which the outside affects us (scars, burns, strokes, tatoos), but with which we also express ourselves (flush, goose bumps). The more we consider our skin (and more generally our body) as an <em>object</em> the less we seem able to resonate.</p>
+<p>Breathing and blowing are our very first, mostly unconscious, interaction with the world, ones which force us to let it penetrate us. Then comes eating and drinking.</p>
+<p>We are social beings through and through even within our bodily interaction with the world: The way we walk, we perceive space, our attitude, how we stand up and sit down… This <em>hexis</em> is the embodiment of socially built constraints and habits and in return it has social effects.</p>
+<p>The erotic relationship to the other, whether “purely” sexual or “merely” platonic, is a peak of resonance. It’s one of the most powerful and intense ways to resonate with the Other and the World as it involves every part of our being, physical, mental, aesthetic.</p>
+<p>Relation to the World can be modelled as involving 3 parts: The Self, the Body and the World.
+The Body mediates the relationship of the Self to the World, and interactions happen in both directions yielding 4 different possible type of relations. Any of these relations can be experienced as <em>resonating</em> or <em>muted</em>. In the late modernity, the Body (and the World) are most often experienced as <em>instrumental</em>.</p>
+<p>Reification is the process through which one aims at controlling and mastering the Body, considering it as an <em>object</em>. It can take two apparently opposite but deeply connected aspects:</p>
+<ul>
+<li><em>Internal reification</em> through reeducation and training, dietary regimes, yoga and gym courses, fasting…</li>
+<li><em>External reification</em> through the use drugs or aesthetical surgery.</li>
+</ul>
+<p>Reification induces <em>alienation</em> by dissociating one’s Self from her Body, a symptom of which being the <em>burn-out</em>.</p>
+<p>The separation between the <em>objectal body</em> and the <em>subjectal body</em>, between the body as it relates to the world and the body as it relates to the Self, is nowhere as obvious than in the varieties of sexuality and relationships to one’s gender. The fact that intersexuality, travesty, homosexuality or transsexuality can be powerful sources of alienation and pain for the individual demonstrates:
+1. How much society values the <em>objectal body</em> over the <em>subjectal</em> one, and
+2. That such fundamental things as our perceptions of our body are socially built.</p>
+<h2 id="resonance-culture">Resonance &amp; Culture</h2>
+<p>The deepest experiences of resonances are always devoid of a particular object hence of desire.</p>
+<blockquote>
+<p>The Self and the World are not entities preexisting their relationship, but take shape through the relationnal process.
+p. 195</p>
+</blockquote>
+<p>Man is an auto-interpretative being.</p>
+<p>According to Weber and Habermas, each culture favors one or the other form of relation to the worlds, classified along 2 pairs of opposition: Active or Passive attitude, whereby the Self is an intentional subject actively engaging with the World, or merely a receptacle of whatever the World throws at her ; Affirmation or Negation as ways to evaluate one’s relationship to the world.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Active</th>
+<th>Passive</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Affirmation</td>
+<td>Adaptation (Confucianism)</td>
+<td>Contemplation (Ancient Greece)</td>
+</tr>
+<tr class="even">
+<td>Negation</td>
+<td>Domination (Capitalism)</td>
+<td>Escape (hinduism, buddhism)</td>
+</tr>
+</tbody>
+</table>
+<p>No culture is devoid of values hence of <em>evaluation</em> which is the process through which we attribute one or more <em>values</em> to something.
+We can distinguish between <em>Weak evaluation</em> which relates to our immediate desires, “I want X” and which are “internal”; and <em>Strong evaluation</em> which relates to our core values, “It is important that X”, and which are always external, within the <em>World</em>.</p>
+<p>Evaluation allows to build a <em>Moral map</em> of the World with guides our choices and gives meaning, within the frame of a specific cultural context.</p>
+<p><a href="http://www.gerhardschulze.de/">Gerhard Schulze</a> studied the attitudes and beliefs of inhabitants of a small German city in the 80’s and proposed 5 classes identifiying each attitude with what he calls a <em>Basic Existential Problem</em>:</p>
+<ol type="1">
+<li><em>Threat</em> where the World is perceived mostly as a source of danger from which to seek protection,</li>
+<li><em>Trial</em>: The world is a source of challenges to overcome,</li>
+<li><em>Stimulation</em>: The World is a source of feelings and sensations,</li>
+<li><em>Self experience</em>: The world is a way to know oneself better,</li>
+<li><em>Adaptation</em>: The World as expectations to be met, to adapt with.</li>
+</ol>
+<h2 id="resonance-empathy">Resonance &amp; Empathy</h2>
+<p>Empathy is a biological phenomenon that we have been programmed to feel, much like as social animals we have a natural tendency to imitate others. That’s why it’s pretty hard to act violently in normal circumstances, it requires exceptional situations and possibly several agressions to react.</p>
+<p>Empathy has a neurological support, possibly through so-called mirror neurons and imitative instinct, but it is socially constructed through the child and adult’s interactions with others. “Wolf child” unvoluntary experiments and numerous psychological studies have proven that interactions are vital for the mental well-being and psychic development.</p>
+<p>Saying or hearing can be performative because language is intimately linked to our capabilities to resonate. And language resonates because it links us to the social world.</p>
+<h2 id="alienation-vs.-resonance">Alienation vs. Resonance</h2>
+<p>Alienation is a concept which has received a lot of attention along the 20th century, so much so that it devolved into amorphous meaninglessness. Within the theory of resonance, alienation can receive a very precise definition as <em>relation without relationship</em> to the World, that is a form of being and interaction with the world, both things, animals and people, which is purely <em>instrumental</em>, muted, devoid of feedback.</p>
+<p>That’s the exact opposite of <em>resonance</em> which is defined as a bi-directional, feedback rich, relation to the World, each party resonating with the others on its <em>own frequency</em>.</p>
+<p>Alienation and resonance are dialectically related: Resonance emerges from consciousness of an alienation and the quest of a “solution” founded on trust into the very possibility of resonance.</p>
+<p>This dialectic definition <em>resonance</em> and <em>alienation</em> ends the first part of the book, the second being devoted to identifying concrete manifestations of both in what Rosa calls <em>Late modernity</em>, namely our Western capitalist civilisation.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Mutation-Based TDD</title>
     <link href="http://abailly.github.io/posts/mutation-testing.html" />
     <id>http://abailly.github.io/posts/mutation-testing.html</id>
@@ -31,7 +348,7 @@
 <p>After having spent some time setting up the needed infrastructure to build, post and observe Hydra-relevant transactions to and from a cardano-node, we went back to revisit our earlier work on Contracts and implement the full “Happy path” Hydra lifecycle, from initialising a Head to <em>Fan-out</em> and redistribution of UTxO created within the Head.</p>
 <h2 id="test-driving-hydras-validators">Test-Driving Hydra’s Validators</h2>
 <p>Being Test-Driven Development addicts the first question raised was then: How do you test-drive Plutus smart contracts? There’s a growing set of tools developers have at their disposal to test and test-drive Plutus contracts:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>The “official” <a href="https://plutus-apps.readthedocs.io/en/latest/plutus/tutorials/contract-testing.html">Model-based testing</a> framework which is part of the plutus-apps repository
 <ul>
 <li>Scope is complete Plutus apps, which are tested at the level of the <code>Contract</code> monad, eg. including both on-chain and off-chain code,</li>
@@ -55,14 +372,14 @@
 <h2 id="mutation-based-property-driven-development">Mutation-based Property Driven Development</h2>
 <p>We decided to explore another avenue, which we have called <em>Mutation-based Property Driven Development</em> and which is as one can guess, a combination of <em>Property-based Testing</em> with QuickCheck, <em>Test-Driven Development</em>, and <em>Mutation testing</em>. Traditional <a href="https://en.wikipedia.org/wiki/Mutation_testing">Mutation testing</a> is a testing technique that introduces small modifications like changing a comparison operator, or modifying constants, into a program and checks whether or not the existing tests “kill” the produced mutants, eg. fail. Mutation testing requires somewhat complex tooling because it needs to modify the source code, in limited and semantically meaningful ways in order to generate code that won’t be rejected by the compiler. A quick search lead me to <a href="https://hackage.haskell.org/package/MuCheck">MuCheck</a> which seems to be the only available tool in Haskell-land and is quite old already, and beside we did not want to rely on esoteric tooling.</p>
 <p>Plutus eUTxO validators are boolean expressions of the form:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">validator <span class="fu">:</span> <span class="dt">Datum</span> <span class="ot">-&gt;</span> <span class="dt">Redeemer</span> <span class="ot">-&gt;</span> <span class="dt">ScriptContext</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>validator <span class="op">:</span> <span class="dt">Datum</span> <span class="ot">-&gt;</span> <span class="dt">Redeemer</span> <span class="ot">-&gt;</span> <span class="dt">ScriptContext</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></span></code></pre></div>
 <p>All things being equal, “mutating” a <em>validator</em> so that it returns <code>False</code> instead of <code>True</code> can be done:</p>
 <ul>
 <li>Either by <em>mutating</em> the code of the <code>validator</code> implementation,</li>
 <li>Or by <em>mutating</em> its arguments.</li>
 </ul>
 <p>This simple idea lead us to the following strategy to test-drive each of our validator scripts, <code>Head</code>, <code>Commit</code> and <code>Initial</code>:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>Start with a validator that always return <code>True</code>,</li>
 <li>Write a <em>positive</em> property test checking <em>valid</em> transactions are accepted by the validator(s),</li>
 <li>Write a <em>negative</em> property test checking <em>invalid</em> transactions are rejected. This is where <em>mutations</em> are introduced, each different mutation type representing some possible “attack”,</li>
@@ -72,43 +389,43 @@
 <p>As this is really the most “novel” part here are some details about the <em>Mutations</em> and the <em>Adversarial</em> property we check.</p>
 <h2 id="generic-property-and-mutations">Generic Property and Mutations</h2>
 <p>The definition of the property is simple and completely generic way: Given a transaction with some UTxO context, and a function that generates <code>SomeMutation</code> from a valid transaction and context pair, this property checks applying any generated mutation makes the mutated (hence expectedly invalid) transaction fail the validation stage.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">propMutation ::</span> (<span class="dt">CardanoTx</span>, <span class="dt">Utxo</span>) <span class="ot">-&gt;</span> ((<span class="dt">CardanoTx</span>, <span class="dt">Utxo</span>) <span class="ot">-&gt;</span> <span class="dt">Gen</span> <span class="dt">SomeMutation</span>) <span class="ot">-&gt;</span> <span class="dt">Property</span>
-propMutation (tx, utxo) genMutation <span class="fu">=</span>
-  forAll <span class="fu">@</span>_ <span class="fu">@</span><span class="dt">Property</span> (genMutation (tx, utxo)) <span class="fu">$</span> \<span class="dt">SomeMutation</span>{label, mutation} <span class="ot">-&gt;</span>
-    (tx, utxo)
-      <span class="fu">&amp;</span> applyMutation mutation
-      <span class="fu">&amp;</span> propTransactionDoesNotValidate
-      <span class="fu">&amp;</span> genericCoverTable [label]
-      <span class="fu">&amp;</span> checkCoverage</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">propMutation ::</span> (<span class="dt">CardanoTx</span>, <span class="dt">Utxo</span>) <span class="ot">-&gt;</span> ((<span class="dt">CardanoTx</span>, <span class="dt">Utxo</span>) <span class="ot">-&gt;</span> <span class="dt">Gen</span> <span class="dt">SomeMutation</span>) <span class="ot">-&gt;</span> <span class="dt">Property</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>propMutation (tx, utxo) genMutation <span class="ot">=</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  forAll <span class="op">@</span>_ <span class="op">@</span><span class="dt">Property</span> (genMutation (tx, utxo)) <span class="op">$</span> \<span class="dt">SomeMutation</span>{label, mutation} <span class="ot">-&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    (tx, utxo)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="op">&amp;</span> applyMutation mutation</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="op">&amp;</span> propTransactionDoesNotValidate</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="op">&amp;</span> genericCoverTable [label]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="op">&amp;</span> checkCoverage</span></code></pre></div>
 <p>To this basic property definition we add a <code>checkCoverage</code> that ensures the set of generated mutations covers a statistically significant share of each of the various possible mutations classified by their <code>label</code>.</p>
 <p>The <code>SomeMutation</code> type is simply a wrapper that attaches a <code>label</code> to a proper <code>Mutation</code> which is the interesting bit here.</p>
 <p>The <code>Mutation</code> type enumerates various possible “atomic” mutations which preserve the structural correctness of the transaction but should make a validator fail.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Mutation</span>
-  <span class="fu">=</span> <span class="dt">ChangeHeadRedeemer</span> <span class="dt">Head.Input</span>
-  <span class="fu">|</span> <span class="dt">ChangeHeadDatum</span> <span class="dt">Head.State</span>
-  <span class="fu">|</span> <span class="dt">PrependOutput</span> (<span class="dt">TxOut</span> <span class="dt">CtxTx</span> <span class="dt">Era</span>)
-  <span class="fu">|</span> <span class="dt">RemoveOutput</span> <span class="dt">Word</span>
-  <span class="fu">|</span> <span class="dt">ChangeInput</span> <span class="dt">TxIn</span> (<span class="dt">TxOut</span> <span class="dt">CtxUTxO</span> <span class="dt">Era</span>)
-  <span class="fu">|</span> <span class="dt">ChangeOutput</span> <span class="dt">Word</span> (<span class="dt">TxOut</span> <span class="dt">CtxTx</span> <span class="dt">Era</span>)
-  <span class="fu">|</span> <span class="dt">Changes</span> [<span class="dt">Mutation</span>]</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Mutation</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> <span class="dt">ChangeHeadRedeemer</span> <span class="dt">Head.Input</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">ChangeHeadDatum</span> <span class="dt">Head.State</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">PrependOutput</span> (<span class="dt">TxOut</span> <span class="dt">CtxTx</span> <span class="dt">Era</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">RemoveOutput</span> <span class="dt">Word</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">ChangeInput</span> <span class="dt">TxIn</span> (<span class="dt">TxOut</span> <span class="dt">CtxUTxO</span> <span class="dt">Era</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">ChangeOutput</span> <span class="dt">Word</span> (<span class="dt">TxOut</span> <span class="dt">CtxTx</span> <span class="dt">Era</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">Changes</span> [<span class="dt">Mutation</span>]</span></code></pre></div>
 <p>The constructors should hopefully be self-explaining but for the last one. Some interesting mutations we want to make require more than one “atomic” change to represent a possible validator failure. For example, we wanted to check that the <code>Commit</code> validator, in the context of a <code>CollectCom</code> transaction, verifies the state (<code>Head.Input</code>) of the <code>Head</code> validator is correct. But to be interesting, this mutation needs to ensure the <em>transition</em> verified by the <code>Head</code> state machine is valid, which requires changing <em>both</em> the datum and the redeemer of the consumed head output.</p>
 <h2 id="transaction-specific-mutations">Transaction-specific Mutations</h2>
 <p>To be run the <code>propMutation</code> requires a starting “healthy” (valid) transaction and a specialised generating function. It is instantiated in the test runner by providing these two elements:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">describe <span class="st">&quot;CollectCom&quot;</span> <span class="fu">$</span> <span class="kw">do</span>
-  prop <span class="st">&quot;does not survive random adversarial mutations&quot;</span> <span class="fu">$</span>
-    propMutation healthyCollectComTx genCollectComMutation</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>describe <span class="st">&quot;CollectCom&quot;</span> <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  prop <span class="st">&quot;does not survive random adversarial mutations&quot;</span> <span class="op">$</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    propMutation healthyCollectComTx genCollectComMutation</span></code></pre></div>
 <p>The interesting part is the <code>genCollectComMutation</code> (details of the <code>Mutation</code> generators are omitted):</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">genCollectComMutation ::</span> (<span class="dt">CardanoTx</span>, <span class="dt">Utxo</span>) <span class="ot">-&gt;</span> <span class="dt">Gen</span> <span class="dt">SomeMutation</span>
-genCollectComMutation (tx, utxo) <span class="fu">=</span>
-  oneof
-    [ <span class="dt">SomeMutation</span> <span class="dt">MutateOpenOutputValue</span> <span class="fu">.</span> <span class="dt">ChangeOutput</span> <span class="fu">...</span>
-    , <span class="dt">SomeMutation</span> <span class="dt">MutateOpenUtxoHash</span> <span class="fu">.</span> <span class="dt">ChangeOutput</span> <span class="fu">...</span>
-    , <span class="dt">SomeMutation</span> <span class="dt">MutateHeadScriptInput</span> <span class="fu">.</span> <span class="dt">ChangeInput</span> <span class="fu">...</span>
-    , <span class="dt">SomeMutation</span> <span class="dt">MutateHeadTransition</span> <span class="fu">&lt;$&gt;</span> <span class="kw">do</span>
-        changeRedeemer <span class="ot">&lt;-</span> <span class="dt">ChangeHeadRedeemer</span> <span class="fu">&lt;$&gt;</span> <span class="fu">...</span>
-        changeDatum <span class="ot">&lt;-</span> <span class="dt">ChangeHeadDatum</span> <span class="fu">&lt;$&gt;</span> <span class="fu">...</span>
-        pure <span class="fu">$</span> <span class="dt">Changes</span> [changeRedeemer, changeDatum]
-    ]</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ot">genCollectComMutation ::</span> (<span class="dt">CardanoTx</span>, <span class="dt">Utxo</span>) <span class="ot">-&gt;</span> <span class="dt">Gen</span> <span class="dt">SomeMutation</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>genCollectComMutation (tx, utxo) <span class="ot">=</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  oneof</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    [ <span class="dt">SomeMutation</span> <span class="dt">MutateOpenOutputValue</span> <span class="op">.</span> <span class="dt">ChangeOutput</span> <span class="op">...</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    , <span class="dt">SomeMutation</span> <span class="dt">MutateOpenUtxoHash</span> <span class="op">.</span> <span class="dt">ChangeOutput</span> <span class="op">...</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    , <span class="dt">SomeMutation</span> <span class="dt">MutateHeadScriptInput</span> <span class="op">.</span> <span class="dt">ChangeInput</span> <span class="op">...</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    , <span class="dt">SomeMutation</span> <span class="dt">MutateHeadTransition</span> <span class="op">&lt;$&gt;</span> <span class="kw">do</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        changeRedeemer <span class="ot">&lt;-</span> <span class="dt">ChangeHeadRedeemer</span> <span class="op">&lt;$&gt;</span> <span class="op">...</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        changeDatum <span class="ot">&lt;-</span> <span class="dt">ChangeHeadDatum</span> <span class="op">&lt;$&gt;</span> <span class="op">...</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pure</span> <span class="op">$</span> <span class="dt">Changes</span> [changeRedeemer, changeDatum]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    ]</span></code></pre></div>
 <p>Here we have defined four different type of mutations that are interesting for the <code>CollectCom</code> transaction and represent possible “attack vectors”:</p>
 <ul>
 <li>Changing the <code>Head</code> output’s value, which would imply some of the committed funds could be “stolen” by the party posting the transaction,</li>
@@ -170,7 +487,10 @@ Finished in 18.1146 seconds</code></pre>
 <p>Note that this report could be made more friendly by trying to decode some of the <code>datums</code> and <code>redeemers</code> as we usually know what their actual type in code is, and making the association between redeemers and inputs more immediate. But even in this somewhat crude form it provides a wealth of information that makes it straightforward to manifest the shortcomings in the validators.</p>
 <h1 id="conclusion">Conclusion</h1>
 <p>We have applied this strategy to drive the development of the so-called “Happy Path” of the Hydra Head On-Chain Validation state machine, writing code for three different validators and five different transaction types. The early steps were a bit painful as applying mutations requires fiddling with the internals of a transaction in potentially complicated ways. It took us some time to define a good-enough set of “atomic” <code>Mutation</code>s and some good generators and helper functions, but we already had most of the API covered thanks to previous work on implementing <em>Direct</em> chain interaction, but as with any framework-like effort, we were able to observe increasing returns over time: Defining new mutations for new types of transactions has become easier.</p>
-<p>Writing Plutus validators lends itself pretty well to this technique: * The “universe of discourse” is relatively complicated (Cardano transactions are large data structures with lot of moving parts) and can fail in subtle and/or surprising ways, especially because of indirect interactions between contracts, * It is somewhat self-contained and the validators’ code is in the end just a <em>predicate</em> over some more or less complex data types, * It benefits from adopting an “Adversarial” mindset, trying to find interesting changes that should not be disallowed.</p>
+<p>Writing Plutus validators lends itself pretty well to this technique:
+* The “universe of discourse” is relatively complicated (Cardano transactions are large data structures with lot of moving parts) and can fail in subtle and/or surprising ways, especially because of indirect interactions between contracts,
+* It is somewhat self-contained and the validators’ code is in the end just a <em>predicate</em> over some more or less complex data types,
+* It benefits from adopting an “Adversarial” mindset, trying to find interesting changes that should not be disallowed.</p>
 <p>More generally, test-driving code using both mutations and properties seems to improve the quality of the “triangulation process” which TDD rests upon: QuickCheck generated counterexamples pinpoint exactly what’s missing in the code, which can be fixed straightforwardly even using “fakes”, but next run will find more counterexamples until enough coverage is reached.</p>
 <p>I think this approach, while particularly well-suited to Plutus validators, has broader applicability on every development platform where there’s support for Property-Based Testing.</p>
 
@@ -295,7 +615,7 @@ Finished in 18.1146 seconds</code></pre>
 <p>C’est à Fabien Lamarque et à sa <a href="https://fabien-lamarque.eu/Il-faut-s&#39;adapter/">recension</a> du livre de Barbara Stiegler que je dois l’impulsion de sa lecture. <a href="http://www.gallimard.fr/Catalogue/GALLIMARD/NRF-Essais/Il-faut-s-adapter#"><em>Il faut s’adapter</em></a> est une étude fouillée des écrits de <a href="https://en.wikipedia.org/wiki/Walter_Lippmann">Walter Lippmann</a> considéré comme le père du “néolibéralisme”, et sa confrontation avec les écrits de <a href="https://en.wikipedia.org/wiki/John_Dewey">John Dewey</a>, l’un des fondateurs du <em>pragmatisme</em>.</p>
 <h2 id="le-néolibéralisme-de-lippmann">Le néolibéralisme de Lippmann</h2>
 <p>En résumé, le <em>néolibéralisme</em> de Lippmann est la conjonction de:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>la croyance en l’inéluctabilité de l’économie de marché globalisée ;</li>
 <li>l’inadaptation congénitale du capital humain aux exigences du marché et de la compétition ;</li>
 <li>et donc le besoin d’un gouvernement technocratique et interventionniste susceptible de mettre en oeuvre les politiques nécessaires à l’adaptation des masses aux besoins de l’économie.</li>
@@ -361,33 +681,37 @@ Finished in 18.1146 seconds</code></pre>
 <h1 id="the-proof-is-in-the-pudding">The proof is in the pudding</h1>
 <p>Here is a concrete example drawn from my current project, Hydra, implemented in Haskell. The Hydra node we are building needs to interact with a <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/src/Hydra/Chain.hs">Chain</a> component, both to submit transactions and to receive them. Instead of having to depend on the <a href="https://github.com/input-output-hk/cardano-node">somewhat complicated implementation details</a> of a real Cardano node, we instead defined an <em>interface</em> which expresses in a concise and implementation independent way the information we send and receive.</p>
 <p>Because we are using a functional language, this interface is expressed as a function which itself takes other functions (callbacks), a recurring pattern we documented in an <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/docs/adr/0007-with-pattern-component-interfaces.md">Architectural Decision Record</a>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">ChainComponent</span> tx m a <span class="fu">=</span> <span class="dt">ChainCallback</span> tx m <span class="ot">-&gt;</span> (<span class="dt">Chain</span> tx m <span class="ot">-&gt;</span> m a) <span class="ot">-&gt;</span> m a</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">ChainComponent</span> tx m a <span class="ot">=</span> <span class="dt">ChainCallback</span> tx m <span class="ot">-&gt;</span> (<span class="dt">Chain</span> tx m <span class="ot">-&gt;</span> m a) <span class="ot">-&gt;</span> m a</span></code></pre></div>
 <p>where</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">ChainCallback</span> tx m <span class="fu">=</span> <span class="dt">OnChainTx</span> tx <span class="ot">-&gt;</span> m ()
-
-<span class="kw">newtype</span> <span class="dt">Chain</span> tx m <span class="fu">=</span> <span class="dt">Chain</span>  {<span class="ot"> postTx ::</span> <span class="dt">MonadThrow</span> m <span class="ot">=&gt;</span> <span class="dt">PostChainTx</span> tx <span class="ot">-&gt;</span> m () }</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">ChainCallback</span> tx m <span class="ot">=</span> <span class="dt">OnChainTx</span> tx <span class="ot">-&gt;</span> m ()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Chain</span> tx m <span class="ot">=</span> <span class="dt">Chain</span>  {<span class="ot"> postTx ::</span> <span class="dt">MonadThrow</span> m <span class="ot">=&gt;</span> <span class="dt">PostChainTx</span> tx <span class="ot">-&gt;</span> m () }</span></code></pre></div>
 <p>The details of the messages we are sending and receiving are defined as two separate data types, one representing outbound transactions, eg. transactions we’ll post to the chain:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">PostChainTx</span> tx
-  <span class="fu">=</span> <span class="dt">InitTx</span> {<span class="ot">headParameters ::</span> <span class="dt">HeadParameters</span>}
-  <span class="fu">|</span> <span class="dt">CommitTx</span> {<span class="ot">party ::</span> <span class="dt">Party</span>,<span class="ot"> committed ::</span> <span class="dt">Utxo</span> tx}
-  <span class="fu">|</span> <span class="dt">AbortTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}
-  <span class="fu">|</span> <span class="dt">CollectComTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}
-  <span class="fu">|</span> <span class="dt">CloseTx</span> {<span class="ot">snapshot ::</span> <span class="dt">Snapshot</span> tx}
-  <span class="fu">|</span> <span class="dt">ContestTx</span> {<span class="ot">snapshot ::</span> <span class="dt">Snapshot</span> tx}
-  <span class="fu">|</span> <span class="dt">FanoutTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">PostChainTx</span> tx</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> <span class="dt">InitTx</span> {<span class="ot">headParameters ::</span> <span class="dt">HeadParameters</span>}</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">CommitTx</span> {<span class="ot">party ::</span> <span class="dt">Party</span>,<span class="ot"> committed ::</span> <span class="dt">Utxo</span> tx}</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">AbortTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">CollectComTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">CloseTx</span> {<span class="ot">snapshot ::</span> <span class="dt">Snapshot</span> tx}</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">ContestTx</span> {<span class="ot">snapshot ::</span> <span class="dt">Snapshot</span> tx}</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">FanoutTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}</span></code></pre></div>
 <p>and the other representing inbound messages, eg. transactions and errors observed on the chain:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">OnChainTx</span> tx
-  <span class="fu">=</span> <span class="dt">OnInitTx</span> {<span class="ot">contestationPeriod ::</span> <span class="dt">ContestationPeriod</span>,<span class="ot"> parties ::</span> [<span class="dt">Party</span>]}
-  <span class="fu">|</span> <span class="dt">OnCommitTx</span> {<span class="ot">party ::</span> <span class="dt">Party</span>,<span class="ot"> committed ::</span> <span class="dt">Utxo</span> tx}
-  <span class="fu">|</span> <span class="dt">OnAbortTx</span>
-  <span class="fu">|</span> <span class="dt">OnCollectComTx</span>
-  <span class="fu">|</span> <span class="dt">OnCloseTx</span> {<span class="ot">contestationDeadline ::</span> <span class="dt">UTCTime</span>,<span class="ot"> snapshotNumber ::</span> <span class="dt">SnapshotNumber</span>}
-  <span class="fu">|</span> <span class="dt">OnContestTx</span>
-  <span class="fu">|</span> <span class="dt">OnFanoutTx</span>
-  <span class="fu">|</span> <span class="dt">PostTxFailed</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">OnChainTx</span> tx</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> <span class="dt">OnInitTx</span> {<span class="ot">contestationPeriod ::</span> <span class="dt">ContestationPeriod</span>,<span class="ot"> parties ::</span> [<span class="dt">Party</span>]}</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnCommitTx</span> {<span class="ot">party ::</span> <span class="dt">Party</span>,<span class="ot"> committed ::</span> <span class="dt">Utxo</span> tx}</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnAbortTx</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnCollectComTx</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnCloseTx</span> {<span class="ot">contestationDeadline ::</span> <span class="dt">UTCTime</span>,<span class="ot"> snapshotNumber ::</span> <span class="dt">SnapshotNumber</span>}</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnContestTx</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnFanoutTx</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">PostTxFailed</span></span></code></pre></div>
 <p>Had we coded in an Object-Oriented language, or used a <a href="https://peddie.github.io/encodings/encodings-text.html">final tagless encoding</a>, these would have been expressed as two separate interfaces with one method for each type. The important point here is that <em>we</em> are in control of this interface, <em>we</em> define the patterns of interactions with the external system we depend on and abstract away all the nitty-gritty details a dependency on a concrete implementation would entail. Our system is now <em>loosely coupled</em> to the other system as we have <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">separated concerns</a>.</p>
-<p>This has allowed us to focus on the core functionality of our software, to build a complete implementation of the <a href="https://iohk.io/en/research/library/papers/hydrafast-isomorphic-state-channels/">Hydra off-chain protocol</a>, <a href="https://www.youtube.com/watch?v=3D_SAC4nyVM">demonstrate a network of Hydra nodes</a> and have automated <a href="https://github.com/input-output-hk/hydra-poc/blob/master/local-cluster/test/Test/EndToEndSpec.hs#L99">end-to-end tests</a> all without the hassle of dealing with a full Cardano node implementation. Instead, we have several <em>Mock</em> implementations of the <code>Chain</code> interface described above suitable for various use cases: - A very fast <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/test/Hydra/BehaviorSpec.hs#L380">in-process</a> mock for Behaviour-driven testing of Hydra cluster, - A <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/src/Hydra/Chain/ZeroMQ.hs">0MQ-based</a> implementation that allows us to spin-up a cluster of Hydra nodes, completely mocking an <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/exe/mock-chain/Main.hs">external chain</a>.</p>
-<p>Note that: - We are not side-stepping the integration problem as demonstrated by the fact we are also testing <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/local-cluster/test/Test/LocalClusterSpec.hs#L51">interaction with Cardano node</a>, and we definitely will enhance our End-to-End tests to “Close the loop” once the <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/local-cluster/test/Test/DirectChainSpec.hs#L30">Chain tests</a> demonstrate the <em>concrete implementation</em> of our abstract transactions work correctly on a real Cardano network, - We have been careful to <a href="https://testing.googleblog.com/2020/07/testing-on-toilet-dont-mock-types-you.html">Mock types we own</a> in order to not fall into the trap of relying on a dumbed down and probably wrong implementation of some system we depend on.</p>
+<p>This has allowed us to focus on the core functionality of our software, to build a complete implementation of the <a href="https://iohk.io/en/research/library/papers/hydrafast-isomorphic-state-channels/">Hydra off-chain protocol</a>, <a href="https://www.youtube.com/watch?v=3D_SAC4nyVM">demonstrate a network of Hydra nodes</a> and have automated <a href="https://github.com/input-output-hk/hydra-poc/blob/master/local-cluster/test/Test/EndToEndSpec.hs#L99">end-to-end tests</a> all without the hassle of dealing with a full Cardano node implementation. Instead, we have several <em>Mock</em> implementations of the <code>Chain</code> interface described above suitable for various use cases:
+- A very fast <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/test/Hydra/BehaviorSpec.hs#L380">in-process</a> mock for Behaviour-driven testing of Hydra cluster,
+- A <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/src/Hydra/Chain/ZeroMQ.hs">0MQ-based</a> implementation that allows us to spin-up a cluster of Hydra nodes, completely mocking an <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/exe/mock-chain/Main.hs">external chain</a>.</p>
+<p>Note that:
+- We are not side-stepping the integration problem as demonstrated by the fact we are also testing <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/local-cluster/test/Test/LocalClusterSpec.hs#L51">interaction with Cardano node</a>, and we definitely will enhance our End-to-End tests to “Close the loop” once the <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/local-cluster/test/Test/DirectChainSpec.hs#L30">Chain tests</a> demonstrate the <em>concrete implementation</em> of our abstract transactions work correctly on a real Cardano network,
+- We have been careful to <a href="https://testing.googleblog.com/2020/07/testing-on-toilet-dont-mock-types-you.html">Mock types we own</a> in order to not fall into the trap of relying on a dumbed down and probably wrong implementation of some system we depend on.</p>
 <h1 id="there-is-more-to-it">There is more to it</h1>
 <p>This whole idea has been applied in a couple other areas of the system, most notably the <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/src/Hydra/Network.hs">Network</a> interface: Here again we express some requirements from the point of view of the Hydra node, letting those emerge from tests we write.</p>
 <p>While it does not respect the <em>Mock types you own</em> mantra, we have also used this technique to great profit leveraging the <a href="https://github.com/input-output-hk/ouroboros-network/tree/3f16f617f8ada5e0e8f560b5b2d9635ec0d803f3/io-sim">io-sim</a> and <a href="https://github.com/input-output-hk/ouroboros-network/tree/3f16f617f8ada5e0e8f560b5b2d9635ec0d803f3/io-classes">io-classes</a>, as exposed in <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/docs/adr/0005-use-io-sim-classes.md">another ADR</a>. This has allowed us to test-drive the development of the protocol in an outside-in way, expressing expected <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/test/Hydra/BehaviorSpec.hs#L123">observable behaviour</a> in a cluster of nodes, in a safe and fast way, as pure functions.</p>
@@ -432,14 +756,16 @@ Finished in 18.1146 seconds</code></pre>
 <p>Dans ce livre, Michel de Certeau cherche à réhabiliter la position de <em>consommateur</em>, notamment du consommateur de “biens culturels”, systématiquement méprisée et dévalorisée par rapport à celle de <em>producteur</em>. En quelque sorte, il cherche à théoriser ce qui échappe à la théorie, les pratiques concrètes des “vrais gens”, qui sont soit ignorées des savants, soient classées, catégorisées et systématisées par les théoriciens des pratiques sociales.</p>
 <p>La théorie est par essence un processus d’abstraction du concret, par lequel un théoricien se pose en <em>surplomb</em> du réel, de la myriade de faits concrets observables et impossible à suivre dans leur intégralité. De même le créateur, le producteur et l’ensemble du système de diffusion de biens de consommation, se pensent comme un <em>centre</em> alimentant une périphérie, la masse des consommateurs, considérés comme passifs. Ce que veut montrer l’auteur c’est que cette vision, qu’incarne par exemple Michel Foucault quand il fait la généalogie du développement de la société du contrôle au travers du développement des techniques de surveillance et d’encadrement - école, hopitaux, prisons, casernes - est faussée par ses propres présupposés : le théoricien se positionne implicitement au centre du panoptique lorsqu’il construit une certaine représentation du réel, une théorie.</p>
 <blockquote>
-<p>Les institutions scientifiques appartiennent au système dont elles font l’étude : en l’examinant elle se conforme au genre bien connu de l’histoire de famille (un dialogue critique ne change rien à son fonctionnement, la critique créant l’apparence d’une distance à l’intérieur de l’appartenance). p .66</p>
+<p>Les institutions scientifiques appartiennent au système dont elles font l’étude : en l’examinant elle se conforme au genre bien connu de l’histoire de famille (un dialogue critique ne change rien à son fonctionnement, la critique créant l’apparence d’une distance à l’intérieur de l’appartenance).
+p .66</p>
 </blockquote>
 <p>Les Lumières ont posé ce postulat de la passivité du consommateur, du lecteur qui est modelé par ce qui lit ouvrant ainsi la possibilité d’une éducation des masses par la diffusion de la culture (sous-entendue, la culture légitime).</p>
 <blockquote>
-<p>Effet d’une idéologie de classe et d’un aveuglement technique, cette légende est nécessaire au système qui distingue et privilégie les auteurs, les pédagogues, en un mot les producteurs par rapport à ceux qui ne le sont pas. p242</p>
+<p>Effet d’une idéologie de classe et d’un aveuglement technique, cette légende est nécessaire au système qui distingue et privilégie les auteurs, les pédagogues, en un mot les producteurs par rapport à ceux qui ne le sont pas.
+p242</p>
 </blockquote>
 <p>Mais les “gens ordinaires”, dans leur <em>vie quotidienne</em> de consommateur, ne sont passifs que si on les observe de très loin, si on ne s’intéresse pas aux détails concrets de leurs pratiques. En réalité, placés dans une position de subordination par l’autorité des producteurs et des penseurs, ils rusent, détournent, braconnent, bricolent pour s’approprier les biens qui leurs sont proposés ou imposés, ou les ignorer. M.de Certeau met l’accent en particulier sur la pratique de la “perruque”, le fait de détourner du temps de travail, du matériel, des outils, des machines de l’organisation dans laquelle on travaille, à ses propres fins. Non pas pour voler ou en tirer un bénéfice pécuniaire, mais comme un moyen d’échapper à la routine, d’inventer ses propres usages qui ne soient pas prescrits d’en-haut. Soit l’exact contraire du <em>management scientifique</em>, même dans ses formes plus modernes telles que le <em>Lean</em> ou le TPS.</p>
-<p>À la stratégie qui est l’arme des forts, qui vise au meilleur emploi de la force en vue de fins précises, qui s’appuie sur un <em>lieu</em> et distingue un intérieur ou un <em>propre</em> - nous - d’un extérieur - les autres ; M. de Certeau oppose la <em>tactique</em> de ceux qui n’ont pas de force, qui doivent ruser pour parvenir à leurs fins, qui n’ont pas de lieu en <em>propre</em> mais sont placés dans des circonstances qu’ils ne maîtrisent pas et dont ils doivent tenter de tirer avantage, qui sont <em>contraints</em> par les situations. Plus la technologie libère des forces incontrôlables, plus les stratégies sont élaborées loin du quotidien, plus elles laissent d’espace à la tactique et à la ruse, au détournement : le <em>quotidien</em> s’insinue dans les mailles du réseau qui se multiplient à mesure que celui-ci s’étend<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</p>
+<p>À la stratégie qui est l’arme des forts, qui vise au meilleur emploi de la force en vue de fins précises, qui s’appuie sur un <em>lieu</em> et distingue un intérieur ou un <em>propre</em> - nous - d’un extérieur - les autres ; M. de Certeau oppose la <em>tactique</em> de ceux qui n’ont pas de force, qui doivent ruser pour parvenir à leurs fins, qui n’ont pas de lieu en <em>propre</em> mais sont placés dans des circonstances qu’ils ne maîtrisent pas et dont ils doivent tenter de tirer avantage, qui sont <em>contraints</em> par les situations. Plus la technologie libère des forces incontrôlables, plus les stratégies sont élaborées loin du quotidien, plus elles laissent d’espace à la tactique et à la ruse, au détournement : le <em>quotidien</em> s’insinue dans les mailles du réseau qui se multiplient à mesure que celui-ci s’étend<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <p>L’auteur n’hésite pas à convoquer pour les critiquer deux figures tutélaires de la critique sociale : Michel Foucault et Pierre Bourdieu. S’il loue la force de leur pensée et la pertinence de leurs analyses, ils n’en restent pas moins à ses yeux des théoriciens imposant à leur sujet <em>leur</em> propre vision des choses. En voulant montrer par une analyse “généalogique” que le développement du <em>biopouvoir</em> et des technologies est un processus souterrain qui prend appui sur les <em>Lumières</em>, Foucault sélectionne parmi l’immensité des faits ceux qui servent sa théorie. Quant à Bourdieu, sa théorie de l’<em>habitus</em> comme liant dans une <em>docte ignorance</em> des contraints structurelles, des dispositions et des pratiques, quelque mérite qu’elle puisse avoir pour montrer la persistance et l’intériorisation des situations de dominations, réitère toutefois le geste du savant théorisant son objet et ce faisant le mettant à distance, présupposant que les structures qu’il met au jour sont ignorées des groupes observés.</p>
 <p>Le scientifique, l’ethnologue, l’anthropologue qui collectent, classent, analysent, modélisent des pratiques et des discours, simultanément les vident de leur sens.</p>
 <p>Comment donc relier théorie et pratique ? Une manière de ce faire est celle de <em>l’ingénieur</em> qui lie théorie et pratique dans la <em>machine</em> et par ce geste vide de sens le discours sur les <em>arts de faire</em> : quel sens peut avoir la maîtrise de tel ou tel métier, telle ou telle pratique quand ils sont incarnés dans des machines de plus en plus précises et sophistiquées ? Pour Kant dans <em>Critique de la faculté de juger</em>, c’est proprement le jugement qui relie théorie et pratique au travers du goût, du tact.</p>
@@ -447,28 +773,30 @@ Finished in 18.1146 seconds</code></pre>
 <p>Le manque de jugement est proprement ce qu’on appelle stupidité et à ce vice il n’y a pas de remède.</p>
 </blockquote>
 <p>La narration et le récit sont le pendant dans l’ordre du discours de ces <em>arts de faire</em>. Raconter une histoire, narrer, discourir, déclamer, convaincre par la parole nécessitent l’usage de ces ruses, sont tributaires du <em>Kairos</em>, de l’instant propice où tout se joue. De cela il n’est pas de théorie possible.</p>
-<p>La ville est encore un autre exemple de cette distance entre théorie et pratique et de l’effet de domination de la première sur la seconde. La vision “aérienne” de l’urbaniste, de l’architecte, du planificateur, s’oppose à la vision “au ras du bitume” de l’habitant<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> : d’un côté une vision ordonnée, synoptique, de l’autre un labyrinthe. D’un côté un <em>lieu</em>, que l’on peut représenter sous la forme d’une <em>carte</em>, distribuant les éléments les uns par rapport aux autres (au nord le commissariat, à l’ouest le supermarché), de l’autre un <em>espace</em> défini par les mouvements que l’on peut y faire, par des <em>parcours</em>, décrits en termes d’opérations (tourner à gauche, traverser la rue…). D’un côté <em>voir</em> et décrire dans un langage scientifique, de l’autre <em>faire</em> et raconter dans le langage commun.</p>
-<p>On retrouve cette opposition dans la distinction entre la <em>voix</em> et <em>l’écrit</em>, source et paradigme de la modernité. Le mythe de la <em>page blanche</em> et de l’auteur maîtrisant le monde par l’écrit, tel Robinson Crusoë entamant la colonisation de son île par l’écriture d’un journal, est central dans l’Occident moderne depuis la Renaissance et la Réforme. Prenant modèle sur la Bible, les premiers penseurs humanistes visent à refonder l’histoire, la société et le monde non plus en <em>interprétant</em> les secrets de Dieu tels qu’ils se dissimulent dans l’ordonnancement de la création et les Écritures, mais en produisant un <em>ordre</em> nouveau au moyen de la <em>Raison universelle</em><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>. L’écriture s’inscrira désormais non plus seulement sur des monuments, mais sur des corps au travers la Loi, des contrats, de la médecine et des sciences, d’une constitution explicitement écrite.</p>
+<p>La ville est encore un autre exemple de cette distance entre théorie et pratique et de l’effet de domination de la première sur la seconde. La vision “aérienne” de l’urbaniste, de l’architecte, du planificateur, s’oppose à la vision “au ras du bitume” de l’habitant<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> : d’un côté une vision ordonnée, synoptique, de l’autre un labyrinthe. D’un côté un <em>lieu</em>, que l’on peut représenter sous la forme d’une <em>carte</em>, distribuant les éléments les uns par rapport aux autres (au nord le commissariat, à l’ouest le supermarché), de l’autre un <em>espace</em> défini par les mouvements que l’on peut y faire, par des <em>parcours</em>, décrits en termes d’opérations (tourner à gauche, traverser la rue…). D’un côté <em>voir</em> et décrire dans un langage scientifique, de l’autre <em>faire</em> et raconter dans le langage commun.</p>
+<p>On retrouve cette opposition dans la distinction entre la <em>voix</em> et <em>l’écrit</em>, source et paradigme de la modernité. Le mythe de la <em>page blanche</em> et de l’auteur maîtrisant le monde par l’écrit, tel Robinson Crusoë entamant la colonisation de son île par l’écriture d’un journal, est central dans l’Occident moderne depuis la Renaissance et la Réforme. Prenant modèle sur la Bible, les premiers penseurs humanistes visent à refonder l’histoire, la société et le monde non plus en <em>interprétant</em> les secrets de Dieu tels qu’ils se dissimulent dans l’ordonnancement de la création et les Écritures, mais en produisant un <em>ordre</em> nouveau au moyen de la <em>Raison universelle</em><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. L’écriture s’inscrira désormais non plus seulement sur des monuments, mais sur des corps au travers la Loi, des contrats, de la médecine et des sciences, d’une constitution explicitement écrite.</p>
 <p>La voix devient le domaine du <em>peuple</em> et de la masse, la <em>voix du peuple</em> est cette chose crainte et mythifiée parce que non écrite que l’ont va chercher à réduire à de l’écrit, à collecter, classer, analyser, et qui parfois revient dans la pratique comme imitation. Ainsi de la diffusion des argots et dialectes qui, une fois devenus inoffensifs et proprement analysés, s’incrustent dans la langue commune. Plus encore que la voix le <em>cri</em>, de colère, de jouissance, de peur, de souffrance est ce qui échappe à toutes les contraintes du corps imposées par la société, au contrôle par les institutions et les multiples réseaux de pouvoir.</p>
 <blockquote>
-<p>Peut-être toute l’expérience qui n’est pas cri de jouissance our de douleur est elle collectée par l’institution p.219</p>
+<p>Peut-être toute l’expérience qui n’est pas cri de jouissance our de douleur est elle collectée par l’institution
+p.219</p>
 </blockquote>
 <p>In fine, Michel de Certeau en bon catholique qu’il est s’interroge sur la persistence de “ces croyances du passé qui n’organisent plus des pratiques” que ce soit dans le domain de la religion ou de la politique. Il y aurait une usure des croyances qui sape l’autorité politique, fondée selon Hobbes justement sur la croyance. Ou plutôt qu’une usure, un transfert, la croyance n’étant pas attachée à son objet, passant de mythes en mythes.</p>
 <h2 id="analyse">Analyse</h2>
 <p><em>L’invention du quotidien</em> est un livre un peu ardu à lire, au style parfois très universitaire caractéristique des penseurs des années 60-70, et dont la succession des chapitres ne semble pas toujours suivre un enchaînement logiquement évident. Mais c’est un livre qui résonne avec un certain nombre d’autres livres qui tournent autour de la question des rapports de domination, à travers l’histoire, dans notre société en général et dans le monde du travail en particulier, rapports de dominations qui se retrouvent plus précisèment dans les rapports entre la théorie et la pratique, entre les savoirs pratiques et théoriques, entre ceux qui <em>font</em> et ceux qui <em>savent quoi faire</em>.</p>
 <blockquote>
-<p>Toute notre civilisation est fondée sur la spécialisation, laquelle implique l’asservissement de ceux qui exécutent à ceux qui coordonnent. <em>Réflexions sur les causes de la liberté et de l’oppression sociale</em>, Simone Weil</p>
+<p>Toute notre civilisation est fondée sur la spécialisation, laquelle implique l’asservissement de ceux qui exécutent à ceux qui coordonnent.
+<em>Réflexions sur les causes de la liberté et de l’oppression sociale</em>, Simone Weil</p>
 </blockquote>
 <p>Mais rejetant un déterminisme social facile, Michel de Certeau essaye de démontrer que les “dominés”, en particulier les dominés dans le domaine culturel, ou pour le dire en termes bourdieusiens les personnes peu dotées en capital social, ne prennent pas la domination dont ils font l’objet pour argent comptant, ne sont pas ignorants de cette domination quand bien même ils n’occupent pas des rond-points ni ne font la révolution. Qu’il existe une créativité du quotidien, qui n’est pas la créativité de “l’artiste” ou du “chercheur” mais qui est faite de ruses, de détournements et de détours, de “perruque”, de braconnage. Là où les producteurs donnent le sens, les consommateurs se l’approprient et le détournent.</p>
 <p>Cette créativité, c’est celle du lecteur qui, tel le Pierre Ménard de Borgès, recrée l’oeuvre qu’il lit indifférent aux intentions et désirs de l’auteur, ou bien encore <em>La culture des individus</em> interrogés par Bernard Lahire qui avouent être <em>à la fois</em> fans de concerts de heavy metal et de la peinture de Renoir. C’est aussi celle de tous ceux qui détournent les usages des logiciels que nous écrivons, parfois de manière surprenante, ou même dangereuse. Et c’est bien pourquoi il est si important lorsque l’on souhaite faire oeuvre utile d’impliquer les utilisateurs le plus tôt possible dans le processus de développement, afin de profiter de ce <em>feedback</em> que nous apportent ceux qui font.</p>
-<div class="footnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>La manière dont les réseaux sociaux, pensés et “marketés” comme des outils du progrès de la tolérance et de la communication, sont détournés, investis et fragmentés par de multiples groupes, se transforment en une fabrique de chambre d’échos offre une image assez saisissante de ce qu’avait imaginé M. de Certeau avant même la naissance d’Internet.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Guy Debord et les Situationnistes ont théorisé (sic !) la pratique de la <em>dérive</em>, marche aléatoire dans les rues d’une ville pour en découvrir ou construire les diverses ambiances, conçue comme un antidote aux projets d’urbanismes des Trente Glorieuses qui ont notamment fortement transformé Paris (.<a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>C’est très proche de l’analyse que fait Foucault dans <em>Les mots et les choses</em> quand il décrit les transformations que la connaissance subit entre la Renaissance et l’Âge classique, puis entre ce dernier et la période moderne qui comment à la Révolution française.<a href="#fnref3">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>La manière dont les réseaux sociaux, pensés et “marketés” comme des outils du progrès de la tolérance et de la communication, sont détournés, investis et fragmentés par de multiples groupes, se transforment en une fabrique de chambre d’échos offre une image assez saisissante de ce qu’avait imaginé M. de Certeau avant même la naissance d’Internet.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Guy Debord et les Situationnistes ont théorisé (sic !) la pratique de la <em>dérive</em>, marche aléatoire dans les rues d’une ville pour en découvrir ou construire les diverses ambiances, conçue comme un antidote aux projets d’urbanismes des Trente Glorieuses qui ont notamment fortement transformé Paris (.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>C’est très proche de l’analyse que fait Foucault dans <em>Les mots et les choses</em> quand il décrit les transformations que la connaissance subit entre la Renaissance et l’Âge classique, puis entre ce dernier et la période moderne qui comment à la Révolution française.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</div>
+</section>
 
 
 <div id="disqus_thread"></div>
@@ -518,7 +846,7 @@ Finished in 18.1146 seconds</code></pre>
 <p>Le <em>totalisme</em> est particulièrement ciblé par la critique de Popper car il conduit, lorsque l’on souhaite passer de la théorie à la pratique, au <em>totalitarisme</em> : les changements sociaux impliqués par la théorie ne peuvent être mis en oeuvre qu’à l’échelle de la société toute entière, ce qui implique une <em>révolution</em>.</p>
 <h2 id="sa-critique">Sa critique</h2>
 <p>La première critique de Popper s’attaque au fondement même de l’historicisme soit la possibilité de <em>prédire</em> les développements futurs. Cette critique est d’ordre logique et se résume assez simplement :</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>Le futur des sociétés humaines dépend essentiellement de l’état de ses connaissances ;</li>
 <li>Il est logiquement impossible de prédire l’état des connaissances futur puisque par définition, ces connaissances ne sont pas connues ;</li>
 <li>par conséquent il est impossible de prédire le futur des sociétés humaines. ■</li>
@@ -577,9 +905,11 @@ Finished in 18.1146 seconds</code></pre>
 <li>Living organisms, through reproduction, tend to <em>proliferate</em> and grow in numbers which, when left unopposed, leads to population explosion,</li>
 <li>This tendency is counterbalanced by <em>high mortality rate</em> stemming from intense competition for resources within an ecosystem, both within species and among species, with an infinite variation of complex relationships from the simple prey/predator to symbiosis, parasitism or even relations involving several species,</li>
 <li>This intense competition leads to <em>survival of the fittest</em>, whereby individuals use the slightest advantage they have “acquired” that can provide them an edge and higher survival rate,</li>
-<li>Such <em>variations</em> appear constantly within species (we would call them <em>mutations</em>), sometimes minute, sometimes spectacular, in a random and unpredictable way,</li>
+<li>Such <em>variations</em> appear constantly within species (we would call them <em>mutations</em>), sometimes minute, sometimes spectacular, in a random and unpredictable way,
+<ul>
 <li>Variations appear more often in less specialised or useful features or organs, or highly “exotic” ones like the peacock’s tail, the rooster crest or other “ornaments”,</li>
 <li>Furthermore, if a feature has varied, it is more likely to vary,</li>
+</ul></li>
 <li>“Survival of the fittest” principle will thus preserve variations which provide an edge in the competition, and reproduction, under normal circumstances, allow passing those variations to descendants of survivors,</li>
 <li><em>Sexual selection</em> is a secondary principle that ensures individuals carrying beneficial variations will have a higher reproduction rate, increasing the likelihood of preserving an advantage over the next generations.</li>
 </ul>
@@ -598,184 +928,6 @@ Finished in 18.1146 seconds</code></pre>
 <p>At least, next time Jehovah’s Witnesses ring at my door and want to discuss why Darwinism is wrong, and how God created the Earth and all the living beings populating it around 6000 BC, I will feel armed and prepared to counter every argument, given they are basically unchanged since Darwin’s time, more than 150 years ago.</p>
 <p><strong>NOTE</strong>: Being a developer, I have tried to encode Darwin’s theory into a simple <a href="https://gitlab.com/abailly/origin-of-species">command-line application</a> showing the evolution of species on a “planet” with varying biotopes.</p>
 <p><strong>NOTE 2</strong>: Many thanks to <a href="https://www.linkedin.com/in/anna-savarin/?originalSubdomain=fr">Anna Savarin</a> for the proofreading!</p>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Sur &quot;Une histoire des inégalités&quot;</title>
-    <link href="http://abailly.github.io/posts/histoire-des-inegalites.html" />
-    <id>http://abailly.github.io/posts/histoire-des-inegalites.html</id>
-    <published>2021-06-08T00:00:00Z</published>
-    <updated>2021-06-08T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Sur &quot;Une histoire des inégalités&quot;</h1>
-
-  <h2 class="subtitle"></h2>
-
-<div class="info">Posted on June  8, 2021</div>
-
-<p>Le succès du <a href="https://www.seuil.com/ouvrage/le-capital-au-xxie-siecle-thomas-piketty/9782021082289">Capital au XXIème siècle</a> de Thomas Piketty a remis à l’ordre du jour la question des inégalités économiques, de leur justification, de leur évolution, et de la manière de lutter contre leur extension voire de les réduire. <a href="https://www.seuil.com/ouvrage/capital-et-ideologie-thomas-piketty/9782021338041">Capital et idéologie</a> du même auteur, s’intéresse d’ailleurs plus précisèment à la manière dont différentes sociétés justifient, ou pas, les inégalités et leurs trajectoires dans différents pays au cours du siècle précédent.</p>
-<p>Au delà du débat entre intellectuel·le·s, la question des inégalités provoque secousses politiques, tensions sociales et violences dans de nombreux pays, parfois de manière apparemment paradoxale. Tandis qu’en France, société relativement égalitaire comme la plupart des pays d’Europe continentale, les <em>Gilets Jaunes</em> ont porté pendant de longs mois la revendication d’une société plus égalitaire et plus juste ; aux USA, pays développé le plus inégalitaire, l’épisode <em>trumpiste</em> s’est achevé (temporairement ?) par la prise d’assaut du Capitole. Il peut paraître étrange de rapprocher ces deux mouvements, mais il me semble qu’ils sont les archétypes de deux réactions possibles du corps social face à des inégalités de capital et de revenu croissantes considérées comme illégitimes, comme issues de <em>captation de la rente</em> par des élites dont plus rien ne justifie la domination.</p>
-<p>Le livre de Walter Scheidel, <a href="https://www.actes-sud.fr/catalogue/une-histoire-des-inegalites">Une histoire des inégalités</a>, sous-titré <em>de l’âge de pierre au XXIème siècle</em>, semble tomber à point pour essayer de comprendre d’où viennent ces inégalités et comment, historiquement, elles ont évolué. Plus précisèment, W.Scheidel étudie les différentes causes de réduction des inégalités observées au cours de l’histoire sur le <em>temps long</em>, comme le sous-titre l’indique. Disons le d’emblée : ce n’est guère réjouissant ! La thèse principale du livre, étayée par des années de recherche et une bibliographie de <em>67</em> pages, est que les inégalités économiques n’ont pu être sensiblement et durablement réduites que par l’effet d’un ou plusieurs des <em>quatre cavaliers</em> comme les nomme Scheidel : la guerre de masse, les révolutions transformatrices, l’effondrement des états et les pandémies. Les périodes de paix et de stabilité institutionnelles prolongées ont toutes eu pour effet d’accroître les inégalités, parfois jusqu’à des niveaux stratosphériques.</p>
-<h2 id="le-livre">Le livre</h2>
-<p>Le livre est divisé en sept parties : une histoire des inégalités, puis quatre parties consacrées chacune à l’un des “cavaliers”, la guerre, la révolution, l’effondrement et la pandémie, une sixième partie consacrée aux “autres solutions” pour réduire les inégalités, enfin une dernière partie pour l’état des lieux actuels et un exercice de prospective. Un appendice est dévolu à une analyse théorique des limites de l’inégalité et, partant, des possibilités de comparaisons entre époques.</p>
-<p>Le contenu est typique des livres grands publics issus de travaux universitaires : bien écrits, denses, parfois un peu répétitifs dans l’égrénage des statistiques et des différents cas étudiés, et bourrés de notes de bas de pages renvoyant à la copieuse bibliographie, le tout sur un peu plus de 750 pages. Les chapitres sont découpés en sections dont les titres sont systématiquement des citations d’origines, comme celle-ci</p>
-<blockquote>
-<p>Ainsi furent-ils tous détruits</p>
-</blockquote>
-<p>qui est tirée de la <a href="https://gallica.bnf.fr/ark:/12148/bpt6k1121746.texteImage">Chronique des quatre premiers Valois</a> et parle de la jacquerie de 1358.</p>
-<h3 id="la-guerre">La guerre</h3>
-<p>La partie sur la guerre est la plus longue, sans doute parce que les événements relatés sont proches de nous et nous en ressentons encore les effets, et aussi parce que l’impact des deux guerres mondiales sur les inégalités a certainement été l’un des plus massifs qui se soit jamais observé dans toute l’histoire humaine, au point que la période 1914-1950 soit nommée <em>La grande compression</em>.</p>
-<p>Seules les guerres totales du XXème siècle ont réduit les inégalités de manière significative. À elle seule, la guerre n’est pas un vecteur d’égalisation et aurait même tendance à renforcer les inégalités comme le montrent les conséquences des innombrables guerres de conquêtes de l’histoire. Ceci vaut y compris pour des guerres civiles, même de grande ampleur comme le fût la guerre de Sécession américaine : la libération des esclaves sans indemnités a certes constitué une forme de “destruction de capital” importante mais n’a pas vraiment eu d’impact à long terme sur les inégalités, les esclaves libérés se transformant en ouvriers agricoles mal payés.</p>
-<p>Si les guerres du XXème sont parvenues à un tel résultat, ce n’est pas uniquement du fait des destructions massives de capital et des immenses pertes humaines qu’elles ont causées. La guerre de masse implique une mobilisation de masse qui n’est possible et acceptable, en particulier dans les régimes démocratiques, que si les gouvernements et les dominants sont prêts à faire des concessions aux dominés. Par ailleurs, les immenses besoin en main d’oeuvre et capital impliquent un contrôle étroit de l’État, une mobilisation des capitaux et de toutes les ressources qui nécessairement impactent beaucoup plus les riches que les pauvres.</p>
-<p>L’effet égalisateur de la mobilisation en masse et de la conscription universelle ne se retrouve, en dehors du XXème siècle, que dans une société connue : la Grèce classique dex Vème-IVème siècles avant l’ère chrétienne. Bien sûr, l’égalité ne concernait que les citoyens et donc pas les esclaves ni les femmes, mais dans cette catégorie l’égalité était réelle et a perduré à Athènes sur deux siècles environ, quand elle a périclité assez vite à Sparte.</p>
-<p>J’ajouterai, bien que l’auteur n’en parle pas, qu’Israël au moins à ses débuts pourrait constituer un autre exemple d’une société dont l’égalitarisme est le produit de la guerre, conçu comme un état permanent et impliquant l’ensemble des citoyens.</p>
-<p>Les effets égalisateurs de la guerre de masse ont été observés y compris dans des pays qui n’étaient pas belligérants comme la Suède, la Suisse ou la péninsule espagnole. Il n’y a que dans des pays éloignés du conflit, en Amérique du Sud, que la déségalisation s’est poursuivie .</p>
-<p>Le cas du Japon est étudié en détail par Scheidel, et permet d’apprendre que l’égalisation déjà à l’oeuvre du fait de l’effort de guerre a été amplifiée par les politiques redistributives - distribution des terres, sécurité sociale, compression des salaires, impôt extrêmement progressif - mises en oeuvre sous l’impulsion des vainqueurs, autrement dit les américains qui eux-mêmes à l’époque ont mis en place de telles mesures.</p>
-<h3 id="la-révolution">La révolution</h3>
-<p>Les révolutions communistes du XXème siècle, russes, chinoises, vietnamiennes et autres, ont été elles aussi très efficaces pour égaliser revenus et patrimoines : en URSS et dans la Chine communiste quelques années après la prise de pouvoir, le <a href="https://en.wikipedia.org/wiki/Gini_coefficient">coefficient de Gini</a> des revenus utilisé par l’auteur comme principal outil de mesure des inégalités, était tombé autour de 20% soit parmi les taux les plus bas jamais observés.</p>
-<p>Il est certain que la <em>Grande compression</em> d’après-guerre dans les pays occidentaux et la mise en place de mesures sociales sans précédent est aussi le résultat de la <em>Guerre froide</em>, un moyen de lutter contre la contagion révolutionnaire.</p>
-<p>Comme pour a guerre, en dehors du XXème siècle, les révoltes et révolutions n’ont jamais produit d’effet significative et durable sur les inégalités. Curieusement, ce constat est vrai même pour la <em>Révolution française</em> qui a été “timorée” et n’a jamais remis en cause la propriété privée comme l’ont fait les révolutions communistes, ce qui a eu pour conséquence de ne modifier les inégalités qu’à la marge.</p>
-<p>Et comme le souligne la citation ci-dessus, toutes les autres révoltes, jacqueries, guerre des pauvres, émeutes connues ont échouées à changer quoi que ce soit ayant été la plupart du temps écrasées dans le sang, y compris en Asie où la <a href="https://fr.wikipedia.org/wiki/R%C3%A9volte_des_Taiping">révolte des Taiping</a>, qui a pourtant causé la mort de 30 à 50 millions de personnes.</p>
-<h3 id="leffondrement">L’effondrement</h3>
-<p>De nombreux effondrements d’États ont eu lieu au cours de l’histoire dont on sait qu’ils ont produit une diminution des inégalités: Cités-États et royaumes mésopotamiens (Ur, Akkad, Sumer), royaumes mycéniens et crétois, empires mayas, empire romain sont quelques exemples détaillés par Scheidel. Mais les exemples modernes et contemporains sont beaucoup plus rares, voire presqu’absents. Seules la Somalie après la chute du dictateur Siyad Barre semble présenter les caractéristiques d’un effondrement total ayant engendré une diminution des inégalités du fait de l’éviction d’une élite prédatrice.</p>
-<p>Ce lien entre inégalité et État, ou entre égalité et absence de pouvoir central, a aussi été mis en avant par les travaux de James C. Scott notamment dans <a href="https://yalebooks.yale.edu/book/9780300182910/against-grain">Against the Grain</a> qui montre l’extraordinaire faiblesse des premiers états agricoles du Croissant fertile. Les élites militaires de ces États ne disposaient pas des moyens dont disposeraient leurs descendants pour imposer sur le long terme leur pouvoir à des populations toujours enclines à fuir le pouvoir central, l’exploitation, sujettes à des épidémies meurtrières et à des guerres de conquêtes destructrices.</p>
-<h3 id="lépidémie">L’épidémie</h3>
-<p>L’humanité et les civilisations ont été confrontées très tôt aux épidémies, en fait dès les débuts de l’agriculture et de la domestication d’animaux. Dans <a href="https://en.wikipedia.org/wiki/Guns,_Germs,_and_Steel">Guns, Germs and Steel</a> J.Diamond émet l’hypothèse que l’exposition à des maladies plus sérieuses, plus vite, à plus grande échelle a été l’une des raisons principale de l’émergence précoce d’États plus structurés, plus puissants, bref de la civilisation sur le continent euriasiatique.</p>
-<p>La plupart des épidémies ayant eu un impact significatif sur les inégalités ont eu lieu dans la haute antiquité, mais il en est néanmoins quelques unes plus récentes auxquelles W.Scheidel a pu attribuer un impact considérable, essentiellement des épidémies de <em>peste</em> : la peste antonienne au IIème siècle, la peste justinienne au VIème qui a causé la division par 2 ou 3 de la population de Byzance, et surtout la <a href="https://fr.wikipedia.org/wiki/Peste_noire">Peste Noire</a> qui a démarré au XIVème siècle et a connu des répliques de moindre ampleur jusqu’au XVIIème.</p>
-<p>Cette pandémie qui a aussi sévi dans une moindre mesure en Asie a causé la mort de 30 à 50% selon les pays de la population européenne et méditerranéenne. Ses effets sur les inégalités sont assez bien documentés notamment en Angleterre, ont été massifs mais n’ont duré qu’environ 1 siècle : du fait de la disparition de la main d’oeuvre dans une société essentiellement agricole les salaires ont augmenté, parfois considérablement, au point que certains gouvernements ont voulu légiférer et limiter les salaires des journaliers et artisans ; des produits qui étaient auparavant réservés à une élite (viande, fourrures, animaux) se sont diffusés dans une plus large fraction de la population ; le commerce international s’est effondré ce qui a particulièrement touché les fractions les plus riches de la population.</p>
-<h3 id="mesurer-les-inégalités">Mesurer les inégalités</h3>
-<p>Dans ses livres, aussi bien <a href="">Le capital au XXIème siècle</a> qu’<a href="">Idéologie et capital</a> T.Piketty critique l’usage trop exclusif du coefficient de Gini comme mesure des inégalités et lui préfère un instrument plus précis : la distribution des richesses, revenus ou patrimoine, par décile ou par centile. Un même coefficient de Gini peut en effet être produit par des distributions différentes des inégalités relatives.</p>
-<p>C’est pourtant cette mesure que W.Scheidel retient, essentiellement parce qu’il est très difficile de reconstruire pour des sociétés anciennes, et même pour certaines sociétés modernes, ces distributions de revenus.</p>
-<p>Mais il introduit aussi une autre mesure, très intéressante, qu’il appele le <em>taux d’extraction</em> soit le pourcentage du maximum d’inégalité possible dans un contexte économique donné. Ce taux est <em>relatif</em> à un niveau de revenu par habitant donné : intuitivement, plus une économie est riche, plus le potentiel d’inégalité est élevé, les dominants ayant la possibilité de capter de plus grandes richesses à leur profit. La limite basse est constituée par le seuil de subsistance : même dans les société les plus inégalitaires, les pauvres doivent survivre pour continuer d’être exploités par les riches.</p>
-<p>La relation entre maximum d’inégalité et revenu par habitant définit une frontière des inégalités : une société sera d’autant plus inégalitaire qu’elle sera proche de cette frontière. Toutes les sociétés modernes issues de la <em>Grande compression</em> sont loin de cette frontière.</p>
-<p>Les choses deviennent moins nettes lorsqu’on prend comme base non plus le revenu de subsistance absolu, soit 300$ de 1990, mais un niveau relatif par exemple le seuil de pauvreté. Mécaniquement, le taux d’inégalité maximal diminue et le <em>Taux d’extraction</em> augmente rapprochant les économies modernes les plus égalitaires comme les USA ou le Royaume-uni de sociétés anciennes très inégalitaires comme l’angleterre victorienne, la Florence du quattrocento ou même l’empire romain.</p>
-<h3 id="les-égalisateurs-pacifiques">Les égalisateurs “pacifiques”</h3>
-<p>La dernière partie du livre consacrée à l’analyse des moyens “non-violents” de réduire les inégalités dont on a pu mesurer les effets est assez déprimante et se résume aisément : il n’y a aucun exemple d’une société ayant réussi à réduire significativement et durablement les inégalités par des réformes pacifiques. Tous les cas cités par l’auteur, notamment ceux de réformes agraires dans des sociétés post-coloniales, sont toujours sous-tendus par la <em>menace de la violence</em> interne ou externe.</p>
-<p>Malicieusement, W.Scheidel ne manque de faire remarquer que les innombrables propositions de sommités intellectuelles mondiales, y compris T.Piketty, pour réduire massivement les inégalités sont pour la plupart d’entre elles concrètement inapplicables.</p>
-<p>Ce qui pose bien sûr la question de l’avenir des inégalités que nous connaissons actuellement et dont on sait qu’elles ont cru depuis 30 ou 40 ans. Et poser la question c’est déjà d’une certaine manière y répondre…</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>Ce type de livre est toujours impressionant et passionnant par sa capacité à brasser les millénaires, les chiffres, les études savantes, les civilisations les plus diverses et à les intégrer dans un grand récit au service d’une thèse. N’ayant ni la capacité ni les moyens de critiquer les données sur lesquelles il s’appuie, et encore moins de reproduire l’analyse comme devrait le faire tout scientifique, je ne peux qu’essayer de comprendre et analyser l’argumentation produite qui, il faut le bien le dire est assez convaincante.</p>
-<p>Le grand mérite de ce livre est qu’il pose directement ou indirectement plein de questions, telles que :</p>
-<ul>
-<li>la croissances des inégalités dans des sociétés stables et en paix est elle consubstantielle à la condition humaine ?</li>
-<li>quel prix sommes nous prêts à payer pour réduire durablement et significativement les inégalités ?</li>
-<li>accepter sereinement que des centaines de millions de personnes meurent pour réduire les inégalités de revenus ne relève-t’il pas de la sociopathie ?</li>
-<li>si l’État centralisé est de toute évidence la source de laquelle naissent les inégalités, pourquoi parvient il toujours à renaître de ses cendres ?</li>
-<li>la capitalisme n’a ni inventé, ni modifié significativement la structure globale des inégalités : les USA de 2020 ne sont pas loin d’être aussi inégalitaires que, disons, l’Angleterre médiévale, la Chine des Tang ou l’empire romain. Vaut il mieux accepter une société (très) inégalitaire, mais riche, ou une société plus égalitaire, mais pauvre ?</li>
-</ul>
-<p>Si le retour de l’un des “quatre cavaliers” paraît peu probable à court terme, il est un <em>cinquième cavalier</em> qui parait tout aussi redoutable aujourd’hui, c’est le risque d’effondrement induit par la destruction de la biosphère. Scheidel identifie des épisodes climatiques exceptionnels comme cause d’effondrement de certaines sociétés (la sécheresse pour les mayas), mais n’évoque pas le <em>changement climatique</em> proprement dit.</p>
-<p>Immédiatement après l’avoir fini, j’ai commencé de lire <a href="https://www.raisonsdagir-editions.org/catalogue/sengager-dans-la-guerre-des-classes/">S’engager dans la lutte des classes</a> de L.Denave, un récit de l’intérieur autant qu’un essai sur le mouvement des Gilets Jaunes. L’auteur évoque notamment le refus viscérale de la plupart des GJ de “s’organiser”, de “structurer” le mouvement, d’avoir des représentants ou une hiérarchie. À la lumière d’<em>Une histoire des inégalités</em> je ne peux m’empêcher de penser que tout mouvement prétendant lutter sérieusement contre les inégalités n’a que deux options à sa disposition : fuir pour vider le pouvoir de sa substance, ou prendre le pouvoir par la force ; et doit accepter d’en payer le prix : <em>There Will be Blood</em>.</p>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Haskell + Emacs + Nix</title>
-    <link href="http://abailly.github.io/posts/haskell-emacs-nix.html" />
-    <id>http://abailly.github.io/posts/haskell-emacs-nix.html</id>
-    <published>2021-02-02T00:00:00Z</published>
-    <updated>2021-02-02T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Haskell + Emacs + Nix</h1>
-
-  <h2 class="subtitle">Making of sense of Nix for Haskell development</h2>
-
-<div class="info">Posted on February  2, 2021</div>
-
-<p>In a <a href="a-modern-haskell-env.html">previous post</a> I detailed how to set up a LSP server for Haskell using Emacs as client. Now, despite my good friend Sam Halliday’s <a href="https://levelup.gitconnected.com/delivering-with-haskell-a347d8359597">advice</a>, I wanted to add Nix in the mix. Both <a href="common-dev-environment.html">standardized and shared development environment</a> and reproducibility of such environments are relevant and important. But I could argue that the wealth of virtualization tools available nowadays, from the humble <code>chroot</code> to full-blown virtual machines through containers of all kind, makes it much easier to produce and reproduce identical environments than when nix was started 15 years ago.</p>
-<p>There are <a href="https://www.tweag.io/blog/2020-08-20-how-nix-grew-a-marketing-team/">teams</a> and people in the Haskell community that support and use nix, and I wanted to get my feet wet and taste the water, to see how it feels to develop using nix. This short essay reports on my experience so far trying to:</p>
-<ul>
-<li>Set up a development environment for Haskell code based on Nix, Emacs and LSP,</li>
-<li>Nixify a cabal-based Haskell project.</li>
-</ul>
-<p>I wouldn’t have succeeded in this endeavor but for the support of fine people from the <a href="https://fpchat-invite.herokuapp.com/">Functional Programming Slack</a> community, the <a href="https://funprog.srid.ca/">FP Zulip</a> community, and online documentation:</p>
-<ul>
-<li>IOHK’s <a href="https://input-output-hk.github.io/haskell.nix">Haskell &amp; Nix Tutorial</a> which covers the <a href="https://github.com/input-output-hk/haskell.nix/">haskell.nix</a> infrastructure,</li>
-<li>nixpkgs <a href="https://haskell4nix.readthedocs.io/">Haskell infrastructure</a> guides, although they are somewhat conflicting with the former,</li>
-<li><a href="https://nixos.org/guides/nix-pills">Nix Pills</a> which are invaluable to better understand how nix is working.</li>
-</ul>
-<p>Please note the source code for provisioning a virtual machine with such an environment is available on <a href="https://github.com/abailly/nix-haskell-dev-vm">GitHub</a>.</p>
-<h1 id="configure-emacs-and-lsp">Configure Emacs and LSP</h1>
-<p>The tricky bits for me was to configure Emacs in such a way that when it opens a <code>*.hs</code> file it automatically fires up <code>lsp-mode</code> and connects to the <em>right version</em> of the <a href="https://github.com/haskell/haskell-language-server">Haskell Language Server</a>. As explained on HLS’s GitHub page, the LSP client must connect to a LSP server that’s compiled with the correct GHC version and uses the correct dependencies. In Emacs’ <code>lsp-mode</code> this is normally done through the use of the binary program <code>haskell-language-server-wrapper</code> which will itself spawn the correct version of <code>haskell-language-server</code> binary depending on the project’s configuration which can be given by a <code>stack.yaml</code> file or a <code>xxx.cabal</code> file.</p>
-<p>The Nix way of providing such a configuration is to set the dependencies in a context-specific way, using a <code>default.nix</code> which will be picked up by all nix tools when we don’t provide them a specific file containing a nix expression to evaluate. Then a <code>shell.nix</code> file references the <code>default.nix</code> as its sources for packages and gives the user a customized shell updated with whatever packages it exposes. Note that in this case, there is no need to provide a wrapper over <code>haskell-language-server</code> because, by virtue of Nix providing a customised environment through a fixed set of packages, the “correct” HLS version will be installed, as explained in this <a href="https://github.com/input-output-hk/haskell.nix/pull/1015#issuecomment-768160999">PR Comment</a>. There is a section on <a href="https://input-output-hk.github.io/haskell.nix/tutorials/development/#emacs-ide-support">configuring Emacs</a> in haskell.nix doc but it applies to Dante and not LSP.</p>
-<p>So we need to configure Emacs to:</p>
-<ol style="list-style-type: decimal">
-<li>Use <code>haskell-language-server</code> as the name of the executable for Haskell LSP server,</li>
-<li>And more importantly, use the environment provided by <code>nix-shell</code>.</li>
-</ol>
-<p>The latter could be achieved by wrapping the HLS invocation in <code>nix-shell</code> but <a href="https://direnv.net/">direnv</a> seems to be the way to go as it provides a declarative way of setting up Nix on a per-directory basis. In my case, it amounts to:</p>
-<ul>
-<li>Write a <code>.envrc</code> file containing a single line, <code>use nix</code>, at the top level of the project’s directory,</li>
-<li>Configure Emacs to use <code>direnv-mode</code>: <code>(use-package direnv :ensure t :config (direnv-mode))</code></li>
-</ul>
-<p>When emacs now visits a file located in the project’s directory or one of its sub-directories, <code>direnv-mode</code> will kick in and set the current environment, and most notably the <code>exec-path</code> according to the instructions given in <code>.envrc</code> which here means executing <code>nix-shell</code>. However, this did not work out-of-the-box and took me some time to understand why. The LSP client that <code>lsp-mode</code> runs kept saying it could not find an LSP server implementation for my language, even though I could assert that:</p>
-<ol style="list-style-type: decimal">
-<li><code>direnv</code> was working and ran nix-shell to setup the environment,</li>
-<li><code>haskell-language-server</code> was installed in the shell and available from the ambient <code>PATH</code>.</li>
-</ol>
-<p>It turned out the problem seemed to be caused by a <em>race condition</em> between the LSP client and the <code>direnv</code> setup: The LSP client tries to connect to the server before the environment is properly setup which happens because entering <code>nix-shell</code> takes a few seconds. <em>Deferring</em> the connection attempt until the point where the file is properly loaded fixed this issue, leading to this LSP configuration:</p>
-<pre><code>(use-package lsp-mode
-  :ensure t
-  :hook ((haskell-mode . lsp-deferred))
-  :commands (lsp lsp-deferred))
-
-(use-package lsp-haskell
-  :ensure t)</code></pre>
-<h1 id="speed-up-nix">Speed-up Nix</h1>
-<p>So I have a nice and working Nix/Haskell/Emacs/LSP configuration setup for my project, but there’s a major issue: <code>haskell.nix</code> does not provide a cache of the packages it exposes derivation for, which means everything must be rebuilt from scratch every time I destroy and recreate the VM. And as the <code>default.nix</code> configuration retrieves its packages from the <code>master</code>, every time we enter <code>nix-shell</code> we run the risk of having to update some depedencies which might take ages.</p>
-<p><a href="https://input-output-hk.github.io/haskell.nix/tutorials/getting-started/#pinning-the-haskellnix-version">Pinning down</a> the version of the packages used remediates the second problem, so we are left with the question of caching the binaries built by Nix in such a way as to be able to share them across different VMs. Enters <a href="https://cachix.org/">cachix</a> which is a hosted service with a free 10GB (!) tier specifically built to cache Nix derivations’ output. After having created an account and a cache instance called <code>hydra-sim</code>, I installed and configured <code>cachix</code> on the development environment, and then could push/pull binaries produced.</p>
-<p>Local configuration requires the following steps:</p>
-<p>Install cachix which is most easily done through nix:</p>
-<pre><code>nix-env -iA cachix -f https://cachix.org/api/v1/install</code></pre>
-<p>Assuming nix is installed globally and runs as a daemon, the user running <code>cachix</code> must be authorized to create and manipulate caches. This is defined in <code>/etc/nix/nix/.conf</code> which looks like:</p>
-<pre><code>max-jobs = 6
-cores = 0
-trusted-users = root curry
-substituters = https://cache.nixos.org https://hydra.iohk.io https://iohk.cachix.org
-trusted-public-keys = iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=</code></pre>
-<p>Retrieve an authentication token for the <code>hydra-sim</code> cache from cachix and configure local environment to use it:</p>
-<pre><code>cachix authtoken &lt;the token&gt;</code></pre>
-<p>Finally, use the cache</p>
-<pre><code>cachix use hydra-sim</code></pre>
-<p>Pushing to the cache can be done from the output of the project’s build</p>
-<pre><code>$ nix-build -A hydra-sim | cachix push hydra-sim</code></pre>
-<p>and using the <a href="https://fzakaria.com/2020/08/11/caching-your-nix-shell.html">nix-shell configuration</a>. This is important as it means the tools, and most notably <code>haskell-language-server</code>, will be part of the cache:</p>
-<pre><code>nix-store --query --references $(nix-instantiate shell.nix) | \
-     xargs nix-store --realise | \
-     xargs nix-store --query --requisites | \
-     cachix push hydra-sim</code></pre>
-<h1 id="conclusion">Conclusion</h1>
-<p>This is the beginning of my journey in Nix-land and it’s a bit early to say whether I like the tool or not. Right now, it seems like a bit of time-waste as I have spent several hours scattered over a week to get my environment “right” using Nix on a dedicated VM, where doing this using the standard tools provided by Haskell to install packages and utilities, namely <a href="https://www.haskell.org/ghcup/">ghcup</a> and <a href="https://cabal.readthedocs.io/en/3.4/index.html">cabal</a>, took me approximately twenty minutes.</p>
-<p>As is often the case with non-mainstream open source tools, there is a lot of information “out there” written by enthusiastic people like tutorials, guides, and blog entries. This information is often fragmentary, dependent on a specific environment, operating system, component of the stack, or specific flavor of the tools. Hence one has to invest time to recombine those fragments in a way that suits his or her needs and taste. This implies investing time in understanding <em>how</em> those tools work in order to be able to tweak configuration and parameters, which might gives one that <a href="https://www.urbandictionary.com/define.php?term=yak%20shaving">yak shaving</a> feeling.</p>
-<p>Yet when I compare that experience with my past year working mostly with proprietary or semi-proprietary language and tools (C#, Windows, Visual Studio, Citrix, <a href="https://www.appeon.com/products/powerbuilder">Powerbuilder</a>), I wouldn’t want to go back at any price. When something is wrong in proprietary land, you don’t even get a chance to understand <em>what</em> is wrong, you are dependent on the whims of a software publisher. The time that’s gained in shrinkwrapped tooling and environments, pre-packaged components, guided processes, is valuable only in the short-term at the onset of a project. As soon as <em>essential complexity</em> of the business domain creeps in, the abstraction barriers the proprietary tooling carefully built to hide implementation details breaks, leaving the hapless developer struggling with patches, workarounds, opaque procedures to get things done.</p>
 
 
 <div id="disqus_thread"></div>

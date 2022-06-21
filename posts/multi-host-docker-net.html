@@ -7,7 +7,9 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - Multi-host Docker Networking</title>
+
   <meta name="description" content="Crafting code since 1994">
+
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -39,62 +41,35 @@
     </header>
     <div id="main" role="main">
 <h1>Multi-host Docker Networking</h1>
-<div class="info">Posted on 2016-05-30</div>
 
-<p>A while ago I grew the desire to experiment implementing
-<em>multi-host docker networking</em> to deploy <a
-href="/posts/cm-infra-2.html">Capital Match system</a>. This system is
-made of several interlinked containers and <a
-href="https://docs.docker.com/v1.8/compose/">docker-compose</a> does not
-(did not?) work across several hosts. It seemed to me the <a
-href="https://docs.docker.com/engine/userguide/networking/get-started-overlay/">official
-solution</a> based on <code>docker-machine</code>, <code>swarm</code>
-and service registry was a bit complicated: Our configuration is mostly
-static, e.g. number, distribution and relationship between containers in
-known at deploy time. Hence I looked for a simpler solution, something
-that would be more <em>networky</em>: I am indebted to <a
-href="https://fr.wikipedia.org/wiki/Utilisateur:Hashar">hashar</a> for
-suggesting a GRE-based solution and to the following references for
-actual technical details:</p>
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on May 30, 2016</div>
+
+<p>A while ago I grew the desire to experiment implementing <em>multi-host docker networking</em> to deploy <a href="../posts/cm-infra-2.html">Capital Match system</a>. This system is made of several interlinked containers and <a href="https://docs.docker.com/v1.8/compose/">docker-compose</a> does not (did not?) work across several hosts. It seemed to me the <a href="https://docs.docker.com/engine/userguide/networking/get-started-overlay/">official solution</a> based on <code>docker-machine</code>, <code>swarm</code> and service registry was a bit complicated: Our configuration is mostly static, e.g. number, distribution and relationship between containers in known at deploy time. Hence I looked for a simpler solution, something that would be more <em>networky</em>: I am indebted to <a href="https://fr.wikipedia.org/wiki/Utilisateur:Hashar">hashar</a> for suggesting a GRE-based solution and to the following references for actual technical details:</p>
 <ul>
-<li><a
-href="https://goldmann.pl/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/">https://goldmann.pl/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/</a></li>
-<li><a
-href="https://wiredcraft.com/blog/multi-host-docker-network/">https://wiredcraft.com/blog/multi-host-docker-network/</a></li>
+<li><a href="https://goldmann.pl/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/">https://goldmann.pl/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/</a></li>
+<li><a href="https://wiredcraft.com/blog/multi-host-docker-network/">https://wiredcraft.com/blog/multi-host-docker-network/</a></li>
 </ul>
-<p>I did some experiment in shell, jotted down a couple of notes in my
-journal and moved on to other, more urgent duties. I had a couple of
-hours left on Friday last week and I stumbled on those notes which were
-sitting there, on my hard disk, and I decided it was a good time to
-write a blog post about this experiment.</p>
-<p>I started writing this post embedding script fragments but I quickly
-wanted to check what I wrote actually worked, so I began running those
-scripts fragment. But then it made this experiment non repeatable which
-is definitely annoying if you make a mistake, want to restart from
-scratch, change some parameters… So I decided this stuff would warrant a
-minor project of its own where I could provide all the needed code to
-configure multi-host networking in docker based on GRE tunnels. I have
-done quite a share of system configuration and operations management and
-have been able to use or create some useful tools to streamline ops in
-Haskell, so it quickly became obvious I would need to write some Haskell
-code. So what started as a mundane journal cleanup ended up being a
-full-blown yak-shaving session whose result can be found in this github
-<a
-href="https://github.com/abailly/multi-host-docker">repository</a>.</p>
+<p>I did some experiment in shell, jotted down a couple of notes in my journal and moved on to other, more urgent duties. I had a couple of hours left on Friday last week and I stumbled on those notes which were sitting there, on my hard disk, and I decided it was a good time to write a blog post about this experiment.</p>
+<p>I started writing this post embedding script fragments but I quickly wanted to check what I wrote actually worked, so I began running those scripts fragment. But then it made this experiment non repeatable which is definitely annoying if you make a mistake, want to restart from scratch, change some parameters… So I decided this stuff would warrant a minor project of its own where I could provide all the needed code to configure multi-host networking in docker based on GRE tunnels. I have done quite a share of system configuration and operations management and have been able to use or create some useful tools to streamline ops in Haskell, so it quickly became obvious I would need to write some Haskell code. So what started as a mundane journal cleanup ended up being a full-blown yak-shaving session whose result can be found in this github <a href="https://github.com/abailly/multi-host-docker">repository</a>.</p>
 
 
 <div id="disqus_thread"></div>
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-
+  
     s.src = '//arnaudsblog.disqus.com/embed.js';
-
+  
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

@@ -7,7 +7,9 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - My Projects for 2020</title>
+
   <meta name="description" content="Crafting code since 1994">
+
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -39,257 +41,84 @@
     </header>
     <div id="main" role="main">
 <h1>My Projects for 2020</h1>
-<div class="info">Posted on 2020-01-01</div>
 
-<p>This year 2019 has been exciting in many respects, but it’s coming to
-an end and the time is ripe to look forward: 2020, here I come! For my
-own personal records, I have written up a list of things I would like to
-work on, investigate, learn, discover and more generally spend some time
-tinkering with. I look forward to the 31st of December, 2020, to check
-by which margin I overestimated the time I could reasonably put into
-side projects!</p>
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on January  1, 2020</div>
+
+<p>This year 2019 has been exciting in many respects, but it’s coming to an end and the time is ripe to look forward: 2020, here I come!
+For my own personal records, I have written up a list of things I would like to work on, investigate, learn, discover and more generally spend some time tinkering with. I look forward to the 31st of December, 2020, to check by which margin I overestimated the time I could reasonably put into side projects!</p>
 <h1 id="idris">Idris</h1>
-<p>I fell in love with Idris (1) while reviewing Edwin Brady’s <a
-href="https://www.manning.com/books/type-driven-development-with-idris">awesome
-book</a>. Having concrete examples of code that leveraged <a
-href="https://en.wikipedia.org/wiki/Dependent_type">Dependent Types</a>
-was an eye opener to me. Since then, I <a
-href="http://abailly.github.io/posts/dependently-typed-accounting.html">have</a>
-<a
-href="http://abailly.github.io/posts/dependently-typed-date.html">tried</a>
-to get a <a
-href="http://abailly.github.io/posts/dependent-types-ddd.html">better
-understanding</a> of how dependent types could be put to use in my “Real
-World”, ie. to improve the design of mundane software.</p>
-<p>In 2020, I plan to continue investigating that topic through various
-angles.</p>
-<h2 id="type-systems-and-domain-driven-design">Type Systems and
-Domain-Driven Design</h2>
+<p>I fell in love with Idris (1) while reviewing Edwin Brady’s <a href="https://www.manning.com/books/type-driven-development-with-idris">awesome book</a>. Having concrete examples of code that leveraged <a href="https://en.wikipedia.org/wiki/Dependent_type">Dependent Types</a> was an eye opener to me. Since then, I <a href="http://abailly.github.io/posts/dependently-typed-accounting.html">have</a> <a href="http://abailly.github.io/posts/dependently-typed-date.html">tried</a> to get a <a href="http://abailly.github.io/posts/dependent-types-ddd.html">better understanding</a> of how dependent types could be put to use in my “Real World”, ie. to improve the design of mundane software.</p>
+<p>In 2020, I plan to continue investigating that topic through various angles.</p>
+<h2 id="type-systems-and-domain-driven-design">Type Systems and Domain-Driven Design</h2>
 <ul>
-<li>How can we use Dependent types and Dependently Typed languages to
-better model the <em>domains</em> our code works on?</li>
-<li>What are other interesting type systems that could be used for that
-purpose?</li>
-<li><a
-href="https://en.wikipedia.org/wiki/Homotopy_type_theory">Homotopy Type
-Theory</a> looks both extremely fun, extremely abstract and extremely
-complex for someone who, like me, does not have a PhD in Algebra ;
-something like a Category Theory but even more hype! <a
-href="https://github.com/mortberg/cubicaltt">Cubical Type Theory</a> is
-an implementation of HoTT, could it useful to model the kind of problems
-I encounter in my day job like Double-entry Ledger, payroll software,
-distributed systems…?</li>
-<li>Two years ago I built an <a
-href="https://github.com/abailly/xxi-century-typed/tree/master/minilang">implementation
-of MiniTT</a> in order to deepen my understanding of such type systems,
-but this language was too minimalist to be really usable. I have tried
-again following David Christiansen’s <a
-href="http://davidchristiansen.dk/tutorials/nbe/">Normalization by
-Evaluation</a> tutorial, this time in Idris.</li>
+<li>How can we use Dependent types and Dependently Typed languages to better model the <em>domains</em> our code works on?</li>
+<li>What are other interesting type systems that could be used for that purpose?</li>
+<li><a href="https://en.wikipedia.org/wiki/Homotopy_type_theory">Homotopy Type Theory</a> looks both extremely fun, extremely abstract and extremely complex for someone who, like me, does not have a PhD in Algebra ; something like a Category Theory but even more hype! <a href="https://github.com/mortberg/cubicaltt">Cubical Type Theory</a> is an implementation of HoTT, could it useful to model the kind of problems I encounter in my day job like Double-entry Ledger, payroll software, distributed systems…?</li>
+<li>Two years ago I built an <a href="https://github.com/abailly/xxi-century-typed/tree/master/minilang">implementation of MiniTT</a> in order to deepen my understanding of such type systems, but this language was too minimalist to be really usable. I have tried again following David Christiansen’s <a href="http://davidchristiansen.dk/tutorials/nbe/">Normalization by Evaluation</a> tutorial, this time in Idris.</li>
 </ul>
-<h2 id="ide-and-developers-experience">IDE and Developer’s
-Experience</h2>
+<h2 id="ide-and-developers-experience">IDE and Developer’s Experience</h2>
 <ul>
-<li>I have started contributed to the best of my abilities to <a
-href="https://github.com/edwinb/Idris2">Idris2</a> and one area I am
-particularly interested in is how to improve the developer’s experience,
-how to leverage the compiler’s machinery to let the developer <em>dialog
-with the typechecker</em> while building the software?</li>
-<li><a href="https://en.wikipedia.org/wiki/Smalltalk">Smalltalk</a> was
-one of the first languages to provide superior tools for development,
-with an integrated development environment where one could inspect every
-aspect of the system and dynamically change it, getting instant
-feedback. Could we do the same with Idris2, letting the developers
-interact with the compiler <em>and</em> the live system’s state while
-building it? Idris, like <a href="https://coq.inria.fr/">Coq</a>,
-provides sophisticated tooling for <em>theorem proving</em> which is
-just the activity of deriving code (proof) from types
-(propositions).</li>
-<li><a href="https://github.com/hazelgrove/hazel">Hazel</a> is an
-example of a system that provides tooling around <em>holes</em>,
-allowing the developer to build the system partially, providing
-placeholders (stubs) in areas which need further development while still
-allowing the system to execute the implemented parts. Surely, there’s
-something to learn here and implement for Idris!</li>
-<li>Being a practitioner and strong proponent of <a
-href="https://www.jamesshore.com/Agile-Book/pair_programming.html">Pair</a>
-and <a href="https://en.wikipedia.org/wiki/Mob_programming">Mob
-Programming</a>, I wish our tools did not suck that much when it comes
-to sharing with fellow developers! I would like to spend some time
-building a <em>Distributed Development Environment</em> based on
-something like Idris to let 2 or more developers collaborate in real
-time on the development of a system.</li>
+<li>I have started contributed to the best of my abilities to <a href="https://github.com/edwinb/Idris2">Idris2</a> and one area I am particularly interested in is how to improve the developer’s experience, how to leverage the compiler’s machinery to let the developer <em>dialog with the typechecker</em> while building the software?</li>
+<li><a href="https://en.wikipedia.org/wiki/Smalltalk">Smalltalk</a> was one of the first languages to provide superior tools for development, with an integrated development environment where one could inspect every aspect of the system and dynamically change it, getting instant feedback. Could we do the same with Idris2, letting the developers interact with the compiler <em>and</em> the live system’s state while building it? Idris, like <a href="https://coq.inria.fr/">Coq</a>, provides sophisticated tooling for <em>theorem proving</em> which is just the activity of deriving code (proof) from types (propositions).</li>
+<li><a href="https://github.com/hazelgrove/hazel">Hazel</a> is an example of a system that provides tooling around <em>holes</em>, allowing the developer to build the system partially, providing placeholders (stubs) in areas which need further development while still allowing the system to execute the implemented parts. Surely, there’s something to learn here and implement for Idris!</li>
+<li>Being a practitioner and strong proponent of <a href="https://www.jamesshore.com/Agile-Book/pair_programming.html">Pair</a> and <a href="https://en.wikipedia.org/wiki/Mob_programming">Mob Programming</a>, I wish our tools did not suck that much when it comes to sharing with fellow developers! I would like to spend some time building a <em>Distributed Development Environment</em> based on something like Idris to let 2 or more developers collaborate in real time on the development of a system.</li>
 </ul>
 <h2 id="online-games">Online Games</h2>
 <ul>
-<li>I have implemented most of the rules of a <a
-href="https://github.com/abailly/hsgames/tree/master/bautzen1945">wargame</a>
-in Idris (1 and 2), but have been stuck with turning this kernel into a
-usable software. I would like to build a UI in Elm that would allow
-multiple users and multiple simultaneous games, but the support for
-multi-threading is somewhat lacking in both versions of Idris.</li>
-<li>I had hopes I could leverage Idris2’s underlying Scheme runtime to
-provide the heavylifting for concurrent channels but unfortunately, the
-game does not even run on Idris2, probably because of the lack of
-optimisation in various low-level numeric operations on
-<code>Nat</code>s.</li>
-<li>This lead me to the conclusion that having an optimised low-level
-backend for Idris2 would be useful. <a href="https://llvm.org/">LLVM</a>
-is the way to go for such an endeavour!</li>
+<li>I have implemented most of the rules of a <a href="https://github.com/abailly/hsgames/tree/master/bautzen1945">wargame</a> in Idris (1 and 2), but have been stuck with turning this kernel into a usable software. I would like to build a UI in Elm that would allow multiple users and multiple simultaneous games, but the support for multi-threading is somewhat lacking in both versions of Idris.</li>
+<li>I had hopes I could leverage Idris2’s underlying Scheme runtime to provide the heavylifting for concurrent channels but unfortunately, the game does not even run on Idris2, probably because of the lack of optimisation in various low-level numeric operations on <code>Nat</code>s.</li>
+<li>This lead me to the conclusion that having an optimised low-level backend for Idris2 would be useful. <a href="https://llvm.org/">LLVM</a> is the way to go for such an endeavour!</li>
 </ul>
 <h1 id="testing">Testing</h1>
-<h2 id="property--and-model-based-testing">Property- and Model-Based
-Testing</h2>
+<h2 id="property--and-model-based-testing">Property- and Model-Based Testing</h2>
 <ul>
-<li><a
-href="https://hackage.haskell.org/package/QuickCheck">QuickCheck</a>
-(along with similar packages for languages other than Haskell) is a
-fantastic tool when our types come short of providing us the necessary
-confidence in our implementation. My former colleague <a
-href="https://bobkonf.de/2018/andjelkovic.html">Stevan Andjelkovic</a>
-has created <a
-href="https://github.com/advancedtelematic/quickcheck-state-machine/">quickcheck-state-machines</a>
-which provides a great implementation of state-machine based testing,
-allowing one to generate tests from a more abstract automata-like
-<em>model</em> of a software.</li>
-<li>An idea that is dear to my heart and which I have awkwardly promoted
-as <a
-href="https://github.com/aleryo/homomorphic-event-sourcing">Homomorphic
-Event Sourcing</a> is that a single Input/Output State Machine based
-model could be used both as a <em>tester</em> and as a <em>mock</em>,
-providing an executable specification to securely develop clients and
-servers in parallel.</li>
-<li>But once we have FSM models, why not bite the bullet and turn those
-into proper types, like <a
-href="http://simonjf.com/2016/05/28/session-type-implementations.html">Session
-types</a>?</li>
-<li>I definitely want to keep investigating that field, possibly
-building on QSM package to provide better mocking</li>
+<li><a href="https://hackage.haskell.org/package/QuickCheck">QuickCheck</a> (along with similar packages for languages other than Haskell) is a fantastic tool when our types come short of providing us the necessary confidence in our implementation. My former colleague <a href="https://bobkonf.de/2018/andjelkovic.html">Stevan Andjelkovic</a> has created <a href="https://github.com/advancedtelematic/quickcheck-state-machine/">quickcheck-state-machines</a> which provides a great implementation of state-machine based testing, allowing one to generate tests from a more abstract automata-like <em>model</em> of a software.</li>
+<li>An idea that is dear to my heart and which I have awkwardly promoted as <a href="https://github.com/aleryo/homomorphic-event-sourcing">Homomorphic Event Sourcing</a> is that a single Input/Output State Machine based model could be used both as a <em>tester</em> and as a <em>mock</em>, providing an executable specification to securely develop clients and servers in parallel.</li>
+<li>But once we have FSM models, why not bite the bullet and turn those into proper types, like <a href="http://simonjf.com/2016/05/28/session-type-implementations.html">Session types</a>?</li>
+<li>I definitely want to keep investigating that field, possibly building on QSM package to provide better mocking</li>
 </ul>
 <h2 id="fitnesse-atddbdd">FitNesse &amp; ATDD/BDD</h2>
 <ul>
-<li><a href="http://fitnesse.org">FitNesse</a> has been my favorite
-BDD/ATDD tool for years, but I must admit it is definitely showing signs
-of its age: Running a shared instance is somewhat painful to maintain,
-Wiki syntax is “non-standard” (not there is such a thing as standard
-Wiki syntax but still…), user experience is terrible when compared to
-things like http://notion.so … Maybe the time is ripe for starting
-afresh and create a more modern version of it?</li>
-<li>What if we could combine models, examples, documentation and tests
-execution within a single tool? This idea is related to the
-<em>developers experience</em> I have already mentioned, and hints at
-tools like <a href="https://jupyter.org/">Jupyter</a> notebooks and Bret
-Victor’s <a href="http://worrydream.com/LadderOfAbstraction/">Ladder of
-Abstraction</a></li>
-<li>Maybe the Wiki idea is not so much a useful tool than a barrier to
-entry for newcomers, esp. non-developers who might be reluctant to code
-the formatting of a page when they are used to rich UIs? FitNesse is an
-evolution of <a href="http://fit.c2.com/">FIT</a> which initially
-interpreted <em>spreadsheets</em>. Given the ubiquity of online
-spreadsheet tools, I think getting back to a simple tool for
-interpreting and executing spreadsheets would be worth a try.</li>
+<li><a href="http://fitnesse.org">FitNesse</a> has been my favorite BDD/ATDD tool for years, but I must admit it is definitely showing signs of its age: Running a shared instance is somewhat painful to maintain, Wiki syntax is “non-standard” (not there is such a thing as standard Wiki syntax but still…), user experience is terrible when compared to things like http://notion.so … Maybe the time is ripe for starting afresh and create a more modern version of it?</li>
+<li>What if we could combine models, examples, documentation and tests execution within a single tool? This idea is related to the <em>developers experience</em> I have already mentioned, and hints at tools like <a href="https://jupyter.org/">Jupyter</a> notebooks and Bret Victor’s <a href="http://worrydream.com/LadderOfAbstraction/">Ladder of Abstraction</a></li>
+<li>Maybe the Wiki idea is not so much a useful tool than a barrier to entry for newcomers, esp. non-developers who might be reluctant to code the formatting of a page when they are used to rich UIs? FitNesse is an evolution of <a href="http://fit.c2.com/">FIT</a> which initially interpreted <em>spreadsheets</em>. Given the ubiquity of online spreadsheet tools, I think getting back to a simple tool for interpreting and executing spreadsheets would be worth a try.</li>
 </ul>
-<h1 id="various-software-related-stuff">Various Software-related
-stuff</h1>
+<h1 id="various-software-related-stuff">Various Software-related stuff</h1>
 <ul>
-<li>With <a
-href="https://www.linkedin.com/in/fredericmerizen/?originalSubdomain=fr">Frédéric
-Merizen</a> I have given in November a trial session of a <a
-href="">Functional Architecture</a> course inspired by <a
-href="https://www.deinprogramm.de/sperber/">Michael Sperber</a> and <a
-href="https://nicolerauch.de/">Nicole Rauch</a> own <a
-href="https://www.isaqb.org/wp-content/uploads/2018/09/isaqb-Lehrplan-advanced-FUNAR_1.0.pdf">course
-in German</a>. We plan to build on that experience to provide a
-commercial version of that training, possibly in several cities in
-France.</li>
-<li>Having worked for almost 3 years at <a
-href="https://symbiont.io">Symbiont</a> on building a so-called
-<em>Smart Contracts</em> platform, and more precisely a distributed and
-decentralised application to manage loans on top of this platform, gave
-me a new perspective on the potential of <em>Blockchain</em> (aka.
-<em>Distributed Ledger Technology</em>) for developing distributed
-systems. I believe a generalised <em>Event Sourcing</em> approach as
-exemplified in the <a href="https://github.com/aleryo/one-log">One
-Log</a> talk we gave with Yann Schwarz at <a
-href="https://www.youtube.com/watch?v=zKtCsODXjbw">Codemesh</a> and <a
-href="https://bordeaux.ncrafts.io/2018/">NCrafts Bordeaux</a> in 2018,
-is a great way to design and build software system on such
-platforms.</li>
-<li>I would like to explore how public and/or open-source “blockchain”
-platforms can support large and complex decentralised applications
-dedicated to some specific domains like finance, supply chain or even
-e-government.</li>
-<li>At the theoretical level, I definitely need to improve my knowledge
-of fundamental principles of decentralised systems, how to model them,
-how to reason about them, how to verify them… I wonder if <a
-href="http://www.numdam.org/article/ITA_1987__21_2_99_0.pdf">Asynchronous
-automata</a> could not provided some interesting foundations for
-reasoning about such kind of systems.</li>
+<li>With <a href="https://www.linkedin.com/in/fredericmerizen/?originalSubdomain=fr">Frédéric Merizen</a> I have given in November a trial session of a <a href>Functional Architecture</a> course inspired by <a href="https://www.deinprogramm.de/sperber/">Michael Sperber</a> and <a href="https://nicolerauch.de/">Nicole Rauch</a> own <a href="https://www.isaqb.org/wp-content/uploads/2018/09/isaqb-Lehrplan-advanced-FUNAR_1.0.pdf">course in German</a>. We plan to build on that experience to provide a commercial version of that training, possibly in several cities in France.</li>
+<li>Having worked for almost 3 years at <a href="https://symbiont.io">Symbiont</a> on building a so-called <em>Smart Contracts</em> platform, and more precisely a distributed and decentralised application to manage loans on top of this platform, gave me a new perspective on the potential of <em>Blockchain</em> (aka. <em>Distributed Ledger Technology</em>) for developing distributed systems. I believe a generalised <em>Event Sourcing</em> approach as exemplified in the <a href="https://github.com/aleryo/one-log">One Log</a> talk we gave with Yann Schwarz at <a href="https://www.youtube.com/watch?v=zKtCsODXjbw">Codemesh</a> and <a href="https://bordeaux.ncrafts.io/2018/">NCrafts Bordeaux</a> in 2018, is a great way to design and build software system on such platforms.</li>
+<li>I would like to explore how public and/or open-source “blockchain” platforms can support large and complex decentralised applications dedicated to some specific domains like finance, supply chain or even e-government.</li>
+<li>At the theoretical level, I definitely need to improve my knowledge of fundamental principles of decentralised systems, how to model them, how to reason about them, how to verify them… I wonder if <a href="http://www.numdam.org/article/ITA_1987__21_2_99_0.pdf">Asynchronous automata</a> could not provided some interesting foundations for reasoning about such kind of systems.</li>
 </ul>
 <h1 id="non-software">Non-software</h1>
 <ul>
-<li>Since I have read Merleau-Ponty’s <a
-href="http://abailly.github.io/posts/pheno-perception.html">Phénoménologie
-de la perception</a>, I have been fascinated by <em>Phenomenology</em>:
-What is it, how does it “work”, what insights does it provide… I have
-started reading Husserl’s <a
-href="http://www.gallimard.fr/Catalogue/GALLIMARD/Bibliotheque-de-Philosophie/Idees-directrices-pour-une-phenomenologie-pure-et-une-philosophie-phenomenologique">Idées
-directrices pour une phénoménologie pure et une philosophie
-phénoménologique</a> in the hope to gather some insights on things like
-<em>epoché</em> or the <em>phenomenological reduction</em> process.</li>
-<li>I think such tools could be useful as a way to approach software
-differently, maybe complementing the <a
-href="http://abailly.github.io/posts/therapeutique-du-code.html">therapeutical
-approach</a> I advocated a couple years ago: Analysing software systems
-as pure <em>phenomena</em>, in the way they <em>appear</em> to the
-people that work on them or with them, removing the cruft of judgment,
-prejudices and builtin assumptions about them ; tracking the
-<em>intentionality</em> behind the relations we have with software
-intensive systems.</li>
-<li>I recently read Robin K. Hill’s <a
-href="https://link.springer.com/article/10.1007/s13347-014-0184-5">What
-an algorithm is?</a> and this looks like the kind of analysis I am
-trying to develop.</li>
-<li>I have also started reading Piketty’s <a
-href="https://www.seuil.com/ouvrage/capital-et-ideologie-thomas-piketty/9782021338041">Capitalisme
-et idéologie</a> which is a “Sequel” to his extraordinary successful <a
-href="http://www.seuil.com/ouvrage/le-capital-au-xxie-siecle-thomas-piketty/9782021082289">Le
-capital au XXIème siècle</a>. Piketty is one of the few modern-day
-thinkers that are both optimistic and realistic, providing concrete and
-actionable - even if counter-intuitive or controversial - solutions to
-make a better world.</li>
-<li>In the same vein, I recently discovered the existence of <a
-href="https://en.wikipedia.org/wiki/Modern_Monetary_Theory">Modern
-Monetary Theory</a> which seems to be a form of Neo-Keynesianism, an
-heterodox macroeconomic theory that strives to counter neo-liberalist
-economic theory and restrictive monetary policies that are the heart of
-our world’s growing inequalities. I look forward to read the book <a
-href="https://www.amazon.fr/gp/product/1137610662/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&amp;psc=1">Macroeconomics</a>
-and form a better understanding of what <em>MMT</em> is and how to
-rebuild a credible Left alternative.</li>
+<li>Since I have read Merleau-Ponty’s <a href="http://abailly.github.io/posts/pheno-perception.html">Phénoménologie de la perception</a>, I have been fascinated by <em>Phenomenology</em>: What is it, how does it “work”, what insights does it provide… I have started reading Husserl’s <a href="http://www.gallimard.fr/Catalogue/GALLIMARD/Bibliotheque-de-Philosophie/Idees-directrices-pour-une-phenomenologie-pure-et-une-philosophie-phenomenologique">Idées directrices pour une phénoménologie pure et une philosophie phénoménologique</a> in the hope to gather some insights on things like <em>epoché</em> or the <em>phenomenological reduction</em> process.</li>
+<li>I think such tools could be useful as a way to approach software differently, maybe complementing the <a href="http://abailly.github.io/posts/therapeutique-du-code.html">therapeutical approach</a> I advocated a couple years ago: Analysing software systems as pure <em>phenomena</em>, in the way they <em>appear</em> to the people that work on them or with them, removing the cruft of judgment, prejudices and builtin assumptions about them ; tracking the <em>intentionality</em> behind the relations we have with software intensive systems.</li>
+<li>I recently read Robin K. Hill’s <a href="https://link.springer.com/article/10.1007/s13347-014-0184-5">What an algorithm is?</a> and this looks like the kind of analysis I am trying to develop.</li>
+<li>I have also started reading Piketty’s <a href="https://www.seuil.com/ouvrage/capital-et-ideologie-thomas-piketty/9782021338041">Capitalisme et idéologie</a> which is a “Sequel” to his extraordinary successful <a href="http://www.seuil.com/ouvrage/le-capital-au-xxie-siecle-thomas-piketty/9782021082289">Le capital au XXIème siècle</a>. Piketty is one of the few modern-day thinkers that are both optimistic and realistic, providing concrete and actionable - even if counter-intuitive or controversial - solutions to make a better world.</li>
+<li>In the same vein, I recently discovered the existence of <a href="https://en.wikipedia.org/wiki/Modern_Monetary_Theory">Modern Monetary Theory</a> which seems to be a form of Neo-Keynesianism, an heterodox macroeconomic theory that strives to counter neo-liberalist economic theory and restrictive monetary policies that are the heart of our world’s growing inequalities. I look forward to read the book <a href="https://www.amazon.fr/gp/product/1137610662/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&amp;psc=1">Macroeconomics</a> and form a better understanding of what <em>MMT</em> is and how to rebuild a credible Left alternative.</li>
 </ul>
 <h1 id="conclusion">Conclusion</h1>
-<p>That’s obviously a ridiculously too high number of complex topics for
-a single person, in a single year. Especially taking into account I also
-plan to earn some money with a day job that might not fit perfectly with
-any of those projects, spend more time with my family, read books just
-for the pleasure of reading books, run and workout… Let’s see what 2020
-has to offer, I will be happy if I can make some decent progress on one
-or two of those topics!</p>
+<p>That’s obviously a ridiculously too high number of complex topics for a single person, in a single year. Especially taking into account I also plan to earn some money with a day job that might not fit perfectly with any of those projects, spend more time with my family, read books just for the pleasure of reading books, run and workout… Let’s see what 2020 has to offer, I will be happy if I can make some decent progress on one or two of those topics!</p>
 
 
 <div id="disqus_thread"></div>
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-
+  
     s.src = '//arnaudsblog.disqus.com/embed.js';
-
+  
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

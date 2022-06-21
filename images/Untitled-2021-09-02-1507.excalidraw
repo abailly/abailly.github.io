@@ -1,0 +1,173 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "id": "HDsu4HEKJqYtoCVKrLWIp",
+      "type": "text",
+      "x": 636.7305908203125,
+      "y": 260.7179260253906,
+      "width": 59,
+      "height": 25,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1276390463,
+      "version": 10,
+      "versionNonce": 1069850495,
+      "isDeleted": false,
+      "boundElements": [
+        {
+          "id": "KaJqm6-ZxS_3U7aCVjzqj",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1655148341373,
+      "link": null,
+      "locked": false,
+      "text": "Human",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 18,
+      "containerId": null,
+      "originalText": "Human"
+    },
+    {
+      "id": "JdoRQh4KZumoz1gmCRalX",
+      "type": "text",
+      "x": 623.3380126953125,
+      "y": 428.97650146484375,
+      "width": 90,
+      "height": 25,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1185372849,
+      "version": 47,
+      "versionNonce": 353141585,
+      "isDeleted": false,
+      "boundElements": [
+        {
+          "id": "KaJqm6-ZxS_3U7aCVjzqj",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1655148342908,
+      "link": null,
+      "locked": false,
+      "text": "Computer",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 18,
+      "containerId": null,
+      "originalText": "Computer"
+    },
+    {
+      "id": "KaJqm6-ZxS_3U7aCVjzqj",
+      "type": "arrow",
+      "x": 666.9057299276617,
+      "y": 296.3739929199219,
+      "width": 1.1608930139057065,
+      "height": 124.4051513671875,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "round",
+      "seed": 1237803601,
+      "version": 85,
+      "versionNonce": 580085567,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1655148357709,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          1.1608930139057065,
+          124.4051513671875
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "HDsu4HEKJqYtoCVKrLWIp",
+        "focus": -0.01548904145860752,
+        "gap": 10.65606689453125
+      },
+      "endBinding": {
+        "elementId": "JdoRQh4KZumoz1gmCRalX",
+        "focus": -0.0017344222040747205,
+        "gap": 8.197357177734375
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow"
+    },
+    {
+      "id": "0n6SeKxzGP3xsJj8YdU4l",
+      "type": "text",
+      "x": 684.6914034752511,
+      "y": 332.45780847331946,
+      "width": 115,
+      "height": 25,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 390211423,
+      "version": 264,
+      "versionNonce": 2109882513,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1655148435391,
+      "link": null,
+      "locked": false,
+      "text": "Abstraction",
+      "fontSize": 20.02581965776877,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 18,
+      "containerId": null,
+      "originalText": "Abstraction"
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}

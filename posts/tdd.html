@@ -7,7 +7,9 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - On Test-Driven Development</title>
+
   <meta name="description" content="Crafting code since 1994">
+
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -39,194 +41,126 @@
     </header>
     <div id="main" role="main">
 <h1>On Test-Driven Development</h1>
-<div class="info">Posted on 2013-11-16</div>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on November 16, 2013</div>
 
 <ul>
-<li>Within Agile circles, TDD is thought to be one of the techniques
-promoted by XP that is only for developers</li>
-<li>This is something I have been practicing for years now, and I still
-have to master</li>
-<li>It occured to me recently, during a session on fractal TDD I gave at
-Agile Tour Beirut with Craig Morrisson, that there is actually more to
-it than simpy a technique for developers</li>
-<li>This is also tied to what Freeman and Pryce says in their GOOS
-book</li>
-<li>And I think this was what Kent Beck had in mind when he invented it,
-explicitly or implicitly, except that using the word Test was
-unfortunate as it lead other people to think it was somehow connected to
-the actual activity of testing</li>
-<li>TDD is the heart of Agile and from it you can derive all other
-practices that, along the years have become part of the norm of what can
-be considered agile software development</li>
-<li>When infected by this desire to be able to express in an
-<em>executable form</em> the <strong>purpose</strong> of what I shall be
-developing, other practices become obvious. Given TDD and the need for
-feedback:
+<li>Within Agile circles, TDD is thought to be one of the techniques promoted by XP that is only for developers</li>
+<li>This is something I have been practicing for years now, and I still have to master</li>
+<li>It occured to me recently, during a session on fractal TDD I gave at Agile Tour Beirut with Craig Morrisson, that there is
+actually more to it than simpy a technique for developers</li>
+<li>This is also tied to what Freeman and Pryce says in their GOOS book</li>
+<li>And I think this was what Kent Beck had in mind when he invented it, explicitly or implicitly, except that using the word Test
+was unfortunate as it lead other people to think it was somehow connected to the actual activity of testing</li>
+<li>TDD is the heart of Agile and from it you can derive all other practices that, along the years have become part of the norm of
+what can be considered agile software development</li>
+<li>When infected by this desire to be able to express in an <em>executable form</em> the <strong>purpose</strong> of what I shall be developing, other
+practices become obvious. Given TDD and the need for feedback:
 <ul>
-<li>I need <em>continuous integration</em> because it tells me faster
-whether or not my purpose is fulfilled, and whether or not all other
+<li>I need <em>continuous integration</em> because it tells me faster whether or not my purpose is fulfilled, and whether or not all other
 people’s purposes are fulfilled</li>
-<li>I need short and frequent <em>iterative releases</em> to validate my
-tests (my assumptions) against the actual usage of end-users and
-customers</li>
-<li>I need <em>refactoring</em> to ensure my tests stay manageable and
-my code testable</li>
-<li>I need <em>simple design</em> because it promotes testability and
-clarity</li>
-<li>I need <em>pair programming</em> (or at least peer review) to
-double-check my tests and my code and to align them against the current
-practice of the team</li>
-<li>I need <em>whole team</em> to ensure all parts of the software can
-be tested and are tested</li>
+<li>I need short and frequent <em>iterative releases</em> to validate my tests (my assumptions) against the actual usage of end-users and customers</li>
+<li>I need <em>refactoring</em> to ensure my tests stay manageable and my code testable</li>
+<li>I need <em>simple design</em> because it promotes testability and clarity</li>
+<li>I need <em>pair programming</em> (or at least peer review) to double-check my tests and my code and to align them against the
+current practice of the team</li>
+<li>I need <em>whole team</em> to ensure all parts of the software can be tested and are tested</li>
 <li>…</li>
 </ul></li>
-<li>Fractal TDD is just a compact and efficient way to say that TDD has
-most value when practiced at all level and all stages of your
-development process: Each and every artifact produced and designed must
-be backed with some “test” which expresses the purpose of this artifact
-and provides the ability to consistently, continuously, rigorously and
-reliably validate the produced artifact is actually the right one</li>
-<li>On another perspective, just as Curry-Howard expresses the
-isomorphism that exists between types and programs on one side, and
-predicates and proofs on the other side ; TDD expresses this same
-relationship logic has w.r.t. tests and software.</li>
-<li>A test is a <em>predicate</em> that should be asserted by the
-software</li>
-<li>And the fact that not all proofs (actually the vast majority of
-proofs) cannot be machine-checked does not invalidate the whole proving
-process behind mathematics ; just like the fact that not all tests can
-be automated does not impact their general usefulness</li>
+<li>Fractal TDD is just a compact and efficient way to say that TDD has most value when practiced at all level and all stages of
+your development process: Each and every artifact produced and designed must be backed with some “test” which expresses the
+purpose of this artifact and provides the ability to consistently, continuously, rigorously and reliably validate the produced
+artifact is actually the right one</li>
+<li>On another perspective, just as Curry-Howard expresses the isomorphism that exists between types and programs on one side, and
+predicates and proofs on the other side ; TDD expresses this same relationship logic has w.r.t. tests and software.</li>
+<li>A test is a <em>predicate</em> that should be asserted by the software</li>
+<li>And the fact that not all proofs (actually the vast majority of proofs) cannot be machine-checked does not invalidate the whole
+proving process behind mathematics ; just like the fact that not all tests can be automated does not impact their general
+usefulness</li>
 <li>Relationship between code and test then goes on 3 levels:
 <ul>
-<li>Level 1 is actually <em>writing tests</em> for the sake of producing
-a good regression test suite. When done at this level, it is irrelevant
-whether you write your tests first or last</li>
-<li>Level 2 is actually practicing TDD to drive coding, at the level of
-<em>unit tests</em> or a bit above that. Its benefits are: Simpler code,
-only relevant code is written, clean code…</li>
-<li>Level 3 is <em>fractal TDD</em>, where this logic is applied at all
-stages and all steps of the development process</li>
+<li>Level 1 is actually <em>writing tests</em> for the sake of producing a good regression test suite. When done at this level, it is
+irrelevant whether you write your tests first or last</li>
+<li>Level 2 is actually practicing TDD to drive coding, at the level of <em>unit tests</em> or a bit above that. Its benefits are:
+Simpler code, only relevant code is written, clean code…</li>
+<li>Level 3 is <em>fractal TDD</em>, where this logic is applied at all stages and all steps of the development process</li>
 </ul></li>
-<li>There are probably more levels on the road to enlightment but those
-are <em>known unknowns</em></li>
-<li>At an even higher-level, TDD is simply a rephrasing of classical
-scientific method: Make an hypothesis, Design an experiment, Validate or
-invalidate the hypothesis with the experiment, repeat until exhausted
-(till you die…) ; but in the context not of producing knowledge but to
-change the world</li>
-<li>This is the same mechanism that’s at the heart of Lean: The <em>pull
-system</em><a href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a> makes all parts of the system
-dependents on initial <em>pull</em> by customers/end-users</li>
-<li><em>Feature Injection</em> is another high-level form of TDD: The
-whole development process is driven by the requested outputs of the
+<li>There are probably more levels on the road to enlightment but those are <em>known unknowns</em></li>
+<li>At an even higher-level, TDD is simply a rephrasing of classical scientific method: Make an hypothesis, Design an experiment,
+Validate or invalidate the hypothesis with the experiment, repeat until exhausted (till you die…) ; but in the context not of
+producing knowledge but to change the world</li>
+<li>This is the same mechanism that’s at the heart of Lean: The <em>pull system</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> makes all parts of the system dependents on
+initial <em>pull</em> by customers/end-users</li>
+<li><em>Feature Injection</em> is another high-level form of TDD: The whole development process is driven by the requested outputs of the
 system which trigger examples that are turned into tests then code.</li>
-<li><em>Impact Mapping</em>, <em>story mapping</em>, <em>goal
-tables</em> are other instances of the same class. Starting from a
-high-level measurable business goal, derives intermediate goals,
-prioritize them, then use this to drive development building use
-cases</li>
-<li><em>Lean Startup</em> is yet another form of scientific process,
-where one design experiments to find a business model.</li>
-<li>What are the consequences? For me, it is the acknowledgment that
-never should I start working on some code without a clear understanding
-of the goal in the form of an <strong>assertable statement of
-purpose</strong>, a <em>procedure</em> which can tell whether or not the
+<li><em>Impact Mapping</em>, <em>story mapping</em>, <em>goal tables</em> are other instances of the same class. Starting from a high-level measurable
+business goal, derives intermediate goals, prioritize them, then use this to drive development building use cases</li>
+<li><em>Lean Startup</em> is yet another form of scientific process, where one design experiments to find a business model.</li>
+<li>What are the consequences? For me, it is the acknowledgment that never should I start working on some code without a clear
+understanding of the goal in the form of an <strong>assertable statement of purpose</strong>, a <em>procedure</em> which can tell whether or not the
 goal has been reached, that is a <strong>test</strong>.</li>
 <li>Of course this test can takes many forms:
 <ul>
 <li>A piece of executable code,</li>
 <li>A fitnesse table or cucumber scenario,</li>
 <li>An Excel spreadsheet,</li>
-<li>A more or less formal written statement about the goal, which can
-followed to deliver a definite assertion about the goal,</li>
+<li>A more or less formal written statement about the goal, which can followed to deliver a definite assertion about the goal,</li>
 <li>A description of the shape of some output,</li>
 <li>…</li>
 </ul></li>
 <li>It must have the standard expected characteristics:
 <ul>
 <li>Repeatable,</li>
-<li>Self-contained: No external knowledge or artifact<a href="#fn2"
-class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> is
-required to understand and execute the test beyond what the test itself
+<li>Self-contained: No external knowledge or artifact<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> is required to understand and execute the test beyond what the test itself
 provides,</li>
 <li>Actionable</li>
 <li>Unambiguous</li>
-<li>Timebound: One must be able to verify it within a specific (short)
-timespan</li>
+<li>Timebound: One must be able to verify it within a specific (short) timespan</li>
 </ul></li>
-<li>Reframing this in a more mathematical setting, a test (both the
-statement and the procedure to verify it) must be:
+<li>Reframing this in a more mathematical setting, a test (both the statement and the procedure to verify it) must be:
 <ul>
 <li>Consistent: If it can run its output is either true or false</li>
-<li>Complete: If it can run to completion, it gives an output for all
-inputs</li>
-<li>Computable: It provides an output in finite (and low complexity)
-time and space</li>
+<li>Complete: If it can run to completion, it gives an output for all inputs</li>
+<li>Computable: It provides an output in finite (and low complexity) time and space</li>
 </ul></li>
-<li>A single test is usually not enough, it is just the start of a
-process so we usually end up with more tests. These tests can be viewed
-as an <em>executable specification</em> of the built system in so far as
-we accept the fact they are a mere <em>sampling</em> of the possible
-input/output space of this system, so we expect our set of tests to
-exhibit another property: Accurate Sampling.</li>
-<li>This sampling is expected to provide an accurate image of the
-specification, so accurate actually that it should be possible to read
-the tests <em>as if</em> they were the actual specification of the
-system</li>
-<li>A genuine executable specification would be a thing used in formal
-methods to prove properties of the system, or even derive the system
-from a formal definition (eg. as in B or Z)</li>
-<li>TDD allows developers (and testers) to build such test suites while
-<em>designing the system</em> when there does not exist a specification
-of the system.</li>
-<li>TDD at level 2 is <em>one</em> programming technique, not
-<em>the</em> programming technique. When a specification already exists,
-eg. when no learning is expected to take place, it is not useful.</li>
-<li>TDD at level 2 can be mixed with other techniques for different
-parts of the software. For example, one could start writing code
-following a given specification, provide a skeletal system providing
-minimal service and writing tests after code to expose this
-specification, then test-drive the design and development of some
-components to be included in the system.</li>
-<li>If we say Level 2 TDD is one programming technique among others,
-what are these other techniques? In particular, what other techniques
-provide the same kind of guarantees than TDD provide?
+<li>A single test is usually not enough, it is just the start of a process so we usually end up with more tests. These tests can be
+viewed as an <em>executable specification</em> of the built system in so far as we accept the fact they are a mere <em>sampling</em> of the
+possible input/output space of this system, so we expect our set of tests to exhibit another property: Accurate Sampling.</li>
+<li>This sampling is expected to provide an accurate image of the specification, so accurate actually that it should be possible to
+read the tests <em>as if</em> they were the actual specification of the system</li>
+<li>A genuine executable specification would be a thing used in formal methods to prove properties of the system, or even derive
+the system from a formal definition (eg. as in B or Z)</li>
+<li>TDD allows developers (and testers) to build such test suites while <em>designing the system</em> when there does not exist a
+specification of the system.</li>
+<li>TDD at level 2 is <em>one</em> programming technique, not <em>the</em> programming technique. When a specification already exists, eg. when no
+learning is expected to take place, it is not useful.</li>
+<li>TDD at level 2 can be mixed with other techniques for different parts of the software. For example, one could start writing code
+following a given specification, provide a skeletal system providing minimal service and writing tests after code to expose this
+specification, then test-drive the design and development of some components to be included in the system.</li>
+<li>If we say Level 2 TDD is one programming technique among others, what are these other techniques? In particular, what other
+techniques provide the same kind of guarantees than TDD provide?
 <ul>
-<li><em>Generative techniques</em> provide those guarantees: Start from
-a human-validated model, then automatically generate code from this
-model. This of course implies the generator software is itself validated
-and verified. The model need not be a complex UML diagram, it could a
-simple descriptive specification, in a DSL, from which more complex code
-is generated</li>
-<li><em>Spike and Iterate</em> (Dan North, Liz Keogh) is the disciplined
-form of <em>hack and fix</em>. Produce an initial <em>spike</em>, eg.
-Minimal and experimental, implementation, designed to maximize feedback
-and learning ; then iterate on this initial spike, refactoring and
-completing tests while investigating detailed design of some crude
-parts. Here the guarantees are provided by end-users direct
-feedback.<br />
+<li><em>Generative techniques</em> provide those guarantees: Start from a human-validated model, then automatically generate code from
+this model. This of course implies the generator software is itself validated and verified. The model need not be a complex
+UML diagram, it could a simple descriptive specification, in a DSL, from which more complex code is generated</li>
+<li><em>Spike and Iterate</em> (Dan North, Liz Keogh) is the disciplined form of <em>hack and fix</em>. Produce an initial <em>spike</em>, eg. Minimal
+and experimental, implementation, designed to maximize feedback and learning ; then iterate on this initial spike,
+refactoring and completing tests while investigating detailed design of some crude parts. Here the guarantees are provided
+by end-users direct feedback.<br />
 </li>
-<li><em>Property-based testing</em> allows one to define properties
-about part of the system then use some automatic generators to produce
-test cases sampling the input space and try to find counterexamples
-invalidating the property</li>
+<li><em>Property-based testing</em> allows one to define properties about part of the system then use some automatic generators to produce
+test cases sampling the input space and try to find counterexamples invalidating the property</li>
 </ul></li>
 </ul>
-<section class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Saying that pull system is at the
-heart of Lean is somewhat controversial, I guess. Some would say that
-<em>kaizen</em>, the continuous quest for perfection is actually at the
-heart of Lean.<a href="#fnref1" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Beyond some basic level of
-understanding of the context. If we are stating some property of a piece
-of software then some assumptions can be omitted in the test, like the
-fact the software must be run…<a href="#fnref2" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Saying that pull system is at the heart of Lean is somewhat controversial, I guess. Some would say that <em>kaizen</em>, the
+continuous quest for perfection is actually at the heart of Lean.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Beyond some basic level of understanding of the context. If we are stating some property of a piece of software then some
+assumptions can be omitted in the test, like the fact the software must be run…<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -235,14 +169,17 @@ role="doc-backlink">↩︎</a></p></li>
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-
+  
     s.src = '//arnaudsblog.disqus.com/embed.js';
-
+  
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

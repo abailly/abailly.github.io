@@ -94,108 +94,90 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<section><section id="agenda" class="titleslide slide level1"><h1>Agenda</h1></section><section class="slide level2">
-
-<ul>
-<li class="fragment">Introduction</li>
-<li class="fragment">System Overview &amp; Motivation</li>
-<li class="fragment">Docker &amp; Testing</li>
-<li class="fragment">Demo</li>
-<li class="fragment">Conclusion</li>
+<h1 id="agenda">Agenda</h1>
+<hr />
+<ul class="incremental">
+<li>Introduction</li>
+<li>System Overview &amp; Motivation</li>
+<li>Docker &amp; Testing</li>
+<li>Demo</li>
+<li>Conclusion</li>
 </ul>
-</section></section>
-<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="who-am-i" class="slide level2">
-<h2>Who am I?</h2>
-<figure>
-<img src="/images/jack-of-all-trades.jpg" />
-</figure>
-<aside class="notes">
+<h1 id="introduction">Introduction</h1>
+<h2 id="who-am-i">Who am I?</h2>
+<p><img src="/images/jack-of-all-trades.jpg" /></p>
+<div class="notes">
 <ul>
 <li>Developing software since 1994</li>
 <li>Now busy coding in Haskell at <a href="https://symbiont.io">Symbiont</a></li>
 <li>Test Obsessed</li>
 <li>Using docker in development and production since 2014</li>
 </ul>
-</aside>
-</section><section id="symbiont" class="slide level2">
-<h2>Symbiont</h2>
-<figure>
-<img src="/images/symbiont-web.png" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="symbiont">Symbiont</h2>
+<p><img src="/images/symbiont-web.png" /></p>
+<div class="notes">
 <ul>
 <li>New-York based fintech startup building a <em>Smart Contracts</em> platform</li>
 <li>Provide solutions to build more efficient decentralised markets</li>
 <li>Tech stack based on <em>private blockchain</em> technology</li>
 <li><strong>We are hiring</strong></li>
 </ul>
-</aside>
-</section><section id="goals" class="slide level2">
-<h2>Goals</h2>
-<ul>
-<li class="fragment"><strong>Goal</strong>: Share experience return, ideas, tips on how to use docker to test a (complex) distributed system</li>
-<li class="fragment">Hope to raise tough questions and improve state of practice to develop such kind of systems</li>
-<li class="fragment"><strong>Feedback</strong> most welcomed</li>
-<li class="fragment">This is a <em>Work-in-Progress</em>…</li>
+</div>
+<h2 id="goals">Goals</h2>
+<ul class="incremental">
+<li><strong>Goal</strong>: Share experience return, ideas, tips on how to use docker to test a (complex) distributed system</li>
+<li>Hope to raise tough questions and improve state of practice to develop such kind of systems</li>
+<li><strong>Feedback</strong> most welcomed</li>
+<li>This is a <em>Work-in-Progress</em>…</li>
 </ul>
-</section></section>
-<section><section id="system-overview" class="titleslide slide level1"><h1>System Overview</h1></section><section id="symbionts-system" class="slide level2">
-<h2>Symbiont’s System</h2>
-<figure>
-<img src="/images/symbiont-node-arch.png" />
-</figure>
-</section><section id="core-components" class="slide level2">
-<h2>Core Components</h2>
-<ul>
-<li class="fragment">A <em>Byzantine Fault Tolerant Replicated Log</em> stores cryptographically signed and encrypted transactions</li>
-<li class="fragment">A <em>Contract Execution Engine</em> stores contract’s code and allow contract’s functions execution</li>
-<li class="fragment">A <em>Transaction Engine</em> manages identities and privacy of transactions across time</li>
+<h1 id="system-overview">System Overview</h1>
+<h2 id="symbionts-system">Symbiont’s System</h2>
+<p><img src="/images/symbiont-node-arch.png" /></p>
+<h2 id="core-components">Core Components</h2>
+<ul class="incremental">
+<li>A <em>Byzantine Fault Tolerant Replicated Log</em> stores cryptographically signed and encrypted transactions</li>
+<li>A <em>Contract Execution Engine</em> stores contract’s code and allow contract’s functions execution</li>
+<li>A <em>Transaction Engine</em> manages identities and privacy of transactions across time</li>
 </ul>
-</section><section id="bft-distributed-log" class="slide level2">
-<h2>BFT Distributed Log</h2>
-<ul>
-<li class="fragment">Critical piece of the system, ensures that all nodes share a consistent view of the system by linearizing transactions history</li>
-<li class="fragment">Implements <a href="http://www.di.fc.ul.pt/~bessani/publications/dsn14-bftsmart.pdf">BFT-SMaRt</a> protocol which is an extension of <a href="https://www.zurich.ibm.com/~cca/papers/pax.pdf">Paxos</a> to support <em>Byzantine failures</em></li>
-<li class="fragment">Non-byzantine failures: Node failures, network outages, network slowness…</li>
-<li class="fragment">Byzantine Failures: Arbitrary messages mangling, Node identities “stealing”…</li>
+<h2 id="bft-distributed-log">BFT Distributed Log</h2>
+<ul class="incremental">
+<li>Critical piece of the system, ensures that all nodes share a consistent view of the system by linearizing transactions history</li>
+<li>Implements <a href="http://www.di.fc.ul.pt/~bessani/publications/dsn14-bftsmart.pdf">BFT-SMaRt</a> protocol which is an extension of <a href="https://www.zurich.ibm.com/~cca/papers/pax.pdf">Paxos</a> to support <em>Byzantine failures</em></li>
+<li>Non-byzantine failures: Node failures, network outages, network slowness…</li>
+<li>Byzantine Failures: Arbitrary messages mangling, Node identities “stealing”…</li>
 </ul>
-<aside class="notes">
+<div class="notes">
 <ul>
 <li>see Distributed Algorithms, N.Lynch, pp.99-102</li>
 <li>Stop failures means processes can stop working but otherwise abide by their specifications</li>
 <li>Byzantine failures model means processes can change state and output messages arbitrarily</li>
 </ul>
-</aside>
-</section><section id="deployment" class="slide level2">
-<h2>Deployment</h2>
-<ul>
-<li class="fragment">All components of the system are packed as <em>docker containers</em></li>
-<li class="fragment">Deployment through Kubernetes over various cloud platforms (AWS, GCP, Azure)</li>
-<li class="fragment">A <em>Node</em> contains complete stack of services deployed together, several nodes form a <em>private network</em></li>
+</div>
+<h2 id="deployment">Deployment</h2>
+<ul class="incremental">
+<li>All components of the system are packed as <em>docker containers</em></li>
+<li>Deployment through Kubernetes over various cloud platforms (AWS, GCP, Azure)</li>
+<li>A <em>Node</em> contains complete stack of services deployed together, several nodes form a <em>private network</em></li>
 </ul>
-</section><section id="constraints" class="slide level2">
-<h2>Constraints</h2>
-<ul>
-<li class="fragment"><strong>Safety</strong>: System should tolerate arbitrary failures</li>
-<li class="fragment"><strong>Consistency</strong>: Transactions log should be identical to all client in order to ensure deterministic state</li>
-<li class="fragment"><strong>Security</strong>: System should enforce privacy and secrecy of transactions</li>
-<li class="fragment">Lies in the <em>CP</em> corner of CAP triangle</li>
+<h2 id="constraints">Constraints</h2>
+<ul class="incremental">
+<li><strong>Safety</strong>: System should tolerate arbitrary failures</li>
+<li><strong>Consistency</strong>: Transactions log should be identical to all client in order to ensure deterministic state</li>
+<li><strong>Security</strong>: System should enforce privacy and secrecy of transactions</li>
+<li>Lies in the <em>CP</em> corner of CAP triangle</li>
 </ul>
-</section></section>
-<section><section id="testing" class="titleslide slide level1"><h1>Testing</h1></section><section id="goals-1" class="slide level2">
-<h2>Goals</h2>
-<ul>
-<li class="fragment">Provide an <em>easy</em> way to write system-level tests for use in development and testing</li>
-<li class="fragment">Abstract away <em>details</em> of deployment</li>
-<li class="fragment">Build complex models of system’s behavior to generate <em>interesting</em> test cases for asserting <em>correctness</em> of the system in front of <em>faults</em> =&gt; allow injecting arbitrary faults</li>
-<li class="fragment">Fine control over system’s communication to generate <em>Byzantine failures</em></li>
+<h1 id="testing">Testing</h1>
+<h2 id="goals-1">Goals</h2>
+<ul class="incremental">
+<li>Provide an <em>easy</em> way to write system-level tests for use in development and testing</li>
+<li>Abstract away <em>details</em> of deployment</li>
+<li>Build complex models of system’s behavior to generate <em>interesting</em> test cases for asserting <em>correctness</em> of the system in front of <em>faults</em> =&gt; allow injecting arbitrary faults</li>
+<li>Fine control over system’s communication to generate <em>Byzantine failures</em></li>
 </ul>
-</section><section id="jepsen" class="slide level2">
-<h2><a href="https://aphyr.com/tags/jepsen">Jepsen</a></h2>
-<figure>
-<img src="/images/call-me-maybe.jpg" />
-</figure>
-<aside class="notes">
+<h2 id="jepsen"><a href="https://aphyr.com/tags/jepsen">Jepsen</a></h2>
+<p><img src="/images/call-me-maybe.jpg" /></p>
+<div class="notes">
 <ul>
 <li>Black-box testing tool</li>
 <li>Developed by Kyle Kingsbury aka. <a href="https://twitter.com/aphyr">aphyr</a></li>
@@ -203,28 +185,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>verifies <em>linearizability</em> of execution traces</li>
 <li>Found a good number of flaws in various high-profile open-source and closed sources DBs, including ES, ZK, Mongo, Riak, Redis…</li>
 </ul>
-</aside>
-</section><section id="jepsen---how-it-works" class="slide level2">
-<h2>Jepsen - How it works?</h2>
-<ul>
-<li class="fragment">Define a (simple) model of shared object (mutex, CAS…)</li>
-<li class="fragment">Deploy system over an actual cluster of machines</li>
-<li class="fragment">Generate (semi-)random sequence of operations representing concurrent clients interactions with the system</li>
-<li class="fragment">Generate <em>partitions</em> to trigger corner-cases and observe behaviour of system when network fails</li>
-<li class="fragment">Analyze resulting execution trace to detect violations of <em>model’s properties</em></li>
+</div>
+<h2 id="jepsen---how-it-works">Jepsen - How it works?</h2>
+<ul class="incremental">
+<li>Define a (simple) model of shared object (mutex, CAS…)</li>
+<li>Deploy system over an actual cluster of machines</li>
+<li>Generate (semi-)random sequence of operations representing concurrent clients interactions with the system</li>
+<li>Generate <em>partitions</em> to trigger corner-cases and observe behaviour of system when network fails</li>
+<li>Analyze resulting execution trace to detect violations of <em>model’s properties</em></li>
 </ul>
-<aside class="notes">
+<div class="notes">
 <ul>
 <li>Various <em>consistency</em> properties</li>
 <li>Knossos checks <em>linearizability</em> of operations: all operations appear to occur <em>instantaneously</em> at some point in time while respecting program order</li>
 </ul>
-</aside>
-</section><section id="jepsen-is-complex" class="slide level2">
-<h2>Jepsen is complex</h2>
-<figure>
-<img src="/images/gasworks.jpg" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="jepsen-is-complex">Jepsen is complex</h2>
+<p><img src="/images/gasworks.jpg" /></p>
+<div class="notes">
 <ul>
 <li>We are not that much interested in testing linearizability</li>
 <li>Requires developing driver in clojure to interact with system, deploy it, run it</li>
@@ -232,37 +210,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Requires expertise to design, run and analyze tests</li>
 <li>But lots of cool ideas and great piece of work! =&gt; We are thinking of hiring Kyle Kingsbury in the future to apply his expertise on our system!</li>
 </ul>
-</aside>
-</section><section id="testing-symbiont-system" class="slide level2">
-<h2>Testing Symbiont System</h2>
-<figure>
-<img src="/images/jules.jpg" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="testing-symbiont-system">Testing Symbiont System</h2>
+<p><img src="/images/jules.jpg" /></p>
+<div class="notes">
 <ul>
 <li>Deploy all or part of the system as containers in a local docker</li>
 <li>Write test scenarios exerting API of <em>System-Under-Test</em></li>
 <li>Inject networking and system level faults with <em>Blockade</em></li>
 <li>Check consistency of state of the system w/ simple properties</li>
 </ul>
-</aside>
-</section><section id="blockade" class="slide level2">
-<h2>Blockade</h2>
-<figure>
-<img src="/images/blockade.jpg" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="blockade">Blockade</h2>
+<p><img src="/images/blockade.jpg" /></p>
+<div class="notes">
 <ul>
 <li>A python-based tool for injecting faults in a <em>docker network</em></li>
 <li>Works as a command-line utility that manipulates iptables of containers and reacts on docker engine events to control system</li>
 </ul>
-</aside>
-</section><section id="blockade-1" class="slide level2">
-<h2>Blockade</h2>
-<figure>
-<img src="/images/blockade-network.png" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="blockade-1">Blockade</h2>
+<p><img src="/images/blockade-network.png" /></p>
+<div class="notes">
 <ul>
 <li>Uses <code>iptable</code>/<code>tc</code> tools to modify behaviour of containers’ network interfaces</li>
 <li>Works <code>exec</code>uting commands inside containers =&gt; requires availability of software packages</li>
@@ -273,13 +242,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>partition</code>: Break connections between nodes</li>
 </ul></li>
 </ul>
-</aside>
-</section><section id="domain-specific-language" class="slide level2">
-<h2>Domain Specific Language</h2>
-<figure>
-<img src="/images/rosetta-stone.jpg" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="domain-specific-language">Domain Specific Language</h2>
+<p><img src="/images/rosetta-stone.jpg" /></p>
+<div class="notes">
 <ul>
 <li>Tests are described with a custom Domain-specific language in Haskell</li>
 <li>Exposes high-level ops available to setup/run/teardown the system</li>
@@ -292,67 +258,58 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>simulation</li>
 </ul></li>
 </ul>
-</aside>
-</section><section id="writing-tests" class="slide level2">
-<h2>Writing Tests</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">test
-<span class="ot">  ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Test</span> e ()
-
-test numNodes <span class="fu">=</span> <span class="kw">do</span>
-  when (numNodes <span class="fu">&lt;</span> <span class="dv">5</span>) <span class="fu">$</span>
-    exit <span class="st">&quot;Split brain test should be run with at least 5 nodes&quot;</span>
-  (adminKey, procs) <span class="ot">&lt;-</span> setup <span class="st">&quot;assembly&quot;</span> numNodes
-  <span class="kw">let</span> mid <span class="fu">=</span> numNodes <span class="ot">`div`</span> <span class="dv">2</span>
-  run1 <span class="ot">&lt;-</span> mconcat <span class="fu">&lt;$&gt;</span>
-         feedTransactions <span class="dv">1</span>  (<span class="dv">10</span> <span class="fu">///</span>) (batchOf <span class="dv">10</span>) (seconds <span class="dv">10</span>)
-  nemesis <span class="fu">$</span> <span class="dt">Partition</span> [[ <span class="dv">1</span> <span class="fu">..</span> mid <span class="fu">-</span> <span class="dv">1</span> ], [ mid <span class="fu">..</span> numNodes ]]</code></pre></div>
-<aside class="notes">
+</div>
+<h2 id="writing-tests">Writing Tests</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>test</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Test</span> e ()</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>test numNodes <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  when (numNodes <span class="op">&lt;</span> <span class="dv">5</span>) <span class="op">$</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    exit <span class="st">&quot;Split brain test should be run with at least 5 nodes&quot;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  (adminKey, procs) <span class="ot">&lt;-</span> setup <span class="st">&quot;assembly&quot;</span> numNodes</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> mid <span class="ot">=</span> numNodes <span class="ot">`div`</span> <span class="dv">2</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  run1 <span class="ot">&lt;-</span> <span class="fu">mconcat</span> <span class="op">&lt;$&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>         feedTransactions <span class="dv">1</span>  (<span class="dv">10</span> <span class="op">///</span>) (batchOf <span class="dv">10</span>) (seconds <span class="dv">10</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  nemesis <span class="op">$</span> <span class="dt">Partition</span> [[ <span class="dv">1</span> <span class="op">..</span> mid <span class="op">-</span> <span class="dv">1</span> ], [ mid <span class="op">..</span> numNodes ]]</span></code></pre></div>
+<div class="notes">
 <ul>
 <li>tests are written in Haskell =&gt; compiled to an executable</li>
 <li>test fragments can also be executed from the REPL =&gt; rapid prototyping and easy interaction with the system</li>
 <li>contains operations for SUT <em>and</em> Nemesis actions (named inspired by Jepsen)</li>
 <li>Tests are run <em>sequentially</em></li>
 </ul>
-</aside>
-</section><section id="running-tests-w-docker" class="slide level2">
-<h2>Running Tests w/ Docker</h2>
-<ul>
-<li class="fragment">Two docker modes provided:
-<ul>
-<li class="fragment"><code>docker</code> runs the test executable from the host environment</li>
-<li class="fragment"><code>dind</code> runs the test executable from within docker</li>
+</div>
+<h2 id="running-tests-w-docker">Running Tests w/ Docker</h2>
+<ul class="incremental">
+<li>Two docker modes provided:
+<ul class="incremental">
+<li><code>docker</code> runs the test executable from the host environment</li>
+<li><code>dind</code> runs the test executable from within docker</li>
 </ul></li>
-<li class="fragment">Test executable is packaged as a container and pushed to repository</li>
-<li class="fragment">Allows executing tests within <em>Continuous Integration</em> environment and tagging specific versions</li>
+<li>Test executable is packaged as a container and pushed to repository</li>
+<li>Allows executing tests within <em>Continuous Integration</em> environment and tagging specific versions</li>
 </ul>
-</section><section id="tests-in-continuous-integration" class="slide level2">
-<h2>Tests in Continuous Integration</h2>
-<figure>
-<img src="/images/symbiont-circle-ci-assembly-sym-test.png" />
-</figure>
-<aside class="notes">
+<h2 id="tests-in-continuous-integration">Tests in Continuous Integration</h2>
+<p><img src="/images/symbiont-circle-ci-assembly-sym-test.png" /></p>
+<div class="notes">
 <ul>
 <li>Tests are run in CI as part of distributed log’s build</li>
 <li>Deployed on a custom GCP instance</li>
 <li>Run in dind mode from a known image tag</li>
 </ul>
-</aside>
-</section></section>
-<section><section id="demo" class="titleslide slide level1"><h1>Demo</h1></section></section>
-<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="takeaways" class="slide level2">
-<h2>Takeaways</h2>
-<ul>
-<li class="fragment">Docker is tremendously useful as an environment for system-level testing</li>
-<li class="fragment">There are lots of tools and utilities out there to help you doing that</li>
-<li class="fragment">There is great value in building a test DSL that reflects the way the system works and Haskell rocks as a tool to define such kind of DSLs</li>
-<li class="fragment"><em>This is just the beginning of the journey</em></li>
+</div>
+<h1 id="demo">Demo</h1>
+<h1 id="conclusion">Conclusion</h1>
+<h2 id="takeaways">Takeaways</h2>
+<ul class="incremental">
+<li>Docker is tremendously useful as an environment for system-level testing</li>
+<li>There are lots of tools and utilities out there to help you doing that</li>
+<li>There is great value in building a test DSL that reflects the way the system works and Haskell rocks as a tool to define such kind of DSLs</li>
+<li><em>This is just the beginning of the journey</em></li>
 </ul>
-</section><section id="whats-next" class="slide level2">
-<h2>What’s next?</h2>
-<figure>
-<img src="/images/chartres-cathedral.jpg" />
-</figure>
-<aside class="notes">
+<h2 id="whats-next">What’s next?</h2>
+<p><img src="/images/chartres-cathedral.jpg" /></p>
+<div class="notes">
 <ul>
 <li>Lot of work on covering more aspects of the system</li>
 <li>Provide an external parser to make it easier to write and modify tests</li>
@@ -361,26 +318,19 @@ test numNodes <span class="fu">=</span> <span class="kw">do</span>
 <li>…</li>
 <li>=&gt; make it easier and faster to use it</li>
 </ul>
-</aside>
-</section><section id="whats-next-model-based-testing" class="slide level2">
-<h2>What’s next? Model Based Testing!</h2>
-<figure>
-<img src="/images/magritte-pipe.jpg" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="whats-next-model-based-testing">What’s next? Model Based Testing!</h2>
+<p><img src="/images/magritte-pipe.jpg" /></p>
+<div class="notes">
 <ul>
 <li>Based on formal/executable models of the SUT</li>
 <li>Requires instrumentation of some sort of the processes run</li>
 <li>Similar to concurrent programs testing: <a href="https://github.com/barrucadu/dejafu">dejafu</a></li>
 <li>Still an area of active research…</li>
 </ul>
-</aside>
-</section><section id="questions" class="slide level2">
-<h2>Questions?</h2>
-<figure>
-<img src="/images/puzzled.jpg" />
-</figure>
-</section></section>
+</div>
+<h2 id="questions">Questions?</h2>
+<p><img src="/images/puzzled.jpg" /></p>
     </div>
   </div>
 

@@ -7,7 +7,9 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - Mutation-Based TDD</title>
+
   <meta name="description" content="Crafting code since 1994">
+
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -39,180 +41,63 @@
     </header>
     <div id="main" role="main">
 <h1>Mutation-Based TDD</h1>
+
   <h2 class="subtitle">Developing Plutus contracts with QuickCheck</h2>
-<div class="info">Posted on 2022-01-31</div>
+
+<div class="info">Posted on January 31, 2022</div>
 
 <h1 id="smart-contracts-cardano">Smart Contracts &amp; Cardano</h1>
-<p>I discovered the concept of <em>Smart Contracts</em> in 2016 in
-Singapore when I met the nice folks at <a
-href="https://legalese.com/">Legalese</a>, Meng Wong and Alexis Chun.
-This is what attracted me to blockchain much more than the
-cryptocurrency and speculation space: The fascinating idea of designing
-software that would run in a fully decentralised and distributed manner,
-representing evolving contractual obligations and rights over time, and
-reacting to consensual events added to the chain.</p>
-<p>Since then I have worked on a private blockchain based platform at <a
-href="https://www.symbiont.io/">Symbiont</a>, designing and building a
-<a href="https://www.symbiont.io/mortgages">mortgage servicing
-system</a> using Symbiont’s <a
-href="https://www.symbiont.io/post/safety-and-ease-of-use-in-sympl-a-dsl-for-enterprise-smart-contracts">SymPL</a>
-; and recently joined <a href="https://iohk.io/">IOG</a> which is the
-company developing the core technology of the <a
-href="https://cardano.org/">Cardano</a> blockchain and
-cryptocurrency.</p>
-<p>In 2021 <a
-href="https://plutus.readthedocs.io/en/latest/">Plutus</a>, Cardano’s
-native smart contract language, was made available on mainchain. Plutus
-is basically a lambda-calculus, and thus a Turing-complete language,
-with which developers write <em>scripts</em> that can lock <a
-href="https://files.zotero.net/eyJleHBpcmVzIjoxNjQzNDY2MzE0LCJoYXNoIjoiYTVhYmY4NjdiY2E2YzdkNTNjODkwNWNmZDZhYmM5MjAiLCJjb250ZW50VHlwZSI6ImFwcGxpY2F0aW9uXC9wZGYiLCJjaGFyc2V0IjoiIiwiZmlsZW5hbWUiOiJDaGFrcmF2YXJ0eSBldCBhbC4gLSAyMDIwIC0gVGhlIEV4dGVuZGVkIFVUWE8gTW9kZWwucGRmIn0%3D/156852d95f236fc19bf9615579d71dd7857ba06556a4b867adef6bfe7e5c4e1a/Chakravarty%20et%20al.%20-%202020%20-%20The%20Extended%20UTXO%20Model.pdf">eUTxO</a>.
-The scripts are evaluated when a transaction <em>consumes</em> such a
-eUTxO and the transaction is considered valid iff each validator
-evaluates to <em>True</em> in the context of the given transaction.</p>
-<p>Of course, the correctness of the validators’ code aka. <em>Smart
-Contracts</em> is of the utmost importance as they can control large
-amount of funds and coordinate complex processes involving a large
-number of parties. The Smart contracts space is infamous for quite a few
-exploits, some of them <a
-href="https://en.wikipedia.org/wiki/The_DAO_(organization)">famous</a>
-and having resulted in significant losses, hence the ability to test,
-verify, validate, audit Plutus code is critical. While we wait for
-proper formal verification tools to mature, we have to resort to
-standard practices like auomated testing and manual auditing, hence as
-<em>Smart Contracts Developers</em> we need to be extra-careful with
-this part of the code and put ourself in the shoes of potential
-“Attackers” that could try to harm users in various ways: Steal
-currencies, Denial-of-Service, lock funds…</p>
+<p>I discovered the concept of <em>Smart Contracts</em> in 2016 in Singapore when I met the nice folks at <a href="https://legalese.com/">Legalese</a>, Meng Wong and Alexis Chun. This is what attracted me to blockchain much more than the cryptocurrency and speculation space: The fascinating idea of designing software that would run in a fully decentralised and distributed manner, representing evolving contractual obligations and rights over time, and reacting to consensual events added to the chain.</p>
+<p>Since then I have worked on a private blockchain based platform at <a href="https://www.symbiont.io/">Symbiont</a>, designing and building a <a href="https://www.symbiont.io/mortgages">mortgage servicing system</a> using Symbiont’s <a href="https://www.symbiont.io/post/safety-and-ease-of-use-in-sympl-a-dsl-for-enterprise-smart-contracts">SymPL</a> ; and recently joined <a href="https://iohk.io/">IOG</a> which is the company developing the core technology of the <a href="https://cardano.org/">Cardano</a> blockchain and cryptocurrency.</p>
+<p>In 2021 <a href="https://plutus.readthedocs.io/en/latest/">Plutus</a>, Cardano’s native smart contract language, was made available on mainchain. Plutus is basically a lambda-calculus, and thus a Turing-complete language, with which developers write <em>scripts</em> that can lock <a href="https://files.zotero.net/eyJleHBpcmVzIjoxNjQzNDY2MzE0LCJoYXNoIjoiYTVhYmY4NjdiY2E2YzdkNTNjODkwNWNmZDZhYmM5MjAiLCJjb250ZW50VHlwZSI6ImFwcGxpY2F0aW9uXC9wZGYiLCJjaGFyc2V0IjoiIiwiZmlsZW5hbWUiOiJDaGFrcmF2YXJ0eSBldCBhbC4gLSAyMDIwIC0gVGhlIEV4dGVuZGVkIFVUWE8gTW9kZWwucGRmIn0%3D/156852d95f236fc19bf9615579d71dd7857ba06556a4b867adef6bfe7e5c4e1a/Chakravarty%20et%20al.%20-%202020%20-%20The%20Extended%20UTXO%20Model.pdf">eUTxO</a>. The scripts are evaluated when a transaction <em>consumes</em> such a eUTxO and the transaction is considered valid iff each validator evaluates to <em>True</em> in the context of the given transaction.</p>
+<p>Of course, the correctness of the validators’ code aka. <em>Smart Contracts</em> is of the utmost importance as they can control large amount of funds and coordinate complex processes involving a large number of parties. The Smart contracts space is infamous for quite a few exploits, some of them <a href="https://en.wikipedia.org/wiki/The_DAO_(organization)">famous</a> and having resulted in significant losses, hence the ability to test, verify, validate, audit Plutus code is critical. While we wait for proper formal verification tools to mature, we have to resort to standard practices like auomated testing and manual auditing, hence as <em>Smart Contracts Developers</em> we need to be extra-careful with this part of the code and put ourself in the shoes of potential “Attackers” that could try to harm users in various ways: Steal currencies, Denial-of-Service, lock funds…</p>
 <h1 id="hydra-smart-contracts">Hydra Smart Contracts</h1>
-<p>With my fellow colleagues working on the <a
-href="https://github.com/input-output-hk/hydra-poc">Hydra</a> Layer-2
-protocol for Cardano, <a
-href="https://www.linkedin.com/in/matthias-benkort-47186a57">Mathias
-Benkort</a> and <a
-href="https://www.linkedin.com/in/sebastian-nagel-2bb43a1a/">Sebastian
-Nagel</a>, we decided in October 2021 to move away from PAB and Plutus
-Application Framework in the development of the Hydra on-chain
-validators and experiment with so-called <em>Direct Chain</em>
-interaction: Use the standard cardano-api protocols and data structures
-to interact with the blockchain, posting transactions and following the
-chain as new blocks get created and new transactions added.</p>
-<p>After having spent some time setting up the needed infrastructure to
-build, post and observe Hydra-relevant transactions to and from a
-cardano-node, we went back to revisit our earlier work on Contracts and
-implement the full “Happy path” Hydra lifecycle, from initialising a
-Head to <em>Fan-out</em> and redistribution of UTxO created within the
-Head.</p>
-<h2 id="test-driving-hydras-validators">Test-Driving Hydra’s
-Validators</h2>
-<p>Being Test-Driven Development addicts the first question raised was
-then: How do you test-drive Plutus smart contracts? There’s a growing
-set of tools developers have at their disposal to test and test-drive
-Plutus contracts:</p>
+<p>With my fellow colleagues working on the <a href="https://github.com/input-output-hk/hydra-poc">Hydra</a> Layer-2 protocol for Cardano, <a href="https://www.linkedin.com/in/matthias-benkort-47186a57">Mathias Benkort</a> and <a href="https://www.linkedin.com/in/sebastian-nagel-2bb43a1a/">Sebastian Nagel</a>, we decided in October 2021 to move away from PAB and Plutus Application Framework in the development of the Hydra on-chain validators and experiment with so-called <em>Direct Chain</em> interaction: Use the standard cardano-api protocols and data structures to interact with the blockchain, posting transactions and following the chain as new blocks get created and new transactions added.</p>
+<p>After having spent some time setting up the needed infrastructure to build, post and observe Hydra-relevant transactions to and from a cardano-node, we went back to revisit our earlier work on Contracts and implement the full “Happy path” Hydra lifecycle, from initialising a Head to <em>Fan-out</em> and redistribution of UTxO created within the Head.</p>
+<h2 id="test-driving-hydras-validators">Test-Driving Hydra’s Validators</h2>
+<p>Being Test-Driven Development addicts the first question raised was then: How do you test-drive Plutus smart contracts? There’s a growing set of tools developers have at their disposal to test and test-drive Plutus contracts:</p>
 <ol type="1">
-<li>The “official” <a
-href="https://plutus-apps.readthedocs.io/en/latest/plutus/tutorials/contract-testing.html">Model-based
-testing</a> framework which is part of the plutus-apps repository
+<li>The “official” <a href="https://plutus-apps.readthedocs.io/en/latest/plutus/tutorials/contract-testing.html">Model-based testing</a> framework which is part of the plutus-apps repository
 <ul>
-<li>Scope is complete Plutus apps, which are tested at the level of the
-<code>Contract</code> monad, eg. including both on-chain and off-chain
-code,</li>
-<li>Tests are generated based on a <em>state machine model</em> of the
-system,</li>
-<li>It uses QuickCheck and <a
-href="https://github.com/input-output-hk/plutus-apps/tree/main/quickcheck-dynamic">quickcheck-dynamic</a>
-framework to explore state machine, generate traces and check
-correctness of implementation,</li>
-<li>Tests are run within an <code>Emulator</code> that’s supposed to
-reproduce the behaviour of the blockchain.</li>
+<li>Scope is complete Plutus apps, which are tested at the level of the <code>Contract</code> monad, eg. including both on-chain and off-chain code,</li>
+<li>Tests are generated based on a <em>state machine model</em> of the system,</li>
+<li>It uses QuickCheck and <a href="https://github.com/input-output-hk/plutus-apps/tree/main/quickcheck-dynamic">quickcheck-dynamic</a> framework to explore state machine, generate traces and check correctness of implementation,</li>
+<li>Tests are run within an <code>Emulator</code> that’s supposed to reproduce the behaviour of the blockchain.</li>
 </ul></li>
-<li><a href="https://github.com/tweag/plutus-libs/">plutus-libs</a> is
-another model-based testing approach also based on QuickCheck from <a
-href="https://www.tweag.io/blog/2022-01-26-property-based-testing-of-monadic-code/">Tweag</a>,
-called <code>cooked-validators</code>:
+<li><a href="https://github.com/tweag/plutus-libs/">plutus-libs</a> is another model-based testing approach also based on QuickCheck from <a href="https://www.tweag.io/blog/2022-01-26-property-based-testing-of-monadic-code/">Tweag</a>, called <code>cooked-validators</code>:
 <ul>
-<li>It provides own <code>MonadBlockChain</code> abstraction to
-represent off-chain interaction with the blockchain, which ultimately is
-based on Plutus’ representation of the ledger’s types,</li>
-<li>Tests are written as properties over trace expressions written in a
-<code>GenT</code> monad allowing interleaving generators and chain
-interactions like posting transactions,</li>
-<li><em>modalities</em> <code>somewhere</code> and
-<code>everywhere</code> provide a way to modify generated traces to
-produce more traces representing some arbitrary change over the set of
-traces. This is a powerful concept akin to <em>Temporal logic</em> modal
-operators, see <a
-href="https://github.com/tweag/plutus-libs/blob/main/examples/tests/PMultiSigStatefulSpec.hs#L272">this
-example</a> for a use of <code>somewhere</code>,</li>
+<li>It provides own <code>MonadBlockChain</code> abstraction to represent off-chain interaction with the blockchain, which ultimately is based on Plutus’ representation of the ledger’s types,</li>
+<li>Tests are written as properties over trace expressions written in a <code>GenT</code> monad allowing interleaving generators and chain interactions like posting transactions,</li>
+<li><em>modalities</em> <code>somewhere</code> and <code>everywhere</code> provide a way to modify generated traces to produce more traces representing some arbitrary change over the set of traces. This is a powerful concept akin to <em>Temporal logic</em> modal operators, see <a href="https://github.com/tweag/plutus-libs/blob/main/examples/tests/PMultiSigStatefulSpec.hs#L272">this example</a> for a use of <code>somewhere</code>,</li>
 </ul></li>
-<li><a
-href="https://github.com/Liqwid-Labs/plutus-extra/tree/master/tasty-plutus">tasty-plutus</a>
-provides a unit and property testing framework integrated with <a
-href="https://hackage.haskell.org/package/tasty">Tasty</a>
+<li><a href="https://github.com/Liqwid-Labs/plutus-extra/tree/master/tasty-plutus">tasty-plutus</a> provides a unit and property testing framework integrated with <a href="https://hackage.haskell.org/package/tasty">Tasty</a>
 <ul>
-<li>It’s based on a DSL to build a <code>ScriptContext</code> that can
-then be used to run the validators directly,</li>
-<li>Uses Plutus’ <code>Scripts.runScript</code> function to run the
-script,</li>
-<li>The scripts are run in compiled form and passed to the CEK
-interpreter,</li>
+<li>It’s based on a DSL to build a <code>ScriptContext</code> that can then be used to run the validators directly,</li>
+<li>Uses Plutus’ <code>Scripts.runScript</code> function to run the script,</li>
+<li>The scripts are run in compiled form and passed to the CEK interpreter,</li>
 </ul></li>
 </ol>
-<h2 id="mutation-based-property-driven-development">Mutation-based
-Property Driven Development</h2>
-<p>We decided to explore another avenue, which we have called
-<em>Mutation-based Property Driven Development</em> and which is as one
-can guess, a combination of <em>Property-based Testing</em> with
-QuickCheck, <em>Test-Driven Development</em>, and <em>Mutation
-testing</em>. Traditional <a
-href="https://en.wikipedia.org/wiki/Mutation_testing">Mutation
-testing</a> is a testing technique that introduces small modifications
-like changing a comparison operator, or modifying constants, into a
-program and checks whether or not the existing tests “kill” the produced
-mutants, eg. fail. Mutation testing requires somewhat complex tooling
-because it needs to modify the source code, in limited and semantically
-meaningful ways in order to generate code that won’t be rejected by the
-compiler. A quick search lead me to <a
-href="https://hackage.haskell.org/package/MuCheck">MuCheck</a> which
-seems to be the only available tool in Haskell-land and is quite old
-already, and beside we did not want to rely on esoteric tooling.</p>
+<h2 id="mutation-based-property-driven-development">Mutation-based Property Driven Development</h2>
+<p>We decided to explore another avenue, which we have called <em>Mutation-based Property Driven Development</em> and which is as one can guess, a combination of <em>Property-based Testing</em> with QuickCheck, <em>Test-Driven Development</em>, and <em>Mutation testing</em>. Traditional <a href="https://en.wikipedia.org/wiki/Mutation_testing">Mutation testing</a> is a testing technique that introduces small modifications like changing a comparison operator, or modifying constants, into a program and checks whether or not the existing tests “kill” the produced mutants, eg. fail. Mutation testing requires somewhat complex tooling because it needs to modify the source code, in limited and semantically meaningful ways in order to generate code that won’t be rejected by the compiler. A quick search lead me to <a href="https://hackage.haskell.org/package/MuCheck">MuCheck</a> which seems to be the only available tool in Haskell-land and is quite old already, and beside we did not want to rely on esoteric tooling.</p>
 <p>Plutus eUTxO validators are boolean expressions of the form:</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>validator <span class="op">:</span> <span class="dt">Datum</span> <span class="ot">-&gt;</span> <span class="dt">Redeemer</span> <span class="ot">-&gt;</span> <span class="dt">ScriptContext</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></span></code></pre></div>
-<p>All things being equal, “mutating” a <em>validator</em> so that it
-returns <code>False</code> instead of <code>True</code> can be done:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>validator <span class="op">:</span> <span class="dt">Datum</span> <span class="ot">-&gt;</span> <span class="dt">Redeemer</span> <span class="ot">-&gt;</span> <span class="dt">ScriptContext</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></span></code></pre></div>
+<p>All things being equal, “mutating” a <em>validator</em> so that it returns <code>False</code> instead of <code>True</code> can be done:</p>
 <ul>
-<li>Either by <em>mutating</em> the code of the <code>validator</code>
-implementation,</li>
+<li>Either by <em>mutating</em> the code of the <code>validator</code> implementation,</li>
 <li>Or by <em>mutating</em> its arguments.</li>
 </ul>
-<p>This simple idea lead us to the following strategy to test-drive each
-of our validator scripts, <code>Head</code>, <code>Commit</code> and
-<code>Initial</code>:</p>
+<p>This simple idea lead us to the following strategy to test-drive each of our validator scripts, <code>Head</code>, <code>Commit</code> and <code>Initial</code>:</p>
 <ol type="1">
 <li>Start with a validator that always return <code>True</code>,</li>
-<li>Write a <em>positive</em> property test checking <em>valid</em>
-transactions are accepted by the validator(s),</li>
-<li>Write a <em>negative</em> property test checking <em>invalid</em>
-transactions are rejected. This is where <em>mutations</em> are
-introduced, each different mutation type representing some possible
-“attack”,</li>
-<li>Watch one or the other properties fail and enhance the validators
-code to make them pass,</li>
+<li>Write a <em>positive</em> property test checking <em>valid</em> transactions are accepted by the validator(s),</li>
+<li>Write a <em>negative</em> property test checking <em>invalid</em> transactions are rejected. This is where <em>mutations</em> are introduced, each different mutation type representing some possible “attack”,</li>
+<li>Watch one or the other properties fail and enhance the validators code to make them pass,</li>
 <li>Rinse and repeat.</li>
 </ol>
-<p>As this is really the most “novel” part here are some details about
-the <em>Mutations</em> and the <em>Adversarial</em> property we
-check.</p>
-<h2 id="generic-property-and-mutations">Generic Property and
-Mutations</h2>
-<p>The definition of the property is simple and completely generic way:
-Given a transaction with some UTxO context, and a function that
-generates <code>SomeMutation</code> from a valid transaction and context
-pair, this property checks applying any generated mutation makes the
-mutated (hence expectedly invalid) transaction fail the validation
-stage.</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">propMutation ::</span> (<span class="dt">CardanoTx</span>, <span class="dt">Utxo</span>) <span class="ot">-&gt;</span> ((<span class="dt">CardanoTx</span>, <span class="dt">Utxo</span>) <span class="ot">-&gt;</span> <span class="dt">Gen</span> <span class="dt">SomeMutation</span>) <span class="ot">-&gt;</span> <span class="dt">Property</span></span>
+<p>As this is really the most “novel” part here are some details about the <em>Mutations</em> and the <em>Adversarial</em> property we check.</p>
+<h2 id="generic-property-and-mutations">Generic Property and Mutations</h2>
+<p>The definition of the property is simple and completely generic way: Given a transaction with some UTxO context, and a function that generates <code>SomeMutation</code> from a valid transaction and context pair, this property checks applying any generated mutation makes the mutated (hence expectedly invalid) transaction fail the validation stage.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">propMutation ::</span> (<span class="dt">CardanoTx</span>, <span class="dt">Utxo</span>) <span class="ot">-&gt;</span> ((<span class="dt">CardanoTx</span>, <span class="dt">Utxo</span>) <span class="ot">-&gt;</span> <span class="dt">Gen</span> <span class="dt">SomeMutation</span>) <span class="ot">-&gt;</span> <span class="dt">Property</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>propMutation (tx, utxo) genMutation <span class="ot">=</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  forAll <span class="op">@</span>_ <span class="op">@</span><span class="dt">Property</span> (genMutation (tx, utxo)) <span class="op">$</span> \<span class="dt">SomeMutation</span>{label, mutation} <span class="ot">-&gt;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    (tx, utxo)</span>
@@ -220,18 +105,10 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a 
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="op">&amp;</span> propTransactionDoesNotValidate</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="op">&amp;</span> genericCoverTable [label]</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="op">&amp;</span> checkCoverage</span></code></pre></div>
-<p>To this basic property definition we add a <code>checkCoverage</code>
-that ensures the set of generated mutations covers a statistically
-significant share of each of the various possible mutations classified
-by their <code>label</code>.</p>
-<p>The <code>SomeMutation</code> type is simply a wrapper that attaches
-a <code>label</code> to a proper <code>Mutation</code> which is the
-interesting bit here.</p>
-<p>The <code>Mutation</code> type enumerates various possible “atomic”
-mutations which preserve the structural correctness of the transaction
-but should make a validator fail.</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Mutation</span></span>
+<p>To this basic property definition we add a <code>checkCoverage</code> that ensures the set of generated mutations covers a statistically significant share of each of the various possible mutations classified by their <code>label</code>.</p>
+<p>The <code>SomeMutation</code> type is simply a wrapper that attaches a <code>label</code> to a proper <code>Mutation</code> which is the interesting bit here.</p>
+<p>The <code>Mutation</code> type enumerates various possible “atomic” mutations which preserve the structural correctness of the transaction but should make a validator fail.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Mutation</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> <span class="dt">ChangeHeadRedeemer</span> <span class="dt">Head.Input</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">ChangeHeadDatum</span> <span class="dt">Head.State</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">PrependOutput</span> (<span class="dt">TxOut</span> <span class="dt">CtxTx</span> <span class="dt">Era</span>)</span>
@@ -239,29 +116,14 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a 
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">ChangeInput</span> <span class="dt">TxIn</span> (<span class="dt">TxOut</span> <span class="dt">CtxUTxO</span> <span class="dt">Era</span>)</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">ChangeOutput</span> <span class="dt">Word</span> (<span class="dt">TxOut</span> <span class="dt">CtxTx</span> <span class="dt">Era</span>)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">Changes</span> [<span class="dt">Mutation</span>]</span></code></pre></div>
-<p>The constructors should hopefully be self-explaining but for the last
-one. Some interesting mutations we want to make require more than one
-“atomic” change to represent a possible validator failure. For example,
-we wanted to check that the <code>Commit</code> validator, in the
-context of a <code>CollectCom</code> transaction, verifies the state
-(<code>Head.Input</code>) of the <code>Head</code> validator is correct.
-But to be interesting, this mutation needs to ensure the
-<em>transition</em> verified by the <code>Head</code> state machine is
-valid, which requires changing <em>both</em> the datum and the redeemer
-of the consumed head output.</p>
-<h2 id="transaction-specific-mutations">Transaction-specific
-Mutations</h2>
-<p>To be run the <code>propMutation</code> requires a starting “healthy”
-(valid) transaction and a specialised generating function. It is
-instantiated in the test runner by providing these two elements:</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>describe <span class="st">&quot;CollectCom&quot;</span> <span class="op">$</span> <span class="kw">do</span></span>
+<p>The constructors should hopefully be self-explaining but for the last one. Some interesting mutations we want to make require more than one “atomic” change to represent a possible validator failure. For example, we wanted to check that the <code>Commit</code> validator, in the context of a <code>CollectCom</code> transaction, verifies the state (<code>Head.Input</code>) of the <code>Head</code> validator is correct. But to be interesting, this mutation needs to ensure the <em>transition</em> verified by the <code>Head</code> state machine is valid, which requires changing <em>both</em> the datum and the redeemer of the consumed head output.</p>
+<h2 id="transaction-specific-mutations">Transaction-specific Mutations</h2>
+<p>To be run the <code>propMutation</code> requires a starting “healthy” (valid) transaction and a specialised generating function. It is instantiated in the test runner by providing these two elements:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>describe <span class="st">&quot;CollectCom&quot;</span> <span class="op">$</span> <span class="kw">do</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  prop <span class="st">&quot;does not survive random adversarial mutations&quot;</span> <span class="op">$</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    propMutation healthyCollectComTx genCollectComMutation</span></code></pre></div>
-<p>The interesting part is the <code>genCollectComMutation</code>
-(details of the <code>Mutation</code> generators are omitted):</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ot">genCollectComMutation ::</span> (<span class="dt">CardanoTx</span>, <span class="dt">Utxo</span>) <span class="ot">-&gt;</span> <span class="dt">Gen</span> <span class="dt">SomeMutation</span></span>
+<p>The interesting part is the <code>genCollectComMutation</code> (details of the <code>Mutation</code> generators are omitted):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ot">genCollectComMutation ::</span> (<span class="dt">CardanoTx</span>, <span class="dt">Utxo</span>) <span class="ot">-&gt;</span> <span class="dt">Gen</span> <span class="dt">SomeMutation</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>genCollectComMutation (tx, utxo) <span class="ot">=</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  oneof</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    [ <span class="dt">SomeMutation</span> <span class="dt">MutateOpenOutputValue</span> <span class="op">.</span> <span class="dt">ChangeOutput</span> <span class="op">...</span></span>
@@ -272,22 +134,15 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a 
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        changeDatum <span class="ot">&lt;-</span> <span class="dt">ChangeHeadDatum</span> <span class="op">&lt;$&gt;</span> <span class="op">...</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pure</span> <span class="op">$</span> <span class="dt">Changes</span> [changeRedeemer, changeDatum]</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    ]</span></code></pre></div>
-<p>Here we have defined four different type of mutations that are
-interesting for the <code>CollectCom</code> transaction and represent
-possible “attack vectors”:</p>
+<p>Here we have defined four different type of mutations that are interesting for the <code>CollectCom</code> transaction and represent possible “attack vectors”:</p>
 <ul>
-<li>Changing the <code>Head</code> output’s value, which would imply
-some of the committed funds could be “stolen” by the party posting the
-transaction,</li>
+<li>Changing the <code>Head</code> output’s value, which would imply some of the committed funds could be “stolen” by the party posting the transaction,</li>
 <li>Tampering with the content of the UTxO committed to the Head,</li>
-<li>Trying to collect commits without running the <code>Head</code>
-validator,</li>
-<li>Trying to collect commits in another Head state machine
-transition.</li>
+<li>Trying to collect commits without running the <code>Head</code> validator,</li>
+<li>Trying to collect commits in another Head state machine transition.</li>
 </ul>
 <h2 id="running-properties">Running Properties</h2>
-<p>When such a property test succeeds we get the following report which
-shows the distribution of the various mutations that were tested.</p>
+<p>When such a property test succeeds we get the following report which shows the distribution of the various mutations that were tested.</p>
 <pre><code>Hydra.Chain.Direct.Contract
   CollectCom
     does not survive random adversarial mutations
@@ -300,8 +155,7 @@ shows the distribution of the various mutations that were tested.</p>
       19.0% MutateHeadScriptInput
 
 Finished in 18.1146 seconds</code></pre>
-<p>In the case of a failure we get a detailed report on the context of
-the failure:</p>
+<p>In the case of a failure we get a detailed report on the context of the failure:</p>
 <pre><code> test/Hydra/Chain/Direct/ContractSpec.hs:96:5:
   2) Hydra.Chain.Direct.Contract.CollectCom does not survive random adversarial mutations
        Falsified (after 5 tests):</code></pre>
@@ -309,16 +163,14 @@ the failure:</p>
 <pre><code>         SomeMutation {label = MutateHeadTransition, mutation = Changes [ChangeHeadRedeemer (Close {snapshotNumber = 0, utxoHash = &quot;\EOT\ETX\STX&quot;, signature = [000003]}),ChangeHeadDatum (Open {parties = [1], utxoHash = &quot;\SOH\SOH\ETX\EOT\SOH\STX\NUL\STX\NUL\ETX\EOT\NUL\ETX\STX\ETX\SOH\SOH\NUL\ETX\EOT\ETX\ETX\ETX\SOH\EOT\EOT\ETX\SOH\STX\NUL\EOT\EOT&quot;})]}</code></pre>
 <p>The failure itself:</p>
 <pre><code>         Phase-2 validation should have failed
-         Redeemer report: fromList [(RdmrPtr Spend 0,Right (WrapExUnits {unWrapExUnits = ExUnits&#39; {exUnitsMem&#39; = 831248, exUnitsSteps&#39; = 362274551}})),(RdmrPtr Spend 1,Right (WrapExUnits {unWrapExUnits = ExUnits&#39; {exUnitsMem&#39; = 1030658, exUnitsSteps&#39; = 424175713}})),(RdmrPtr Spend 2,Right (WrapExUnits {unWrapExUnits = ExUnits&#39; {exUnitsMem&#39; = 1030658, exUnitsSteps&#39; = 424175713}})),(RdmrPtr Spend 3,Right (WrapExUnits {unWrapExUnits = ExUnits&#39; {exUnitsMem&#39; = 1030658, exUnitsSteps&#39; = 424175713}}))]</code></pre>
+         Redeemer report: fromList [(RdmrPtr Spend 0,Right (WrapExUnits {unWrapExUnits = ExUnits' {exUnitsMem' = 831248, exUnitsSteps' = 362274551}})),(RdmrPtr Spend 1,Right (WrapExUnits {unWrapExUnits = ExUnits' {exUnitsMem' = 1030658, exUnitsSteps' = 424175713}})),(RdmrPtr Spend 2,Right (WrapExUnits {unWrapExUnits = ExUnits' {exUnitsMem' = 1030658, exUnitsSteps' = 424175713}})),(RdmrPtr Spend 3,Right (WrapExUnits {unWrapExUnits = ExUnits' {exUnitsMem' = 1030658, exUnitsSteps' = 424175713}}))]</code></pre>
 <p>The UTxO that we used (possibly mutated):</p>
 <pre><code>     Lookup utxo: {
              &quot;31237cdb79ae1dfa7ffb87cde7ea8a80352d300ee5ac758a6cddd19d671925ec#455&quot;: {
                  &quot;address&quot;: &quot;addr_test1wpjstex8ajlkn8sp5lr8dsfkn9v2m2pfudmn9kzy6epyegqk5664m&quot;,
                  &quot;datumhash&quot;: &quot;1f4e83d60d16d6bc976fa8d1d1a7a43f2fef540e643cc3c2cb5cd2d0d5052f06&quot;,
 ...</code></pre>
-<p>And most importantly the details of the transaction that failed,
-including all the relevant pieces of data (inputs, outputs, scripts,
-datums, redeemers):</p>
+<p>And most importantly the details of the transaction that failed, including all the relevant pieces of data (inputs, outputs, scripts, datums, redeemers):</p>
 <pre><code>         Tx: &quot;83ad5c518d4adacf84f5f8fb17e0f2d175a76ae88494966360cb2e96a939f260&quot;
            Input set (4)
              - 31237cdb79ae1dfa7ffb87cde7ea8a80352d300ee5ac758a6cddd19d671925ec#455
@@ -340,57 +192,32 @@ datums, redeemers):</p>
              - DataConstr Constr 0 []
              - DataConstr Constr 0 []
              - DataConstr Constr 0 []</code></pre>
-<p>Note that this report could be made more friendly by trying to decode
-some of the <code>datums</code> and <code>redeemers</code> as we usually
-know what their actual type in code is, and making the association
-between redeemers and inputs more immediate. But even in this somewhat
-crude form it provides a wealth of information that makes it
-straightforward to manifest the shortcomings in the validators.</p>
+<p>Note that this report could be made more friendly by trying to decode some of the <code>datums</code> and <code>redeemers</code> as we usually know what their actual type in code is, and making the association between redeemers and inputs more immediate. But even in this somewhat crude form it provides a wealth of information that makes it straightforward to manifest the shortcomings in the validators.</p>
 <h1 id="conclusion">Conclusion</h1>
-<p>We have applied this strategy to drive the development of the
-so-called “Happy Path” of the Hydra Head On-Chain Validation state
-machine, writing code for three different validators and five different
-transaction types. The early steps were a bit painful as applying
-mutations requires fiddling with the internals of a transaction in
-potentially complicated ways. It took us some time to define a
-good-enough set of “atomic” <code>Mutation</code>s and some good
-generators and helper functions, but we already had most of the API
-covered thanks to previous work on implementing <em>Direct</em> chain
-interaction, but as with any framework-like effort, we were able to
-observe increasing returns over time: Defining new mutations for new
-types of transactions has become easier.</p>
+<p>We have applied this strategy to drive the development of the so-called “Happy Path” of the Hydra Head On-Chain Validation state machine, writing code for three different validators and five different transaction types. The early steps were a bit painful as applying mutations requires fiddling with the internals of a transaction in potentially complicated ways. It took us some time to define a good-enough set of “atomic” <code>Mutation</code>s and some good generators and helper functions, but we already had most of the API covered thanks to previous work on implementing <em>Direct</em> chain interaction, but as with any framework-like effort, we were able to observe increasing returns over time: Defining new mutations for new types of transactions has become easier.</p>
 <p>Writing Plutus validators lends itself pretty well to this technique:
-* The “universe of discourse” is relatively complicated (Cardano
-transactions are large data structures with lot of moving parts) and can
-fail in subtle and/or surprising ways, especially because of indirect
-interactions between contracts, * It is somewhat self-contained and the
-validators’ code is in the end just a <em>predicate</em> over some more
-or less complex data types, * It benefits from adopting an “Adversarial”
-mindset, trying to find interesting changes that should not be
-disallowed.</p>
-<p>More generally, test-driving code using both mutations and properties
-seems to improve the quality of the “triangulation process” which TDD
-rests upon: QuickCheck generated counterexamples pinpoint exactly what’s
-missing in the code, which can be fixed straightforwardly even using
-“fakes”, but next run will find more counterexamples until enough
-coverage is reached.</p>
-<p>I think this approach, while particularly well-suited to Plutus
-validators, has broader applicability on every development platform
-where there’s support for Property-Based Testing.</p>
+* The “universe of discourse” is relatively complicated (Cardano transactions are large data structures with lot of moving parts) and can fail in subtle and/or surprising ways, especially because of indirect interactions between contracts,
+* It is somewhat self-contained and the validators’ code is in the end just a <em>predicate</em> over some more or less complex data types,
+* It benefits from adopting an “Adversarial” mindset, trying to find interesting changes that should not be disallowed.</p>
+<p>More generally, test-driving code using both mutations and properties seems to improve the quality of the “triangulation process” which TDD rests upon: QuickCheck generated counterexamples pinpoint exactly what’s missing in the code, which can be fixed straightforwardly even using “fakes”, but next run will find more counterexamples until enough coverage is reached.</p>
+<p>I think this approach, while particularly well-suited to Plutus validators, has broader applicability on every development platform where there’s support for Property-Based Testing.</p>
 
 
 <div id="disqus_thread"></div>
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-
+  
     s.src = '//arnaudsblog.disqus.com/embed.js';
-
+  
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

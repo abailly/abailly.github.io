@@ -6,9 +6,10 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Arnaud Bailly - Some Notes on ML in Haskell following
-MLWeek</title>
+  <title>Arnaud Bailly - Some Notes on ML in Haskell following MLWeek</title>
+
   <meta name="description" content="Crafting code since 1994">
+
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -40,96 +41,61 @@ MLWeek</title>
     </header>
     <div id="main" role="main">
 <h1>Some Notes on ML in Haskell following MLWeek</h1>
-<div class="info">Posted on 2015-11-06</div>
 
-<p>From Monday 2/11 to Thursday 5/11 I attended <a
-href="http://www.ml-week.com/fr">ML Week</a>, a training session lead by
-<a href="http://jeff.purple.com/qr/">Jeff Abrahamson</a> who also
-organizes the <a
-href="http://www.meetup.com/fr/Nantes-Machine-Learning-Meetup/">Nantes
-ML Meetup</a>. This session was great, not only because of its content,
-mostly an overview of the main techniques available and a hands-on dive
-into Python’s eco-system to support data analysis, but also because of
-the discussions we had with other attendees and with Jeff whose depth of
-knowledge on the subject is truely amazing.</p>
-<p>However I was a bit frustrated of not being able to epxlorer the
-topic using my language of choice, namely Haskell. So I took opportunity
-of this training to start collecting links and ideas on how to do data
-analysis and ML in Haskell. Here are a few links and comments on my
-attempts to <em>map</em> the tools we were using in Python to equivalent
-things in the Haskell eco-system:</p>
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on November  6, 2015</div>
+
+<p>From Monday 2/11 to Thursday 5/11 I attended <a href="http://www.ml-week.com/fr">ML Week</a>, a training session lead by
+<a href="http://jeff.purple.com/qr/">Jeff Abrahamson</a> who also organizes the
+<a href="http://www.meetup.com/fr/Nantes-Machine-Learning-Meetup/">Nantes ML Meetup</a>. This session was great, not only because of its
+content, mostly an overview of the main techniques available and a hands-on dive into Python’s eco-system to support data analysis,
+but also because of the discussions we had with other attendees and with Jeff whose depth of knowledge on the subject is truely
+amazing.</p>
+<p>However I was a bit frustrated of not being able to epxlorer the topic using my language of choice, namely Haskell. So I took
+opportunity of this training to start collecting links and ideas on how to do data analysis and ML in Haskell. Here are a few links
+and comments on my attempts to <em>map</em> the tools we were using in Python to equivalent things in the Haskell eco-system:</p>
 <ul>
-<li>All the hands-on codelabs for the training were provided in the form
-of <a href="http://ipython.org/notebook.html">IPython Notebooks</a>, so
-I went to install <a
-href="https://github.com/gibiansky/IHaskell">IHaskell</a> which provides
-a Haskell <em>kernel</em> for notebooks. It works great straight out of
-the box, I only had some minor glitches with <a
-href="https://hackage.haskell.org/package/Chart">Charts</a> display. I
-must say that the community for IHaskell is very responsive!</li>
-<li><a href="http://www.kronosnotebook.com/haskell">Kronos</a> provides
-a packaged interactive data visualization tool that contains everythign
-that’s needed to run IHaskell out-of-the-box when you dont’ want to
-bother with installing Haskell eco-system,</li>
-<li><a href="https://hackage.haskell.org/package/cassava">cassava</a>
-provides type-safe parsing of CSV data,</li>
-<li>There is a base statistics package for Haskell:
-http://hackage.haskell.org/package/statistics, which is maintained by
-Brian O’Sullivan who is also behind <a
-href="https://hackage.haskell.org/package/wreq">wreq</a>, the one-stop
-shop for making HTTP clients. This package among many other stuff
-provides linear regression,</li>
-<li><a href="https://github.com/mikeizbicki/HLearn">HLearn</a> is an
-ambitious project to provide efficient pure Haskell implementations of
+<li>All the hands-on codelabs for the training were provided in the form of <a href="http://ipython.org/notebook.html">IPython Notebooks</a>, so I
+went to install <a href="https://github.com/gibiansky/IHaskell">IHaskell</a> which provides a Haskell <em>kernel</em> for notebooks. It works great
+straight out of the box, I only had some minor glitches with <a href="https://hackage.haskell.org/package/Chart">Charts</a> display. I must say
+that the community for IHaskell is very responsive!</li>
+<li><a href="http://www.kronosnotebook.com/haskell">Kronos</a> provides a packaged interactive data visualization tool that contains everythign
+that’s needed to run IHaskell out-of-the-box when you dont’ want to bother with installing Haskell eco-system,</li>
+<li><a href="https://hackage.haskell.org/package/cassava">cassava</a> provides type-safe parsing of CSV data,</li>
+<li>There is a base statistics package for Haskell: http://hackage.haskell.org/package/statistics, which is maintained by Brian
+O’Sullivan who is also behind <a href="https://hackage.haskell.org/package/wreq">wreq</a>, the one-stop shop for making HTTP clients. This
+package among many other stuff provides linear regression,</li>
+<li><a href="https://github.com/mikeizbicki/HLearn">HLearn</a> is an ambitious project to provide efficient pure Haskell implementations of
 various standard ML algorithms,</li>
-<li>Basic matrices operations are provided by <a
-href="http://dis.um.es/~alberto/hmatrix/hmatrix.html">hmatrix</a> which
-is based on efficient routines implemented by LAPACK, BLAS, and
-GSL,</li>
-<li><a
-href="https://hackage.haskell.org/package/hstatistics">hstatistics</a>
-is another statistics package based on hmatrix,</li>
-<li>There is a very interesting series of post from Dominik Steinitz:
-The ones I have been particularly interested in are on <a
-href="https://idontgetoutmuch.wordpress.com/2013/04/26/regression-and-automated-differentiation-4/">linear</a>
-and <a
-href="https://idontgetoutmuch.wordpress.com/2013/04/30/logistic-regression-and-automated-differentiation-3/">logistic</a>
-regressions using <em>automatic differentiation</em>. There has been
-some code drift in AD since the posts were written so they don’t compile
-as-is using latest versions of libraries but modifications are
-minor,</li>
-<li>I thus turned to <a
-href="http://hackage.haskell.org/package/ad-3.4">ad</a> package by
-E.Kmett which happens to contain a routine for computing directly
-approximations of functions through gradient descent techniques,</li>
-<li><a href="https://hackage.haskell.org/package/chatter">chatter</a>
-implements some “standard” NLP algorithms which we had to deal with to
+<li>Basic matrices operations are provided by <a href="http://dis.um.es/~alberto/hmatrix/hmatrix.html">hmatrix</a> which is based on efficient
+routines implemented by LAPACK, BLAS, and GSL,</li>
+<li><a href="https://hackage.haskell.org/package/hstatistics">hstatistics</a> is another statistics package based on hmatrix,</li>
+<li>There is a very interesting series of post from Dominik Steinitz: The ones I have been particularly interested in are on
+<a href="https://idontgetoutmuch.wordpress.com/2013/04/26/regression-and-automated-differentiation-4/">linear</a>
+and <a href="https://idontgetoutmuch.wordpress.com/2013/04/30/logistic-regression-and-automated-differentiation-3/">logistic</a> regressions
+using <em>automatic differentiation</em>. There has been some code drift in AD since the posts were written so they don’t compile as-is
+using latest versions of libraries but modifications are minor,</li>
+<li>I thus turned to <a href="http://hackage.haskell.org/package/ad-3.4">ad</a> package by E.Kmett which happens to contain a routine for
+computing directly approximations of functions through gradient descent techniques,</li>
+<li><a href="https://hackage.haskell.org/package/chatter">chatter</a> implements some “standard” NLP algorithms which we had to deal with to
 implement a spam detector,</li>
-<li>Support Vector Machines support in Haskell is implemented in a
-couple of packages:
+<li>Support Vector Machines support in Haskell is implemented in a couple of packages:
 <ul>
-<li>There are <a
-href="http://hackage.haskell.org/package/bindings-svm">haskell
-bindings</a> to the (apparently) state-of-the-art library <a
-href="https://www.csie.ntu.edu.tw/~cjlin/libsvm/">libsvm</a> which is
-what is used by scikit-learn,</li>
-<li><a href="https://hackage.haskell.org/package/svm">svm</a> is another
-package which seems a bit oldish and unmaintained,</li>
+<li>There are <a href="http://hackage.haskell.org/package/bindings-svm">haskell bindings</a> to the (apparently) state-of-the-art library
+<a href="https://www.csie.ntu.edu.tw/~cjlin/libsvm/">libsvm</a> which is what is used by scikit-learn,</li>
+<li><a href="https://hackage.haskell.org/package/svm">svm</a> is another package which seems a bit oldish and unmaintained,</li>
 </ul></li>
-<li>I don’t think there is a compelling implementation of general
-purpose neural networks of any kind, although there appear to be quite a
-few package dealing with those beasts on hackage,</li>
+<li>I don’t think there is a compelling implementation of general purpose neural networks of any kind, although there appear to be
+quite a few package dealing with those beasts on hackage,</li>
 <li>There are two libraries for computing K-means, both pretty recent:
 <ul>
-<li><a
-href="https://hackage.haskell.org/package/kmeans-vector">kmeans-vector</a>,</li>
-<li><a
-href="https://hackage.haskell.org/package/kmeans">kmeans</a>,</li>
+<li><a href="https://hackage.haskell.org/package/kmeans-vector">kmeans-vector</a>,</li>
+<li><a href="https://hackage.haskell.org/package/kmeans">kmeans</a>,</li>
 </ul></li>
-<li>For Principal Component Analysis, there is <a
-href="https://hackage.haskell.org/package/hstatistics-0.2.5.3/docs/Numeric-Statistics-PCA.html">hstatistics</a>
-or <a
-href="https://hackage.haskell.org/package/hmatrix-nipals">hmatrix-nipals</a></li>
+<li>For Principal Component Analysis, there is
+<a href="https://hackage.haskell.org/package/hstatistics-0.2.5.3/docs/Numeric-Statistics-PCA.html">hstatistics</a> or
+<a href="https://hackage.haskell.org/package/hmatrix-nipals">hmatrix-nipals</a></li>
 </ul>
 
 
@@ -137,14 +103,17 @@ href="https://hackage.haskell.org/package/hmatrix-nipals">hmatrix-nipals</a></li
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-
+  
     s.src = '//arnaudsblog.disqus.com/embed.js';
-
+  
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

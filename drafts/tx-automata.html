@@ -45,33 +45,33 @@
 <p>This short post investigates the relationship between a UTxO ledger and <em>Asynchronous automata</em>, a class of automata that can recognise trace languages.</p>
 <h2 id="working-through-an-example">Working through an Example</h2>
 <p>Let’s start with a simple example, some graph of (abstract) transactions consuming and producing UTxOs:</p>
-<div class="figure">
+<figure>
 <img src="../images/txs.png" alt="Ledger transactions" />
-<p class="caption">Ledger transactions</p>
-</div>
+<figcaption aria-hidden="true">Ledger transactions</figcaption>
+</figure>
 <p>Among the 4 depicted transactions it’s pretty obvious that:</p>
 <ul>
 <li><code>tx4</code> only depends on <code>tx1</code>,</li>
 <li><code>tx3</code> depends on both <code>tx1</code> and <code>tx2</code>.</li>
 </ul>
 <p>One way to reason about the ledger is to think of transactions as <em>transitions</em> in an automata (or state-machine) where the state is a set of UTxO. If we try to give such an automata theoretic representation of the above transactions, we get the following picture:</p>
-<div class="figure">
+<figure>
 <img src="../images/automata.png" alt="Global automaton (\cal{A})" />
-<p class="caption">Global automaton (<span class="math inline">\(\cal{A}\)</span>)</p>
-</div>
+<figcaption aria-hidden="true">Global automaton (<span class="math inline">\(\cal{A}\)</span>)</figcaption>
+</figure>
 <p>Here, what’s obvious is not the <em>dependency</em> between transactions but rather which ones are (pairwise) indeependent, a fact that’s represented by the characteristic <em>diamond-shape</em> of parts involving independent transactions. The concurrency inherent to this <em>independence relation</em> is modelled as the <em>possible interleaving</em> of all the transactions. This is interesting in itself because, in practice in a ledger, transactions are applied sequentially anyway.</p>
 <p>What’s also obvious is the combinatorial blow-up this explicit representation entails: Every pair of independent transactions can happen in any order, which means that if all transactions are independent then the number of states and transitions of the automata is exponential in the number of transactions.</p>
 <p>However, transactions being <em>independent</em> implies they can be processed by concurrent processes, with dependent transactions being synchronizing points between those concurrent processes. What we can do then, is <em>decompose</em> the global automata and, taking into account the dependencies between transactions, find <em>local automata</em> whose “composition” provides the same behaviour. By composition, we mean more precisely composition through <em>synchronisation product</em>, a particular operator which we’ll precisely define later.</p>
 <p>From the previous dependencies statement, we can define one automata to just be <code>tx1</code> followed by <code>tx4</code></p>
-<div class="figure">
+<figure>
 <img src="../images/automata2.png" alt="Local automaton 1 (\cal{A}_1)" />
-<p class="caption">Local automaton 1 (<span class="math inline">\(\cal{A}_1\)</span>)</p>
-</div>
+<figcaption aria-hidden="true">Local automaton 1 (<span class="math inline">\(\cal{A}_1\)</span>)</figcaption>
+</figure>
 <p>and another one to have possible interleaving of <code>tx1</code> and <code>tx2</code>, followed by <code>tx3</code></p>
-<div class="figure">
+<figure>
 <img src="../images/automata1.png" alt="Local automaton 2 (\cal{A}_2)" />
-<p class="caption">Local automaton 2 (<span class="math inline">\(\cal{A}_2\)</span>)</p>
-</div>
+<figcaption aria-hidden="true">Local automaton 2 (<span class="math inline">\(\cal{A}_2\)</span>)</figcaption>
+</figure>
 <p>Note that this decomposition is not necessarily unique, nor minimal. In that particular case we could have introduced another decomposition in three automata:</p>
 <ul>
 <li>One automata with <code>tx1 -&gt; tx4</code>,</li>
@@ -92,10 +92,11 @@
 <li><span class="math inline">\(\Sigma\)</span> is the alphabet, with a function <span class="math inline">\(\textrm{dom} : \Sigma \rightarrow J\)</span> defining a <em>domain</em> function as the subset of <span class="math inline">\(\Sigma\)</span> local to each process,</li>
 <li><span class="math inline">\(q_0 \in Q\)</span> is the initial state,</li>
 <li><span class="math inline">\(F \subseteq Q\)</span> are the final states,</li>
-<li><span class="math inline">\(\delta \in Q \times \Sigma \times Q\)</span> is the transition relation over global state resulting from the “conjunction” of each transition relation <span class="math inline">\(\delta_i\)</span> for each process <span class="math inline">\(i\)</span>. In other words, <span class="math display">\[\delta((q_1, .., q_n), a) = (q'_1, .., q'_n) \Leftrightarrow \delta_i(q_i, a) = q'_i, \forall i\in J\]</span></li>
+<li><span class="math inline">\(\delta \in Q \times \Sigma \times Q\)</span> is the transition relation over global state resulting from the “conjunction” of each transition relation <span class="math inline">\(\delta_i\)</span> for each process <span class="math inline">\(i\)</span>. In other words,
+<span class="math display">\[\delta((q_1, .., q_n), a) = (q'_1, .., q'_n) \Leftrightarrow \delta_i(q_i, a) = q'_i, \forall i\in J\]</span></li>
 </ul>
 <p>Note this means the transition relation is defined for some state <span class="math inline">\(q\)</span> and some letter <span class="math inline">\(a\)</span> iff it is defined for <em>all</em> <span class="math inline">\(\delta_i\)</span>. It is customary to turn the (partial) <span class="math inline">\(\delta_i\)</span> relations into functions by adding a sink state <span class="math inline">\(q_\bot\)</span> and transitions:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li><span class="math inline">\(\delta(q,a) = q\)</span> if <span class="math inline">\(i \not\in \mathrm{dom}(a),\)</span></li>
 <li><span class="math inline">\(\delta(q,a) = q_\bot\)</span> otherwise.</li>
 </ol>

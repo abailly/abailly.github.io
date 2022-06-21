@@ -92,179 +92,155 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<section><section id="agenda" class="titleslide slide level1"><h1>Agenda</h1></section><section class="slide level2">
-
-<ul>
-<li class="fragment">Introduction</li>
-<li class="fragment">Propellor</li>
-<li class="fragment">DepTrack</li>
-<li class="fragment">Conclusion</li>
+<h1 id="agenda">Agenda</h1>
+<hr />
+<ul class="incremental">
+<li>Introduction</li>
+<li>Propellor</li>
+<li>DepTrack</li>
+<li>Conclusion</li>
 </ul>
-</section></section>
-<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="who-am-i" class="slide level2">
-<h2>Who am I?</h2>
-<ul>
-<li class="fragment">Software developer since quite a while, not a <em>SysAdmin</em> expert</li>
-<li class="fragment">Started working on this topic while developing <a href="https://capital-match.com">Capital Match</a> platform</li>
-<li class="fragment">Believes in the importance of <em>Infrastructure-as-Code</em></li>
-<li class="fragment">Currently working as <a href="http://drcode.io">Dr.Code</a></li>
+<h1 id="introduction">Introduction</h1>
+<h2 id="who-am-i">Who am I?</h2>
+<ul class="incremental">
+<li>Software developer since quite a while, not a <em>SysAdmin</em> expert</li>
+<li>Started working on this topic while developing <a href="https://capital-match.com">Capital Match</a> platform</li>
+<li>Believes in the importance of <em>Infrastructure-as-Code</em></li>
+<li>Currently working as <a href="http://drcode.io">Dr.Code</a></li>
 </ul>
-</section><section id="why-haskell" class="slide level2">
-<h2>Why Haskell?</h2>
-<ul>
-<li class="fragment">I don’t know Chef nor Puppet, so I needed to learn something anyway</li>
-<li class="fragment">I feel more comfortable when I code with something typed</li>
-<li class="fragment">I wanted to have as much as possible Haskell to minimize zoo-effect</li>
+<h2 id="why-haskell">Why Haskell?</h2>
+<ul class="incremental">
+<li>I don’t know Chef nor Puppet, so I needed to learn something anyway</li>
+<li>I feel more comfortable when I code with something typed</li>
+<li>I wanted to have as much as possible Haskell to minimize zoo-effect</li>
 </ul>
-</section></section>
-<section><section id="propellor" class="titleslide slide level1"><h1>Propellor</h1></section><section id="demo---setting-up-a-multi-host-docker-network" class="slide level2">
-<h2>Demo - Setting up a multi-host docker network</h2>
-</section><section id="background" class="slide level2">
-<h2>Background</h2>
-<ul>
-<li class="fragment">Developed by <a href="http://propellor.branchable.com">Joey Hess</a>, an historical Debian contributor</li>
-<li class="fragment">Development is very active, current version is 4.1 and releases are very frequent</li>
-<li class="fragment">Large monolithic package (&gt;100 source files), contributions friendly but not on Github :(</li>
-<li class="fragment">Targeted mostly towards personal or SME-scale infrastructure with long-running machines</li>
+<h1 id="propellor">Propellor</h1>
+<h2 id="demo---setting-up-a-multi-host-docker-network">Demo - Setting up a multi-host docker network</h2>
+<h2 id="background">Background</h2>
+<ul class="incremental">
+<li>Developed by <a href="http://propellor.branchable.com">Joey Hess</a>, an historical Debian contributor</li>
+<li>Development is very active, current version is 4.1 and releases are very frequent</li>
+<li>Large monolithic package (&gt;100 source files), contributions friendly but not on Github :(</li>
+<li>Targeted mostly towards personal or SME-scale infrastructure with long-running machines</li>
 </ul>
-</section><section id="basic-execution-flow" class="slide level2">
-<h2>Basic Execution Flow</h2>
-<ol type="1">
-<li class="fragment">Clone the code or run wrapper to get code in <code>~/.propellor</code></li>
-<li class="fragment">Hack! Hack! Hack!</li>
-<li class="fragment">Run <code>propellor &lt;target host&gt;</code></li>
-<li class="fragment">Propellor takes care of the next steps:
-<ol start="4" type="1">
-<li class="fragment">Build executable</li>
-<li class="fragment">Commit changes to repository</li>
-<li class="fragment">Upload code to target host</li>
-<li class="fragment"><em>Build executable on target host</em></li>
-<li class="fragment">Run executable on remote host, reporting results</li>
+<h2 id="basic-execution-flow">Basic Execution Flow</h2>
+<ol class="incremental" type="1">
+<li>Clone the code or run wrapper to get code in <code>~/.propellor</code></li>
+<li>Hack! Hack! Hack!</li>
+<li>Run <code>propellor &lt;target host&gt;</code></li>
+<li>Propellor takes care of the next steps:
+<ol class="incremental" start="4" type="1">
+<li>Build executable</li>
+<li>Commit changes to repository</li>
+<li>Upload code to target host</li>
+<li><em>Build executable on target host</em></li>
+<li>Run executable on remote host, reporting results</li>
 </ol></li>
 </ol>
-</section><section id="security-model" class="slide level2">
-<h2>Security Model</h2>
-<ul>
-<li class="fragment"><strong>Key Question</strong>: How not to disseminate confidential data (passwords, API tokens, keys, names…) while still allowing its use?</li>
-<li class="fragment">Propellor uses GPG to manage a set of public keys and a <code>privdata</code> file which is encrypted using <em>public keys</em> of all participants</li>
-<li class="fragment"><code>privdata</code> file is <em>committed</em> to the code repository</li>
-<li class="fragment">When a user needs to deploy, she needs to provide credentials to decrypt private data that is then sent to remote host</li>
+<h2 id="security-model">Security Model</h2>
+<ul class="incremental">
+<li><strong>Key Question</strong>: How not to disseminate confidential data (passwords, API tokens, keys, names…) while still allowing its use?</li>
+<li>Propellor uses GPG to manage a set of public keys and a <code>privdata</code> file which is encrypted using <em>public keys</em> of all participants</li>
+<li><code>privdata</code> file is <em>committed</em> to the code repository</li>
+<li>When a user needs to deploy, she needs to provide credentials to decrypt private data that is then sent to remote host</li>
 </ul>
-</section><section id="advanced-features" class="slide level2">
-<h2>Advanced Features</h2>
-<ul>
-<li class="fragment">Optimises (removes) compilation of executable on remote host when source and target are binary compatible</li>
-<li class="fragment">Provides proxy-based remote configuration allowing a single entry point to configure multiple targets</li>
-<li class="fragment">Type-level checking of properties’s OS scope</li>
-<li class="fragment">Revertable properties</li>
+<h2 id="advanced-features">Advanced Features</h2>
+<ul class="incremental">
+<li>Optimises (removes) compilation of executable on remote host when source and target are binary compatible</li>
+<li>Provides proxy-based remote configuration allowing a single entry point to configure multiple targets</li>
+<li>Type-level checking of properties’s OS scope</li>
+<li>Revertable properties</li>
 </ul>
-</section><section id="core-types" class="slide level2">
-<h2>Core Types</h2>
-</section><section class="slide level2">
-
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Property</span> metatypes
-  <span class="fu">=</span> <span class="dt">Property</span> metatypes
-             <span class="dt">Desc</span>
-             (<span class="dt">Propellor</span> <span class="dt">Propellor.Base.Result</span>)
-             <span class="dt">Info</span>
-             [<span class="dt">Propellor.Types.Core.ChildProperty</span>]</code></pre></div>
-</section><section class="slide level2">
-
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Propellor</span> p
-  <span class="fu">=</span> <span class="dt">Propellor</span> {<span class="ot">runWithHost ::</span> <span class="dt">Control.Monad.Trans.RWS.Strict.RWST</span>
-                                <span class="dt">Host</span> [<span class="dt">Propellor.Types.Core.EndAction</span>] () <span class="dt">IO</span> p}
-<span class="kw">instance</span> <span class="dt">Monad</span> <span class="dt">Propellor</span>
-<span class="kw">instance</span> <span class="dt">Functor</span> <span class="dt">Propellor</span>
-<span class="kw">instance</span> <span class="dt">Applicative</span> <span class="dt">Propellor</span>
-<span class="kw">instance</span> <span class="dt">Monoid</span> (<span class="dt">Propellor</span> <span class="dt">Propellor.Base.Result</span>)</code></pre></div>
-</section><section class="slide level2">
-
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | There can be three results of satisfying a Property.</span>
-<span class="kw">data</span> <span class="dt">Result</span> <span class="fu">=</span> <span class="dt">NoChange</span> <span class="fu">|</span> <span class="dt">MadeChange</span> <span class="fu">|</span> <span class="dt">FailedChange</span>
-	<span class="kw">deriving</span> (<span class="dt">Read</span>, <span class="dt">Show</span>, <span class="dt">Eq</span>)</code></pre></div>
-</section></section>
-<section><section id="deptrack" class="titleslide slide level1"><h1>DepTrack</h1></section><section id="demo---configuring-a-spark-cluster-from-scratch" class="slide level2">
-<h2>Demo - Configuring a Spark cluster from scratch</h2>
-</section><section id="background-1" class="slide level2">
-<h2>Background</h2>
-<ul>
-<li class="fragment">Developed by <a href="https://github.com/lucasdicioccio/deptrack-project">Lucas di Cioccio</a> and recently open-sourced</li>
-<li class="fragment">Small codebase split in multiple “independent” packages to minimise footprint: Pay for what you need</li>
-<li class="fragment">Targets larger-scale infrastructure and <em>supervision</em> rather than only configuration</li>
-<li class="fragment">New and shiny!</li>
+<h2 id="core-types">Core Types</h2>
+<hr />
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Property</span> metatypes</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> <span class="dt">Property</span> metatypes</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>             <span class="dt">Desc</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>             (<span class="dt">Propellor</span> <span class="dt">Propellor.Base.Result</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>             <span class="dt">Info</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>             [<span class="dt">Propellor.Types.Core.ChildProperty</span>]</span></code></pre></div>
+<hr />
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Propellor</span> p</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> <span class="dt">Propellor</span> {<span class="ot">runWithHost ::</span> <span class="dt">Control.Monad.Trans.RWS.Strict.RWST</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                                <span class="dt">Host</span> [<span class="dt">Propellor.Types.Core.EndAction</span>] () <span class="dt">IO</span> p}</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Monad</span> <span class="dt">Propellor</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Functor</span> <span class="dt">Propellor</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Applicative</span> <span class="dt">Propellor</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Monoid</span> (<span class="dt">Propellor</span> <span class="dt">Propellor.Base.Result</span>)</span></code></pre></div>
+<hr />
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- | There can be three results of satisfying a Property.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Result</span> <span class="ot">=</span> <span class="dt">NoChange</span> <span class="op">|</span> <span class="dt">MadeChange</span> <span class="op">|</span> <span class="dt">FailedChange</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>	<span class="kw">deriving</span> (<span class="dt">Read</span>, <span class="dt">Show</span>, <span class="dt">Eq</span>)</span></code></pre></div>
+<h1 id="deptrack">DepTrack</h1>
+<h2 id="demo---configuring-a-spark-cluster-from-scratch">Demo - Configuring a Spark cluster from scratch</h2>
+<h2 id="background-1">Background</h2>
+<ul class="incremental">
+<li>Developed by <a href="https://github.com/lucasdicioccio/deptrack-project">Lucas di Cioccio</a> and recently open-sourced</li>
+<li>Small codebase split in multiple “independent” packages to minimise footprint: Pay for what you need</li>
+<li>Targets larger-scale infrastructure and <em>supervision</em> rather than only configuration</li>
+<li>New and shiny!</li>
 </ul>
-</section><section id="basic-principles" class="slide level2">
-<h2>Basic Principles</h2>
-<ul>
-<li class="fragment">A (monadic) language to describe <em>directed acyclic graph</em> of <em>operations</em> linked through <em>dependencies</em></li>
-<li class="fragment">Generated graph provides <em>optimisations</em> opportunities (e.g. group package installation, remove redundancies) and inherent <em>parallelism</em></li>
-<li class="fragment">Traverse graph in dependency order to concurrently run <em>functions</em> in each node, passing along results from each node’s execution as needed</li>
-<li class="fragment">Each node provides basic supervision functions start/stop/check</li>
+<h2 id="basic-principles">Basic Principles</h2>
+<ul class="incremental">
+<li>A (monadic) language to describe <em>directed acyclic graph</em> of <em>operations</em> linked through <em>dependencies</em></li>
+<li>Generated graph provides <em>optimisations</em> opportunities (e.g. group package installation, remove redundancies) and inherent <em>parallelism</em></li>
+<li>Traverse graph in dependency order to concurrently run <em>functions</em> in each node, passing along results from each node’s execution as needed</li>
+<li>Each node provides basic supervision functions start/stop/check</li>
 </ul>
-</section><section id="types" class="slide level2">
-<h2>Types</h2>
-</section><section class="slide level2">
-
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">DepTrackT</span> a m b <span class="fu">=</span> <span class="dt">WriterT</span> (<span class="dt">DList</span> (<span class="dt">DepCrumb</span> a)) m b
-
-<span class="kw">data</span> <span class="dt">DepCrumb</span> a <span class="fu">=</span> <span class="dt">Push</span> <span class="fu">|</span> <span class="dt">Pop</span> a <span class="fu">|</span> <span class="dt">SpadeIn</span> <span class="fu">|</span> <span class="dt">SpadeMiddle</span> <span class="fu">|</span> <span class="dt">SpadeOut</span></code></pre></div>
-</section><section class="slide level2">
-
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">DevOpT</span> m a <span class="fu">=</span> <span class="dt">DepTrackT</span> <span class="dt">PreOp</span> m a
-
-<span class="kw">data</span> <span class="dt">PreOp</span> <span class="fu">=</span> forall a<span class="fu">.</span> <span class="dt">Typeable</span> a <span class="ot">=&gt;</span> <span class="dt">PreOp</span> <span class="fu">!</span>a <span class="fu">!</span>(a <span class="ot">-&gt;</span> <span class="dt">Op</span>)
-
-<span class="kw">data</span> <span class="dt">Op</span> <span class="fu">=</span> <span class="dt">Op</span> {<span class="ot"> opDescription ::</span> <span class="fu">!</span><span class="dt">OpDescription</span>
-             ,<span class="ot"> opFunctions   ::</span> <span class="fu">!</span><span class="dt">OpFunctions</span>
-             ,<span class="ot"> opUniqueId    ::</span> <span class="fu">!</span><span class="dt">OpUniqueId</span>
-             }</code></pre></div>
-</section><section id="advanced-features-1" class="slide level2">
-<h2>Advanced Features</h2>
-<ul>
-<li class="fragment">Uses <em>static pointers</em> to provide remote invocation capability with safety guarantees from GHC</li>
-<li class="fragment">Concurrent asynchronous turnup/upkeep/turndown that automatically optimises graph’s execution</li>
-<li class="fragment">Extensible optimisations and flexible declarative model</li>
-<li class="fragment">Simple cross-platform execution tooling for heterogeneous infrastructure management</li>
+<h2 id="types">Types</h2>
+<hr />
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">DepTrackT</span> a m b <span class="ot">=</span> <span class="dt">WriterT</span> (<span class="dt">DList</span> (<span class="dt">DepCrumb</span> a)) m b</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">DepCrumb</span> a <span class="ot">=</span> <span class="dt">Push</span> <span class="op">|</span> <span class="dt">Pop</span> a <span class="op">|</span> <span class="dt">SpadeIn</span> <span class="op">|</span> <span class="dt">SpadeMiddle</span> <span class="op">|</span> <span class="dt">SpadeOut</span></span></code></pre></div>
+<hr />
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">DevOpT</span> m a <span class="ot">=</span> <span class="dt">DepTrackT</span> <span class="dt">PreOp</span> m a</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">PreOp</span> <span class="ot">=</span> <span class="kw">forall</span> a<span class="op">.</span> <span class="dt">Typeable</span> a <span class="ot">=&gt;</span> <span class="dt">PreOp</span> <span class="op">!</span>a <span class="op">!</span>(a <span class="ot">-&gt;</span> <span class="dt">Op</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Op</span> <span class="ot">=</span> <span class="dt">Op</span> {<span class="ot"> opDescription ::</span> <span class="op">!</span><span class="dt">OpDescription</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>             ,<span class="ot"> opFunctions   ::</span> <span class="op">!</span><span class="dt">OpFunctions</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>             ,<span class="ot"> opUniqueId    ::</span> <span class="op">!</span><span class="dt">OpUniqueId</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>             }</span></code></pre></div>
+<h2 id="advanced-features-1">Advanced Features</h2>
+<ul class="incremental">
+<li>Uses <em>static pointers</em> to provide remote invocation capability with safety guarantees from GHC</li>
+<li>Concurrent asynchronous turnup/upkeep/turndown that automatically optimises graph’s execution</li>
+<li>Extensible optimisations and flexible declarative model</li>
+<li>Simple cross-platform execution tooling for heterogeneous infrastructure management</li>
 </ul>
-</section></section>
-<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="propellor---pros" class="slide level2">
-<h2>Propellor - Pros</h2>
-<ul>
-<li class="fragment">Large set of functions covering whole spectrum of configuration tasks</li>
-<li class="fragment">Track record, user base and contributors base</li>
-<li class="fragment">Built-in interaction with Git to provide automatic configuration changes execution</li>
-<li class="fragment">Security model</li>
+<h1 id="conclusion">Conclusion</h1>
+<h2 id="propellor---pros">Propellor - Pros</h2>
+<ul class="incremental">
+<li>Large set of functions covering whole spectrum of configuration tasks</li>
+<li>Track record, user base and contributors base</li>
+<li>Built-in interaction with Git to provide automatic configuration changes execution</li>
+<li>Security model</li>
 </ul>
-</section><section id="propellor---cons" class="slide level2">
-<h2>Propellor - Cons</h2>
-<ul>
-<li class="fragment">Requires haskell toolchain on target hosts</li>
-<li class="fragment">Rigid workflow with automatic builds and commits</li>
-<li class="fragment">Big monolithic codebase which puts a heavy toll on build/run cycle</li>
-<li class="fragment">“Static” model</li>
+<h2 id="propellor---cons">Propellor - Cons</h2>
+<ul class="incremental">
+<li>Requires haskell toolchain on target hosts</li>
+<li>Rigid workflow with automatic builds and commits</li>
+<li>Big monolithic codebase which puts a heavy toll on build/run cycle</li>
+<li>“Static” model</li>
 </ul>
-</section><section id="deptrack---pros" class="slide level2">
-<h2>DepTrack - Pros</h2>
-<ul>
-<li class="fragment">Clean model gracefully handling <em>dependencies</em> between tasks in an expressive and composable way</li>
-<li class="fragment">No requirements about specific properties of targeted infrastructure</li>
-<li class="fragment">Enforces separation of concerns between <em>declaring</em> configuration and <em>running</em> management tasks</li>
-<li class="fragment">Provides supervision of <em>nodes</em></li>
-<li class="fragment">Type-safe remote execution model</li>
+<h2 id="deptrack---pros">DepTrack - Pros</h2>
+<ul class="incremental">
+<li>Clean model gracefully handling <em>dependencies</em> between tasks in an expressive and composable way</li>
+<li>No requirements about specific properties of targeted infrastructure</li>
+<li>Enforces separation of concerns between <em>declaring</em> configuration and <em>running</em> management tasks</li>
+<li>Provides supervision of <em>nodes</em></li>
+<li>Type-safe remote execution model</li>
 </ul>
-</section><section id="deptrack---cons" class="slide level2">
-<h2>DepTrack - Cons</h2>
-<ul>
-<li class="fragment">New and not much battle tested: limited user and contributors base, documentation, large-scale testing…</li>
-<li class="fragment">Requires more work from user as most system-level tasks are not included in the codebase</li>
+<h2 id="deptrack---cons">DepTrack - Cons</h2>
+<ul class="incremental">
+<li>New and not much battle tested: limited user and contributors base, documentation, large-scale testing…</li>
+<li>Requires more work from user as most system-level tasks are not included in the codebase</li>
 </ul>
-</section><section id="conclusion-1" class="slide level2">
-<h2>Conclusion</h2>
-<ul>
-<li class="fragment"><strong>Infrastructure-As-Haskell-Code</strong> is for real!</li>
-<li class="fragment">Go to <a href="https://github.com/lucasdicioccio/deptrack-project">Lucas di Cioccio</a>: Feedback most needed, PRs welcomed!</li>
+<h2 id="conclusion-1">Conclusion</h2>
+<ul class="incremental">
+<li><strong>Infrastructure-As-Haskell-Code</strong> is for real!</li>
+<li>Go to <a href="https://github.com/lucasdicioccio/deptrack-project">Lucas di Cioccio</a>: Feedback most needed, PRs welcomed!</li>
 </ul>
-</section></section>
     </div>
   </div>
 

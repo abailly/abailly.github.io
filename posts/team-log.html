@@ -7,7 +7,9 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - Team Practices: Daily Log</title>
+
   <meta name="description" content="Crafting code since 1994">
+
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -39,181 +41,67 @@
     </header>
     <div id="main" role="main">
 <h1>Team Practices: Daily Log</h1>
-<div class="info">Posted on 2020-10-08</div>
 
-<p>Writing a personal diary is pretty commonplace and there exists quite
-a few tools out there to do that. I personally favor Emacs for casual
-personal journalling and have been using <a href="">org-mode</a> since
-at least 2014, and some other tools prior to that like <a
-href="">remember.el</a>. For a few years now, I have been trying to
-extend that practice from the individual to the collective by writing a
-<strong>Team’s Log</strong>. I stole the idea from a talk Dan North gave
-where he mentioned the <em>Captain’s Log</em> as one of the “advanced
-agile” or “post-agile” practices he thought effective to improve a
-team’s efficiency and effectiveness.</p>
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on October  8, 2020</div>
+
+<p>Writing a personal diary is pretty commonplace and there exists quite a few tools out there to do that. I personally favor Emacs for casual personal journalling and have been using <a href>org-mode</a> since at least 2014, and some other tools prior to that like <a href>remember.el</a>.
+For a few years now, I have been trying to extend that practice from the individual to the collective by writing a <strong>Team’s Log</strong>. I stole the idea from a talk Dan North gave where he mentioned the <em>Captain’s Log</em> as one of the “advanced agile” or “post-agile” practices he thought effective to improve a team’s efficiency and effectiveness.</p>
 <h1 id="why-do-it">Why do it?</h1>
-<p>I usually work in teams on software products that are created,
-evolved and maintained over the course of months, years or even a
-lifetime. I often feel the need to informations from the past, for
-various reasons:</p>
+<p>I usually work in teams on software products that are created, evolved and maintained over the course of months, years or even a lifetime. I often feel the need to informations from the past, for various reasons:</p>
 <ul>
 <li>to understand the context in which some decision was made,</li>
-<li>to check if an issue I am working on is really the same issue I
-worked on a while ago,</li>
-<li>to find some details of a discussion that did not translate to a
-commit message or a specific wiki page,</li>
-<li>to quickly catch-up with the team when I have been off for a few
-days or even weeks,</li>
+<li>to check if an issue I am working on is really the same issue I worked on a while ago,</li>
+<li>to find some details of a discussion that did not translate to a commit message or a specific wiki page,</li>
+<li>to quickly catch-up with the team when I have been off for a few days or even weeks,</li>
 <li>…</li>
 </ul>
-<p>More generally, I like the idea of keeping in a written form
-something that I call a <em>Collective Stream of Consciousness</em>, a
-collection of more or less detailed contextual notes that detail what we
-think of a problem at some point in time, how we resolved some issue,
-even which sequence of commands or actions we had to run in order to
-reach some conclusion or extract some data.</p>
-<p>Writing things is essential to structure, learn and share. In his
-series of book on groupthink and decision making, <a
-href="decisions-absurdes.html">Christian Morel</a> motivates the
-importance of writing things down for organisations in order to breed a
-culture of safety and continuous learning. By insisting that knowledge
-be written, structured, and continuously read and reviewed,
-organisations build an operational <em>Body of Knowledge</em> that helps
-turn unexpected or novel events into routine, spreads knowledge among
-the organisation’s members, speeds up newcomers onboarding.</p>
-<p>In the first volume series of book on Quality Software Management, <a
-href="https://geraldmweinberg.com/Site/QSM_vol_1.html">System
-Thinking</a>, Jerry Weinberg proposes a hierarchy of <em>patterns</em>
-for organisations that ranges from the <em>Oblivious</em> to the
-<em>Congruent</em>. A key factor in taming chaos is collecting
-information, data, and making that information and data <em>open</em>
-for everyone to see. At first, we might fail to collect the right data
-or measure the right thing, and we might fail to collect it in the right
-way, confusing precision, accuracy and relevance. But this is the first
-step towards improving the level of understanding and control we have on
-the <em>process</em> and the <em>Culture</em> of the organization.</p>
-<p>I view building this <em>Collective Stream of Consciousness</em> as a
-way to gather raw material for further analysis and synthesis: By
-writing things down, I am more prone to memorize events and notice
-patterns that can later be refined into more specific documents.</p>
+<p>More generally, I like the idea of keeping in a written form something that I call a <em>Collective Stream of Consciousness</em>, a collection of more or less detailed contextual notes that detail what we think of a problem at some point in time, how we resolved some issue, even which sequence of commands or actions we had to run in order to reach some conclusion or extract some data.</p>
+<p>Writing things is essential to structure, learn and share. In his series of book on groupthink and decision making, <a href="decisions-absurdes.html">Christian Morel</a> motivates the importance of writing things down for organisations in order to breed a culture of safety and continuous learning. By insisting that knowledge be written, structured, and continuously read and reviewed, organisations build an operational <em>Body of Knowledge</em> that helps turn unexpected or novel events into routine, spreads knowledge among the organisation’s members, speeds up newcomers onboarding.</p>
+<p>In the first volume series of book on Quality Software Management, <a href="https://geraldmweinberg.com/Site/QSM_vol_1.html">System Thinking</a>, Jerry Weinberg proposes a hierarchy of <em>patterns</em> for organisations that ranges from the <em>Oblivious</em> to the <em>Congruent</em>. A key factor in taming chaos is collecting information, data, and making that information and data <em>open</em> for everyone to see. At first, we might fail to collect the right data or measure the right thing, and we might fail to collect it in the right way, confusing precision, accuracy and relevance. But this is the first step towards improving the level of understanding and control we have on the <em>process</em> and the <em>Culture</em> of the organization.</p>
+<p>I view building this <em>Collective Stream of Consciousness</em> as a way to gather raw material for further analysis and synthesis: By writing things down, I am more prone to memorize events and notice patterns that can later be refined into more specific documents.</p>
 <h1 id="how-to-do-it">How to do it?</h1>
 <h2 id="practice">Practice</h2>
-<p>My current practice is actually pretty simple: In the team’s wiki,
-there is one page for each (working) day, which is used by all team
-members as a shared notebook to log what they do, problems they have,
-solutions they find… When a month is over, we move relevant pages</p>
-<p>Here is a screen capture from our team’s wiki (in this case Azure
-DevOps) showing a random page’s content:</p>
-<p><img src="/images/sample-team-log.png" style="width:100.0%" /></p>
-<p>In this case, I was trying to understand why tests were slow and I
-graphed the distrbution of execution times for “writes” using some <a
-href="http://www.gnuplot.info/">GNUPlot</a> script. This picture also
-shows the tree of daily log entries, with daily pages “archived” under
-each month.</p>
-<p>Other category of fragments I<a href="#fn1" class="footnote-ref"
-id="fnref1" role="doc-noteref"><sup>1</sup></a> write in the log
-are:</p>
+<p>My current practice is actually pretty simple: In the team’s wiki, there is one page for each (working) day, which is used by all team members as a shared notebook to log what they do, problems they have, solutions they find… When a month is over, we move relevant pages</p>
+<p>Here is a screen capture from our team’s wiki (in this case Azure DevOps) showing a random page’s content:</p>
+<p><img src="../images/sample-team-log.png" style="width:100.0%" /></p>
+<p>In this case, I was trying to understand why tests were slow and I graphed the distrbution of execution times for “writes” using some <a href="http://www.gnuplot.info/">GNUPlot</a> script. This picture also shows the tree of daily log entries, with daily pages “archived” under each month.</p>
+<p>Other category of fragments I<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> write in the log are:</p>
 <ul>
-<li>Action plan for the day, often listing actions people talked about
-in the daily meeting,</li>
-<li>Comments and “narratives” while working on some issue, along with a
-link to the issue tracker,</li>
-<li>Details about operations, like configuring a service or
-troubleshooting a malfunction in Azure, complete with detailed commands
-run, output, problems and solutions I faced….</li>
-<li>Meeting minutes, which I sometimes move to their own page under the
-<code>Meetings</code> section when they are recurring meetings
-(retrospectives, sprint planning),</li>
-<li>Random thoughts on some topic which does not warrant having its own
-page yet.</li>
+<li>Action plan for the day, often listing actions people talked about in the daily meeting,</li>
+<li>Comments and “narratives” while working on some issue, along with a link to the issue tracker,</li>
+<li>Details about operations, like configuring a service or troubleshooting a malfunction in Azure, complete with detailed commands run, output, problems and solutions I faced….</li>
+<li>Meeting minutes, which I sometimes move to their own page under the <code>Meetings</code> section when they are recurring meetings (retrospectives, sprint planning),</li>
+<li>Random thoughts on some topic which does not warrant having its own page yet.</li>
 </ul>
-<p>Pair Programming lends itself nicely to journaling: The navigator can
-write down decisions, problems, actions, or questions while the driver
-writes code. When switching role, the new navigator can quickly go
-through the log and catch up with previous navigator’s thought
-process.</p>
-<p>I try to use as much hyperlinks to other parts of our “information
-system” (issue tracker, code repository, CI, tests reports) as I can in
-order to enrich the context and allow readers, whether other team
-members or my future self, to be able to gather as much details as they
-need to make this information useful.</p>
+<p>Pair Programming lends itself nicely to journaling: The navigator can write down decisions, problems, actions, or questions while the driver writes code. When switching role, the new navigator can quickly go through the log and catch up with previous navigator’s thought process.</p>
+<p>I try to use as much hyperlinks to other parts of our “information system” (issue tracker, code repository, CI, tests reports) as I can in order to enrich the context and allow readers, whether other team members or my future self, to be able to gather as much details as they need to make this information useful.</p>
 <h2 id="tools">Tools</h2>
-<p>As mentioned previously, in my current team we are using the standard
-<a
-href="https://docs.microsoft.com/en-us/azure/devops/project/wiki/about-readme-wiki">DevOps
-Wiki</a> as our infrastructure is 100% Azure-based. Over the past few
-years, I have tried various options:</p>
+<p>As mentioned previously, in my current team we are using the standard <a href="https://docs.microsoft.com/en-us/azure/devops/project/wiki/about-readme-wiki">DevOps Wiki</a> as our infrastructure is 100% Azure-based. Over the past few years, I have tried various options:</p>
 <ul>
-<li>As an avid Emacs and casual <a
-href="https://orgmode.org/">org-mode</a> user, I initially tried to
-maintain an org-mode journal in the source tree, committing it like any
-other piece of documentation. While this works fine when working alone,
-it does not scale to multiple users and team use due to merge conflicts:
-Everyone is editing the same file over and over, usually in close
-places,</li>
-<li>An online wiki is easier to use but most wikis out there do not
-support concurrent editing of same page by different users, thus leading
-to the same merge conflict issues. Moreover, wikis are usually edited
-directly in the browser which means I need to switch tools when
-programming,</li>
-<li><a href="https://docs.google.com">Google docs</a><a href="#fn2"
-class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>
-provides good support for collaborative online editing. This is my go-to
-option when there’s no in-house Wiki solution as wiki are more
-hyperlinks-friendly esp. when integrated in a development
-environment,</li>
-<li>Out of online tools I have used, <a
-href="https://www.notion.so/">Notions</a> offers the best experience
-when working in a larger team with 2 or 3 groups of people
-simultaneously editing the same daily log page.</li>
+<li>As an avid Emacs and casual <a href="https://orgmode.org/">org-mode</a> user, I initially tried to maintain an org-mode journal in the source tree, committing it like any other piece of documentation. While this works fine when working alone, it does not scale to multiple users and team use due to merge conflicts: Everyone is editing the same file over and over, usually in close places,</li>
+<li>An online wiki is easier to use but most wikis out there do not support concurrent editing of same page by different users, thus leading to the same merge conflict issues. Moreover, wikis are usually edited directly in the browser which means I need to switch tools when programming,</li>
+<li><a href="https://docs.google.com">Google docs</a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> provides good support for collaborative online editing. This is my go-to option when there’s no in-house Wiki solution as wiki are more hyperlinks-friendly esp. when integrated in a development environment,</li>
+<li>Out of online tools I have used, <a href="https://www.notion.so/">Notions</a> offers the best experience when working in a larger team with 2 or 3 groups of people simultaneously editing the same daily log page.</li>
 </ul>
-<p>I have yet to discover the perfect tool to support that practice.
-Such a tool would at least:</p>
+<p>I have yet to discover the perfect tool to support that practice. Such a tool would at least:</p>
 <ul>
-<li>Support collaborative concurrent editing of the same “note” with
-automatic conflicts resolution,</li>
-<li>Provide seamless integration into common tools used in software
-development in order to easily capture contextual information when
-creating notes,</li>
-<li>Enable easy linking to other notes through completion and
-navigation,</li>
-<li>Efficiently index notes and provide powerful search
-capabilities.</li>
+<li>Support collaborative concurrent editing of the same “note” with automatic conflicts resolution,</li>
+<li>Provide seamless integration into common tools used in software development in order to easily capture contextual information when creating notes,</li>
+<li>Enable easy linking to other notes through completion and navigation,</li>
+<li>Efficiently index notes and provide powerful search capabilities.</li>
 </ul>
-<p><a href="https://www.orgroam.com/">org-roam</a> is a recent evolution
-of org-mode inspired by the Zettelkasten method that provides some of
-these capabilities, but it does not provide collective editing support
-nor online storage and retrieval of notes.</p>
+<p><a href="https://www.orgroam.com/">org-roam</a> is a recent evolution of org-mode inspired by the Zettelkasten method that provides some of these capabilities, but it does not provide collective editing support nor online storage and retrieval of notes.</p>
 <h1 id="assessment">Assessment</h1>
-<p>I have found the practice of writing a Team’s log very helpful in
-various circumstances, whether it be to lookup some command I have used
-before, to investigate recurring bugs and issues, or more generally to
-dump random ideas and thoughts that sometimes happen to be useful to me
-or teammates. Writing things down helps structure one’s thought process
-bringing order and persistance to the somewhat confusing, idiosyncratic
-and transient stream of consciousness. This is not only valuable at a
-personal level but also at a the team’s level as it fosters key eXtreme
-Programming practices like <a href="">Collective Code Ownership</a> and
-<a href="">Coding Standards</a>.</p>
-<p>Turning implicit assumptions, conclusions, perceptions, and ideas
-into an explicit <em>Stream of consciousness</em> takes the collective
-to another level whereby it’s not only the <em>Code</em> that’s
-collectively owned but the <em>process</em> that produces the code,
-which unlocks the potential for the organisation, at the team level or
-higher, to apply pattern 3, 4 or even 5 organisations.</p>
-<p>Of course, this only works if all the team’s members are willing to
-engage with that practice, writing and <em>reading</em> the log and
-actively curating its content.</p>
-<section class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
+<p>I have found the practice of writing a Team’s log very helpful in various circumstances, whether it be to lookup some command I have used before, to investigate recurring bugs and issues, or more generally to dump random ideas and thoughts that sometimes happen to be useful to me or teammates. Writing things down helps structure one’s thought process bringing order and persistance to the somewhat confusing, idiosyncratic and transient stream of consciousness. This is not only valuable at a personal level but also at a the team’s level as it fosters key eXtreme Programming practices like <a href>Collective Code Ownership</a> and <a href>Coding Standards</a>.</p>
+<p>Turning implicit assumptions, conclusions, perceptions, and ideas into an explicit <em>Stream of consciousness</em> takes the collective to another level whereby it’s not only the <em>Code</em> that’s collectively owned but the <em>process</em> that produces the code, which unlocks the potential for the organisation, at the team level or higher, to apply pattern 3, 4 or even 5 organisations.</p>
+<p>Of course, this only works if all the team’s members are willing to engage with that practice, writing and <em>reading</em> the log and actively curating its content.</p>
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Yes, this should be <em>we</em> but
-it’s very often <em>I</em>. More on this later,<a href="#fnref1"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Or any other kind of collaborative
-editing tool like <a href="https://framapad.org/en/">Framapad</a><a
-href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Yes, this should be <em>we</em> but it’s very often <em>I</em>. More on this later,<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Or any other kind of collaborative editing tool like <a href="https://framapad.org/en/">Framapad</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -222,14 +110,17 @@ href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-
+  
     s.src = '//arnaudsblog.disqus.com/embed.js';
-
+  
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

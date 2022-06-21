@@ -92,132 +92,105 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<section id="double-entry-accounting-domain" class="slide level2">
-<h2>Double-Entry Accounting Domain</h2>
+<h2 id="double-entry-accounting-domain">Double-Entry Accounting Domain</h2>
 <blockquote>
-<p>In the double-entry accounting system, at least two accounting entries are required to record each financial transaction. [..] Recording of a debit amount to one or more accounts and an equal credit amount to one or more accounts results in total debits being equal to total credits for all accounts in the general ledger. …</p>
+<p>In the double-entry accounting system, at least two accounting entries are required to record each financial transaction. [..] Recording of a debit amount to one or more accounts and an equal credit amount to one or more accounts results in total debits being equal to total credits for all accounts in the general ledger.
+…</p>
 </blockquote>
-</section>
-<section id="business-rules" class="slide level2">
-<h2>Business rules</h2>
-<ul>
-<li class="fragment">A <em>transaction</em> comprises at least 2 <em>entries</em></li>
-<li class="fragment">An <em>entry</em> records a <em>debit</em> or <em>credit</em> amount in an <em>account</em></li>
-<li class="fragment">An <em>account</em> can fall into 5 different categories: <em>asset</em>, <em>liability</em>, <em>equity</em>, <em>expense</em>, or <em>revenue</em></li>
-<li class="fragment">The aggregate debit and credit <em>balance</em> of all accounts should be equal</li>
-<li class="fragment">A <em>book of accounts</em> should preserve a <em>fundamental equation</em> that ensures <code>asset = liability + equity</code></li>
+<h2 id="business-rules">Business rules</h2>
+<ul class="incremental">
+<li>A <em>transaction</em> comprises at least 2 <em>entries</em></li>
+<li>An <em>entry</em> records a <em>debit</em> or <em>credit</em> amount in an <em>account</em></li>
+<li>An <em>account</em> can fall into 5 different categories: <em>asset</em>, <em>liability</em>, <em>equity</em>, <em>expense</em>, or <em>revenue</em></li>
+<li>The aggregate debit and credit <em>balance</em> of all accounts should be equal</li>
+<li>A <em>book of accounts</em> should preserve a <em>fundamental equation</em> that ensures <code>asset = liability + equity</code></li>
 </ul>
-</section>
-<section id="first-model" class="slide level2">
-<h2>First Model</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="dt">Balance</span> <span class="ot">:</span> <span class="dt">Type</span>
-<span class="dt">Balance</span> <span class="fu">=</span> (<span class="dt">Nat</span>, <span class="dt">Direction</span>)
-
-<span class="kw">data</span> <span class="dt">Account</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
-  <span class="dt">MkAccount</span> <span class="ot">:</span> <span class="dt">String</span> <span class="ot">-&gt;</span> { type <span class="ot">:</span> <span class="dt">AccountType</span> } <span class="ot">-&gt;</span> <span class="dt">Account</span>
-
-<span class="kw">record</span> <span class="dt">Entry</span> <span class="kw">where</span>
-  constructor <span class="dt">MkEntry</span>
-  <span class="fu">amount</span> <span class="ot">:</span> <span class="dt">Balance</span>
-  <span class="fu">account</span> <span class="ot">:</span> <span class="dt">Account</span></code></pre></div>
-</section>
-<section class="slide level2">
-
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">Entries</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
-  <span class="dt">MkEntries</span> <span class="ot">:</span> (entries <span class="ot">:</span> <span class="dt">Vect</span> n <span class="dt">Entry</span>) <span class="ot">-&gt;</span>
-              { <span class="kw">auto</span> need2Entries <span class="ot">:</span> <span class="dt">LTE</span> <span class="dv">2</span> n } <span class="ot">-&gt;</span>
-              { <span class="kw">auto</span> balanced <span class="ot">:</span> balance entries <span class="fu">=</span> (<span class="dv">0</span>, <span class="dt">Cr</span>) } <span class="ot">-&gt;</span>
-              <span class="dt">Entries</span>
-
-<span class="kw">record</span> <span class="dt">Transaction</span> <span class="kw">where</span>
-  constructor <span class="dt">Tx</span>
-  <span class="fu">label</span> <span class="ot">:</span> <span class="dt">String</span>
-  <span class="fu">date</span> <span class="ot">:</span> <span class="dt">Date</span>
-  <span class="fu">entries</span> <span class="ot">:</span> <span class="dt">Entries</span></code></pre></div>
-</section>
-<section class="slide level2">
-
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">BookOfAccounts</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
-  <span class="dt">BookTransactions</span> <span class="ot">:</span>
-      (txs <span class="ot">:</span> <span class="dt">Vect</span> k <span class="dt">Transaction</span>) <span class="ot">-&gt;</span>
-      { <span class="kw">auto</span> fundamentalEquation <span class="ot">:</span>
-         invert (assets txs <span class="fu">&lt;+&gt;</span> expenses txs) <span class="fu">=</span>
-                 liabilities txs <span class="fu">&lt;+&gt;</span> capital txs <span class="fu">&lt;+&gt;</span> revenues txs }
-                 <span class="ot">-&gt;</span> <span class="dt">BookOfAccounts</span></code></pre></div>
-</section>
-<section id="testing-with-the-compiler" class="slide level2">
-<h2>Testing with the Compiler</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">valid2</span> <span class="ot">:</span> balance [ <span class="dt">MkEntry</span> (<span class="dv">100</span>, <span class="dt">Cr</span>) <span class="dt">Bank</span>,
-                  <span class="dt">MkEntry</span> (<span class="dv">100</span>, <span class="dt">Dr</span>) <span class="dt">Capital</span> ] <span class="fu">=</span> (<span class="dv">0</span>, <span class="dt">Cr</span>)
-valid2 <span class="fu">=</span> <span class="dt">Refl</span>
-
-<span class="fu">invalid</span> <span class="ot">:</span> <span class="dt">Not</span> (balance [ <span class="dt">MkEntry</span> (<span class="dv">100</span>, <span class="dt">Cr</span>) <span class="dt">Bank</span>,
-                         <span class="dt">MkEntry</span> (<span class="dv">101</span>, <span class="dt">Dr</span>) <span class="dt">Capital</span> ] <span class="fu">=</span> (<span class="dv">0</span>, <span class="dt">Cr</span>))
-invalid <span class="fu">=</span> <span class="fu">\</span> <span class="dt">Refl</span> <span class="kw">impossible</span></code></pre></div>
-</section>
-<section id="enforcing-invariants-at-the-hexagons-sides" class="slide level2">
-<h2>Enforcing Invariants at the Hexagon’s Sides</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">parseEntries</span> <span class="ot">:</span> <span class="dt">Parser</span> <span class="dt">Entries</span>
-parseEntries <span class="fu">=</span> <span class="kw">do</span>
-  e1 <span class="ot">&lt;-</span> parseEntry
-  endOfLine
-  e2 <span class="ot">&lt;-</span> parseEntry
-  endOfLine
-  es <span class="ot">&lt;-</span> sepBy parseEntry endOfLine
-  <span class="kw">let</span> entries <span class="fu">=</span> e1 <span class="ot">::</span> e2 <span class="ot">::</span> fromList es
-  <span class="kw">case</span> decEq (balance entries) <span class="dt">Zero</span> <span class="kw">of</span>
-    (<span class="dt">Yes</span> prf) <span class="ot">=&gt;</span> pure <span class="fu">$</span> <span class="dt">MkEntries</span> entries
-    (<span class="dt">No</span>  <span class="fu">_</span>)   <span class="ot">=&gt;</span> fail <span class="st">&quot;Entries are not balanced, total debits minus total credits should be 0&quot;</span></code></pre></div>
-</section>
-<section id="a-flaw-in-the-model" class="slide level2">
-<h2>A Flaw in the Model</h2>
+<h2 id="first-model">First Model</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Balance</span> <span class="ot">:</span> <span class="dt">Type</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Balance</span> <span class="fu">=</span> (<span class="dt">Nat</span>, <span class="dt">Direction</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Account</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">MkAccount</span> <span class="ot">:</span> <span class="dt">String</span> <span class="ot">-&gt;</span> { type <span class="ot">:</span> <span class="dt">AccountType</span> } <span class="ot">-&gt;</span> <span class="dt">Account</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">record</span> <span class="dt">Entry</span> <span class="kw">where</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">constructor</span> <span class="dt">MkEntry</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">amount</span> <span class="ot">:</span> <span class="dt">Balance</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">account</span> <span class="ot">:</span> <span class="dt">Account</span></span></code></pre></div>
+<hr />
+<div class="sourceCode" id="cb2"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Entries</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">MkEntries</span> <span class="ot">:</span> (entries <span class="ot">:</span> <span class="dt">Vect</span> n <span class="dt">Entry</span>) <span class="ot">-&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              { <span class="kw">auto</span> need2Entries <span class="ot">:</span> <span class="dt">LTE</span> <span class="dv">2</span> n } <span class="ot">-&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>              { <span class="kw">auto</span> balanced <span class="ot">:</span> balance entries <span class="fu">=</span> (<span class="dv">0</span>, <span class="dt">Cr</span>) } <span class="ot">-&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>              <span class="dt">Entries</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">record</span> <span class="dt">Transaction</span> <span class="kw">where</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">constructor</span> <span class="dt">Tx</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">label</span> <span class="ot">:</span> <span class="dt">String</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">date</span> <span class="ot">:</span> <span class="dt">Date</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">entries</span> <span class="ot">:</span> <span class="dt">Entries</span></span></code></pre></div>
+<hr />
+<div class="sourceCode" id="cb3"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">BookOfAccounts</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">BookTransactions</span> <span class="ot">:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>      (txs <span class="ot">:</span> <span class="dt">Vect</span> k <span class="dt">Transaction</span>) <span class="ot">-&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      { <span class="kw">auto</span> fundamentalEquation <span class="ot">:</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>         invert (assets txs <span class="fu">&lt;+&gt;</span> expenses txs) <span class="fu">=</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                 liabilities txs <span class="fu">&lt;+&gt;</span> capital txs <span class="fu">&lt;+&gt;</span> revenues txs }</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                 <span class="ot">-&gt;</span> <span class="dt">BookOfAccounts</span></span></code></pre></div>
+<h2 id="testing-with-the-compiler">Testing with the Compiler</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">valid2</span> <span class="ot">:</span> balance [ <span class="dt">MkEntry</span> (<span class="dv">100</span>, <span class="dt">Cr</span>) <span class="dt">Bank</span>,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                  <span class="dt">MkEntry</span> (<span class="dv">100</span>, <span class="dt">Dr</span>) <span class="dt">Capital</span> ] <span class="fu">=</span> (<span class="dv">0</span>, <span class="dt">Cr</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>valid2 <span class="fu">=</span> <span class="dt">Refl</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">invalid</span> <span class="ot">:</span> <span class="dt">Not</span> (balance [ <span class="dt">MkEntry</span> (<span class="dv">100</span>, <span class="dt">Cr</span>) <span class="dt">Bank</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                         <span class="dt">MkEntry</span> (<span class="dv">101</span>, <span class="dt">Dr</span>) <span class="dt">Capital</span> ] <span class="fu">=</span> (<span class="dv">0</span>, <span class="dt">Cr</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>invalid <span class="fu">=</span> <span class="fu">\</span> <span class="dt">Refl</span> <span class="kw">impossible</span></span></code></pre></div>
+<h2 id="enforcing-invariants-at-the-hexagons-sides">Enforcing Invariants at the Hexagon’s Sides</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parseEntries</span> <span class="ot">:</span> <span class="dt">Parser</span> <span class="dt">Entries</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>parseEntries <span class="fu">=</span> <span class="kw">do</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  e1 <span class="ot">&lt;-</span> parseEntry</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  endOfLine</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  e2 <span class="ot">&lt;-</span> parseEntry</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  endOfLine</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  es <span class="ot">&lt;-</span> sepBy parseEntry endOfLine</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> entries <span class="fu">=</span> e1 <span class="ot">::</span> e2 <span class="ot">::</span> fromList es</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">case</span> decEq (balance entries) <span class="dt">Zero</span> <span class="kw">of</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    (<span class="dt">Yes</span> prf) <span class="ot">=&gt;</span> pure <span class="fu">$</span> <span class="dt">MkEntries</span> entries</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    (<span class="dt">No</span>  <span class="fu">_</span>)   <span class="ot">=&gt;</span> fail <span class="st">&quot;Entries are not balanced, total debits minus total credits should be 0&quot;</span></span></code></pre></div>
+<h2 id="a-flaw-in-the-model">A Flaw in the Model</h2>
 <p>Trying to prove the <code>Monoid</code> properties for a <code>Balance</code> forced me to realize my model was wrong:</p>
-<ul>
-<li class="fragment">I am conflating two concepts: The <em>Balance</em> and the <em>Amount</em> of each entry</li>
-<li class="fragment"><code>Balance</code> should have a proper domain-relevant representation</li>
-<li class="fragment">Idris’ compiler has a good way to tell you your design is wrong: Proving properties becomes increasingly difficult</li>
+<ul class="incremental">
+<li>I am conflating two concepts: The <em>Balance</em> and the <em>Amount</em> of each entry</li>
+<li><code>Balance</code> should have a proper domain-relevant representation</li>
+<li>Idris’ compiler has a good way to tell you your design is wrong: Proving properties becomes increasingly difficult</li>
 </ul>
-</section>
-<section id="better-types" class="slide level2">
-<h2>Better Types</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">Amount</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
-  <span class="dt">MkAmount</span> <span class="ot">:</span> (n <span class="ot">:</span> <span class="dt">Nat</span>) <span class="ot">-&gt;</span> { <span class="kw">auto</span> notZero <span class="ot">:</span> <span class="dt">LTE</span> <span class="dv">1</span> n } <span class="ot">-&gt;</span> <span class="dt">Amount</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">Balance</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
-  <span class="dt">Zero</span> <span class="ot">:</span> <span class="dt">Balance</span>
-  <span class="dt">Bal</span> <span class="ot">:</span> (n <span class="ot">:</span> <span class="dt">Amount</span>) <span class="ot">-&gt;</span> (d <span class="ot">:</span> <span class="dt">Direction</span>) <span class="ot">-&gt;</span> <span class="dt">Balance</span></code></pre></div>
-</section>
-<section id="the-dark-side-of-the-moon" class="slide level2">
-<h2>The Dark Side of the Moon</h2>
+<h2 id="better-types">Better Types</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Amount</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">MkAmount</span> <span class="ot">:</span> (n <span class="ot">:</span> <span class="dt">Nat</span>) <span class="ot">-&gt;</span> { <span class="kw">auto</span> notZero <span class="ot">:</span> <span class="dt">LTE</span> <span class="dv">1</span> n } <span class="ot">-&gt;</span> <span class="dt">Amount</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Balance</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Zero</span> <span class="ot">:</span> <span class="dt">Balance</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Bal</span> <span class="ot">:</span> (n <span class="ot">:</span> <span class="dt">Amount</span>) <span class="ot">-&gt;</span> (d <span class="ot">:</span> <span class="dt">Direction</span>) <span class="ot">-&gt;</span> <span class="dt">Balance</span></span></code></pre></div>
+<h2 id="the-dark-side-of-the-moon">The Dark Side of the Moon</h2>
 <p>Things start to get tricky when trying (again) to prove <code>Monoid</code> properties on a <code>Balance</code>:</p>
-<ul>
-<li class="fragment"><a href="https://github.com/abailly/xxi-century-typed/blob/master/idris/src/Accounting/Proofs.idr">Proofs</a> of <em>associativity</em> quickly became bogged down into a maze of various cases</li>
-<li class="fragment">Embedding proofs in <em>data types</em> means we have to <em>discharge</em> those proofs to construct values, which leds to more work</li>
-<li class="fragment">The <code>Balance</code> representation is probably still wrong and needs to be <em>distilled</em></li>
+<ul class="incremental">
+<li><a href="https://github.com/abailly/xxi-century-typed/blob/master/idris/src/Accounting/Proofs.idr">Proofs</a> of <em>associativity</em> quickly became bogged down into a maze of various cases</li>
+<li>Embedding proofs in <em>data types</em> means we have to <em>discharge</em> those proofs to construct values, which leds to more work</li>
+<li>The <code>Balance</code> representation is probably still wrong and needs to be <em>distilled</em></li>
 </ul>
-</section>
-<section id="conclusion" class="slide level2">
-<h2>Conclusion</h2>
-<ul>
-<li class="fragment">Proving things about your domain’s model is <em>fun</em> and <em>rewarding</em></li>
-<li class="fragment">Working with a “smart” compiler providing powerful type system and REPL helps you refine your domain <em>incrementally</em> and <em>iteratively</em></li>
-<li class="fragment">Relating domain-level concepts to more abstract concepts can be a source of insights on the domain itself</li>
-<li class="fragment">Trying to prove the relevant properties gives more insights on the <em>representation</em> used</li>
+<h2 id="conclusion">Conclusion</h2>
+<ul class="incremental">
+<li>Proving things about your domain’s model is <em>fun</em> and <em>rewarding</em></li>
+<li>Working with a “smart” compiler providing powerful type system and REPL helps you refine your domain <em>incrementally</em> and <em>iteratively</em></li>
+<li>Relating domain-level concepts to more abstract concepts can be a source of insights on the domain itself</li>
+<li>Trying to prove the relevant properties gives more insights on the <em>representation</em> used</li>
 </ul>
-</section>
-<section id="the-book" class="slide level2">
-<h2>The Book</h2>
-<figure>
-<img src="https://images.manning.com/720/960/resize/book/1/453215a-afa1-443f-9f2d-3b6bf24c34db/Brady-TDDI-HI.png" />
-</figure>
-</section>
-<section id="references" class="slide level2">
-<h2>References</h2>
-<ul>
-<li class="fragment">This talk is actually from a blog post: <a href="http://abailly.github.io/posts/dependently-typed-accounting.html" class="uri">http://abailly.github.io/posts/dependently-typed-accounting.html</a></li>
-<li class="fragment">You can find the code on Github: <a href="https://github.com/abailly/xxi-century-typed/blob/master/idris/src/Accounting.idr">https://github.com/abailly/xxi-century-typed</a></li>
-<li class="fragment">I am <a href="https://twitter.com/dr_c0d3">dr_c0d3</a> on Twitter</li>
+<h2 id="the-book">The Book</h2>
+<p><img src="https://images.manning.com/720/960/resize/book/1/453215a-afa1-443f-9f2d-3b6bf24c34db/Brady-TDDI-HI.png" /></p>
+<h2 id="references">References</h2>
+<ul class="incremental">
+<li>This talk is actually from a blog post: <a href="http://abailly.github.io/posts/dependently-typed-accounting.html">http://abailly.github.io/posts/dependently-typed-accounting.html</a></li>
+<li>You can find the code on Github: <a href="https://github.com/abailly/xxi-century-typed/blob/master/idris/src/Accounting.idr">https://github.com/abailly/xxi-century-typed</a></li>
+<li>I am <a href="https://twitter.com/dr_c0d3">dr_c0d3</a> on Twitter</li>
 </ul>
-</section>
     </div>
   </div>
 

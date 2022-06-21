@@ -64,7 +64,7 @@
 <li>Start from some context containing known assignments from <em>symbols</em> (names) to <em>types</em>. This context might be empty or, more often, prepopulated with basic definitions (e.g. called <code>Prelude</code> in Haskell) for common symbols,</li>
 <li>To typecheck any expression <span class="math inline">\(E\)</span> within a context <span class="math inline">\(C\)</span>:
 <ul>
-<li>If <span class="math inline">\(E\)</span> is an immediate value, e.g. a constant like <code>1</code>, <code>&quot;Foo&quot;</code> or <code>True</code>, assign to it the appropriate type,</li>
+<li>If <span class="math inline">\(E\)</span> is an immediate value, e.g. a constant like <code>1</code>, <code>"Foo"</code> or <code>True</code>, assign to it the appropriate type,</li>
 <li>If <span class="math inline">\(E\)</span> is a function application, recursively typecheck both the function and its arguments, then <em>unify</em> the type of the function and the types of its arguments, creating new assignments if needed,</li>
 <li>If <span class="math inline">\(E\)</span> is a symbol, extend <span class="math inline">\(C\)</span> to <span class="math inline">\(C'\)</span> by assigning a fresh <em>type variable</em> <span class="math inline">\(t\)</span> as the type of <span class="math inline">\(E\)</span>: Without more information, this is the most general way we can type something, e.g. by saying <span class="math inline">\(E\)</span> can have <em>any</em> type,</li>
 <li>If <span class="math inline">\(E\)</span> is a symbol whose type is already known (because it is a library function, or because the user assigned it explicitly a type through an annotation), extend <span class="math inline">\(C\)</span> to <span class="math inline">\(C'\)</span> by assigning some type <span class="math inline">\(t\)</span> as the type of <span class="math inline">\(E\)</span>,</li>
@@ -87,31 +87,33 @@
 </ul>
 <h2 id="constructing-types">Constructing Types</h2>
 <ul>
-<li>Types for literal are the basic building blocks of Haskell’s type language, but of course there is a need to be able to build more complex types out of simpler ones. This is the role of <strong>type constructors</strong> which are functions (or operators) that can be used to build other types.</li>
-<li><em>Tuples</em> are the types of values that are grouped together, also known as <em>product types</em> e.g. <code>(1, 2.0) :: (Int,Double)</code>, <code>(1,2,3) :: (Int,Int,Int)</code>. Note that <em>values</em> of tuple <em>types</em> are built using the same operator tupling symbols <code>(,)</code>, <code>(,,)</code> … than the type itself, which might be confusing.</li>
+<li><p>Types for literal are the basic building blocks of Haskell’s type language, but of course there is a need to be able to build more complex types out of simpler ones. This is the role of <strong>type constructors</strong> which are functions (or operators) that can be used to build other types.</p></li>
+<li><p><em>Tuples</em> are the types of values that are grouped together, also known as <em>product types</em> e.g. <code>(1, 2.0) :: (Int,Double)</code>, <code>(1,2,3) :: (Int,Int,Int)</code>. Note that <em>values</em> of tuple <em>types</em> are built using the same operator tupling symbols <code>(,)</code>, <code>(,,)</code> … than the type itself, which might be confusing.</p></li>
 <li><p><em>Functions</em> are of course one of the most ubiquitous types in a functional programming languages and they are types using the <code>-&gt;</code> operator:</p>
 <pre class=".haskell"><code>double :: Int -&gt; Int
 double i = 2 * i</code></pre></li>
 <li><p>The <code>-&gt;</code> operator is a <em>type constructor</em> that defines the type of a function taking its input from some type <code>a</code> and returning a value of some other type <code>b</code>. Because types can be built from other types, functions with more than one argument are actually built from functions with one argument:</p>
 <pre class=".haskell"><code>multiply :: Int -&gt; Int -&gt; Int
 multiply x y = x * y</code></pre></li>
-<li>The type of <code>multiply</code> above can be interpreted in 2 ways:</li>
+<li><p>The type of <code>multiply</code> above can be interpreted in 2 ways:</p>
+<ul>
 <li>It is a function that takes 2 <code>Int</code> arguments and returns an <code>Int</code></li>
 <li>It is a function that takes 1 <code>Int</code> argument and returns a function that takes 1 <code>Int</code> argument and returns an <code>Int</code>,</li>
+</ul></li>
 <li><p>This way of defining functions is known as <em>currying</em> and highlights the fact the type system is really a language very similar to other programming languages: Type expressions are built syntactically from basic building blocks and operators.</p></li>
 </ul>
 <h2 id="user-defined-types">User Defined Types</h2>
 <ul>
 <li><p>User defined types are introduced with the <code>data</code> keyword (which is a bit confusing for beginners) and by providing <em>value constructors</em></p>
-<p>The expression</p>
+<pre><code>The expression</code></pre>
 <pre class=".haskell"><code>data Foo = Bar Int Bool</code></pre>
-defines a type <code>Foo</code> and a (value) <em>constructor</em> <code>Bar</code></li>
+<p>defines a type <code>Foo</code> and a (value) <em>constructor</em> <code>Bar</code></p></li>
 <li><p>The constructor <code>Bar</code> is a <em>value-level</em> thing and declaring a constructor actually declares a function, the type of which depends on the constructor’s arguments adn the type of value it constructs. In this case, the above code is equivalent to declaring:</p>
 <pre class=".haskell"><code>Bar :: Int -&gt; Bool -&gt; Foo</code></pre>
-The compiler will provide the definition of the function, of course</li>
+<p>The compiler will provide the definition of the function, of course</p></li>
 <li><p>A powerful feature of Haskell’s types is that one can provide <em>several</em> ways of constructing values of the same type, thanks to <em>union types</em> (not to be confused with sum types that will be introduced later on):</p>
 <pre class=".haskell"><code>data Temperature = Farenheit Double | Celsius Double | Kelvin Double</code></pre>
-Each member of the union defines a different function that can be used to construct values of the enclosing declaring type</li>
+<p>Each member of the union defines a different function that can be used to construct values of the enclosing declaring type</p></li>
 <li><p>Records are not a type-level construction in Haskell but syntactic sugar over <em>product types</em>:</p>
 <p>This expression:</p>
 <pre class=".haskell"><code>data User = User { firstname :: String, lastname :: String }</code></pre>
@@ -126,15 +128,11 @@ Each member of the union defines a different function that can be used to constr
 <p>Types seen so far are called <em>ground types</em> as their inhabitants are defined as part of the declaration of the type itself: Everything there is to know about them is immediate and does not require further work from the compiler. If we draw a parallel with the world of values, we could say that such types are the <em>constants</em> which form the building blocks of the types language. But the real power of HML type system comes from the fact types can actually be constructed through <em>functions</em> or <em>type constructors</em>: These are also called parametric types, rank-1 types or polymorphic types.</p>
 <ul>
 <li><p>A simple polymorphic type <code>Message</code> that pairs an arbitrary <code>payload</code> along with a timestamp can be defined as:</p>
-<pre class=".haskell"><code>data Message a = Message { date :: Date, payload :: a }</code></pre></li>
-</ul>
+<pre class=".haskell"><code>data Message a = Message { date :: Date, payload :: a }</code></pre>
 <p>This declares <code>Message</code> as a <em>type constructor</em> or a <em>type level</em> function, that needs to be applied a <em>type</em> to yield another <em>type</em>, e.g.</p>
-<pre><code>~~~~~~~~~.haskell
-message :: Message Double
-message = Message 2016-09-10 23.4
-~~~~~~~~~</code></pre>
-<ul>
-<li>type synonyms allow defining <em>aliases</em> of other types, but they do not define new types:</li>
+<pre class=".haskell"><code>message :: Message Double
+message = Message 2016-09-10 23.4</code></pre></li>
+<li><p>type synonyms allow defining <em>aliases</em> of other types, but they do not define new types:</p></li>
 </ul>
 <blockquote>
 <p>type Value = Message Double</p>
@@ -167,7 +165,8 @@ message = Message 2016-09-10 23.4
 <li>Multi-parameter type classes: describe some relationship between two types</li>
 </ul>
 <blockquote>
-<p>class Nat f g where nat :: f a -&gt; g a</p>
+<p>class Nat f g where
+nat :: f a -&gt; g a</p>
 </blockquote>
 <h1 id="some-common-type-errors-and-their-meaning">Some common type errors and their meaning</h1>
 <ul>

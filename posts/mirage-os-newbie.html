@@ -7,7 +7,9 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - First Steps with MirageOS</title>
+
   <meta name="description" content="Crafting code since 1994">
+
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -39,125 +41,84 @@
     </header>
     <div id="main" role="main">
 <h1>First Steps with MirageOS</h1>
-<div class="info">Posted on 2016-04-22</div>
 
-<p>This post is a follow-up to the session I gave at <a
-href="http://cfp.devoxx.fr/2016/talk/KEN-7124/Unikernel:_Le_conteneur_du_futur">Devoxx
-France</a> on <a href="http://mirage.io">MirageOS</a>. It provides
-detailed instructions on how to setup a development environment to be
-able to:</p>
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on April 22, 2016</div>
+
+<p>This post is a follow-up to the session I gave at
+<a href="http://cfp.devoxx.fr/2016/talk/KEN-7124/Unikernel:_Le_conteneur_du_futur">Devoxx France</a> on <a href="http://mirage.io">MirageOS</a>. It
+provides detailed instructions on how to setup a development environment to be able to:</p>
 <ul>
-<li>Build locally Mirage projects and generate native binaries with
-<code>--unix</code> configuration flag,</li>
+<li>Build locally Mirage projects and generate native binaries with <code>--unix</code> configuration flag,</li>
 <li>Install and configure a VirtualBox VM that runs Xen Hypervisor,</li>
 <li>Build Xen-enabled Mirage unikernels on this VM.</li>
 </ul>
 <h2 id="references">References</h2>
-<p>Those points are already covered in other documentation material
-available here and there on the web and I mainly did some synthesis from
-a <em>newbie</em> perspective. Here is a list of resources that were
-helpful in making this post:</p>
+<p>Those points are already covered in other documentation material available here and there on the web and I mainly did some synthesis
+from a <em>newbie</em> perspective. Here is a list of resources that were helpful in making this post:</p>
 <ul>
-<li><a href="https://mirage.io/wiki/">Official MirageOS Wiki</a> which
-contains various tutorials,</li>
-<li><a href="https://github.com/mirage/mirage-www/">mirage-www</a>, the
-self-hosted website,</li>
-<li><a
-href="http://www.skjegstad.com/blog/2015/01/19/mirageos-xen-virtualbox/">Magnus
-Skjegstad</a> blog post which mostly covers point 2. above, and <a
-href="http://www.skjegstad.com/blog/2015/03/25/mirageos-vm-per-url-experiment/">another
-post</a> which covers more advanced stuff,</li>
-<li><a
-href="https://www.somerandomidiot.com/blog/2014/07/25/doing-nothing-in-mirage/">Doing
-nothing in Mirage</a>, an older post on basic configuration,</li>
-<li>An account on recent Solo5 development to <a
-href="https://mirage.io/blog/introducing-solo5">run Mirage on
-Qemu</a>,</li>
-<li>Another <em>getting started</em> <a
-href="http://roscidus.com/blog/blog/2014/07/28/my-first-unikernel%2F">blog
-post</a></li>
+<li><a href="https://mirage.io/wiki/">Official MirageOS Wiki</a> which contains various tutorials,</li>
+<li><a href="https://github.com/mirage/mirage-www/">mirage-www</a>, the self-hosted website,</li>
+<li><a href="http://www.skjegstad.com/blog/2015/01/19/mirageos-xen-virtualbox/">Magnus Skjegstad</a> blog post which mostly covers
+point 2. above, and <a href="http://www.skjegstad.com/blog/2015/03/25/mirageos-vm-per-url-experiment/">another post</a> which covers more
+advanced stuff,</li>
+<li><a href="https://www.somerandomidiot.com/blog/2014/07/25/doing-nothing-in-mirage/">Doing nothing in Mirage</a>, an older post on basic
+configuration,</li>
+<li>An account on recent Solo5 development to <a href="https://mirage.io/blog/introducing-solo5">run Mirage on Qemu</a>,</li>
+<li>Another <em>getting started</em> <a href="http://roscidus.com/blog/blog/2014/07/28/my-first-unikernel%2F">blog post</a></li>
 <li>Some random pages on Xen configuration:
 <ul>
-<li><a
-href="http://superuser.com/questions/737976/how-do-i-get-xen-domu-guests-to-have-internet-access">Accessing
-the Internet from domU kernels</a>,</li>
-<li><a
-href="http://wiki.xenproject.org/wiki/Host_Configuration/Networking">Networking
-in Xen</a>, not for the faint of heart,</li>
-<li>Related work for <a
-href="https://github.com/GaloisInc/HaLVM/wiki/Building-a-Development-Virtual-Machine">HaLVM</a>,
-the unikernel system in Haskell.</li>
+<li><a href="http://superuser.com/questions/737976/how-do-i-get-xen-domu-guests-to-have-internet-access">Accessing the Internet from domU kernels</a>,</li>
+<li><a href="http://wiki.xenproject.org/wiki/Host_Configuration/Networking">Networking in Xen</a>, not for the faint of heart,</li>
+<li>Related work for <a href="https://github.com/GaloisInc/HaLVM/wiki/Building-a-Development-Virtual-Machine">HaLVM</a>, the unikernel system
+in Haskell.</li>
 </ul></li>
 </ul>
-<h1 id="a-naive-authentication-service">A Naive Authentication
-Service</h1>
+<h1 id="a-naive-authentication-service">A Naive Authentication Service</h1>
 <h2 id="goal">Goal</h2>
-<p>The goal of this post is to build a simple HTTP service that can
-authenticate users based on their password. This service’s specification
-is simple, not to say simplistic and naive:</p>
+<p>The goal of this post is to build a simple HTTP service that can authenticate users based on their password. This service’s
+specification is simple, not to say simplistic and naive:</p>
 <ul>
-<li>It maintains a key/value store from user names to passwords (we do
-not care about encryption here but of course they should be),</li>
-<li>It receives <code>GET</code> HTTP requests on port 80 and expects
-two parameters in the query part: A <code>user</code> string and a
-<code>password</code> string,</li>
-<li>If the given password for given user matches stored password, it
-responds with <code>200 OK</code>,</li>
-<li>In all other cases it should return <code>401
-UNAUTHORIZED</code>.</li>
+<li>It maintains a key/value store from user names to passwords (we do not care about encryption here but of course they should be),</li>
+<li>It receives <code>GET</code> HTTP requests on port 80 and expects two parameters in the query part: A <code>user</code> string and a <code>password</code> string,</li>
+<li>If the given password for given user matches stored password, it responds with <code>200 OK</code>,</li>
+<li>In all other cases it should return <code>401 UNAUTHORIZED</code>.</li>
 </ul>
 <p>To build this service we need to:</p>
 <ul>
-<li>Run a HTTP Server: I will use <a
-href="https://github.com/mirage/ocaml-cohttp">ocaml-cohttp</a> which is
-built specifically to be run within MirageOS applications,</li>
-<li>Store data in some key/value store: MirageOS provides
-<code>kv_ro</code> which is an abstract key/value store which can be
-backed in code or in a FAT-formatted disk image.</li>
+<li>Run a HTTP Server: I will use <a href="https://github.com/mirage/ocaml-cohttp">ocaml-cohttp</a> which is built specifically to be run within
+MirageOS applications,</li>
+<li>Store data in some key/value store: MirageOS provides <code>kv_ro</code> which is an abstract key/value store which can be backed in code
+or in a FAT-formatted disk image.</li>
 </ul>
 <h2 id="server-code">Server Code</h2>
-<p>The server code resides in a <code>unikernel.ml</code> file. I am not
-at all familiar with OCaml so my code is probably not really idiomatic.
-Learning OCaml is one of the reasons I became interested in MirageOS in
-the first place !</p>
-<p>We first need some usual incantations to “import” names, e.g. opening
-modules in OCaml:</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">open</span> <span class="dt">String</span></span>
+<p>The server code resides in a <code>unikernel.ml</code> file. I am not at all familiar with OCaml so my code is probably not really
+idiomatic. Learning OCaml is one of the reasons I became interested in MirageOS in the first place !</p>
+<p>We first need some usual incantations to “import” names, e.g. opening modules in OCaml:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">open</span> <span class="dt">String</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">open</span> Lwt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">open</span> Lwt.Infix</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">open</span> V1_LWT</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">open</span> <span class="dt">Printf</span></span></code></pre></div>
-<p>The <code>string_of_stream</code> function is adapted from the basic
-<code>kv_ro</code> example provided in <a
-href="https://github.com/mirage/mirage-skeleton">mirage-skeleton</a>.
-Its name is pretty explicit…</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> string_of_stream stream =</span>
+<p>The <code>string_of_stream</code> function is adapted from the basic <code>kv_ro</code> example provided in <a href="https://github.com/mirage/mirage-skeleton">mirage-skeleton</a>. Its name is pretty explicit…</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> string_of_stream stream =</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> s = <span class="dt">List</span>.map Cstruct.to_string stream <span class="kw">in</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  return (<span class="dt">String</span>.concat <span class="st">&quot;&quot;</span> s)</span></code></pre></div>
-<p>The main module is parameterized by 3 signatures which are provided
-by MirageOS according to the configuration given at build-time. Here we
-have 3 modules: The console for outputting some logs, the Key/Value
-store and <code>conduit</code> which provides network connectivity:</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> Main (C:CONSOLE) (K: KV_RO) (CON:Conduit_mirage.S) = <span class="kw">struct</span></span></code></pre></div>
-<p>We build a new module by passing underlying connection manager to our
-HTTP server implementation then we can define our <code>start</code>
+<p>The main module is parameterized by 3 signatures which are provided by MirageOS according to the configuration given at
+build-time. Here we have 3 modules: The console for outputting some logs, the Key/Value store and <code>conduit</code> which provides
+network connectivity:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> Main (C:CONSOLE) (K: KV_RO) (CON:Conduit_mirage.S) = <span class="kw">struct</span></span></code></pre></div>
+<p>We build a new module by passing underlying connection manager to our HTTP server implementation then we can define our <code>start</code>
 entry point:</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">module</span> H = Cohttp_mirage.Server(Conduit_mirage.Flow)</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">module</span> H = Cohttp_mirage.Server(Conduit_mirage.Flow)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> start console k conduit =</span></code></pre></div>
-<p>We first define the function that will check the database for
-matching username/password pair, given an access request. The main thing
-to note here is that reading from the store happens within the context
-of so-called <em>light-weight threads</em> or <code>Lwt</code> which is
-the basic Mirage cooperative thread execution model. Potentially
-blocking operations expect a <em>continuation</em> that will be passed
-the result of the operation.</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> check_pwd u p =</span>
+<p>We first define the function that will check the database for matching username/password pair, given an access request. The main
+thing to note here is that reading from the store happens within the context of so-called <em>light-weight threads</em> or <code>Lwt</code> which is
+the basic Mirage cooperative thread execution model. Potentially blocking operations expect a <em>continuation</em> that will be passed the
+result of the operation.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> check_pwd u p =</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>      K.read k u <span class="dv">0</span> <span class="dv">4096</span> &gt;&gt;= <span class="kw">fun</span> readpwd -&gt;</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>      <span class="kw">match</span> readpwd <span class="kw">with</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      | `Ok pwds -&gt;</span>
@@ -165,12 +126,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb5-1"><a href
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>         return $ <span class="dt">compare</span> (trim pwd) p == <span class="dv">0</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      | _ -&gt; return <span class="kw">false</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> </span></code></pre></div>
-<p>Then comes the meat of the server, the <code>http_callback</code>
-function that will be called by cohttp upon everyrequest. We extract
-interesting parts of the request’s URI then check whether or not the
-username/password pair matches, and finally return a response.</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> http_callback _conn_id req _body =</span>
+<p>Then comes the meat of the server, the <code>http_callback</code> function that will be called by cohttp upon everyrequest. We extract
+interesting parts of the request’s URI then check whether or not the username/password pair matches, and finally return a response.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> http_callback _conn_id req _body =</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>      <span class="kw">let</span> uri  = Cohttp.Request.uri req             <span class="kw">in</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>      <span class="kw">let</span> path = Uri.path uri                       <span class="kw">in</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      <span class="kw">let</span> user = Uri.get_query_param uri <span class="st">&quot;user&quot;</span>     <span class="kw">in</span></span>
@@ -184,57 +142,39 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb6-1"><a href
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>      | _                -&gt;</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>          H.respond_string ~status:`Unauthorized ~body:<span class="st">&quot;No user given</span><span class="ch">\n</span><span class="st">&quot;</span> ()</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span></span></code></pre></div>
-<p>It remains to start the ball rolling by creating the HTTP server and
-listening on some port, using underlying <code>CON</code>duit module
+<p>It remains to start the ball rolling by creating the HTTP server and listening on some port, using underlying <code>CON</code>duit module
 implementation:</p>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> spec = H.make ~callback:http_callback () <span class="kw">in</span></span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> spec = H.make ~callback:http_callback () <span class="kw">in</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    CON.listen conduit (`TCP <span class="dv">8088</span>) (H.listen spec)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
-<p>The single most important thing to note here is that this code is
-pretty much system-agnostic: There is no dependency on a particular
-low-level runtime infrastructure and the same code can be run either as
-a native binary on Unix or packaged as unikernel on Xen (or QEMU).
-Implementation details are hidden behind the signatures,
-e.g. interfaces, that parameterize the <code>Main</code> module and
+<p>The single most important thing to note here is that this code is pretty much system-agnostic: There is no dependency on a
+particular low-level runtime infrastructure and the same code can be run either as a native binary on Unix or packaged as unikernel
+on Xen (or QEMU). Implementation details are hidden behind the signatures, e.g. interfaces, that parameterize the <code>Main</code> module and
 whose instances are passed to the <code>start</code> function.</p>
 <h2 id="configuring-mirage">Configuring Mirage</h2>
-<p>The second important file one has to write for a MirageOS application
-is the <code>config.ml</code> file which is used by <code>mirage</code>
-tool to generate the needed boilerplate to run the actual code.</p>
-<p>After the incantation to access <code>Mirage</code> module’s content,
-we define our first component that will be melded in our application.
-This one is a simple generic key/value store whose content will be built
-from the <code>data/</code> directory. In Unix mode requests for some
-key will be matched to the content of the <code>data/</code> directory,
-whereas in Xen mode we will need to pack that data inside a block device
-and mount that device in the built kernel</p>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">open</span> Mirage</span>
+<p>The second important file one has to write for a MirageOS application is the <code>config.ml</code> file which is used by <code>mirage</code> tool to
+generate the needed boilerplate to run the actual code.</p>
+<p>After the incantation to access <code>Mirage</code> module’s content, we define our first component that will be melded in our
+application. This one is a simple generic key/value store whose content will be built from the <code>data/</code> directory. In Unix mode
+requests for some key will be matched to the content of the <code>data/</code> directory, whereas in Xen mode we will need to pack that data
+inside a block device and mount that device in the built kernel</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">open</span> Mirage</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> auth_data = generic_kv_ro <span class="st">&quot;data&quot;</span></span></code></pre></div>
-<p>Our second component is the HTTP server. We can see here our
-configuration depends on the underlying platform. Note that the
-<code>generic_stackv4</code> provides IPv4 implementation for both Unix
-and Xen and strictly speaking we could get rid of the
-<code>if_impl</code> construct. It is also possible to use a
-<code>direct_stackv4_with_default_ipv4</code> implementation on Xen:
-This will assign a static IP to the kernel which can be changed when
-configuring mirage.</p>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> server =</span>
+<p>Our second component is the HTTP server. We can see here our configuration depends on the underlying platform. Note that the
+<code>generic_stackv4</code> provides IPv4 implementation for both Unix and Xen and strictly speaking we could get rid of the <code>if_impl</code>
+construct. It is also possible to use a <code>direct_stackv4_with_default_ipv4</code> implementation on Xen: This will assign a static IP to
+the kernel which can be changed when configuring mirage.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> server =</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> network =</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    if_impl Key.is_xen</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>            (generic_stackv4 default_console tap0)</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>            (socket_stackv4 default_console [Ipaddr.V4.any]) <span class="kw">in</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  conduit_direct network</span></code></pre></div>
-<p>The <code>handler</code> function defines the general structure of
-our service and adds some libraries and packages to be imported by
-mirage. Then we can finally register our <code>auth_service</code>
-passing it the result of invoking handler with actual implementation of
-the modules it requires.</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> handler =</span>
+<p>The <code>handler</code> function defines the general structure of our service and adds some libraries and packages to be imported by
+mirage. Then we can finally register our <code>auth_service</code> passing it the result of invoking handler with actual implementation of the
+modules it requires.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> handler =</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> libraries = [<span class="st">&quot;mirage-http&quot;</span>] <span class="kw">in</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> packages = [<span class="st">&quot;mirage-http&quot;</span>] <span class="kw">in</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  foreign</span>
@@ -245,19 +185,16 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a hre
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  register <span class="st">&quot;auth_service&quot;</span> [handler $ default_console $ auth_data $ server]</span></code></pre></div>
 <p>I must confessh this part is still a bit mysterious to me…</p>
 <h2 id="building-on-unix">Building on Unix</h2>
-<p>We will assume <a href="https://mirage.io/wiki/install">mirage is
-installed</a> according to the instructions. At the time of this
-writing, we use:</p>
+<p>We will assume <a href="https://mirage.io/wiki/install">mirage is installed</a> according to the instructions. At the time of this writing, we
+use:</p>
 <pre><code>$ opam --version
 1.2.2
 $ ocamlc -version
 4.02.3
 $ mirage --version
 2.8.0</code></pre>
-<p>We can first try to build and run our service on Unix, e.g. locally.
-We first need to populate a <code>data/</code> directory with some files
-representing usernames and add a password inside each file. Then we can
-configure Mirage, build the executable using the generated
+<p>We can first try to build and run our service on Unix, e.g. locally. We first need to populate a <code>data/</code> directory with some files
+representing usernames and add a password inside each file. Then we can configure Mirage, build the executable using the generated
 <code>Makefile</code> and run it.</p>
 <pre><code>$ mirage configure -vv --unix
 ...
@@ -265,8 +202,7 @@ $ make
 $ ./mir-auth_service
 Manager: connect
 Manager: configuring</code></pre>
-<p>In another console, we can test that our authentication service works
-correctly:</p>
+<p>In another console, we can test that our authentication service works correctly:</p>
 <pre><code>$ curl -v http://localhost:8088/foo/bar?user=john\&amp;password=password
 &lt; HTTP/1.1 200 OK
 &lt; content-length: 12
@@ -277,110 +213,62 @@ $ curl -v http://localhost:8088/foo/bar?user=john\&amp;password=passwor
 &lt; content-length: 14
 &lt; 
 Invalid login</code></pre>
-<p>So far, so good! We are now ready to test our unikernel for “real”,
-e.g. to configure a VM running Xen in VirtualBox…</p>
-<h1 id="configuring-a-xen-vm-on-virtualbox">Configuring a Xen VM on
-Virtualbox</h1>
+<p>So far, so good! We are now ready to test our unikernel for “real”, e.g. to configure a VM running Xen in VirtualBox…</p>
+<h1 id="configuring-a-xen-vm-on-virtualbox">Configuring a Xen VM on Virtualbox</h1>
 <blockquote>
-<p><strong>Note</strong>: This has only been tested on the Ubuntu 14.04
-box</p>
+<p><strong>Note</strong>: This has only been tested on the Ubuntu 14.04 box</p>
 </blockquote>
 <p>Fortunately for us, all the grunt work has already been done in the
-<a
-href="https://github.com/abailly/mirage-vagrant-vms">mirage-vagrant-vms</a>
-which I simply forked and extended to add the following features:</p>
+<a href="https://github.com/abailly/mirage-vagrant-vms">mirage-vagrant-vms</a> which I simply forked and extended to add the following
+features:</p>
 <ul>
-<li>Install the latest <em>Official</em> version of ocaml toolchain and
-mirage environment,</li>
+<li>Install the latest <em>Official</em> version of ocaml toolchain and mirage environment,</li>
 <li>Configure a <em>host-only</em> network for the VM,</li>
-<li>Configure <em>bridge</em>, <em>dnsmasq</em> and <em>IP
-forwarding</em> in the VM to be used by Xen domU kernels.</li>
+<li>Configure <em>bridge</em>, <em>dnsmasq</em> and <em>IP forwarding</em> in the VM to be used by Xen domU kernels.</li>
 </ul>
 <h2 id="networking">Networking</h2>
-<p>The part I had most difficulties with is of course the networking
-part. We want the <em>domU</em> virtual machines running on top of Xen
-hypervisor inside the VirtualBox VM to be visible from our
-<em>host</em>. The following picture tries to render my understanding of
-the network topology and configuration we want to achieve (actual
-IPs/MACs may of course differ).</p>
-<p><img src="/images/xen-vm-network-topo.png" /></p>
-<p>The VirtualBox engine exposes the host-only interface to the host as
-<code>vboxnet4</code> with a pre-configured IP (e.g. IP is set in
-<code>Vagrantfile</code> as part of definition of host-only network).
-This interface is linked to the <code>eth1</code> “physical interface”
-inside the VM and part of the same <em>ethernet</em> network. We create
-a <code>br0</code> interface which is a bridge: An interface that
-connects two or more interfaces by routing the packets to/from each of
-the bridged interfaces. In this case it connects the host-only interface
-(<code>eth1</code>) and the the virtual interfaces created for each domU
-kernel, in this case <code>vif1.1</code>. The latter is pair of a pair
-of virtual interfaces created by underlying hypervisor when the domU
-kernel boots up, the other member of the pair being the
-<code>tap0</code> interface on the domU side. Each packet going through
-either interface is made available to the other interface.</p>
-<p>Another important is configuring and activating <a
-href="http://www.thekelleys.org.uk/dnsmasq/doc.html">dnsmasq</a> to
-ensure domU kernels will be able to get an IP address using DHCP. Here
-we configure it to be attached to <code>br0</code> interface - our
-bridge - and to serve IPs from 192.168.77.3 to 192.168.77.200.</p>
-<p>Last but not least, one must not forget to enable <strong>promiscuous
-mode</strong> on the host-only NIC created for the VM: I spent a couple
-hours trying to understand why my packets could not reach the unikernel
-although I could see ARP frames being exchanged…</p>
-<h2 id="building-mirageos-kernel-on-xen-enabled-vm">Building MirageOS
-kernel on Xen-enabled VM</h2>
-<p>We are now ready to configure, build and run our unikernel on Xen VM.
-We assume code has been somehow uploaded to the VM:</p>
+<p>The part I had most difficulties with is of course the networking part. We want the <em>domU</em> virtual machines running on top of Xen
+hypervisor inside the VirtualBox VM to be visible from our <em>host</em>. The following picture tries to render my understanding of the
+network topology and configuration we want to achieve (actual IPs/MACs may of course differ).</p>
+<p><img src="../images/xen-vm-network-topo.png" /></p>
+<p>The VirtualBox engine exposes the host-only interface to the host as <code>vboxnet4</code> with a pre-configured IP (e.g. IP is set in <code>Vagrantfile</code> as part of definition of host-only network). This interface is linked
+to the <code>eth1</code> “physical interface” inside the VM and part of the same <em>ethernet</em> network. We create a <code>br0</code> interface which is a bridge: An interface that connects two or more interfaces by routing the packets to/from each of the bridged interfaces. In this case it connects the host-only interface
+(<code>eth1</code>) and the the virtual interfaces created for each domU kernel, in this case <code>vif1.1</code>. The latter is pair of a pair of virtual interfaces created by underlying hypervisor when the domU kernel boots up, the other member of the pair being the <code>tap0</code> interface on the domU side. Each packet going through either interface is made available to the other interface.</p>
+<p>Another important is configuring and activating <a href="http://www.thekelleys.org.uk/dnsmasq/doc.html">dnsmasq</a> to ensure domU kernels will be able to get an IP address using DHCP. Here we configure it to be attached to <code>br0</code> interface - our bridge - and to serve IPs from 192.168.77.3 to 192.168.77.200.</p>
+<p>Last but not least, one must not forget to enable <strong>promiscuous mode</strong> on the host-only NIC created for the VM: I spent a couple hours trying to understand why my packets could not reach the unikernel although I could see ARP frames being exchanged…</p>
+<h2 id="building-mirageos-kernel-on-xen-enabled-vm">Building MirageOS kernel on Xen-enabled VM</h2>
+<p>We are now ready to configure, build and run our unikernel on Xen VM. We assume code has been somehow uploaded to the VM:</p>
 <pre><code>$ mirage configure --xen -vv --net direct --dhcp true --tls false --network=0
 ...
 $ make</code></pre>
-<p>This creates a bunch of new files in the project’s directory, the
-most important one being <code>auth_service.xl</code>:</p>
+<p>This creates a bunch of new files in the project’s directory, the most important one being <code>auth_service.xl</code>:</p>
 <pre><code># Generated by auth_service (Wed, 20 Apr 2016 13:53:27 GMT).
 
-name = &#39;auth_service&#39;
-kernel = &#39;/Users/arnaud/projects/unikernel/auth-service/mir-auth_service.xen&#39;
-builder = &#39;linux&#39;
+name = 'auth_service'
+kernel = '/Users/arnaud/projects/unikernel/auth-service/mir-auth_service.xen'
+builder = 'linux'
 memory = 256
-on_crash = &#39;preserve&#39;
+on_crash = 'preserve'
 
-disk = [ &#39;format=raw, vdev=xvdb, access=rw, target=/Users/arnaud/projects/unikernel/auth-service/tar_block1.img&#39;, &#39;format=raw, vdev=xvdc, access=rw, target=/Users/arnaud/projects/unikernel/auth-service/fat_block1.img&#39; ]
+disk = [ 'format=raw, vdev=xvdb, access=rw, target=/Users/arnaud/projects/unikernel/auth-service/tar_block1.img', 'format=raw, vdev=xvdc, access=rw, target=/Users/arnaud/projects/unikernel/auth-service/fat_block1.img' ]
 
 # if your system uses openvswitch then either edit /etc/xen/xl.conf and set
 #     vif.default.script=&quot;vif-openvswitch&quot;
 # or add &quot;script=vif-openvswitch,&quot; before the &quot;bridge=&quot; below:
 vif = [ ]</code></pre>
-<p>This is the descriptor that is passed to the Xen launcher to start
-the unikernel. We must also not forget to build the disk image that will
-be loaded in our unikernel and exposed to our program as a key/value
-store:</p>
+<p>This is the descriptor that is passed to the Xen launcher to start the unikernel. We must also not forget to build the disk image that will be loaded in our unikernel and exposed to our program as a key/value store:</p>
 <pre><code>$ ./make-fat_block1-image.sh
 $ sudo xl -v create -c auth_service.xl</code></pre>
-<p>The <code>-v</code> option asks <code>xl</code> to be verbose and the
-<code>-c</code> attaches a console to the launched kernel.</p>
-<p>This does not work out of the box and I needed to manually edit the
-generated files to fix a couple of minor issues:</p>
+<p>The <code>-v</code> option asks <code>xl</code> to be verbose and the <code>-c</code> attaches a console to the launched kernel.</p>
+<p>This does not work out of the box and I needed to manually edit the generated files to fix a couple of minor issues:</p>
 <ul>
-<li>The <code>disk</code> section of <code>auth_service.xl</code>
-contains 2 disks but we only generate one of them, the
-<code>fat_block1.img</code>: The <code>tar_block1.img</code> must be
-removed from the list,</li>
-<li>The file <code>auth_service.xe</code> also contains some descriptor
-for the same image, which needs to be also removed,</li>
-<li>The <code>vif = []</code> part should also be replaced by <code>vif
-= [ "bridge=br0" ]</code> to ensure network device for unikernel is
-attached to the bridge and can actually be assigned an IP through
-dnsmasq,</li>
-<li><code>memory = 256</code> is also way too much: Replace with
-<code>memory = 32</code> which should be enough (16 does not
-work…),</li>
-<li>There is a slight error in the
-<code>make-fat_block1-image.sh</code>: The block size used is made equal
-to the total size of the files to include in the image, which does not
-seem to make much sense. I set it to be 32Kb.</li>
+<li>The <code>disk</code> section of <code>auth_service.xl</code> contains 2 disks but we only generate one of them, the <code>fat_block1.img</code>: The <code>tar_block1.img</code> must be removed from the list,</li>
+<li>The file <code>auth_service.xe</code> also contains some descriptor for the same image, which needs to be also removed,</li>
+<li>The <code>vif = []</code> part should also be replaced by <code>vif = [ "bridge=br0" ]</code> to ensure network device for unikernel is attached to the bridge and can actually be assigned an IP through dnsmasq,</li>
+<li><code>memory = 256</code> is also way too much: Replace with <code>memory = 32</code> which should be enough (16 does not work…),</li>
+<li>There is a slight error in the <code>make-fat_block1-image.sh</code>: The block size used is made equal to the total size of the files to include in the image, which does not seem to make much sense. I set it to be 32Kb.</li>
 </ul>
-<p>With this modifications one should expect to see something like the
-following being printed to the console:</p>
+<p>With this modifications one should expect to see something like the following being printed to the console:</p>
 <pre><code>MirageOS booting...
 Initialising timer interface
 Initialising console ... done.
@@ -443,81 +331,29 @@ hello john!
 <pre><code>ARP responding to: who-has 192.168.77.157?
 ARP: transmitting probe -&gt; 192.168.77.1
 ARP: updating 192.168.77.1 -&gt; 0a:00:27:00:00:04
-Check password for &#39;john&#39; is &#39;password&#39;
-Found password for &#39;john&#39;: &#39;password&#39;
+Check password for 'john' is 'password'
+Found password for 'john': 'password'
 ARP: timeout 192.168.77.1</code></pre>
-<p>We have been running successfuly our first home-made unikernel on an
-hypervisor!</p>
+<p>We have been running successfuly our first home-made unikernel on an hypervisor!</p>
 <h1 id="conclusion">Conclusion</h1>
 <h2 id="takeaways">Takeaways</h2>
 <ul>
-<li>MirageOS is quite well-packaged and thought out and mostly works
-out-of-the-box as advertised. The documentation is detailed and takes
-the newbie by the hand through the various steps one needs to build all
-the examples. All in all the “developer experience” is better than with
-<a href="https://github.com/GaloisInc/HaLVM">HaLVM</a>,</li>
-<li>I was mostly frustrated by my lack of knowledge and understanding of
-Xen platform and virtual networking and I am indebted to people from the
-<a
-href="http://lists.xenproject.org/cgi-bin/mailman/listinfo/mirageos-devel">MirageOS
-mailing list</a> and <a href="http://freenode.net/">IRC Channel
-#mirage</a> for their help,</li>
-<li>I was also limited by my lack of knowledge of OCaml, but working
-with MirageOS is a good incentive to learn the language which seems
-interesting and somehow <em>feels</em> different from Haskell while
-sharing a lot of concepts.. Finding documentation on OCaml is pretty
-straightforward and idioms are close enough to Haskell I was not too far
-off most of the time…</li>
+<li>MirageOS is quite well-packaged and thought out and mostly works out-of-the-box as advertised. The documentation is detailed and takes the newbie by the hand through the various steps one needs to build all the examples. All in all the “developer experience” is better than with <a href="https://github.com/GaloisInc/HaLVM">HaLVM</a>,</li>
+<li>I was mostly frustrated by my lack of knowledge and understanding of Xen platform and virtual networking and I am indebted to people from the <a href="http://lists.xenproject.org/cgi-bin/mailman/listinfo/mirageos-devel">MirageOS mailing list</a> and <a href="http://freenode.net/">IRC Channel #mirage</a> for their help,</li>
+<li>I was also limited by my lack of knowledge of OCaml, but working with MirageOS is a good incentive to learn the language which seems interesting and somehow <em>feels</em> different from Haskell while sharing a lot of concepts.. Finding documentation on OCaml is pretty straightforward and idioms are close enough to Haskell I was not too far off most of the time…</li>
 </ul>
 <h2 id="next-steps">Next steps</h2>
-<p>I really think the unikernel paradigm could be as important a shift
-as containers and dockers have been in the last couple of years and as
-such I really want to keep investigating what MirageOS and HaLVM have to
-offer. To the best of my understanding there seems to be two different
-approaches to unikernels:</p>
+<p>I really think the unikernel paradigm could be as important a shift as containers and dockers have been in the last couple of years and as such I really want to keep investigating what MirageOS and HaLVM have to offer. To the best of my understanding there seems to be two different approaches to unikernels:</p>
 <ul>
-<li>A <em>bottom-up</em>, <em>language-agnostic</em> and
-<em>system-based</em> approach which produces unikernels for any or most
-kind of unix binaries by stripping down a stock OS and packing it along
-with adapted libs with the target process. This approach is merely an
-extension of the existing containers paradigm and is exemplified by <a
-href="http://rumpkernel.org/">Rump kernels</a> and <a
-href="http://osv.io/">OSv</a>,</li>
-<li>A <em>top-down</em> and <em>language-centric</em> approach
-exemplified by Mirage and HaLVM where system-level components are
-actually written in the language thus providing all the benefits of
-tight integration and focus, and packed with a custom minimalistic
-OS.</li>
+<li>A <em>bottom-up</em>, <em>language-agnostic</em> and <em>system-based</em> approach which produces unikernels for any or most kind of unix binaries by stripping down a stock OS and packing it along with adapted libs with the target process. This approach is merely an extension of the existing containers paradigm and is exemplified by <a href="http://rumpkernel.org/">Rump kernels</a> and <a href="http://osv.io/">OSv</a>,</li>
+<li>A <em>top-down</em> and <em>language-centric</em> approach exemplified by Mirage and HaLVM where system-level components are actually written in the language thus providing all the benefits of tight integration and focus, and packed with a custom minimalistic OS.</li>
 </ul>
-<p>Obviously, the former approach definitely requires less effort and
-allows one to produce unikernels in a very short time span by simply
-repackaging existing applications and services. The latter approach is
-more demanding as it requires expertise in a specific language and
-building all the needed components, sometimes from scratch, to provide
-low-level services otherwise provided by standard system libraries. I
-don’t have much rational arguments, beyond those provided in Mirage’s
-own documentation, to back my personal preference for the latter: I
-might be biased by my interest in functional programming languages,
-especially strongly typed ones, and the somewhat childish desire to
-master every single part of the system stack.</p>
+<p>Obviously, the former approach definitely requires less effort and allows one to produce unikernels in a very short time span by simply repackaging existing applications and services. The latter approach is more demanding as it requires expertise in a specific language and building all the needed components, sometimes from scratch, to provide low-level services otherwise provided by standard system libraries. I don’t have much rational arguments, beyond those provided in Mirage’s own documentation, to back my personal preference for the latter: I might be biased by my interest in functional programming languages, especially strongly typed ones, and the somewhat childish desire to master every single part of the system stack.</p>
 <p>What I want to do know is:</p>
 <ul>
-<li>Write a truly useful service that could be unikernelised in OCaml:
-To build on some previous experiments in the domain of distributed
-consensus, I think having a unikernel-based Raft implementation could be
-a challenging and interesting next step. Another potentially interesting
-use case would be to build unikernels for serverless tasks dispatched
-with something like <a
-href="http://aws.amazon.com/fr/documentation/lambda/">AWS Lambda</a> but
-this is not possible,</li>
-<li>Experiment more with <a
-href="https://github.com/djwillia/solo5">solo5</a>, a companion project
-of Mirage whose goal is to allow running Mirage unikernels on top of
-non-Xen hypervisors, like qemu and VirtualBox,</li>
-<li>Experiment with deployment of unikernels on cloud providers. There
-is some documentation and script already available to <a
-href="https://mirage.io/wiki/xen-boot">deploy to AWS</a> which I would
-like to try.</li>
+<li>Write a truly useful service that could be unikernelised in OCaml: To build on some previous experiments in the domain of distributed consensus, I think having a unikernel-based Raft implementation could be a challenging and interesting next step. Another potentially interesting use case would be to build unikernels for serverless tasks dispatched with something like <a href="http://aws.amazon.com/fr/documentation/lambda/">AWS Lambda</a> but this is not possible,</li>
+<li>Experiment more with <a href="https://github.com/djwillia/solo5">solo5</a>, a companion project of Mirage whose goal is to allow running Mirage unikernels on top of non-Xen hypervisors, like qemu and VirtualBox,</li>
+<li>Experiment with deployment of unikernels on cloud providers. There is some documentation and script already available to <a href="https://mirage.io/wiki/xen-boot">deploy to AWS</a> which I would like to try.</li>
 </ul>
 
 
@@ -525,14 +361,17 @@ like to try.</li>
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-
+  
     s.src = '//arnaudsblog.disqus.com/embed.js';
-
+  
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>

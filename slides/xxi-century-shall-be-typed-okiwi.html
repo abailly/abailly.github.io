@@ -92,381 +92,328 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<section><section id="plan" class="titleslide slide level1"><h1>Plan</h1></section><section class="slide level2">
-
-<ul>
-<li class="fragment">Introduction</li>
-<li class="fragment">Motivation</li>
-<li class="fragment">Explication</li>
-<li class="fragment">Conclusion</li>
+<h1 id="plan">Plan</h1>
+<hr />
+<ul class="incremental">
+<li>Introduction</li>
+<li>Motivation</li>
+<li>Explication</li>
+<li>Conclusion</li>
 </ul>
-</section></section>
-<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="pourquoi" class="slide level2">
-<h2>Pourquoi ?</h2>
-<ul>
-<li class="fragment">Discussions sur le canal <code>#beginners</code> dans le slack <code>elm-lang</code>: Beaucoup du questions sur le type de <code>List a</code>…</li>
-<li class="fragment"><a href="https://www.youtube.com/watch?v=IcgmSRJHu_8">Making Impossible States Impossible</a></li>
-<li class="fragment">Lien entre types et formalisation de <em>domaines métiers</em></li>
+<h1 id="introduction">Introduction</h1>
+<h2 id="pourquoi">Pourquoi ?</h2>
+<ul class="incremental">
+<li>Discussions sur le canal <code>#beginners</code> dans le slack <code>elm-lang</code>: Beaucoup du questions sur le type de <code>List a</code>…</li>
+<li><a href="https://www.youtube.com/watch?v=IcgmSRJHu_8">Making Impossible States Impossible</a></li>
+<li>Lien entre types et formalisation de <em>domaines métiers</em></li>
 </ul>
-</section><section id="objectif" class="slide level2">
-<h2>Objectif</h2>
-<ul>
-<li class="fragment">Faire découvrir la richesse des systèmes de types des langages fonctionnels</li>
-<li class="fragment">Comprendre comment utiliser ces systèmes pour des programmes “normaux”</li>
-<li class="fragment">Comprendre en quoi un système de types riche peut permettre de mieux concevoir des programmes</li>
+<h2 id="objectif">Objectif</h2>
+<ul class="incremental">
+<li>Faire découvrir la richesse des systèmes de types des langages fonctionnels</li>
+<li>Comprendre comment utiliser ces systèmes pour des programmes “normaux”</li>
+<li>Comprendre en quoi un système de types riche peut permettre de mieux concevoir des programmes</li>
 </ul>
-</section></section>
-<section><section id="motivation" class="titleslide slide level1"><h1>Motivation</h1></section></section>
-<section><section id="explication" class="titleslide slide level1"><h1>Explication</h1></section><section id="fonctions-pures" class="slide level2">
-<h2>Fonctions pures</h2>
-<figure>
-<img src="/images/picasso-demoiselles.jpg" />
-</figure>
-<aside class="notes">
+<h1 id="motivation">Motivation</h1>
+<h1 id="explication">Explication</h1>
+<hr />
+<h2 id="fonctions-pures">Fonctions pures</h2>
+<p><img src="/images/picasso-demoiselles.jpg" /></p>
+<div class="notes">
 <ul>
 <li>Des <em>fonctions</em> sans effets de bord</li>
 <li>De préférences totales…</li>
 <li>De première classe dans le langage…</li>
 <li>Qui sont interprétées par le <em>runtime</em> qui encapsule l’ensemble des effets</li>
 </ul>
-</aside>
-</section><section id="fonctions-pures-1" class="slide level2">
-<h2>Fonctions pures</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">selectEntries</span> <span class="ot">:</span> (<span class="dt">Account</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>) <span class="ot">-&gt;</span> <span class="dt">Vect</span> k <span class="dt">Entries</span> <span class="ot">-&gt;</span> <span class="dt">Balance</span>
-
-<span class="fu">isLeapYear</span> <span class="ot">:</span> <span class="dt">Year</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>
-
-<span class="fu">toDate</span> <span class="ot">:</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Either</span> <span class="dt">String</span> <span class="dt">Date</span></code></pre></div>
-</section><section id="types-de-données-algébriques" class="slide level2">
-<h2>Types de données algébriques</h2>
-<figure>
-<img src="/images/mondrian-composition.png" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="fonctions-pures-1">Fonctions pures</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">selectEntries</span> <span class="ot">:</span> (<span class="dt">Account</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>) <span class="ot">-&gt;</span> <span class="dt">Vect</span> k <span class="dt">Entries</span> <span class="ot">-&gt;</span> <span class="dt">Balance</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">isLeapYear</span> <span class="ot">:</span> <span class="dt">Year</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">toDate</span> <span class="ot">:</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Either</span> <span class="dt">String</span> <span class="dt">Date</span></span></code></pre></div>
+<h2 id="types-de-données-algébriques">Types de données algébriques</h2>
+<p><img src="/images/mondrian-composition.png" /></p>
+<div class="notes">
 <ul>
 <li>Décrit les données comme engendrées par une structure <em>algébrique</em></li>
 <li>Types construits par <em>composition</em> au moyen d’opérateurs <em>union</em> et <em>produit</em></li>
 <li>Un type est une <em>fonction</em> dans le domaine des types, un <em>constructeur de types</em></li>
 <li>Permet au compilateur de “garantir” la totalité d’une fonction</li>
 </ul>
-</aside>
-</section><section id="types-de-données-algébriques-1" class="slide level2">
-<h2>Types de données algébriques</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">Balance</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
-  <span class="dt">Zero</span> <span class="ot">:</span> <span class="dt">Balance</span>
-
-  <span class="dt">Bal</span> <span class="ot">:</span> (n <span class="ot">:</span> <span class="dt">Amount</span>) <span class="ot">-&gt;</span> (d <span class="ot">:</span> <span class="dt">Direction</span>) <span class="ot">-&gt;</span> <span class="dt">Balance</span></code></pre></div>
-</section><section id="types-de-données-algébriques-récursifs" class="slide level2">
-<h2>Types de données algébriques récursifs</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">List</span> a <span class="fu">=</span> <span class="dt">Nil</span> <span class="fu">|</span> <span class="dt">Cons</span> a (<span class="dt">List</span> a)</code></pre></div>
-</section><section id="interfaces" class="slide level2">
-<h2>Interfaces</h2>
-<figure>
-<img src="/images/pollock-untitled.png" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="types-de-données-algébriques-1">Types de données algébriques</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Balance</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Zero</span> <span class="ot">:</span> <span class="dt">Balance</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Bal</span> <span class="ot">:</span> (n <span class="ot">:</span> <span class="dt">Amount</span>) <span class="ot">-&gt;</span> (d <span class="ot">:</span> <span class="dt">Direction</span>) <span class="ot">-&gt;</span> <span class="dt">Balance</span></span></code></pre></div>
+<h2 id="types-de-données-algébriques-récursifs">Types de données algébriques récursifs</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">List</span> a <span class="ot">=</span> <span class="dt">Nil</span> <span class="op">|</span> <span class="dt">Cons</span> a (<span class="dt">List</span> a)</span></code></pre></div>
+<h2 id="interfaces">Interfaces</h2>
+<p><img src="/images/pollock-untitled.png" /></p>
+<div class="notes">
 <ul>
 <li>Interface offerte par un type de données</li>
 <li>Permet d’encapsuler l’implémentation concrète</li>
 <li>Peut exprimer des relations complexes entre plusieurs types de données</li>
 <li>Plus que des interfaces à la java</li>
 </ul>
-</aside>
-</section><section id="interfaces-1" class="slide level2">
-<h2>Interfaces</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris">interface <span class="dt">ToSExp</span> a <span class="kw">where</span>
-  <span class="fu">toSExp</span> <span class="ot">:</span> a <span class="ot">-&gt;</span> <span class="dt">SExp</span>
-
-<span class="dt">ToSExp</span> <span class="dt">SExp</span> <span class="kw">where</span>
-  toSExp <span class="fu">=</span> id
-
-<span class="dt">ToSExp</span> <span class="dt">Unit</span> <span class="kw">where</span>
-  toSExp () <span class="fu">=</span> <span class="dt">SList</span> []</code></pre></div>
-</section><section id="familles-de-types" class="slide level2">
-<h2>Familles de types</h2>
-<figure>
-<img src="/images/bacon-triptyque.jpg" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="interfaces-1">Interfaces</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> <span class="dt">ToSExp</span> a <span class="kw">where</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">toSExp</span> <span class="ot">:</span> a <span class="ot">-&gt;</span> <span class="dt">SExp</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="dt">ToSExp</span> <span class="dt">SExp</span> <span class="kw">where</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  toSExp <span class="fu">=</span> id</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="dt">ToSExp</span> <span class="dt">Unit</span> <span class="kw">where</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  toSExp () <span class="fu">=</span> <span class="dt">SList</span> []</span></code></pre></div>
+<h2 id="familles-de-types">Familles de types</h2>
+<p><img src="/images/bacon-triptyque.jpg" /></p>
+<div class="notes">
 <ul>
 <li>Relation entre types</li>
 <li>Rend le domaine d’une fonction dépendant du codomaine</li>
 <li>Peut être <em>ouvert</em> (relation extensible) ou <em>fermé</em> (le codomaine est fini)</li>
 </ul>
-</aside>
-</section><section class="slide level2">
-
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">
-<span class="kw">type</span> family <span class="dt">Answer</span> q <span class="fu">=</span> a <span class="fu">|</span> a <span class="ot">-&gt;</span> q <span class="kw">where</span>
-  <span class="dt">Answer</span> <span class="dt">QCM</span>          <span class="fu">=</span> <span class="dt">Int</span>
-  <span class="dt">Answer</span> <span class="dt">Grade</span>        <span class="fu">=</span> <span class="dt">Double</span>
-  <span class="dt">Answer</span> <span class="dt">OpenQuestion</span> <span class="fu">=</span> <span class="dt">Text</span></code></pre></div>
-<aside class="notes">
-<p>En Haskell, les familles des types sont une construction spéciales permettant de définir des relations entre types</p>
-</aside>
-</section><section class="slide level2">
-
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="dt">Factors</span> <span class="ot">:</span> <span class="dt">UnitType</span> <span class="ot">-&gt;</span> <span class="dt">Type</span>
-<span class="dt">Factors</span> <span class="dt">Armored</span>       <span class="fu">=</span> <span class="dt">StdFactors</span>
-<span class="dt">Factors</span> <span class="dt">Artillery</span>     <span class="fu">=</span> <span class="dt">Arty</span>
-<span class="dt">Factors</span> <span class="dt">AntiTank</span>      <span class="fu">=</span> <span class="dt">Pak</span>
-<span class="dt">Factors</span> <span class="dt">HQ</span>            <span class="fu">=</span> <span class="dt">Arty</span>
-<span class="dt">Factors</span> <span class="dt">SupplyColumn</span>  <span class="fu">=</span> <span class="dt">Unit</span></code></pre></div>
-<aside class="notes">
+</div>
+<hr />
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">family</span> <span class="dt">Answer</span> q <span class="ot">=</span> a <span class="op">|</span> a <span class="ot">-&gt;</span> q <span class="kw">where</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Answer</span> <span class="dt">QCM</span>          <span class="ot">=</span> <span class="dt">Int</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Answer</span> <span class="dt">Grade</span>        <span class="ot">=</span> <span class="dt">Double</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Answer</span> <span class="dt">OpenQuestion</span> <span class="ot">=</span> <span class="dt">Text</span></span></code></pre></div>
+<div class="notes">
+<p>En Haskell, les familles des types sont une construction spéciales permettant de
+définir des relations entre types</p>
+</div>
+<hr />
+<div class="sourceCode" id="cb6"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Factors</span> <span class="ot">:</span> <span class="dt">UnitType</span> <span class="ot">-&gt;</span> <span class="dt">Type</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Factors</span> <span class="dt">Armored</span>       <span class="fu">=</span> <span class="dt">StdFactors</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">Factors</span> <span class="dt">Artillery</span>     <span class="fu">=</span> <span class="dt">Arty</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dt">Factors</span> <span class="dt">AntiTank</span>      <span class="fu">=</span> <span class="dt">Pak</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="dt">Factors</span> <span class="dt">HQ</span>            <span class="fu">=</span> <span class="dt">Arty</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="dt">Factors</span> <span class="dt">SupplyColumn</span>  <span class="fu">=</span> <span class="dt">Unit</span></span></code></pre></div>
+<div class="notes">
 <ul>
 <li>En Idris, les fonctions peuvent prendre des types et en retourner!</li>
 <li>la frontière entre types et valeurs est perméable, au moins syntaxiquement</li>
 </ul>
-</aside>
-</section><section id="types-existentiels" class="slide level2">
-<h2>Types existentiels</h2>
-<figure>
-<img src="/images/magritte-pipe.jpg" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="types-existentiels">Types existentiels</h2>
+<p><img src="/images/magritte-pipe.jpg" /></p>
+<div class="notes">
 <ul>
 <li>Encapsuler un ensemble de types dans un autre type de données</li>
 <li>Renforce la distinction entre type abstrait et concret en rendant l’implémentation inaccessible</li>
 <li>Garantit la <em>localité</em> des opérations sur un type: la variable de type est nécessairement locale</li>
 </ul>
-</aside>
-</section><section id="types-existentiels-1" class="slide level2">
-<h2>Types existentiels</h2>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">CmdREPL</span> <span class="fu">:</span> (segment <span class="fu">:</span> <span class="dt">GameSegment</span>) <span class="ot">-&gt;</span> <span class="dt">Type</span> <span class="kw">where</span>
-  <span class="dt">Cmd</span> <span class="fu">:</span> (cmd <span class="fu">:</span> <span class="dt">Command</span> segment) <span class="ot">-&gt;</span> <span class="dt">CmdREPL</span> segment
-  <span class="dt">Qry</span> <span class="fu">:</span> (<span class="dt">ToSExp</span> res) <span class="ot">=&gt;</span> (qry <span class="fu">:</span> <span class="dt">Query</span> res) <span class="ot">-&gt;</span> <span class="dt">CmdREPL</span> segment</code></pre></div>
-<aside class="notes">
+</div>
+<h2 id="types-existentiels-1">Types existentiels</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">CmdREPL</span> <span class="op">:</span> (segment <span class="op">:</span> <span class="dt">GameSegment</span>) <span class="ot">-&gt;</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Cmd</span> <span class="op">:</span> (cmd <span class="op">:</span> <span class="dt">Command</span> segment) <span class="ot">-&gt;</span> <span class="dt">CmdREPL</span> segment</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Qry</span> <span class="op">:</span> (<span class="dt">ToSExp</span> res) <span class="ot">=&gt;</span> (qry <span class="op">:</span> <span class="dt">Query</span> res) <span class="ot">-&gt;</span> <span class="dt">CmdREPL</span> segment</span></code></pre></div>
+<div class="notes">
 <p>On cache le type exact de <code>res</code> en n’exposant que son interface (<code>ToSExp</code>)</p>
-</aside>
-</section><section class="slide level2">
-
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">BookOfAccounts</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
-  <span class="dt">BookTransactions</span> <span class="ot">:</span> (txs <span class="ot">:</span> <span class="dt">Vect</span> k <span class="dt">Transaction</span>) <span class="ot">-&gt;</span>
-                     <span class="dt">BookOfAccounts</span></code></pre></div>
-<aside class="notes">
+</div>
+<hr />
+<div class="sourceCode" id="cb8"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">BookOfAccounts</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">BookTransactions</span> <span class="ot">:</span> (txs <span class="ot">:</span> <span class="dt">Vect</span> k <span class="dt">Transaction</span>) <span class="ot">-&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                     <span class="dt">BookOfAccounts</span></span></code></pre></div>
+<div class="notes">
 <p>On cache le paramètre de type <code>k</code> qui indique la longueur du vecteur ce qui le rend inaccessible de “l’extérieur”</p>
-</aside>
-</section><section id="gadts" class="slide level2">
-<h2>GADTs</h2>
-<figure>
-<img src="/images/kandinsky-comp-8.png" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="gadts">GADTs</h2>
+<p><img src="/images/kandinsky-comp-8.png" /></p>
+<div class="notes">
 <ul>
 <li>Applicable aux types paramétrés</li>
 <li>Chaque constructeur d’un type peut retourner une type différent</li>
 <li>Permet de spécialiser le paramètre en fonction du contexte dans lequel le type est appelé à s’insérer</li>
 </ul>
-</aside>
-</section><section id="gadts-1" class="slide level2">
-<h2>GADTs</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">Query</span> <span class="ot">:</span> (result <span class="ot">:</span> <span class="dt">Type</span>) <span class="ot">-&gt;</span> <span class="dt">Type</span> <span class="kw">where</span>
-  <span class="dt">SupplyPath</span> <span class="ot">:</span> (unitName <span class="ot">:</span> <span class="dt">String</span>)
-             <span class="ot">-&gt;</span> <span class="dt">Query</span> (<span class="dt">Either</span> <span class="dt">QueryError</span> (<span class="dt">List</span> <span class="dt">Pos</span>))
-
-  <span class="dt">TerrainMap</span> <span class="ot">:</span> <span class="dt">Query</span> <span class="dt">Map</span></code></pre></div>
-<aside class="notes">
+</div>
+<h2 id="gadts-1">GADTs</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Query</span> <span class="ot">:</span> (result <span class="ot">:</span> <span class="dt">Type</span>) <span class="ot">-&gt;</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">SupplyPath</span> <span class="ot">:</span> (unitName <span class="ot">:</span> <span class="dt">String</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>             <span class="ot">-&gt;</span> <span class="dt">Query</span> (<span class="dt">Either</span> <span class="dt">QueryError</span> (<span class="dt">List</span> <span class="dt">Pos</span>))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">TerrainMap</span> <span class="ot">:</span> <span class="dt">Query</span> <span class="dt">Map</span></span></code></pre></div>
+<div class="notes">
 <p>En pattern-matchant sur le constructeur, on <em>sait</em> quel est le type associé <code>result</code> ce qui permet de traiter ce résultat</p>
-</aside>
-</section><section id="hole-driven-development" class="slide level2">
-<h2>Hole-Driven Development</h2>
-<figure>
-<img src="/images/duchamp-pissotière.png" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="hole-driven-development">Hole-Driven Development</h2>
+<p><img src="/images/duchamp-pissotière.png" /></p>
+<div class="notes">
 <ul>
 <li>Utiliser l’inférence de type pour compléter le code par la structure attendue par le compilateur</li>
 <li>Permet de s’assurer dés le départ qu’une fonction est totale ou a minima que tous les cas en input sont couverts</li>
 <li>Permet à l’éditeur de compléter automatiquement le code</li>
 <li>Guide l’implémentation et parfois permet de la déduire automatiquement</li>
 </ul>
-</aside>
-</section><section id="hole-driven-development-1" class="slide level2">
-<h2>Hole-Driven Development</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="dt">Eq</span> <span class="dt">Balance</span> <span class="kw">where</span>
-  (<span class="fu">==</span>) b b&#39; <span class="fu">=</span> <span class="ot">?hole</span></code></pre></div>
-<aside class="notes">
+</div>
+<h2 id="hole-driven-development-1">Hole-Driven Development</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Eq</span> <span class="dt">Balance</span> <span class="kw">where</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">==</span>) b b&#39; <span class="fu">=</span> <span class="ot">?hole</span></span></code></pre></div>
+<div class="notes">
 <p>Pour définir l’égalité entre 2 <code>Balance</code> on part d’une équation minimale</p>
-</aside>
-</section><section class="slide level2">
-
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">-</span> <span class="fu">+</span> <span class="dt">Accounting</span><span class="fu">.</span><span class="dt">Core</span><span class="fu">.</span>hole [<span class="dt">P</span>]
- `<span class="co">--                     b : Balance</span>
-                        <span class="fu">b&#39;</span> <span class="ot">:</span> <span class="dt">Balance</span>
-     <span class="co">--------------------------------</span>
-      <span class="dt">Accounting</span><span class="fu">.</span><span class="dt">Core</span><span class="fu">.</span>hole <span class="ot">:</span> <span class="dt">Bool</span></code></pre></div>
-<aside class="notes">
+</div>
+<hr />
+<div class="sourceCode" id="cb11"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">-</span> <span class="fu">+</span> <span class="dt">Accounting</span><span class="fu">.</span><span class="dt">Core</span><span class="fu">.</span>hole [<span class="dt">P</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a> `<span class="co">--                     b : Balance</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">b&#39;</span> <span class="ot">:</span> <span class="dt">Balance</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>     <span class="co">--------------</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">Accounting</span><span class="fu">.</span><span class="dt">Core</span><span class="fu">.</span>hole <span class="ot">:</span> <span class="dt">Bool</span></span></code></pre></div>
+<div class="notes">
 <ul>
-<li><p>Au chargement le compilateur infère le type du “trou” en fonction du contexte dans lequel il s’insère</p></li>
-<li>On peut ensuite remplir le trou petit à petit avec les différents cas</li>
+<li><p>Au chargement le compilateur infère le type du “trou” en fonction du contexte dans
+lequel il s’insère</p></li>
+<li><p>On peut ensuite remplir le trou petit à petit avec les différents cas</p></li>
 </ul>
-</aside>
-</section><section id="types-dépendants" class="slide level2">
-<h2>Types dépendants</h2>
-<figure>
-<img src="/images/calle-sleepers.jpg" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="types-dépendants">Types dépendants</h2>
+<p><img src="/images/calle-sleepers.jpg" /></p>
+<div class="notes">
 <ul>
 <li>Faire tomber la barrière entre les <em>types</em> et les <em>valeurs</em></li>
 <li>Un type peut être définit par une fonction <em>dépendant</em> de la valeur d’un paramètre</li>
 <li>Introduit une hiérarchie potentiellement infinie de types (quel est le type de <code>Type</code> ?)</li>
 <li>Le <em>vérificateur de types</em> utilise la même sémantique que le <em>runtime</em></li>
 </ul>
-</aside>
-</section><section id="types-dépendants-1" class="slide level2">
-<h2>Types dépendants</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">record</span> <span class="dt">GameUnit</span> <span class="kw">where</span>
-  constructor <span class="dt">MkGameUnit</span>
-  <span class="fu">nation</span> <span class="ot">:</span> <span class="dt">Nation</span>
-  <span class="fu">unitType</span> <span class="ot">:</span> <span class="dt">UnitType</span>
-  <span class="fu">name</span> <span class="ot">:</span> <span class="dt">String</span>
-  <span class="fu">move</span> <span class="ot">:</span> <span class="dt">Nat</span>
-  <span class="fu">hit</span> <span class="ot">:</span> <span class="dt">Bool</span>
-  <span class="fu">combat</span> <span class="ot">:</span> <span class="dt">Factors</span> unitType</code></pre></div>
-<aside class="notes">
+</div>
+<h2 id="types-dépendants-1">Types dépendants</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">record</span> <span class="dt">GameUnit</span> <span class="kw">where</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">constructor</span> <span class="dt">MkGameUnit</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nation</span> <span class="ot">:</span> <span class="dt">Nation</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unitType</span> <span class="ot">:</span> <span class="dt">UnitType</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">name</span> <span class="ot">:</span> <span class="dt">String</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">move</span> <span class="ot">:</span> <span class="dt">Nat</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hit</span> <span class="ot">:</span> <span class="dt">Bool</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">combat</span> <span class="ot">:</span> <span class="dt">Factors</span> unitType</span></code></pre></div>
+<div class="notes">
 <p>Le type de <code>combat</code> est une <em>fonction</em> de la valeur de <code>unitType</code></p>
-</aside>
-</section><section id="type-égalité" class="slide level2">
-<h2>Type égalité</h2>
-<figure>
-<img src="/images/klein-blue.png" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="type-égalité">Type égalité</h2>
+<p><img src="/images/klein-blue.png" /></p>
+<div class="notes">
 <ul>
 <li>Exprimer l’égalité entre deux <em>types</em> comme un <em>type</em></li>
 <li>Le type devient une <em>assertion</em> logique, une <em>proposition</em> qui doit être vérifiée par l’implémentation</li>
 <li>La seule valeur qui <em>habite</em> ce type est <code>Refl</code> qui est donc une <em>preuve</em> que l’égalité est vérifiée</li>
 </ul>
-</aside>
-</section><section id="type-égalité-1" class="slide level2">
-<h2>Type égalité</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">neighbours1_test</span> <span class="ot">:</span> (neighbours (<span class="dt">Hex</span> <span class="dv">3</span> <span class="dv">3</span>) <span class="fu">=</span> [ <span class="dt">Hex</span> <span class="dv">2</span> <span class="dv">3</span>, <span class="dt">Hex</span> <span class="dv">3</span> <span class="dv">2</span>
-                                           , <span class="dt">Hex</span> <span class="dv">4</span> <span class="dv">3</span>, <span class="dt">Hex</span> <span class="dv">4</span> <span class="dv">4</span>
-                                           , <span class="dt">Hex</span> <span class="dv">3</span> <span class="dv">4</span>, <span class="dt">Hex</span> <span class="dv">2</span> <span class="dv">4</span>] )
-neighbours1_test <span class="fu">=</span> <span class="dt">Refl</span></code></pre></div>
-<aside class="notes">
+</div>
+<h2 id="type-égalité-1">Type égalité</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">neighbours1_test</span> <span class="ot">:</span> (neighbours (<span class="dt">Hex</span> <span class="dv">3</span> <span class="dv">3</span>) <span class="fu">=</span> [ <span class="dt">Hex</span> <span class="dv">2</span> <span class="dv">3</span>, <span class="dt">Hex</span> <span class="dv">3</span> <span class="dv">2</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                                           , <span class="dt">Hex</span> <span class="dv">4</span> <span class="dv">3</span>, <span class="dt">Hex</span> <span class="dv">4</span> <span class="dv">4</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                                           , <span class="dt">Hex</span> <span class="dv">3</span> <span class="dv">4</span>, <span class="dt">Hex</span> <span class="dv">2</span> <span class="dv">4</span>] )</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>neighbours1_test <span class="fu">=</span> <span class="dt">Refl</span></span></code></pre></div>
+<div class="notes">
 <ul>
 <li>les types égalité peuvent servir à définir des “tests” exécutés par le compilateur</li>
 <li>en combinaison avec les “Trous”, cela permet de faire du TDD dans le système de types!</li>
 </ul>
-</aside>
-</section><section id="type-égalité-2" class="slide level2">
-<h2>Type égalité</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="kw">data</span> <span class="dt">Entries</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span>
-  <span class="dt">MkEntries</span> <span class="ot">:</span> (entries <span class="ot">:</span> <span class="dt">Vect</span> n <span class="dt">Entry</span>) <span class="ot">-&gt;</span>
-              { <span class="kw">auto</span> need2Entries <span class="ot">:</span> <span class="dt">LTE</span> <span class="dv">2</span> n } <span class="ot">-&gt;</span>
-              { <span class="kw">auto</span> balanced <span class="ot">:</span> balance entries <span class="fu">=</span> <span class="dt">Zero</span> } <span class="ot">-&gt;</span> <span class="dt">Entries</span></code></pre></div>
-<aside class="notes">
+</div>
+<h2 id="type-égalité-2">Type égalité</h2>
+<div class="sourceCode" id="cb14"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Entries</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">MkEntries</span> <span class="ot">:</span> (entries <span class="ot">:</span> <span class="dt">Vect</span> n <span class="dt">Entry</span>) <span class="ot">-&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>              { <span class="kw">auto</span> need2Entries <span class="ot">:</span> <span class="dt">LTE</span> <span class="dv">2</span> n } <span class="ot">-&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>              { <span class="kw">auto</span> balanced <span class="ot">:</span> balance entries <span class="fu">=</span> <span class="dt">Zero</span> } <span class="ot">-&gt;</span> <span class="dt">Entries</span></span></code></pre></div>
+<div class="notes">
 <ul>
-<li>ils servent surtout à exprimer des propriétés, des <em>assertions</em> qui sont vérifiées par le compilateur</li>
+<li>ils servent surtout à exprimer des propriétés, des <em>assertions</em> qui sont vérifiées par le
+compilateur</li>
 </ul>
-</aside>
-</section><section id="types-proposition" class="slide level2">
-<h2>Types = Proposition</h2>
-<figure>
-<img src="/images/malevitch-white-on-white.png" />
-</figure>
-<aside class="notes">
+</div>
+<h2 id="types-proposition">Types = Proposition</h2>
+<p><img src="/images/malevitch-white-on-white.png" /></p>
+<div class="notes">
 <ul>
 <li>Mise en oeuvre concrète de Curry-Howard</li>
 <li>Les types sont des <em>propositions</em>, les programmes des <em>preuves</em></li>
 <li>Écrire un programme c’est démontrer que les types sont <em>habités</em>, que l’on peut effectivement construire des valeurs des types donnés</li>
 <li>De la conception de logiciels considérée comme l’énonciation de théorèmes…</li>
 </ul>
-</aside>
-</section><section id="types-proposition-1" class="slide level2">
-<h2>Types = Proposition</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">notPosZIsNotAbsZ</span> <span class="ot">:</span> ((y <span class="fu">=</span> <span class="dt">Pos</span> <span class="dv">0</span>) <span class="ot">-&gt;</span> <span class="dt">Void</span>) <span class="ot">-&gt;</span> ((absZ y <span class="fu">=</span> <span class="dv">0</span>) <span class="ot">-&gt;</span> <span class="dt">Void</span>)
-notPosZIsNotAbsZ <span class="fu">=</span> contrapositive absZIsPosZ</code></pre></div>
-<aside class="notes">
-<p>Proof that if a number is not 0, its absolute value is not 0 This is the contrapositive proof to <code>absZIsPosZ</code> <span class="citation" data-cites="y">@y</span>: a Relative number which is not 0</p>
-</aside>
-</section><section id="types-proposition-2" class="slide level2">
-<h2>Types = Proposition</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">contrapositive</span> <span class="ot">:</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (<span class="dt">Not</span> b <span class="ot">-&gt;</span> <span class="dt">Not</span> a)
-contrapositive <span class="fu">=</span> flip (<span class="fu">.</span>)</code></pre></div>
-<aside class="notes">
+</div>
+<h2 id="types-proposition-1">Types = Proposition</h2>
+<div class="sourceCode" id="cb15"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">notPosZIsNotAbsZ</span> <span class="ot">:</span> ((y <span class="fu">=</span> <span class="dt">Pos</span> <span class="dv">0</span>) <span class="ot">-&gt;</span> <span class="dt">Void</span>) <span class="ot">-&gt;</span> ((absZ y <span class="fu">=</span> <span class="dv">0</span>) <span class="ot">-&gt;</span> <span class="dt">Void</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>notPosZIsNotAbsZ <span class="fu">=</span> contrapositive absZIsPosZ</span></code></pre></div>
+<div class="notes">
+<p>Proof that if a number is not 0, its absolute value is not 0
+This is the contrapositive proof to <code>absZIsPosZ</code>
+<span class="citation" data-cites="y">@y</span>: a Relative number which is not 0</p>
+</div>
+<h2 id="types-proposition-2">Types = Proposition</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrapositive</span> <span class="ot">:</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (<span class="dt">Not</span> b <span class="ot">-&gt;</span> <span class="dt">Not</span> a)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>contrapositive <span class="fu">=</span> flip (<span class="fu">.</span>)</span></code></pre></div>
+<div class="notes">
 <p>Exprime la <em>contraposée</em> d’une proposition: Si a implique b, alors non b implique non a</p>
-</aside>
-</section><section id="types-proposition-3" class="slide level2">
-<h2>Types = Proposition</h2>
-<div class="sourceCode"><pre class="sourceCode idris"><code class="sourceCode idris"><span class="fu">absZIsPosZ</span> <span class="ot">:</span> (absZ y <span class="fu">=</span> <span class="dv">0</span>) <span class="ot">-&gt;</span> (y <span class="fu">=</span> <span class="dt">Pos</span> <span class="dv">0</span>)
-absZIsPosZ {y <span class="fu">=</span> (<span class="dt">Pos</span> <span class="dt">Z</span>)}     <span class="dt">Refl</span> <span class="fu">=</span> <span class="dt">Refl</span>
-absZIsPosZ {y <span class="fu">=</span> (<span class="dt">Pos</span> (<span class="dt">S</span> <span class="fu">_</span>))} <span class="dt">Refl</span> <span class="kw">impossible</span>
-absZIsPosZ {y <span class="fu">=</span> (<span class="dt">NegS</span> <span class="fu">_</span>)}    <span class="dt">Refl</span> <span class="kw">impossible</span></code></pre></div>
-<aside class="notes">
-<p>Proof that if the absolute value of a number is 0, then this number is 0 <span class="citation" data-cites="y">@y</span>: a relative number which we take absolute value of</p>
-</aside>
-</section></section>
-<section><section id="conclusion" class="titleslide slide level1"><h1>Conclusion</h1></section><section class="slide level2">
-
-<figure>
-<img src="/images/braque-gueridon.jpg" />
-</figure>
-</section><section id="conclusion-1" class="slide level2">
-<h2>Conclusion</h2>
-<ul>
-<li class="fragment">Le système de type est un outil essentiel dans la <em>conception</em> du logiciel</li>
-<li class="fragment">Les systèmes de types fonctionnels sont de plus en plus sophistiqués et permettent de modéliser des contraintes de plus en plus proches du métier</li>
-<li class="fragment">Le XXIème sera typé !</li>
+</div>
+<h2 id="types-proposition-3">Types = Proposition</h2>
+<div class="sourceCode" id="cb17"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">absZIsPosZ</span> <span class="ot">:</span> (absZ y <span class="fu">=</span> <span class="dv">0</span>) <span class="ot">-&gt;</span> (y <span class="fu">=</span> <span class="dt">Pos</span> <span class="dv">0</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>absZIsPosZ {y <span class="fu">=</span> (<span class="dt">Pos</span> <span class="dt">Z</span>)}     <span class="dt">Refl</span> <span class="fu">=</span> <span class="dt">Refl</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>absZIsPosZ {y <span class="fu">=</span> (<span class="dt">Pos</span> (<span class="dt">S</span> <span class="fu">_</span>))} <span class="dt">Refl</span> <span class="kw">impossible</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>absZIsPosZ {y <span class="fu">=</span> (<span class="dt">NegS</span> <span class="fu">_</span>)}    <span class="dt">Refl</span> <span class="kw">impossible</span></span></code></pre></div>
+<div class="notes">
+<p>Proof that if the absolute value of a number is 0, then this number is 0
+<span class="citation" data-cites="y">@y</span>: a relative number which we take absolute value of</p>
+</div>
+<h1 id="conclusion">Conclusion</h1>
+<hr />
+<p><img src="/images/braque-gueridon.jpg" /></p>
+<h2 id="conclusion-1">Conclusion</h2>
+<ul class="incremental">
+<li>Le système de type est un outil essentiel dans la <em>conception</em> du logiciel</li>
+<li>Les systèmes de types fonctionnels sont de plus en plus sophistiqués et permettent de modéliser des contraintes de plus en plus proches du métier</li>
+<li>Le XXIème sera typé !</li>
 </ul>
-</section><section id="pub" class="slide level2">
-<h2>Pub</h2>
-<ul>
-<li class="fragment">2 jours de formation <strong>gratuite</strong> sur l’<em>Architecture Fonctionnelle</em></li>
-<li class="fragment">S’approprier les fondamentaux de l’architecture fonctionnelle et apprendre à les mettre en pratique dans la conception d’un logiciel.</li>
-<li class="fragment">Paris (lieu exact TBD), les 14 et 15 novembre 2019</li>
-<li class="fragment">Un partenariat Aleryo / Palo-IT</li>
-<li class="fragment">Contact: <a href="mailto:arnaud@aleryo.com">arnaud@aleryo.com</a></li>
+<h2 id="pub">Pub</h2>
+<ul class="incremental">
+<li>2 jours de formation <strong>gratuite</strong> sur l’<em>Architecture Fonctionnelle</em></li>
+<li>S’approprier les fondamentaux de l’architecture fonctionnelle et apprendre à les mettre en pratique dans la conception d’un logiciel.</li>
+<li>Paris (lieu exact TBD), les 14 et 15 novembre 2019</li>
+<li>Un partenariat Aleryo / Palo-IT</li>
+<li>Contact: <a href="mailto:arnaud@aleryo.com">arnaud@aleryo.com</a></li>
 </ul>
-</section></section>
-<section><section id="colophon" class="titleslide slide level1"><h1>Colophon</h1></section><section id="quelques-références" class="slide level2">
-<h2>(Quelques) Références</h2>
-<ul>
-<li class="fragment"><a href="https://leanpub.com/thinking-with-types">Thinking With Types</a>, S.Maguire</li>
-<li class="fragment"><a href="https://www.cis.upenn.edu/~bcpierce/tapl/">Types and Programming Languages</a>, B.Pierce</li>
-<li class="fragment">Advanced Types and Programming Languages, B.Pierce</li>
-<li class="fragment"><a href="https://web.cecs.pdx.edu/~mpj/thih/thih.pdf">Typing Haskell in Haskell</a></li>
-<li class="fragment"><a href="http://lucacardelli.name/Papers/OnUnderstanding.A4.pdf">Understanding types</a> par Luca Cardelli, dans un contexte OO avec sous-typage</li>
-<li class="fragment"><a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/type-families-and-pokemon">Familles de types en Haskell</a></li>
+<h1 id="colophon">Colophon</h1>
+<h2 id="quelques-références">(Quelques) Références</h2>
+<ul class="incremental">
+<li><a href="https://leanpub.com/thinking-with-types">Thinking With Types</a>, S.Maguire</li>
+<li><a href="https://www.cis.upenn.edu/~bcpierce/tapl/">Types and Programming Languages</a>, B.Pierce</li>
+<li>Advanced Types and Programming Languages, B.Pierce</li>
+<li><a href="https://web.cecs.pdx.edu/~mpj/thih/thih.pdf">Typing Haskell in Haskell</a></li>
+<li><a href="http://lucacardelli.name/Papers/OnUnderstanding.A4.pdf">Understanding types</a> par Luca Cardelli, dans un contexte OO avec sous-typage</li>
+<li><a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/type-families-and-pokemon">Familles de types en Haskell</a></li>
 </ul>
-</section><section id="quelques-références-1" class="slide level2">
-<h2>(Quelques) Références</h2>
-<ul>
-<li class="fragment"><a href="https://www.manning.com/books/type-driven-development-with-idris">Type-Driven Development with Idris</a>, E. Brady</li>
-<li class="fragment"><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/typefun.pdf?from=http%3A%2F%2Fresearch.microsoft.com%2F%7Esimonpj%2Fpapers%2Fassoc-types%2Ffun-with-type-funs%2Ftypefun.pdf">Fun with Type Functions</a></li>
-<li class="fragment"><a href="https://vimeo.com/162036084">Types + Properties = Software - Mark Seemann on Vimeo</a></li>
-<li class="fragment"><a href="https://www.cs.ox.ac.uk/projects/utgp/school/idris-tutorial.pdf">idris-tutorial.pdf</a></li>
-<li class="fragment"><a href="https://www.cs.kent.ac.uk/people/staff/sjt/TTFP/ttfp.pdf">Type Theory and Functional Programming</a></li>
-<li class="fragment"><a href="http://oxij.org/note/BrutalDepTypes/">Brutal {Meta}Introduction to Dependent Types in Agda</a></li>
+<h2 id="quelques-références-1">(Quelques) Références</h2>
+<ul class="incremental">
+<li><a href="https://www.manning.com/books/type-driven-development-with-idris">Type-Driven Development with Idris</a>, E. Brady</li>
+<li><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/typefun.pdf?from=http%3A%2F%2Fresearch.microsoft.com%2F%7Esimonpj%2Fpapers%2Fassoc-types%2Ffun-with-type-funs%2Ftypefun.pdf">Fun with Type Functions</a></li>
+<li><a href="https://vimeo.com/162036084">Types + Properties = Software - Mark Seemann on Vimeo</a></li>
+<li><a href="https://www.cs.ox.ac.uk/projects/utgp/school/idris-tutorial.pdf">idris-tutorial.pdf</a></li>
+<li><a href="https://www.cs.kent.ac.uk/people/staff/sjt/TTFP/ttfp.pdf">Type Theory and Functional Programming</a></li>
+<li><a href="http://oxij.org/note/BrutalDepTypes/">Brutal {Meta}Introduction to Dependent Types in Agda</a></li>
 </ul>
-</section><section id="credits" class="slide level2">
-<h2>Credits</h2>
-<ul>
-<li class="fragment"><a href="http://www.georgesbraque.org/images/gallery/gueridon.jpg">Guéridon</a>, G.Braque, 1913</li>
-<li class="fragment"><a href="https://c1.staticflickr.com/2/1305/563354141_dea564001f_b.jpg">Les demoiselles d’Avignon</a>, P.Picasso, 1907</li>
-<li class="fragment"><a href="https://en.wikipedia.org/wiki/Piet_Mondrian#/media/File:Piet_Mondriaan,_1930_-_Mondrian_Composition_II_in_Red,_Blue,_and_Yellow.jpg">Composition II en rouge, bleu et jaune</a>, P.Mondrian, 1930</li>
-<li class="fragment"><a href="https://d32dm0rphc51dk.cloudfront.net/ocgEy0HxvjqHsFXJO20PIw/larger.jpg">Fontaine</a>, M.Duchamp, 1917</li>
-<li class="fragment"><a href="https://static01.nyt.com/images/2015/12/04/arts/04BACON1/04BACON1-superJumbo-v2.jpg">Second Version of Triptych 1944</a>, F.Bacon, 1988</li>
-<li class="fragment"><a href="http://galeriegradiva.com/wp-content/uploads/2014/11/KLEIN_1.jpg">IKB 290</a>, Y.Klein, 1959</li>
+<h2 id="credits">Credits</h2>
+<ul class="incremental">
+<li><a href="http://www.georgesbraque.org/images/gallery/gueridon.jpg">Guéridon</a>, G.Braque, 1913</li>
+<li><a href="https://c1.staticflickr.com/2/1305/563354141_dea564001f_b.jpg">Les demoiselles d’Avignon</a>, P.Picasso, 1907</li>
+<li><a href="https://en.wikipedia.org/wiki/Piet_Mondrian#/media/File:Piet_Mondriaan,_1930_-_Mondrian_Composition_II_in_Red,_Blue,_and_Yellow.jpg">Composition II en rouge, bleu et jaune</a>, P.Mondrian, 1930</li>
+<li><a href="https://d32dm0rphc51dk.cloudfront.net/ocgEy0HxvjqHsFXJO20PIw/larger.jpg">Fontaine</a>, M.Duchamp, 1917</li>
+<li><a href="https://static01.nyt.com/images/2015/12/04/arts/04BACON1/04BACON1-superJumbo-v2.jpg">Second Version of Triptych 1944</a>, F.Bacon, 1988</li>
+<li><a href="http://galeriegradiva.com/wp-content/uploads/2014/11/KLEIN_1.jpg">IKB 290</a>, Y.Klein, 1959</li>
 </ul>
-</section><section id="credits-1" class="slide level2">
-<h2>Credits</h2>
-<ul>
-<li class="fragment"><a href="https://claudiabrigato.files.wordpress.com/2014/11/rothko-red.jpg">Orange et jaune</a>, M.Rothko, 1956</li>
-<li class="fragment"><a href="https://www.perrotin.com/images/2017/02/17/sophie_calle_the-sleepers_w1200xh630__003615.jpg">Dormeurs</a>, S.Calle, 1979</li>
-<li class="fragment"><a href="http://theforumist.com/wp-content/uploads/2016/12/5-Louise_Bourgeois_Together_20051.jpg">Ensemble</a>, L.Bourgeois, 2005</li>
-<li class="fragment"><a href="http://www.metmuseum.org/toah/works-of-art/1982.147.27/">Untitled</a>, J.Pollock, 1948</li>
-<li class="fragment"><a href="https://www.ibiblio.org/wm/paint/auth/kandinsky/kandinsky.comp-8.jpg">Composition VIII</a>, W.Kandinsky, 1923</li>
-<li class="fragment"><a href="https://www.moma.org/m/tours/7/tour_stops/171?locale=en">Suprematist Composition: White on White.</a>, K.Malevitch, 1918</li>
-<li class="fragment"><a href="http://www.renemagritte.org/images/paintings/the-treachery-of-images.jpg">La trahison des images</a>, R.Magritte, 1929</li>
+<h2 id="credits-1">Credits</h2>
+<ul class="incremental">
+<li><a href="https://claudiabrigato.files.wordpress.com/2014/11/rothko-red.jpg">Orange et jaune</a>, M.Rothko, 1956</li>
+<li><a href="https://www.perrotin.com/images/2017/02/17/sophie_calle_the-sleepers_w1200xh630__003615.jpg">Dormeurs</a>, S.Calle, 1979</li>
+<li><a href="http://theforumist.com/wp-content/uploads/2016/12/5-Louise_Bourgeois_Together_20051.jpg">Ensemble</a>, L.Bourgeois, 2005</li>
+<li><a href="http://www.metmuseum.org/toah/works-of-art/1982.147.27/">Untitled</a>, J.Pollock, 1948</li>
+<li><a href="https://www.ibiblio.org/wm/paint/auth/kandinsky/kandinsky.comp-8.jpg">Composition VIII</a>, W.Kandinsky, 1923</li>
+<li><a href="https://www.moma.org/m/tours/7/tour_stops/171?locale=en">Suprematist Composition: White on White.</a>, K.Malevitch, 1918</li>
+<li><a href="http://www.renemagritte.org/images/paintings/the-treachery-of-images.jpg">La trahison des images</a>, R.Magritte, 1929</li>
 </ul>
-</section><section id="feedback" class="slide level2">
-<h2>Feedback</h2>
+<h2 id="feedback">Feedback</h2>
 <h3 id="questionnaire">Questionnaire</h3>
-<p><a href="https://forms.gle/C1h63ymmoqdceeme7" class="uri">https://forms.gle/C1h63ymmoqdceeme7</a></p>
-</section></section>
+<p><a href="https://forms.gle/C1h63ymmoqdceeme7">https://forms.gle/C1h63ymmoqdceeme7</a></p>
     </div>
   </div>
 

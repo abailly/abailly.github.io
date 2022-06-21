@@ -1,0 +1,266 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - HaPoP-5</title>
+
+  <meta name="description" content="Crafting code since 1994">
+
+  <meta name="author" content="Arnaud Bailly">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="/"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="http://drcode.io">Dr.Code</a>
+          </li>
+          <li>
+          <a href="/about.html">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div id="main" role="main">
+<h1>HaPoP-5</h1>
+
+  <h2 class="subtitle">History and Philosophy of Programming</h2>
+
+<div class="info">Posted on June 21, 2022</div>
+
+<p>I have a long standing interest for Philosophy, and I was thus delighted when <a href="https://twitter.com/tomaspetricek">Tomas Petricek</a> proposed me to join the <em>Program Committee</em> for the <a href="https://www.shift-society.org/hapop5/">HaPoP-5</a> conference, more than two years ago. The conference was initially supposed to take place in 2020, co-located with NCrafts, but both events were cancelled because of <em>You Know What</em>. Here are some notes along with personal comments about each of the conference’s sessions. Another blog post will cover my notes from the <a href="https://programme.hypotheses.org/spring-workshop-iii-what-is-a-computer-program-final-conference">PROGRAMme workshop</a> which took place in the same location right after HaPoP-5.</p>
+<h2 id="warren-sack---miniatures-demos-and-artworks-three-kinds-of-computer-program-their-uses-and-abuses">Warren Sack - Miniatures, Demos and Artworks: Three Kinds of Computer Program, Their Uses and Abuses</h2>
+<p>Warren Sacks is the author of <a href="https://mitpress.mit.edu/books/software-arts">Software Arts</a></p>
+<ul>
+<li>Those three kinds of programs look superficially close but are actually very different artefacts</li>
+<li><em>Miniatures</em> are like <em>philosophical statements in code</em>, the goal is to rewrite a system in a miniature form in order to clarify what’s specific about it, its “essence”
+<ul>
+<li><a href="https://www.amazon.com/Inside-Computer-Understanding-Miniatures-Intelligence-ebook/dp/B00J4BRAMM">Inside Computer Understanding</a> is a great example, it’s a book containing the description of 5 systems along with their miniatures</li>
+<li>Another example is Minix built for the purpose of teaching and understanding operating systems</li>
+<li>Notebooks, literate programming are other examples of miniatures</li>
+</ul></li>
+<li><em>Demos</em> are <em>rhetoric</em> in nature, demonstration in the prime sense (proving) very often to the purpose of getting more funding</li>
+<li><em>Artworks</em> are <em>aesthetic</em> endeavours, of course. Software art is inscribed in the history of art esp. the emergence of modern and then conceptual art which detaches the artwork from its concrete realisation</li>
+<li>Miniatures are pedagogical, demos persuasive, artworks pleasurable</li>
+</ul>
+<blockquote>
+<p>I don’t know much about software arts but this talk gave me the desire to discover more of it. I liked the attempt at classifying various artifacts which share the common theme of <em>Programming-in-the-small</em> but serve very different purposes. It seems to me however that this classification does not do justice to the “Demo scene” whose artifacts lie at the intersection of all three classes.</p>
+<p>Another very interesting category of programs which would have been worthy of analysis is what I would call “Constrained Competitive programming”, things like the <a href="https://www.ioccc.org/">IOCCC</a>, or programs written in very alien languages. There is an <em>exploratory</em> dimension that would deserve a category of its own.</p>
+</blockquote>
+<h2 id="shoshana-simons---programming-practice-as-a-microcosmos-of-human-labor-and-knowledge-relations">Shoshana Simons - Programming practice as a microcosmos of human labor and knowledge relations</h2>
+<ul>
+<li>The main thesis of this work is that technical practices are not separate from the rest of the world and are historically situated which implies the programmer embeds its worldview in their work</li>
+<li>Starting examples are:
+<ul>
+<li>Runtime analysis of a program completely ignores the actual labor involved in executing the program</li>
+<li>Buying an apple at a grocery store ignores and hides the labor involved in bringing the apple, shrinkwrapped, to the store</li>
+<li>The <em>command-line</em> metaphor reflects the division of labor between those who give command and those who execute them</li>
+</ul></li>
+<li>Technical practice is hegemonic, it’s a training ground for capitalism</li>
+<li>There are 2 main approaches to ethics esp. as it relates to programming and tech:
+<ul>
+<li>Ethics as values: People have values they impose on otherwise neutral data/technologies</li>
+<li>Ethics as consequences: Technology is a given, what are its impacts and how to make it work for the greater good</li>
+</ul></li>
+<li>These 2 views keep technology as a <em>black-box</em> they are like the 2 sides of a same coin, the input and output of “function” whose workings are ignored</li>
+<li>The <em>How</em> matters, we need to open the black-box if we really want to improve our ethical approach to tech</li>
+<li>Practice <em>Critical Journaling</em> which is a daily reflection on one’s own relation to tech, critiquing what is unethical in it and hopefully improving it</li>
+</ul>
+<blockquote>
+<p>Another interesting and somewhat provocative talk, even though the critique of the idea that scientific theories, and even more so practices, are a-historical and independent of the social context in which they are produced is somewhat mainstream nowadays. Although this talk takes a more political stance on the question, this reminds me of early Latour’s work, esp. in <a href="https://www.editionsladecouverte.fr/la_science_en_action-9782707145468">La science en action</a> in which he demonstrates how scientists are not pure minds completely detached from the mundane practicalities of this world, like money, power status, ego…</p>
+<p>I find teaching the practice of <em>Critical Journaling</em> a great idea, and also the emphasis on “unpacking” the black-box relevant in a world where technology is unquestioned and appears somewhat “magical”, with its impacts on the real world and real people’s life being ignored (think how food delivery startups take advantage of loopholes in law to employ workers without paying the full benefits and taking the responsibilities an employer has, how AirBnB’s pricing algorithms impact housing prices in metropolis…)</p>
+</blockquote>
+<h2 id="lucas-bang---program-size-a-call-for-inquiry">Lucas Bang - Program Size: A Call for Inquiry</h2>
+<p>https://mitpress.mit.edu/books/making-sense</p>
+<ul>
+<li>Blum’s Size theorem states that a total program equivalent to a non-total program would suffer from an exponential blow-up in size. Intuitively, non-total languages allow one to “compact” the behaviour of a program
+<ul>
+<li>Computing GCD takes 2 lines in Python but 400 in (total) Idris</li>
+</ul></li>
+<li>A general program could be:
+<ol type="1">
+<li>Most general purpose PL are too general</li>
+<li>Let’s write more programs into restricted (total) PL</li>
+<li>Blum’s theorem might bite you</li>
+</ol></li>
+<li>“If you want to optimise your code, you have to write more code”</li>
+<li>We need developers to pay more attention to program size</li>
+</ul>
+<blockquote>
+<p>I was completely ignorant of Blum’s theorem and even though its results are somewhat obvious, the fact it talks about total programming languages is very interesting and resonates with my personal investigations on <a href="./dependently-typed-accounting.html">practical use of Dependent Types</a>.</p>
+<p>The “call to arms” to developers to start taking care of their program size makes of course a lot of sense, and it’s well-known that program size is <a href="https://www.researchgate.net/publication/220204439_Cyclomatic_Complexity_and_Lines_of_Code_Empirical_Evidence_of_a_Stable_Linear_Relationship">good measure for complexity</a> or at least as good as any other measure, and taming complexity is a major problem in software engineering.</p>
+<p>In a way, Lucas is advocating for more polyglot programming, whereby teams and projects will use the “right tool” for the job and not reach out for whatever hammer that happens to be “ready-at-hand” at one point in time for everything. Using total languages (eg. Idris), or <em>restricted languages</em> (<a href="https://dhall-lang.org/">Dhall</a> or <a href="https://github.com/Gabriella439/grace">Grace</a>), for the relevant parts of a system entails significant advantages in terms of quality, testing, security (eg. reduction of attack surface). My intuition is that those advantages, in the long run, offset the drawback of having to manage several languages/toolchains.</p>
+</blockquote>
+<h2 id="andre-dickson---the-disturbance-of-death-and-debt">Andre Dickson - The disturbance of death and debt</h2>
+<ul>
+<li>Major disturbances of programs are
+<ul>
+<li>Death (Peter Naur, <a href="https://pages.cs.wisc.edu/~remzi/Naur.pdf">Programming as Theory Building</a>, or <a href="https://gist.github.com/dpritchett/fd7115b6f556e40103ef">here</a> for a markdown)
+&gt; The death of a program happens when the programmer team possessing its theory is dissolved. A dead program may continue to be used for execution in a computer and to produce useful results. The actual state of death becomes visible when demands for modifications of the program cannot be intelligently answered. Revival of a program is the rebuilding of its theory by a new programmer team.</li>
+<li>Conceptual Integrity (Brooks)</li>
+<li>Debt (Ward Cunningham)</li>
+</ul></li>
+<li>In Naur’s views, programs die over time because the programmers lose understanding of the underlying theory, or because there is no theory
+<ul>
+<li>Naur’s theory is implicit whereas <a href="https://plato.stanford.edu/entries/ryle">Ryle</a>’s explicit</li>
+<li>The problem with Naur’s view is that theories erase the program as an <em>equipment</em> (in phenomenological sense following Heidegger), a set of tools, rules and languages to make the practice of programming explicit</li>
+</ul></li>
+<li><em>Programs are equipments</em></li>
+</ul>
+<blockquote>
+<p>This talk was one of the most philosophical of the conferences, drawing on Heidegger’s phenomenology to criticize, or shed a different light on Naur’s and Cunnigham’s notions and how they “disturb” the “lifecycle” of a program. We have had a follow-up discussion by mail with the presenter which somehow clarified his point of view. In my words, the idea is that a program (and the whole environment in which it is taken care of by programmers) is an <em>equipment</em> in the sense of Heidegger.</p>
+<p>This talk prompted me to think again about this <em>conceptual integrity</em> concept, and to somehow reject Peter Naur’s (and Brooks’) idea that a program is somehow the “embodiment” or the “realisation” of a <em>theory</em>. This feels a lot like classical Aristotelian shape/matter duality which in my opinion is a common plague of our industry and possibly of our civilisation as it conveys the idea that what <em>matters</em> most is the shape, the idea, the theory that one bestows on matter in a god-like gesture, like how antique gods modelled humanity out of clay and infused them with life.</p>
+</blockquote>
+<h2 id="daniel-kuby---towards-a-linguistic-conception-of-programming"><a href="https://twitter.com/danielkuby">Daniel Kuby</a> - Towards a linguistic conception of programming</h2>
+<ul>
+<li>Linguistics is concerned with human languages whereas prog languages are the realm of <em>formal languages</em> theory</li>
+<li>What is a PL? We can take the machine centric view or use the formal language sense, but talking about <em>language</em> for PLs is a metaphor
+<ul>
+<li>Linguistics make use of formal languages but they are not its subject of study</li>
+</ul></li>
+<li>Goal of the talk is to reframe PL as <em>natural languages</em>. According to studies in <a href="https://www.researchgate.net/publication/333481200_The_Language_of_Programming_A_Cognitive_Perspective">cognitive linguistics</a> programming activates the same brain areas than <em>talking</em> and not <em>problem solving</em>
+<ul>
+<li><a href="https://www.researchgate.net/publication/263743154_When_Technology_Became_Language_The_Origins_of_the_Linguistic_Conception_of_Computer_Programming_1950-1960">Nofre et al., 2014</a> provides an inquiry into the links between linguistics and programming</li>
+</ul></li>
+<li>The fact that the design of PL is linguistic engineerings is new only in philosophy. Famous quote from <a href="https://en.wikipedia.org/wiki/Structure_and_Interpretation_of_Computer_Programs">Abelson and Sussman</a> about readability of programs dates back to the 80’s</li>
+<li>There are 2 traditions that take interest in specific languages:
+<ul>
+<li>Wittgenstein and his primitive language then later <em>language games</em></li>
+<li>Frege and the microscope analogy about math/science notation vs. ordinary language</li>
+<li>Poverty/simplicity of a language does not mean <em>deficiency</em> but <em>fitness for use</em></li>
+</ul></li>
+<li>This leads to the notion of <em>Restricted Languages</em> related to applied linguistics, the study of <em>usage</em> of languages
+<ul>
+<li><em>restriction</em> is an operator on <em>natural language</em> to produce sublanguages</li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Spontaneous</th>
+<th style="text-align: left;">Engineered</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Restricted</td>
+<td style="text-align: left;">sublanguages</td>
+<td style="text-align: left;">Controlled languages</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">(medicine)</td>
+<td style="text-align: left;">eg. PL</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Unrestricted</td>
+<td style="text-align: left;">Natural languages</td>
+<td style="text-align: left;">Planned languages</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">eg. Esperanto</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>We keep talking about <em>languages</em> in the context of programming but outside of CS this is understood asa metaphor and linguistics usually ignores programming languages. I like the idea of applying linguistic tools and categories to PL, considering those as part of a continuum of symbolic systems. Us practitioners are always concerned with the readability and expressivity of our programs, perhaps a little too much sometimes. Perhaps this line of research will provide insights that could inform future languages development, or possibly engineering of DSLs.</p>
+</blockquote>
+<h2 id="nicolas-nalpon-and-alice-martin---why-semantics-are-not-only-about-expressiveness---the-reactive-programming-case">Nicolas Nalpon and Alice Martin - Why semantics are not only about expressiveness - The reactive programming case</h2>
+<ul>
+<li>Concerned with the <em>epistemic</em> difference (and cost) of different semantics: How a given formal semantics represent a system and its behaviour matters for the end user</li>
+<li>Having identical semantic expressiveness does not imply identical semantic representation</li>
+<li>Example: Reactive programming for UI. To give a semantic to sush a system requires dealing with 2 distinct parts: An algorithmic part and a reactive part. Experiment with 2 formalisms:
+<ul>
+<li><a href="https://core.ac.uk/download/pdf/82274932.pdf">Bigraphs theory</a> is a formalism from Robin Milner (of CCS and π-calculus fame)</li>
+<li>λ-calculus</li>
+</ul></li>
+<li>Possible solution is using hybrid semantics, eg. different fwks for different parts of the system at the cost of increasing complexity in code generation</li>
+<li>What’s the quantitative impact of various formalisms wrt to length of derivation/execution steps?</li>
+</ul>
+<blockquote>
+<p>Going beyond the obvious but useless Turing completeness yardstick to compare formal languages makes a lot of sense, and the example provided while simple makes a good case about how different representations can have different “epistemic” costs. I am too sure about the usability of bigraph formalism which I am unfamiliar with but if I think about something simpler like π-calculus, the classical reduction of λ-calculus to it (and vice-versa) already demonstrates how different notations for different aspects of system can be more or less painful to work with. It’s another good argument for polyglot programming, this time when it comes to formal specifications.</p>
+</blockquote>
+<h2 id="robin-hill---hello-world-an-interrogation">Robin Hill - Hello World? An Interrogation</h2>
+<ul>
+<li>HW is about writing complete program, end-to-end</li>
+<li>It’s about helping students’ relationship with code to evolve from <a href="https://eternalisedofficial.com/2021/02/02/ready-to-hand-and-present-at-hand-heidegger/">present-at-hand_ to _ready-at-hand</a></li>
+<li>Why investigate HW?
+<ul>
+<li>Wikipedia has a page that exists since 2001 and has been constantly updated</li>
+<li>There’s a common metric to compare PL, the <em>Time To Hello World</em> or TTHW</li>
+<li>HW is a <em>meme</em></li>
+</ul></li>
+<li>HW does nothing, it has nothing to do about programming and is born of expedience. It is stripped of all the “interesting” parts of programming (eg. algorithms, problem solving…)</li>
+<li>It stems from the fact students need first hand experience, to learn basic things that hard to articulate and make the programming environment <em>ready-at-hand</em>
+<ul>
+<li>For example, HW shows that programming is about <em>ordering</em> (do one thing, then one thing)</li>
+<li>Code is <em>materiality without matter</em>, it presents possibilities and resistances</li>
+</ul></li>
+<li>There are analogs from other crafts like stitching fabrics together when learning to sew
+<ul>
+<li>Goal is to show <em>how</em> and <em>that</em></li>
+</ul></li>
+<li>Important realisation is that coding involves code to do coding -&gt; <em>we use programs to write programs</em> which is something specific to this activity</li>
+<li>programming = materiality + computational thinking ?</li>
+</ul>
+<blockquote>
+<p>The last talk of the conference proposes a phenomenological inquiry into the humble yet ubiquitous “Hellow World” program.</p>
+<p>I found it interesting this analysis lead to the somewhat obvious but yet ignored truth that <em>coding involves code</em>: Even though it’s possible to write programs with pencil and paper, to actual <em>code</em> and <em>program</em> requires some other program to actually do something. HW is the first artefact a wannabe developer encounters that helps to acquire that insight. It reminds me of how puzzled I was before I learnt systems programming, when I reading books about Computer hardware and CPU, that were hinting at assembly or C code and I was pretty much clueless on how to actually <em>write</em> and <em>execute</em> those. I only have ever programmed using high-level applications like Multiplan or Access and did not know there was another reality behind those applications.</p>
+<p>Robin Hill’s work, while seemingly simple, highlights this fact there is a <em>huge</em> amount of implicit knowledge behind even the simplest task of programming.</p>
+</blockquote>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

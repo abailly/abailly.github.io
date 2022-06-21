@@ -7,7 +7,9 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - Haskell-based Development Environment</title>
+
   <meta name="description" content="Crafting code since 1994">
+
   <meta name="author" content="Arnaud Bailly">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -39,372 +41,147 @@
     </header>
     <div id="main" role="main">
 <h1>Haskell-based Development Environment</h1>
-<div class="info">Posted on 2016-05-23</div>
 
-<p>In a <a href="/posts/cm-arch-design.html">previous post</a> I
-described the overall design and architecture of Capital Match’s core
-system. I now turn to providing more details on our development and
-operations environment which uses mostly Haskell tools and code. As
-there are quite a lot of moving parts, this large topic will be covered
-in two posts: The present one will focus on basic principles, build
-tools and development environment ; it shall be followed by another post
-on configuration management, deployment and monitoring. I consider both
-development and production environments as a single integrated system
-as, obviously, there is a porous membrane between the two especially in
-a small company with 4 developers. Although I have been interested in
-that topic since my first systems programming course in university, some
-18 years ago, I do not consider myself a genuine systems administrator
-and I made a lot of mistakes while building Capital Match platform. But
-I do believe in the <em>“you build it, you run it”</em> motto and this
-is all the more true for a small startup team. Hence I have tried to pay
-attention to building a flexible yet robust system.</p>
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on May 23, 2016</div>
+
+<p>In a <a href="../posts/cm-arch-design.html">previous post</a> I described the overall design and architecture of Capital Match’s core system. I now turn to providing more details on our development and operations environment which uses mostly Haskell tools and code. As there are quite a lot of moving parts, this large topic will be covered in two posts: The present one will focus on basic principles, build tools and development environment ; it shall be followed by another post on configuration management, deployment and monitoring. I consider both development and production environments as a single integrated system as, obviously, there is a porous membrane between the two especially in a small company with 4 developers. Although I have been interested in that topic since my first systems programming course in university, some 18 years ago, I do not consider myself a genuine systems administrator and I made a lot of mistakes while building Capital Match platform. But I do believe in the <em>“you build it, you run it”</em> motto and this is all the more true for a small startup team. Hence I have tried to pay attention to building a flexible yet robust system.</p>
 <h1 id="principles">Principles</h1>
-<p>When we started to setup this environment, we were guided by a few
-principles:</p>
+<p>When we started to setup this environment, we were guided by a few principles:</p>
 <ul>
-<li>Automate, automate, automate: As much setup as possible should be
-automated,</li>
+<li>Automate, automate, automate: As much setup as possible should be automated,</li>
 <li>Every system-level part should be containerized,</li>
-<li>There should be a single versioned source of authority for
-configuration,</li>
+<li>There should be a single versioned source of authority for configuration,</li>
 <li>Use as much Haskell as possible.</li>
 </ul>
 <h2 id="automate">Automate</h2>
 <blockquote>
 <p>Automate all the things!</p>
 </blockquote>
-<p>Deployment to production should be as much automated as possible,
-involving as few manual steps as possible. The end goal is to reach a
-state of continuous deployment where pushed changes are built, verified
-and deployed continuously over the day. This implies all the steps
-involved in getting some feature delivered to end-users should be
-identified and linked into a coherent process that is implemented in
-code, apart from the actual coding of the feature itself. There should
-be no fiddling with SSHing on production machine to fix some
-configuration script, no manual migration process when upgrading data
-schema, no copying of binaries from development environment to
-production…</p>
+<p>Deployment to production should be as much automated as possible, involving as few manual steps as possible. The end goal is to reach a state of continuous deployment where pushed changes are built, verified and deployed continuously over the day. This implies all the steps involved in getting some feature delivered to end-users should be identified and linked into a coherent process that is implemented in code, apart from the actual coding of the feature itself. There should be no fiddling with SSHing on production machine to fix some configuration script, no manual migration process when upgrading data schema, no copying of binaries from development environment to production…</p>
 <h2 id="everything-docker">Everything Docker</h2>
 <blockquote>
 <p>Containerize all the things!</p>
 </blockquote>
-<p><a href="http://docker.io">docker</a> is still a controversial
-technology, esp. among system and cloud specialists, and the topic of
-hot debates which is a sure sign it is a game changer. And back in 2014
-when we started developing Capital Match’s platform, docker was in its
-infancy. I have had some experience in the past working with <a
-href="http://linux-vserver.org/Welcome_to_Linux-VServer.org">VServer</a>
-and <a href="https://linuxcontainers.org/">LXC</a> and containers are
-definitely great as a way to package (parts of) a system. Using docker
-allows us to:</p>
+<p><a href="http://docker.io">docker</a> is still a controversial technology, esp. among system and cloud specialists, and the topic of hot debates which is a sure sign it is a game changer. And back in 2014 when we started developing Capital Match’s platform, docker was in its infancy. I have had some experience in the past working with <a href="http://linux-vserver.org/Welcome_to_Linux-VServer.org">VServer</a> and <a href="https://linuxcontainers.org/">LXC</a> and containers are definitely great as a way to package (parts of) a system. Using docker allows us to:</p>
 <ul>
-<li>Provide seamless integration of development and production
-environments: The exact same software can be produced anywhere and used
-anywhere, whatever OS or configuration the actual developer is using,
-and the production configuration can be reproduced easily for testing or
-staging purposes,</li>
-<li>Encapsulate components in immutable “packages” that require minimal
-system-level configuration, e.g. no more fiddling with ports, machine
-names, environment variables… docker-compose takes care of running
-everything, and we can make services dependent to stable names,</li>
-<li>Simplify “hardware” configuration: All we need is something that is
-running docker (and a compatible kernel of course…) which means machines
-provisioning becomes a no-brainer,</li>
-<li>Isolate build and run components from system-level dependencies
-conflicts,</li>
-<li>Provide some level of reuse across containers and components thanks
-to layered FS.</li>
+<li>Provide seamless integration of development and production environments: The exact same software can be produced anywhere and used anywhere, whatever OS or configuration the actual developer is using, and the production configuration can be reproduced easily for testing or staging purposes,</li>
+<li>Encapsulate components in immutable “packages” that require minimal system-level configuration, e.g. no more fiddling with ports, machine names, environment variables… docker-compose takes care of running everything, and we can make services dependent to stable names,</li>
+<li>Simplify “hardware” configuration: All we need is something that is running docker (and a compatible kernel of course…) which means machines provisioning becomes a no-brainer,</li>
+<li>Isolate build and run components from system-level dependencies conflicts,</li>
+<li>Provide some level of reuse across containers and components thanks to layered FS.</li>
 </ul>
-<p>Note that we stuck to the initial docker “philosophy” of <em>one
-process per container</em>, except for some very specific needs
-(e.g. Selenium testing): It is not possible to ssh into our applicative
-containers.</p>
+<p>Note that we stuck to the initial docker “philosophy” of <em>one process per container</em>, except for some very specific needs (e.g. Selenium testing): It is not possible to ssh into our applicative containers.</p>
 <h2 id="single-source-of-authority">Single Source of Authority</h2>
 <blockquote>
 <p>Version all the things!</p>
 </blockquote>
-<p>This means we should of course version our application’s code, but
-also the system’s configuration and as much dependencies as possible.
-Ideally, we should be able to reconstruct the whole system from a
-handful commands:</p>
+<p>This means we should of course version our application’s code, but also the system’s configuration and as much dependencies as possible.
+Ideally, we should be able to reconstruct the whole system from a handful commands:</p>
 <ul>
 <li><code>git clone &lt;the repo&gt; cm</code></li>
 <li><code>cd cm; ./build ; ./deploy</code></li>
 </ul>
-<p>In practice this is quite a bit more complicated as there are some
-glue parts missing to ensure the whole system can be rebuilt from
-scratch, but still we came quite close to that ideal. We are using 2
-different repositories, one for the application code and one for the
-environment, mostly for technical reasons related to how our
-configuration management software works. The only unversioned part is
-the description of the “hardware” and the provisioning part which is
-still done “manually”.</p>
+<p>In practice this is quite a bit more complicated as there are some glue parts missing to ensure the whole system can be rebuilt from scratch, but still we came quite close to that ideal. We are using 2 different repositories, one for the application code and one for the environment, mostly for technical reasons related to how our configuration management software works. The only unversioned part is the description of the “hardware” and the provisioning part which is still done “manually”.</p>
 <h2 id="everything-haskell">Everything Haskell</h2>
 <blockquote>
 <p>Typecheck all the things!</p>
 </blockquote>
-<p>There is not a dearth of tools when it comes to configuration
-management, systems provisioning and deployment, build tools… When
-starting small you usually don’t want to invest a lot of time in
-learning new tools hence a common choice is simply to start small with
-shell scripts. But tools usually exist for a reason: Scripts quickly
-become a tangled maze of scattered knowledge. Yet we have at our
-disposal a powerful tool: Haskell itself, the language and its
-ecosystem, hence we decided to try as much as possible to stick to using
-Haskell-based tools. Beside the obvious simplification this brings us
-(one compiler, one toolchain, one language…), the advantages Haskell
-provides over other languages (type safety, lazy evaluation, immutable
-data structures) seemed to be equally valuable at the applicative level
-than at the system level.</p>
+<p>There is not a dearth of tools when it comes to configuration management, systems provisioning and deployment, build tools… When starting small you usually don’t want to invest a lot of time in learning new tools hence a common choice is simply to start small with shell scripts. But tools usually exist for a reason: Scripts quickly become a tangled maze of scattered knowledge. Yet we have at our disposal a powerful tool: Haskell itself, the language and its ecosystem, hence we decided to try as much as possible to stick to using Haskell-based tools. Beside the obvious simplification this brings us (one compiler, one toolchain, one language…), the advantages Haskell provides over other languages (type safety, lazy evaluation, immutable data structures) seemed to be equally valuable at the applicative level than at the system level.</p>
 <h1 id="overview">Overview</h1>
-<p><img src="/images/system-architecture.png" width="900" /></p>
+<p><img src="../images/system-architecture.png" width="900" /></p>
 <p>The above figure gives a high-level overview of the system:</p>
 <ul>
-<li>Developers work on local machines (or <em>dev boxes</em>, see
-below), pushing changes to <a href="http://git-scm.com">git</a>,</li>
-<li>Pushing to remote repository triggers build on <em>continuous
-integration</em> server <a
-href="https://github.com/ndmitchell/bake">bake</a>,</li>
-<li>The final output of CI is a bunch of containers which are deployed
-to a private repositories on <a href="https://hub.docker.com/">docker
-hub</a>,</li>
-<li>When we are ready to deploy, we update the system configuration in
-another git repository then run <a
-href="http://propellor.branchable.com/">propellor</a>,</li>
-<li>This triggers configuration of <em>run</em> system which usually
-entails downloading correct container from repository and running
-it,</li>
+<li>Developers work on local machines (or <em>dev boxes</em>, see below), pushing changes to <a href="http://git-scm.com">git</a>,</li>
+<li>Pushing to remote repository triggers build on <em>continuous integration</em> server <a href="https://github.com/ndmitchell/bake">bake</a>,</li>
+<li>The final output of CI is a bunch of containers which are deployed to a private repositories on <a href="https://hub.docker.com/">docker hub</a>,</li>
+<li>When we are ready to deploy, we update the system configuration in another git repository then run <a href="http://propellor.branchable.com/">propellor</a>,</li>
+<li>This triggers configuration of <em>run</em> system which usually entails downloading correct container from repository and running it,</li>
 <li>Data (also stored in a container) is regularly backed-up on S3,</li>
-<li>Various components of the system feed events to <a
-href="http://riemann.io">riemann</a> monitoring system.</li>
+<li>Various components of the system feed events to <a href="http://riemann.io">riemann</a> monitoring system.</li>
 </ul>
 <h1 id="build-toolchain">Build &amp; Toolchain</h1>
 <h2 id="build">Build</h2>
 <h3 id="cabal">Cabal</h3>
-<p>For building the Haskell part, we started obviously with <a
-href="https://www.haskell.org/cabal/">Cabal</a> which is the defacto
-build system/package manager in Haskell. The structure of GHC+Cabal
-packages system makes it quite hard to create insulated and
-<strong>reproducible</strong> build environments as there are various
-interactions between what’s installed globally (with GHC) and what’s
-installed per user and per project. There was no <a
-href="http://docs.haskellstack.org">stack</a> two years ago so we had to
-roll our own. Here are some key features of our cabal-based build:</p>
+<p>For building the Haskell part, we started obviously with <a href="https://www.haskell.org/cabal/">Cabal</a> which is the defacto build system/package manager in Haskell. The structure of GHC+Cabal packages system makes it quite hard to create insulated and <strong>reproducible</strong> build environments as there are various interactions between what’s installed globally (with GHC) and what’s installed per user and per project. There was no <a href="http://docs.haskellstack.org">stack</a> two years ago so we had to roll our own. Here are some key features of our cabal-based build:</p>
 <ul>
-<li>We used cabal snapshots with pinned down versions of all
-dependencies through <code>cabal freeze</code></li>
-<li>Build became more complex when we started to add subpackages and
-sharing dependencies (&gt;100) seemed like a good idea. We shared a
-single sandbox by setting <code>CABAL_SANDBOX_CONFIG</code> to point to
-toplevel directory sandbox configuration file for all packages, then
-<code>add-source</code> sub-packages. This make it easier to
-simultaneously:
+<li>We used cabal snapshots with pinned down versions of all dependencies through <code>cabal freeze</code></li>
+<li>Build became more complex when we started to add subpackages and sharing dependencies (&gt;100) seemed like a good idea. We shared a single sandbox by setting <code>CABAL_SANDBOX_CONFIG</code> to point to toplevel directory sandbox configuration file for all packages, then <code>add-source</code> sub-packages. This make it easier to simultaneously:
 <ul>
 <li>Build everything in one go,</li>
 <li>Work in a sub-package,</li>
 <li>Work in main (top-level) package,</li>
 </ul></li>
-<li>This does not prevent rebuilds when moving across packages as the
-build directory used by cabal is still located within each package,</li>
-<li>We are still dependent on a globally available GHC. When upgrading
-GHC versions, you need to change globally installed GHC before
-rebuilding,</li>
-<li>Several concurrent versions can coexist and be used in the same
-directory as GHC maintains version/OS dependent packages database, but
-care need to be taken with <code>PATH</code>s as the cabal version is
-likely different too…</li>
+<li>This does not prevent rebuilds when moving across packages as the build directory used by cabal is still located within each package,</li>
+<li>We are still dependent on a globally available GHC. When upgrading GHC versions, you need to change globally installed GHC before rebuilding,</li>
+<li>Several concurrent versions can coexist and be used in the same directory as GHC maintains version/OS dependent packages database, but care need to be taken with <code>PATH</code>s as the cabal version is likely different too…</li>
 </ul>
 <h3 id="stack">Stack</h3>
-<p><a href="https://github.com/commercialhaskell/stack/">stack</a>
-represented a huge improvement for managing our build but it took us a
-few months to ensure it built consistently.</p>
+<p><a href="https://github.com/commercialhaskell/stack/">stack</a> represented a huge improvement for managing our build but it took us a few months to ensure it built consistently.</p>
 <ul>
-<li>Stack provides truly repeatable builds and segregate build
-environments tightly, including the tooling (compiler, lexer, parser…),
-managing downloads, setting package databases paths…</li>
-<li>There is a single executable to install which makes creating build
-containers much easier: install stack, run setup and you have a fully
-configured container at required version. It is also very easy to
-upgrade,</li>
-<li>Stack manages dependencies through <a
-href="https://www.stackage.org/">stackage</a> meaning you only have to
-provide a single version number and you are guaranteed to have
-compatible versions of libraries. This might be sometimes problematic if
-you require some specific version of a library that is not part of the
-dependency package, but it is still possible to provide custom
-versions,</li>
-<li>I was sometimes surprised by stack not reusing some previous build
-result, although I could make it work manually,</li>
-<li>The biggest hurdle we had to overcome to make stack work for us were
-the tests. Some tests relied on specific files to be present which means
-we had to manage relative paths: depending on whether or not tests are
-run from toplevel (which is the case in CI for example) or from local
-package directory (which is the case when using stack to build a tree of
-packages), relative directory may not be correctly set. Moreover stack
-runs tests in parallel, which is a good thing to force you to implement
-parallelizable tests but failed for us as we relied on starting server
-on some port for integration tests. We should get rid of hardwired port
-and allow the server to use some randomly allocated one but we chosed
-the simplest path and configured stack to run tests sequentially.</li>
-<li>A minor annoyance is (was?) that stack maintains a build directory
-in each sub package, even when run from the toplevel, which is not the
-case when using cabal sandbox. This implies that reusing previous builds
-is a bit more cumbersome as one needs to save each
-<code>.stack-work</code> directory.</li>
+<li>Stack provides truly repeatable builds and segregate build environments tightly, including the tooling (compiler, lexer, parser…), managing downloads, setting package databases paths…</li>
+<li>There is a single executable to install which makes creating build containers much easier: install stack, run setup and you have a fully configured container at required version. It is also very easy to upgrade,</li>
+<li>Stack manages dependencies through <a href="https://www.stackage.org/">stackage</a> meaning you only have to provide a single version number and you are guaranteed to have compatible versions of libraries. This might be sometimes problematic if you require some specific version of a library that is not part of the dependency package, but it is still possible to provide custom versions,</li>
+<li>I was sometimes surprised by stack not reusing some previous build result, although I could make it work manually,</li>
+<li>The biggest hurdle we had to overcome to make stack work for us were the tests. Some tests relied on specific files to be present which means we had to manage relative paths: depending on whether or not tests are run from toplevel (which is the case in CI for example) or from local package directory (which is the case when using stack to build a tree of packages), relative directory may not be correctly set. Moreover stack runs tests in parallel, which is a good thing to force you to implement parallelizable tests but failed for us as we relied on starting server on some port for integration tests. We should get rid of hardwired port and allow the server to use some randomly allocated one but we chosed the simplest path and configured stack to run tests sequentially.</li>
+<li>A minor annoyance is (was?) that stack maintains a build directory in each sub package, even when run from the toplevel, which is not the case when using cabal sandbox. This implies that reusing previous builds is a bit more cumbersome as one needs to save each <code>.stack-work</code> directory.</li>
 </ul>
 <h3 id="leiningen">Leiningen</h3>
-<p><a href="http://leiningen.org/">leiningen</a> is (was?) the prominent
-build tool for clojure and clojurescript. We chose Clojurescript for the
-UI mostly because this allowed us to develop it using the excellent <a
-href="https://github.com/omcljs/om/">Om</a> wrapper over React. It took
-us quite a lot of time to get our project build comfortable and it did
-not evolve as quickly as the Haskell one.</p>
+<p><a href="http://leiningen.org/">leiningen</a> is (was?) the prominent build tool for clojure and clojurescript. We chose Clojurescript for the UI mostly because this allowed us to develop it using the excellent <a href="https://github.com/omcljs/om/">Om</a> wrapper over React. It took us quite a lot of time to get our project build comfortable and it did not evolve as quickly as the Haskell one.</p>
 <ul>
-<li>When to distinguish various build targets: Development mode where we
-want some interactive reload within the browser, test mode to run unit
-tests (automatically or in batch) and production mode which needs to be
-optimiszed,</li>
-<li>Getting the tests to run correctly proved difficult and is still
-dependent on some manual configuration: To run clojurescript tests, we
-need to install <a href="http://phantomjs.org/">phantomjs</a> and
-configure correctly <a
-href="https://github.com/cljsjs/packages/wiki/Creating-Externs">externs</a>
-for the few javascript libraries we use and compile both code and tess
-<strong>with only whitespace</strong> optimizations (tests don’t run in
-fully optimized mode),</li>
-<li>This actually means code is compiled as much as 3 times, which takes
-some time…</li>
-<li>The CSS part of the UI is written using <a
-href="https://github.com/noprompt/garden">garden</a>, which means we
-have to compile it to proper CSS then pack and compress all CSS files
-together to improve load time. In retrospect, this was probably a
-mistake: We don’t use clojure’s power to write our CSS and it is still a
-mess, so we would have been better off using some standard CSS language
-like Less or Sass (although this adds the burden of running some
-thirdparty tool as part of the build…).</li>
+<li>When to distinguish various build targets: Development mode where we want some interactive reload within the browser, test mode to run unit tests (automatically or in batch) and production mode which needs to be optimiszed,</li>
+<li>Getting the tests to run correctly proved difficult and is still dependent on some manual configuration: To run clojurescript tests, we need to install <a href="http://phantomjs.org/">phantomjs</a> and configure correctly <a href="https://github.com/cljsjs/packages/wiki/Creating-Externs">externs</a> for the few javascript libraries we use and compile both code and tess <strong>with only whitespace</strong> optimizations (tests don’t run in fully optimized mode),</li>
+<li>This actually means code is compiled as much as 3 times, which takes some time…</li>
+<li>The CSS part of the UI is written using <a href="https://github.com/noprompt/garden">garden</a>, which means we have to compile it to proper CSS then pack and compress all CSS files together to improve load time. In retrospect, this was probably a mistake: We don’t use clojure’s power to write our CSS and it is still a mess, so we would have been better off using some standard CSS language like Less or Sass (although this adds the burden of running some thirdparty tool as part of the build…).</li>
 </ul>
 <h3 id="javascript">Javascript</h3>
-<p>When we introduced the mobile UI for Capital Match, we had to
-integrate its build inside our process. This caused some headache as
-this part of the system is developed in pure Javascript using <a
-href="http://emberjs.com/">Emberjs</a> and relies on various tools in
-the JS ecosystem I was not familiar with. It also used <a
-href="http://sass-lang.com/">sass</a> to write CSS which means we needed
-ruby to run the compiler.</p>
+<p>When we introduced the mobile UI for Capital Match, we had to integrate its build inside our process. This caused some headache as this part of the system is developed in pure Javascript using <a href="http://emberjs.com/">Emberjs</a> and relies on various tools in the JS ecosystem I was not familiar with. It also used <a href="http://sass-lang.com/">sass</a> to write CSS which means we needed ruby to run the compiler.</p>
 <ul>
-<li>We packaged all system-level dependencies into a single docker
-container. Note that official distribution’s package for node and npm
-were outdated hence we had to install them “by hand” in the container
-which is apparently the right way anyway,</li>
-<li>There is a single top-level script which builds everything and is
-ran from the container.</li>
+<li>We packaged all system-level dependencies into a single docker container. Note that official distribution’s package for node and npm were outdated hence we had to install them “by hand” in the container which is apparently the right way anyway,</li>
+<li>There is a single top-level script which builds everything and is ran from the container.</li>
 </ul>
 <h3 id="shake">Shake</h3>
-<p>Given the diversity of tools and components we are building, we
-needed a way to orchestrate build of the full solution which could be
-easily run as part of <em>Continuous integration</em>. We settled on <a
-href="http://shakebuild.com">shake</a> which is a Haskell-based tool
-similar to <em>make</em>.</p>
+<p>Given the diversity of tools and components we are building, we needed a way to orchestrate build of the full solution which could be easily run as part of <em>Continuous integration</em>. We settled on <a href="http://shakebuild.com">shake</a> which is a Haskell-based tool similar to <em>make</em>.</p>
 <ul>
-<li>Rules are written in Haskell and shake provides support for all
-system-level tasks one would need to do in a build, including running
-arbitrary processes, manipulating their output, manipulating files…
-Using this embedded DSL makes it possible to track dependencies more
-easily. Shake maintains a database of dependencies that can be populated
-with arbitrary data,</li>
-<li>The default target of our build is a list of docker containers, one
-for each service of the system plus the nginx container,</li>
-<li>At the root of the dependency graph lies our build containers: one
-for <em>ghc + clojurescript</em> and one for building
-<em>javascript</em> code. Those containers are only expected to change
-(and be built) when we upgrade our toolchain. They are somewhat
-expensive to build as they need to provide all the needed tools to build
-(and run) our system,</li>
-<li>On the server side, we use the <code>ghc-clojure</code> container to
-run a top-level build script that builds all services and the web UI.
-Given it takes ages to download and build all dependencies, then build
-all the various parts of the system, we tried to maximize reuse across
-builds: The build artifacts are exported as data containers and we link
-to the <span class="math inline"><em>n</em> − 1</span> build container
-in the <span class="math inline"><em>n</em></span> build run,</li>
-<li>In order to minimize the size of our containers, we extract each
-service’s executable from the full build container and repack it into
-another container which contains a minimal runtime environment. We
-initially tried to do something like <a
-href="https://github.com/fpco/haskell-scratch/">haskell-scratch</a> but
-this did not work when our code needed to issue client-side HTTPS
-request: For some network and SSL reason the service fails to initialize
-properly. We resorted to use the standard busybox image, to which we add
-some prepackaged runtime libraries. This allows us to deploy containers
-with a “small” size: Our main application container weighs in at about
-27MB and a typical service weighs 10MB. Note this has the additional
-benefit of drastically limiting the attack surface of the containers as
-they only contain the bare minimum to run our services and nothing
-else,</li>
-<li>Shake build also contains rules to run different class of tests:
-Unit/integration server-side tests, UI tests and end-to-end-tests (see
-below), and rules to clean build artifacts and docker containers.</li>
+<li>Rules are written in Haskell and shake provides support for all system-level tasks one would need to do in a build, including running arbitrary processes, manipulating their output, manipulating files… Using this embedded DSL makes it possible to track dependencies more easily. Shake maintains a database of dependencies that can be populated with arbitrary data,</li>
+<li>The default target of our build is a list of docker containers, one for each service of the system plus the nginx container,</li>
+<li>At the root of the dependency graph lies our build containers: one for <em>ghc + clojurescript</em> and one for building <em>javascript</em> code. Those containers are only expected to change (and be built) when we upgrade our toolchain. They are somewhat expensive to build as they need to provide all the needed tools to build (and run) our system,</li>
+<li>On the server side, we use the <code>ghc-clojure</code> container to run a top-level build script that builds all services and the web UI. Given it takes ages to download and build all dependencies, then build all the various parts of the system, we tried to maximize reuse across builds: The build artifacts are exported as data containers and we link to the <span class="math inline">\(n-1\)</span> build container in the <span class="math inline">\(n\)</span> build run,</li>
+<li>In order to minimize the size of our containers, we extract each service’s executable from the full build container and repack it into another container which contains a minimal runtime environment. We initially tried to do something like <a href="https://github.com/fpco/haskell-scratch/">haskell-scratch</a> but this did not work when our code needed to issue client-side HTTPS request: For some network and SSL reason the service fails to initialize properly. We resorted to use the standard busybox image, to which we add some prepackaged runtime libraries. This allows us to deploy containers with a “small” size: Our main application container weighs in at about 27MB and a typical service weighs 10MB. Note this has the additional benefit of drastically limiting the attack surface of the containers as they only contain the bare minimum to run our services and nothing else,</li>
+<li>Shake build also contains rules to run different class of tests: Unit/integration server-side tests, UI tests and end-to-end-tests (see below), and rules to clean build artifacts and docker containers.</li>
 </ul>
 <h2 id="development-environment">Development Environment</h2>
 <h3 id="haskell">Haskell</h3>
-<p>There has been various attempts at providing an IDE for Haskell: * <a
-href="http://leksah.org/">leksah</a> is an Eclipse-based Haskell IDE, *
-<a href="http://haskellformac.com/">Haskell for Mac</a>, * FPComplete
-used to provide some web-based environment.</p>
-<p>Having used emacs for years, I feel comfortable with and besides
-there are actually benefits using a plain-text tool for coding when you
-are part of a distributed team: It allows you to easily setup a
-distributed pairing environment with minimal latency. Yet configuring a
-proper Haskell development environment in Emacs can be a challenging
-task, and it seems this is a moving target.</p>
+<p>There has been various attempts at providing an IDE for Haskell:
+* <a href="http://leksah.org/">leksah</a> is an Eclipse-based Haskell IDE,
+* <a href="http://haskellformac.com/">Haskell for Mac</a>,
+* FPComplete used to provide some web-based environment.</p>
+<p>Having used emacs for years, I feel comfortable with and besides there are actually benefits using a plain-text tool for coding when you are part of a distributed team: It allows you to easily setup a distributed pairing environment with minimal latency. Yet configuring a proper Haskell development environment in Emacs can be a challenging task, and it seems this is a moving target.</p>
 <ul>
-<li>Starting from <a
-href="https://github.com/haskell/haskell-mode/">Haskell-mode</a> page is
-good idea as it is the base upon which one builds her own Emacs Haskell
-experience.</li>
-<li><a
-href="https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md">Emacs
-haskell tutorial</a> provides some more details on how to set things
-up,</li>
-<li><a href="https://github.com/chrisdone/emacs-haskell-config">Chris
-Done’s Haskell config</a> provides an easy to use full-blown
-configuration,</li>
-<li>I tried <a
-href="https://github.com/chrisdone/structured-haskell-mode">SHM</a> a
-couple of times but could not get used to it, or could not make it work
-properly, or both… Might want to retry at some point in the future,</li>
-<li><a
-href="http://tim.dysinger.net/posts/2014-02-18-haskell-with-emacs.html">this
-blog post</a> is a bit older but I remember having gone through it and
-try to reproduce some of the proposed features</li>
-<li><a
-href="http://blog.hoersten.co/post/110096363794/modern-emacs-haskell-mode">This
-other post</a></li>
-<li><a href="http://www.mew.org/~kazu/proj/ghc-mod/en/">ghc-mod</a> is
-useful but With cabal sandboxes and multiple projects it seems to be
-pretty unusable. I am also having a hard time making it work properly
-for test code: This requires different configurations and package
-dependencies are not properly picked up by ghc-mod. I need to
-investigate a bit more as I found this extension quite interesting,</li>
-<li>Some people at Capital Match have started to use <a
-href="http://spacemacs.org/">spacemacs</a> which seems to come with a
-correctly configured Haskell environment out of the box.</li>
+<li>Starting from <a href="https://github.com/haskell/haskell-mode/">Haskell-mode</a> page is good idea as it is the base upon which one builds her own Emacs Haskell experience.</li>
+<li><a href="https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md">Emacs haskell tutorial</a> provides some more details on how to set things up,</li>
+<li><a href="https://github.com/chrisdone/emacs-haskell-config">Chris Done’s Haskell config</a> provides an easy to use full-blown configuration,</li>
+<li>I tried <a href="https://github.com/chrisdone/structured-haskell-mode">SHM</a> a couple of times but could not get used to it, or could not make it work properly, or both… Might want to retry at some point in the future,</li>
+<li><a href="http://tim.dysinger.net/posts/2014-02-18-haskell-with-emacs.html">this blog post</a> is a bit older but I remember having gone through it and try to reproduce some of the proposed features</li>
+<li><a href="http://blog.hoersten.co/post/110096363794/modern-emacs-haskell-mode">This other post</a></li>
+<li><a href="http://www.mew.org/~kazu/proj/ghc-mod/en/">ghc-mod</a> is useful but With cabal sandboxes and multiple projects it seems to be pretty unusable. I am also having a hard time making it work properly for test code: This requires different configurations and package dependencies are not properly picked up by ghc-mod. I need to investigate a bit more as I found this extension quite interesting,</li>
+<li>Some people at Capital Match have started to use <a href="http://spacemacs.org/">spacemacs</a> which seems to come with a correctly configured Haskell environment out of the box.</li>
 </ul>
 <p>Here is my current .emacs content:</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode scheme"><code class="sourceCode scheme"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(eval-after-load <span class="st">&quot;haskell-mode&quot;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  &#39;(progn</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(eval-after-load <span class="st">&quot;haskell-mode&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  '(progn</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>     (setq haskell-stylish-on-save t)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>     (setq haskell-tags-on-save t)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>     (setq haskell-process-type &#39;stack-ghci)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>     (setq haskell-process-args-stack-ghci &#39;(<span class="st">&quot;--test&quot;</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>     (setq haskell-process-type 'stack-ghci)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>     (setq haskell-process-args-stack-ghci '(<span class="st">&quot;--test&quot;</span>))</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>     (define-key haskell-mode-map (kbd <span class="st">&quot;C-,&quot;</span>) &#39;haskell-move-nested-left)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>     (define-key haskell-mode-map (kbd <span class="st">&quot;C-.&quot;</span>) &#39;haskell-move-nested-right)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>     (define-key haskell-mode-map (kbd <span class="st">&quot;C-c v c&quot;</span>) &#39;haskell-cabal-visit-file)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>     (define-key haskell-mode-map (kbd <span class="st">&quot;C-c v c&quot;</span>) &#39;haskell-cabal-visit-file)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>     (define-key haskell-mode-map (kbd <span class="st">&quot;C-c C-t&quot;</span>) &#39;ghc-show-type)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>     (define-key haskell-mode-map (kbd <span class="st">&quot;C-,&quot;</span>) 'haskell-move-nested-left)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>     (define-key haskell-mode-map (kbd <span class="st">&quot;C-.&quot;</span>) 'haskell-move-nested-right)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>     (define-key haskell-mode-map (kbd <span class="st">&quot;C-c v c&quot;</span>) 'haskell-cabal-visit-file)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>     (define-key haskell-mode-map (kbd <span class="st">&quot;C-c v c&quot;</span>) 'haskell-cabal-visit-file)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>     (define-key haskell-mode-map (kbd <span class="st">&quot;C-c C-t&quot;</span>) 'ghc-show-type)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>     (define-key haskell-mode-map (kbd <span class="st">&quot;C-x C-d&quot;</span>) nil)</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>     (setq haskell-font-lock-symbols t)</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
@@ -413,126 +190,66 @@ class="sourceCode scheme"><code class="sourceCode scheme"><span id="cb1-1"><a hr
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>     <span class="co">;; from http://pastebin.com/tJyyEBAS</span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>     (ac-define-source ghc-mod</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>       &#39;((depends ghc)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>       '((depends ghc)</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>         (candidates <span class="op">.</span> (ghc-select-completion-symbol))</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>         (symbol <span class="op">.</span> <span class="st">&quot;s&quot;</span>)</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>         (cache)))</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>     </span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>     (defun my-ac-haskell-mode ()</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>       (setq ac-sources &#39;(ac-source-words-in-same-mode-buffers</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>       (setq ac-sources '(ac-source-words-in-same-mode-buffers</span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>                          ac-source-dictionary</span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                          ac-source-ghc-mod)))</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>     (add-hook &#39;haskell-mode-hook &#39;my-ac-haskell-mode)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>     (add-hook 'haskell-mode-hook 'my-ac-haskell-mode)</span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>     </span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>     (defun my-haskell-ac-init ()</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>       (when (<span class="kw">member</span> (file-name-extension buffer-file-name) &#39;(<span class="st">&quot;hs&quot;</span> <span class="st">&quot;lhs&quot;</span>))</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>       (when (<span class="kw">member</span> (file-name-extension buffer-file-name) '(<span class="st">&quot;hs&quot;</span> <span class="st">&quot;lhs&quot;</span>))</span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>         (auto-complete-mode t)</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>         (setq ac-sources &#39;(ac-source-words-in-same-mode-buffers</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>         (setq ac-sources '(ac-source-words-in-same-mode-buffers</span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>                            ac-source-dictionary</span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>                            ac-source-ghc-mod))))</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>     (add-hook &#39;find-file-hook &#39;my-haskell-ac-init)))</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>     (add-hook 'find-file-hook 'my-haskell-ac-init)))</span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>(add-hook &#39;haskell-mode-hook &#39;turn-on-haskell-decl-scan)</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>(add-hook &#39;haskell-mode-hook &#39;turn-on-haskell-indentation)</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>(add-hook &#39;haskell-mode-hook &#39;interactive-haskell-mode)</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>(add-hook 'haskell-mode-hook 'turn-on-haskell-decl-scan)</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>(add-hook 'haskell-mode-hook 'interactive-haskell-mode)</span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>(add-hook &#39;haskell-interactive-mode-hook &#39;turn-on-comint-history)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>(add-hook 'haskell-interactive-mode-hook 'turn-on-comint-history)</span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>(eval-after-load <span class="st">&quot;which-func&quot;</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  &#39;(add-to-list &#39;which-func-modes &#39;haskell-mode))</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  '(add-to-list 'which-func-modes 'haskell-mode))</span>
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>(eval-after-load <span class="st">&quot;haskell-cabal&quot;</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    &#39;(define-key haskell-cabal-mode-map (kbd <span class="st">&quot;C-c C-c&quot;</span>) &#39;haskell-compile))</span></code></pre></div>
-<p>Thanks to discussions with <a
-href="https://twitter.com/solirc_">Simon</a> and <a
-href="https://twitter.com/amarpotghan">Amar</a> I am now using the REPL
-much more than I used to. My current workflow when working on Haskell
-code looks like:</p>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    '(define-key haskell-cabal-mode-map (kbd <span class="st">&quot;C-c C-c&quot;</span>) 'haskell-compile))</span></code></pre></div>
+<p>Thanks to discussions with <a href="https://twitter.com/solirc_">Simon</a> and <a href="https://twitter.com/amarpotghan">Amar</a> I am now using the REPL much more than I used to.
+My current workflow when working on Haskell code looks like:</p>
 <ul>
-<li>Load currently worked on file in interpreter using <code>C-c
-C-l</code>: This starts an inferior-haskell which is configured to use
-<code>stack ghci --test</code> under the hood, meaning all files
-including tests are in scope,</li>
+<li>Load currently worked on file in interpreter using <code>C-c C-l</code>: This starts an inferior-haskell which is configured to use <code>stack ghci --test</code> under the hood, meaning all files including tests are in scope,</li>
 <li>Code till it compiles properly and I can run a test,</li>
 <li>Make test pass in the REPL,</li>
-<li>When it’s OK, run full build, e.g. <code>stack test</code> in the
-console. This might trigger some more changes downstream which I need to
-fix,</li>
+<li>When it’s OK, run full build, e.g. <code>stack test</code> in the console. This might trigger some more changes downstream which I need to fix,</li>
 <li>When all unit tests pass, commit and push to CI.</li>
 </ul>
 <h3 id="clojurescript">Clojurescript</h3>
-<p>The nice thing when using non-modern languages like Haskell and
-Clojure is that you only need to be able to edit text files to develop
-software, hence the choice of Emacs to develop both is kind of obvious.
-There is very good support for Clojure in emacs through <a
-href="https://github.com/clojure/tools.nrepl">nrepl</a> and <a
-href="https://github.com/clojure-emacs/cider">Cider</a> but it seems
-having the same level of support for Clojurescript is still
-challenging.</p>
+<p>The nice thing when using non-modern languages like Haskell and Clojure is that you only need to be able to edit text files to develop software, hence the choice of Emacs to develop both is kind of obvious. There is very good support for Clojure in emacs through <a href="https://github.com/clojure/tools.nrepl">nrepl</a> and <a href="https://github.com/clojure-emacs/cider">Cider</a> but it seems having the same level of support for Clojurescript is still challenging.</p>
 <ul>
-<li>When developping UI ClojureScript code, I mostly use <a
-href="https://github.com/bhauman/lein-figwheel">figwheel</a> which
-provides interactive reloading of code in the browser. One needs to
-start figwheel through <code>lein figwheel</code> which provides a REPL,
-then load the UI in a browser: The UI connects to the figwheel server
-which notifies it of code changes that trigger reload of the page,</li>
-<li>For (mostly) non-UI code, I tend to favour TDD and use “autotesting”
-build: Changes in code trigger recompilation and run of all unit tests
-using the same configuration than batch run,</li>
-<li><a href="http://wikemacs.org/wiki/Paredit-mode">paredit-mode</a>
-provides a structured way to edit LISP-like code: It automatically
-balances parens, brackets or double-quotes and provides dozens of
-shortcuts to manipulate the syntax tree ensuring syntactically correct
-transformations. I tend to use it as much as possible but sometimes find
-it cumbersome,</li>
-<li>What I miss most when developing ClojureScript is a way to identify
-and navigate across symbols: I could not find an easy way to have some
-symbols index, something which is provided for Haskell through simple
-tags support. I am pretty sure there is something out there…</li>
+<li>When developping UI ClojureScript code, I mostly use <a href="https://github.com/bhauman/lein-figwheel">figwheel</a> which provides interactive reloading of code in the browser. One needs to start figwheel through <code>lein figwheel</code> which provides a REPL, then load the UI in a browser: The UI connects to the figwheel server which notifies it of code changes that trigger reload of the page,</li>
+<li>For (mostly) non-UI code, I tend to favour TDD and use “autotesting” build: Changes in code trigger recompilation and run of all unit tests using the same configuration than batch run,</li>
+<li><a href="http://wikemacs.org/wiki/Paredit-mode">paredit-mode</a> provides a structured way to edit LISP-like code: It automatically balances parens, brackets or double-quotes and provides dozens of shortcuts to manipulate the syntax tree ensuring syntactically correct transformations. I tend to use it as much as possible but sometimes find it cumbersome,</li>
+<li>What I miss most when developing ClojureScript is a way to identify and navigate across symbols: I could not find an easy way to have some symbols index, something which is provided for Haskell through simple tags support. I am pretty sure there is something out there…</li>
 </ul>
 <h3 id="devbox">Devbox</h3>
-<p>I already discussed in a <a href="/posts/agile-startup.html">previous
-blog post</a> how we managed to do pair programming with a distributed
-team. One of the virtual machines we configured was our <em>devbox</em>
-which we used to do remote pairing and run experiments.</p>
+<p>I already discussed in a <a href="../posts/agile-startup.html">previous blog post</a> how we managed to do pair programming with a distributed team. One of the virtual machines we configured was our <em>devbox</em> which we used to do remote pairing and run experiments.</p>
 <ul>
-<li>The initial configuration was done in the VM. It was pretty complex,
-requiring setting up full Haskell and ClojureScript toolchain, correct
-Emacs configuration which means installing and configuring emacs
-packages in scripts, setting user authentications…</li>
-<li>It worked quite well however, except for the time to spin up a box
-from scratch. We were able to develop our software using the same tools
-we had on our laptops, except the fancy windowing UI: Emacs works
-exactly in the same way in a (proper) terminal and in a Mac OS X Window,
-once you correctly configuring key mappings for tmux and emacs over
-ssh,</li>
-<li>At some point we turned to a container-based configuration with a
-<em>fat</em> container providing full development environment, including
-an X server for UI testing. Setting up the VM was much simpler as it
-only required installing docker but the development image was pretty
-large (about 4GB) and this meant long download time when pulling the
-docker image from scratch. This environment provided a full-blown X
-server which means we could log into it through VNC. However, we lost
-interactivity of pairing as it was not possible to share connection to X
-server which actually means it was pretty much useless,</li>
-<li>We reverted back to configuring the VM itself but this time we used
-images snapshot to be able to restore the box quickly,</li>
-<li>We also pushed emacs configuration to a <a
-href="https://github.com/capital-match/cm-dotfiles/blob/master/.emacs">shared
-git repository</a> which is pulled when configuring the machine,
-something we should have done earlier of course.</li>
+<li>The initial configuration was done in the VM. It was pretty complex, requiring setting up full Haskell and ClojureScript toolchain, correct Emacs configuration which means installing and configuring emacs packages in scripts, setting user authentications…</li>
+<li>It worked quite well however, except for the time to spin up a box from scratch. We were able to develop our software using the same tools we had on our laptops, except the fancy windowing UI: Emacs works exactly in the same way in a (proper) terminal and in a Mac OS X Window, once you correctly configuring key mappings for tmux and emacs over ssh,</li>
+<li>At some point we turned to a container-based configuration with a <em>fat</em> container providing full development environment, including an X server for UI testing. Setting up the VM was much simpler as it only required installing docker but the development image was pretty large (about 4GB) and this meant long download time when pulling the docker image from scratch. This environment provided a full-blown X server which means we could log into it through VNC. However, we lost interactivity of pairing as it was not possible to share connection to X server which actually means it was pretty much useless,</li>
+<li>We reverted back to configuring the VM itself but this time we used images snapshot to be able to restore the box quickly,</li>
+<li>We also pushed emacs configuration to a <a href="https://github.com/capital-match/cm-dotfiles/blob/master/.emacs">shared git repository</a> which is pulled when configuring the machine, something we should have done earlier of course.</li>
 </ul>
 <h1 id="discussion">Discussion</h1>
 <h2 id="build-process">Build process</h2>
-<p>In retrospect I think the biggest issue we faced while developing the
-platform and working on the dev and prod infrastructure was fighting
-back increase in <em>build time</em> as we were adding new features and
-services. Building a deployable container <em>from scratch</em>,
-including creation of the build machine, configuration of build tools,
-creation of the needed containers, download and build of dependencies,
-testing, packaging would take about 2 hours. Here is the breakdown of
-time for some of the build stages according to the CI:</p>
+<p>In retrospect I think the biggest issue we faced while developing the platform and working on the dev and prod infrastructure was fighting back increase in <em>build time</em> as we were adding new features and services. Building a deployable container <em>from scratch</em>, including creation of the build machine, configuration of build tools, creation of the needed containers, download and build of dependencies, testing, packaging would take about 2 hours. Here is the breakdown of time for some of the build stages according to the CI:</p>
 <table>
 <thead>
 <tr class="header">
@@ -563,53 +280,17 @@ time for some of the build stages according to the CI:</p>
 </tr>
 </tbody>
 </table>
-<p>Even if tests are run in parallel, this means it takes more than 10
-minutes to get to the point where we can deploy code. Actually, CI tells
-us our mean time to deployable is about 30 minutes, which is clearly an
-issue we need to tackle. To reduce build time there is no better way
-than splitting the system into smaller chunks, something the team has
-been working on for a few months now and is paying off at least by
-ensuring we can add feature without increasing build time! The next step
-would be to split the core application which currently contains more
-than 80 files into more services and components.</p>
+<p>Even if tests are run in parallel, this means it takes more than 10 minutes to get to the point where we can deploy code. Actually, CI tells us our mean time to deployable is about 30 minutes, which is clearly an issue we need to tackle. To reduce build time there is no better way than splitting the system into smaller chunks, something the team has been working on for a few months now and is paying off at least by ensuring we can add feature without increasing build time! The next step would be to split the core application which currently contains more than 80 files into more services and components.</p>
 <p>On the positive side:</p>
 <ul>
-<li>Shake provides a somewhat more robust and clearer make, removing
-cryptic syntax and reliance on shell scripts. All the build is
-concentrated in a single Haskell source file that requires few
-dependencies to be built,</li>
-<li>Haskell build tooling has been steadily improving in last couple of
-years especially since stack has taken a prominent position. Stack does
-not remove dependency on cabal but it actually reduces it what cabal
-does best: Providing a simple, descriptive configuration for building
-single packages ; and provides a definitely better experience regarding
-dependency management, build reproducibility and managing multiple build
-configuration,</li>
-<li>I am less happy with the ClojureScript and Javascript parts,
-probably because I am much less familiar with them, hence I won’t enter
-trolling mode,</li>
-<li>Packaging build environments with docker greatly reduces development
-friction: Issues can be reproduced very easily against a reference
-environment. Developer’s freedom is not comprised: Everyone is free to
-configure her own environment with CI acting as final gatekeeper while
-making troubleshooting somewhat easy (grab image and run it locally to
-reproduce problems),</li>
-<li>Using containers also makes onboarding of new developers somewhat
-easier: They can focus on a single part of the system (e.g. UI) and rely
-on the containers to run a consistent environment locally.</li>
+<li>Shake provides a somewhat more robust and clearer make, removing cryptic syntax and reliance on shell scripts. All the build is concentrated in a single Haskell source file that requires few dependencies to be built,</li>
+<li>Haskell build tooling has been steadily improving in last couple of years especially since stack has taken a prominent position. Stack does not remove dependency on cabal but it actually reduces it what cabal does best: Providing a simple, descriptive configuration for building single packages ; and provides a definitely better experience regarding dependency management, build reproducibility and managing multiple build configuration,</li>
+<li>I am less happy with the ClojureScript and Javascript parts, probably because I am much less familiar with them, hence I won’t enter trolling mode,</li>
+<li>Packaging build environments with docker greatly reduces development friction: Issues can be reproduced very easily against a reference environment. Developer’s freedom is not comprised: Everyone is free to configure her own environment with CI acting as final gatekeeper while making troubleshooting somewhat easy (grab image and run it locally to reproduce problems),</li>
+<li>Using containers also makes onboarding of new developers somewhat easier: They can focus on a single part of the system (e.g. UI) and rely on the containers to run a consistent environment locally.</li>
 </ul>
 <h2 id="development-environment-1">Development Environment</h2>
-<p>The single feature I miss from my former Java development environment
-is <em>refactoring</em>: The ability to safely rename, move, extract
-code fragments with a couple key strokes across the whole code base
-lowers the practical and psychological barrier to improve your code
-<strong>now</strong>. GHC (esp. with <code>-Wall -Werror</code> flags
-on) catches of course a whole lot more errors than Javac or gcc but the
-process of fixing compiler errors after some refactoring of a deeply
-nested core function is time consuming. On the other hand the lack of
-global refactoring capabilities is a strong incentive to modularize and
-encapsulate your code in small packages which can be compiled and even
-deployed independently.</p>
+<p>The single feature I miss from my former Java development environment is <em>refactoring</em>: The ability to safely rename, move, extract code fragments with a couple key strokes across the whole code base lowers the practical and psychological barrier to improve your code <strong>now</strong>. GHC (esp. with <code>-Wall -Werror</code> flags on) catches of course a whole lot more errors than Javac or gcc but the process of fixing compiler errors after some refactoring of a deeply nested core function is time consuming. On the other hand the lack of global refactoring capabilities is a strong incentive to modularize and encapsulate your code in small packages which can be compiled and even deployed independently.</p>
 <blockquote>
 <p>To be continued…</p>
 </blockquote>
@@ -619,14 +300,17 @@ deployed independently.</p>
 <script>
   (function() {  // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
-
+  
     s.src = '//arnaudsblog.disqus.com/embed.js';
-
+  
     s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     </div>
     <footer>
        <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
