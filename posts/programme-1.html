@@ -7,36 +7,42 @@
   <meta charset="utf-8">
 
   <title>Arnaud Bailly - PROGRAMme Final Workshop</title>
-  <meta name="description" content="We craft code">
-  <meta name="author" content="Arnaud Bailly, Thomas Queste">
 
+  <meta name="description" content="Crafting code since 1994">
+
+  <meta name="author" content="Arnaud Bailly">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
   <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
   <link rel="stylesheet" type="text/css" href="/css/default.css">
   <link rel="stylesheet" type="text/css" href="/css/syntax.css">
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
   <script src="/js/modernizr-2.0.6.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
   <div id="container">
     <header>
       <div id="company-title">
-        <a href="http://abailly.github.io"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+        <a href="/"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
       </div>
       <div>
         <nav class="clearfix">
         <ul id="menu">
           <li>
-          <a href="#">About</a>
+          <a href="http://drcode.io">Dr.Code</a>
+          </li>
+          <li>
+          <a href="/about.html">About</a>
           </li>
         </ul>
         </nav>
       </div>
     </header>
-    <div class="draft" id="main" role="main">
+    <div id="main" role="main">
 <h1>PROGRAMme Final Workshop</h1>
 
-  <h2 class="subtitle"></h2>
+  <h2 class="subtitle">Day 1</h2>
 
 <div class="info">Posted on July  3, 2022</div>
 
@@ -48,6 +54,7 @@
 </blockquote>
 <ul>
 <li>This is the introduction to the whole book, reminding it’s an ANR funded project</li>
+<li><em>anti-disciplinary</em> vs. <em>trans-disciplinary</em>: The intent is not to let each discipline (logic, CS, philosophy, linguistics…) undisturbed but rather to</li>
 <li>The goal is to question the object that lies at the foundation, as programs have become transparent while software is “eating the world”, to approach the problem with ontological glasses on</li>
 <li>Problems are also opportunities:
 &gt; Wherein lies the danger, grows also the saving power.
@@ -66,16 +73,19 @@
 </ul></li>
 <li><em>Computer Science</em> is the discipline that connects <em>notations</em> and <em>machines</em>, seeking (or producing) semiotic closure of the questions it delves with
 <ul>
-<li>Scientific disciplines are a construct from the XIXth century (see Foucault, <em>Les mots et les choses</em>)</li>
-<li>Within a discipline there’s no place for some questions and that’s how boundaries between disciplines are erected</li>
-</ul></li>
-</ul>
-<p>A <a href="https://en.wikipedia.org/wiki/Semiotic_square">Greimas square</a> for computing science:</p>
+<li><p>Scientific disciplines are a construct from the XIXth century (see Foucault, <em>Les mots et les choses</em>)</p></li>
+<li><p>Within a discipline there’s no place for some questions and that’s how boundaries between disciplines are erected</p></li>
+<li><p>The tension between <em>notations</em> and <em>machines</em> is captured by the following <a href="https://en.wikipedia.org/wiki/Semiotic_square">Greimas square</a>:</p>
 <pre><code>notations --------- machines
    |                   |
    |                   |
    |                   |
- systems ----------- logic</code></pre>
+ systems ----------- logic</code></pre></li>
+</ul></li>
+</ul>
+<blockquote>
+<p>I wholeheartedly support the intention of breaking the barriers disciplines erect around them, a process leading to the over-specialisation which has dire consequences on the whole of humanity. I think it’s Gunther Anders who introduced the moral imperative that one should fullly understand the consequences of his or her actions as part of a system, or refrain from undertaking them. That software is both a boon and bane is now quite obvious and rethinking our, and others’, relationship to programs, programming, and software is an important task to carry out.</p>
+</blockquote>
 <h2 id="classifying-programs">Classifying programs</h2>
 <blockquote>
 <p>presented by Baptiste Mélès</p>
@@ -88,6 +98,9 @@
 </ul></li>
 <li>Top-down (a priori) classification seeks to escape “real-life mess”</li>
 </ul>
+<blockquote>
+<p>Like most of the chapters, this is a work-in-progress about which I don’t have much to say.</p>
+</blockquote>
 <h2 id="logic-a-declaration-of-independence">Logic – a declaration of independence?</h2>
 <blockquote>
 <p>presented by Giuseppe Primiero</p>
@@ -122,6 +135,9 @@
 <li>Are we not entering a <em>post-colonial</em> phase of programming?</li>
 </ul></li>
 </ul>
+<blockquote>
+<p>I enjoyed how far we can get applying the Motherland/colonies pattern to CS and programming history. There is still this “provincial” feeling within CS w.r.t. Mathematics and Logic. It’s not uncommon for programmers with strong math background to grow some form of superiority complex regarding their inferior brethens, the “mere” programmers and this attitude is especially rife in the FP circles. Putting the bonds between logic and programming in perspective, realising that type theory or formal methodes are just <em>one</em> aspect of programs, is an important work to carry out.</p>
+</blockquote>
 <h2 id="notations.-there-is-no-escape">Notations. There is no escape</h2>
 <blockquote>
 <p>presented by Tomas Petricek</p>
@@ -172,28 +188,6 @@
 <li>systemd provides unity, separation of responsibilities of the system vs. applications</li>
 </ul></li>
 </ul>
-<h1 id="day-3---programme">Day 3 - PROGRAMme</h1>
-<h2 id="ideals-of-programs">Ideals of programs</h2>
-<p>“The Meaning(s) of Program(s)”
-Presented by Troy Astarte</p>
-<p>Sizing Programs: A Progression of Ever-Larger Programs
-Presented by Selmer Bringsjord</p>
-<p>Abstract programs – postponing concrete knowledge
-Presented by Alberto Naibo and Julian Rohrhuber,</p>
-<p>Transcendent Programs: Is There a Universal Programming Paradigm?
-presented by Selmer Bringsjord</p>
-<h2 id="controlling-programs">Controlling programs</h2>
-<p>Literate programming and containerization – Bringing about the real computer revolution
-Martin Carlé (Ionian University – Corfu)</p>
-<p>Free programs – Liberating software and its production
-presented by Bastien Guerry</p>
-<h2 id="programs-in-time-and-space">Programs in time and space</h2>
-<p>Program time – Relating temporalities of programs and their environments
-Presented by Maarten Bullynck</p>
-<p>Cultural entities – Preserving and curating programs in museums and archives
-Presented by Elisabetta. Mori</p>
-<p>Causality arguments
-presented by Edgar Daylight</p>
 
 
 <div id="disqus_thread"></div>
@@ -213,8 +207,19 @@ presented by Edgar Daylight</p>
 
     </div>
     <footer>
-       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
     </footer>
+
   </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>
