@@ -1,8 +1,8 @@
-------------
+---
 title: Why Standardization is not a Curb to Creativity
 author: Arnaud Bailly
 date: 2020-11-01
-------------
+---
 
 # Why standardize development environment?
 

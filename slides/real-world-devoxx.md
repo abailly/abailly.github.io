@@ -1,10 +1,10 @@
-------------
+---
 title: The Real Real World of Haskell
 subtitle: Relations on the Land of Pure Functional Programming by a Mortal Being
 author: Arnaud Bailly
 date: 2016-04-22
 theme: old-english-devoxx
-------------
+---
 
 
 ## Table of Contents

@@ -1,11 +1,11 @@
-------------
+---
 title: DDD, meet TDD
 subtitle: More powerful types for better domain modeling
 author: Arnaud Bailly - @dr_c0d3
 date: 2020-02-07
 theme: serif-compact
 transition: none
-------------
+---
 
 ## Double-Entry Accounting Domain
 

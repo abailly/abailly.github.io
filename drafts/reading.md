@@ -1,8 +1,8 @@
-------------
+---
 title: Programming is not Reading
 author: Arnaud Bailly
 date: 2017-05-19
-------------
+---
 
 * Laura Salvino's talk at ncrafts drawing on the analogy between learning a new (human) language and learning a programming language
 * emphasizing reading software -> simplicity, patterns, focusing on readers

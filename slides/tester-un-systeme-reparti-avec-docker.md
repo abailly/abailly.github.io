@@ -1,10 +1,10 @@
-------------
+---
 title: Tester un système réparti avec Docker et Haskell
 author: Arnaud Bailly - @dr_c0d3
 email: arnaud.bailly@symbiont.io
 date: 2018-07-05
 theme: serif-black-symbiont
-------------
+---
 
 # Agenda
 

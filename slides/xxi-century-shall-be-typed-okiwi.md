@@ -244,7 +244,7 @@ Pour définir l'égalité entre 2 `Balance` on part d'une équation minimale
 - + Accounting.Core.hole [P]
  `--                     b : Balance
                         b' : Balance
-     --------------------------------
+     --------------
       Accounting.Core.hole : Bool
 ```
 

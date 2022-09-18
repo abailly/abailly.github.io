@@ -5,6 +5,7 @@ cabal-version:      >= 1.10
 
 executable site
   main-is:          site.hs
+  other-modules: Slides
   build-depends:    base < 5
                   , time
                   , containers

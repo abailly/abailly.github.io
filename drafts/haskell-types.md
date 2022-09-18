@@ -1,9 +1,9 @@
-------------
+---
 title: A Tale of Two Languages
 subtitle: Making sense of Haskell (and Elm) Type System
 author: Arnaud Bailly 
 date: 2016-10-16
-------------
+---
 
 This post was triggered by a short discussion in Elm's Slack channel on how difficult learning Haskell is when compared with other languages, especially Elm, and by numerous questions I have seen over the past few weeks from beginners regarding the meaning of expressions like `List Int` or `foo : Int -> String -> Int`. It is an attempt to explain how it works targeted at programmers who have never been exposed to formal type theory, built on my own fifteen years' old experience trying to understand Haskell's type system, especially as it manifests itself in the form of more or less cryptic compilation errors. While this post is mostly focused on Haskell, I think it will also help people who come to Elm as its type system is quite close to Haskell's and actually much simpler.
 

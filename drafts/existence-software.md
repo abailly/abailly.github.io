@@ -1,8 +1,8 @@
-------------
+---
 title: On the Mode of Existence of Software
 author: Arnaud Bailly 
 date: 2017-05-18
-------------
+---
 
 * When I develop software I often *feel* emotions which are linked to the body 
     * could be negative like anger, fear, sadness, depression  --> Pain in the back or in the hands, tensions in my neck, headaches or dizziness

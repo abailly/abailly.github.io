@@ -1,8 +1,8 @@
-------------
+---
 title: How I (Try to) Develop Software
 author: Arnaud Bailly
 date: 2017-10-26
-------------
+---
 
 This article is a hopefully short and to the point overview of my current state of practices when writing code, which those days is mostly Haskell.
 

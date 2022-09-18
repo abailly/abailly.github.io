@@ -1,8 +1,8 @@
-------------
+---
 title: What's architecture and what does an architect do?
 author: Arnaud Bailly
 date: 2021-12-29
-------------
+---
 
 
 What's the difference between architecture and design? They are both about decisions, the former focusing on hard or costly to change decisions, the latter on lots of small-scale decisions within the code. It's not so much a difference of nature than a difference of scale. Then an architect is the person that takes or influences those hard or costly to change decisions. This is a definition quoted by Ralf Johnson in Martin Fowler's [Who needs an Architect?](https://martinfowler.com/ieeeSoftware/whoNeedsArchitect.pdf) paper.

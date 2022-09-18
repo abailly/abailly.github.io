@@ -1,9 +1,9 @@
-------------
+---
 title: Sur _Enrichissement_ 
 subtitle: Une critique de la marchandise
 author: Arnaud Bailly 
 date: 2017-08-20
-------------
+---
 
 J'avais beaucoup apprécié [Le nouvel esprit du capitalisme]() écrit par Luc Boltanski et Eve Chiappelo et je me suis jeté sur [Enrichissement]() dés sa parution. Par la grâce de deux semaines de vacances j'ai enfin pu terminer ce pavé assez imposant de 650 pages (hors notes, index et bibliographie) et je m'empresse d'en consigner ici une synthèse. 
 

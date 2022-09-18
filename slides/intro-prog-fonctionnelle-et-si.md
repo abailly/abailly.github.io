@@ -4,6 +4,7 @@ subtitle: Les bénéfices de la programmation fonctionnelle pour votre organisat
 author: Arnaud Bailly - @dr_c0d3
 date: 2019-04-24
 transition: none
+theme: black
 ---
 
 # Plan #

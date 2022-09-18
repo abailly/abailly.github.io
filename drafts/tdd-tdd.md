@@ -1,9 +1,9 @@
-------------
+---
 title: A Tale of Two TDDs
 subtitle: In Praise of Fancy Haskell, or Why we Need Elaborate Type Systems
 author: Arnaud Bailly
 date: 2020-11-01
-------------
+---
 
 This is the written and somewhat extended version of a talk I gave at [Agile Tour Bordeaux 2020](http://agiletourbordeaux.fr/), and a basis for a hands-on workshop I will give at [DDDEurope 2021](https://dddeurope.com/2021/handson-conference/). The goal of these sessions is to demonstrate that Test-Driven and Type-Driven Design are complementary techniques that play the same role
 

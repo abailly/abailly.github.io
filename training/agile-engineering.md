@@ -1,8 +1,8 @@
-------------
+---
 title: Ingénierie Agile
 author: Arnaud Bailly
 date: 2013-04-19
-------------
+---
 
 Une fois compris les principes du développement agile se posent les
 vrais questions: comment mettre en oeuvre ces principes ? Comment

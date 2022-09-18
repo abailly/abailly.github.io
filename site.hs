@@ -1,4 +1,3 @@
---------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 
 import Control.Applicative ((<$>))
@@ -9,7 +8,6 @@ import Data.Monoid
 import qualified Data.Set as S
 import Data.Time
 import Hakyll
-import Slides
 import System.FilePath
 import Text.Pandoc.Options
 
@@ -80,20 +78,14 @@ main = do
             route idRoute
             compile compressCssCompiler
 
-        match "slides/*.md" $ do
-            route $ setExtension "html"
-            compile $
-                pandocSlideCompiler
-                    >>= loadAndApplyTemplate "templates/slides-reveal.html" slidesCtx
-
         -- should factorize templates application
-        match "cours/*.md" $ do
-            route $ setExtension "html"
-            compile $
-                pandocSlideCompiler
-                    >>= loadAndApplyTemplate "templates/cours.html" postCtx
-                    >>= relativizeUrls
-                    >>= loadAndApplyTemplate "templates/default.html" postCtx
+        -- match "cours/*.md" $ do
+        --     route $ setExtension "html"
+        --     compile $
+        --         pandocSlideCompiler
+        --             >>= loadAndApplyTemplate "templates/cours.html" postCtx
+        --             >>= relativizeUrls
+        --             >>= loadAndApplyTemplate "templates/default.html" postCtx
 
         match "posts/*" $ do
             route $ setExtension "html"
@@ -166,16 +158,6 @@ postCtx =
         <> field "slug" slugify
         <> dateField "date" "%B %e, %Y"
         <> defaultContext
-
-slidesCtx :: Context String
-slidesCtx =
-    escaped "title"
-        <> escaped "subtitle"
-        <> field "revealjs-url" revealJsUrl
-        <> dateField "date" "%B %e, %Y"
-        <> defaultContext
-  where
-    revealJsUrl = const $ return "/reveal.js-3.8.0"
 
 slugify :: Item String -> Compiler String
 slugify item = do

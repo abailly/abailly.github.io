@@ -1,8 +1,8 @@
-------------
+---
 title: Maîtriser le code légataire
 author: Arnaud Bailly 
 date: 2013-04-25
-------------
+---
 
 Durant ces deux journées de formation, vous apprendrez à améliorer la
 conception d'un logiciel pas à pas, tout en continuant à produire de

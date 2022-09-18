@@ -33,7 +33,7 @@ main = do
 
 runShake :: FilePath -> Integer -> IO ()
 runShake pwd uid = shakeArgs options $ do
-  want ["_site/index.html"]
+  want ["_site/index.html", "_site/slides.html"]
 
   -- clean generated files
   phony "clean" $ do
@@ -46,7 +46,7 @@ runShake pwd uid = shakeArgs options $ do
     let posts = ["_site" </> "posts" </> c -<.> "html" | c <- cs]
     need ["templates/template-index.html"]
     need posts
-    makeIndex cs
+    makeIndex "posts" cs
     cmd
       "pandoc"
       [ "-o",
@@ -54,7 +54,24 @@ runShake pwd uid = shakeArgs options $ do
         "--template",
         "templates/template-index.html",
         "-s",
-        "content.html"
+        "posts.html"
+      ]
+
+  -- build index file, listing all posts
+  "_site//slides.html" %> \index -> do
+    cs <- getDirectoryFiles "slides" ["//*.md"]
+    let posts = ["_site" </> "slides" </> c -<.> "html" | c <- cs]
+    need ["templates/template-index.html"]
+    need posts
+    makeIndex "slides" cs
+    cmd
+      "pandoc"
+      [ "-o",
+        index,
+        "--template",
+        "templates/template-index.html",
+        "-s",
+        "slides.html"
       ]
 
   -- build post entries
@@ -72,15 +89,32 @@ runShake pwd uid = shakeArgs options $ do
         post
       ]
 
-makeIndex :: [FilePath] -> Action ()
-makeIndex posts = do
+  -- build slides entries
+  "_site//slides//*.html" %> \html -> do
+    let post = dropDirectory1 $ html -<.> "md"
+    need [post]
+    cmd
+      "pandoc"
+      [ "-o",
+        html,
+        "-t",
+        "revealjs",
+        "-s",
+        post
+      ]
+
+makeIndex :: String -> [FilePath] -> Action ()
+makeIndex ftype posts = do
   titlesAndDates <-
     catMaybes
       <$> forM
         posts
         ( \post -> do
-            titles <- filter (\l -> "title: " `isPrefixOf` l || "date: " `isPrefixOf` l) . lines <$> readFile' ("posts" </> post)
-            let href = "/posts" </> post -<.> "html"
+            titles <-
+              filter (\l -> "title: " `isPrefixOf` l || "date: " `isPrefixOf` l)
+                . lines
+                <$> readFile' (ftype </> post)
+            let href = "/" <> ftype </> post -<.> "html"
             case titles of
               [t, d] -> pure $ Just (href, t, d)
               _ -> pure Nothing
@@ -100,4 +134,4 @@ makeIndex posts = do
 
       reversedDate (_, _, d) (_, _, d') = compare d' d
 
-  writeFile' "content.html" ("<ul>" <> postList <> "</ul>")
+  writeFile' (ftype <.> "html") ("<ul>" <> postList <> "</ul>")

@@ -1,8 +1,8 @@
-------------
+---
 title: Okiwi Geek Camp 2021
 author: Arnaud Bailly
 date: 2021-09-20
-------------
+---
 
 Du 17 au 19 septembre j'ai participé au [Geek Camp](), un week-end au format [Open space](https://en.wikipedia.org/wiki/Open_Space_Technology) dans la campagne gasconne, initié et organisé par l'association Okiwi. Voici quelques notes prélevées sur les nombreuses conversations auxquelles j'ai participé.
 

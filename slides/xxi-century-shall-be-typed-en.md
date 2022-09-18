@@ -1,11 +1,11 @@
-------------
+---
 title: The XXIst Century Shall Be Typed
 subtitle: or How I learnt to Love Types and Not Bother
 author: Arnaud Bailly - @dr_c0d3
 date: 2017-05-11
 theme: serif-compact
 transition: none
-------------
+---
 
 # Agenda #
 

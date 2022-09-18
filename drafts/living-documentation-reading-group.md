@@ -1,8 +1,8 @@
-------------
+---
 title: Sur "Living Documentation"
 author: Arnaud Bailly
 date: 2021-05-05
-------------
+---
 
 Durant 3 mois avec quelques personnes du Slack [Okiwi](https://okiwi.org/), notamment [Sébastien Rabiller](https://www.linkedin.com/in/sebastienrabiller) et [Frédéric Faure](https://www.linkedin.com/in/ffaure32/), nous avons lu [Living Documentation](https://www.amazon.com/Living-Documentation-Cyrille-Martraire/dp/0134689321), un livre écrit par [Cyrille Martraire](https://www.linkedin.com/in/martraire/). Ce billet se veut être une brève synthèse des [notes brutes](/living-documentation.html) prises durant ces sessions.
 

@@ -1,8 +1,8 @@
-------------
+---
 title:  Masterclass - Test-Driven Development
 author: Arnaud Bailly
 date: 2013-04-25
-------------
+---
 
 Cette formation approfondie de deux jours vous permettra de maîtriser
 une grande variété de techniques de test unitaires telles que les

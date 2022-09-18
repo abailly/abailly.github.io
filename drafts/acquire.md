@@ -1,8 +1,8 @@
-------------
+---
 title: Coding a Moderately Complex Game in Haskell and Elm
 author: Arnaud Bailly 
 date: 2016-10-16
-------------
+---
 
 In 2015, I started coding an Haskell implementation of [Acquire](), an old boardgame I liked very much back in the days when I had time to play physical boardgames with friends. The initial goal was exploring how Haskell can help write such games, especially when it comes to *mapping*  the rules to actual game: What's the overhead of writing non ambiguous rules to be interpreted by a computer, how Haskell's emphasis on pure lazy functional programming helps (or not) expressing those rules and translate them to types and expressions. Then of course it became interesting to actually play the game, possibly against other players, so I wrote a simple command-line based "shell" that allows to run games in client-server mode using only CLI. Finally, when I became interested in [Elm](http://elm-lang.org) in mid-2016, I thought it would be a good idea to write an Elm client to provide a nicer interface and to play with WebSockets in both Elm and Haskell. 
 

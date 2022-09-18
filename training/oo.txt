@@ -1,8 +1,8 @@
-------------
+---
 title:  Développement de systèmes orienté-objets
 author: Arnaud Bailly 
 date: 2013-04-25
-------------
+---
 
 Passez à la vitesse supérieure en conception et programmation
 orienté-objet avec cette formation pratique et ludique. Apprenez à

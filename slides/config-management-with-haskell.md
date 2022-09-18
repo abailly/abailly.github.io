@@ -1,10 +1,10 @@
-------------
+---
 title: Infrastructure-As-Haskell-Code
 subtitle: Experiments and musing with Propellor and DepTrack
 author: Arnaud Bailly - @dr_c0d3
 date: 2017-04-27
 theme: serif-compact
-------------
+---
 
 
 # Agenda

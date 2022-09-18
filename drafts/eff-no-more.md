@@ -1,8 +1,8 @@
-------------
+---
 title: Kill Your Darlings
 author: Arnaud Bailly
 date: 2019-09-11
-------------
+---
 
 After a few months of internal discussions and heated debate within the team, I have finally deleted nearly _all_ Haskell code from my current project's code-base. The only remaining part is the use of [Shake](https://shakebuild.com) as our main build script but we are planning to decommission it in the short term. Being the kind of Haskell enthusiast I am this was a heartbreaking decision to make but a very rational one. Here I provide some details about the situation and the rationale behind this decision in the hope they are useful to other people or to my future self.
 

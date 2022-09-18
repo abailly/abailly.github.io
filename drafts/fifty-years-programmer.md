@@ -1,8 +1,8 @@
-------------
+---
 title: The 50+ years old programmer
 author: Arnaud Bailly
 date: 2022-01-13
-------------
+---
 
 * How is it to age as a programmer?
 * Typical corporate ladder involves at some point moving from technical positions to management, esp. true in France?

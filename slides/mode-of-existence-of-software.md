@@ -1,9 +1,9 @@
-------------
+---
 title: On the Mode of Existence of Software
 author: Arnaud Bailly - @dr_c0d3
 date: 2017-05-19
 theme: serif-black
-------------
+---
 
 # Genesis
 

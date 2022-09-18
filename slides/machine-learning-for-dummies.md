@@ -1,10 +1,10 @@
-------------
+---
 title: Understanding word2vec
 subtitle: Machine Learning for Dummies
 author: Arnaud Bailly
 date: 2016-09-05
 theme: black
-------------
+---
 
 
 # Motivation

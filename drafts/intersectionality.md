@@ -1,8 +1,8 @@
-------------
+---
 title: On the concept of Intersectionality
 author: Arnaud Bailly
 date: 2020-06-20
-------------
+---
 
 At the time I write this article, _Intersectionality_ has attracted much attention of mainstream media and public opinion, as protests against racism and "legal violence" perpetrated by police and law enforcement officers are raging across most of Western world. But reading an article in a French newspaper I got confused by what the concept and the word attached to it really meant as it is used to designate the _union_ of various movements fighting against subordination: anti-racism, feminism, LGBT... Coming from a computer science background where set theory is much used and studied, it seemed to me that conflating both concepts of _intersection_ and _union_ could only led to confusion and void the mere concept behind the word, depriving it of any substance and turning it into a placeholder, a meme.
 

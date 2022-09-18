@@ -1,8 +1,8 @@
-------------
+---
 title: eXtreme Startup
 author: Arnaud Bailly
 date: 2013-04-25
-------------
+---
 
 Vous avez appris découvert le développement agile. Vous avez appris
 les techniques d'eXtreme Programming qui permettent de développer du

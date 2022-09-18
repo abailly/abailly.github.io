@@ -1,8 +1,8 @@
-------------
+---
 title: UTxO as Asynchronous Automata
 author: Arnaud Bailly
 date: 2021-11-03
-------------
+---
 
 There's been somewhat of a stir recently in the [Cardano](https://cardano.org/) and crypto community as some doubts were raised about the concurrency level one could achieve with the UTxO model for Smart contracts applications. Being myself involved in the development of [Plutus-based](https://github.com/input-output-hk/plutus) application, I have had to go wrap my head around the [eUTxO](https://iohk.io/en/research/library/papers/the-extended-utxo-model/) programming model, which lead me to explore ways of designing such applications in an easier way, taking into account the inherent concurrency the eUTxO model entails.
 
