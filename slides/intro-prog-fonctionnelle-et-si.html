@@ -3,192 +3,359 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-
-  <meta name="author" content="Arnaud Bailly - @dr_c0d3" />
-
-
-  <meta name="dcterms.date" content="April 24, 2019" />
-
+  <meta name="author" content="Arnaud Bailly - @dr_c0d3">
+  <meta name="dcterms.date" content="2019-04-24">
   <title>Et si votre SI parlait votre métier ?</title>
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="/reveal.js-3.8.0/css/reveal.css"/>
-    <style type="text/css">code{white-space: pre;}</style>
-
-    <style type="text/css">code{white-space: pre;}</style>
-    <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    </style>
-
-
-    <link rel="stylesheet" href="/reveal.js-3.8.0/css/theme/simple.css" id="theme">
-
-    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
-    <script>
-      if( window.location.search.match( /print-pdf/gi ) ) {
-        var link = document.createElement( 'link' );
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = '/reveal.js-3.8.0/css/print/pdf.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
-      }
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-    <!--[if lt IE 9]>
-    <script src="/reveal.js-3.8.0/lib/js/html5shiv.js"></script>
-    <![endif]-->
-
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="/reveal.js/dist/theme/black.css" id="theme">
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
-
-<section>
-    <h1 class="title">Et si votre SI parlait votre métier ?</h1>
-
-  <h2 class="subtitle">Les bénéfices de la programmation fonctionnelle pour votre organisation</h2>
-
-
-    <h3 class="author">Arnaud Bailly - @dr_c0d3</h3>
-
-
-    <h3 class="date">April 24, 2019</h3>
+<section id="title-slide">
+  <h1 class="title">Et si votre SI parlait votre métier ?</h1>
+  <p class="subtitle">Les bénéfices de la programmation fonctionnelle
+pour votre organisation</p>
+  <p class="author">Arnaud Bailly - <span class="citation"
+data-cites="dr_c0d3">@dr_c0d3</span></p>
+  <p class="date">2019-04-24</p>
 </section>
 
+<section>
+<section id="plan" class="title-slide slide level1">
+<h1>Plan</h1>
 
-
-<h1 id="plan">Plan</h1>
-<h2 id="plan-1">Plan</h2>
-<ul class="incremental">
-<li>Introduction</li>
-<li>M.Jourdain programme fonctionnellement</li>
-<li>Qu’est ce qu’un langage fonctionnel ?</li>
-<li>Développer</li>
-<li>Vérifier &amp; Valider</li>
-<li>Le métier au coeur de l’architecture</li>
-<li>Conclusion</li>
+</section>
+<section id="plan-1" class="slide level2">
+<h2>Plan</h2>
+<ul>
+<li class="fragment">Introduction</li>
+<li class="fragment">M.Jourdain programme fonctionnellement</li>
+<li class="fragment">Qu’est ce qu’un langage fonctionnel ?</li>
+<li class="fragment">Développer</li>
+<li class="fragment">Vérifier &amp; Valider</li>
+<li class="fragment">Le métier au coeur de l’architecture</li>
+<li class="fragment">Conclusion</li>
 </ul>
-<h2 id="there-is-no-silver-bullet">There is no silver bullet…</h2>
+</section>
+<section id="there-is-no-silver-bullet" class="slide level2">
+<h2>There is no silver bullet…</h2>
 <blockquote>
-<p>The hardest single part of building a software system is deciding precisely what to build. [..]
-Therefore one of the most promising of the current technological efforts, and one which attacks the essence, not the accidents, of the software problem, is the development of approaches and tools for rapid prototyping of systems as part of the iterative specification of requirements.</p>
+<p>The hardest single part of building a software system is deciding
+precisely what to build. [..] Therefore one of the most promising of the
+current technological efforts, and one which attacks the essence, not
+the accidents, of the software problem, is the development of approaches
+and tools for rapid prototyping of systems as part of the iterative
+specification of requirements.</p>
 </blockquote>
 <p>Frederic P. Brooks, Jr., 1986</p>
-<h1 id="m.jourdain-programme-fonctionnellement">M.Jourdain programme fonctionnellement</h1>
-<h2 id="excel">Excel</h2>
-<p><a href="https://docs.google.com/spreadsheets/d/1bYNfa_ZNuJfRi4UWLVmXqwVTRL-lXfq5ACaJzXQCjZA/edit#gid=1186998741">Alerte de température</a></p>
-<p><img src="images/fp-excel-example.png" /></p>
-<h2 id="the-elm-architecture">The Elm Architecture</h2>
-<p><img src="images/the-elm-architecture.png" /></p>
-<h2 id="reactredux">React/Redux</h2>
-<h1 id="quest-ce-quun-langage-fonctionnel">Qu’est ce qu’un langage fonctionnel ?</h1>
-<h2 id="fonctions">Fonctions</h2>
+</section></section>
+<section>
+<section id="m.jourdain-programme-fonctionnellement"
+class="title-slide slide level1">
+<h1>M.Jourdain programme fonctionnellement</h1>
+
+</section>
+<section id="excel" class="slide level2">
+<h2>Excel</h2>
+<p><a
+href="https://docs.google.com/spreadsheets/d/1bYNfa_ZNuJfRi4UWLVmXqwVTRL-lXfq5ACaJzXQCjZA/edit#gid=1186998741">Alerte
+de température</a></p>
+<p><img data-src="images/fp-excel-example.png" /></p>
+</section>
+<section id="the-elm-architecture" class="slide level2">
+<h2>The Elm Architecture</h2>
+<p><img data-src="images/the-elm-architecture.png" /></p>
+</section>
+<section id="reactredux" class="slide level2">
+<h2>React/Redux</h2>
+</section></section>
+<section>
+<section id="quest-ce-quun-langage-fonctionnel"
+class="title-slide slide level1">
+<h1>Qu’est ce qu’un langage fonctionnel ?</h1>
+
+</section>
+<section id="fonctions" class="slide level2">
+<h2>Fonctions</h2>
 <p>https://vimeo.com/113588389</p>
-<p><img src="images/function-universal-patterns.png" /></p>
-<h2 id="structures-de-données-immutables">Structures de données immutables</h2>
-<h2 id="filtrage-de-motifs">Filtrage de motifs</h2>
+<p><img data-src="images/function-universal-patterns.png" /></p>
+</section>
+<section id="structures-de-données-immutables" class="slide level2">
+<h2>Structures de données immutables</h2>
+</section>
+<section id="filtrage-de-motifs" class="slide level2">
+<h2>Filtrage de motifs</h2>
 <p>aka. <em>Pattern Matching</em></p>
-<h2 id="optionnel-fonctions-pures">(Optionnel) Fonctions pures</h2>
-<h2 id="optionnel-types">(Optionnel) Types</h2>
-<h2 id="zoo">Zoo</h2>
-<ul class="incremental">
-<li>Clojure: LISP moderne pour la JVM, typage dynamique</li>
-<li>Erlang: Systèmes répartis, typage dynamique</li>
-<li>Scala: FP &amp; OO sont dans un bateau</li>
-<li>OCaml: FP + OO + Imperatif, français 🇫🇷</li>
-<li>F#: OCaml pour C#</li>
-<li>Haskell: Pure, paresseux, fortement typé</li>
-<li>Idris: Pure, typage dépendant, R&amp;D</li>
+</section>
+<section id="optionnel-fonctions-pures" class="slide level2">
+<h2>(Optionnel) Fonctions pures</h2>
+</section>
+<section id="optionnel-types" class="slide level2">
+<h2>(Optionnel) Types</h2>
+</section>
+<section id="zoo" class="slide level2">
+<h2>Zoo</h2>
+<ul>
+<li class="fragment">Clojure: LISP moderne pour la JVM, typage
+dynamique</li>
+<li class="fragment">Erlang: Systèmes répartis, typage dynamique</li>
+<li class="fragment">Scala: FP &amp; OO sont dans un bateau</li>
+<li class="fragment">OCaml: FP + OO + Imperatif, français 🇫🇷</li>
+<li class="fragment">F#: OCaml pour C#</li>
+<li class="fragment">Haskell: Pure, paresseux, fortement typé</li>
+<li class="fragment">Idris: Pure, typage dépendant, R&amp;D</li>
 </ul>
-<h1 id="développer">Développer</h1>
-<h2 id="repl">REPL</h2>
-<h2 id="hole-driven-development">Hole-Driven Development</h2>
-<h2 id="refactoring">Refactoring</h2>
-<h1 id="vérifier-valider">Vérifier &amp; Valider</h1>
-<h2 id="typage-statique-fort">Typage statique “fort”</h2>
+</section></section>
+<section>
+<section id="développer" class="title-slide slide level1">
+<h1>Développer</h1>
+
+</section>
+<section id="repl" class="slide level2">
+<h2>REPL</h2>
+</section>
+<section id="hole-driven-development" class="slide level2">
+<h2>Hole-Driven Development</h2>
+</section>
+<section id="refactoring" class="slide level2">
+<h2>Refactoring</h2>
+</section></section>
+<section>
+<section id="vérifier-valider" class="title-slide slide level1">
+<h1>Vérifier &amp; Valider</h1>
+
+</section>
+<section id="typage-statique-fort" class="slide level2">
+<h2>Typage statique “fort”</h2>
 <p>http://spiff.rit.edu/classes/phys317/lectures/boom/mars_co.html</p>
-<p><img src="images/mars-climate-orbiter.jpg" /></p>
-<h2 id="property-based-testing">Property-Based Testing</h2>
-<h2 id="types-dépendants">Types dépendants</h2>
-<h2 id="vérification-formelle">Vérification formelle</h2>
-<h1 id="architecture-design">Architecture &amp; Design</h1>
-<h2 id="architecture-hexagonale">Architecture hexagonale</h2>
-<p><img src="images/ports-and-adapters.gif" /></p>
-<p>d’après <a href="http://alistair.cockburn.us/index.php/Hexagonal_architecture">Alistair Cockburn</a></p>
-<h2 id="ddd">DDD</h2>
-<h1 id="conclusion">Conclusion</h1>
+<p><img data-src="images/mars-climate-orbiter.jpg" /></p>
+</section>
+<section id="property-based-testing" class="slide level2">
+<h2>Property-Based Testing</h2>
+</section>
+<section id="types-dépendants" class="slide level2">
+<h2>Types dépendants</h2>
+</section>
+<section id="vérification-formelle" class="slide level2">
+<h2>Vérification formelle</h2>
+</section></section>
+<section>
+<section id="architecture-design" class="title-slide slide level1">
+<h1>Architecture &amp; Design</h1>
+
+</section>
+<section id="architecture-hexagonale" class="slide level2">
+<h2>Architecture hexagonale</h2>
+<p><img data-src="images/ports-and-adapters.gif" /></p>
+<p>d’après <a
+href="http://alistair.cockburn.us/index.php/Hexagonal_architecture">Alistair
+Cockburn</a></p>
+</section>
+<section id="ddd" class="slide level2">
+<h2>DDD</h2>
+</section></section>
+<section id="conclusion" class="title-slide slide level1">
+<h1>Conclusion</h1>
+
+</section>
     </div>
   </div>
 
+  <script src="/reveal.js/dist/reveal.js"></script>
 
-  <script src="/reveal.js-3.8.0/lib/js/head.min.js"></script>
-  <script src="/reveal.js-3.8.0/js/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="/reveal.js/plugin/notes/notes.js"></script>
+  <script src="/reveal.js/plugin/search/search.js"></script>
+  <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+  <script src="/reveal.js/plugin/math/math.js"></script>
 
   <script>
 
-      // Full list of configuration options available here:
-      // https://github.com/hakimel/reveal.js#configuration
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
       Reveal.initialize({
+        // Display controls in the bottom right corner
         controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
         progress: true,
-        history: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
         center: true,
-        theme: 'old-english', // available themes are in /css/theme
-        transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
 
-        // Optional libraries used to extend on reveal.js
-        dependencies: [
-          { src: '/reveal.js-3.8.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: '/reveal.js-3.8.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-          { src: '/reveal.js-3.8.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-//          { src: '/reveal.js-3.8.0/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
-//          { src: '/reveal.js-3.8.0/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-]});
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
     </script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-42631907-2', 'auto');
-  ga('send', 'pageview');
-
-</script>
-</body>
+    </body>
 </html>

@@ -3,260 +3,298 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-
-  <meta name="author" content="Arnaud Bailly - Aleryo/Symbiont - @dr_c0d3" />
-
-
-  <meta name="dcterms.date" content="October 20, 2017" />
-
-  <title>Du mode d&#39;existence du code</title>
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="/reveal.js-3.8.0/css/reveal.css"/>
-    <style type="text/css">code{white-space: pre;}</style>
-
-    <style type="text/css">code{white-space: pre;}</style>
-    <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    </style>
-
-
-    <link rel="stylesheet" href="/reveal.js-3.8.0/css/theme/serif-black.css" id="theme">
-
-    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
-    <script>
-      if( window.location.search.match( /print-pdf/gi ) ) {
-        var link = document.createElement( 'link' );
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = '/reveal.js-3.8.0/css/print/pdf.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
-      }
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-    <!--[if lt IE 9]>
-    <script src="/reveal.js-3.8.0/lib/js/html5shiv.js"></script>
-    <![endif]-->
-
+  <meta name="author" content="Arnaud Bailly - Aleryo/Symbiont - @dr_c0d3">
+  <meta name="dcterms.date" content="2017-10-20">
+  <title>Du mode d’existence du code</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="/reveal.js/dist/theme/serif-black.css" id="theme">
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
-
-<section>
-    <h1 class="title">Du mode d&#39;existence du code</h1>
-
-  <h2 class="subtitle">Modeste voyage en philosophie des techniques pour codeur insatisfait</h2>
-
-
-    <h3 class="author">Arnaud Bailly - Aleryo/Symbiont - @dr_c0d3</h3>
-
-
-    <h3 class="date">October 20, 2017</h3>
+<section id="title-slide">
+  <h1 class="title">Du mode d’existence du code</h1>
+  <p class="subtitle">Modeste voyage en philosophie des techniques pour
+codeur insatisfait</p>
+  <p class="author">Arnaud Bailly - Aleryo/Symbiont - <span
+class="citation" data-cites="dr_c0d3">@dr_c0d3</span></p>
+  <p class="date">2017-10-20</p>
 </section>
 
-
-
-<h1 id="génèse">Génèse</h1>
-<div class="notes">
+<section id="génèse" class="slide level1">
+<h1>Génèse</h1>
+<aside class="notes">
 <ul>
 <li>not native english speaker… =&gt; focus/willpower :)</li>
 <li>different view on code, if not language then what ?</li>
 <li>is code really for reading? do we need so much code?</li>
 <li>living, experience something =&gt;</li>
 </ul>
-</div>
+</aside>
 <h2 id="sponsors">Sponsors</h2>
-<p><img src="/images/Sponsors-atbdx2017.png" /></p>
+<p><img data-src="/images/Sponsors-atbdx2017.png" /></p>
 <h2 id="les-peines-du-code">Les peines du code</h2>
-<p><img src="/images/back-muscles.jpg" /></p>
-<div class="notes">
+<p><img data-src="/images/back-muscles.jpg" /></p>
+<aside class="notes">
 <ul>
-<li>Personal experience of pain induced by working on software, feels like if I were pushing some heavy weight</li>
+<li>Personal experience of pain induced by working on software, feels
+like if I were pushing some heavy weight</li>
 <li>Things have a natural tendency to fall apart</li>
 <li>Why don’t they feel right</li>
 </ul>
-</div>
+</aside>
 <h2 id="les-joies-du-code">Les joies du code</h2>
-<p><img src="/images/joy.png" /></p>
-<div class="notes">
+<p><img data-src="/images/joy.png" /></p>
+<aside class="notes">
 <ul>
-<li>Energy when pairing or mobbing with people over interesting problems</li>
-<li>Pleasure when things appear to “fall in place” somewhat magically</li>
+<li>Energy when pairing or mobbing with people over interesting
+problems</li>
+<li>Pleasure when things appear to “fall in place” somewhat
+magically</li>
 <li>Solving real people problems, f</li>
 </ul>
-</div>
-<h1 id="faire">Faire</h1>
+</aside>
+</section>
+<section id="faire" class="slide level1">
+<h1>Faire</h1>
 <h2 id="motifs">Motifs</h2>
-<p><img src="/images/pattern-language-example.png" /></p>
-<div class="notes">
+<p><img data-src="/images/pattern-language-example.png" /></p>
+<aside class="notes">
 <ul>
-<li><p>No talk about the philosophy of software would be complete without a reference to Christopher Alexander!</p></li>
-<li><p>I have always been wary about Alexander’s ideas and influence, until I started reading <em>A Pattern Language</em></p></li>
-<li><p>initially, <em>A Pattern Language</em> expresses patterns in the language of the <em>problem</em>, e.g. 136 Couple’s Realm or 44. Local Town Hall or even 224. Low Doorway are all architectural elements of a building, not instructions to builders, electricians or plumbers on how to build towns or buildings.</p>
+<li><p>No talk about the philosophy of software would be complete
+without a reference to Christopher Alexander!</p></li>
+<li><p>I have always been wary about Alexander’s ideas and influence,
+until I started reading <em>A Pattern Language</em></p></li>
+<li><p>initially, <em>A Pattern Language</em> expresses patterns in the
+language of the <em>problem</em>, e.g. 136 Couple’s Realm or 44. Local
+Town Hall or even 224. Low Doorway are all architectural elements of a
+building, not instructions to builders, electricians or plumbers on how
+to build towns or buildings.</p>
 <blockquote>
-<p>We do not believe that these large patterns, which give so much structure to a town or of a neighborhood, can be created by centralized authority, or by laws, or by master plans.
-A Pattern Language, p.3</p>
+<p>We do not believe that these large patterns, which give so much
+structure to a town or of a neighborhood, can be created by centralized
+authority, or by laws, or by master plans. A Pattern Language, p.3</p>
 </blockquote></li>
-<li><p>patterns are supposed to be used in communicating with inhabitants, users, citizens and their use should be validated. They are really meant as a combinatory language with which one weaves a description of some building</p></li>
+<li><p>patterns are supposed to be used in communicating with
+inhabitants, users, citizens and their use should be validated. They are
+really meant as a combinatory language with which one weaves a
+description of some building</p></li>
 </ul>
-</div>
-<hr />
-<p><img src="/images/patterns.jpg" /></p>
-<div class="notes">
+</aside>
+</section>
+<section class="slide level1">
+
+<p><img data-src="/images/patterns.jpg" /></p>
+<aside class="notes">
 <ul>
-<li>Software patterns are described in the <em>language</em> of software, as code samples and they can hardly be composed to form a coherent whole</li>
-<li>Design Patterns are timed, located, grounded in some specialised dialect of the <em>solution</em> space. They were interesting and valuable but they suffered from <em>devaluation</em> over time as the paradigms they were grounded in (class based OO languages) are waning</li>
-<li>Contrast with the continued relevance of Alexander’s Patterns, even when he speaks about urbanisation, towns, neighbourhoods, houses…</li>
-<li>We don’t wear Jacquard pull-overs nor nylon long sleeved shirts anymore but we still live in houses</li>
+<li>Software patterns are described in the <em>language</em> of
+software, as code samples and they can hardly be composed to form a
+coherent whole</li>
+<li>Design Patterns are timed, located, grounded in some specialised
+dialect of the <em>solution</em> space. They were interesting and
+valuable but they suffered from <em>devaluation</em> over time as the
+paradigms they were grounded in (class based OO languages) are
+waning</li>
+<li>Contrast with the continued relevance of Alexander’s Patterns, even
+when he speaks about urbanisation, towns, neighbourhoods, houses…</li>
+<li>We don’t wear Jacquard pull-overs nor nylon long sleeved shirts
+anymore but we still live in houses</li>
 </ul>
-</div>
+</aside>
 <h2 id="outils">Outils</h2>
-<p><img src="/images/biface.jpg" /></p>
-<div class="notes">
+<p><img data-src="/images/biface.jpg" /></p>
+<aside class="notes">
 <ul>
-<li>example of the <a href="http://www.archaeologywordsmith.com/lookup.php?terms=biface">biface</a>: ubiquitous across archaelogical sites and time. Arch. are projecting their own scheme of <em>design</em> on it: They assume it has been designed by some intelligence, then crafted into its current shape.
+<li>example of the <a
+href="http://www.archaeologywordsmith.com/lookup.php?terms=biface">biface</a>:
+ubiquitous across archaelogical sites and time. Arch. are projecting
+their own scheme of <em>design</em> on it: They assume it has been
+designed by some intelligence, then crafted into its current shape.
 <ul>
-<li>This is taken has evidence for prehistorical hominides’ intelligence and consciousness</li>
-<li>What if the biface we find was actually a residue of sort? Could be that people were using the small fragments as tools, rather than the biface itself</li>
-<li>Shape of the biface is symetrical to the shape of two joined hands: could be that people were holding it with one hand while hitting it</li>
+<li>This is taken has evidence for prehistorical hominides’ intelligence
+and consciousness</li>
+<li>What if the biface we find was actually a residue of sort? Could be
+that people were using the small fragments as tools, rather than the
+biface itself</li>
+<li>Shape of the biface is symetrical to the shape of two joined hands:
+could be that people were holding it with one hand while hitting it</li>
 </ul></li>
-<li>Ingold criticizes our teleological views and the fact we project our own assumptions on other being’s motives and existence</li>
+<li>Ingold criticizes our teleological views and the fact we project our
+own assumptions on other being’s motives and existence</li>
 <li>Explicit rejection of hylemorphisme</li>
 </ul>
-</div>
+</aside>
 <h2 id="concevoir">Concevoir</h2>
-<p><img src="/images/chartres-cathedral.jpg" /></p>
-<div class="notes">
+<p><img data-src="/images/chartres-cathedral.jpg" /></p>
+<aside class="notes">
 <ul>
 <li>medieval buildings were not <em>designed</em>
 <ul>
-<li>modern buildings are <em>completed</em> before handover to inhabitants, strict separation between construction and living</li>
-<li>medieval buildings were built using shapes, solid patterns made of wood. Stones are carved one by one and fit in place with other stones</li>
+<li>modern buildings are <em>completed</em> before handover to
+inhabitants, strict separation between construction and living</li>
+<li>medieval buildings were built using shapes, solid patterns made of
+wood. Stones are carved one by one and fit in place with other
+stones</li>
 </ul></li>
 <li><em>objects</em> –&gt; <em>things</em></li>
 </ul>
-</div>
+</aside>
 <h2 id="transduction-agentivité">Transduction &amp; agentivité</h2>
-<p><img src="/images/rosetta-stone.jpg" /></p>
-<div class="notes">
+<p><img data-src="/images/rosetta-stone.jpg" /></p>
+<aside class="notes">
 <ul>
-<li><strong>Completion</strong> : our obsession with reaching goals, ending things —&gt; vs. experiencing and living</li>
+<li><strong>Completion</strong> : our obsession with reaching goals,
+ending things —&gt; vs. experiencing and living</li>
 <li>transduction:
 <ul>
-<li>a device or process to transform energy between 2 different forms</li>
+<li>a device or process to transform energy between 2 different
+forms</li>
 <li>a relation over 2 languages</li>
 </ul></li>
 <li>notion of transduction vs. agency
 <ul>
-<li>agency (Agentivité) is a corollary to embodiment (incarnation), it closes things on themselves and embeds the principles of action inside them</li>
-<li>examples of kite, potery, reindeerman, cello: thing acts as a <em>transducer</em> between the gestures of a person and a material/nature</li>
-<li>duration: preservation of shape (achievement, completion) vs. continuity of a process (ex. Moore’s warrior)</li>
-<li>correspondance, share experience through the exchange of letters, when I read a letter it is as if I was <em>with</em> the writer</li>
-<li>distinction between <em>interaction</em> and <em>correspondance</em> :
+<li>agency (Agentivité) is a corollary to embodiment (incarnation), it
+closes things on themselves and embeds the principles of action inside
+them</li>
+<li>examples of kite, potery, reindeerman, cello: thing acts as a
+<em>transducer</em> between the gestures of a person and a
+material/nature</li>
+<li>duration: preservation of shape (achievement, completion)
+vs. continuity of a process (ex. Moore’s warrior)</li>
+<li>correspondance, share experience through the exchange of letters,
+when I read a letter it is as if I was <em>with</em> the writer</li>
+<li>distinction between <em>interaction</em> and <em>correspondance</em>
+:
 <ul>
-<li>interaction is confrontation of two beings, stillness : none can move forward</li>
-<li>correspondance is responding to the world through the mediation of transduction, attuning gestures and thoughts to the present world until they become undistinguishable through movement, through <em>making</em></li>
+<li>interaction is confrontation of two beings, stillness : none can
+move forward</li>
+<li>correspondance is responding to the world through the mediation of
+transduction, attuning gestures and thoughts to the present world until
+they become undistinguishable through movement, through
+<em>making</em></li>
 </ul></li>
 </ul></li>
-<li>One operates on/with software through the basic tool of <em>transduction</em>, e.g. the translation from one formal language to another one.
+<li>One operates on/with software through the basic tool of
+<em>transduction</em>, e.g. the translation from one formal language to
+another one.
 <ul>
-<li>High-level design languages: UML, formal specifications in B, type systems…</li>
-<li>Programming languages at various levels from very “abstract” (Prolog, Haskell, Coq) to the very “concrete” (C, Assembly…)</li>
-<li>Its transductions and code all the way down, down to the physical circuits and silicium cells</li>
+<li>High-level design languages: UML, formal specifications in B, type
+systems…</li>
+<li>Programming languages at various levels from very “abstract”
+(Prolog, Haskell, Coq) to the very “concrete” (C, Assembly…)</li>
+<li>Its transductions and code all the way down, down to the physical
+circuits and silicium cells</li>
 </ul></li>
-<li>Interpretation of software takes <em>time</em>, it is never instantaneous, it is a <em>process</em>: A code is the description of a process that needs interpretation hence time, it is never given in whole, like an image or metaphor, it requires traversal, reading/writing, understanding, analysis…</li>
+<li>Interpretation of software takes <em>time</em>, it is never
+instantaneous, it is a <em>process</em>: A code is the description of a
+process that needs interpretation hence time, it is never given in
+whole, like an image or metaphor, it requires traversal,
+reading/writing, understanding, analysis…</li>
 </ul>
-</div>
+</aside>
 <h2 id="craft">Craft</h2>
-<p><img src="/images/atelier-moto.gif" /></p>
-<div class="notes">
+<p><img data-src="/images/atelier-moto.gif" /></p>
+<aside class="notes">
 <ul>
 <li>Shop class as soulcraft</li>
-<li>The World beyond your Head (which contains ill-founded critics of Kant’s theory of knowledge and reason)</li>
+<li>The World beyond your Head (which contains ill-founded critics of
+Kant’s theory of knowledge and reason)</li>
 <li>Sometimes verges on the <em>reactionary</em></li>
-<li>Example of pipe organs making =&gt; mix of tradition and innovation, ultimate crafting</li>
-<li>everybody knows what to do, sense of community and ownership, bonding</li>
+<li>Example of pipe organs making =&gt; mix of tradition and innovation,
+ultimate crafting</li>
+<li>everybody knows what to do, sense of community and ownership,
+bonding</li>
 </ul>
-</div>
+</aside>
 <h2 id="manuel">Manuel</h2>
-<p><img src="/images/keyboards.jpg" /></p>
-<div class="notes">
+<p><img data-src="/images/keyboards.jpg" /></p>
+<aside class="notes">
 <ul>
-<li>Coding is an intense crafting activity whose medium is the same as the matter it manipulates.</li>
-<li>One craft software with her hands, <a href="https://www.meetup.com/Mechanical-Keyboard/photos/27166931/452768389/?_locale=fr-FR">typing on a keyboard</a> is so important that there are groups dedicated to it and hundreds of different types of keyboards.</li>
-<li>Each developer spends a lot of time customising her environment to be “more” efficient, dozens of books have been written on the subject of software craftmanship</li>
+<li>Coding is an intense crafting activity whose medium is the same as
+the matter it manipulates.</li>
+<li>One craft software with her hands, <a
+href="https://www.meetup.com/Mechanical-Keyboard/photos/27166931/452768389/?_locale=fr-FR">typing
+on a keyboard</a> is so important that there are groups dedicated to it
+and hundreds of different types of keyboards.</li>
+<li>Each developer spends a lot of time customising her environment to
+be “more” efficient, dozens of books have been written on the subject of
+software craftmanship</li>
 </ul>
-</div>
-<h1 id="devenir">Devenir</h1>
+</aside>
+</section>
+<section id="devenir" class="slide level1">
+<h1>Devenir</h1>
 <h2 id="mode-dexistence">Mode d’existence</h2>
-<p><img src="/images/aime.jpg" /></p>
-<div class="notes">
+<p><img data-src="/images/aime.jpg" /></p>
+<aside class="notes">
 <ul>
 <li>Actor/Network Theory</li>
-<li>Various modes of existence that need to be taken care of -&gt; ex. Gaia moment, scientific discourse vs. political discourse</li>
-<li>The world is full of “beings” that require to be dealt with differently but “moderns” try to address all being the same way (“reason”)
+<li>Various modes of existence that need to be taken care of -&gt; ex.
+Gaia moment, scientific discourse vs. political discourse</li>
+<li>The world is full of “beings” that require to be dealt with
+differently but “moderns” try to address all being the same way
+(“reason”)
 <ul>
 <li>TEC, POL, REL, REF…. -&gt; each has its own ways</li>
 </ul></li>
 <li>Illusion of strict separation of nature &amp; Culture</li>
-<li>What’s the mode of existence of software? It seems to overlap several ones yet not strictly fitting into neither (ORG/TEC/DRO/POL…)</li>
+<li>What’s the mode of existence of software? It seems to overlap
+several ones yet not strictly fitting into neither
+(ORG/TEC/DRO/POL…)</li>
 <li>New mode of existence -&gt; <em>INFormation</em></li>
 </ul>
-</div>
+</aside>
 <h2 id="concrétion-abstraction">Concrétion &amp; Abstraction</h2>
-<p><img src="/images/tube-concretion.jpg" /></p>
-<div class="notes">
+<p><img data-src="/images/tube-concretion.jpg" /></p>
+<aside class="notes">
 <ul>
-<li>concrete/abstract in the simondonian interpretation implies some form of relationship with the world: Concretion is the process by which some technical object adheres to the world and is more “efficient” and “effective”. It departs from its abstract or generic form to reach a state of better integration, or more <em>integrity</em>. Its parts fits perfectly within each other to form a coherent whole that is in some sense <em>organic</em>. Each organ is pluri-functional and not only serves a purpose but reinforces the whole (example of the combustion engine)
+<li>concrete/abstract in the simondonian interpretation implies some
+form of relationship with the world: Concretion is the process by which
+some technical object adheres to the world and is more “efficient” and
+“effective”. It departs from its abstract or generic form to reach a
+state of better integration, or more <em>integrity</em>. Its parts fits
+perfectly within each other to form a coherent whole that is in some
+sense <em>organic</em>. Each organ is pluri-functional and not only
+serves a purpose but reinforces the whole (example of the combustion
+engine)
 <ul>
-<li>How does this relate to software? There is clearly a tension between <em>genericity</em> and <em>specialisation</em> in software, between <em>reuse</em> (which produces bloat) and <em>reinventing</em> (which produces obscurity)</li>
-<li>Concretion and abstractions are not dependent on usage but on behaviour of the object, its “internal logic”. In software, there is also this tension between needs arising from expected use and systemic constraints, leading to potentially suboptimal solutions</li>
-<li>Concretion is the establishment of a feedback loop between the technical object and its environnement =&gt; <em>individuation</em></li>
+<li>How does this relate to software? There is clearly a tension between
+<em>genericity</em> and <em>specialisation</em> in software, between
+<em>reuse</em> (which produces bloat) and <em>reinventing</em> (which
+produces obscurity)</li>
+<li>Concretion and abstractions are not dependent on usage but on
+behaviour of the object, its “internal logic”. In software, there is
+also this tension between needs arising from expected use and systemic
+constraints, leading to potentially suboptimal solutions</li>
+<li>Concretion is the establishment of a feedback loop between the
+technical object and its environnement =&gt; <em>individuation</em></li>
 </ul></li>
-<li><em>Hypertely</em> -&gt; over-adapting an object to its function</li>
+<li><em>Hypertely</em> -&gt; over-adapting an object to its
+function</li>
 </ul>
-</div>
+</aside>
 <h2 id="individuation">Individuation</h2>
-<p><img src="/images/crystal.jpg" /></p>
-<div class="notes">
+<p><img data-src="/images/crystal.jpg" /></p>
+<aside class="notes">
 <ul>
-<li>Boundaries of <em>what</em> is a “piece of software” are more and more blurred
+<li>Boundaries of <em>what</em> is a “piece of software” are more and
+more blurred
 <ul>
 <li>long-lived server parts</li>
 <li>support systems</li>
@@ -264,231 +302,520 @@ A Pattern Language, p.3</p>
 <li>short-lived cloud functions</li>
 <li>custom/local elements (Excel, macros, notebooks)</li>
 </ul></li>
-<li>Through individuation, the software loses its purely instrumental nature and starts <em>reflecting</em> on the humans it interacts with
+<li>Through individuation, the software loses its purely instrumental
+nature and starts <em>reflecting</em> on the humans it interacts with
 <ul>
-<li>Humans are <em>transformed</em> (transduced?) by the technical object, hence the software</li>
+<li>Humans are <em>transformed</em> (transduced?) by the technical
+object, hence the software</li>
 </ul></li>
-<li><em>Web</em> of interconnected elements, individuation becomes difficult to characterise, every piece of code seems to come “alive” in interaction with more and more other pieces</li>
-<li>Technical objects are <em>individuals</em> made of <em>technical elements</em> and part of a <em>technical ensemble</em> (network): Think of a car, made out of wheels and part of the general framework to make cars possible</li>
-<li>Form and function are forces that shape the technical object, but neither has the upper hand on the other: objects have some internal logic, a “life” of their own</li>
-<li>Individuation has consequences on <em>legal property</em> of software =&gt; “viral” nature of some OSS licences ack the fact the border of what makes a software a single individual is blurry</li>
+<li><em>Web</em> of interconnected elements, individuation becomes
+difficult to characterise, every piece of code seems to come “alive” in
+interaction with more and more other pieces</li>
+<li>Technical objects are <em>individuals</em> made of <em>technical
+elements</em> and part of a <em>technical ensemble</em> (network): Think
+of a car, made out of wheels and part of the general framework to make
+cars possible</li>
+<li>Form and function are forces that shape the technical object, but
+neither has the upper hand on the other: objects have some internal
+logic, a “life” of their own</li>
+<li>Individuation has consequences on <em>legal property</em> of
+software =&gt; “viral” nature of some OSS licences ack the fact the
+border of what makes a software a single individual is blurry</li>
 </ul>
-</div>
+</aside>
 <h2 id="techno-logie">Techno-logie</h2>
-<p><img src="/images/toaster.jpg" /></p>
-<div class="notes">
+<p><img data-src="/images/toaster.jpg" /></p>
+<aside class="notes">
 <ul>
-<li>Technical Objects do not live in isolation, they are part of a <em>network</em> which makes them meaningful (and useful): Think of the chain that makes running software possible
+<li>Technical Objects do not live in isolation, they are part of a
+<em>network</em> which makes them meaningful (and useful): Think of the
+chain that makes running software possible
 <ul>
-<li>Recent experiment of <a href="http://www.thomasthwaites.com/the-toaster-project/">Thomas Thwaites</a> who tried to build a toaster <em>from scratch</em>, down to mining ore and ironsmithing…</li>
+<li>Recent experiment of <a
+href="http://www.thomasthwaites.com/the-toaster-project/">Thomas
+Thwaites</a> who tried to build a toaster <em>from scratch</em>, down to
+mining ore and ironsmithing…</li>
 </ul></li>
-<li>Simondon offers a genetic view of technicity to explain our current relationship and how it could evolve in something different (and better)
+<li>Simondon offers a genetic view of technicity to explain our current
+relationship and how it could evolve in something different (and better)
 <ul>
-<li>Initially, man and nature have been one and the same, a state we don’t know anything about</li>
-<li>Then came <em>magic</em> where <em>figure</em> becomes separated from <em>ground</em> as a network of nodes, magical beings that stand out from nature but not clearly separated from it (e.g. magical sources, trees, rocks, locations, actions, ceremonies…)</li>
-<li>the unity of magic breaks apart when the complexity of the world increases
+<li>Initially, man and nature have been one and the same, a state we
+don’t know anything about</li>
+<li>Then came <em>magic</em> where <em>figure</em> becomes separated
+from <em>ground</em> as a network of nodes, magical beings that stand
+out from nature but not clearly separated from it (e.g. magical sources,
+trees, rocks, locations, actions, ceremonies…)</li>
+<li>the unity of magic breaks apart when the complexity of the world
+increases
 <ul>
-<li>figures are individualised as <em>technical objects</em> =&gt; objectivation</li>
+<li>figures are individualised as <em>technical objects</em> =&gt;
+objectivation</li>
 <li>ground is universalised as <em>deity</em> =&gt; subjectivity</li>
 </ul></li>
-<li>when traditional technical objects find their limits, when <em>figure</em> conflicts with <em>ground</em>, a new subdivision appears:
+<li>when traditional technical objects find their limits, when
+<em>figure</em> conflicts with <em>ground</em>, a new subdivision
+appears:
 <ul>
-<li><em>practical thought</em> takes charge of simplicity, effectiveness and becomes situated, individualised</li>
-<li><em>scientific thought</em> is concerned with universality, a new <em>ground</em> on which technical objects can arise as <em>figures</em></li>
+<li><em>practical thought</em> takes charge of simplicity, effectiveness
+and becomes situated, individualised</li>
+<li><em>scientific thought</em> is concerned with universality, a new
+<em>ground</em> on which technical objects can arise as
+<em>figures</em></li>
 </ul></li>
 <li>symetrically, the primitive religions is split into:
 <ul>
-<li>an ethical, normative, moral <em>ground</em> (the dogmatic side of religions)</li>
-<li>universal, theoretical, contemplative <em>figures</em> (the mystical side of religion)</li>
+<li>an ethical, normative, moral <em>ground</em> (the dogmatic side of
+religions)</li>
+<li>universal, theoretical, contemplative <em>figures</em> (the mystical
+side of religion)</li>
 </ul></li>
 </ul></li>
-<li>Simondon is concerned with the chasm between culture and technics, how and why culture “rejects” the technical objects outside of its realm of interest
+<li>Simondon is concerned with the chasm between culture and technics,
+how and why culture “rejects” the technical objects outside of its realm
+of interest
 <ul>
-<li>This gives rise to a new form of magical thought, where technical objects, individuals, <em>figures</em> are disconnected from theire <em>ground</em>, the network that makes them possible and give them meaning</li>
-<li>How people use technology, carry old usages to new objects without taking into account the intrinsic capabilities of the object</li>
+<li>This gives rise to a new form of magical thought, where technical
+objects, individuals, <em>figures</em> are disconnected from theire
+<em>ground</em>, the network that makes them possible and give them
+meaning</li>
+<li>How people use technology, carry old usages to new objects without
+taking into account the intrinsic capabilities of the object</li>
 </ul></li>
-<li>Putting back meaning into the world through <em>knowledge about technical objects</em></li>
+<li>Putting back meaning into the world through <em>knowledge about
+technical objects</em></li>
 </ul>
-</div>
+</aside>
 <h2 id="aliénation">Aliénation</h2>
 <blockquote>
-<p>Technical activity stands out from mere work, and alienating work, in that technical activity not only contains use of the machine but also some attention coefficient to its technical workings. The fundamental alienation of man w.r.t. machine lies in the produced rupture between ontogenesis of the technical object and the existence of this technical object. The most alienating technical objects are the ones targeted at the most ignorant users.</p>
+<p>Technical activity stands out from mere work, and alienating work, in
+that technical activity not only contains use of the machine but also
+some attention coefficient to its technical workings. The fundamental
+alienation of man w.r.t. machine lies in the produced rupture between
+ontogenesis of the technical object and the existence of this technical
+object. The most alienating technical objects are the ones targeted at
+the most ignorant users.</p>
 </blockquote>
-<div class="notes">
+<aside class="notes">
 
-</div>
-<h1 id="éthique">Éthique</h1>
-<div class="notes">
+</aside>
+</section>
+<section id="éthique" class="slide level1">
+<h1>Éthique</h1>
+<aside class="notes">
 <ul>
 <li>What does this all mean in practice?</li>
 <li>What kind of ethics this view of the code induces?</li>
 </ul>
-</div>
+</aside>
 <h2 id="anarchie">Anarchie</h2>
-<p><img src="/images/anarchy.jpg" /></p>
-<div class="notes">
+<p><img data-src="/images/anarchy.jpg" /></p>
+<aside class="notes">
 <ul>
 <li><p>Modern workplace is the place of heteronomy</p></li>
-<li><p>Autonomy is tied to morality and responsibility: Autonomy <span class="math inline">$\leftrigharrow$</span> Freedom <span class="math inline">$\leftrigharrow$</span> Solidarity</p></li>
-<li><p>responsibility extends to <em>all beings</em>, including the code itself</p></li>
-<li><p>Beyond mere XP (Collective Ownership) -&gt; spinozist freedom == knowledge, understanding, implicit, cohesion</p></li>
+<li><p>Autonomy is tied to morality and responsibility: Autonomy <span
+class="math inline">\(\leftrigharrow\)</span> Freedom <span
+class="math inline">\(\leftrigharrow\)</span> Solidarity</p></li>
+<li><p>responsibility extends to <em>all beings</em>, including the code
+itself</p></li>
+<li><p>Beyond mere XP (Collective Ownership) -&gt; spinozist freedom ==
+knowledge, understanding, implicit, cohesion</p></li>
 <li><p>No need for authority (// cathedral builders)</p></li>
 <li><p>Direct contact with people</p></li>
-<li><p>Organic team, implicit knowledge of what needs to be done -&gt; Just do it!</p></li>
-<li><p>Beyond planning -&gt; living with the code, making the code live</p></li>
+<li><p>Organic team, implicit knowledge of what needs to be done -&gt;
+Just do it!</p></li>
+<li><p>Beyond planning -&gt; living with the code, making the code
+live</p></li>
 </ul>
-</div>
+</aside>
 <h2 id="accord">Accord</h2>
-<p><img src="/images/wood.jpg" /></p>
-<div class="notes">
+<p><img data-src="/images/wood.jpg" /></p>
+<aside class="notes">
 <ul>
-<li>Following the <em>logic of things</em> =&gt; freeing code from bugs and misunderstanding</li>
+<li>Following the <em>logic of things</em> =&gt; freeing code from bugs
+and misunderstanding</li>
 <li>Identifying patterns and laws, and use them!</li>
 <li>Listening to the code</li>
 </ul>
-</div>
+</aside>
 <h2 id="progressisme-conservateur">Progressisme conservateur</h2>
-<p><img src="/images/tate-modern.jpg" /></p>
-<div class="notes">
+<p><img data-src="/images/tate-modern.jpg" /></p>
+<aside class="notes">
 <ul>
-<li>Legacy code is working code, people did things for a reason, because of some context and constraint</li>
-<li>There is great value in <em>taking care of</em> and <em>improving</em> existing code</li>
+<li>Legacy code is working code, people did things for a reason, because
+of some context and constraint</li>
+<li>There is great value in <em>taking care of</em> and
+<em>improving</em> existing code</li>
 <li>Listening to the people who made the code</li>
-<li>Parallel w/ architecture of cities: Compare London and Paris, the tension between past, present and future. Sometimes you have to sacrifice the past to give way to the future, sometimes you have to take of the past</li>
-<li>Coding is a <em>process</em>, a path =&gt; there is potentially no end, if I leave a project somebody will take it over</li>
-<li>Take care of all aspects of the existence of software, from coding to produciton to maintainance to production</li>
+<li>Parallel w/ architecture of cities: Compare London and Paris, the
+tension between past, present and future. Sometimes you have to
+sacrifice the past to give way to the future, sometimes you have to take
+of the past</li>
+<li>Coding is a <em>process</em>, a path =&gt; there is potentially no
+end, if I leave a project somebody will take it over</li>
+<li>Take care of all aspects of the existence of software, from coding
+to produciton to maintainance to production</li>
 </ul>
-</div>
+</aside>
 <h2 id="raffinement">Raffinement</h2>
-<p><img src="/images/refinery.jpg" /></p>
-<div class="notes">
+<p><img data-src="/images/refinery.jpg" /></p>
+<aside class="notes">
 <ul>
-<li>software start “abstract” in a simondonian sense, they are very generic made up from assembling already existing elements (a web framework, an ORM, an existing model…)
+<li>software start “abstract” in a simondonian sense, they are very
+generic made up from assembling already existing elements (a web
+framework, an ORM, an existing model…)
 <ul>
-<li>this works and is robust but is not really fit to the problem and when the problem evolves it cannot evolve at the same pace =&gt; incongruences</li>
-<li>refine the object towards more <em>concretion</em> (~ refactor to deeper insights)</li>
+<li>this works and is robust but is not really fit to the problem and
+when the problem evolves it cannot evolve at the same pace =&gt;
+incongruences</li>
+<li>refine the object towards more <em>concretion</em> (~ refactor to
+deeper insights)</li>
 </ul></li>
 <li>make objects more concrete using more “abstract” elements</li>
-<li>limiting the number of possible implementations of a function -&gt; reduces the degrees of freedom + use general knowledge =&gt; increase density of information
+<li>limiting the number of possible implementations of a function -&gt;
+reduces the degrees of freedom + use general knowledge =&gt; increase
+density of information
 <ul>
-<li>example of identity function, higher-order combinators, generic algebras =&gt; useful abstractions</li>
+<li>example of identity function, higher-order combinators, generic
+algebras =&gt; useful abstractions</li>
 </ul></li>
-<li>concretion is a refinement process that requires listening to both the <em>usage</em> and the <em>behaviour</em> of the object</li>
+<li>concretion is a refinement process that requires listening to both
+the <em>usage</em> and the <em>behaviour</em> of the object</li>
 </ul>
-</div>
+</aside>
 <h2 id="connaissance">Connaissance</h2>
-<p><img src="/images/bibliotheque.jpg" /></p>
-<div class="notes">
+<p><img data-src="/images/bibliotheque.jpg" /></p>
+<aside class="notes">
 <ul>
 <li>Knowledge makes one active and not passive</li>
-<li>=&gt; Understand what’s going on at all levels, remove the veil of mystery</li>
-<li>Just because there is no magic does not mean there is no joy =&gt; Quite the contrary</li>
+<li>=&gt; Understand what’s going on at all levels, remove the veil of
+mystery</li>
+<li>Just because there is no magic does not mean there is no joy =&gt;
+Quite the contrary</li>
 </ul>
-</div>
-<h1 id="colophon">Colophon</h1>
+</aside>
+</section>
+<section id="colophon" class="slide level1">
+<h1>Colophon</h1>
 <h2 id="remerciements">Remerciements</h2>
-<ul class="incremental">
-<li>Bernard Notarianni et Christophe Thibaut pour leur revue amicale mais néanmoins critique de ce foutoir</li>
-<li>l’organisation de l’<em>Agile Tour Bordeaux</em> pour m’avoir permis de donner cette conférence</li>
-<li>https://artisans-du-logiciel.slack.com/ pour les discussions innombrables et passionantes</li>
+<ul>
+<li class="fragment">Bernard Notarianni et Christophe Thibaut pour leur
+revue amicale mais néanmoins critique de ce foutoir</li>
+<li class="fragment">l’organisation de l’<em>Agile Tour Bordeaux</em>
+pour m’avoir permis de donner cette conférence</li>
+<li class="fragment">https://artisans-du-logiciel.slack.com/ pour les
+discussions innombrables et passionantes</li>
 </ul>
 <h2 id="sponsors-bis">Sponsors (bis)</h2>
-<p><img src="/images/Sponsors-atbdx2017.png" /></p>
+<p><img data-src="/images/Sponsors-atbdx2017.png" /></p>
 <h2 id="références">Références</h2>
-<ul class="incremental">
-<li><strong>Physique</strong>, <em>Aristotle</em>, ca. 330 BC</li>
-<li><strong>Éthique à Nicomaque</strong>, <em>Aristotle</em>, ca. 330 BC</li>
-<li><strong>Éthique</strong>, <em>Baruch Spinoza</em>, 1677</li>
-<li><strong>Du mode d’existence des objets techniques</strong>, <em>Gilbert Simondon</em>, 1958/1989</li>
-<li><strong>A Pattern Language</strong>, <em>Christopher Alexander</em>, 1977</li>
-<li><strong>Design Patterns: Elements of Reusable Object-Oriented Software</strong>, <em>Erich Gamma et al.</em>, 1994</li>
-<li><strong>Enquête sur les modes d’existence</strong>, <em>Bruno Latour</em>, 2013</li>
-<li><strong>Faire: Anthropologie, Archéologie, Art et Architecture</strong>, <em>Tim Ingold</em>, 2013</li>
-<li><strong>Contact</strong>, <em>Matthew Crawford</em>, 2016</li>
+<ul>
+<li class="fragment"><strong>Physique</strong>, <em>Aristotle</em>, ca.
+330 BC</li>
+<li class="fragment"><strong>Éthique à Nicomaque</strong>,
+<em>Aristotle</em>, ca. 330 BC</li>
+<li class="fragment"><strong>Éthique</strong>, <em>Baruch Spinoza</em>,
+1677</li>
+<li class="fragment"><strong>Du mode d’existence des objets
+techniques</strong>, <em>Gilbert Simondon</em>, 1958/1989</li>
+<li class="fragment"><strong>A Pattern Language</strong>,
+<em>Christopher Alexander</em>, 1977</li>
+<li class="fragment"><strong>Design Patterns: Elements of Reusable
+Object-Oriented Software</strong>, <em>Erich Gamma et al.</em>,
+1994</li>
+<li class="fragment"><strong>Enquête sur les modes d’existence</strong>,
+<em>Bruno Latour</em>, 2013</li>
+<li class="fragment"><strong>Faire: Anthropologie, Archéologie, Art et
+Architecture</strong>, <em>Tim Ingold</em>, 2013</li>
+<li class="fragment"><strong>Contact</strong>, <em>Matthew
+Crawford</em>, 2016</li>
 </ul>
 <h2 id="credits-1">Credits (1)</h2>
-<ul class="incremental">
-<li><a href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Spinoza.jpg/1200px-Spinoza.jpg">Baruch de Spinoza</a></li>
-<li><a href="https://s-media-cache-ak0.pinimg.com/originals/7d/90/f4/7d90f4ab8d34e9e1a80dd09bdca64f1b.jpg">Aristotle</a></li>
-<li><a href="https://upload.wikimedia.org/wikipedia/commons/4/43/Immanuel_Kant_%28painted_portrait%29.jpg">Immanuel Kant</a></li>
-<li><a href="http://iphilo.fr/wp-content/uploads/2014/09/simondon.jpg">Gilbert Simondon</a></li>
-<li><a href="https://didierbazy.files.wordpress.com/2013/07/20130722-124057.jpg">Gilles Deleuze &amp; Felix Guattari</a></li>
-<li><a href="https://raipgconference2013.files.wordpress.com/2013/02/1.png">Tim Ingold</a></li>
-<li><a href="https://static1.squarespace.com/static/53a0503be4b0a429a2614e8b/53a0ec3ce4b091cafcd7fa26/57813322ebbd1acae39dad2c/1482445699448/Latour.jpg?format=1500w">Bruno Latour</a></li>
-<li><a href="https://upload.wikimedia.org/wikipedia/commons/9/95/ChristopherAlexander2012.jpg">Christopher Alexander</a></li>
-<li><a href="https://qph.ec.quoracdn.net/main-qimg-e966f479b74b12155f6a6ebdff1999cd-c">Design Patterns Book</a></li>
-<li><a href="https://s-media-cache-ak0.pinimg.com/736x/f9/b4/03/f9b403da85df11413086db664ec44c7d.jpg">An Inquiry into Modes of Existence</a></li>
+<ul>
+<li class="fragment"><a
+href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Spinoza.jpg/1200px-Spinoza.jpg">Baruch
+de Spinoza</a></li>
+<li class="fragment"><a
+href="https://s-media-cache-ak0.pinimg.com/originals/7d/90/f4/7d90f4ab8d34e9e1a80dd09bdca64f1b.jpg">Aristotle</a></li>
+<li class="fragment"><a
+href="https://upload.wikimedia.org/wikipedia/commons/4/43/Immanuel_Kant_%28painted_portrait%29.jpg">Immanuel
+Kant</a></li>
+<li class="fragment"><a
+href="http://iphilo.fr/wp-content/uploads/2014/09/simondon.jpg">Gilbert
+Simondon</a></li>
+<li class="fragment"><a
+href="https://didierbazy.files.wordpress.com/2013/07/20130722-124057.jpg">Gilles
+Deleuze &amp; Felix Guattari</a></li>
+<li class="fragment"><a
+href="https://raipgconference2013.files.wordpress.com/2013/02/1.png">Tim
+Ingold</a></li>
+<li class="fragment"><a
+href="https://static1.squarespace.com/static/53a0503be4b0a429a2614e8b/53a0ec3ce4b091cafcd7fa26/57813322ebbd1acae39dad2c/1482445699448/Latour.jpg?format=1500w">Bruno
+Latour</a></li>
+<li class="fragment"><a
+href="https://upload.wikimedia.org/wikipedia/commons/9/95/ChristopherAlexander2012.jpg">Christopher
+Alexander</a></li>
+<li class="fragment"><a
+href="https://qph.ec.quoracdn.net/main-qimg-e966f479b74b12155f6a6ebdff1999cd-c">Design
+Patterns Book</a></li>
+<li class="fragment"><a
+href="https://s-media-cache-ak0.pinimg.com/736x/f9/b4/03/f9b403da85df11413086db664ec44c7d.jpg">An
+Inquiry into Modes of Existence</a></li>
 </ul>
 <h2 id="credits-2">Credits (2)</h2>
-<ul class="incremental">
-<li><a href="http://md1.libe.com/photo/857914-next78_03extras_intell01.jpg?modified_at=1457437565">Matthew Crawford</a></li>
-<li><a href="https://secure.meetupstatic.com/photos/event/7/9/8/6/600_453691110.jpeg">Mechanical Keyboards Meetup Singapore</a></li>
-<li><a href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Biface_Silex_Venerque_MHNT_PRE_.2009.0.194.1_Fond.jpg/1200px-Biface_Silex_Venerque_MHNT_PRE_.2009.0.194.1_Fond.jpg">Biface</a></li>
-<li><a href="http://img.ceskatelevize.cz/program/porady/10719213271/foto09/214387750940021_chartres.jpg">Cathedral of Chartres</a></li>
-<li><a href="http://magazine.nd.edu/assets/176376/fullsize/basilica_organ_11493.jpg">Pipe Organ Builders</a></li>
-<li><a href="https://www.sciencenews.org/sites/default/files/main/blogposts/to_M0014706_free.jpg">Boyle’s Air Pump</a></li>
-<li><a href="http://www.carionmineraux.com/mineraux/mineraux_septembre_2010/cristal_de_roche_chine_3.jpg">Crystal</a></li>
-<li><a href="http://digitalmilieu.net/wp-content/uploads/2016/04/simondon02.jpg">Electronic Tube Concretion</a></li>
-<li><a href="https://upload.wikimedia.org/wikipedia/commons/e/e1/HenryMoore_RecliningFigure_1951.jpg">Reclining Figure, Henry Moore</a></li>
-<li><a href="http://www.treecouncil.org.uk/DesktopModules/tc.Carousel/images/926/fd91dff5-c731-437c-bf2b-d2110e945484.jpg">Tree</a></li>
+<ul>
+<li class="fragment"><a
+href="http://md1.libe.com/photo/857914-next78_03extras_intell01.jpg?modified_at=1457437565">Matthew
+Crawford</a></li>
+<li class="fragment"><a
+href="https://secure.meetupstatic.com/photos/event/7/9/8/6/600_453691110.jpeg">Mechanical
+Keyboards Meetup Singapore</a></li>
+<li class="fragment"><a
+href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Biface_Silex_Venerque_MHNT_PRE_.2009.0.194.1_Fond.jpg/1200px-Biface_Silex_Venerque_MHNT_PRE_.2009.0.194.1_Fond.jpg">Biface</a></li>
+<li class="fragment"><a
+href="http://img.ceskatelevize.cz/program/porady/10719213271/foto09/214387750940021_chartres.jpg">Cathedral
+of Chartres</a></li>
+<li class="fragment"><a
+href="http://magazine.nd.edu/assets/176376/fullsize/basilica_organ_11493.jpg">Pipe
+Organ Builders</a></li>
+<li class="fragment"><a
+href="https://www.sciencenews.org/sites/default/files/main/blogposts/to_M0014706_free.jpg">Boyle’s
+Air Pump</a></li>
+<li class="fragment"><a
+href="http://www.carionmineraux.com/mineraux/mineraux_septembre_2010/cristal_de_roche_chine_3.jpg">Crystal</a></li>
+<li class="fragment"><a
+href="http://digitalmilieu.net/wp-content/uploads/2016/04/simondon02.jpg">Electronic
+Tube Concretion</a></li>
+<li class="fragment"><a
+href="https://upload.wikimedia.org/wikipedia/commons/e/e1/HenryMoore_RecliningFigure_1951.jpg">Reclining
+Figure, Henry Moore</a></li>
+<li class="fragment"><a
+href="http://www.treecouncil.org.uk/DesktopModules/tc.Carousel/images/926/fd91dff5-c731-437c-bf2b-d2110e945484.jpg">Tree</a></li>
 </ul>
 <h2 id="credits-3">Credits (3)</h2>
-<ul class="incremental">
-<li><a href="http://shelton.berkeley.edu/mymyth/pics23/R9812140003.jpg">Achilles &amp; Ajax</a></li>
-<li><a href="http://www.factslides.com/imgs/slavery-chains.jpg">Slavery</a></li>
-<li><a href="http://www.thomasthwaites.com/folio5/wp-content/uploads/2010/10/Toaster_Project4-PhotoCredit-Daniel_Alexanderx630.jpg">The Toaster Project</a></li>
-<li><a href="http://wallpapersafari.com/w/BWiQHc/">Anarchy</a></li>
-<li><a href="http://theeducatorsroom.com/wp-content/uploads/2013/07/closeuprosettastone.jpg">Rosetta Stone</a></li>
-<li><a href="https://previews.123rf.com/images/berka/berka1311/berka131100216/24086122-Old-weathered-rotten-floorboards-with-extremely-rough-surface-lateral-cracks-and-large-wood-knots-de-Stock-Photo.jpg">Wood</a></li>
-<li><a href="http://www.tate.org.uk/sites/default/files/images/tatemodernbuilding_0.jpg">Tate Modern</a></li>
+<ul>
+<li class="fragment"><a
+href="http://shelton.berkeley.edu/mymyth/pics23/R9812140003.jpg">Achilles
+&amp; Ajax</a></li>
+<li class="fragment"><a
+href="http://www.factslides.com/imgs/slavery-chains.jpg">Slavery</a></li>
+<li class="fragment"><a
+href="http://www.thomasthwaites.com/folio5/wp-content/uploads/2010/10/Toaster_Project4-PhotoCredit-Daniel_Alexanderx630.jpg">The
+Toaster Project</a></li>
+<li class="fragment"><a
+href="http://wallpapersafari.com/w/BWiQHc/">Anarchy</a></li>
+<li class="fragment"><a
+href="http://theeducatorsroom.com/wp-content/uploads/2013/07/closeuprosettastone.jpg">Rosetta
+Stone</a></li>
+<li class="fragment"><a
+href="https://previews.123rf.com/images/berka/berka1311/berka131100216/24086122-Old-weathered-rotten-floorboards-with-extremely-rough-surface-lateral-cracks-and-large-wood-knots-de-Stock-Photo.jpg">Wood</a></li>
+<li class="fragment"><a
+href="http://www.tate.org.uk/sites/default/files/images/tatemodernbuilding_0.jpg">Tate
+Modern</a></li>
 </ul>
 <h2 id="credits-4">Credits (4)</h2>
-<ul class="incremental">
-<li><a href="http://mattlockyer.github.io/iat167/img/uml/patterns.jpg">Patterns</a></li>
-<li><a href="http://www.jouefct.com/wp-content/uploads/2015/12/this-muscle-is-responsible-for-most-of-the-flesh-on-the-posterior-side-of-the-arm-it-has-three-heads-as-the-name-implies-and-inserts-on-the-point-back-muscle-anatomy.jpg">Back Muscles</a></li>
-<li><a href="https://vignette1.wikia.nocookie.net/disney/images/1/11/Inside-Out-118.png/revision/latest?cb=20150317173713">Joy (Inside Out)</a></li>
-<li><a href="https://greentransportation.info/fossil-fuels/gasoline/img/refinery.jpg">Refinery</a></li>
-<li><a href="http://demandware.edgesuite.net/sits_pod24/dw/image/v2/AAVG_PRD/on/demandware.static/-/Sites-photo-catalog/default/dwc78c0adc/URBAN/70/1370/1411.jpg?sw=1160&amp;sh=1160&amp;sm=fit">Bibliothèque Nationale de France</a></li>
-<li><a href="https://s-media-cache-ak0.pinimg.com/originals/87/2b/ae/872bae8190aea04deef9fdc165718347.jpg">Greek Musicians</a></li>
-<li><a href="http://charlescamberoque.h.c.f.unblog.fr/files/2014/03/atelier-m-soler-6372.gif">Motorcycle Repair Shop</a></li>
+<ul>
+<li class="fragment"><a
+href="http://mattlockyer.github.io/iat167/img/uml/patterns.jpg">Patterns</a></li>
+<li class="fragment"><a
+href="http://www.jouefct.com/wp-content/uploads/2015/12/this-muscle-is-responsible-for-most-of-the-flesh-on-the-posterior-side-of-the-arm-it-has-three-heads-as-the-name-implies-and-inserts-on-the-point-back-muscle-anatomy.jpg">Back
+Muscles</a></li>
+<li class="fragment"><a
+href="https://vignette1.wikia.nocookie.net/disney/images/1/11/Inside-Out-118.png/revision/latest?cb=20150317173713">Joy
+(Inside Out)</a></li>
+<li class="fragment"><a
+href="https://greentransportation.info/fossil-fuels/gasoline/img/refinery.jpg">Refinery</a></li>
+<li class="fragment"><a
+href="http://demandware.edgesuite.net/sits_pod24/dw/image/v2/AAVG_PRD/on/demandware.static/-/Sites-photo-catalog/default/dwc78c0adc/URBAN/70/1370/1411.jpg?sw=1160&amp;sh=1160&amp;sm=fit">Bibliothèque
+Nationale de France</a></li>
+<li class="fragment"><a
+href="https://s-media-cache-ak0.pinimg.com/originals/87/2b/ae/872bae8190aea04deef9fdc165718347.jpg">Greek
+Musicians</a></li>
+<li class="fragment"><a
+href="http://charlescamberoque.h.c.f.unblog.fr/files/2014/03/atelier-m-soler-6372.gif">Motorcycle
+Repair Shop</a></li>
 </ul>
+</section>
     </div>
   </div>
 
+  <script src="/reveal.js/dist/reveal.js"></script>
 
-  <script src="/reveal.js-3.8.0/lib/js/head.min.js"></script>
-  <script src="/reveal.js-3.8.0/js/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="/reveal.js/plugin/notes/notes.js"></script>
+  <script src="/reveal.js/plugin/search/search.js"></script>
+  <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+  <script src="/reveal.js/plugin/math/math.js"></script>
 
   <script>
 
-      // Full list of configuration options available here:
-      // https://github.com/hakimel/reveal.js#configuration
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
       Reveal.initialize({
+        // Display controls in the bottom right corner
         controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
         progress: true,
-        history: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
         center: true,
-        theme: 'old-english', // available themes are in /css/theme
-        transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
 
-        // Optional libraries used to extend on reveal.js
-        dependencies: [
-          { src: '/reveal.js-3.8.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: '/reveal.js-3.8.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-          { src: '/reveal.js-3.8.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-//          { src: '/reveal.js-3.8.0/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
-//          { src: '/reveal.js-3.8.0/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-]});
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
     </script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-42631907-2', 'auto');
-  ga('send', 'pageview');
-
-</script>
-</body>
+    </body>
 </html>

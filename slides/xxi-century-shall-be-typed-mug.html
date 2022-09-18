@@ -3,162 +3,238 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-
-  <meta name="author" content="Arnaud Bailly - @dr_c0d3" />
-
-
-  <meta name="dcterms.date" content="March 26, 2019" />
-
+  <meta name="author" content="Arnaud Bailly - @dr_c0d3">
+  <meta name="dcterms.date" content="2019-03-26">
   <title>Le XXIème sera typé ou ne sera pas</title>
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="/reveal.js-3.8.0/css/reveal.css"/>
-    <style type="text/css">code{white-space: pre;}</style>
-
-    <style type="text/css">code{white-space: pre;}</style>
-    <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    </style>
-
-
-    <link rel="stylesheet" href="/reveal.js-3.8.0/css/theme/serif-compact.css" id="theme">
-
-    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
-    <script>
-      if( window.location.search.match( /print-pdf/gi ) ) {
-        var link = document.createElement( 'link' );
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = '/reveal.js-3.8.0/css/print/pdf.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
       }
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-    <!--[if lt IE 9]>
-    <script src="/reveal.js-3.8.0/lib/js/html5shiv.js"></script>
-    <![endif]-->
-
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="/reveal.js/dist/theme/serif-compact.css" id="theme">
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
-
-<section>
-    <h1 class="title">Le XXIème sera typé ou ne sera pas</h1>
-
-  <h2 class="subtitle">ou Comment j&#39;ai appris à aimer les types</h2>
-
-
-    <h3 class="author">Arnaud Bailly - @dr_c0d3</h3>
-
-
-    <h3 class="date">March 26, 2019</h3>
+<section id="title-slide">
+  <h1 class="title">Le XXIème sera typé ou ne sera pas</h1>
+  <p class="subtitle">ou Comment j’ai appris à aimer les types</p>
+  <p class="author">Arnaud Bailly - <span class="citation"
+data-cites="dr_c0d3">@dr_c0d3</span></p>
+  <p class="date">2019-03-26</p>
 </section>
 
+<section>
+<section id="plan" class="title-slide slide level1">
+<h1>Plan</h1>
 
+</section>
+<section class="slide level2">
 
-<h1 id="plan">Plan</h1>
-<hr />
-<ul class="incremental">
-<li>Introduction</li>
-<li>Motivations</li>
-<li>Voyage au pays des types</li>
-<li>Conclusion</li>
+<ul>
+<li class="fragment">Introduction</li>
+<li class="fragment">Motivations</li>
+<li class="fragment">Voyage au pays des types</li>
+<li class="fragment">Conclusion</li>
 </ul>
-<h1 id="introduction">Introduction</h1>
-<h2 id="pourquoi">Pourquoi ?</h2>
-<ul class="incremental">
-<li>Discussions sur le canal <code>#beginners</code> dans le slack <code>elm-lang</code>: Beaucoup du questions sur le type de <code>List a</code>…</li>
-<li><a href="https://www.youtube.com/watch?v=IcgmSRJHu_8">Making Impossible States Impossible</a></li>
-<li>Lien entre types et formalisation de <em>domaines métiers</em></li>
+</section></section>
+<section>
+<section id="introduction" class="title-slide slide level1">
+<h1>Introduction</h1>
+
+</section>
+<section id="pourquoi" class="slide level2">
+<h2>Pourquoi ?</h2>
+<ul>
+<li class="fragment">Discussions sur le canal <code>#beginners</code>
+dans le slack <code>elm-lang</code>: Beaucoup du questions sur le type
+de <code>List a</code>…</li>
+<li class="fragment"><a
+href="https://www.youtube.com/watch?v=IcgmSRJHu_8">Making Impossible
+States Impossible</a></li>
+<li class="fragment">Lien entre types et formalisation de <em>domaines
+métiers</em></li>
 </ul>
-<h2 id="objectif">Objectif</h2>
-<ul class="incremental">
-<li>Faire découvrir la richesse des systèmes de types des langages fonctionnels</li>
-<li>Donner envie d’aller y voir de plus près</li>
-<li>Comprendre comment utiliser ces systèmes pour des programmes “normaux”</li>
+</section>
+<section id="objectif" class="slide level2">
+<h2>Objectif</h2>
+<ul>
+<li class="fragment">Faire découvrir la richesse des systèmes de types
+des langages fonctionnels</li>
+<li class="fragment">Donner envie d’aller y voir de plus près</li>
+<li class="fragment">Comprendre comment utiliser ces systèmes pour des
+programmes “normaux”</li>
 </ul>
-<h1 id="motivations">Motivations</h1>
-<h1 id="voyage-au-pays-des-types">Voyage au pays des types</h1>
-<hr />
-<h1 id="elm">Elm</h1>
-<h2 id="fonctions-pures">Fonctions pures</h2>
-<p><img src="/images/picasso-demoiselles.jpg" /></p>
-<h2 id="fonctions-pures-1">Fonctions pures</h2>
-<ul class="incremental">
-<li>Des <em>fonctions</em> sans effets de bord</li>
-<li>De préférences totales…</li>
-<li>De première classe dans le langage…</li>
-<li>Qui sont interprétées par le <em>runtime</em> qui encapsule l’ensemble des effets</li>
+</section></section>
+<section id="motivations" class="title-slide slide level1">
+<h1>Motivations</h1>
+
+</section>
+
+<section>
+<section id="voyage-au-pays-des-types" class="title-slide slide level1">
+<h1>Voyage au pays des types</h1>
+
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="elm" class="title-slide slide level1">
+<h1>Elm</h1>
+
+</section>
+<section id="fonctions-pures" class="slide level2">
+<h2>Fonctions pures</h2>
+<p><img data-src="/images/picasso-demoiselles.jpg" /></p>
+</section>
+<section id="fonctions-pures-1" class="slide level2">
+<h2>Fonctions pures</h2>
+<ul>
+<li class="fragment">Des <em>fonctions</em> sans effets de bord</li>
+<li class="fragment">De préférences totales…</li>
+<li class="fragment">De première classe dans le langage…</li>
+<li class="fragment">Qui sont interprétées par le <em>runtime</em> qui
+encapsule l’ensemble des effets</li>
 </ul>
-<h2 id="fonctions-pures-2">Fonctions pures</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">init</span> <span class="op">:</span> ( <span class="dt">Model</span>, <span class="dt">Cmd</span> <span class="dt">Msg</span> )</span>
+</section>
+<section id="fonctions-pures-2" class="slide level2">
+<h2>Fonctions pures</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">init</span> <span class="op">:</span> ( <span class="dt">Model</span>, <span class="dt">Cmd</span> <span class="dt">Msg</span> )</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>update <span class="op">:</span> <span class="dt">Msg</span> <span class="ot">-&gt;</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> ( <span class="dt">Model</span>, <span class="dt">Cmd</span> <span class="dt">Msg</span> )</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>view <span class="op">:</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">H.Html</span> <span class="dt">Msg</span></span></code></pre></div>
-<h2 id="types-de-données-algébriques">Types de données algébriques</h2>
-<p><img src="/images/mondrian-composition.jpg" /></p>
-<h2 id="types-de-données-algébriques-1">Types de données algébriques</h2>
-<ul class="incremental">
-<li>Décrit les données comme engendrées par une structure <em>algébrique</em></li>
-<li>Types construits par <em>composition</em> au moyen d’opérateurs <em>union</em> et <em>produit</em></li>
-<li>Un type est une <em>fonction</em> dans le domaine des types, un <em>constructeur de types</em></li>
-<li>Permet au compilateur de “garantir” la totalité d’une fonction</li>
+</section>
+<section id="types-de-données-algébriques" class="slide level2">
+<h2>Types de données algébriques</h2>
+<p><img data-src="/images/mondrian-composition.jpg" /></p>
+</section>
+<section id="types-de-données-algébriques-1" class="slide level2">
+<h2>Types de données algébriques</h2>
+<ul>
+<li class="fragment">Décrit les données comme engendrées par une
+structure <em>algébrique</em></li>
+<li class="fragment">Types construits par <em>composition</em> au moyen
+d’opérateurs <em>union</em> et <em>produit</em></li>
+<li class="fragment">Un type est une <em>fonction</em> dans le domaine
+des types, un <em>constructeur de types</em></li>
+<li class="fragment">Permet au compilateur de “garantir” la totalité
+d’une fonction</li>
 </ul>
-<h2 id="types-de-données-algébriques-2">Types de données algébriques</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Msg</span></span>
+</section>
+<section id="types-de-données-algébriques-2" class="slide level2">
+<h2>Types de données algébriques</h2>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Msg</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="ot">=</span> <span class="dt">SubmitResponse</span> (<span class="dt">Maybe</span> <span class="dt">String</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> <span class="dt">UpdateResponse</span> <span class="dt">String</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> <span class="dt">NoOp</span></span></code></pre></div>
-<h2 id="types-de-données-algébriques-récursifs">Types de données algébriques récursifs</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Nat</span> <span class="ot">=</span> <span class="dt">S</span> <span class="dt">Nat</span> <span class="op">|</span> <span class="dt">Z</span></span></code></pre></div>
-<h1 id="haskell">Haskell</h1>
-<h2 id="classes-de-types">Classes de types</h2>
-<p><img src="/images/pollock-untitled.jpg" /></p>
-<h2 id="classes-de-types-1">Classes de types</h2>
-<ul class="incremental">
-<li>Interface offerte par un type de données</li>
-<li>Permet d’encapsuler l’implémentation concrète</li>
-<li>Peut exprimer des relations complexes entre plusieurs types de données</li>
+</section>
+<section id="types-de-données-algébriques-récursifs"
+class="slide level2">
+<h2>Types de données algébriques récursifs</h2>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Nat</span> <span class="ot">=</span> <span class="dt">S</span> <span class="dt">Nat</span> <span class="op">|</span> <span class="dt">Z</span></span></code></pre></div>
+</section></section>
+<section>
+<section id="haskell" class="title-slide slide level1">
+<h1>Haskell</h1>
+
+</section>
+<section id="classes-de-types" class="slide level2">
+<h2>Classes de types</h2>
+<p><img data-src="/images/pollock-untitled.jpg" /></p>
+</section>
+<section id="classes-de-types-1" class="slide level2">
+<h2>Classes de types</h2>
+<ul>
+<li class="fragment">Interface offerte par un type de données</li>
+<li class="fragment">Permet d’encapsuler l’implémentation concrète</li>
+<li class="fragment">Peut exprimer des relations complexes entre
+plusieurs types de données</li>
 </ul>
-<h2 id="classes-de-types-2">Classes de types</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> (<span class="dt">Eq</span> (<span class="dt">Answer</span> q)) <span class="ot">=&gt;</span> <span class="dt">Questionable</span> q <span class="kw">where</span></span>
+</section>
+<section id="classes-de-types-2" class="slide level2">
+<h2>Classes de types</h2>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> (<span class="dt">Eq</span> (<span class="dt">Answer</span> q)) <span class="ot">=&gt;</span> <span class="dt">Questionable</span> q <span class="kw">where</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  question ::</span> q <span class="ot">-&gt;</span> <span class="dt">Text</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ot">  expected ::</span> q <span class="ot">-&gt;</span> <span class="dt">Answer</span> q</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ot">  response ::</span> q <span class="ot">-&gt;</span> <span class="dt">Maybe</span> (<span class="dt">Answer</span> q)</span>
@@ -166,59 +242,104 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ot">  isCorrectAnswer ::</span> q <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  isCorrectAnswer q <span class="ot">=</span> <span class="dt">Just</span> (expected q) <span class="op">==</span> response q</span></code></pre></div>
-<h2 id="familles-de-types">Familles de types</h2>
-<p><img src="/images/bacon-triptyque.jpg" /></p>
-<h2 id="familles-de-types-1">Familles de types</h2>
-<ul class="incremental">
-<li>Relation entre types</li>
-<li>Rend le domaine d’une fonction dépendant du codomaine</li>
-<li>Peut être <em>ouvert</em> (relation extensible) ou <em>fermé</em> (le codomaine est fini)</li>
+</section>
+<section id="familles-de-types" class="slide level2">
+<h2>Familles de types</h2>
+<p><img data-src="/images/bacon-triptyque.jpg" /></p>
+</section>
+<section id="familles-de-types-1" class="slide level2">
+<h2>Familles de types</h2>
+<ul>
+<li class="fragment">Relation entre types</li>
+<li class="fragment">Rend le domaine d’une fonction dépendant du
+codomaine</li>
+<li class="fragment">Peut être <em>ouvert</em> (relation extensible) ou
+<em>fermé</em> (le codomaine est fini)</li>
 </ul>
-<hr />
-<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">family</span> <span class="dt">Answer</span> q <span class="ot">=</span> a <span class="op">|</span> a <span class="ot">-&gt;</span> q <span class="kw">where</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Answer</span> <span class="dt">QCM</span>          <span class="ot">=</span> <span class="dt">Int</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Answer</span> <span class="dt">Grade</span>        <span class="ot">=</span> <span class="dt">Double</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Answer</span> <span class="dt">OpenQuestion</span> <span class="ot">=</span> <span class="dt">Text</span></span></code></pre></div>
-<h2 id="types-existentiels">Types existentiels</h2>
-<p><img src="/images/magritte-pipe.jpg" /></p>
-<h2 id="types-existentiels-1">Types existentiels</h2>
-<ul class="incremental">
-<li>Encapsuler un ensemble de types dans un autre type de données</li>
-<li>Renforce la distinction entre type abstrait et concret en rendant l’implémentation inaccessible</li>
-<li>Garantit la <em>localité</em> des opérations sur un type: la variable de type est nécessairement locale</li>
+</section>
+<section id="types-existentiels" class="slide level2">
+<h2>Types existentiels</h2>
+<p><img data-src="/images/magritte-pipe.jpg" /></p>
+</section>
+<section id="types-existentiels-1" class="slide level2">
+<h2>Types existentiels</h2>
+<ul>
+<li class="fragment">Encapsuler un ensemble de types dans un autre type
+de données</li>
+<li class="fragment">Renforce la distinction entre type abstrait et
+concret en rendant l’implémentation inaccessible</li>
+<li class="fragment">Garantit la <em>localité</em> des opérations sur un
+type: la variable de type est nécessairement locale</li>
 </ul>
-<h2 id="types-existentiels-2">Types existentiels</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Question</span> <span class="kw">where</span></span>
+</section>
+<section id="types-existentiels-2" class="slide level2">
+<h2>Types existentiels</h2>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Question</span> <span class="kw">where</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Question</span><span class="ot"> ::</span> (<span class="dt">Questionable</span> q)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>           <span class="ot">=&gt;</span> q</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>           <span class="ot">-&gt;</span> (<span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> (<span class="dt">Answer</span> q))</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>           <span class="ot">-&gt;</span> <span class="dt">Question</span></span></code></pre></div>
-<h1 id="idris">Idris</h1>
-<h2 id="types-abstraits-de-données-généralisés">Types abstraits de données généralisés</h2>
-<p><img src="/images/kandinsky-comp-8.jpg" /></p>
-<h2 id="types-abstraits-de-données-généralisés-1">Types abstraits de données généralisés</h2>
-<ul class="incremental">
-<li>Applicable aux types paramétrés</li>
-<li>Chaque constructeur d’un type peut retourner une type différent</li>
-<li>Permet de spécialiser le paramètre en fonction du contexte dans lequel le type est appelé à s’insérer</li>
+</section></section>
+<section>
+<section id="idris" class="title-slide slide level1">
+<h1>Idris</h1>
+
+</section>
+<section id="types-abstraits-de-données-généralisés"
+class="slide level2">
+<h2>Types abstraits de données généralisés</h2>
+<p><img data-src="/images/kandinsky-comp-8.jpg" /></p>
+</section>
+<section id="types-abstraits-de-données-généralisés-1"
+class="slide level2">
+<h2>Types abstraits de données généralisés</h2>
+<ul>
+<li class="fragment">Applicable aux types paramétrés</li>
+<li class="fragment">Chaque constructeur d’un type peut retourner une
+type différent</li>
+<li class="fragment">Permet de spécialiser le paramètre en fonction du
+contexte dans lequel le type est appelé à s’insérer</li>
 </ul>
-<h2 id="types-abstraits-de-données-généralisés-2">Types abstraits de données généralisés</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Command</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="ot">-&gt;</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+</section>
+<section id="types-abstraits-de-données-généralisés-2"
+class="slide level2">
+<h2>Types abstraits de données généralisés</h2>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Command</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="ot">-&gt;</span> <span class="dt">Type</span> <span class="kw">where</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Prompt</span>         <span class="ot">:</span> <span class="dt">Question</span> <span class="ot">-&gt;</span> <span class="dt">Command</span> <span class="dt">Input</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">AnswerQuestion</span> <span class="ot">:</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Command</span> <span class="dt">Bool</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Back</span>           <span class="ot">:</span> <span class="dt">Command</span> ()</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Quit</span>           <span class="ot">:</span> <span class="dt">Command</span> ()</span></code></pre></div>
-<h2 id="hole-driven-development">Hole-Driven Development</h2>
-<p><img src="/images/duchamp-pissotière.jpg" /></p>
-<h2 id="hole-driven-development-1">Hole-Driven Development</h2>
-<ul class="incremental">
-<li>Utiliser l’inférence de type pour compléter le code par la structure attendue par le compilateur</li>
-<li>Permet de s’assurer dés le départ qu’une fonction est totale</li>
-<li>Permet à l’éditeur de compléter automatiquement le code</li>
+</section>
+<section id="hole-driven-development" class="slide level2">
+<h2>Hole-Driven Development</h2>
+<p><img data-src="/images/duchamp-pissotière.jpg" /></p>
+</section>
+<section id="hole-driven-development-1" class="slide level2">
+<h2>Hole-Driven Development</h2>
+<ul>
+<li class="fragment">Utiliser l’inférence de type pour compléter le code
+par la structure attendue par le compilateur</li>
+<li class="fragment">Permet de s’assurer dés le départ qu’une fonction
+est totale</li>
+<li class="fragment">Permet à l’éditeur de compléter automatiquement le
+code</li>
 </ul>
-<h2 id="hole-driven-development-2">Hole-Driven Development</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runQuizz</span> <span class="ot">:</span> <span class="dt">Quizz</span> n <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
+</section>
+<section id="hole-driven-development-2" class="slide level2">
+<h2>Hole-Driven Development</h2>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runQuizz</span> <span class="ot">:</span> <span class="dt">Quizz</span> n <span class="ot">-&gt;</span> <span class="dt">IO</span> ()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>runQuizz quizz<span class="fu">@</span>(<span class="dt">MkQuizz</span> answered current next) <span class="fu">=</span> <span class="kw">do</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  (input, quizz&#39;) <span class="ot">&lt;-</span> runCommand quizz (<span class="dt">Prompt</span> current)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">case</span> input <span class="kw">of</span></span>
@@ -226,141 +347,402 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>     <span class="dt">QuitGame</span>       <span class="ot">=&gt;</span> <span class="ot">?hole_2</span></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>     (<span class="dt">GiveAnswer</span> x) <span class="ot">=&gt;</span> <span class="ot">?hole_3</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>     <span class="dt">Garbage</span>        <span class="ot">=&gt;</span> <span class="ot">?hole_4</span></span></code></pre></div>
-<h2 id="types-dépendants">Types dépendants</h2>
-<p><img src="/images/calle-sleepers.jpg" /></p>
-<h2 id="types-dépendants-1">Types dépendants</h2>
-<ul class="incremental">
-<li>Faire tomber la barrière entre les <em>types</em> et les <em>valeurs</em></li>
-<li>Un type peut être définit par une fonction <em>dépendant</em> de la valeur d’un paramètre</li>
-<li>Introduit une hiérarchie potentiellement infinie de types (quel est le type de <code>Type</code> ?)</li>
-<li>Le <em>vérificateur de types</em> utilise la même sémantique que le <em>runtime</em></li>
+</section>
+<section id="types-dépendants" class="slide level2">
+<h2>Types dépendants</h2>
+<p><img data-src="/images/calle-sleepers.jpg" /></p>
+</section>
+<section id="types-dépendants-1" class="slide level2">
+<h2>Types dépendants</h2>
+<ul>
+<li class="fragment">Faire tomber la barrière entre les <em>types</em>
+et les <em>valeurs</em></li>
+<li class="fragment">Un type peut être définit par une fonction
+<em>dépendant</em> de la valeur d’un paramètre</li>
+<li class="fragment">Introduit une hiérarchie potentiellement infinie de
+types (quel est le type de <code>Type</code> ?)</li>
+<li class="fragment">Le <em>vérificateur de types</em> utilise la même
+sémantique que le <em>runtime</em></li>
 </ul>
-<h2 id="types-dépendants-2">Types dépendants</h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Quizz</span> <span class="ot">:</span> (numQuestions <span class="ot">:</span> <span class="dt">Nat</span>) <span class="ot">-&gt;</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+</section>
+<section id="types-dépendants-2" class="slide level2">
+<h2>Types dépendants</h2>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Quizz</span> <span class="ot">:</span> (numQuestions <span class="ot">:</span> <span class="dt">Nat</span>) <span class="ot">-&gt;</span> <span class="dt">Type</span> <span class="kw">where</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">MkQuizz</span> <span class="ot">:</span>  (answered <span class="ot">:</span> <span class="dt">Vect</span> n <span class="dt">Answered</span>) <span class="ot">-&gt;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>             (current  <span class="ot">:</span> <span class="dt">Question</span>) <span class="ot">-&gt;</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>             (next <span class="ot">:</span> <span class="dt">Vect</span> m <span class="dt">Question</span>) <span class="ot">-&gt;</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>             <span class="dt">Quizz</span> (n <span class="fu">+</span> m)</span></code></pre></div>
-<h2 id="paires-dépendantes">Paires dépendantes</h2>
-<p><img src="/images/bourgeois-together.jpg" /></p>
-<h2 id="paires-dépendantes-1">Paires dépendantes</h2>
-<ul class="incremental">
-<li>Empaqueter une valeur et un type dépendant de cette valeur dans une paire</li>
-<li>Généralisation des types existentiels</li>
-<li>Permet de <em>conserver</em> de l’information pour le compilateur</li>
+</section>
+<section id="paires-dépendantes" class="slide level2">
+<h2>Paires dépendantes</h2>
+<p><img data-src="/images/bourgeois-together.jpg" /></p>
+</section>
+<section id="paires-dépendantes-1" class="slide level2">
+<h2>Paires dépendantes</h2>
+<ul>
+<li class="fragment">Empaqueter une valeur et un type dépendant de cette
+valeur dans une paire</li>
+<li class="fragment">Généralisation des types existentiels</li>
+<li class="fragment">Permet de <em>conserver</em> de l’information pour
+le compilateur</li>
 </ul>
-<h2 id="paires-dépendantes-2">Paires dépendantes</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Answered</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+</section>
+<section id="paires-dépendantes-2" class="slide level2">
+<h2>Paires dépendantes</h2>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Answered</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="kw">where</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">MkAnswered</span> <span class="ot">:</span> (question <span class="fu">**</span> <span class="dt">Answer</span> question) <span class="ot">-&gt;</span> <span class="dt">Answered</span></span></code></pre></div>
-<h2 id="type-égalité">Type égalité</h2>
-<p><img src="/images/klein-blue.jpg" /></p>
-<h2 id="type-égalité-1">Type égalité</h2>
-<ul class="incremental">
-<li>Exprimer l’égalité entre deux types dans le système de types</li>
-<li>Le type devient une <em>assertion</em> logique, une <em>proposition</em> qui doit être vérifiée par l’implémentation</li>
-<li>La seule valeur qui <em>habite</em> ce type est <code>Refl</code> qui est donc une <em>preuve</em> que l’égalité est vérifiée</li>
+</section>
+<section id="type-égalité" class="slide level2">
+<h2>Type égalité</h2>
+<p><img data-src="/images/klein-blue.jpg" /></p>
+</section>
+<section id="type-égalité-1" class="slide level2">
+<h2>Type égalité</h2>
+<ul>
+<li class="fragment">Exprimer l’égalité entre deux types dans le système
+de types</li>
+<li class="fragment">Le type devient une <em>assertion</em> logique, une
+<em>proposition</em> qui doit être vérifiée par l’implémentation</li>
+<li class="fragment">La seule valeur qui <em>habite</em> ce type est
+<code>Refl</code> qui est donc une <em>preuve</em> que l’égalité est
+vérifiée</li>
 </ul>
-<h2 id="type-égalité-2">Type égalité</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode idris"><code class="sourceCode idris"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plusOneCommutes</span> <span class="ot">:</span>  (n <span class="ot">:</span> <span class="dt">Nat</span>)</span>
+</section>
+<section id="type-égalité-2" class="slide level2">
+<h2>Type égalité</h2>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode idris"><code class="sourceCode idris"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plusOneCommutes</span> <span class="ot">:</span>  (n <span class="ot">:</span> <span class="dt">Nat</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                <span class="ot">-&gt;</span> (m <span class="ot">:</span> <span class="dt">Nat</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                <span class="ot">-&gt;</span> (n <span class="fu">+</span> <span class="dt">S</span> m <span class="fu">=</span> <span class="dt">S</span> n <span class="fu">+</span> m)</span></code></pre></div>
-<h2 id="types-proposition">Types = Proposition</h2>
-<p><img src="/images/malevitch-white-on-white.jpg" /></p>
-<h2 id="types-proposition-1">Types = Proposition</h2>
-<ul class="incremental">
-<li>Mise en oeuvre concrète de Curry-Howard</li>
-<li>Les types sont des <em>propositions</em>, les programmes des <em>preuves</em></li>
-<li>Écrire un programme c’est démontrer que les types sont <em>habités</em>, que l’on peut effectivement construire des valeurs des types donnés</li>
-<li>De la conception de logiciels considérée comme l’énonciation de théorèmes…</li>
+</section>
+<section id="types-proposition" class="slide level2">
+<h2>Types = Proposition</h2>
+<p><img data-src="/images/malevitch-white-on-white.jpg" /></p>
+</section>
+<section id="types-proposition-1" class="slide level2">
+<h2>Types = Proposition</h2>
+<ul>
+<li class="fragment">Mise en oeuvre concrète de Curry-Howard</li>
+<li class="fragment">Les types sont des <em>propositions</em>, les
+programmes des <em>preuves</em></li>
+<li class="fragment">Écrire un programme c’est démontrer que les types
+sont <em>habités</em>, que l’on peut effectivement construire des
+valeurs des types donnés</li>
+<li class="fragment">De la conception de logiciels considérée comme
+l’énonciation de théorèmes…</li>
 </ul>
-<h1 id="travaux-pratiques">Travaux Pratiques</h1>
-<hr />
-<p><img src="/images/braque-gueridon.jpg" /></p>
-<h1 id="conclusion">Conclusion</h1>
-<hr />
-<ul class="incremental">
-<li>Le système de type est un outil essentiel dans la <em>conception</em> du logiciel</li>
-<li>Les systèmes de types fonctionnels sont de plus en plus sophistiqués et permettent de modéliser des contraintes de plus en plus proches du métier</li>
-<li>Le XXIème sera typé !</li>
+</section></section>
+<section>
+<section id="travaux-pratiques" class="title-slide slide level1">
+<h1>Travaux Pratiques</h1>
+
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/braque-gueridon.jpg" /></p>
+</section></section>
+<section>
+<section id="conclusion" class="title-slide slide level1">
+<h1>Conclusion</h1>
+
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">Le système de type est un outil essentiel dans la
+<em>conception</em> du logiciel</li>
+<li class="fragment">Les systèmes de types fonctionnels sont de plus en
+plus sophistiqués et permettent de modéliser des contraintes de plus en
+plus proches du métier</li>
+<li class="fragment">Le XXIème sera typé !</li>
 </ul>
-<h1 id="colophon">Colophon</h1>
-<h2 id="quelques-références">(Quelques) Références</h2>
-<ul class="incremental">
-<li><a href="https://leanpub.com/thinking-with-types">Thinking With Types</a>, S.Maguire</li>
-<li><a href="https://www.cis.upenn.edu/~bcpierce/tapl/">Types and Programming Languages</a>, B.Pierce</li>
-<li>Advanced Types and Programming Languages, B.Pierce</li>
-<li><a href="https://web.cecs.pdx.edu/~mpj/thih/thih.pdf">Typing Haskell in Haskell</a></li>
-<li><a href="http://lucacardelli.name/Papers/OnUnderstanding.A4.pdf">Understanding types</a> par Luca Cardelli, dans un contexte OO avec sous-typage</li>
-<li><a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/type-families-and-pokemon">Familles de types en Haskell</a></li>
+</section></section>
+<section>
+<section id="colophon" class="title-slide slide level1">
+<h1>Colophon</h1>
+
+</section>
+<section id="quelques-références" class="slide level2">
+<h2>(Quelques) Références</h2>
+<ul>
+<li class="fragment"><a
+href="https://leanpub.com/thinking-with-types">Thinking With Types</a>,
+S.Maguire</li>
+<li class="fragment"><a
+href="https://www.cis.upenn.edu/~bcpierce/tapl/">Types and Programming
+Languages</a>, B.Pierce</li>
+<li class="fragment">Advanced Types and Programming Languages,
+B.Pierce</li>
+<li class="fragment"><a
+href="https://web.cecs.pdx.edu/~mpj/thih/thih.pdf">Typing Haskell in
+Haskell</a></li>
+<li class="fragment"><a
+href="http://lucacardelli.name/Papers/OnUnderstanding.A4.pdf">Understanding
+types</a> par Luca Cardelli, dans un contexte OO avec sous-typage</li>
+<li class="fragment"><a
+href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/type-families-and-pokemon">Familles
+de types en Haskell</a></li>
 </ul>
-<h2 id="quelques-références-1">(Quelques) Références</h2>
-<ul class="incremental">
-<li><a href="https://www.manning.com/books/type-driven-development-with-idris">Type-Driven Development with Idris</a>, E. Brady</li>
-<li><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/typefun.pdf?from=http%3A%2F%2Fresearch.microsoft.com%2F%7Esimonpj%2Fpapers%2Fassoc-types%2Ffun-with-type-funs%2Ftypefun.pdf">Fun with Type Functions</a></li>
-<li><a href="https://vimeo.com/162036084">Types + Properties = Software - Mark Seemann on Vimeo</a></li>
-<li><a href="https://www.cs.ox.ac.uk/projects/utgp/school/idris-tutorial.pdf">idris-tutorial.pdf</a></li>
-<li><a href="https://www.cs.kent.ac.uk/people/staff/sjt/TTFP/ttfp.pdf">Type Theory and Functional Programming</a></li>
-<li><a href="http://oxij.org/note/BrutalDepTypes/">Brutal {Meta}Introduction to Dependent Types in Agda</a></li>
+</section>
+<section id="quelques-références-1" class="slide level2">
+<h2>(Quelques) Références</h2>
+<ul>
+<li class="fragment"><a
+href="https://www.manning.com/books/type-driven-development-with-idris">Type-Driven
+Development with Idris</a>, E. Brady</li>
+<li class="fragment"><a
+href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/typefun.pdf?from=http%3A%2F%2Fresearch.microsoft.com%2F%7Esimonpj%2Fpapers%2Fassoc-types%2Ffun-with-type-funs%2Ftypefun.pdf">Fun
+with Type Functions</a></li>
+<li class="fragment"><a href="https://vimeo.com/162036084">Types +
+Properties = Software - Mark Seemann on Vimeo</a></li>
+<li class="fragment"><a
+href="https://www.cs.ox.ac.uk/projects/utgp/school/idris-tutorial.pdf">idris-tutorial.pdf</a></li>
+<li class="fragment"><a
+href="https://www.cs.kent.ac.uk/people/staff/sjt/TTFP/ttfp.pdf">Type
+Theory and Functional Programming</a></li>
+<li class="fragment"><a
+href="http://oxij.org/note/BrutalDepTypes/">Brutal {Meta}Introduction to
+Dependent Types in Agda</a></li>
 </ul>
-<h2 id="credits">Credits</h2>
-<ul class="incremental">
-<li><a href="http://www.georgesbraque.org/images/gallery/gueridon.jpg">Guéridon</a>, G.Braque, 1913</li>
-<li><a href="https://c1.staticflickr.com/2/1305/563354141_dea564001f_b.jpg">Les demoiselles d’Avignon</a>, P.Picasso, 1907</li>
-<li><a href="https://en.wikipedia.org/wiki/Piet_Mondrian#/media/File:Piet_Mondriaan,_1930_-_Mondrian_Composition_II_in_Red,_Blue,_and_Yellow.jpg">Composition II en rouge, bleu et jaune</a>, P.Mondrian, 1930</li>
-<li><a href="https://d32dm0rphc51dk.cloudfront.net/ocgEy0HxvjqHsFXJO20PIw/larger.jpg">Fontaine</a>, M.Duchamp, 1917</li>
-<li><a href="https://static01.nyt.com/images/2015/12/04/arts/04BACON1/04BACON1-superJumbo-v2.jpg">Second Version of Triptych 1944</a>, F.Bacon, 1988</li>
-<li><a href="http://galeriegradiva.com/wp-content/uploads/2014/11/KLEIN_1.jpg">IKB 290</a>, Y.Klein, 1959</li>
+</section>
+<section id="credits" class="slide level2">
+<h2>Credits</h2>
+<ul>
+<li class="fragment"><a
+href="http://www.georgesbraque.org/images/gallery/gueridon.jpg">Guéridon</a>,
+G.Braque, 1913</li>
+<li class="fragment"><a
+href="https://c1.staticflickr.com/2/1305/563354141_dea564001f_b.jpg">Les
+demoiselles d’Avignon</a>, P.Picasso, 1907</li>
+<li class="fragment"><a
+href="https://en.wikipedia.org/wiki/Piet_Mondrian#/media/File:Piet_Mondriaan,_1930_-_Mondrian_Composition_II_in_Red,_Blue,_and_Yellow.jpg">Composition
+II en rouge, bleu et jaune</a>, P.Mondrian, 1930</li>
+<li class="fragment"><a
+href="https://d32dm0rphc51dk.cloudfront.net/ocgEy0HxvjqHsFXJO20PIw/larger.jpg">Fontaine</a>,
+M.Duchamp, 1917</li>
+<li class="fragment"><a
+href="https://static01.nyt.com/images/2015/12/04/arts/04BACON1/04BACON1-superJumbo-v2.jpg">Second
+Version of Triptych 1944</a>, F.Bacon, 1988</li>
+<li class="fragment"><a
+href="http://galeriegradiva.com/wp-content/uploads/2014/11/KLEIN_1.jpg">IKB
+290</a>, Y.Klein, 1959</li>
 </ul>
-<h2 id="credits-1">Credits</h2>
-<ul class="incremental">
-<li><a href="https://claudiabrigato.files.wordpress.com/2014/11/rothko-red.jpg">Orange et jaune</a>, M.Rothko, 1956</li>
-<li><a href="https://www.perrotin.com/images/2017/02/17/sophie_calle_the-sleepers_w1200xh630__003615.jpg">Dormeurs</a>, S.Calle, 1979</li>
-<li><a href="http://theforumist.com/wp-content/uploads/2016/12/5-Louise_Bourgeois_Together_20051.jpg">Ensemble</a>, L.Bourgeois, 2005</li>
-<li><a href="http://www.metmuseum.org/toah/works-of-art/1982.147.27/">Untitled</a>, J.Pollock, 1948</li>
-<li><a href="https://www.ibiblio.org/wm/paint/auth/kandinsky/kandinsky.comp-8.jpg">Composition VIII</a>, W.Kandinsky, 1923</li>
-<li><a href="https://www.moma.org/m/tours/7/tour_stops/171?locale=en">Suprematist Composition: White on White.</a>, K.Malevitch, 1918</li>
-<li><a href="http://www.renemagritte.org/images/paintings/the-treachery-of-images.jpg">La trahison des images</a>, R.Magritte, 1929</li>
+</section>
+<section id="credits-1" class="slide level2">
+<h2>Credits</h2>
+<ul>
+<li class="fragment"><a
+href="https://claudiabrigato.files.wordpress.com/2014/11/rothko-red.jpg">Orange
+et jaune</a>, M.Rothko, 1956</li>
+<li class="fragment"><a
+href="https://www.perrotin.com/images/2017/02/17/sophie_calle_the-sleepers_w1200xh630__003615.jpg">Dormeurs</a>,
+S.Calle, 1979</li>
+<li class="fragment"><a
+href="http://theforumist.com/wp-content/uploads/2016/12/5-Louise_Bourgeois_Together_20051.jpg">Ensemble</a>,
+L.Bourgeois, 2005</li>
+<li class="fragment"><a
+href="http://www.metmuseum.org/toah/works-of-art/1982.147.27/">Untitled</a>,
+J.Pollock, 1948</li>
+<li class="fragment"><a
+href="https://www.ibiblio.org/wm/paint/auth/kandinsky/kandinsky.comp-8.jpg">Composition
+VIII</a>, W.Kandinsky, 1923</li>
+<li class="fragment"><a
+href="https://www.moma.org/m/tours/7/tour_stops/171?locale=en">Suprematist
+Composition: White on White.</a>, K.Malevitch, 1918</li>
+<li class="fragment"><a
+href="http://www.renemagritte.org/images/paintings/the-treachery-of-images.jpg">La
+trahison des images</a>, R.Magritte, 1929</li>
 </ul>
-<h2 id="feedback">Feedback</h2>
+</section>
+<section id="feedback" class="slide level2">
+<h2>Feedback</h2>
 <h3 id="questionnaire">Questionnaire</h3>
-<p><a href="https://goo.gl/forms/TCj3Z9pNorXgop4g1">https://goo.gl/forms/TCj3Z9pNorXgop4g1</a></p>
+<p><a
+href="https://goo.gl/forms/TCj3Z9pNorXgop4g1">https://goo.gl/forms/TCj3Z9pNorXgop4g1</a></p>
+</section></section>
     </div>
   </div>
 
+  <script src="/reveal.js/dist/reveal.js"></script>
 
-  <script src="/reveal.js-3.8.0/lib/js/head.min.js"></script>
-  <script src="/reveal.js-3.8.0/js/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="/reveal.js/plugin/notes/notes.js"></script>
+  <script src="/reveal.js/plugin/search/search.js"></script>
+  <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+  <script src="/reveal.js/plugin/math/math.js"></script>
 
   <script>
 
-      // Full list of configuration options available here:
-      // https://github.com/hakimel/reveal.js#configuration
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
       Reveal.initialize({
+        // Display controls in the bottom right corner
         controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
         progress: true,
-        history: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
         center: true,
-        theme: 'old-english', // available themes are in /css/theme
-        transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
 
-        // Optional libraries used to extend on reveal.js
-        dependencies: [
-          { src: '/reveal.js-3.8.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: '/reveal.js-3.8.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-          { src: '/reveal.js-3.8.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-//          { src: '/reveal.js-3.8.0/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
-//          { src: '/reveal.js-3.8.0/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-]});
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
     </script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-42631907-2', 'auto');
-  ga('send', 'pageview');
-
-</script>
-</body>
+    </body>
 </html>

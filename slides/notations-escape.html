@@ -3,203 +3,324 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-
-  <meta name="author" content="Arnaud Bailly - @dr_c0d3" />
-
-
-  <meta name="dcterms.date" content="June 14, 2022" />
-
+  <meta name="author" content="Arnaud Bailly - @dr_c0d3">
+  <meta name="dcterms.date" content="2022-06-14">
   <title>Timeo danaos et dona ferentes</title>
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="/reveal.js-3.8.0/css/reveal.css"/>
-    <style type="text/css">code{white-space: pre;}</style>
-
-    <style type="text/css">code{white-space: pre;}</style>
-    <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    </style>
-
-
-    <link rel="stylesheet" href="/reveal.js-3.8.0/css/theme/white.css" id="theme">
-
-    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
-    <script>
-      if( window.location.search.match( /print-pdf/gi ) ) {
-        var link = document.createElement( 'link' );
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = '/reveal.js-3.8.0/css/print/pdf.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
-      }
-    </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-    <!--[if lt IE 9]>
-    <script src="/reveal.js-3.8.0/lib/js/html5shiv.js"></script>
-    <![endif]-->
-
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="/reveal.js/dist/theme/white.css" id="theme">
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
-
-<section>
-    <h1 class="title">Timeo danaos et dona ferentes</h1>
-
-  <h2 class="subtitle">A response to &quot;Notations. There is no escape&quot;</h2>
-
-
-    <h3 class="author">Arnaud Bailly - @dr_c0d3</h3>
-
-
-    <h3 class="date">June 14, 2022</h3>
+<section id="title-slide">
+  <h1 class="title">Timeo danaos et dona ferentes</h1>
+  <p class="subtitle">A response to “Notations. There is no escape”</p>
+  <p class="author">Arnaud Bailly - <span class="citation"
+data-cites="dr_c0d3">@dr_c0d3</span></p>
+  <p class="date">2022-06-14</p>
 </section>
 
-
-
-<h1 id="caveat-emptor">Caveat Emptor</h1>
+<section id="caveat-emptor" class="slide level1">
+<h1>Caveat Emptor</h1>
 <figure>
-<img src="/images/masque-grec.png" alt="https://upload.wikimedia.org/wikipedia/commons/e/ee/NAMA_Masque_esclave.jpg" />
-<figcaption aria-hidden="true">https://upload.wikimedia.org/wikipedia/commons/e/ee/NAMA_Masque_esclave.jpg</figcaption>
+<img data-src="/images/masque-grec.png"
+alt="https://upload.wikimedia.org/wikipedia/commons/e/ee/NAMA_Masque_esclave.jpg" />
+<figcaption
+aria-hidden="true">https://upload.wikimedia.org/wikipedia/commons/e/ee/NAMA_Masque_esclave.jpg</figcaption>
 </figure>
-<div class="notes">
+<aside class="notes">
 <ul>
 <li>Not sure what a “respondent” is supposed to do…</li>
 <li>I am just a practitioner, practicing “philosophy” as an amateur</li>
 </ul>
-</div>
-<h1 id="whats-the-curse-about">What’s the Curse About?</h1>
-<hr />
-<p><img src="/images/notation-1.svg" /></p>
-<div class="notes">
+</aside>
+</section>
+<section id="whats-the-curse-about" class="slide level1">
+<h1>What’s the Curse About?</h1>
+</section>
+<section class="slide level1">
+
+<p><img data-src="/images/notation-1.svg" /></p>
+<aside class="notes">
 <ul>
 <li>Notation as a negotiation between a Human and a Machine</li>
-<li>It can be more or less detached from the actual computing model (eg. abstract)</li>
+<li>It can be more or less detached from the actual computing model (eg.
+abstract)</li>
 </ul>
-</div>
-<hr />
-<p><img src="/images/notation-2.svg" /></p>
-<div class="notes">
+</aside>
+</section>
+<section class="slide level1">
+
+<p><img data-src="/images/notation-2.svg" /></p>
+<aside class="notes">
 <ul>
 <li>Notation as a negotiation between a “domain” and “computing”</li>
-<li>Programmability dimension, how far can you depart from what’s pre-built in the notation</li>
-<li>Problematic in itself: Domains do not exist in vacuum, they are also changed by their relation to machines</li>
+<li>Programmability dimension, how far can you depart from what’s
+pre-built in the notation</li>
+<li>Problematic in itself: Domains do not exist in vacuum, they are also
+changed by their relation to machines</li>
 </ul>
-</div>
-<hr />
-<p><img src="/images/notation-3a.svg" /></p>
-<div class="notes">
+</aside>
+</section>
+<section class="slide level1">
+
+<p><img data-src="/images/notation-3a.svg" /></p>
+<aside class="notes">
 <ul>
-<li>Notation as a representation of how humans talk about their domains</li>
+<li>Notation as a representation of how humans talk about their
+domains</li>
 <li>Domain Specific Languages, “trade jargon”</li>
 </ul>
-</div>
-<hr />
-<p><img src="/images/notation-3b.svg" /></p>
-<div class="notes">
+</aside>
+</section>
+<section class="slide level1">
+
+<p><img data-src="/images/notation-3b.svg" /></p>
+<aside class="notes">
 <ul>
-<li>The dream of BDD: Expressing the “problem” in the language of the “domain experts”</li>
+<li>The dream of BDD: Expressing the “problem” in the language of the
+“domain experts”</li>
 <li>DDD: using the language of the domain in the “solution space”</li>
-<li>Removing intermediates (eg. Business Analysts, Product Managers)</li>
+<li>Removing intermediates (eg. Business Analysts, Product
+Managers)</li>
 </ul>
-</div>
-<hr />
-<p><img src="/images/notation-4.svg" /></p>
-<div class="notes">
+</aside>
+</section>
+<section class="slide level1">
+
+<p><img data-src="/images/notation-4.svg" /></p>
+<aside class="notes">
 <ul>
 <li>Notation as way to negotiate meaning between humans</li>
-<li>Famous Abelson &amp; Sussman quote about reading vs. writing, human consumption</li>
-<li>Programming is a <em>translation</em> process between “domains”, but it’s impure</li>
+<li>Famous Abelson &amp; Sussman quote about reading vs. writing, human
+consumption</li>
+<li>Programming is a <em>translation</em> process between “domains”, but
+it’s impure</li>
 </ul>
-</div>
-<h1 id="notations-are-social-too">Notations are Social Too</h1>
-<ul class="incremental">
-<li>Taking the <em>Linguistic approach</em> seriously: Notations are social through and through
-<ul class="incremental">
-<li>Structure of powers are embedded in notations and their use</li>
-</ul></li>
-<li>Distiguishing “High-level” vs “Low-level” languages entail a certain world view</li>
-<li>“Design” vs. “Implementation” reenacts the old dichotomy of thought vs. matter, thinking vs. doing, Poiesis vs. Praxis</li>
-</ul>
-<div class="notes">
+</aside>
+</section>
+<section id="notations-are-social-too" class="slide level1">
+<h1>Notations are Social Too</h1>
 <ul>
-<li>Use of more or less complex formalisms to provide “semantics” to notations</li>
-<li>“My language is bigger than yours” phenomenon, aka. C++ syndrom</li>
-<li>Failure of separating Design (UML) from implementation (Code generation + some remains…) -&gt; code fights back</li>
+<li class="fragment">Taking the <em>Linguistic approach</em> seriously:
+Notations are social through and through
+<ul>
+<li class="fragment">Structure of powers are embedded in notations and
+their use</li>
+</ul></li>
+<li class="fragment">Distiguishing “High-level” vs “Low-level” languages
+entail a certain world view</li>
+<li class="fragment">“Design” vs. “Implementation” reenacts the old
+dichotomy of thought vs. matter, thinking vs. doing, Poiesis
+vs. Praxis</li>
 </ul>
-</div>
+<aside class="notes">
+<ul>
+<li>Use of more or less complex formalisms to provide “semantics” to
+notations</li>
+<li>“My language is bigger than yours” phenomenon, aka. C++ syndrom</li>
+<li>Failure of separating Design (UML) from implementation (Code
+generation + some remains…) -&gt; code fights back</li>
+</ul>
+</aside>
+</section>
     </div>
   </div>
 
+  <script src="/reveal.js/dist/reveal.js"></script>
 
-  <script src="/reveal.js-3.8.0/lib/js/head.min.js"></script>
-  <script src="/reveal.js-3.8.0/js/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="/reveal.js/plugin/notes/notes.js"></script>
+  <script src="/reveal.js/plugin/search/search.js"></script>
+  <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+  <script src="/reveal.js/plugin/math/math.js"></script>
 
   <script>
 
-      // Full list of configuration options available here:
-      // https://github.com/hakimel/reveal.js#configuration
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
       Reveal.initialize({
+        // Display controls in the bottom right corner
         controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
         progress: true,
-        history: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
         center: true,
-        theme: 'old-english', // available themes are in /css/theme
-        transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
 
-        // Optional libraries used to extend on reveal.js
-        dependencies: [
-          { src: '/reveal.js-3.8.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: '/reveal.js-3.8.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-          { src: '/reveal.js-3.8.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-//          { src: '/reveal.js-3.8.0/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
-//          { src: '/reveal.js-3.8.0/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-]});
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
     </script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-42631907-2', 'auto');
-  ga('send', 'pageview');
-
-</script>
-</body>
+    </body>
 </html>
