@@ -162,7 +162,7 @@ addListing l = applyCommand (Add l) >>= handleResult
 
 ![](/images/gasworks.jpg)
 
------
+## Outcome
 
 * Large stack comprising 8-10 effects, hard to understand type errors, complex wiring due to dependencies between effects
 * Initial strict layering went bust after a while leading to _Big Bull of Mud_ and IO-creep
@@ -179,7 +179,7 @@ addListing l = applyCommand (Add l) >>= handleResult
 
 ![](/images/joy.png)
 
------
+## Outcome
 
 * Worked out pretty well initially, scaling to cloud execution, spinning up VMs and the like
 * **Problem**: Maintenance! As I moved to other projects, it became harder and harder for others to maintain and extend the tool until it got deprecated.
