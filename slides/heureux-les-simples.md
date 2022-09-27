@@ -184,7 +184,7 @@ addListing l = applyCommand (Add l) >>= handleResult
 * Worked out pretty well initially, scaling to cloud execution, spinning up VMs and the like
 * **Problem**: Maintenance! As I moved to other projects, it became harder and harder for others to maintain and extend the tool until it got deprecated.
 
-## Take 4: Moar Freer
+## Take 5: Moar Freer
 
 * _IOG_: [Plutus](https://developers.cardano.org/docs/smart-contracts/plutus) is the Smart Contracts language for Cardano
 * [Plutus Application Backend](https://github.com/input-output-hk/plutus-apps/blob/main/plutus-pab/ARCHITECTURE.adoc) is the official framework to build applications with and it's built with _freer_
