@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Arnaud Bailly - @dr_c0d3">
+  <meta name="dcterms.date" content="2022-10-21">
+  <title>TDD &amp; TDD sont dans un bateau</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="/reveal.js/dist/theme/virgil-black-iohk.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">TDD &amp; TDD sont dans un bateau</h1>
+  <p class="subtitle">TDD au delà des exemples</p>
+  <p class="author">Arnaud Bailly - <span class="citation"
+data-cites="dr_c0d3">@dr_c0d3</span></p>
+  <p class="institute">Input Output Global</p>
+  <p class="date">2022-10-21</p>
+</section>
+
+<section>
+<section id="introduction" class="title-slide slide level1">
+<h1>Introduction</h1>
+
+</section>
+<section id="plan" class="slide level2">
+<h2>Plan</h2>
+<ul>
+<li class="fragment">Pourquoi ?</li>
+<li class="fragment">TDD par l’exemple</li>
+<li class="fragment">Types et Tests de propriété</li>
+<li class="fragment">Mutations</li>
+<li class="fragment">Conclusion</li>
+</ul>
+</section>
+<section id="présentation" class="slide level2">
+<h2>Présentation</h2>
+<ul>
+<li class="fragment">Actuellement architecte pour la blockchain
+Cardano</li>
+<li class="fragment">Intéressé par le test depuis une thèse sur le
+sujet</li>
+<li class="fragment">Pratiquant assidu d’<em>eXtreme
+Programming</em></li>
+<li class="fragment">Convaincu de l’intérêt du typage statique fort</li>
+</ul>
+</section></section>
+<section>
+<section id="pourquoi" class="title-slide slide level1">
+<h1>Pourquoi ?</h1>
+
+</section>
+<section id="tdd" class="slide level2">
+<h2>TDD</h2>
+<p><img data-src="/images/tdd-kent-beck.png" /></p>
+<aside class="notes">
+<ul>
+<li>en tant que développeur, je me sens responsable de la qualité du
+code que je livre</li>
+<li>qualité = livrer non seulement un code correct mais aussi qui répond
+au besoin de l’utilisateur</li>
+<li><em>do the thing and do the right thing</em></li>
+</ul>
+</aside>
+</section>
+<section id="tdd-1" class="slide level2">
+<h2>TDD</h2>
+<p><img data-src="/images/tdd-is-dogma.png" /></p>
+<aside class="notes">
+<ul>
+<li>TDD permet d’atteindre ces deux objectifs en guidant la conception
+tout en se protégeant des évolutions futures</li>
+<li>mais on peut toujours faire mieux !</li>
+</ul>
+</aside>
+</section></section>
+<section>
+<section id="développement-dirigé-par-les-tests"
+class="title-slide slide level1">
+<h1>Développement Dirigé par les Tests</h1>
+
+</section>
+<section id="le-problème" class="slide level2">
+<h2>Le problème</h2>
+<p><strong>N</strong>uméro d’<strong>I</strong>nscription au
+<strong>R</strong>épertoire des Personnes Physiques</p>
+<p>=</p>
+<p><a
+href="https://fr.wikipedia.org/wiki/Num%C3%A9ro_de_s%C3%A9curit%C3%A9_sociale_en_France">NIR</a></p>
+<aside class="notes">
+<ul>
+<li>Attribué à chaque enfant né en France</li>
+<li>Imaginé en 1940 pour les besoins de la Résistance, récupéré par
+Vichy, puis la IVème république</li>
+<li>Il a une sémantique bien précise =&gt; permet d’identifier des
+personnes =&gt; peu sûr</li>
+<li>ubiquitaire dans toutes les procédures administratives</li>
+</ul>
+</aside>
+</section>
+<section id="le-problème-1" class="slide level2" data-transition="none">
+<h2 data-transition="none">Le problème</h2>
+<p><img data-src="/images/nir-1.png" /></p>
+</section>
+<section id="le-problème-2" class="slide level2" data-transition="none">
+<h2 data-transition="none">Le problème</h2>
+<p><img data-src="/images/nir-2.png" /></p>
+<aside class="notes">
+<ul>
+<li>des instructions de Vichy envisageaint d’utiliser le code pour
+ficher certaines catégories de population, ie. les juifs</li>
+</ul>
+</aside>
+</section>
+<section id="le-problème-3" class="slide level2" data-transition="none">
+<h2 data-transition="none">Le problème</h2>
+<p><img data-src="/images/nir-3.png" /></p>
+</section>
+<section id="le-problème-4" class="slide level2" data-transition="none">
+<h2 data-transition="none">Le problème</h2>
+<p><img data-src="/images/nir-4.png" /></p>
+</section>
+<section id="le-problème-5" class="slide level2" data-transition="none">
+<h2 data-transition="none">Le problème</h2>
+<p><img data-src="/images/nir-5.png" /></p>
+</section>
+<section id="le-problème-6" class="slide level2" data-transition="none">
+<h2 data-transition="none">Le problème</h2>
+<p><img data-src="/images/nir-6.png" /></p>
+</section>
+<section id="le-problème-7" class="slide level2" data-transition="none">
+<h2 data-transition="none">Le problème</h2>
+<p><img data-src="/images/nir-7.png" /></p>
+</section>
+<section id="le-problème-8" class="slide level2" data-transition="none">
+<h2 data-transition="none">Le problème</h2>
+<p><img data-src="/images/nir-8.png" /></p>
+</section>
+<section id="cycle-tdd" class="slide level2" data-transition="none">
+<h2 data-transition="none">Cycle TDD</h2>
+<p><img data-src="/images/tdd-1.png" /></p>
+</section>
+<section id="cycle-tdd-1" class="slide level2" data-transition="none">
+<h2 data-transition="none">Cycle TDD</h2>
+<p><img data-src="/images/tdd-2.png" /></p>
+</section>
+<section id="cycle-tdd-2" class="slide level2" data-transition="none">
+<h2 data-transition="none">Cycle TDD</h2>
+<p><img data-src="/images/tdd-3.png" /></p>
+</section>
+<section id="premier-test" class="slide level2">
+<h2>Premier test</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>validateINSEESpec <span class="ot">=</span> describe <span class="st">&quot;Validate INSEE Number&quot;</span> <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    it <span class="st">&quot;returns True given a valid INSEE Number&quot;</span> <span class="op">$</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        validateINSEE <span class="st">&quot;223115935012322&quot;</span> <span class="ot">`shouldBe`</span> <span class="dt">True</span></span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>framework de test BDD-style (hspec)</li>
+<li>demarrer par le test =&gt; définir l’interface</li>
+<li>on utilise</li>
+</ul>
+</aside>
+</section>
+<section id="une-représentation-naïve" class="slide level2">
+<h2>Une représentation <em>naïve</em></h2>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">INSEE1</span> <span class="ot">=</span> <span class="dt">INSEE1</span> <span class="dt">String</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">deriving</span> <span class="kw">newtype</span> (<span class="dt">Eq</span>, <span class="dt">Show</span>, <span class="dt">IsString</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ot">validateINSEE ::</span> <span class="dt">INSEE1</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>simple encapsulation d’une chaîne de caractères</li>
+<li>un prédicat pour valider la chaîne</li>
+<li>simple, efficace, de bon goût</li>
+</ul>
+</aside>
+</section>
+<section id="triangulation" class="slide level2" data-transition="none">
+<h2 data-transition="none">Triangulation</h2>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    it <span class="st">&quot;must have the right length&quot;</span> <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        validateINSEE <span class="st">&quot;2230&quot;</span> <span class="ot">`shouldBe`</span> <span class="dt">False</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        validateINSEE <span class="st">&quot;2230159350123221&quot;</span> <span class="ot">`shouldBe`</span> <span class="dt">False</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>on “réduit” l’espace des chaînes valides en identifiant des cas
+négatif</li>
+<li>c’est analogue à la <em>triangulation</em> pour se repérer sur une
+carte</li>
+<li>on commence par une propriété de base de la chaîne</li>
+</ul>
+</aside>
+</section>
+<section id="triangulation-1" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Triangulation</h2>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    it <span class="st">&quot;first character must be 1 or 2&quot;</span> <span class="op">$</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        validateINSEE <span class="st">&quot;323115935012322&quot;</span> <span class="ot">`shouldBe`</span> <span class="dt">False</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+</section>
+<section id="triangulation-2" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Triangulation</h2>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    it <span class="st">&quot;characters at index 2 and 3 represent year&quot;</span> <span class="op">$</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        validateINSEE <span class="st">&quot;2ab115935012322&quot;</span> <span class="ot">`shouldBe`</span> <span class="dt">False</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>le seul test négatif possible pour les années c’est d’avoir autre
+chose que des chiffres</li>
+</ul>
+</aside>
+</section>
+<section id="triangulation-3" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Triangulation</h2>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    it <span class="st">&quot;characters at index 4 and 5 represent month&quot;</span> <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        validateINSEE <span class="st">&quot;223ab5935012322&quot;</span> <span class="ot">`shouldBe`</span> <span class="dt">False</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        validateINSEE <span class="st">&quot;223145935012322&quot;</span> <span class="ot">`shouldBe`</span> <span class="dt">False</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        validateINSEE <span class="st">&quot;223005935012322&quot;</span> <span class="ot">`shouldBe`</span> <span class="dt">False</span></span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>le mois est plus intéressant: il faut supprimer plus de cas</li>
+<li>pointe un pb subtil dans notre approche: la chaîne n’est pas valide
+pour 2 raisons
+<ul>
+<li>celle explicite dans chaque cas testé</li>
+<li>celle implicite dans le fait que la clé de contrôle serait invalide
+si elle était calculé</li>
+</ul></li>
+</ul>
+</aside>
+</section>
+<section id="triangulation-4" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Triangulation</h2>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    it <span class="st">&quot;characters at index 6 and 7 represent department&quot;</span> <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        validateINSEE <span class="st">&quot;22311xx35012322&quot;</span> <span class="ot">`shouldBe`</span> <span class="dt">False</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        validateINSEE <span class="st">&quot;223119635012322&quot;</span> <span class="ot">`shouldBe`</span> <span class="dt">False</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+</section>
+<section id="triangulation-5" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Triangulation</h2>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    it <span class="st">&quot;characters at index 6 and 7 contain 99 for a foreign-born person&quot;</span> <span class="op">$</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        validateINSEE <span class="st">&quot;200029923123486&quot;</span> <span class="ot">`shouldBe`</span> <span class="dt">True</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+</section>
+<section id="triangulation-6" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Triangulation</h2>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>    it <span class="st">&quot;characters 8, 9, and 10 represent city or country code&quot;</span> <span class="op">$</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>        validateINSEE <span class="st">&quot;2231159zzz12322&quot;</span> <span class="ot">`shouldBe`</span> <span class="dt">False</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+</section>
+<section id="triangulation-7" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Triangulation</h2>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>    it <span class="st">&quot;characters 11, 12, and 13 represent an order&quot;</span> <span class="op">$</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        validateINSEE <span class="st">&quot;2231159123zzz22&quot;</span> <span class="ot">`shouldBe`</span> <span class="dt">False</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+</section>
+<section id="triangulation-8" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Triangulation</h2>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>    it <span class="st">&quot;characters 14 and 15 represent a control key&quot;</span> <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>        validateINSEE <span class="st">&quot;223115935012321&quot;</span> <span class="ot">`shouldBe`</span> <span class="dt">False</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+</section>
+<section id="le-code-du-validateur" class="slide level2">
+<h2>Le code du validateur</h2>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>validateINSEE (<span class="dt">INSEE1</span> [gender, year1, year2, month1, month2, dept1, dept2, <span class="op">...</span>]) <span class="ot">=</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    validateGender gender</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>     <span class="op">&amp;&amp;</span> validateYear [year1, year2]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>     <span class="op">&amp;&amp;</span> validateMonth [month1, month2]</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>     <span class="op">&amp;&amp;</span> validateDepartment [dept1, dept2]</span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>on filtre la chaîne en capturant les différents caractères qui nous
+intéressent</li>
+<li>on a des fonctions individuelles de validatios pour chaque composant
+du NIR</li>
+<li>tous les cas ne sont pas encore implémentés</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ot">validateDepartment ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>validateDepartment dept <span class="ot">=</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">maybe</span> <span class="dt">False</span> (\m <span class="ot">-&gt;</span> m <span class="op">&lt;=</span> <span class="dv">95</span> <span class="op">&amp;&amp;</span> m <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">||</span> m <span class="op">==</span> <span class="dv">99</span>) (readNumber dept)</span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>le code de validation du département est un peu plus complexe</li>
+<li>on traite le cas des personne nées à l’étranger</li>
+<li>pour des raisons de place on ne traite pas quelques cas
+particuliers:
+<ul>
+<li>les DOM/TOM</li>
+<li>les personnes nées en Algérie/Tunisie/Maroc avant 1962</li>
+</ul></li>
+</ul>
+</aside>
+</section>
+<section id="après-quelques-cycles" class="slide level2">
+<h2>Après quelques cycles…</h2>
+<p><img data-src="/images/tdd-nir-base-results.png" /></p>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/champagne.jpeg" /></p>
+</section>
+<section id="ou-pas" class="slide level2">
+<h2>Ou pas ?</h2>
+<ul>
+<li class="fragment"><a
+href="https://wiki.c2.com/?PrimitiveObsession">Primitive Obsession</a>
+anti-pattern</li>
+<li class="fragment">Nombre limité d’exemples utilisé pour
+trianguler</li>
+<li class="fragment">On doit revalider à chaque réutilisation d’une
+valeur de type <code>INSEE</code></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Encapsuler une chaîne de caractères comme représentation interne
+c’est rapide mais peu robuste</li>
+<li>On ne représente pas les idées du domaine: genre, année et lieu de
+naissance, identification, clé</li>
+</ul>
+</aside>
+</section></section>
+<section>
+<section id="un-meilleur-modèle" class="title-slide slide level1">
+<h1>Un meilleur modèle</h1>
+
+</section>
+<section id="de-limportance-du-domaine" class="slide level2">
+<h2>De l’importance du domaine</h2>
+<p><img data-src="/images/nir-hexagon.png" /></p>
+<aside class="notes">
+<ul>
+<li>séparer les concepts du domaine de leur représentation</li>
+<li>aka. architecture hexagonale</li>
+<li>aka. <em>Ports &amp; Adapters</em></li>
+</ul>
+</aside>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<p><img data-src="/images/use-the-types-luke.jpeg" /></p>
+<aside class="notes">
+<ul>
+<li>dans un langage statiquement typé on doit pouvoir représenter des
+exigences métiers dans le système de types</li>
+<li>un objet du domaine doit être structurellement valide pour
+exister</li>
+<li>aka. “Make impossible states impossible”</li>
+</ul>
+</aside>
+</section>
+<section id="use-the-types-luke" class="slide level2">
+<h2>Use the Types, Luke</h2>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">INSEE</span> <span class="ot">=</span> <span class="dt">INSEE</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    {<span class="ot"> gender ::</span> <span class="dt">Gender</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    ,<span class="ot"> year ::</span> <span class="dt">Year</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    ,<span class="ot"> month ::</span> <span class="dt">Month</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    ,<span class="ot"> dept ::</span> <span class="dt">Department</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    ,<span class="ot"> commune ::</span> <span class="dt">Commune</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    ,<span class="ot"> order ::</span> <span class="dt">Order</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>rendre explicite les choses, utiliser le langage du domaine</li>
+<li>détailler la structure valide au moyen de champs aux noms et types
+descriptifs</li>
+</ul>
+</aside>
+</section>
+<section id="use-the-types-luke-1" class="slide level2">
+<h2>Use the Types, Luke</h2>
+<p>La clé <em>ne fait pas partie</em> du modèle, c’est une fonction
+dérivée</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ot">computeINSEEKey ::</span> <span class="dt">INSEE</span> <span class="ot">-&gt;</span> <span class="dt">Key</span></span></code></pre></div>
+</section>
+<section id="use-the-types-luke-2" class="slide level2">
+<h2>Use the Types, Luke</h2>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Gender</span> <span class="ot">=</span> <span class="dt">M</span> <span class="op">|</span> <span class="dt">F</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Month</span> <span class="ot">=</span> <span class="dt">Jan</span> <span class="op">|</span> <span class="dt">Fev</span> <span class="op">|</span> <span class="dt">Mar</span> <span class="op">|</span> <span class="dt">Apr</span> <span class="op">|</span> <span class="dt">Mai</span> <span class="op">|</span> <span class="dt">Jun</span> <span class="op">...</span></span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>contraindre les seules valeurs possibles au moyen
+“d’énumérations”</li>
+<li>par abus de langage, on parle de “types sommes”</li>
+</ul>
+</aside>
+</section>
+<section id="use-the-types-luke-3" class="slide level2">
+<h2>Use the Types, Luke</h2>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Department</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="ot">=</span> <span class="dt">Dept</span> (<span class="dt">Zn</span> <span class="dv">96</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> <span class="dt">Foreign</span></span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>séparer explicitement les différents cas possibles d’un même
+type</li>
+<li>analogue au sous-typage dans les langages objets</li>
+<li>le langage permet de garantir la courverture de traitemetn des
+différents cas par “filtrage de motifs”</li>
+</ul>
+</aside>
+</section>
+<section id="use-the-types-luke-4" class="slide level2">
+<h2>Use the Types, Luke</h2>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Year</span> <span class="ot">=</span> <span class="dt">Year</span> (<span class="dt">Zn</span> <span class="dv">10</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">deriving</span> (<span class="dt">Eq</span>, <span class="dt">Show</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Commune</span> <span class="ot">=</span> <span class="dt">Commune</span> (<span class="dt">Zn</span> <span class="dv">1000</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">deriving</span> (<span class="dt">Eq</span>, <span class="dt">Show</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Key</span> <span class="ot">=</span> <span class="dt">Key</span> (<span class="dt">Zn</span> <span class="dv">100</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">deriving</span> (<span class="dt">Eq</span>, <span class="dt">Show</span>)</span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>expliciter les bornes d’un domaine numérique entier =&gt; notion de
+types dépendants</li>
+<li><code>Zn</code> = groupe fini contenant <code>n</code> entiers</li>
+<li>par exemple, on a 100 valeurs différentes possibles pour une clé à 2
+chiffres, 0 à 99</li>
+<li>il reste un codage résiduel, par exemple dans l’année sur 2 chiffres
+mais en l’absence d’autre information il est difficile de faire
+autrement</li>
+<li>les contraintes réelles pour le departement et la commune sont plus
+complexes</li>
+<li>=&gt; le bug dans Year est <em>volontaire</em></li>
+</ul>
+</aside>
+</section></section>
+<section>
+<section id="développement-dirigé-par-les-types"
+class="title-slide slide level1">
+<h1>Développement Dirigé par les Types</h1>
+
+</section>
+<section id="tester-aux-interfaces" class="slide level2">
+<h2>Tester aux interfaces</h2>
+<p><img data-src="/images/nir-hexagon.png" /></p>
+<aside class="notes">
+<ul>
+<li>le domaine est valide “par construction”</li>
+<li>on va s’intéresser aux entrées/sorties pour garantir aux
+clients/fournisseurs que les représentations produites sont
+correctes</li>
+<li>on devra quand même tester les fonctions internes au domaine bien
+sûr (calcul de la clé dans notre cas)</li>
+</ul>
+</aside>
+</section>
+<section id="parse-dont-validate" class="slide level2">
+<h2>“Parse, Don’t Validate”</h2>
+<p>©<a
+href="https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/">Alexis
+King</a></p>
+<p><img data-src="/images/nir-parse.png" /></p>
+<aside class="notes">
+<ul>
+<li>parse == analyser syntaxiquement == déserialiser</li>
+<li>aux frontières du domaine, on construit des valeurs de types valides
+par transformation d’une représentation externe</li>
+<li>on garantit à l’intérieur du domaine la cohérence des valeurs et
+leur correction</li>
+<li>on limite les erreurs d’utilisation potentielle -&gt; limite la
+taille de l’ensemble des valeurs possibles d’un type</li>
+</ul>
+</aside>
+</section>
+<section id="parse-dont-validate-1" class="slide level2">
+<h2>“Parse, Don’t Validate”</h2>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ot">parse ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Left</span> <span class="dt">ParseError</span> <span class="dt">INSEE</span></span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>une chaîne de caractères quelconque peut ne pas être un identifiant
+INSEE valide, d’où le type de retour <code>Either</code></li>
+<li>cette fonction a une propriété intéressante: elle est
+<em>totale</em></li>
+</ul>
+</aside>
+</section>
+<section id="print-parse-1" class="slide level2">
+<h2>Print = Parse<span class="math inline"><sup>−1</sup></span></h2>
+<p><img data-src="/images/nir-pretty-print.png" /></p>
+<aside class="notes">
+<ul>
+<li>pretty-printing est l’inverse de parse == sérialiser</li>
+<li>utiliser pour transformer une valeur (par construction correcte) en
+une autre représentation (ici une chaîne de caractères)</li>
+<li>le consommateur pourra avoir sa propre représentation interne, ses
+propres types</li>
+<li>diminue le couplage tout en garantissant la correction de chaque
+domaine</li>
+</ul>
+</aside>
+</section>
+<section id="print-parse-1-1" class="slide level2">
+<h2>Print = Parse<span class="math inline"><sup>−1</sup></span></h2>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ot">pretty ::</span> <span class="dt">INSEE</span> <span class="ot">-&gt;</span> <span class="dt">String</span></span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>pas besoin de traiter les cas d’erreur dans le codomaine de la
+fonction puisqu’une valeur <code>INSEE</code> est nécessairement
+correcte</li>
+</ul>
+</aside>
+</section>
+<section id="print-parse-1-2" class="slide level2">
+<h2>Print = Parse<span class="math inline"><sup>−1</sup></span></h2>
+<blockquote>
+<p>Étant donné un identifiant INSEE correct, on doit pouvoir
+reconstruire cet identifiant à partir d’une chaîne de caractères le
+représentant.</p>
+</blockquote>
+</section>
+<section id="print-parse-1-3" class="slide level2">
+<h2>Print = Parse<span class="math inline"><sup>−1</sup></span></h2>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>parseIsInverseToPrettyPrint insee <span class="ot">=</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    (parse <span class="op">.</span> <span class="fu">print</span>) insee <span class="op">==</span> <span class="dt">Right</span> insee <span class="op">&amp;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>       tabulate <span class="st">&quot;Year&quot;</span> [yearRange (<span class="fu">print</span> insee)]</span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>on définit une propriété d’isomorphisme: toute valeur</li>
+<li>utiliser la structure du type pour échantilloner l’ensemble des
+valeurs possibles =&gt; <code>Arbitrary</code></li>
+<li>on compare la composition des deux fonctions <code>print</code> et
+<code>parse</code> avec la valeur arbitraire initiale</li>
+<li><code>tabulate</code> calcule et affiche une distribution de
+valeurs</li>
+</ul>
+</aside>
+</section>
+<section id="générer-des-valeurs-arbitraires" class="slide level2">
+<h2>Générer des valeurs arbitraires</h2>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Arbitrary</span> <span class="dt">Gender</span> <span class="kw">where</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    arbitrary <span class="ot">=</span> elements [<span class="dt">M</span>, <span class="dt">F</span>]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Arbitrary</span> <span class="dt">Year</span> <span class="kw">where</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    arbitrary <span class="ot">=</span> <span class="dt">Year</span> <span class="op">&lt;$&gt;</span> someZn</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Arbitrary</span> <span class="dt">Month</span> <span class="kw">where</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    arbitrary <span class="ot">=</span> arbitraryBoundedEnum</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Arbitrary</span> <span class="dt">Department</span> <span class="kw">where</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    arbitrary <span class="ot">=</span> frequency [(<span class="dv">9</span>, <span class="dt">Dept</span> <span class="op">&lt;$&gt;</span> someZn), (<span class="dv">1</span>, <span class="fu">pure</span> <span class="dt">Foreign</span>)]</span></code></pre></div>
+<aside class="notes">
+
+</aside>
+</section>
+<section id="exécution-avec-quickcheck" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Exécution avec QuickCheck</h2>
+<p><img data-src="/images/nir-prop-invalid.png" /></p>
+</section>
+<section id="exécution-avec-quickcheck-1" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Exécution avec QuickCheck</h2>
+<p><img data-src="/images/nir-prop-invalid2.png" /></p>
+<aside class="notes">
+<ul>
+<li>on constate une anomalie dans la distribution des années: on devrait
+aller de 0 à 99 mais on ne va que de 0 à 10</li>
+<li><em>errare humanum est</em> -&gt; on a fait une erreur dans la
+définition du type <code>Year</code></li>
+</ul>
+</aside>
+</section>
+<section id="exécution-avec-quickcheck-2" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Exécution avec QuickCheck</h2>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Year</span> <span class="ot">=</span> <span class="dt">Year</span> (<span class="dt">Zn</span> <span class="dv">10</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">deriving</span> (<span class="dt">Eq</span>, <span class="dt">Show</span>)</span></code></pre></div>
+<p>devrait être</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Year</span> <span class="ot">=</span> <span class="dt">Year</span> (<span class="dt">Zn</span> <span class="dv">100</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">deriving</span> (<span class="dt">Eq</span>, <span class="dt">Show</span>)</span></code></pre></div>
+<aside class="notes">
+<ul>
+<li><em>errare humanum est</em> -&gt; on a fait une erreur dans la
+définition du type <code>Year</code></li>
+<li>il est essentiel de valider que nos générateurs produisent bien les
+valeurs auxquelles on s’attend</li>
+<li>QuickCheck permet de calculer ces distributions et même de faire
+échouer le test si la couverture n’est pas suffisamment “bonne”</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/champagne.jpeg" /></p>
+</section>
+<section id="ou-pas-1" class="slide level2">
+<h2>Ou pas ?</h2>
+<ul>
+<li class="fragment">On n’a pas vraiment vérifié la fonction
+<code>computeKey</code></li>
+<li class="fragment">La propriété vérifie que toute chaîne valide
+produit une valeur INSEE correcte</li>
+<li class="fragment">Mais qu’en-est-il de la contraposée :
+rejette-t’elle toute chaîne incorrecte ?</li>
+</ul>
+</section></section>
+<section>
+<section id="mutations" class="title-slide slide level1">
+<h1>Mutations</h1>
+
+</section>
+<section id="idée" class="slide level2">
+<h2>Idée <span class="emoji" data-emoji="tada">🎉</span></h2>
+<ul>
+<li class="fragment">Partir d’une valeur <code>INSEE</code>
+correcte</li>
+<li class="fragment">Lui appliquer une mutation <em>arbitraire</em> la
+transformant en valeur incorrecte</li>
+<li class="fragment">Vérifier que <code>parse</code> la rejette</li>
+</ul>
+</section>
+<section id="propriété" class="slide level2">
+<h2>Propriété</h2>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>inseeValidatorKillsMutants <span class="ot">=</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    forAll arbitrary <span class="op">$</span> \insee <span class="ot">-&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        forAll genMutant <span class="op">$</span> \mutation <span class="ot">-&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> mutant <span class="ot">=</span> mutation <span class="ot">`mutate`</span> insee</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                parsedInsee <span class="ot">=</span> parse mutant</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>             <span class="kw">in</span> isLeft parsedInsee <span class="op">&amp;</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                 tabulate <span class="st">&quot;Mutation&quot;</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>                   [<span class="fu">takeWhile</span> (<span class="fu">not</span> <span class="op">.</span> <span class="fu">isSpace</span>) <span class="op">$</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">show</span> mutation]</span></code></pre></div>
+</section>
+<section id="les-mutants" class="slide level2">
+<h2>Les mutants</h2>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Mutation</span> <span class="ot">=</span> <span class="dt">MutateYear</span> {<span class="ot">position ::</span> <span class="dt">Int</span>,<span class="ot"> character ::</span> <span class="dt">Char</span>}</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">deriving</span> (<span class="dt">Eq</span>, <span class="dt">Show</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ot">mutate ::</span> <span class="dt">Mutation</span> <span class="ot">-&gt;</span> <span class="dt">INSEE</span> <span class="ot">-&gt;</span> <span class="dt">String</span></span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>il faudrait étendre le type <code>Mutation</code> pour traiter les
+différents champs, on ne considère ici que l’année</li>
+<li>chaque mutation agit en remplacant des caractères de la
+représentation sous forme de chaînes du NIR par d’autres caractères</li>
+<li><code>mutate</code> applique une mutation sur une valeur et produit
+une chaîne supposée invalide</li>
+</ul>
+</aside>
+</section>
+<section id="générateur" class="slide level2">
+<h2>Générateur</h2>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ot">genMutant ::</span> <span class="dt">Gen</span> <span class="dt">Mutation</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>genMutant <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  position <span class="ot">&lt;-</span> choose (<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  character <span class="ot">&lt;-</span> arbitraryPrintableChar</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pure</span> <span class="op">$</span> <span class="dt">MutateYear</span>{position, character}</span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>on génère des mutation affectant spécifiquement un champ du NIR, ici
+uniquement l’année</li>
+<li>le caractère remplacé est arbitraire</li>
+</ul>
+</aside>
+</section>
+<section id="résultat" class="slide level2">
+<h2>Résultat <span class="emoji" data-emoji="bomb">💣</span></h2>
+<p><img data-src="/images/nir-mutant-invalid.png" /></p>
+<aside class="notes">
+<ul>
+<li>QuickCheck a trouvé un jeu de valeurs invalidant la propriété</li>
+<li>il est tout à fait possible que deux NIR différant par l’année ait
+la même clé</li>
+<li>les mutations produisent des “individus” viables</li>
+</ul>
+</aside>
+</section>
+<section id="générateur-amélioré" class="slide level2">
+<h2>Générateur amélioré</h2>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>genMutant <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  position <span class="ot">&lt;-</span> choose (<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  character <span class="ot">&lt;-</span> arbitraryPrintableChar  <span class="ot">`suchThat`</span> (<span class="fu">not</span> <span class="op">.</span> <span class="fu">isDigit</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pure</span> <span class="op">$</span> <span class="dt">MutateYear</span>{position, character}</span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>le caractère remplacé est arbitraire et ne doit pas être un
+nombre</li>
+<li>on pourrait envisager d’avoir des mutations plus subtils qui
+remplacent un chiffre par un à condition de vérifier que la clé est
+différente</li>
+<li>mais on peut aussi muter la clé…</li>
+</ul>
+</aside>
+</section>
+<section id="un-mutant-pour-les-clés" class="slide level2">
+<h2>Un mutant pour les clés</h2>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ot">genMutantForKey ::</span> <span class="dt">Gen</span> <span class="dt">Mutation</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>genMutantForKey <span class="ot">=</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">MutateKey</span> <span class="op">.</span> <span class="dt">Key</span> <span class="op">&lt;$&gt;</span> someZn</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>genMutant <span class="ot">=</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  oneof [ genMutantForYear, genMutantForKey ]</span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>le caractère remplacé est arbitraire et ne doit pas être un
+nombre</li>
+<li>on pourrait envisager d’avoir des mutations plus subtils qui
+remplacent un chiffre par un à condition de vérifier que la clé est
+différente</li>
+<li>mais on peut aussi muter la clé…</li>
+</ul>
+</aside>
+</section>
+<section id="résultat-1" class="slide level2">
+<h2>Résultat <span class="emoji" data-emoji="champagne">🍾</span></h2>
+<p><img data-src="/images/nir-mutant-valid.png" /></p>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+<p><img data-src="/images/gatsby.jpeg" /></p>
+</section></section>
+<section>
+<section id="conclusion" class="title-slide slide level1">
+<h1>Conclusion</h1>
+
+</section>
+<section id="types-tests" class="slide level2">
+<h2>Types + Tests = <span class="emoji"
+data-emoji="rocket">🚀</span></h2>
+<ul>
+<li class="fragment">Le typage fort s’intègre parfaitement dans le cycle
+TDD</li>
+<li class="fragment">Le test de propriété évite de devoir énumérer des
+exemples explicitement</li>
+<li class="fragment">L’utilisation de mutations améliore le processus de
+“triangulation” du domaine</li>
+<li class="fragment">Utilisé dans la vraie vie:
+<ul>
+<li class="fragment"><a
+href="https://github.com/input-output-hk/cardano-ledger">Cardano
+Ledger</a></li>
+<li class="fragment"><a
+href="https://github.com/input-output-hk/hydra-poc">Hydra</a></li>
+<li class="fragment"><a href="http://www.quviq.com/">Quviq</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="si-je-fais-pas-de-haskell" class="slide level2">
+<h2>Si je fais pas de Haskell ?</h2>
+<ul>
+<li class="fragment">Tous les langages ont désormais leur bibliothèque
+de tests de propriété
+<ul>
+<li class="fragment">Python <span class="math inline">⇒</span> <a
+href="https://hypothesis.readthedocs.io/en/latest/">hypothesis</a></li>
+<li class="fragment">Rust <span class="math inline">⇒</span> <a
+href="https://crates.io/crates/quickcheck">quickcheck</a></li>
+<li class="fragment">Java <span class="math inline">⇒</span>$ <a
+href="https://jqwik.net/">jqwik</a></li>
+<li class="fragment">…</li>
+</ul></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="/reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="/reveal.js/plugin/notes/notes.js"></script>
+  <script src="/reveal.js/plugin/search/search.js"></script>
+  <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>

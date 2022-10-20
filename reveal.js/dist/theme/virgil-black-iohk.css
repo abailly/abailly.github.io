@@ -1,0 +1,9 @@
+@import url("virgil-black.css");
+
+body:after {
+    content: url(/images/iohk-logo.png);
+    position: fixed;
+    bottom: 2.5em;
+    right: 2.5em;
+    box-shadow: 5px 5px 10px #000;
+}
