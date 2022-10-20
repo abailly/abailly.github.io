@@ -2,3 +2,6 @@
 	path = _site
 	url = https://github.com/abailly/abailly.github.io.git
 	branch = master
+[submodule "reveal.js"]
+	path = reveal.js
+	url = https://github.com/hakimel/reveal.js.git

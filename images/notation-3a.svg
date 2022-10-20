@@ -1,0 +1,16 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 134.85091155759028 187.91940481986023" width="269.70182311518056" height="375.83880963972047">
+  <!-- svg-source:excalidraw -->
+  
+  <defs>
+    <style>
+      @font-face {
+        font-family: "Virgil";
+        src: url("https://excalidraw.com/Virgil.woff2");
+      }
+      @font-face {
+        font-family: "Cascadia";
+        src: url("https://excalidraw.com/Cascadia.woff2");
+      }
+    </style>
+  </defs>
+  <rect x="0" y="0" width="134.85091155759028" height="187.91940481986023" fill="#ffffff"></rect><g transform="translate(10 152.91940481986023) rotate(0 33.5 12.5)"><text x="0" y="18" font-family="Virgil, Segoe UI Emoji" font-size="20px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">Domain</text></g><g transform="translate(12.985182283819768 10) rotate(0 29.5 12.5)"><text x="0" y="18" font-family="Virgil, Segoe UI Emoji" font-size="20px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">Human</text></g><g stroke-linecap="round"><g transform="translate(43.36938111802658 41.93260423156448) rotate(0 0.13131327918233637 50.01174353805894)"><path d="M-0.78 -0.41 C-0.61 16.28, 0.46 83.41, 0.37 100.42 M1.01 -1.66 C1.19 15.16, 0.59 84.79, 0.03 101.69" stroke="#000000" stroke-width="1" fill="none"></path></g><g transform="translate(43.36938111802658 41.93260423156448) rotate(0 0.13131327918233637 50.01174353805894)"><path d="M-10.39 75.23 C-8.12 79.45, -3.63 87.11, 0.8 100.26 M-9.98 74.07 C-7.09 83.19, -3.4 94.66, 0.01 101.43" stroke="#000000" stroke-width="1" fill="none"></path></g><g transform="translate(43.36938111802658 41.93260423156448) rotate(0 0.13131327918233637 50.01174353805894)"><path d="M10.13 75.61 C7.37 79.61, 6.84 87.17, 0.8 100.26 M10.54 74.45 C5.67 83.54, 1.61 94.87, 0.01 101.43" stroke="#000000" stroke-width="1" fill="none"></path></g></g><g transform="translate(50.85091155759028 79.79871600493357) rotate(0 37 10)"><text x="0" y="14" font-family="Virgil, Segoe UI Emoji" font-size="16px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">Expertise</text></g></svg>
