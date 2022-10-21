@@ -20,8 +20,8 @@ revealjs-url: /reveal.js
 
 ## Présentation
 
-* Actuellement architecte pour la blockchain Cardano
-* Intéressé par le test depuis une thèse sur le sujet
+* Architecte pour la blockchain Cardano chez [IOG](https://iohk.io)
+* ~~Traumatisé~~ Intéressé par le test depuis une thèse sur le sujet
 * Pratiquant assidu d'_eXtreme Programming_
 * Convaincu de l'intérêt du typage statique fort
 
@@ -59,6 +59,7 @@ revealjs-url: /reveal.js
 
 * même si vous ne pratiquez pas TDD, ces outils peuvent accroître la fiabilité du code
 * mais _Il n'y a pas de balle en argent_ => cela requiert discipline et courage, comme toute pratique XP
+* et si l'IA remplace l'écriture de code, au moins vous pourrez recycler  cette compétence dans l'écriture de specs et de tests
 
 :::
 
