@@ -152,7 +152,22 @@ au besoin de l’utilisateur</li>
 <ul>
 <li>TDD permet d’atteindre ces deux objectifs en guidant la conception
 tout en se protégeant des évolutions futures</li>
-<li>mais on peut toujours faire mieux !</li>
+<li>mais TDD a été conçu et est souvent utilisé avec des langages peu ou
+pas typés</li>
+<li>à quoi ressemblerait TDD avec des langages au typage fort tels que
+Haskell ou OCaml ?</li>
+</ul>
+</aside>
+</section>
+<section id="tdd-2" class="slide level2">
+<h2>TDD</h2>
+<p><img data-src="/images/tdd-is-dogma-2.png" /></p>
+<aside class="notes">
+<ul>
+<li>même si vous ne pratiquez pas TDD, ces outils peuvent accroître la
+fiabilité du code</li>
+<li>mais <em>Il n’y a pas de balle en argent</em> =&gt; cela requiert
+discipline et courage, comme toute pratique XP</li>
 </ul>
 </aside>
 </section></section>
@@ -230,6 +245,19 @@ ficher certaines catégories de population, ie. les juifs</li>
 <h2 data-transition="none">Cycle TDD</h2>
 <p><img data-src="/images/tdd-3.png" /></p>
 </section>
+<section id="le-code" class="slide level2">
+<h2>Le Code</h2>
+<p>https://github.com/abailly/xxi-century-typed/</p>
+<p><img data-src="/images/nir-qrcode.png" /></p>
+<aside class="notes">
+<ul>
+<li>je ne vais pas faire du live coding vraiment, non pas parce que je
+n’aime pas le risque mais parce que je sais d’expérience que c’est
+difficile à suivre</li>
+<li>le code complet est disponible à l’adresse indiquée</li>
+</ul>
+</aside>
+</section>
 <section id="premier-test" class="slide level2">
 <h2>Premier test</h2>
 <div class="sourceCode" id="cb1"><pre
@@ -241,7 +269,8 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a 
 <ul>
 <li>framework de test BDD-style (hspec)</li>
 <li>demarrer par le test =&gt; définir l’interface</li>
-<li>on utilise</li>
+<li>on part d’un premier test “positif” permettant de mettre en place
+l’API</li>
 </ul>
 </aside>
 </section>
@@ -549,6 +578,29 @@ complexes</li>
 class="title-slide slide level1">
 <h1>Développement Dirigé par les Types</h1>
 
+</section>
+<section id="types-propositions" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Types = Propositions</h2>
+<p><img data-src="/images/prop-as-types-1.png" /></p>
+</section>
+<section id="types-propositions-1" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Types = Propositions</h2>
+<p><img data-src="/images/prop-as-types-2.png" /></p>
+</section>
+<section id="types-propositions-2" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Types = Propositions</h2>
+<p><img data-src="/images/prop-as-types-3.png" /></p>
+<aside class="notes">
+<ul>
+<li>appelé aussi Isomorphisme de Curry-Howard</li>
+<li>les types sont des propositions, les programmes des preuves</li>
+<li>des “Vraies” preuves sont compliquées (types dépendants), on va se
+contenter de propriétés et de tests</li>
+</ul>
+</aside>
 </section>
 <section id="tester-aux-interfaces" class="slide level2">
 <h2>Tester aux interfaces</h2>
@@ -876,7 +928,7 @@ de tests de propriété
 href="https://hypothesis.readthedocs.io/en/latest/">hypothesis</a></li>
 <li class="fragment">Rust <span class="math inline">⇒</span> <a
 href="https://crates.io/crates/quickcheck">quickcheck</a></li>
-<li class="fragment">Java <span class="math inline">⇒</span>$ <a
+<li class="fragment">Java <span class="math inline">⇒</span> <a
 href="https://jqwik.net/">jqwik</a></li>
 <li class="fragment">…</li>
 </ul></li>
