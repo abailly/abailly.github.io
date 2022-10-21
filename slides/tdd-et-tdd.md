@@ -46,10 +46,21 @@ revealjs-url: /reveal.js
 ::: notes
 
 * TDD permet d'atteindre ces deux objectifs en guidant la conception tout en se protégeant des évolutions futures
-* mais on peut toujours faire mieux !
+* mais TDD a été conçu et est souvent utilisé avec des langages peu ou pas typés
+* à quoi ressemblerait TDD avec des langages au typage fort tels que Haskell ou OCaml ?
 
 :::
 
+## TDD
+
+![](/images/tdd-is-dogma-2.png)
+
+::: notes
+
+* même si vous ne pratiquez pas TDD, ces outils peuvent accroître la fiabilité du code
+* mais _Il n'y a pas de balle en argent_ => cela requiert discipline et courage, comme toute pratique XP
+
+:::
 
 # Développement Dirigé par les Tests
 
@@ -122,6 +133,18 @@ revealjs-url: /reveal.js
 
 ![](/images/tdd-3.png)
 
+## Le Code
+
+https://github.com/abailly/xxi-century-typed/
+
+![](/images/nir-qrcode.png)
+
+::: notes
+
+* je ne vais pas faire du live coding vraiment, non pas parce que je n'aime pas le risque mais parce que je sais d'expérience que c'est difficile à suivre
+* le code complet est disponible à l'adresse indiquée
+:::
+
 ## Premier test
 
 ```haskell
@@ -136,7 +159,7 @@ validateINSEESpec = describe "Validate INSEE Number" $ do
 
 * framework de test BDD-style (hspec)
 * demarrer par le test => définir l'interface
-* on utilise
+* on part d'un premier test "positif" permettant de mettre en place l'API
 
 :::
 
@@ -149,11 +172,13 @@ newtype INSEE1 = INSEE1 String
 validateINSEE :: INSEE1 -> Bool
 ```
 
-<div class="notes">
+::: notes
+
 * simple encapsulation d'une chaîne de caractères
 * un prédicat pour valider la chaîne
 * simple, efficace, de bon goût
-</div>
+
+:::
 
 ## Triangulation {transition=none}
 
@@ -434,6 +459,26 @@ newtype Key = Key (Zn 100)
 :::
 
 # Développement Dirigé par les Types
+
+## Types = Propositions { transition=none }
+
+![](/images/prop-as-types-1.png)
+
+## Types = Propositions { transition=none }
+
+![](/images/prop-as-types-2.png)
+
+## Types = Propositions { transition=none }
+
+![](/images/prop-as-types-3.png)
+
+::: notes
+
+* appelé aussi Isomorphisme de Curry-Howard
+* les types sont des propositions, les programmes des preuves
+* des "Vraies" preuves sont compliquées (types dépendants), on va se contenter de propriétés et de tests
+
+:::
 
 ## Tester aux interfaces
 
