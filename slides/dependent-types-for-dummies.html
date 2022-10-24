@@ -136,8 +136,8 @@ reviewers</li>
 </ul>
 </aside>
 </section>
-<section id="goal-for-this-talk" class="slide level2">
-<h2>Goal for this Talk</h2>
+<section id="goals-for-this-talk" class="slide level2">
+<h2>Goal(s) for this Talk</h2>
 <ul>
 <li class="fragment">Make PLT researchers <span class="emoji"
 data-emoji="smile">😄</span></li>
@@ -148,8 +148,19 @@ useful to grow software</li>
 <li class="fragment">Spark discussions on possibles use cases for Idris
 2 w/in Cardano</li>
 </ul>
+<aside class="notes">
+<ul>
+<li><span class="emoji" data-emoji="smile">😄</span> both from the
+naiveté of my approach and the amusement to see people using their stuff
+to do “mundane” programming tasks</li>
+</ul>
+</aside>
 </section>
 <section id="caveat-emptor" class="slide level2">
+<h2>Caveat Emptor</h2>
+<p><img data-src="/images/dont-know-what-am-doing.jpeg" /></p>
+</section>
+<section id="caveat-emptor-1" class="slide level2">
 <h2>Caveat Emptor</h2>
 <blockquote>
 <p>No theorem has been harmed in making this talk</p>
@@ -169,7 +180,7 @@ R&amp;D!</li>
 <section id="problem-statement" class="slide level2">
 <h2>Problem Statement</h2>
 <blockquote>
-<p>Define a Gregorian calendar <code>Date</code> type along with and
+<p>Define a Gregorian calendar <code>Date</code> type along with an
 <code>addDays</code> function. The <code>Date</code> must always be
 correct, eg. it should not be possible to define a <code>Date</code>
 like 2022-02-29 or 2020-06-31.</p>
@@ -369,12 +380,19 @@ total credits for all accounts in the general ledger. …</p>
 <li class="fragment">An <em>account</em> can fall into 5 different
 categories: <em>asset</em>, <em>liability</em>, <em>equity</em>,
 <em>expense</em>, or <em>revenue</em></li>
-<li class="fragment">The aggregate debit and credit <em>balance</em> of
-all accounts should be equal</li>
+<li class="fragment">The aggregate <em>balances</em> for debit and
+credit of all accounts should be equal</li>
 <li class="fragment">A <em>book of accounts</em> should preserve a
 <em>fundamental equation</em> that ensures <code>asset = liability +
 equity</code></li>
 </ul>
+<aside class="notes">
+<ul>
+<li>technically, the “fundamental equation” requires adding revenues and
+expenses to form net profit which balances the equation each year</li>
+<li>check with your local accountant for the details…</li>
+</ul>
+</aside>
 </section>
 <section id="first-model" class="slide level2">
 <h2>First Model</h2>
@@ -432,8 +450,8 @@ class="sourceCode idris"><code class="sourceCode idris"><span id="cb13-1"><a hre
 </ul>
 </aside>
 </section>
-<section id="testing-with-the-compiler" class="slide level2">
-<h2>Testing with the Compiler</h2>
+<section id="unit-testing-with-the-compiler" class="slide level2">
+<h2>Unit Testing with the Compiler</h2>
 <p>The <code>(=)</code> type allows us to write simple tests as
 types!</p>
 <div class="sourceCode" id="cb14"><pre
@@ -489,7 +507,7 @@ class="sourceCode idris"><code class="sourceCode idris"><span id="cb16-1"><a hre
 <section id="a-proper-monoid-instance" class="slide level2">
 <h2>A proper <code>Monoid</code> instance</h2>
 <p>Key function is <code>compensate</code> which produces a correct
-<code>Balance</code> (which is isomorph to <span
+<code>Balance</code> (which is isomorphic to <span
 class="math inline">ℤ</span>)</p>
 <div class="sourceCode" id="cb17"><pre
 class="sourceCode idris"><code class="sourceCode idris"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Semigroup</span> <span class="dt">Balance</span> <span class="kw">where</span></span>
@@ -522,7 +540,7 @@ class="sourceCode idris"><code class="sourceCode idris"><span id="cb18-1"><a hre
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">case</span> decEq (inverse (assets txs <span class="fu">&lt;+&gt;</span> expenses txs))</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>             (liabilities txs <span class="fu">&lt;+&gt;</span> capital txs <span class="fu">&lt;+&gt;</span> revenues txs) <span class="kw">of</span></span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    (<span class="dt">Yes</span> prf) <span class="ot">=&gt;</span> pure <span class="fu">$</span> <span class="dt">BookTransactions</span> txs</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    (<span class="dt">No</span> contra) <span class="ot">=&gt;</span> fail <span class="st">&quot;Transactions are not balanced, assets should equal sum of liabilities and capital&quot;</span></span></code></pre></div>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    (<span class="dt">No</span> contra) <span class="ot">=&gt;</span> fail <span class="st">&quot;Error&quot;</span></span></code></pre></div>
 </section>
 <section id="arnaud-in-wonderland" class="slide level2">
 <h2>Arnaud In Wonderland</h2>
@@ -530,18 +548,19 @@ class="sourceCode idris"><code class="sourceCode idris"><span id="cb18-1"><a hre
 <code>Monoid</code> properties on a <code>Balance</code></p>
 <p><img data-src="/images/balance-proof.png" /></p>
 </section>
-<section id="arnaud-in-wonderland-1" class="slide level2">
-<h2>Arnaud In Wonderland</h2>
+<section id="arnaud-in-wonderland-1" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Arnaud In Wonderland</h2>
 <ul>
 <li class="fragment"><a
 href="https://github.com/abailly/xxi-century-typed/blob/master/idris/src/Accounting/Proofs.idr">Proofs</a>
 of <em>associativity</em> quickly became bogged down into a maze of
 various cases</li>
-<li class="fragment">Embedding proofs in <em>data types</em> means we
-have to <em>discharge</em> those proofs to construct values, which leds
-to more work</li>
+<li class="fragment">Embedding proof obligations in <em>data types</em>
+means we have to <em>discharge</em> those proofs to construct values,
+which leds to more work</li>
 <li class="fragment">The <code>Balance</code> representation is probably
-still wrong and needs to be <em>distilled</em></li>
+still wrong and needs to be <em>distilled</em>`</li>
 </ul>
 </section></section>
 <section>
@@ -571,8 +590,8 @@ every 2 months (similar to Strategy &amp; Tactics in the US)</li>
 Apps: No native HTTP(S) server, no API/UI/HTML framework, no JSON…</li>
 <li class="fragment">Edwin Brady developed Idris 2 while I was half-way
 through the game!</li>
-<li class="fragment">Support for Concurrency, multithreading, networking
-are also quite nascent and depends a lot on the backend</li>
+<li class="fragment">Support for concurrency, multithreading, or
+networking is also quite nascent</li>
 </ul>
 </section>
 <section id="short-history" class="slide level2">
@@ -820,8 +839,8 @@ class="sourceCode idris"><code class="sourceCode idris"><span id="cb28-1"><a hre
 </section>
 <section id="error-handling" class="slide level2">
 <h2>Error Handling</h2>
-<p>There are no exceptions in Idris but it provide syntax to
-shortcircuit flow in monadic code</p>
+<p>There are no exceptions in Idris but it provides syntax to
+short-circuit flow in monadic code</p>
 <div class="sourceCode" id="cb29"><pre
 class="sourceCode idris"><code class="sourceCode idris"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>serve log sock clients gamesOutput gamesState <span class="fu">=</span> <span class="kw">do</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  log <span class="st">&quot;awaiting clients&quot;</span></span>
@@ -853,14 +872,21 @@ insights on the <em>representation</em> used</li>
 <section id="takeaways-idris-vs.-haskell" class="slide level2">
 <h2>Takeaways: Idris vs. Haskell</h2>
 <ul>
-<li class="fragment">Dependent Types in Idris are much easier to work
-with than in Haskell</li>
-<li class="fragment">Interacting with the compiler through
-<em>holes</em> has better integration in IDE</li>
-<li class="fragment">Eco-system is of course way smaller but adding
-backends and FFI are “easy”</li>
-<li class="fragment">Not having accumulated 30 years of development
-means the barrier to contribution is pretty low (I could do it!)</li>
+<li class="fragment"><span class="emoji"
+data-emoji="white_check_mark">✅</span> Dependent Types are much easier
+to work with</li>
+<li class="fragment"><span class="emoji"
+data-emoji="white_check_mark">✅</span> Better DevX in interactive
+development</li>
+<li class="fragment"><span class="emoji" data-emoji="x">❌</span> Much
+smaller eco-system</li>
+<li class="fragment"><span class="emoji" data-emoji="x">❌</span> Very
+much WIP so expect bumps</li>
+<li class="fragment"><span class="emoji"
+data-emoji="white_check_mark">✅</span> Easy to add backends and use
+FFI</li>
+<li class="fragment"><span class="emoji" data-emoji="question">❓</span>
+Low barrier of entry for contributing</li>
 </ul>
 <aside class="notes">
 <ul>
@@ -899,8 +925,8 @@ href="http://abailly.github.io/posts/dependently-typed-accounting.html">http://a
 <li class="fragment">Code for <code>Date</code> and
 <code>Accounting</code>: <a
 href="https://github.com/abailly/xxi-century-typed/blob/master/idris/src/Accounting.idr">https://github.com/abailly/xxi-century-typed</a></li>
-<li class="fragment">Code for Bautzen 1945:
-https://github.com/abailly/hsgames/blob/master/bautzen1945/</li>
+<li class="fragment">Code for Bautzen 1945 <a
+href="https://github.com/abailly/hsgames/blob/master/bautzen1945/">https://github.com/abailly/hsgames/blob/master/bautzen1945/</a></li>
 </ul>
 </section>
 <section id="questions" class="slide level2">
