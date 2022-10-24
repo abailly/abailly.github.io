@@ -38,6 +38,16 @@ revealjs-url: /reveal.js
 * Demonstrate 1st class _Dependent Types_ are useful to grow software
 * Spark discussions on possibles use cases for Idris 2 w/in Cardano
 
+::: notes
+
+* :smile: both from the naiveté of my approach and the amusement to see people using their stuff to do "mundane" programming tasks
+
+:::
+
+## Caveat Emptor
+
+![](/images/dont-know-what-am-doing.jpeg)
+
 ## Caveat Emptor
 
 > No theorem has been harmed in making this talk
@@ -49,7 +59,7 @@ revealjs-url: /reveal.js
 
 ## Problem Statement
 
-> Define a Gregorian calendar `Date` type along with and `addDays` function. The `Date` must always be correct, eg. it should not be possible to define a `Date` like 2022-02-29 or 2020-06-31.
+> Define a Gregorian calendar `Date` type along with an `addDays` function. The `Date` must always be correct, eg. it should not be possible to define a `Date` like 2022-02-29 or 2020-06-31.
 
 ## Base types: `addDays`
 
@@ -240,8 +250,15 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Double-entry_bookkeeping_system)
 * A _transaction_ comprises at least 2 _entries_
 * An _entry_ records a _debit_ or _credit_ amount in an _account_
 * An _account_ can fall into 5 different categories: _asset_, _liability_, _equity_, _expense_, or _revenue_
-* The aggregate debit and credit _balance_ of all accounts should be equal
+* The aggregate _balances_ for debit and credit of all accounts should be equal
 * A _book of accounts_ should preserve a _fundamental equation_ that ensures `asset = liability + equity`
+
+::: notes
+
+* technically, the "fundamental equation" requires adding revenues and expenses to form net profit which balances the equation each year
+* check with your local accountant for the details...
+
+:::
 
 ## First Model
 
@@ -305,7 +322,7 @@ data BookOfAccounts : Type where
 
 :::
 
-## Testing with the Compiler
+## Unit Testing with the Compiler
 
 The `(=)` type allows us to write simple tests as types!
 
@@ -359,7 +376,7 @@ data Balance : Type where
 
 ## A proper `Monoid` instance
 
-Key function is `compensate` which produces a correct `Balance` (which is isomorph to $\mathbb{Z}$)
+Key function is `compensate` which produces a correct `Balance` (which is isomorphic to $\mathbb{Z}$)
 
 ```idris
 Semigroup Balance where
@@ -392,7 +409,7 @@ parseBookOfAccounts = do
   case decEq (inverse (assets txs <+> expenses txs))
              (liabilities txs <+> capital txs <+> revenues txs) of
     (Yes prf) => pure $ BookTransactions txs
-    (No contra) => fail "Transactions are not balanced, assets should equal sum of liabilities and capital"
+    (No contra) => fail "Error"
 ```
 ## Arnaud In Wonderland
 
@@ -400,11 +417,11 @@ Things start to get tricky when trying (again) to prove `Monoid` properties on a
 
 ![](/images/balance-proof.png)
 
-## Arnaud In Wonderland
+## Arnaud In Wonderland {transition=none}
 
 * [Proofs](https://github.com/abailly/xxi-century-typed/blob/master/idris/src/Accounting/Proofs.idr) of *associativity* quickly became bogged down into a maze of various cases
-* Embedding proofs in _data types_ means we have to _discharge_ those proofs to construct values, which leds to more work
-* The `Balance` representation is probably still wrong and needs to be _distilled_
+* Embedding proof obligations in _data types_ means we have to _discharge_ those proofs to construct values, which leds to more work
+* The `Balance` representation is probably still wrong and needs to be _distilled_`
 
 # A Complete Application: Bautzen 1945
 
@@ -425,7 +442,7 @@ Things start to get tricky when trying (again) to prove `Monoid` properties on a
 
 * Idris does (or did) not have much support for Web Apps: No native HTTP(S) server, no API/UI/HTML framework, no JSON...
 * Edwin Brady developed Idris 2 while I was half-way through the game!
-* Support for Concurrency, multithreading, networking are also quite nascent and depends a lot on the backend
+* Support for concurrency, multithreading, or networking is also quite nascent
 
 ## Short history
 
@@ -654,7 +671,7 @@ cubeDistance (MkCube x z) (MkCube x' z') =
 
 ## Error Handling
 
-There are no exceptions in Idris but it provide syntax to shortcircuit flow in monadic code
+There are no exceptions in Idris but it provides syntax to short-circuit flow in monadic code
 
 ```idris
 serve log sock clients gamesOutput gamesState = do
@@ -679,10 +696,12 @@ serve log sock clients gamesOutput gamesState = do
 
 ## Takeaways: Idris vs. Haskell
 
-* Dependent Types in Idris are much easier to work with than in Haskell
-* Interacting with the compiler through _holes_ has better integration in IDE
-* Eco-system is of course way smaller but adding backends and FFI are "easy"
-* Not having accumulated 30 years of development means the barrier to contribution is pretty low (I could do it!)
+* :white_check_mark: Dependent Types are much easier to work with
+* :white_check_mark: Better DevX in interactive development
+* :x: Much smaller eco-system
+* :x: Very much WIP so expect bumps
+* :white_check_mark: Easy to add backends and use FFI
+* :question: Low barrier of entry for contributing
 
 ::: notes
 
@@ -711,7 +730,7 @@ serve log sock clients gamesOutput gamesState = do
 * Idris [Discord Server](https://discord.gg/AbuHWhzh) is very welcoming
 * This talk stemmed from a series of blog posts: [http://abailly.github.io/posts/dependently-typed-accounting.html](http://abailly.github.io/posts/dependently-typed-accounting.html)
 * Code for  `Date` and `Accounting`: [https://github.com/abailly/xxi-century-typed](https://github.com/abailly/xxi-century-typed/blob/master/idris/src/Accounting.idr)
-* Code for Bautzen 1945: https://github.com/abailly/hsgames/blob/master/bautzen1945/
+* Code for Bautzen 1945 [https://github.com/abailly/hsgames/blob/master/bautzen1945/](https://github.com/abailly/hsgames/blob/master/bautzen1945/)
 
 ## Questions?
 
