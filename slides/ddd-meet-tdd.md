@@ -5,6 +5,7 @@ author: Arnaud Bailly - @dr_c0d3
 date: 2020-02-07
 theme: serif-compact
 transition: none
+background-image: iog.png
 ---
 
 ## Double-Entry Accounting Domain
