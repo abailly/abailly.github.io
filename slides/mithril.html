@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Arnaud Bailly - @dr_c0d3">
+  <meta name="dcterms.date" content="2022-10-24">
+  <title>Mithril Network</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="/reveal.js/dist/theme/virgil-black-iohk.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Mithril Network</h1>
+  <p class="subtitle">Secured Snapshots for Faster Bootstrap</p>
+  <p class="author">Arnaud Bailly - <span class="citation"
+data-cites="dr_c0d3">@dr_c0d3</span></p>
+  <p class="date">2022-10-24</p>
+</section>
+
+<section>
+<section id="introduction" class="title-slide slide level1">
+<h1>Introduction</h1>
+<p><img data-src="/images/mithril-logo.png" /></p>
+</section>
+<section id="agenda" class="slide level2">
+<h2>Agenda</h2>
+<ul>
+<li class="fragment">Why Mithril?</li>
+<li class="fragment">What is Mithril?</li>
+<li class="fragment">Demo</li>
+<li class="fragment">What’s next?</li>
+<li class="fragment">Conclusion</li>
+</ul>
+</section>
+<section id="who" class="slide level2">
+<h2>Who?</h2>
+<ul>
+<li class="fragment">Developing software professionally since 1994</li>
+<li class="fragment">Technical Architect for <a
+href="https://hydra.family">Hydra</a></li>
+<li class="fragment">Lead Architect for <a
+href="https://mithril.network">Mithril</a></li>
+<li class="fragment">Head of Architecture for Cardano at <a
+href="https://iohk.io">IOG</a></li>
+</ul>
+</section></section>
+<section>
+<section id="why-mithril" class="title-slide slide level1">
+<h1>Why Mithril?</h1>
+
+</section>
+<section id="security" class="slide level2">
+<h2>Security</h2>
+<p><img data-src="/images/cardano-network.png" /></p>
+</section>
+<section id="security-1" class="slide level2">
+<h2>Security</h2>
+<ul>
+<li class="fragment">Cardano’s blockchain is extremely secure thanks to
+the Ouroboros consensus</li>
+<li class="fragment">Ouroboros’ <em>Proof-of-Stakes</em> consensus
+relies on random block production &amp; diffusion based on stake
+distribution</li>
+<li class="fragment">Security is provided by the distribution of stake
+over a large number of SPOs (~3000)</li>
+</ul>
+</section>
+<section id="security-vs.-speed" class="slide level2">
+<h2>Security vs. Speed</h2>
+<p>Synchronising a node with the chain takes a while…</p>
+<p><img data-src="/images/sync_times_2.png" /></p>
+<aside class="notes">
+<ul>
+<li>It’s a case for seldom used wallets -&gt; resyncing after a few
+months can take ages</li>
+<li>For newcomers it’s a major pain</li>
+<li>Starting a cardano-node from scratch on mainnet currently takes
+about 2 days</li>
+</ul>
+</aside>
+</section>
+<section id="security-vs.-speed-1" class="slide level2">
+<h2>Security vs. Speed</h2>
+<ul>
+<li class="fragment">First use case for Mithril: Fast bootstrapping of
+cardano-node</li>
+<li class="fragment">There are other use cases being explored: More
+secure Lightwallets, voting systems, …</li>
+</ul>
+</section></section>
+<section>
+<section id="what-is-mithril" class="title-slide slide level1">
+<h1>What is Mithril?</h1>
+
+</section>
+<section id="mithril-multi-signature-protocol" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Mithril Multi-Signature Protocol</h2>
+<p><img data-src="/images/mithril-proto-1.png" /></p>
+</section>
+<section id="mithril-multi-signature-protocol-1" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Mithril Multi-Signature Protocol</h2>
+<p><img data-src="/images/mithril-proto-2.png" /></p>
+</section>
+<section id="mithril-multi-signature-protocol-2" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Mithril Multi-Signature Protocol</h2>
+<p><img data-src="/images/mithril-proto-3.png" /></p>
+</section>
+<section id="mithril-multi-signature-protocol-3" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Mithril Multi-Signature Protocol</h2>
+<p><img data-src="/images/mithril-proto-4.png" /></p>
+</section>
+<section id="mithril-multi-signature-protocol-4" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Mithril Multi-Signature Protocol</h2>
+<p><img data-src="/images/mithril-proto-5.png" /></p>
+</section>
+<section id="mithril-multi-signature-protocol-5" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Mithril Multi-Signature Protocol</h2>
+<p><img data-src="/images/mithril-proto-6.png" /></p>
+</section>
+<section id="mithril-multi-signature-protocol-6" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Mithril Multi-Signature Protocol</h2>
+<p><img data-src="/images/mithril-proto-7.png" /></p>
+</section>
+<section id="mithril-certificates-chain" class="slide level2">
+<h2>Mithril Certificates Chain</h2>
+<p><img data-src="/images/mithril-certificate-chain.jpeg" /></p>
+</section>
+<section id="mithril-network" class="slide level2">
+<h2>Mithril Network</h2>
+<p><img data-src="/images/mithril-architecture.jpeg" /></p>
+</section></section>
+<section id="demo" class="title-slide slide level1">
+<h1>Demo</h1>
+<p><img data-src="/images/mithril-explorer.png" /></p>
+</section>
+
+<section>
+<section id="whats-next" class="title-slide slide level1">
+<h1>What’s next?</h1>
+
+</section>
+<section id="decentralise-network" class="slide level2">
+<h2>Decentralise Network</h2>
+<p><img data-src="/images/mithril-decentralised.png" /></p>
+</section>
+<section id="extend-usage" class="slide level2">
+<h2>Extend Usage</h2>
+<ul>
+<li class="fragment">Provide Mithril signature for <em>parts</em> of the
+chain state, eg. UTxO set, Stake Distribution, …</li>
+<li class="fragment">Mithril as the backbone of a voting system</li>
+<li class="fragment">Mithril on other blockchains?</li>
+</ul>
+</section></section>
+<section>
+<section id="conclusion" class="title-slide slide level1">
+<h1>Conclusion</h1>
+
+</section>
+<section id="come-play-with-us" class="slide level2">
+<h2>Come play with Us</h2>
+<ul>
+<li class="fragment">Mithril is open-source and developed in
+collaboration with the community</li>
+<li class="fragment">Check-out https://mithril.network for more
+info</li>
+<li class="fragment">Join us on <a
+href="https://discord.gg/EGFTe2TT">Discord</a></li>
+<li class="fragment">Contribute on <a
+href="https://github.com/input-output-hk/mithril">GitHub</a></li>
+</ul>
+</section>
+<section id="questions" class="slide level2">
+<h2>Questions?</h2>
+<p><img data-src="/images/puzzled.jpg" /></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="/reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="/reveal.js/plugin/notes/notes.js"></script>
+  <script src="/reveal.js/plugin/search/search.js"></script>
+  <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
