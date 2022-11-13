@@ -1,8 +1,8 @@
 ---
 title: Mithril Network
 subtitle: Secured Snapshots for Faster Bootstrap
-author: Arnaud Bailly - @dr_c0d3
-date: 2022-10-24
+author: arnaud.bailly@iohk.io - @dr_c0d3
+date: 2022-11-20
 theme: virgil-black-iohk
 revealjs-url: /reveal.js
 ---
@@ -32,13 +32,15 @@ revealjs-url: /reveal.js
 
 ![](/images/cardano-network.png)
 
-## Security
+::: notes
 
 * Cardano's blockchain is extremely secure thanks to the Ouroboros consensus
 * Ouroboros' _Proof-of-Stakes_ consensus relies on random block production & diffusion based on stake distribution
 * Security is provided by the distribution of stake over a large number of SPOs (~3000)
 
-## Security vs. Speed
+:::
+
+## Speed
 
 Synchronising a node with the chain takes a while...
 
@@ -52,12 +54,16 @@ Synchronising a node with the chain takes a while...
 
 :::
 
-## Security vs. Speed
+## Security & Speed
 
-* First use case for Mithril: Fast bootstrapping of cardano-node
+* **First use case for Mithril**: Fast bootstrapping of cardano-node
 * There are other use cases being explored: More secure Lightwallets, voting systems, ...
 
 # What is Mithril?
+
+## Research Paper
+
+![](/images/mithril-paper.png)
 
 ## Mithril Multi-Signature Protocol {transition=none}
 
@@ -116,6 +122,6 @@ Synchronising a node with the chain takes a while...
 ## Come play with Us
 
 * Mithril is open-source and developed in collaboration with the community
-* Check-out https://mithril.network for more info
+* Check-out [`https://mithril.network`](https://mithril.network) for more info
 * Join us on [Discord](https://discord.gg/EGFTe2TT)
 * Contribute on [GitHub](https://github.com/input-output-hk/mithril)
