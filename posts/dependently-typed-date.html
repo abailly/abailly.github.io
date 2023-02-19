@@ -208,11 +208,11 @@ MkDate 2016 February 29 : Date</code></pre>
 </ul>
 <p>The last difficult piece, and something that remains a little bit puzzling to me, was the need for a proof that <code>LTE 1 (monthDuration $ nextMonth month)</code> that arose from the last branch of the cases. Apparently, an explicit proof is needed because Idris does not reduce the expression appearing in types <em>unless</em> the expression is used in a <code>with xxx | lhs = rhs</code> view or is part of the definition of some value<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. This bit me also when defining <code>daysInMonth</code> and <code>aMonthHasOneDay</code>.</p>
 <p>Something that I tried to do but could not manage to complete quickly is defining the <code>LeapYear year</code> type to expose the leapyearness as a proposition that could then be carried around in types and would remove the need for explicit if/then/else. As a general rule of thumb and a piece of advice that was given to me on SO, it is a good idea to use functions and types that provide richer information than <code>Bool</code> or <code>Maybe a</code>: You usually want and need a proof that some property holds or does not hold to build richer and more accurate types.</p>
-<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Note we are defining a simple version of dates within the Gregorian calendar. For a lot of ugly and painful details on how to properly handle dates, one can have a look at this <a href="https://forge.ocamlcore.org/scm/viewvc.php/trunk/calendarFAQ-2.6.txt?view%3Dmarkup&amp;root%3Dcalendar">Ocaml library FAQ</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Idris is strict by default: Arguments to functions are evaluated before the right-hand side and I assume this also applies to <code>let x = y in z</code> blocks which are traditionally translated to <code>(\ x -&gt; z) y</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Note we are defining a simple version of dates within the Gregorian calendar. For a lot of ugly and painful details on how to properly handle dates, one can have a look at this <a href="https://forge.ocamlcore.org/scm/viewvc.php/trunk/calendarFAQ-2.6.txt?view%3Dmarkup&amp;root%3Dcalendar">Ocaml library FAQ</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Idris is strict by default: Arguments to functions are evaluated before the right-hand side and I assume this also applies to <code>let x = y in z</code> blocks which are traditionally translated to <code>(\ x -&gt; z) y</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

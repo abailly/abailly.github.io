@@ -385,28 +385,28 @@ process.</p>
 Kuznicki, Chun Dong Chau, Pete Bonee, Willem van den Ende, Carlos Cunha, Guo Liang “Sark”
 Oon, Amar Potghan, Konrad Tomaszewski and all the great people at <a href="http://www.capital-match.com">Capital Match</a>. I also would like
 to thank Corentin Roux-dit-Buisson, Neil Mitchell, Joey Hess for their support and feedback.</p>
-<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>I have been using RDBMS since the 90’s, developed a point-of-sale application in Access, have been using PostgreSQL through
+<li id="fn1"><p>I have been using RDBMS since the 90’s, developed a point-of-sale application in Access, have been using PostgreSQL through
 its various versions since 1998, and recently worked on integrating DB migration process into a very large system. I am not
 an expert but I have had quite an extensive experience of relational databases over a significant number of years and I have always
 found that <em>writing</em> to DB quickly became a painful things.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Although one could argue that there exists “languages” like Excel that allow you to write complex queries and explore data in
+<li id="fn2"><p>Although one could argue that there exists “languages” like Excel that allow you to write complex queries and explore data in
 a very sophisticated way without the use of SQL<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p><a href="http://haskell-servant.github.io/">Servant</a> is definitely on our roadmap.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>This thread is pretty much redundant with storage thread for the moment. The plan is to use it for serialising
+<li id="fn3"><p><a href="http://haskell-servant.github.io/">Servant</a> is definitely on our roadmap.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>This thread is pretty much redundant with storage thread for the moment. The plan is to use it for serialising
 <code>applyCommand</code> operations on the models<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>We use <a href="https://hackage.haskell.org/package/QuickCheck">QuickCheck</a> to generate a bunch of events for the type of interest.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6" role="doc-endnote"><p>It looks like our Om will be soon superceded by <a href="https://github.com/omcljs/om/wiki/Quick-Start-%28om.next%29">om.next</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7" role="doc-endnote"><p>I plan to provide more insights on our development and operations process in another blog post, but to give rough ideas we
+<li id="fn5"><p>We use <a href="https://hackage.haskell.org/package/QuickCheck">QuickCheck</a> to generate a bunch of events for the type of interest.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>It looks like our Om will be soon superceded by <a href="https://github.com/omcljs/om/wiki/Quick-Start-%28om.next%29">om.next</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>I plan to provide more insights on our development and operations process in another blog post, but to give rough ideas we
 have deployed our application about a hundred times in the past 6 months.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8" role="doc-endnote"><p>Having a strong type system is no replacement for a decent test suite however, because obviously a lot of bugs happen at the
+<li id="fn8"><p>Having a strong type system is no replacement for a decent test suite however, because obviously a lot of bugs happen at the
 boundaries of the system, e.g. when invoking REST API.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9" role="doc-endnote"><p>Obviously, this works as long as your data fits in memory. My bet is this will be the case for
+<li id="fn9"><p>Obviously, this works as long as your data fits in memory. My bet is this will be the case for
 quite a long time. Shall this ever become a
 <a href="https://gettingreal.37signals.com/ch04_Scale_Later.php">problem</a>, we will most probably be in a position to handle it.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10" role="doc-endnote"><p>This is the approach I took in <a href="https://github.com/capital-match/hdo/blob/master/src/Network/DO/Types.hs">hdo</a> because
+<li id="fn10"><p>This is the approach I took in <a href="https://github.com/capital-match/hdo/blob/master/src/Network/DO/Types.hs">hdo</a> because
 external representation was already defined, and in the end it makes encoding more explicit and easier to work with<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
