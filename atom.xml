@@ -8,8 +8,67 @@
         <name>Arnaud Bailly</name>
         <email>arnaud@igitur.io</email>
     </author>
-    <updated>2023-02-16T00:00:00Z</updated>
+    <updated>2023-05-27T00:00:00Z</updated>
     <entry>
+    <title>NewCrafts Paris 2023</title>
+    <link href="http://abailly.github.io/posts/ncrafts2013.html" />
+    <id>http://abailly.github.io/posts/ncrafts2013.html</id>
+    <published>2023-05-27T00:00:00Z</published>
+    <updated>2023-05-27T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>NewCrafts Paris 2023</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on May 27, 2023</div>
+
+<p>These are my quick notes from <a href="https://ncrafts.io">NewCrafts Paris 2023</a> conference which returned as an in-person event after 4 years of interruption.</p>
+<h2 id="day-1">Day 1</h2>
+<ul>
+<li>Dave Farley keynote entitled “Modern Software Engieneering” was moderately interesting to me but was true to its title: A very modernist account of how software links to other engineering fields, rife with examples and analogies drawn from car manufacturing, planes, rockets. He summarizes the software engineering activity as a process to optimise 2 things: Learning, and Managing complexity
+<ul>
+<li>To optimise for learning, we have iterative, incremental, experimental development: Start small with a goal in mind, evaluate result, adjust goal and plan for next stage, rinse and repeat</li>
+<li>To manage complexity, we have modularity, separation of concerns, and <em>abstraction</em> or interface segregatio</li>
+<li>Nothing really new, and it does not really answer the main questions which are <em>Why?</em> are we doing all this, which should probably be something engineers should start taking care of, and <em>How</em> these valid and somewhat obvious ideas should practically be applied, learnt, shared, transmitted within teams and organisations</li>
+</ul></li>
+<li>The next talk I attended was from <a href="https://ncrafts.io/speaker/mirjamaulbach">Mirjam Aulbach</a> who presented the underpinning of her <a href="https://www.conferencebuddy.io">Conference Buddy</a> initiative: How to help people suffering from <em>Social Anxiety</em> to feel better in a conference, to encourage them to attend, participate, and speak. I wish she had gone past the surface of social anxiety as a personal illness and perhaps helped us understand better the mechanics that lead to the prevalence of this issue. I missed ideas and advices on how to make our teams, organisations, groups, communities more welcoming and less toxic, as I believe social anxiety is not so much about the individuals than it is about the society they grew up in.</li>
+<li>I was excited to watch <a href="https://tomasp.net">Tomas Petricek’s</a> talk but unfortunately it was postponed due to technical issues connecting his laptop to the videoconferencing system, and then I missed it on Day 2. I am really sad because I am deeply admirative of Tomas’ work.</li>
+<li><em>Computational Thinking</em> has been quite thought-provoking, and full of interesting pointers to articles and books to explore. Damien Seguin is a designer, developer, generative artists, data viz engineer… that invites us to see “data as a medium” through which we can express ourselves and from which to create interesting experiments. He showed us a demo of <a href="https://nodes.io">Nodes</a> which seems to be some kind of cool visual programming environment to produce data representations.</li>
+<li>The session on <del>Mob Programming</del> <em>Software Teaming</em> from <a href="https://ncrafts.io/speaker/ulrikamalmgren">Ulrika Malmgren</a> was also great, and I learnt or rediscovered a few things even though I have been practicing various form of collective programming for a few years.
+<ul>
+<li>Have only one online presence for the team as a whole in all business related communications (Eg. IM): This is a really great idea to ensure that people outside the team clearly identify it as an entity of its own, with multiple “heads”. This comes with the need for everyone to attend every meeting to prevent repetition and possible deformations</li>
+<li>Likemindedness and the desire of everyone to explore and experiment, are tantamount to the success of the practice. It’s pointless to force it down the throat of reluctant team members</li>
+<li>Some activities and situations can be challenging, and can be dealt with in various ways was respecting the overall philosophy, including temporary splitting. Troubleshooting (debugging) can be particularly draining and challenging and requires to put in a place an explicit strategy to deal with the issue at hand</li>
+<li>She interestingly contrast <em>Software teaming</em> as <em>Work-centered Team work</em>, with the “traditional” <em>Individual centered Team work</em> which is the current default in most organisations, and invites us to change that default!</li>
+</ul></li>
+<li>The closing keynote was definitely entertaining with Felienne Hermans presenting us her work on <a href="https://www.hedycode.com">Hedy</a>, a gradual and multi-lingual teaching environment for text-based programming. Some pretty funny stories on how to produce helpful error messages, deal with the quirks of programming languages we don’t see anymore (eg. using quotes around strings), and challenges with internationalization from the relatively simple English -&gt; Dutch move, to the support of Arabic</li>
+</ul>
+<h2 id="day-2">Day 2</h2>
+<ul>
+<li>The day started with a great talk on Compassionate refactoring by Clare Sudbery, who reminds us that perfect is a verb, refactoring is about making tiny steps towards improvement, and we need to be compassionate with ourselves and our teammates. Among the many blockers to refactoring she identifies, <em>impatience</em> particularly resonate with my experience and ethos</li>
+<li><a href="https://ncrafts.io/speaker/maaretpyhajarvi">Maaret Pyhäjärvi</a> addressed some of the widespread misconceptions about <em>testing</em> which triggered her to drop the word and call whatever she does <em>Foo</em> for want of a better word. Threading the classical <em>Decimal-to-Roman</em> kata throughout the talk, she demonstrates how testing, whether unit, integration, manual, automated, is ultimately an activity that’s performed by people, including testers, that “doesn’t break software, but breaks our illusions about code”, coining the term <em>Modern Exploratory Testing</em> to encompass all those activities a software development team at large undertakes to uncover things that were missed. Even such a modest example as transforming a decimal number into its equivalent Roman representation can be an extraordinary involved journey when one tries to uncover all the assumptions a seemingly correct code breaks that could turn out to be wrong depending on usage domain, context, deployment environment, etc. Notably she quotes this <a href="https://www.usenix.org/system/files/conference/osdi14/osdi14-paper-yuan.pdf">OSDI’14</a> paper that demonstrates more than 80% of failures can be prevented by simple unit-level testing.</li>
+<li><a href="https://ncrafts.io/speaker/marijnhuizenveld">Marijn Huizenveld</a> talked about how he uses Wardley Maps to relate OKRs to parts of a software system and how this helps refines and improve goals and metrics, to the point of making them sometimes irrelevant depending on the undelrying “landscape”. Even though I am not particularly fond of the way OKRs are usually implemented in large organisations, I think it’s critical for teams to define business-relevant goals and the accompanying scales to measure how far we are from accomplishing those goals, as long as these are <em>collectively owned</em> by the team. One thing I learnt is to add <em>Health Metrics</em> to <em>Key Results</em> to ensure we don’t sacrifice long-term capabilities to achievement of short-term goals.</li>
+<li>In the afternoon, I attended <a href="https://ncrafts.io/speaker/dianamontalion">Diana Montalion</a>’s workshop on <em>Writing as Thinking</em>, an inspiring hands-on excerpt from a longer training she gives on how <em>structured hand writing</em> improves our way of thinking, especially when we ensure a proper feedback loop is part of the process of <em>Systemic Reasoning</em> to investigate and objectivise solutions to hard (eg. without predefined good or bad solutions, part of the <em>complex</em> quadrant of Cynefin) problems. I really enjoyed the session even though it was too short and we only skimmed through the topic. It refueled my desire to do regular, daily, note taking and handwriting, an exercise I used to practice and love before the pandemics and dropped for no clear reason.</li>
+<li>The day, and the conference, closed on Kent Beck’s keynote of which I only attended the first half as I had to catch a train, so I can’t say much about it.</li>
+</ul>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Sur &quot;Le mythe de l&#39;entrepreneur&quot;</title>
     <link href="http://abailly.github.io/posts/mythe-entrepreneur.html" />
     <id>http://abailly.github.io/posts/mythe-entrepreneur.html</id>
@@ -944,81 +1003,6 @@ Finished in 18.1146 seconds</code></pre>
 <p>Le débat entre Lippmann et Dewey est intéressant et important parce qu’il permet de comprendre que l’opposition essentielle n’est pas entre “progressisme” et “conservatisme”, entre partisans des <em>flux</em> et partisans des <em>stases</em> : il est entre ceux qui pensent et assignent à l’humanité, ou à un groupe plus restreint, une fin nécessaire - le capitalisme - laissant éventuellement la discussion ouverte sur les moyens pour y parvenir ; et ceux pour qui la fin est toujours ouverte et elle même sujette à discussion et redéfinition.</p>
 <p>Sur le plan de l’éthique personnelle et professionnelle, cette opposition se manifeste dans la question de <em>l’autonomie</em> et des règles de fonctionnement du collectif : qui et comment sont définies les <em>fins</em> ? Lorsque le <em>Lean</em>, l’agilité ou toute autre technique <em>adaptative</em> et <em>évolutionnaire</em> est mise au service d’une organisation dont les fins sontr définies selon d’autres modalités, par une autorité extérieure ; lorsque ceux qui définissent les fins et ceux qui définissent les moyens ne sont pas les mêmes personnes ou sont dans une relation de subordination ; lorsque les pratiques agiles sont au service d’une définition exogène de la productivité et des résultats attendus ; lorsque <em>ceux qui font</em> ne sont pas <em>ceux qui décident</em> ou <em>ceux qui savent</em>, qu’ils ne peuvent mettre en doute, interroger, modifier les fins qui leur sont assignées ; alors Lippmann et le néolibéralisme triomphent, produisant l’accéleration généralisée et ses symptômes - désengagement, stress, burn-out, rage incontrôlée, complotisme - dont notre société souffre.</p>
 <p>Mais les mêmes outils peuvent aussi, suivant Dewey et les pragmatistes, être mis au service de la définition des fins. Une équipe autonome, agile, pratiquant le TDD, le <em>Pair-Programming</em>, l’appropriation collective du code, la proximité avec le client final, n’est vraiment fidèle à l’idée qui sous tend l’eXtreme Programming que si elle a toute latitude pour négocier et décider de ses propres fins.</p>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Why mocking is a good idea</title>
-    <link href="http://abailly.github.io/posts/mocking-good-idea.html" />
-    <id>http://abailly.github.io/posts/mocking-good-idea.html</id>
-    <published>2021-10-29T00:00:00Z</published>
-    <updated>2021-10-29T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Why mocking is a good idea</h1>
-
-  <h2 class="subtitle">... when done right</h2>
-
-<div class="info">Posted on October 29, 2021</div>
-
-<p>Someone wrote a <a href="https://cs-syd.eu/posts/2021-10-22-why-mocking-is-a-bad-idea">recent post</a> debunking what the author thinks are <em>Mocks</em>. I say “thinks” because actually, what the author describes are not what <em>Mock objects</em> really are or how they were thought to be used, as this post demonstrates.</p>
-<h1 id="what-are-mock-objects-really">What are Mock Objects really?</h1>
-<p>The history of the <em>Mock object pattern</em> for <em>Test-Driven Development</em> is explained by <a href="http://www.mockobjects.com/">Steve Freeman</a> its inventor. He wrotes, with Nat Pryce, the book <a href="http://www.growing-object-oriented-software.com/">Growing Object-Oriented Software Guided by Test</a> which is a must read even if one does only functional programming. There’s also a shorter <a href="http://jmock.org/oopsla2004.pdf">OOPSLA 2004 paper</a> and an <a href="https://web.tecgraf.puc-rio.br/~ismael/Cursos/Cidade_MA/aulas/downloads/mockobjects.pdf">XP 2000 paper</a>. The very same idea was also exposed in the context of refactoring legacy code by Michael Feathers in his seminal <a href="https://understandlegacycode.com/blog/key-points-of-working-effectively-with-legacy-code/">Working Effectively with Legacy Code book</a> which is another must read, even if one does functional programming.</p>
-<p>The key insight about Mock objects dawned on me when I realised these were really <em>Design tools</em>, much like one harvests most of the benefits of TDD when she conceives tests as a force to drive software design and not merely as a safety net against regression. In other words, one <em>does not</em> use Mock objects, or mock <em>interfaces</em>, only to replace a cumbersome dependency, but rather mocks roles that emerge from the needs of some piece or component of the system, to express the expectations of this component regarding some dependency without having to depend on the implementation details. Mocks are used to design <em>interfaces</em> between moving parts of the system, or to let <em>seams</em> appear as M.Feathers names those.</p>
-<h1 id="the-proof-is-in-the-pudding">The proof is in the pudding</h1>
-<p>Here is a concrete example drawn from my current project, Hydra, implemented in Haskell. The Hydra node we are building needs to interact with a <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/src/Hydra/Chain.hs">Chain</a> component, both to submit transactions and to receive them. Instead of having to depend on the <a href="https://github.com/input-output-hk/cardano-node">somewhat complicated implementation details</a> of a real Cardano node, we instead defined an <em>interface</em> which expresses in a concise and implementation independent way the information we send and receive.</p>
-<p>Because we are using a functional language, this interface is expressed as a function which itself takes other functions (callbacks), a recurring pattern we documented in an <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/docs/adr/0007-with-pattern-component-interfaces.md">Architectural Decision Record</a>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">ChainComponent</span> tx m a <span class="ot">=</span> <span class="dt">ChainCallback</span> tx m <span class="ot">-&gt;</span> (<span class="dt">Chain</span> tx m <span class="ot">-&gt;</span> m a) <span class="ot">-&gt;</span> m a</span></code></pre></div>
-<p>where</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">ChainCallback</span> tx m <span class="ot">=</span> <span class="dt">OnChainTx</span> tx <span class="ot">-&gt;</span> m ()</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Chain</span> tx m <span class="ot">=</span> <span class="dt">Chain</span>  {<span class="ot"> postTx ::</span> <span class="dt">MonadThrow</span> m <span class="ot">=&gt;</span> <span class="dt">PostChainTx</span> tx <span class="ot">-&gt;</span> m () }</span></code></pre></div>
-<p>The details of the messages we are sending and receiving are defined as two separate data types, one representing outbound transactions, eg. transactions we’ll post to the chain:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">PostChainTx</span> tx</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> <span class="dt">InitTx</span> {<span class="ot">headParameters ::</span> <span class="dt">HeadParameters</span>}</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">CommitTx</span> {<span class="ot">party ::</span> <span class="dt">Party</span>,<span class="ot"> committed ::</span> <span class="dt">Utxo</span> tx}</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">AbortTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">CollectComTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">CloseTx</span> {<span class="ot">snapshot ::</span> <span class="dt">Snapshot</span> tx}</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">ContestTx</span> {<span class="ot">snapshot ::</span> <span class="dt">Snapshot</span> tx}</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">FanoutTx</span> {<span class="ot">utxo ::</span> <span class="dt">Utxo</span> tx}</span></code></pre></div>
-<p>and the other representing inbound messages, eg. transactions and errors observed on the chain:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">OnChainTx</span> tx</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> <span class="dt">OnInitTx</span> {<span class="ot">contestationPeriod ::</span> <span class="dt">ContestationPeriod</span>,<span class="ot"> parties ::</span> [<span class="dt">Party</span>]}</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnCommitTx</span> {<span class="ot">party ::</span> <span class="dt">Party</span>,<span class="ot"> committed ::</span> <span class="dt">Utxo</span> tx}</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnAbortTx</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnCollectComTx</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnCloseTx</span> {<span class="ot">contestationDeadline ::</span> <span class="dt">UTCTime</span>,<span class="ot"> snapshotNumber ::</span> <span class="dt">SnapshotNumber</span>}</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnContestTx</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">OnFanoutTx</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">PostTxFailed</span></span></code></pre></div>
-<p>Had we coded in an Object-Oriented language, or used a <a href="https://peddie.github.io/encodings/encodings-text.html">final tagless encoding</a>, these would have been expressed as two separate interfaces with one method for each type. The important point here is that <em>we</em> are in control of this interface, <em>we</em> define the patterns of interactions with the external system we depend on and abstract away all the nitty-gritty details a dependency on a concrete implementation would entail. Our system is now <em>loosely coupled</em> to the other system as we have <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">separated concerns</a>.</p>
-<p>This has allowed us to focus on the core functionality of our software, to build a complete implementation of the <a href="https://iohk.io/en/research/library/papers/hydrafast-isomorphic-state-channels/">Hydra off-chain protocol</a>, <a href="https://www.youtube.com/watch?v=3D_SAC4nyVM">demonstrate a network of Hydra nodes</a> and have automated <a href="https://github.com/input-output-hk/hydra-poc/blob/master/local-cluster/test/Test/EndToEndSpec.hs#L99">end-to-end tests</a> all without the hassle of dealing with a full Cardano node implementation. Instead, we have several <em>Mock</em> implementations of the <code>Chain</code> interface described above suitable for various use cases:
-- A very fast <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/test/Hydra/BehaviorSpec.hs#L380">in-process</a> mock for Behaviour-driven testing of Hydra cluster,
-- A <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/src/Hydra/Chain/ZeroMQ.hs">0MQ-based</a> implementation that allows us to spin-up a cluster of Hydra nodes, completely mocking an <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/exe/mock-chain/Main.hs">external chain</a>.</p>
-<p>Note that:
-- We are not side-stepping the integration problem as demonstrated by the fact we are also testing <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/local-cluster/test/Test/LocalClusterSpec.hs#L51">interaction with Cardano node</a>, and we definitely will enhance our End-to-End tests to “Close the loop” once the <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/local-cluster/test/Test/DirectChainSpec.hs#L30">Chain tests</a> demonstrate the <em>concrete implementation</em> of our abstract transactions work correctly on a real Cardano network,
-- We have been careful to <a href="https://testing.googleblog.com/2020/07/testing-on-toilet-dont-mock-types-you.html">Mock types we own</a> in order to not fall into the trap of relying on a dumbed down and probably wrong implementation of some system we depend on.</p>
-<h1 id="there-is-more-to-it">There is more to it</h1>
-<p>This whole idea has been applied in a couple other areas of the system, most notably the <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/src/Hydra/Network.hs">Network</a> interface: Here again we express some requirements from the point of view of the Hydra node, letting those emerge from tests we write.</p>
-<p>While it does not respect the <em>Mock types you own</em> mantra, we have also used this technique to great profit leveraging the <a href="https://github.com/input-output-hk/ouroboros-network/tree/3f16f617f8ada5e0e8f560b5b2d9635ec0d803f3/io-sim">io-sim</a> and <a href="https://github.com/input-output-hk/ouroboros-network/tree/3f16f617f8ada5e0e8f560b5b2d9635ec0d803f3/io-classes">io-classes</a>, as exposed in <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/docs/adr/0005-use-io-sim-classes.md">another ADR</a>. This has allowed us to test-drive the development of the protocol in an outside-in way, expressing expected <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/hydra-node/test/Hydra/BehaviorSpec.hs#L123">observable behaviour</a> in a cluster of nodes, in a safe and fast way, as pure functions.</p>
-<p>Of course, this is a dangerous path to tread and we need to also run tests with the real <em>Multi-threaded Runtime System</em> to ensure proper coverage, like the End-to-end tests I already talked about and <a href="https://github.com/input-output-hk/hydra-poc/tree/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/local-cluster/bench">load testing</a>.</p>
-<h1 id="conclusion">Conclusion</h1>
-<p>I hope this post managed to convince the reader that using <em>Mock objects</em> is actually a good idea as soon as one embraces it the way it’s been intended to be used, namely as a <em>Test-driving technique</em> also called <em>London School TDD</em>, and not as a mere technical artifact to ease testing <em>after the fact</em>. As I already advocated a while ago TDD has a <a href="https://abailly.github.io/posts/tdd.html">fractal dimension</a>: It can, and in my opinion must, be applied at all stages of a system’s development and at all level of abstractions.</p>
-<p>“Mock objects” is just a name for the technique that lets one work outside-in, precisely and formally (in code) expressing and testing each component first in isolation, but within a broader context: As soon as a concrete, production-ready implementation of an interface is ready, it should be integrated in the higher level tests. This is also something we wrote down in an <a href="https://github.com/input-output-hk/hydra-poc/blob/2056b8c9ba441aebc396a4fe0f50a419d6ee7be3/docs/adr/0012-testing-strategy.md">ADR on Testing strategy</a> as it deeply impacts the architecture of the system.</p>
 
 
 <div id="disqus_thread"></div>
