@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="arnaud@pankzsoft.com - @dr_c0d3">
+  <meta name="dcterms.date" content="2023-06-12">
+  <title>If software is eating the world…</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="/reveal.js/dist/theme/virgil-black-iohk.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">If software is eating the world…</h1>
+  <p class="subtitle">… will we all end up in <span class="emoji"
+data-emoji="poop">💩</span>?</p>
+  <p class="author">arnaud@pankzsoft.com - <span class="citation"
+data-cites="dr_c0d3">@dr_c0d3</span></p>
+  <p class="date">2023-06-12</p>
+</section>
+
+<section>
+<section id="why-software-is-eating-the-world"
+class="title-slide slide level1">
+<h1>Why software is eating the world?</h1>
+
+</section>
+<section class="slide level2">
+
+<blockquote>
+<p>Six decades into the computer revolution [..] all of the technology
+required to transform industries through software finally works and can
+be widely delivered at global scale.</p>
+</blockquote>
+<blockquote>
+<p><a
+href="https://a16z.com/2011/08/20/why-software-is-eating-the-world/">Marc
+Andreessen</a>, 2011</p>
+</blockquote>
+<aside class="notes">
+<ul>
+<li>Marc Andreessen is co-founder of Andreessen-Horowitz VC firm from
+the “Valley”</li>
+<li>Article is from 2011, 10 years after the dot.com bubble bust and
+argues the time is ripe to invest in software</li>
+<li>Due to higher connectivity (smartphones, fiber/cable providers,
+mobile networks) and availability of computing resources (eg. data
+centers, cloud computing), software company can effectively grow at a
+very high rate and secure market shares faster than in any other time in
+history</li>
+<li>Perfect high-modernist, capitalist stance</li>
+</ul>
+</aside>
+</section>
+<section id="fast-forward-to-2023" class="slide level2">
+<h2>Fast-forward to 2023</h2>
+<figure>
+<img data-src="/images/chatgpt-growth.jpeg"
+alt="Mandatory ChatGPT Quote" />
+<figcaption aria-hidden="true"><a
+href="https://www.statista.com/chart/29174/time-to-one-million-users/">Mandatory
+ChatGPT Quote</a></figcaption>
+</figure>
+</section>
+<section id="this-is-the-end" class="slide level2">
+<h2>This is the End</h2>
+<figure>
+<img data-src="/images/matrix-fields.jpeg"
+alt="Mandatory Matrix meme" />
+<figcaption aria-hidden="true">Mandatory Matrix meme</figcaption>
+</figure>
+<aside class="notes">
+<ul>
+<li>of course it’s a metaphor, but is a future driven by software
+desirable?</li>
+</ul>
+</aside>
+</section></section>
+<section>
+<section id="destroy-all-software" class="title-slide slide level1">
+<h1>Destroy all Software</h1>
+
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="/images/unabomber.png" alt="Unabomber Drawing" />
+<figcaption aria-hidden="true">Unabomber Drawing</figcaption>
+</figure>
+<aside class="notes">
+<ul>
+<li>This is the portrait drawn by FBI of Unabomber, aka. Theodor
+Kaczynski</li>
+<li>Ted Kaczinsky wrote a well know manifesto entitled Industrial
+Society and Its Future</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="/images/merci-de-changer-de-metier.png"
+alt="Thank you for changing job" />
+<figcaption aria-hidden="true"><a
+href="https://librairie-quilombo.org/merci-de-changer-de-metier">Thank
+you for changing job</a></figcaption>
+</figure>
+<aside class="notes">
+<ul>
+<li>A manifesto highlighting the political impacts of software (and more
+generally technology centric) startups</li>
+<li>Latest in a long trend of books about the negative impact of
+technology</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="/images/lettre-aux-ingenieurs-qui-doutent.png"
+alt="Letter to engineers who doubt" />
+<figcaption aria-hidden="true"><a
+href="https://www.lechappee.org/agenda/lettre-aux-ingenieurs-qui-doutent-1">Letter
+to engineers who doubt</a></figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/luddite.png" /></p>
+<aside class="notes">
+<ul>
+<li>rise of a neo-luddite movement?</li>
+<li>BUT critics come mostly from the highly educated, tech-savvy, upper
+middle class</li>
+<li>people impacted by “software eating the world” (middle to low-class
+knowledge workers, clerks, office employees, low-wage delivery persons,
+uber drivers) are not (at least explicitly) criticising it =&gt; they
+are users/consumers of the software!</li>
+</ul>
+</aside>
+</section></section>
+<section>
+<section id="crafts-vs.-industry" class="title-slide slide level1">
+<h1>Crafts vs. Industry</h1>
+
+</section>
+<section id="arts-crafts" class="slide level2">
+<h2>Arts &amp; Crafts</h2>
+<figure>
+<img data-src="/images/arts-crafts.jpeg"
+alt="Fabric pattern by William Morris" />
+<figcaption aria-hidden="true"><a
+href="https://mymodernmet.com/arts-and-crafts-movement-william-morris/">Fabric
+pattern by William Morris</a></figcaption>
+</figure>
+<aside class="notes">
+<ul>
+<li>Could we take inspiration from William Morris (and others, like John
+Ruskin) Arts &amp; crafts movement?</li>
+<li>A&amp;C movement reacted against the “impoverishment” of the quality
+of life and “things” the industrial revolution brought</li>
+<li>It’s interesting this movement arose at about the same time as
+various philosophical, political, and literary movements looking for a
+better understanding human experience (phenomenology, pragmatism)</li>
+<li>Also, this movement took place about a century after the
+Luddites</li>
+</ul>
+</aside>
+</section>
+<section id="software-craftsmanship" class="slide level2">
+<h2>Software Crafts(manship)</h2>
+<figure>
+<img data-src="/images/software-crafts-manifesto.png"
+alt="Software Craftsmanship Manifesto" />
+<figcaption aria-hidden="true"><a
+href="https://manifesto.softwarecraftsmanship.org">Software
+Craftsmanship Manifesto</a></figcaption>
+</figure>
+<aside class="notes">
+<ul>
+<li>An early attempt at redefining programming around the ideas of
+Craftsmanship</li>
+<li>Note how the picture and the manifesto’s name obviously winks at
+Morris’ Arts &amp; Crafts</li>
+<li>Like everything it’s been recycled by the software industry as a
+poster child of considerate software development practices</li>
+<li>Emphasis on programming as a social activity</li>
+<li>Still Poiesis =&gt; focused on the gaol, the outcome, the end
+result</li>
+<li>Also Richard Sennett’s <a
+href="https://en.wikipedia.org/wiki/The_Craftsman_(book)">The
+Craftsman</a> and <a
+href="https://en.wikipedia.org/wiki/Matthew_Crawford">Matthew
+Crawford</a></li>
+</ul>
+</aside>
+</section></section>
+<section>
+<section id="poeisis-praxis" class="title-slide slide level1">
+<h1>Poeisis &amp; Praxis</h1>
+
+</section>
+<section id="low-tech-software" class="slide level2">
+<h2>Low-tech Software</h2>
+<figure>
+<img data-src="/images/hundred-rabbits.png"
+alt="100 Rabbits Collective" />
+<figcaption aria-hidden="true"><a
+href="https://100r.co/site/home.html">100 Rabbits
+Collective</a></figcaption>
+</figure>
+<aside class="notes">
+<ul>
+<li>An alternative approach to computing and programming, mixing digital
+arts, environmentalism, hacktivism</li>
+<li>Living off-the-grid on a boat, low waste and carbon footprint</li>
+<li>Decentralised network of low-powered devices</li>
+<li>Build portable systems and tools</li>
+</ul>
+</aside>
+</section>
+<section id="low-tech-software-1" class="slide level2">
+<h2>Low-tech Software</h2>
+<figure>
+<img data-src="/images/uxn.png" alt="Sample Applications in Uxntal" />
+<figcaption aria-hidden="true">Sample Applications in
+Uxntal</figcaption>
+</figure>
+<aside class="notes">
+<ul>
+<li>put the programmer back in control</li>
+<li>real <em>full-stack</em> programmer</li>
+<li>decentralised/intermittently connected network of humans
+collaborating</li>
+<li>programming as tool making</li>
+</ul>
+</aside>
+</section>
+<section id="programming-for-its-own-sake" class="slide level2">
+<h2>Programming for its own sake</h2>
+<ul>
+<li class="fragment">Dialogic <em>and</em> Dialectic process</li>
+<li class="fragment">Writing <em>and</em> Interpreting
+simultaneously</li>
+<li class="fragment">Programs defeat classical <em>hylemorphic
+scheme</em></li>
+<li class="fragment">Programs are emergent entities <em>emerging</em>
+from the programming process</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>against hylemorphism -&gt; shape vs. matter, design vs. coding</li>
+</ul>
+</aside>
+</section>
+<section id="future-of-programming" class="slide level2">
+<h2>Future of Programming</h2>
+<ul>
+<li class="fragment">Programming is <strong>neither</strong>
+<em>art</em>, nor <em>science</em> or <em>math</em>, nor even
+<em>engineering</em>, <em>writing</em>, <em>craft</em>,
+<em>game</em></li>
+<li class="fragment">(One) future of programming is <em>Programming as
+Praxis</em></li>
+<li class="fragment"><a
+href="https://www.site-magister.com/prepas/montess3.htm"><em>When I
+program, I program</em></a></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Montaigne: <em>Quand je danse, je danse</em></li>
+<li>Software as a human experience</li>
+</ul>
+</aside>
+</section></section>
+    </div>
+  </div>
+
+  <script src="/reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="/reveal.js/plugin/notes/notes.js"></script>
+  <script src="/reveal.js/plugin/search/search.js"></script>
+  <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
