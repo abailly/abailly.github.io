@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Arnaud Bailly - @dr_c0d3">
+  <meta name="dcterms.date" content="2023-09-25">
+  <title>Fonctionnellement vôtre</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="/reveal.js/dist/theme/beige.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Fonctionnellement vôtre</h1>
+  <p class="author">Arnaud Bailly - <span class="citation"
+data-cites="dr_c0d3">@dr_c0d3</span></p>
+  <p class="institute">Input Output Global</p>
+  <p class="date">2023-09-25</p>
+</section>
+
+<section>
+<section id="introduction" class="title-slide slide level1">
+<h1>Introduction</h1>
+
+</section>
+<section id="plan" class="slide level2">
+<h2>Plan</h2>
+<ul>
+<li class="fragment">Pourquoi ?</li>
+<li class="fragment">Théorie de l’<em>Event Sourcing</em></li>
+<li class="fragment">Travaux pratiques</li>
+<li class="fragment">Conclusion</li>
+</ul>
+</section>
+<section id="doù-parlé-je" class="slide level2">
+<h2>D’où parlé-je ?</h2>
+<ul>
+<li class="fragment">Architecte des projets <a
+href="https://hydra.family">Hydra</a> et <a
+href="https://mithril.network">Mithril</a> chez <a
+href="https://iohk.io">IOG</a></li>
+<li class="fragment">Praticien de l’<em>eXtreme Programming</em> depuis
+15 ans</li>
+<li class="fragment">Compagnon de route du <em>Domain Driven
+Design</em></li>
+</ul>
+</section></section>
+<section>
+<section id="pourquoi" class="title-slide slide level1">
+<h1>Pourquoi ?</h1>
+
+</section>
+<section id="le-modèle-de-données-relationnel" class="slide level2">
+<h2>Le modèle de données relationnel</h2>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/relational-model.gif" /></p>
+</section>
+<section id="les-avantages-des-sgbdr" class="slide level2">
+<h2>Les avantages des SGBDR</h2>
+<ul>
+<li class="fragment">Très pratique pour effectuer des requêtes:
+<em>SQL</em> est un très bon langage !</li>
+<li class="fragment">Conceptuellement simple : tout est <em>table</em>
+(<em>relation</em>)</li>
+<li class="fragment">Pléthore d’outils et de services</li>
+</ul>
+</section>
+<section id="les-inconvénients-des-sgbdr" class="slide level2">
+<h2>Les inconvénients des SGBDR</h2>
+<ul>
+<li class="fragment">Les insertions et mises à jour sont complexes</li>
+<li class="fragment"><em>Défaut d’adaptation d’impédance</em> : la
+plupart des domaines ont des données de type arborescentes ou même
+graphes</li>
+<li class="fragment">Avoir une seule base de données pour tout <span
+class="math inline">⇒</span> <em>SPOF</em></li>
+<li class="fragment">Une base de données c’est comme une
+<strong>variable globale mutable</strong></li>
+</ul>
+</section>
+<section id="états-et-transitions" class="slide level2">
+<h2>États et Transitions</h2>
+<p><img data-src="/images/state-transitions.png" /></p>
+</section>
+<section id="états-et-transitions-1" class="slide level2">
+<h2>États et Transitions</h2>
+<ul>
+<li class="fragment">Les SGBDR stockent <strong>l’état</strong> du
+domaine à un instante <span class="math inline"><em>t</em></span>…</li>
+<li class="fragment">… mais les <strong>transitions</strong> sont aussi
+intéressantes…</li>
+<li class="fragment">… et l’état peut toujours être reconstruit à partir
+d’une <em>séquence de transitions</em>.</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>ceci suppose que les transitions soient déterministes</li>
+</ul>
+</aside>
+</section></section>
+<section>
+<section id="théorie-de-levent-sourcing"
+class="title-slide slide level1">
+<h1>Théorie de l’<em>Event Sourcing</em></h1>
+
+</section>
+<section id="le-modèle-event-sourcing" class="slide level2">
+<h2>Le modèle <em>Event sourcing</em></h2>
+<blockquote>
+<p>Event Sourcing ensures that all changes to application state are
+stored as a sequence of events. Not just can we query these events, we
+can also use the event log to reconstruct past states, and as a
+foundation to automatically adjust the state to cope with retroactive
+changes.</p>
+</blockquote>
+<blockquote>
+<p><a href="http://martinfowler.com/eaaDev/EventSourcing.html">Martin
+Fowler</a></p>
+</blockquote>
+</section>
+<section id="stocker-un-flux-dévénements" class="slide level2">
+<h2>Stocker un flux d’événements</h2>
+<p>rend plus facile:</p>
+<ul>
+<li class="fragment"><span class="math inline">…</span> d’écrire des
+tests</li>
+<li class="fragment"><span class="math inline">…</span> d’auditer l’état
+courant du système et son passé</li>
+<li class="fragment"><span class="math inline">…</span> d’implanter un
+mécanisme de <em>undo/redo</em></li>
+<li class="fragment"><span class="math inline">…</span> d’exécuter des
+simulations sur des données “live”</li>
+<li class="fragment"><span class="math inline">…</span> de gérer les
+migrations de format de données et les versions multiples</li>
+<li class="fragment"><span class="math inline">…</span> de gérer des
+changements potentiellement conflictuels</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>undo/redo =&gt; évévenements réversibles</li>
+<li>migration -&gt; versionage des événements</li>
+<li>conflits -&gt; l’utilisation d’un journal des opérations est le
+mécanisme sous-jacent implanté par les SGBD(R) pour gérer les conflits
+et les propriétés ACID</li>
+</ul>
+</aside>
+</section>
+<section id="événements-et-domaine-métier" class="slide level2">
+<h2>Événements et “domaine métier”</h2>
+<ul>
+<li class="fragment">Les événements représentent les aspects
+<em>dynamiques</em> d’un modèle</li>
+<li class="fragment">L’<a
+href="http://ziobrando.blogspot.sg/2013/11/introducing-event-storming.html">Event
+Storming</a> est une technique efficace de modélisation partageable
+entre experts métiers et experts logiciels</li>
+<li class="fragment">Ils sont une pierre angulaire du <a
+href="http://www.amazon.fr/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">Domain
+Driven Design</a> <span class="math inline">→</span> Un langage
+ubiquitaire et des modèles plus adéquats</li>
+</ul>
+</section>
+<section id="event-sourcing-et-command-sourcing" class="slide level2">
+<h2><em>Event Sourcing</em> et <em>Command Sourcing</em></h2>
+<p><img data-src="/images/transducer.jpg" /></p>
+</section>
+<section id="event-sourcing-et-command-sourcing-1" class="slide level2">
+<h2><em>Event Sourcing</em> et <em>Command Sourcing</em></h2>
+<ul>
+<li class="fragment"><em>événement</em> et <em>commandes</em> sont
+équivalents uniquement si l’interprétation d’une commande est
+déterministe</li>
+<li class="fragment">interpréter une commande nécessite l’intégralité
+des règles métiers</li>
+<li class="fragment">interpréter un événement est <em>indépendant</em>
+des règles métiers</li>
+</ul>
+</section></section>
+<section>
+<section id="travaux-pratiques" class="title-slide slide level1">
+<h1>Travaux pratiques</h1>
+
+</section>
+<section id="domaine-des-comptes-bancaires" class="slide level2">
+<h2>Domaine : des comptes bancaires</h2>
+<ul>
+<li class="fragment">Un compte bancaire a un <em>identifiant</em> et un
+<em>solde</em></li>
+<li class="fragment">Un utilisateur peut effectuer des <em>dépôts</em>,
+des <em>retraits</em> et des <em>transferts</em></li>
+<li class="fragment">Un dépôt est toujours possible</li>
+<li class="fragment">Un retrait n’est possible que si le solde est
+supérieur ou égal au montant</li>
+<li class="fragment">Un transfert n’est possible qu’entre 2 comptes
+différents et si le solde du compte débité est suffisant</li>
+</ul>
+</section>
+<section id="un-core-domain-pure" class="slide level2">
+<h2>Un <em>Core domain</em> pure</h2>
+<ul>
+<li class="fragment"><p>Une <em>Commande</em> calcule un événement en
+fonction de l’état courant</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ot">eval ::</span> <span class="dt">Command</span> <span class="ot">-&gt;</span> <span class="dt">State</span> <span class="ot">-&gt;</span> <span class="dt">Event</span></span></code></pre></div></li>
+<li class="fragment"><p>Un <em>événement</em> met à jour l’état</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">apply ::</span> <span class="dt">Event</span> <span class="ot">-&gt;</span> <span class="dt">State</span> <span class="ot">-&gt;</span> <span class="dt">State</span></span></code></pre></div></li>
+</ul>
+</section>
+<section id="des-services-impures" class="slide level2">
+<h2>Des <em>Services</em> impures</h2>
+<blockquote>
+<p>Services are used to orchestrate interaction between one or more
+business models and the outside world</p>
+</blockquote>
+<ul>
+<li class="fragment">Un <em>Service</em> opère sur <em>plusieurs
+contextes</em></li>
+<li class="fragment">Un <em>service</em> peut être <em>synchrone</em> ou
+<em>asynchrone</em></li>
+<li class="fragment">Il n’y a pas <em>transactions réparties</em>: Un
+service doit gérer les erreurs et incohérences de chaque contexte</li>
+</ul>
+</section></section>
+<section>
+<section id="conclusion" class="title-slide slide level1">
+<h1>Conclusion</h1>
+
+</section>
+<section id="event-sourcing-prog-fonctionnel-rocket"
+class="slide level2">
+<h2>Event sourcing + Prog fonctionnel = :rocket:</h2>
+</section>
+<section id="et-si-on-ne-fait-pas-de-haskell" class="slide level2">
+<h2>Et si on ne fait pas de Haskell ?</h2>
+<p>Les principes sont valables dans tous les langages:</p>
+<ul>
+<li class="fragment">Un flux d’événements uniques, horodaté, versionné,
+structuré…</li>
+<li class="fragment">Des <em>commandes</em> et des <em>événements</em>
+immutables définis avec le métier</li>
+<li class="fragment">Un modèle purement <em>calculatoire</em> facilement
+testable</li>
+</ul>
+</section>
+<section id="pour-aller-plus-loin" class="slide level2">
+<h2>Pour aller plus loin</h2>
+<ul>
+<li class="fragment">Intégrer les événements systèmes et métiers dans un
+flux unique <span class="math inline">⇒</span> <a
+href="https://codesync.global/media/one-log-arnaud-bailly-yann-schwartz/">One
+Log</a></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="/reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="/reveal.js/plugin/notes/notes.js"></script>
+  <script src="/reveal.js/plugin/search/search.js"></script>
+  <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
