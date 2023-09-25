@@ -12,7 +12,7 @@ revealjs-url: /reveal.js
 ## Plan
 
 * Pourquoi ?
-* Théorie de l'_Event Sourcing_
+* Théorie de la _Persistance événementielle_
 * Travaux pratiques
 * Conclusion
 
@@ -59,7 +59,7 @@ revealjs-url: /reveal.js
 
 :::
 
-# Théorie de l'_Event Sourcing_
+# Théorie de la _Persistance événementielle_
 
 ## Le modèle _Event sourcing_
 
