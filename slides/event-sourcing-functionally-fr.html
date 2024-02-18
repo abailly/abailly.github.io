@@ -114,7 +114,8 @@ data-cites="dr_c0d3">@dr_c0d3</span></p>
 <h2>Plan</h2>
 <ul>
 <li class="fragment">Pourquoi ?</li>
-<li class="fragment">Théorie de l’<em>Event Sourcing</em></li>
+<li class="fragment">Théorie de la <em>Persistance
+événementielle</em></li>
 <li class="fragment">Travaux pratiques</li>
 <li class="fragment">Conclusion</li>
 </ul>
@@ -188,9 +189,9 @@ d’une <em>séquence de transitions</em>.</li>
 </aside>
 </section></section>
 <section>
-<section id="théorie-de-levent-sourcing"
+<section id="théorie-de-la-persistance-événementielle"
 class="title-slide slide level1">
-<h1>Théorie de l’<em>Event Sourcing</em></h1>
+<h1>Théorie de la <em>Persistance événementielle</em></h1>
 
 </section>
 <section id="le-modèle-event-sourcing" class="slide level2">
@@ -270,20 +271,6 @@ des règles métiers</li>
 <h1>Travaux pratiques</h1>
 
 </section>
-<section id="domaine-des-comptes-bancaires" class="slide level2">
-<h2>Domaine : des comptes bancaires</h2>
-<ul>
-<li class="fragment">Un compte bancaire a un <em>identifiant</em> et un
-<em>solde</em></li>
-<li class="fragment">Un utilisateur peut effectuer des <em>dépôts</em>,
-des <em>retraits</em> et des <em>transferts</em></li>
-<li class="fragment">Un dépôt est toujours possible</li>
-<li class="fragment">Un retrait n’est possible que si le solde est
-supérieur ou égal au montant</li>
-<li class="fragment">Un transfert n’est possible qu’entre 2 comptes
-différents et si le solde du compte débité est suffisant</li>
-</ul>
-</section>
 <section id="un-core-domain-pure" class="slide level2">
 <h2>Un <em>Core domain</em> pure</h2>
 <ul>
@@ -310,15 +297,64 @@ contextes</em></li>
 <li class="fragment">Il n’y a pas <em>transactions réparties</em>: Un
 service doit gérer les erreurs et incohérences de chaque contexte</li>
 </ul>
+</section>
+<section id="méta-données-dévénement" class="slide level2">
+<h2>Méta-données d’événement</h2>
+<p>Un exemple de structure d’événement:</p>
+<pre><code>data StoredEvent s = StoredEvent { eventVersion :: EventVersion
+                                 , eventType    :: EventType s
+                                 , eventDate    :: Date
+                                 , eventUser    :: UserId
+                                 , eventRequest :: Encoded Hex
+                                 , eventSHA1    :: Encoded Hex
+                                 , event        :: ByteString
+                                 }</code></pre>
+</section>
+<section id="stockage-des-événements" class="slide level2">
+<h2>Stockage des événements</h2>
+<ul>
+<li class="fragment">Chaque événement a une version qui est utilisé pour
+sa représentation binaire</li>
+<li class="fragment">Un événement comporte des méta-données utiles pour
+l’audit : l’utilisateur ayant initié la commande, un horodatage, un
+identifiant de requête, etc.</li>
+<li class="fragment">Une grande variété d’options, depuis un simple
+fichier en mode <em>ajout</em> jusqu’à une base de données
+répliquée</li>
+<li class="fragment">Le <em>backend</em> de stockage doit garantir la
+linéarisation des écritures</li>
+</ul>
+</section>
+<section id="exemple-comptes-bancaires" class="slide level2">
+<h2>Exemple : comptes bancaires</h2>
+<ul>
+<li class="fragment">Un compte bancaire a un <em>identifiant</em> et un
+<em>solde</em></li>
+<li class="fragment">Un utilisateur peut effectuer des <em>dépôts</em>,
+des <em>retraits</em> et des <em>transferts</em></li>
+<li class="fragment">Un dépôt est toujours possible</li>
+<li class="fragment">Un retrait n’est possible que si le solde est
+supérieur ou égal au montant</li>
+<li class="fragment">Un transfert n’est possible qu’entre 2 comptes
+différents et si le solde du compte débité est suffisant</li>
+</ul>
 </section></section>
 <section>
 <section id="conclusion" class="title-slide slide level1">
 <h1>Conclusion</h1>
 
 </section>
-<section id="event-sourcing-prog-fonctionnel-rocket"
-class="slide level2">
-<h2>Event sourcing + Prog fonctionnel = :rocket:</h2>
+<section id="event-sourcing-haskell-rocket" class="slide level2">
+<h2>Event sourcing + Haskell = :rocket:</h2>
+<ul>
+<li class="fragment">Implante nativement le “pattern” <a
+href="https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell">Noyau
+fonctionnel, Enveloppe impérative</a></li>
+<li class="fragment">Suit une approche de <em>Conception Orientée
+Domaine</em></li>
+<li class="fragment">Adéquat pour le <em>Développement dirigé par les
+tests</em></li>
+</ul>
 </section>
 <section id="et-si-on-ne-fait-pas-de-haskell" class="slide level2">
 <h2>Et si on ne fait pas de Haskell ?</h2>
@@ -339,6 +375,8 @@ testable</li>
 flux unique <span class="math inline">⇒</span> <a
 href="https://codesync.global/media/one-log-arnaud-bailly-yann-schwartz/">One
 Log</a></li>
+<li class="fragment">Une formation à l’<a
+href="https://funar.pankzsoft.com/">architecture fonctionnelle</a></li>
 </ul>
 </section></section>
     </div>

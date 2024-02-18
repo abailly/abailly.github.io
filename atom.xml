@@ -6,7 +6,9 @@
     <id>http://abailly.github.io/atom.xml</id>
     <author>
         <name>Arnaud Bailly</name>
+        
         <email>arnaud@igitur.io</email>
+        
     </author>
     <updated>2023-05-27T00:00:00Z</updated>
     <entry>
