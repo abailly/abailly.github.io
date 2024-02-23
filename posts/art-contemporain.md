@@ -1,0 +1,26 @@
+---
+title: Sur "Le paradigme de l'art contemporain"
+author: Arnaud Bailly
+date: 2024-02-20
+---
+
+
+[Le paradigme de l'art contemporain](https://www.gallimard.fr/Catalogue/GALLIMARD/Folio/Folio-essais/Le-paradigme-de-l-art-contemporain#) est un livre relativement court de [Nathalie Heinich](https://fr.wikipedia.org/wiki/Nathalie_Heinich) sociologue française spécialiste du monde l'art et de la création, et par ailleurs ancienne thésarde de Pierre Bourdieu ! C'est aussi un personnage assez controversé dans le milieu de la sociologie et plus généralement intellectuel français, quelqu'un dont les positions anti-islamistes, conservatrices sur les questions de genre, et plus récemment "anti-wokistes" ont suscité des critiques, notamment sur le manque de scientificité de ses travaux sociologiques et un sous-texte très politique dissimulé derrière une prétendue "neutralité axiologique" invoquant les mânes de Max Weber.
+
+N'étant pas sociologue je ne me prononcerai pas sur la qualité scientifique de son travail, mais celui-ci a tout de même été sanctifié par un poste de directeur de recherche au CNRS et plusieurs chaires d'enseignement dans des universités prestigieuses, donc je lui accorderai le bénéfice du doute. Et ce d'autant plus que ce livre-ci n'est pas particulièrement polémique ni politique, ou qu'à tout le moins elle n'y exprime aucun jugement sur la valeur de l'art, des artistes ou des oeuvres qu'elle décrit.
+
+## Changement de paradigme
+
+N.Heinich cherche à démontrer dans ce livre que l'art dit _contemporain_ n'a rien à voir avec des questions de dates mais constitue un changement de paradigme aus sens que donne Thomas Kuhn à ce mot dans son célèbre ouvrage d'épistémologie, [La structure des révolutions scientifiques](https://fr.wikipedia.org/wiki/La_Structure_des_révolutions_scientifiques).
+
+Selon Kuhn, la "science en action" comme le dirait [Latour](https://www.editionsladecouverte.fr/la_science_en_action-9782707145468), l'activité scientifique connait essentiellement deux régimes : un régime de croisière, et un régime de crise. Le régime de croisière forme le quotidien ordinaire des scientifiques, celui où les faits sont accumulés et viennent renforcer les théories existantes, où les théories qui sont raffinées et étendues. Le régime de crise, comme son nom l'indique, survient quand les théories existantes ne suffisent plus à rendre compte des faits, ou quand l'intégration de nouveaux faits induits des complications menant à plusieurs théories concurrentes. Le _paradigme_ nouveau est ce qui permet de dépasser les périodes de crise et de définir un nouveau "régime de croisière", un ensemble théorique et pratique que la communauté scientifique considère comme plus satisfaisant que l'ancien pour tout ou partie du domaine.
+
+Les changements de paradigmes les plus célèbres sont intervenus en physique, avec le passage de la mécanique ptoléméenne à la mécanique newtonienne, puis à la relativité ; ou encore le passage de l'atomisme à la mécanique quantique. En biologie, on pensera au passage du fixisme à la sélection naturelle de Darwin. Ces cas sont intéressants car ils montrent qu'un paradigme ne remplace pas nécessairement l'ancien (on continue d'enseigner et d'utiliser la mécanique newtonienne) ou qu'il est en concurrence avec d'autres (le [lamarckisme](https://fr.wikipedia.org/wiki/Lamarckisme) est supplanté par le [darwinisme](/posts/origin-of-species.html) mais il ressurgit périodiquement).
+
+Selon N.Heinich, _l'art contemporain_ présente des caractéristiques similaires aux paradigmes scientifiques : c'est un fait social, il surgit en période de "crise" et permet de dépasser celle-ci, il ne supplante pas complètement les paradigmes précédents, mais il est radicalement différent de ceux-ci et tend à prendre une place de plus en plus grande dans son domaine. Ce nouveau paradigme, qu'elle va s'attacher à décrire dans les différents chapitres du livre, s'oppose aux paradigmes précédents que sont _l'art moderne_ et _l'art classique_.
+
+L'art classique se caractérise grossièrement par la prééminence du sujet, ou plutôt d'un but dans l'oeuvre - commande d'état, portrait, thèmes religieux, la recherche du _Beau_, la représentation de la nature et de l'homme, l'acceptation d'une hiérarchie dictée par la technique artistique et picturale, l'existence d'un style potentiellement reproductible et imitable. L'art classique est d'ailleurs le domaine privilégié des _faussaires_.
+
+Dans l'art moderne, qui s'impose à la fin du XIXème siècle mais dont on peut tracer les prémices bien avant, par exemple dans les oeuvres de Goya ou même de Brueghel, c'est _l'expressivité_ qui prime, la transmutation des états intérieurs de l'artiste en oeuvre (peinture ou sculpture), la transmission d'une émotion potentiellement violente (Guernica, Le cri). La technique devient secondaire et les artistes se libèrent du carcan de la toile et de l'huile, imposant de nouveaux matériaux et outils - collages (Braque, Picasso), peintures ou encres variées, incorporation de matériaux dans la toile, travail sur la matière (Soulages).
+
+Surtout, le sujet disparaît et nait l'abstraction, traversée de multiples courants plus ou moins strictes, plus ou moins expressifs.
