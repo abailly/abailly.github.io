@@ -11,13 +11,24 @@ revealjs-url: /reveal.js
 
 * Why?
 * Property-Based Testing
-* `quickcheck-dynamic`
-* Examples
+* `quickcheck-dynamic`: Theory
+* `quickcheck-dynamic`: Practice
 * Conclusion
 
 # Why?
 
-## Obligatory Quote
+## The Quest for Better Software
+
+* Personal interest in testing for 20 years
+* _Test-Driven Development_ $\rightarrow$ _Property-Based Testing_
+* How to better test stateful programs and systems?
+* Formal specification and "programs proving" is very hard
+
+::: notes
+
+:::
+
+## Obligatory Testing Quote
 
 ![Dijkstra on Testing](/images/dijkstra-testing-quote.jpeg)
 
@@ -29,28 +40,11 @@ revealjs-url: /reveal.js
 
 :::
 
-## The Quest for Better Software
-
-* _Test-Driven Development_ $\rightarrow$ _Property-Based Testing_
-* How to better test stateful programs and systems?
-* Formal specification and "programs proving" is very hard
-* PhD on state-machine driven test case generation 20 years ago
-
-::: notes
-
-:::
-
 ## Goal(s) for this Talk
 
-* Share experience using Model-Based testing
-* Spark interest in the use of this family of tools
-* Gather feedback on quickcheck-dynamic
-
-::: notes
-
-* blah
-
-:::
+* Share my experience using Model-Based testing to...
+* ... spark interest in the use of this family of tools and ...
+* ... gather feedback on how to improve `quickcheck-dynamic`
 
 # Property-Based Testing
 
@@ -60,10 +54,6 @@ revealjs-url: /reveal.js
 * Generalise examples to express _properties_ of the SUT
 
 ::: notes
-
-* Some minor differences with Haskell
-* Types are declared with single colon character
-* Type of parameters can be named, which is useful for both documentation and referring to those names as variables in in other parts of the signature
 
 :::
 
@@ -102,9 +92,9 @@ roundtrip_encoding_decoding a =
 
 ## PBT Core Feature
 
-* Generate some number of [arbitrary](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#g:5) values
-* When property fails, [shrink](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck-Arbitrary.html#v:shrink) the failing input
-* Provide smallest [counterexample](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#v:counterexample) upon failure
+* Generate some number of [arbitrary](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#g:5) values...
+* ... when property fails, [shrink](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck-Arbitrary.html#v:shrink) the failing input ...
+* ... to provide smallest [counterexample](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#v:counterexample) upon failure
 
 ::: notes
 
@@ -194,22 +184,430 @@ canReadFlowsAndTracesWritten dbFile nt =
 ```
 
 
-# quickcheck-dynamic
+# `quickcheck-dynamic`: Theory
+
+## What is it?
+
+* A library for _Property-Based_ testing of _stateful_ systems
+* Developed by [Quviq](https://quviq.com) while working at [Input Output](https://iohk.io) on Cardano
+* Open-sourced in 2022
+
+## Principles
+
+* Model programs as _labelled transition systems_
+* Express properties as [Dynamic Logic](https://en.wikipedia.org/wiki/Dynamic_logic_(modal_logic)) formulas
+* Generate sequence of actions respecting the property
+* Run sequence of actions against SUT and find bugs!
+
+::: notes
+
+DL is inspired by Hoare's triples itself inspired by Hoare's triple
+
+:::
+
+## Model - Basic steps
+
+Specify possibles _actions_ and `initialState`
+
+```haskell
+instance StateModel KV where
+  data Action KV a where
+     Put :: String -> Int -> MySystem ()
+     Get :: String -> MySystem (Maybe Int)
+
+  initialState :: KV
+  initialState = mempty
+```
+
+## Model - Basic steps  {transition=none}
+
+Generate actions according to the current state
+
+```haskell
+instance StateModel KV where
+  initialState = ...
+  arbitraryAction env state =
+    oneof [ genWrite
+          , genRead
+          ]
+    ...
+```
+
+## Model - Basic steps  {transition=none}
+
+Define `nextState` transition
+
+```haskell
+instance StateModel KV where
+  initialState = ...
+  arbitraryAction = ...
+  nextState state (Put k v) variable =
+     insert state k v
+  nextState state (Get k) variable =
+     state
+```
+
+## Implementation
+
+Relate the specification to an actual (monadic) implementation
+
+```haskell
+instance RunModel KV StoreM where
+  perform state (Put k v) env = do { putStore k v }
+  perform state (Get k) env = do { getStore k }
 
 
-# Examples
 
-## Hydra
+```
 
-* Modeling Layer-2 protocol for Cardano
+## Implementation  {transition=none}
+
+Specify `postcondition`s that should hold after each `Action`
+
+```haskell
+instance RunModel KV StoreM where
+  perform state (Put k v) env =  ...
+  postcondition (before, after) (Put k) env v = pure True
+  postcondition (before, after) (Get k) env v =
+    pure $ v == lookup env k
+
+```
+
+## Dynamic Logic
+
+* A _Modal logic_ to define properties over _traces_ of a system
+* Exposed as both an _expression_  and _monadic_ DSL
+* Provide combinators to relate results of actions to predicates over the state of the SUT
+
+-----
+
+![Dynamic Logic book](/images/dyn-logic-book.jpg)
+
+## Dynamic Logic - Syntax
+
+Modality: $[a]p$
+
+* `After a p`
+
+  > After action `a`, `p` holds
+
+* `AfterAny p`
+
+  > After _any_ action `a`, `p` holds
+
+----
+
+Constants: $\mathbb{0}$, $\emptyset$
+
+* `Stop`
+
+  > When execution `Stop`s, expression is _true_
+
+* `Empty`
+
+  > When no execution is possible, expression is _false_
+
+----
+
+Alternatives: $[a \cup b] p$, $[ a \cap b] p$
+
+* `Alt Demonic f g`
+
+  > After `a` or `b` `p` must hold
+
+* `Alt Angelic f g`
+
+  > `p` must hold `After` either `a` or `b`
+
+
+::: notes
+
+* Choice in expressions is always `Angelic` but it turns `Demonic` when exploring branches and asserting whether a sequence is stuck
+
+:::
+
+## Dynamic Logic - Monadic Syntax
+
+Provide a more convenient syntax
+
+```haskell
+newtype DL s a = DL { ... }
+  deriving (Functor, Applicative, Alternative, Monad)
+
+action :: Action s a -> DL s (Var a)
+anyAction :: DL s ()
+anyActions :: Int -> DL s ()
+getModelStateDL :: DL s s
+...
+```
+
+----
+
+Combinator to `Gen`erate arbitrary values within expression
+
+```haskell
+class  Quantifiable q  where
+  type Quantifies q
+
+  quantify :: q -> Quantification (Quantifies q)
+
+forAllQ :: Quantifiable q => q -> DL s (Quantifies q)
+```
+
+## Examples
+
+From [Thread Registry](https://github.com/input-output-hk/quickcheck-dynamic/blob/53e8839b6646af0d531a49b1f7ad75d80dfc06c4/quickcheck-dynamic/test/Spec/DynamicLogic/RegistryModel.hs#L34) example
+
+Can register an unbound thread under a new `name`
+
+```haskell
+canRegister = do
+  anyActions_
+  name <- pickFreshName
+  tid <- pickAlive
+  unregisterNameAndTid name tid
+  action $ Register name tid
+```
+
+----
+
+Cannot register an already registered thread under a new `name`
+
+```haskell
+canRegisterNoUnregister = do
+  anyActions_
+  name <- pickFreshName
+  tid <- pickAlive
+  action $ Register name tid
+  pure ()
+```
+
+## Running Properties
+
+Tie _Dynamic Logic_ expression and _Actions_ execution into a `Property`
+
+```haskell
+forAllDL ::
+     (DL.DynLogicModel s, Testable a)
+  => DL s ()
+  -> (Actions s -> a)
+  -> Property
+```
+
+## Running Properties
+
+Tie _StateModel_ and _RunModel_, interpreting `Action`s against the SUT
+
+```haskell
+runActions
+  :: forall state m e
+   . ( StateModel state
+     , RunModel state m
+     )
+  => Actions state
+  -> PropertyM m (Annotated state, Env m)
+```
+
+## Shrinking
+
+Sequence of actions that fail are _shrank_ while respecting DL expression
+
+* Shorten `anyActions_` traces
+* Shrink `action` and `anyAction` data according to model's `shrinkAction`
+* Shrink `Quantifiable` values generate
+* `precondition` filters invalid sequence of actions
+
+::: notes
+
+* note the importance of shrinking to provide minimal counterexamples
+
+:::
+
+## Exploring state space boundaries
+
+* generate actions that are _supposed to fail_
+* "Negative" And "Positive" actions
+* Errors type
+
+# `quickcheck-dynamic`: Practice
+
+## Hydra - Overview
+
+* A Layer-2 network for UTxO blockchains based on _State channels_
+* Complex on-chain protocol advancing a state-machine through transactions
+* Off-chain leader-based distributed consensus
+* More details at https://hydra.family
+
+----
+
+![High-level Hydra Protocol](https://hydra.family/head-protocol/assets/images/hydra-head-lifecycle-b8449385e9041a214bf8c6e52830de3c.svg)
+
+----
+
+![Hydra architecture](/images/basic-hydra-head.jpeg)
+
+## Hydra - Model
+
+![Hydra Test Architecture](/images/hydra-test-architecture.png)
+
+## Hydra - Model
+
+* Simulation-based testing + MBT = Powerful _combo_ ([FoundationDB](https://apple.github.io/foundationdb/testing.html), [Quviq's PULSE](https://smallbone.se/papers/finding-race-conditions.pdf))
+* Runs network of nodes using [io-sim](https://github.com/input-output-hk/io-sim), a Free-monad based framework for simulating Haskell runtime
+* See Philip Kant's [presentation at BobKonf 2022](https://www.youtube.com/watch?v=uedUGeWN4ZM)
+
+## Hydra - Properties
+
+Original [research paper](https://eprint.iacr.org/2020/299.pdf) defines several key properties
+
+![Conflict-free liveness](/images/hydra-conflict-free.png)
+
+---
+
+Properties are (manually) expressed as _Dynamic Logic_ formulas
+
+```haskell
+conflictFreeLiveness = do
+  anyActions_
+  getModelStateDL >>= \case
+    Open{} -> do
+      payment <- forAllNonVariableQ (nonConflictingTx st)
+      tx <- action $ Model.NewTx payment
+      eventually (ObserveConfirmedTx tx)
+```
+
+::: notes
+
+* Some details omitted for readability
+
+:::
+
+---
+
+![Hydra Property Execution](/images/hydra-property-execution.png)
+
+## Peras
+
+* Fast finality protocol for Cardano
+* Early work integrating research, formal methods, engineering...
+* Use `quickcheck-dynamic` to produce _Executable Specification_ from _Formal Specification_
+
+> Agda Proofs are Quickcheck Tests
+
+::: notes
+
+* Peras is a WIP, paper not yet published so I won't share details about the protocol itself
+* We are using the project also as a way to improve our approach to formal and executable specifications, trying to link both worlds
+
+:::
+
+----
+
+![Development Workflow](/images/peras-workflow.jpg)
+
+::: notes
+
+* Formal specification in Agda is our ground truth
+* Part of the model and code used in the q-d tests is generated from Agda
+* The general idea is that _Proofs in Agda become Properties in QuickCheck_
+
+:::
+
+----
+
+![Testing Architecture](/images/peras-testing-architecture.png)
+
+::: notes
+
+* We use the same `RunMonad` which is parameterised by the underlying execution monad and the actual network interface to define `RunModel`
+
+:::
+
+----
+
+Testing _Common Prefix_ property
+
+```haskell
+ describe "IOSim Network" $
+   prop "Chain progress" $
+     prop_common_prefix iOSimNetwork
+
+ describe "Netsim Network" $
+    prop "Chain progress" $
+      withMaxSuccess 20 $
+        prop_common_prefix netsimNetwork
+```
+
+----
+
+Testing _Common Prefix_ property
+
+```haskell
+chainCommonPrefix = do
+  anyActions_
+  getModelStateDL >>= \Network{nodeIds} -> do
+    anyAction
+    chains <- forM nodeIds (action . ObserveBestChain)
+    void $ action $ ChainsHaveCommonPrefix chains
+```
 
 # Conclusion
 
-## Takeaways
+## Reflecting on practical use
 
-## Things Not Covered
+* Tests execution does not catch much bugs beyond some regressions
+* Failures in development often pinpoints blind spots and misunderstandings
+* Its main benefit was to help us _clarify_ and _formalise_ our thoughts on the protocol
+* It requires non-negligible investment to build and maintain
 
-## Links
+::: notes
+
+* we have extensive coverage elsewhere so regressions are often caught in other parts of the system
+* also requires specific skills and interests
+
+:::
+
+## Tips & Tricks
+
+* Model does not have to be _unique_
+  * $\Rightarrow$ _Tailor models to specific problems_
+* Model is code hence can be buggy
+  * $\Rightarrow$ _Test-drive your generators, shrinkers, doubles..._
+* It's easy to delude yourself
+  * $\Rightarrow$ _See it fail!_
+* `StateModel` works with symbolic values
+  * $\Rightarrow$ _Model expectations in postcondition_
+
+## Tips & Tricks (contd.)
+
+* Detailed modeling leads to complex code
+  * $\Rightarrow$ _Abstract the uninteresting bits away_
+* Acting on and observing internal state is tricky
+  * $\Rightarrow$ _Make the SUT testable and observable_
+* `IO` Dependencies make tests slow and brittle
+  * $\Rightarrow$ _Abstract dependencies behind simulatable interfaces_
+* Triggering environment failures
+  * $\Rightarrow$ _Simulate runtime environment for fault injections_
+
+## What's next?
+
+Development on quickcheck-dynamic is fairly active, with plans for:
+
+* Parallel testing of properties for "race conditions" detection (à la [quickcheck-state-machine](https://hackage.haskell.org/package/quickcheck-state-machine))
+* Improved shrinking
+* More documentation, examples, use cases...
+
+## Takeaway  {transition=none}
+
+> A plan is useless, planning is everything
+>
+> Gal. von Moltke
+
+## Takeaway   {transition=none}
+
+> A model is useless, modeling is everything
+>
+> quickcheck-dynamic
 
 ## Questions?
 
