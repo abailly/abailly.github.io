@@ -1,15 +1,15 @@
 ---
 title: On the Mode of Existence of Software
-author: Arnaud Bailly 
+author: Arnaud Bailly
 date: 2017-05-18
 ---
 
-* When I develop software I often *feel* emotions which are linked to the body 
+* When I develop software I often *feel* emotions which are linked to the body
     * could be negative like anger, fear, sadness, depression  --> Pain in the back or in the hands, tensions in my neck, headaches or dizziness
     * could be positive like love, hope, confidence, tranquility --> relief of all tensions, positive energy, excitement...
 * People around me are also affected by software, most of the time negatively -> software appears like some magic to them
 
-* The concrete experience of developing software, the craft behind it... 
+* The concrete experience of developing software, the craft behind it...
   * [Matthew Crawford](https://en.wikipedia.org/wiki/Matthew_Crawford)'s "Shop class as soulcraft":  Using one's hand, leaving purely intellectual work behind, meaning and struggling with matter
   * I have the same experience with coding, to me this is an intense crafting activity whose medium is the same as the matter it manipulates.
   * one craft software with her hands, [typing on a keyboard](https://www.meetup.com/Mechanical-Keyboard/photos/27166931/452768389/?_locale=fr-FR) is so important that there are groups dedicated to it and hundreds of different types of keyboards. Each developer spends a lot of time customising her environment to be "more" efficient, dozens of books have been written on the subject of software craftmanship

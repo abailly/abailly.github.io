@@ -19,16 +19,15 @@ revealjs-url: /reveal.js
 
 ## The Quest for Better Software
 
-* Personal interest in testing for 20 years
-* _Test-Driven Development_ $\rightarrow$ _Property-Based Testing_
-* How to better test stateful programs and systems?
-* Formal specification and "programs proving" is very hard
+Going full circle
+
+_Automata Testing_ $\rightarrow$ _Test-Driven Development_ $\rightarrow$ _Property-Based Testing_ $\rightarrow$ _Model-Based Testing_
 
 ::: notes
 
 :::
 
-## Obligatory Testing Quote
+## Engineering vs. Science
 
 ![Dijkstra on Testing](/images/dijkstra-testing-quote.jpeg)
 
@@ -37,14 +36,21 @@ revealjs-url: /reveal.js
 * Not sure what Dijkstra meant here, was it a way to diminish the relevance of testing for "proving" program correctness?
 * Don't take Dijkstra too seriously, he seems to have been a grumpy old man for most of his life
 * Testing is critically important to _design_ and _develop_ any program
+* Testing is a practical engineering compromise when proving is too difficult: We would like to "prove" everything but that does not necessarily makes sense and it's not always feasible
 
 :::
 
-## Goal(s) for this Talk
+## My Goals for this Talk
 
-* Share my experience using Model-Based testing to...
+* Share my experience with Model-Based testing to...
 * ... spark interest in the use of this family of tools and ...
 * ... gather feedback on how to improve `quickcheck-dynamic`
+
+## What can you expect?
+
+* "From the trenches" report on the usefulness of model-based testing
+* An overview of an interesting new tool
+* Tips & tricks on how and what to model
 
 # Property-Based Testing
 
@@ -90,7 +96,7 @@ roundtrip_encoding_decoding a =
 
 :::
 
-## PBT Core Feature
+## QuickCheck Core Features
 
 * Generate some number of [arbitrary](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#g:5) values...
 * ... when property fails, [shrink](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck-Arbitrary.html#v:shrink) the failing input ...
@@ -105,7 +111,8 @@ roundtrip_encoding_decoding a =
 ## Additional Key Features
 
 * [cover](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#v:cover) expected distribution of test cases
-* Build [generators](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#g:8) from combinators and [generic](https://hackage.haskell.org/package/generic-random)
+* Build [generators](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#g:8) combining smaller pieces
+* Derive generators [generically](https://hackage.haskell.org/package/generic-random)
 * ... and much more :right_pointing_hand: [QuickCheck on hackage](https://hackage.haskell.org/package/QuickCheck)
 
 ## Stateful QuickCheck
@@ -125,6 +132,8 @@ roundtrip_encoding_decoding a =
 * Compare the results
 
 ## Example: A Basic Repository Interface
+
+[Real-life example](https://github.com/abailly/sensei/blob/fd8aafe8e0f3e1422c6b08e1079c75d1adff395e/test/Sensei/DB/Model.hs#L44) drawn from personal tool that needs to read/write events in a database.
 
 ----
 
@@ -183,6 +192,144 @@ canReadFlowsAndTracesWritten dbFile nt =
       assert $ all isNothing res
 ```
 
+
+# `quickcheck-dynamic`: Practice
+
+## The need for a better tool
+
+* Ad-hoc model-based testing has limitations
+* Quviq people are experts in these techniques and they were building a tool for IOG
+* I was involved in a complex project that would benefit from a comprehensive testing strategy
+
+::: notes
+
+* Have personal experience building various tools over the course of my career, it's always a significant investment
+
+:::
+
+## Hydra - Overview
+
+* A Layer-2 network for UTxO blockchains based on _State channels_
+* Complex on-chain protocol advancing a state-machine through transactions
+* Off-chain leader-based distributed consensus
+* More details at https://hydra.family
+
+----
+
+![High-level Hydra Protocol](/images/hydra-head-lifecycle.svg)
+
+----
+
+![Hydra Deployment](/images/basic-hydra-head.jpg)
+
+## Hydra - Model
+
+![Hydra Test Architecture](/images/hydra-test-architecture.png)
+
+## Hydra - Model
+
+* Simulation-based testing + MBT = Powerful _combo_ ([FoundationDB](https://apple.github.io/foundationdb/testing.html), [Quviq's PULSE](https://smallbone.se/papers/finding-race-conditions.pdf))
+* Runs network of nodes using [io-sim](https://github.com/input-output-hk/io-sim), a Free-monad based framework for simulating Haskell runtime
+* See Philip Kant's [presentation at BobKonf 2022](https://www.youtube.com/watch?v=uedUGeWN4ZM)
+
+## Hydra - Properties
+
+Original [research paper](https://eprint.iacr.org/2020/299.pdf) defines several key properties
+
+![Conflict-free liveness](/images/hydra-conflict-free.png)
+
+---
+
+Properties are (manually) expressed as _Dynamic Logic_ formulas
+
+```haskell
+conflictFreeLiveness = do
+  anyActions_
+  getModelStateDL >>= \case
+    Open{} -> do
+      payment <- forAllNonVariableQ (nonConflictingTx st)
+      tx <- action $ Model.NewTx payment
+      eventually (ObserveConfirmedTx tx)
+```
+
+::: notes
+
+* Some details omitted for readability
+
+:::
+
+---
+
+![Hydra Property Execution](/images/hydra-property-execution.png)
+
+## Peras
+
+* Fast finality protocol for Cardano
+* Early work integrating research, formal methods, engineering...
+* Use `quickcheck-dynamic` to produce _Executable Specification_ from _Formal Specification_
+
+::: notes
+
+* Peras is a WIP, paper not yet published so I won't share details about the protocol itself
+* We are using the project also as a way to improve our approach to formal and executable specifications, trying to link both worlds
+
+:::
+
+----
+
+The slogan is:
+
+> Agda Proofs are Quickcheck Tests
+
+----
+
+![Development Workflow](/images/peras-workflow.jpg)
+
+::: notes
+
+* Formal specification in Agda is our ground truth
+* Part of the model and code used in the q-d tests is generated from Agda
+* The general idea is that _Proofs in Agda become Properties in QuickCheck_
+
+:::
+
+----
+
+![Testing Architecture](/images/peras-testing-architecture.png)
+
+::: notes
+
+* We use the same `RunMonad` which is parameterised by the underlying execution monad and the actual network interface to define `RunModel`
+
+:::
+
+----
+
+Testing _Common Prefix_ property
+
+```haskell
+ describe "IOSim Network" $
+   prop "Chain progress" $
+     prop_common_prefix iOSimNetwork
+
+ describe "Netsim Network" $
+    prop "Chain progress" $
+      withMaxSuccess 20 $
+        prop_common_prefix netsimNetwork
+```
+
+----
+
+Testing _Common Prefix_ property
+
+```haskell
+chainCommonPrefix = do
+  anyActions_
+  getModelStateDL >>= \Network{nodeIds} -> do
+    anyAction
+    chains <- forM nodeIds (action . ObserveBestChain)
+    void $ action $ ChainsHaveCommonPrefix chains
+```
 
 # `quickcheck-dynamic`: Theory
 
@@ -414,7 +561,7 @@ Sequence of actions that fail are _shrank_ while respecting DL expression
 
 * Shorten `anyActions_` traces
 * Shrink `action` and `anyAction` data according to model's `shrinkAction`
-* Shrink `Quantifiable` values generate
+* Shrink `Quantifiable` values generated
 * `precondition` filters invalid sequence of actions
 
 ::: notes
@@ -423,140 +570,99 @@ Sequence of actions that fail are _shrank_ while respecting DL expression
 
 :::
 
-## Exploring state space boundaries
+## Anatomy of a test run
 
-* generate actions that are _supposed to fail_
-* "Negative" And "Positive" actions
-* Errors type
+![](/images/test-generation-flow-1.png)
 
-# `quickcheck-dynamic`: Practice
+## Anatomy of a test run {transition=none}
 
-## Hydra - Overview
+![](/images/test-generation-flow-2.png)
 
-* A Layer-2 network for UTxO blockchains based on _State channels_
-* Complex on-chain protocol advancing a state-machine through transactions
-* Off-chain leader-based distributed consensus
-* More details at https://hydra.family
+## Anatomy of a test run {transition=none}
 
-----
+![](/images/test-generation-flow-3.png)
 
-![High-level Hydra Protocol](https://hydra.family/head-protocol/assets/images/hydra-head-lifecycle-b8449385e9041a214bf8c6e52830de3c.svg)
+## Anatomy of a test run {transition=none}
 
-----
+![](/images/test-generation-flow-4.png)
 
-![Hydra architecture](/images/basic-hydra-head.jpeg)
+## Anatomy of a test run {transition=none}
 
-## Hydra - Model
+![](/images/test-generation-flow-5.png)
 
-![Hydra Test Architecture](/images/hydra-test-architecture.png)
+## Anatomy of a test run {transition=none}
 
-## Hydra - Model
+![](/images/test-generation-flow-6.png)
 
-* Simulation-based testing + MBT = Powerful _combo_ ([FoundationDB](https://apple.github.io/foundationdb/testing.html), [Quviq's PULSE](https://smallbone.se/papers/finding-race-conditions.pdf))
-* Runs network of nodes using [io-sim](https://github.com/input-output-hk/io-sim), a Free-monad based framework for simulating Haskell runtime
-* See Philip Kant's [presentation at BobKonf 2022](https://www.youtube.com/watch?v=uedUGeWN4ZM)
+## Anatomy of a test run {transition=none}
 
-## Hydra - Properties
+![](/images/test-generation-flow-7.png)
 
-Original [research paper](https://eprint.iacr.org/2020/299.pdf) defines several key properties
+## Testing for safety
 
-![Conflict-free liveness](/images/hydra-conflict-free.png)
+* We often want to test that _nothing bad can happen_, eg. safety properties
+* We can express that in the model through _Polarity_ of `Action`s:
+  * A `Positive` action is valid w.r.t to the state and is expected to _succeed_ when run
+  * A `Negative` action is invalid in current state and is expected to _fail_
 
----
+## Testing for safety  {transition=none}
 
-Properties are (manually) expressed as _Dynamic Logic_ formulas
-
-```haskell
-conflictFreeLiveness = do
-  anyActions_
-  getModelStateDL >>= \case
-    Open{} -> do
-      payment <- forAllNonVariableQ (nonConflictingTx st)
-      tx <- action $ Model.NewTx payment
-      eventually (ObserveConfirmedTx tx)
-```
+![](/images/test-fail-generation-flow-1.png)
 
 ::: notes
 
-* Some details omitted for readability
+* Test sequence starts as before, with the initial state and some action matching a precondition
 
 :::
 
----
+## Testing for safety  {transition=none}
 
-![Hydra Property Execution](/images/hydra-property-execution.png)
-
-## Peras
-
-* Fast finality protocol for Cardano
-* Early work integrating research, formal methods, engineering...
-* Use `quickcheck-dynamic` to produce _Executable Specification_ from _Formal Specification_
-
-> Agda Proofs are Quickcheck Tests
+![](/images/test-fail-generation-flow-2.png)
 
 ::: notes
 
-* Peras is a WIP, paper not yet published so I won't share details about the protocol itself
-* We are using the project also as a way to improve our approach to formal and executable specifications, trying to link both worlds
+* An `Action` that _fails_ it's `precondition` but passes it's `failurePrecondition` can be included in the generated trace
+* Usually, such a `Negative` is expected to not change the state, but one could want to track those failures nevertheless
 
 :::
 
-----
+## Testing for safety  {transition=none}
 
-![Development Workflow](/images/peras-workflow.jpg)
+![](/images/test-fail-generation-flow-3.png)
 
 ::: notes
 
-* Formal specification in Agda is our ground truth
-* Part of the model and code used in the q-d tests is generated from Agda
-* The general idea is that _Proofs in Agda become Properties in QuickCheck_
+Full trace is generated
 
 :::
 
-----
 
-![Testing Architecture](/images/peras-testing-architecture.png)
+## Testing for safety  {transition=none}
+
+![](/images/test-fail-generation-flow-4.png)
 
 ::: notes
 
-* We use the same `RunMonad` which is parameterised by the underlying execution monad and the actual network interface to define `RunModel`
+* A `Negative` action must pass the `postconditionOnFailure` predicate for the test to succeed
+* The result of the action, whether considered and `Error` or not is passed to the predicate
 
 :::
 
-----
+## Testing for safety  {transition=none}
 
-Testing _Common Prefix_ property
+![](/images/test-fail-generation-flow-5.png)
 
-```haskell
- describe "IOSim Network" $
-   prop "Chain progress" $
-     prop_common_prefix iOSimNetwork
+::: notes
 
- describe "Netsim Network" $
-    prop "Chain progress" $
-      withMaxSuccess 20 $
-        prop_common_prefix netsimNetwork
-```
-
-----
-
-Testing _Common Prefix_ property
-
-```haskell
-chainCommonPrefix = do
-  anyActions_
-  getModelStateDL >>= \Network{nodeIds} -> do
-    anyAction
-    chains <- forM nodeIds (action . ObserveBestChain)
-    void $ action $ ChainsHaveCommonPrefix chains
-```
+The rest of the test proceeds as before
+:::
 
 # Conclusion
 
 ## Reflecting on practical use
 
 * Tests execution does not catch much bugs beyond some regressions
-* Failures in development often pinpoints blind spots and misunderstandings
+* Test Failures in development often pinpoints blind spots and misunderstandings
 * Its main benefit was to help us _clarify_ and _formalise_ our thoughts on the protocol
 * It requires non-negligible investment to build and maintain
 
