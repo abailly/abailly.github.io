@@ -11,8 +11,8 @@ revealjs-url: /reveal.js
 
 * Why?
 * Property-Based Testing
-* `quickcheck-dynamic`: Theory
 * `quickcheck-dynamic`: Practice
+* `quickcheck-dynamic`: Theory
 * Conclusion
 
 # Why?
