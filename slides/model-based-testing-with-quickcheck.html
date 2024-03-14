@@ -121,21 +121,17 @@ data-cites="dr_c0d3">@dr_c0d3</span></p>
 </section>
 <section id="the-quest-for-better-software" class="slide level2">
 <h2>The Quest for Better Software</h2>
-<ul>
-<li class="fragment">Personal interest in testing for 20 years</li>
-<li class="fragment"><em>Test-Driven Development</em> <span
-class="math inline">→</span> <em>Property-Based Testing</em></li>
-<li class="fragment">How to better test stateful programs and
-systems?</li>
-<li class="fragment">Formal specification and “programs proving” is very
-hard</li>
-</ul>
+<p>Going full circle</p>
+<p><em>Automata Testing</em> <span class="math inline">→</span>
+<em>Test-Driven Development</em> <span class="math inline">→</span>
+<em>Property-Based Testing</em> <span class="math inline">→</span>
+<em>Model-Based Testing</em></p>
 <aside class="notes">
 
 </aside>
 </section>
-<section id="obligatory-testing-quote" class="slide level2">
-<h2>Obligatory Testing Quote</h2>
+<section id="engineering-vs.-science" class="slide level2">
+<h2>Engineering vs. Science</h2>
 <figure>
 <img data-src="/images/dijkstra-testing-quote.jpeg"
 alt="Dijkstra on Testing" />
@@ -149,18 +145,30 @@ relevance of testing for “proving” program correctness?</li>
 old man for most of his life</li>
 <li>Testing is critically important to <em>design</em> and
 <em>develop</em> any program</li>
+<li>Testing is a practical engineering compromise when proving is too
+difficult: We would like to “prove” everything but that does not
+necessarily makes sense and it’s not always feasible</li>
 </ul>
 </aside>
 </section>
-<section id="goals-for-this-talk" class="slide level2">
-<h2>Goal(s) for this Talk</h2>
+<section id="my-goals-for-this-talk" class="slide level2">
+<h2>My Goals for this Talk</h2>
 <ul>
-<li class="fragment">Share my experience using Model-Based testing
+<li class="fragment">Share my experience with Model-Based testing
 to…</li>
 <li class="fragment">… spark interest in the use of this family of tools
 and …</li>
 <li class="fragment">… gather feedback on how to improve
 <code>quickcheck-dynamic</code></li>
+</ul>
+</section>
+<section id="what-can-you-expect" class="slide level2">
+<h2>What can you expect?</h2>
+<ul>
+<li class="fragment">“From the trenches” report on the usefulness of
+model-based testing</li>
+<li class="fragment">An overview of an interesting new tool</li>
+<li class="fragment">Tips &amp; tricks on how and what to model</li>
 </ul>
 </section></section>
 <section>
@@ -209,8 +217,8 @@ roundtrip</li>
 </ul>
 </aside>
 </section>
-<section id="pbt-core-feature" class="slide level2">
-<h2>PBT Core Feature</h2>
+<section id="quickcheck-core-features" class="slide level2">
+<h2>QuickCheck Core Features</h2>
 <ul>
 <li class="fragment">Generate some number of <a
 href="https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#g:5">arbitrary</a>
@@ -236,8 +244,9 @@ href="https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck
 expected distribution of test cases</li>
 <li class="fragment">Build <a
 href="https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#g:8">generators</a>
-from combinators and <a
-href="https://hackage.haskell.org/package/generic-random">generic</a></li>
+combining smaller pieces</li>
+<li class="fragment">Derive generators <a
+href="https://hackage.haskell.org/package/generic-random">generically</a></li>
 <li class="fragment">… and much more :right_pointing_hand: <a
 href="https://hackage.haskell.org/package/QuickCheck">QuickCheck on
 hackage</a></li>
@@ -276,6 +285,10 @@ an <em>arbitrary</em> sequence of actions</li>
 </section>
 <section id="example-a-basic-repository-interface" class="slide level2">
 <h2>Example: A Basic Repository Interface</h2>
+<p><a
+href="https://github.com/abailly/sensei/blob/fd8aafe8e0f3e1422c6b08e1079c75d1adff395e/test/Sensei/DB/Model.hs#L44">Real-life
+example</a> drawn from personal tool that needs to read/write events in
+a database.</p>
 </section>
 <section class="slide level2">
 
@@ -327,6 +340,196 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a 
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>      assert <span class="op">$</span> <span class="fu">all</span> isNothing res</span></code></pre></div>
 </section></section>
 <section>
+<section id="quickcheck-dynamic-practice"
+class="title-slide slide level1">
+<h1><code>quickcheck-dynamic</code>: Practice</h1>
+
+</section>
+<section id="the-need-for-a-better-tool" class="slide level2">
+<h2>The need for a better tool</h2>
+<ul>
+<li class="fragment">Ad-hoc model-based testing has limitations</li>
+<li class="fragment">Quviq people are experts in these techniques and
+they were building a tool for IOG</li>
+<li class="fragment">I was involved in a complex project that would
+benefit from a comprehensive testing strategy</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Have personal experience building various tools over the course of
+my career, it’s always a significant investment</li>
+</ul>
+</aside>
+</section>
+<section id="hydra---overview" class="slide level2">
+<h2>Hydra - Overview</h2>
+<ul>
+<li class="fragment">A Layer-2 network for UTxO blockchains based on
+<em>State channels</em></li>
+<li class="fragment">Complex on-chain protocol advancing a state-machine
+through transactions</li>
+<li class="fragment">Off-chain leader-based distributed consensus</li>
+<li class="fragment">More details at https://hydra.family</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="/images/hydra-head-lifecycle.svg"
+alt="High-level Hydra Protocol" />
+<figcaption aria-hidden="true">High-level Hydra Protocol</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="/images/basic-hydra-head.jpg" alt="Hydra Deployment" />
+<figcaption aria-hidden="true">Hydra Deployment</figcaption>
+</figure>
+</section>
+<section id="hydra---model" class="slide level2">
+<h2>Hydra - Model</h2>
+<figure>
+<img data-src="/images/hydra-test-architecture.png"
+alt="Hydra Test Architecture" />
+<figcaption aria-hidden="true">Hydra Test Architecture</figcaption>
+</figure>
+</section>
+<section id="hydra---model-1" class="slide level2">
+<h2>Hydra - Model</h2>
+<ul>
+<li class="fragment">Simulation-based testing + MBT = Powerful
+<em>combo</em> (<a
+href="https://apple.github.io/foundationdb/testing.html">FoundationDB</a>,
+<a
+href="https://smallbone.se/papers/finding-race-conditions.pdf">Quviq’s
+PULSE</a>)</li>
+<li class="fragment">Runs network of nodes using <a
+href="https://github.com/input-output-hk/io-sim">io-sim</a>, a
+Free-monad based framework for simulating Haskell runtime</li>
+<li class="fragment">See Philip Kant’s <a
+href="https://www.youtube.com/watch?v=uedUGeWN4ZM">presentation at
+BobKonf 2022</a></li>
+</ul>
+</section>
+<section id="hydra---properties" class="slide level2">
+<h2>Hydra - Properties</h2>
+<p>Original <a href="https://eprint.iacr.org/2020/299.pdf">research
+paper</a> defines several key properties</p>
+<figure>
+<img data-src="/images/hydra-conflict-free.png"
+alt="Conflict-free liveness" />
+<figcaption aria-hidden="true">Conflict-free liveness</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<p>Properties are (manually) expressed as <em>Dynamic Logic</em>
+formulas</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>conflictFreeLiveness <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  anyActions_</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  getModelStateDL <span class="op">&gt;&gt;=</span> \<span class="kw">case</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Open</span>{} <span class="ot">-&gt;</span> <span class="kw">do</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      payment <span class="ot">&lt;-</span> forAllNonVariableQ (nonConflictingTx st)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>      tx <span class="ot">&lt;-</span> action <span class="op">$</span> <span class="dt">Model.NewTx</span> payment</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>      eventually (<span class="dt">ObserveConfirmedTx</span> tx)</span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>Some details omitted for readability</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="/images/hydra-property-execution.png"
+alt="Hydra Property Execution" />
+<figcaption aria-hidden="true">Hydra Property Execution</figcaption>
+</figure>
+</section>
+<section id="peras" class="slide level2">
+<h2>Peras</h2>
+<ul>
+<li class="fragment">Fast finality protocol for Cardano</li>
+<li class="fragment">Early work integrating research, formal methods,
+engineering…</li>
+<li class="fragment">Use <code>quickcheck-dynamic</code> to produce
+<em>Executable Specification</em> from <em>Formal
+Specification</em></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Peras is a WIP, paper not yet published so I won’t share details
+about the protocol itself</li>
+<li>We are using the project also as a way to improve our approach to
+formal and executable specifications, trying to link both worlds</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<p>The slogan is:</p>
+<blockquote>
+<p>Agda Proofs are Quickcheck Tests</p>
+</blockquote>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="/images/peras-workflow.jpg" alt="Development Workflow" />
+<figcaption aria-hidden="true">Development Workflow</figcaption>
+</figure>
+<aside class="notes">
+<ul>
+<li>Formal specification in Agda is our ground truth</li>
+<li>Part of the model and code used in the q-d tests is generated from
+Agda</li>
+<li>The general idea is that <em>Proofs in Agda become Properties in
+QuickCheck</em></li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="/images/peras-testing-architecture.png"
+alt="Testing Architecture" />
+<figcaption aria-hidden="true">Testing Architecture</figcaption>
+</figure>
+<aside class="notes">
+<ul>
+<li>We use the same <code>RunMonad</code> which is parameterised by the
+underlying execution monad and the actual network interface to define
+<code>RunModel</code></li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<p>Testing <em>Common Prefix</em> property</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a> describe <span class="st">&quot;IOSim Network&quot;</span> <span class="op">$</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>   prop <span class="st">&quot;Chain progress&quot;</span> <span class="op">$</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>     prop_common_prefix iOSimNetwork</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a> describe <span class="st">&quot;Netsim Network&quot;</span> <span class="op">$</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    prop <span class="st">&quot;Chain progress&quot;</span> <span class="op">$</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>      withMaxSuccess <span class="dv">20</span> <span class="op">$</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        prop_common_prefix netsimNetwork</span></code></pre></div>
+</section>
+<section class="slide level2">
+
+<p>Testing <em>Common Prefix</em> property</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>chainCommonPrefix <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  anyActions_</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  getModelStateDL <span class="op">&gt;&gt;=</span> \<span class="dt">Network</span>{nodeIds} <span class="ot">-&gt;</span> <span class="kw">do</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    anyAction</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    chains <span class="ot">&lt;-</span> forM nodeIds (action <span class="op">.</span> <span class="dt">ObserveBestChain</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    void <span class="op">$</span> action <span class="op">$</span> <span class="dt">ChainsHaveCommonPrefix</span> chains</span></code></pre></div>
+</section></section>
+<section>
 <section id="quickcheck-dynamic-theory"
 class="title-slide slide level1">
 <h1><code>quickcheck-dynamic</code>: Theory</h1>
@@ -364,62 +567,62 @@ triple</p>
 <section id="model---basic-steps" class="slide level2">
 <h2>Model - Basic steps</h2>
 <p>Specify possibles <em>actions</em> and <code>initialState</code></p>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">StateModel</span> <span class="dt">KV</span> <span class="kw">where</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">data</span> <span class="dt">Action</span> <span class="dt">KV</span> a <span class="kw">where</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>     <span class="dt">Put</span><span class="ot"> ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">MySystem</span> ()</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>     <span class="dt">Get</span><span class="ot"> ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">MySystem</span> (<span class="dt">Maybe</span> <span class="dt">Int</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ot">  initialState ::</span> <span class="dt">KV</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  initialState <span class="ot">=</span> <span class="fu">mempty</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">StateModel</span> <span class="dt">KV</span> <span class="kw">where</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">data</span> <span class="dt">Action</span> <span class="dt">KV</span> a <span class="kw">where</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>     <span class="dt">Put</span><span class="ot"> ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">MySystem</span> ()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>     <span class="dt">Get</span><span class="ot"> ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">MySystem</span> (<span class="dt">Maybe</span> <span class="dt">Int</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="ot">  initialState ::</span> <span class="dt">KV</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  initialState <span class="ot">=</span> <span class="fu">mempty</span></span></code></pre></div>
 </section>
 <section id="model---basic-steps-1" class="slide level2"
 data-transition="none">
 <h2 data-transition="none">Model - Basic steps</h2>
 <p>Generate actions according to the current state</p>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">StateModel</span> <span class="dt">KV</span> <span class="kw">where</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  initialState <span class="ot">=</span> <span class="op">...</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  arbitraryAction env state <span class="ot">=</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    oneof [ genWrite</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>          , genRead</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>          ]</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">StateModel</span> <span class="dt">KV</span> <span class="kw">where</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  initialState <span class="ot">=</span> <span class="op">...</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  arbitraryAction env state <span class="ot">=</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    oneof [ genWrite</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>          , genRead</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>          ]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span></code></pre></div>
 </section>
 <section id="model---basic-steps-2" class="slide level2"
 data-transition="none">
 <h2 data-transition="none">Model - Basic steps</h2>
 <p>Define <code>nextState</code> transition</p>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">StateModel</span> <span class="dt">KV</span> <span class="kw">where</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  initialState <span class="ot">=</span> <span class="op">...</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  arbitraryAction <span class="ot">=</span> <span class="op">...</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  nextState state (<span class="dt">Put</span> k v) variable <span class="ot">=</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>     insert state k v</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  nextState state (<span class="dt">Get</span> k) variable <span class="ot">=</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>     state</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">StateModel</span> <span class="dt">KV</span> <span class="kw">where</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  initialState <span class="ot">=</span> <span class="op">...</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  arbitraryAction <span class="ot">=</span> <span class="op">...</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  nextState state (<span class="dt">Put</span> k v) variable <span class="ot">=</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>     insert state k v</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  nextState state (<span class="dt">Get</span> k) variable <span class="ot">=</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>     state</span></code></pre></div>
 </section>
 <section id="implementation" class="slide level2">
 <h2>Implementation</h2>
 <p>Relate the specification to an actual (monadic) implementation</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">RunModel</span> <span class="dt">KV</span> <span class="dt">StoreM</span> <span class="kw">where</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  perform state (<span class="dt">Put</span> k v) env <span class="ot">=</span> <span class="kw">do</span> { putStore k v }</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  perform state (<span class="dt">Get</span> k) env <span class="ot">=</span> <span class="kw">do</span> { getStore k }</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">RunModel</span> <span class="dt">KV</span> <span class="dt">StoreM</span> <span class="kw">where</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  perform state (<span class="dt">Put</span> k v) env <span class="ot">=</span> <span class="kw">do</span> { putStore k v }</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  perform state (<span class="dt">Get</span> k) env <span class="ot">=</span> <span class="kw">do</span> { getStore k }</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
 </section>
 <section id="implementation-1" class="slide level2"
 data-transition="none">
 <h2 data-transition="none">Implementation</h2>
 <p>Specify <code>postcondition</code>s that should hold after each
 <code>Action</code></p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">RunModel</span> <span class="dt">KV</span> <span class="dt">StoreM</span> <span class="kw">where</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  perform state (<span class="dt">Put</span> k v) env <span class="ot">=</span>  <span class="op">...</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  postcondition (before, after) (<span class="dt">Put</span> k) env v <span class="ot">=</span> <span class="fu">pure</span> <span class="dt">True</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  postcondition (before, after) (<span class="dt">Get</span> k) env v <span class="ot">=</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pure</span> <span class="op">$</span> v <span class="op">==</span> <span class="fu">lookup</span> env k</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">RunModel</span> <span class="dt">KV</span> <span class="dt">StoreM</span> <span class="kw">where</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  perform state (<span class="dt">Put</span> k v) env <span class="ot">=</span>  <span class="op">...</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  postcondition (before, after) (<span class="dt">Put</span> k) env v <span class="ot">=</span> <span class="fu">pure</span> <span class="dt">True</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  postcondition (before, after) (<span class="dt">Get</span> k) env v <span class="ot">=</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pure</span> <span class="op">$</span> v <span class="op">==</span> <span class="fu">lookup</span> env k</span></code></pre></div>
 </section>
 <section id="dynamic-logic" class="slide level2">
 <h2>Dynamic Logic</h2>
@@ -495,27 +698,27 @@ sequence is stuck</li>
 <section id="dynamic-logic---monadic-syntax" class="slide level2">
 <h2>Dynamic Logic - Monadic Syntax</h2>
 <p>Provide a more convenient syntax</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">DL</span> s a <span class="ot">=</span> <span class="dt">DL</span> { <span class="op">...</span> }</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">deriving</span> (<span class="dt">Functor</span>, <span class="dt">Applicative</span>, <span class="dt">Alternative</span>, <span class="dt">Monad</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ot">action ::</span> <span class="dt">Action</span> s a <span class="ot">-&gt;</span> <span class="dt">DL</span> s (<span class="dt">Var</span> a)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ot">anyAction ::</span> <span class="dt">DL</span> s ()</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="ot">anyActions ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">DL</span> s ()</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="ot">getModelStateDL ::</span> <span class="dt">DL</span> s s</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">DL</span> s a <span class="ot">=</span> <span class="dt">DL</span> { <span class="op">...</span> }</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">deriving</span> (<span class="dt">Functor</span>, <span class="dt">Applicative</span>, <span class="dt">Alternative</span>, <span class="dt">Monad</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ot">action ::</span> <span class="dt">Action</span> s a <span class="ot">-&gt;</span> <span class="dt">DL</span> s (<span class="dt">Var</span> a)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ot">anyAction ::</span> <span class="dt">DL</span> s ()</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="ot">anyActions ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">DL</span> s ()</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="ot">getModelStateDL ::</span> <span class="dt">DL</span> s s</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span></code></pre></div>
 </section>
 <section class="slide level2">
 
 <p>Combinator to <code>Gen</code>erate arbitrary values within
 expression</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span>  <span class="dt">Quantifiable</span> q  <span class="kw">where</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">type</span> <span class="dt">Quantifies</span> q</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="ot">  quantify ::</span> q <span class="ot">-&gt;</span> <span class="dt">Quantification</span> (<span class="dt">Quantifies</span> q)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="ot">forAllQ ::</span> <span class="dt">Quantifiable</span> q <span class="ot">=&gt;</span> q <span class="ot">-&gt;</span> <span class="dt">DL</span> s (<span class="dt">Quantifies</span> q)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span>  <span class="dt">Quantifiable</span> q  <span class="kw">where</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">type</span> <span class="dt">Quantifies</span> q</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ot">  quantify ::</span> q <span class="ot">-&gt;</span> <span class="dt">Quantification</span> (<span class="dt">Quantifies</span> q)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="ot">forAllQ ::</span> <span class="dt">Quantifiable</span> q <span class="ot">=&gt;</span> q <span class="ot">-&gt;</span> <span class="dt">DL</span> s (<span class="dt">Quantifies</span> q)</span></code></pre></div>
 </section>
 <section id="examples" class="slide level2">
 <h2>Examples</h2>
@@ -523,49 +726,49 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a
 href="https://github.com/input-output-hk/quickcheck-dynamic/blob/53e8839b6646af0d531a49b1f7ad75d80dfc06c4/quickcheck-dynamic/test/Spec/DynamicLogic/RegistryModel.hs#L34">Thread
 Registry</a> example</p>
 <p>Can register an unbound thread under a new <code>name</code></p>
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>canRegister <span class="ot">=</span> <span class="kw">do</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  anyActions_</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> pickFreshName</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  tid <span class="ot">&lt;-</span> pickAlive</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  unregisterNameAndTid name tid</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  action <span class="op">$</span> <span class="dt">Register</span> name tid</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>canRegister <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  anyActions_</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> pickFreshName</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  tid <span class="ot">&lt;-</span> pickAlive</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  unregisterNameAndTid name tid</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  action <span class="op">$</span> <span class="dt">Register</span> name tid</span></code></pre></div>
 </section>
 <section class="slide level2">
 
 <p>Cannot register an already registered thread under a new
 <code>name</code></p>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>canRegisterNoUnregister <span class="ot">=</span> <span class="kw">do</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  anyActions_</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> pickFreshName</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  tid <span class="ot">&lt;-</span> pickAlive</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  action <span class="op">$</span> <span class="dt">Register</span> name tid</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pure</span> ()</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>canRegisterNoUnregister <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  anyActions_</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> pickFreshName</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  tid <span class="ot">&lt;-</span> pickAlive</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  action <span class="op">$</span> <span class="dt">Register</span> name tid</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pure</span> ()</span></code></pre></div>
 </section>
 <section id="running-properties" class="slide level2">
 <h2>Running Properties</h2>
 <p>Tie <em>Dynamic Logic</em> expression and <em>Actions</em> execution
 into a <code>Property</code></p>
-<div class="sourceCode" id="cb16"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ot">forAllDL ::</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>     (<span class="dt">DL.DynLogicModel</span> s, <span class="dt">Testable</span> a)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=&gt;</span> <span class="dt">DL</span> s ()</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="ot">-&gt;</span> (<span class="dt">Actions</span> s <span class="ot">-&gt;</span> a)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">-&gt;</span> <span class="dt">Property</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ot">forAllDL ::</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>     (<span class="dt">DL.DynLogicModel</span> s, <span class="dt">Testable</span> a)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=&gt;</span> <span class="dt">DL</span> s ()</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="ot">-&gt;</span> (<span class="dt">Actions</span> s <span class="ot">-&gt;</span> a)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">-&gt;</span> <span class="dt">Property</span></span></code></pre></div>
 </section>
 <section id="running-properties-1" class="slide level2">
 <h2>Running Properties</h2>
 <p>Tie <em>StateModel</em> and <em>RunModel</em>, interpreting
 <code>Action</code>s against the SUT</p>
-<div class="sourceCode" id="cb17"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>runActions</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  ::</span> <span class="kw">forall</span> state m e</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>   <span class="op">.</span> ( <span class="dt">StateModel</span> state</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>     , <span class="dt">RunModel</span> state m</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>     )</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=&gt;</span> <span class="dt">Actions</span> state</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="ot">-&gt;</span> <span class="dt">PropertyM</span> m (<span class="dt">Annotated</span> state, <span class="dt">Env</span> m)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>runActions</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  ::</span> <span class="kw">forall</span> state m e</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>   <span class="op">.</span> ( <span class="dt">StateModel</span> state</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>     , <span class="dt">RunModel</span> state m</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=&gt;</span> <span class="dt">Actions</span> state</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="ot">-&gt;</span> <span class="dt">PropertyM</span> m (<span class="dt">Annotated</span> state, <span class="dt">Env</span> m)</span></code></pre></div>
 </section>
 <section id="shrinking" class="slide level2">
 <h2>Shrinking</h2>
@@ -577,7 +780,7 @@ expression</p>
 <code>anyAction</code> data according to model’s
 <code>shrinkAction</code></li>
 <li class="fragment">Shrink <code>Quantifiable</code> values
-generate</li>
+generated</li>
 <li class="fragment"><code>precondition</code> filters invalid sequence
 of actions</li>
 </ul>
@@ -588,186 +791,110 @@ counterexamples</li>
 </ul>
 </aside>
 </section>
-<section id="exploring-state-space-boundaries" class="slide level2">
-<h2>Exploring state space boundaries</h2>
+<section id="anatomy-of-a-test-run" class="slide level2">
+<h2>Anatomy of a test run</h2>
+<p><img data-src="/images/test-generation-flow-1.png" /></p>
+</section>
+<section id="anatomy-of-a-test-run-1" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Anatomy of a test run</h2>
+<p><img data-src="/images/test-generation-flow-2.png" /></p>
+</section>
+<section id="anatomy-of-a-test-run-2" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Anatomy of a test run</h2>
+<p><img data-src="/images/test-generation-flow-3.png" /></p>
+</section>
+<section id="anatomy-of-a-test-run-3" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Anatomy of a test run</h2>
+<p><img data-src="/images/test-generation-flow-4.png" /></p>
+</section>
+<section id="anatomy-of-a-test-run-4" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Anatomy of a test run</h2>
+<p><img data-src="/images/test-generation-flow-5.png" /></p>
+</section>
+<section id="anatomy-of-a-test-run-5" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Anatomy of a test run</h2>
+<p><img data-src="/images/test-generation-flow-6.png" /></p>
+</section>
+<section id="anatomy-of-a-test-run-6" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Anatomy of a test run</h2>
+<p><img data-src="/images/test-generation-flow-7.png" /></p>
+</section>
+<section id="testing-for-safety" class="slide level2">
+<h2>Testing for safety</h2>
 <ul>
-<li class="fragment">generate actions that are <em>supposed to
-fail</em></li>
-<li class="fragment">“Negative” And “Positive” actions</li>
-<li class="fragment">Errors type</li>
-</ul>
-</section></section>
-<section>
-<section id="quickcheck-dynamic-practice"
-class="title-slide slide level1">
-<h1><code>quickcheck-dynamic</code>: Practice</h1>
-
-</section>
-<section id="hydra---overview" class="slide level2">
-<h2>Hydra - Overview</h2>
+<li class="fragment">We often want to test that <em>nothing bad can
+happen</em>, eg. safety properties</li>
+<li class="fragment">We can express that in the model through
+<em>Polarity</em> of <code>Action</code>s:
 <ul>
-<li class="fragment">A Layer-2 network for UTxO blockchains based on
-<em>State channels</em></li>
-<li class="fragment">Complex on-chain protocol advancing a state-machine
-through transactions</li>
-<li class="fragment">Off-chain leader-based distributed consensus</li>
-<li class="fragment">More details at https://hydra.family</li>
-</ul>
-</section>
-<section class="slide level2">
-
-<figure>
-<img
-data-src="https://hydra.family/head-protocol/assets/images/hydra-head-lifecycle-b8449385e9041a214bf8c6e52830de3c.svg"
-alt="High-level Hydra Protocol" />
-<figcaption aria-hidden="true">High-level Hydra Protocol</figcaption>
-</figure>
-</section>
-<section class="slide level2">
-
-<figure>
-<img data-src="/images/basic-hydra-head.jpeg"
-alt="Hydra architecture" />
-<figcaption aria-hidden="true">Hydra architecture</figcaption>
-</figure>
-</section>
-<section id="hydra---model" class="slide level2">
-<h2>Hydra - Model</h2>
-<figure>
-<img data-src="/images/hydra-test-architecture.png"
-alt="Hydra Test Architecture" />
-<figcaption aria-hidden="true">Hydra Test Architecture</figcaption>
-</figure>
-</section>
-<section id="hydra---model-1" class="slide level2">
-<h2>Hydra - Model</h2>
-<ul>
-<li class="fragment">Simulation-based testing + MBT = Powerful
-<em>combo</em> (<a
-href="https://apple.github.io/foundationdb/testing.html">FoundationDB</a>,
-<a
-href="https://smallbone.se/papers/finding-race-conditions.pdf">Quviq’s
-PULSE</a>)</li>
-<li class="fragment">Runs network of nodes using <a
-href="https://github.com/input-output-hk/io-sim">io-sim</a>, a
-Free-monad based framework for simulating Haskell runtime</li>
-<li class="fragment">See Philip Kant’s <a
-href="https://www.youtube.com/watch?v=uedUGeWN4ZM">presentation at
-BobKonf 2022</a></li>
+<li class="fragment">A <code>Positive</code> action is valid w.r.t to
+the state and is expected to <em>succeed</em> when run</li>
+<li class="fragment">A <code>Negative</code> action is invalid in
+current state and is expected to <em>fail</em></li>
+</ul></li>
 </ul>
 </section>
-<section id="hydra---properties" class="slide level2">
-<h2>Hydra - Properties</h2>
-<p>Original <a href="https://eprint.iacr.org/2020/299.pdf">research
-paper</a> defines several key properties</p>
-<figure>
-<img data-src="/images/hydra-conflict-free.png"
-alt="Conflict-free liveness" />
-<figcaption aria-hidden="true">Conflict-free liveness</figcaption>
-</figure>
-</section>
-<section class="slide level2">
-
-<p>Properties are (manually) expressed as <em>Dynamic Logic</em>
-formulas</p>
-<div class="sourceCode" id="cb18"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>conflictFreeLiveness <span class="ot">=</span> <span class="kw">do</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  anyActions_</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  getModelStateDL <span class="op">&gt;&gt;=</span> \<span class="kw">case</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Open</span>{} <span class="ot">-&gt;</span> <span class="kw">do</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>      payment <span class="ot">&lt;-</span> forAllNonVariableQ (nonConflictingTx st)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>      tx <span class="ot">&lt;-</span> action <span class="op">$</span> <span class="dt">Model.NewTx</span> payment</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>      eventually (<span class="dt">ObserveConfirmedTx</span> tx)</span></code></pre></div>
+<section id="testing-for-safety-1" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Testing for safety</h2>
+<p><img data-src="/images/test-fail-generation-flow-1.png" /></p>
 <aside class="notes">
 <ul>
-<li>Some details omitted for readability</li>
+<li>Test sequence starts as before, with the initial state and some
+action matching a precondition</li>
 </ul>
 </aside>
 </section>
-<section class="slide level2">
-
-<figure>
-<img data-src="/images/hydra-property-execution.png"
-alt="Hydra Property Execution" />
-<figcaption aria-hidden="true">Hydra Property Execution</figcaption>
-</figure>
-</section>
-<section id="peras" class="slide level2">
-<h2>Peras</h2>
-<ul>
-<li class="fragment">Fast finality protocol for Cardano</li>
-<li class="fragment">Early work integrating research, formal methods,
-engineering…</li>
-<li class="fragment">Use <code>quickcheck-dynamic</code> to produce
-<em>Executable Specification</em> from <em>Formal
-Specification</em></li>
-</ul>
-<blockquote>
-<p>Agda Proofs are Quickcheck Tests</p>
-</blockquote>
+<section id="testing-for-safety-2" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Testing for safety</h2>
+<p><img data-src="/images/test-fail-generation-flow-2.png" /></p>
 <aside class="notes">
 <ul>
-<li>Peras is a WIP, paper not yet published so I won’t share details
-about the protocol itself</li>
-<li>We are using the project also as a way to improve our approach to
-formal and executable specifications, trying to link both worlds</li>
+<li>An <code>Action</code> that <em>fails</em> it’s
+<code>precondition</code> but passes it’s
+<code>failurePrecondition</code> can be included in the generated
+trace</li>
+<li>Usually, such a <code>Negative</code> is expected to not change the
+state, but one could want to track those failures nevertheless</li>
 </ul>
 </aside>
 </section>
-<section class="slide level2">
-
-<figure>
-<img data-src="/images/peras-workflow.jpg" alt="Development Workflow" />
-<figcaption aria-hidden="true">Development Workflow</figcaption>
-</figure>
+<section id="testing-for-safety-3" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Testing for safety</h2>
+<p><img data-src="/images/test-fail-generation-flow-3.png" /></p>
+<aside class="notes">
+<p>Full trace is generated</p>
+</aside>
+</section>
+<section id="testing-for-safety-4" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Testing for safety</h2>
+<p><img data-src="/images/test-fail-generation-flow-4.png" /></p>
 <aside class="notes">
 <ul>
-<li>Formal specification in Agda is our ground truth</li>
-<li>Part of the model and code used in the q-d tests is generated from
-Agda</li>
-<li>The general idea is that <em>Proofs in Agda become Properties in
-QuickCheck</em></li>
+<li>A <code>Negative</code> action must pass the
+<code>postconditionOnFailure</code> predicate for the test to
+succeed</li>
+<li>The result of the action, whether considered and <code>Error</code>
+or not is passed to the predicate</li>
 </ul>
 </aside>
 </section>
-<section class="slide level2">
-
-<figure>
-<img data-src="/images/peras-testing-architecture.png"
-alt="Testing Architecture" />
-<figcaption aria-hidden="true">Testing Architecture</figcaption>
-</figure>
+<section id="testing-for-safety-5" class="slide level2"
+data-transition="none">
+<h2 data-transition="none">Testing for safety</h2>
+<p><img data-src="/images/test-fail-generation-flow-5.png" /></p>
 <aside class="notes">
-<ul>
-<li>We use the same <code>RunMonad</code> which is parameterised by the
-underlying execution monad and the actual network interface to define
-<code>RunModel</code></li>
-</ul>
+<p>The rest of the test proceeds as before</p>
 </aside>
-</section>
-<section class="slide level2">
-
-<p>Testing <em>Common Prefix</em> property</p>
-<div class="sourceCode" id="cb19"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a> describe <span class="st">&quot;IOSim Network&quot;</span> <span class="op">$</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>   prop <span class="st">&quot;Chain progress&quot;</span> <span class="op">$</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>     prop_common_prefix iOSimNetwork</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a> describe <span class="st">&quot;Netsim Network&quot;</span> <span class="op">$</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    prop <span class="st">&quot;Chain progress&quot;</span> <span class="op">$</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>      withMaxSuccess <span class="dv">20</span> <span class="op">$</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        prop_common_prefix netsimNetwork</span></code></pre></div>
-</section>
-<section class="slide level2">
-
-<p>Testing <em>Common Prefix</em> property</p>
-<div class="sourceCode" id="cb20"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>chainCommonPrefix <span class="ot">=</span> <span class="kw">do</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  anyActions_</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  getModelStateDL <span class="op">&gt;&gt;=</span> \<span class="dt">Network</span>{nodeIds} <span class="ot">-&gt;</span> <span class="kw">do</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    anyAction</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    chains <span class="ot">&lt;-</span> forM nodeIds (action <span class="op">.</span> <span class="dt">ObserveBestChain</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    void <span class="op">$</span> action <span class="op">$</span> <span class="dt">ChainsHaveCommonPrefix</span> chains</span></code></pre></div>
 </section></section>
 <section>
 <section id="conclusion" class="title-slide slide level1">
@@ -779,8 +906,8 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb20-1"><a
 <ul>
 <li class="fragment">Tests execution does not catch much bugs beyond
 some regressions</li>
-<li class="fragment">Failures in development often pinpoints blind spots
-and misunderstandings</li>
+<li class="fragment">Test Failures in development often pinpoints blind
+spots and misunderstandings</li>
 <li class="fragment">Its main benefit was to help us <em>clarify</em>
 and <em>formalise</em> our thoughts on the protocol</li>
 <li class="fragment">It requires non-negligible investment to build and
