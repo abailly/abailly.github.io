@@ -2,7 +2,7 @@
 title: Model-Based Testing with QuickCheck
 author: Arnaud Bailly - @dr_c0d3
 institution: Input Output Global
-date: 2022-10-24
+date: 2024-03-15
 theme: virgil-black-iohk
 revealjs-url: /reveal.js
 ---
