@@ -44,12 +44,16 @@ _Automata Testing_ $\rightarrow$ _Test-Driven Development_ $\rightarrow$ _Proper
 
 * Share my experience with Model-Based testing to...
 * ... spark interest in the use of this family of tools and ...
-* ... gather feedback on how to improve `quickcheck-dynamic`
+* ... trigger contributions to improve `quickcheck-dynamic`
+
+::: notes
+
+contributions = code + feedback
 
 ## What can you expect?
 
-* "From the trenches" report on the usefulness of model-based testing
 * An overview of an interesting new tool
+* "From the trenches" report on the usefulness of model-based testing
 * Tips & tricks on how and what to model
 
 # Property-Based Testing
@@ -662,8 +666,8 @@ The rest of the test proceeds as before
 ## Reflecting on practical use
 
 * Tests execution does not catch much bugs beyond some regressions
-* Test Failures in development often pinpoints blind spots and misunderstandings
-* Its main benefit was to help us _clarify_ and _formalise_ our thoughts on the protocol
+* _But_ test failures in development often pinpoints blind spots and misunderstandings
+* Main benefit is to help us _clarify_ and _formalise_ our thoughts on the protocols
 * It requires non-negligible investment to build and maintain
 
 ::: notes
@@ -694,6 +698,16 @@ The rest of the test proceeds as before
   * $\Rightarrow$ _Abstract dependencies behind simulatable interfaces_
 * Triggering environment failures
   * $\Rightarrow$ _Simulate runtime environment for fault injections_
+
+## Tips & Tricks (end)
+
+> Model-Based Testing work hand-in-hand with Test-Driven Development
+
+::: notes
+
+Also works for plain QC
+
+:::
 
 ## What's next?
 
