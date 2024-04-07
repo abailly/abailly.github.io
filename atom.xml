@@ -10,8 +10,121 @@
         <email>arnaud@igitur.io</email>
         
     </author>
-    <updated>2024-02-20T00:00:00Z</updated>
+    <updated>2024-04-05T00:00:00Z</updated>
     <entry>
+    <title>On &quot;Discussion of the Method&quot;</title>
+    <link href="http://abailly.github.io/posts/discussion-of-the-method.html" />
+    <id>http://abailly.github.io/posts/discussion-of-the-method.html</id>
+    <published>2024-04-05T00:00:00Z</published>
+    <updated>2024-04-05T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>On &quot;Discussion of the Method&quot;</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on April  5, 2024</div>
+
+<blockquote>
+<p>I am indebted to <a href="https://www.linkedin.com/in/christophe-thibaut-35b4657/">Christophe
+Thibaut</a>
+for discovering this author and book. He has been using the
+terminology and ideas exposed in it to reframe his own perception
+and practice of software engineering, and is exposing those ideas in
+a very approachable and actionable way in his various posts on
+LinkedIn. If you read French and are interested in putting in
+practice ideas from this book, do yourself a favor and follow
+Christophe’s posts.</p>
+</blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Billy_Koen">Billy Vaughn Koen</a>’s book is the latest, expanded version of a line of work and thought that spans decades. A much more compact version of the central ideas exposed in the book can be found in <a href="https://www.tandfonline.com/doi/pdf/10.1080/03043798808939429">this article</a>.</p>
+<p>The first part of the book consists in proposing a specific definition of the <em>engineering method</em>, providing several concrete and enlightening examples and counter-examples, and then comparing alternative widely accepted definitions and refine the definition along the way. The second part of the book takes a more philosophical turn and arguments for the universality of the engineering method as exposed in the first three chapters, or the <em>Universale Organum</em> as the author calls it, in direct reference to Francis Bacon’s <a href="https://en.wikipedia.org/wiki/Novum_Organum">Novum Organum</a> which itself was referencing Aristotle’s <a href="https://en.wikipedia.org/wiki/Organon">Organon</a>.</p>
+<h2 id="the-engineering-method">The Engineering Method</h2>
+<p>The book starts with this definition of the engineering method:</p>
+<blockquote>
+<p>The strategy for causing the <em>best change</em> in a <em>poorly understood</em> situation with the <em>available resources</em>.</p>
+</blockquote>
+<p>The various parts of this definition states that engineering is an activity that needs to reach some goals while dealing with uncertainty and constraints. And the goal itself is subject to this uncertainty and constraints, as hypothesis made initially about it and how to reach it can be invalidated later on.</p>
+<h3 id="heuristics">Heuristics</h3>
+<p>Engineering, or designing a path to some desirable state, is therefore characterized by the use of <em>heuristics</em>. A heuristic:</p>
+<ul>
+<li>Does not guarantee a solution to some problem exists,</li>
+<li>May contradic other heuristics,</li>
+<li>Reduces search space (and time) for solving problems,</li>
+<li>Is contextual.</li>
+</ul>
+<p>In the case of engineering, Billy Koen proposes a few generic heuristics that engineers have found useful over time:</p>
+<ol type="1">
+<li><p>At some point in a project, freeze the design, eg. rather than keep
+searching for a perfect solution, improve an existing solution</p></li>
+<li><p>Allocate resources as long as the cost of not knowing exceeds the
+cost of finding out. This contradicts scientific approach where
+<em>knowing</em> is the most important thing. In engineering a solution
+can be discarded because of <em>cost</em> (time, money, resources) to
+elaborate</p></li>
+<li><p>Allocate sufficient resources to the <em>weak link</em></p></li>
+<li><p>Solve problems by successive approximation. You want a large scale
+view of the “problem” and a sketch of a solution before delving
+into details, and then later refine the details. Interestingly, the
+author notes that:</p>
+<blockquote>
+<p>This strategy does not appear to be commonly used by humans. The
+clear tendency is to begin at the beginning of the problem, to
+march through the project and, when you got to an end, stop.</p>
+</blockquote></li>
+</ol>
+<h3 id="state-of-the-art">State-of-the-Art</h3>
+<p>But a heuristic is never used alone, it’s part of a group of
+heuristics for a given engineer at some given point in time, from
+which the engineer can pick and choose whatever heuristic suits their
+purpose (and the selection process is itself a <em>heuristic</em> by the
+way).</p>
+<p>This group of heuristics is called a <em>State-of-the-Art</em>, abbreviated as a <em>sota</em>, and is the second most important concept from the book. A sota is situated knowledge, limited to some domain, time, and person. This allows B.Koen to refine his definition of engineering’s first rule:</p>
+<blockquote>
+<p>The rule of engineering is in every instance to choose the best heuristic for use from what my personal sota takes to be the sota representing best engineering practice at the time I am required to choose.</p>
+</blockquote>
+<p>Importantly, there’s no single sota but a whole universe of sotas: Every engineer has their own sota, the union of all the sotas of all the engineers for some domain, plus some is a <em>sota</em>, there are various levels of collective sotas, etc.</p>
+<p>There’s no <em>absolute</em> “best solution” or “best practice” that would be discoverable by some prescribed rational process, and a heuristic only approximates it. And this leads the author to state that engineering is best characterized as the use of heuristics, that this definition is the only one that adequately expresses all the nuances of engineering, and actually as the second part of the book tries to demonstrate, all human activity.</p>
+<p>Over time various conceptions of engineering have been advocated for, even though engineering itself is a topic that’s rather ignored by philosophers and thinkers:</p>
+<ul>
+<li>Defining engineering as <em>problem-solving</em> and <em>goal-oriented</em> activity, à la Polya, suffers from a kind of teleological argument: It postulates a pre-existing goal, a problem definition, whose very existence is also dependent on some <em>heuristic</em>, on someone’s sota</li>
+<li>Defining it as following some process, in a “morphological” way as B.Koen puts it, suffers from the problem there’s many competing morphological approaches who bear an air of similarity but are different,</li>
+<li>Suggesting that engineering is <em>applied science</em> is also wrong, as while engineers <em>often</em> use science they don’t always do, sometimes deferring to rule of thumb, tribal knowledge, or even value judgments for taking design decisions,</li>
+<li>Focusing on engineering as <em>trial and error</em> also falls short as it clearly does not account for the high success rate of engineering efforts.</li>
+</ul>
+<p>This last aspect is interesting and highlights the role of the sota as both a toolbox from which engineers draw to make progress and design things, and as a limiting factor into what is considered doable. The sota is basically a <em>World view</em> (or <em>Weltanschauung</em> to be pedantic) and therefore it both enables and limits what its bearer can do or think of doing. These boundaries can and are being pushed, and engineers know how to anticipate and bet on time when designing solutions, but you can only go so far.</p>
+<h2 id="universale-organum">Universale Organum</h2>
+<p>B.Koen then proceeds to enlarge the scope of heuristics and consider things that are usually assumed as stable and well defined like <em>time</em>, <em>language</em>, <em>science</em>, <em>mathematics</em> and whole slew of concepts, as heuristic, adopting a radical skeptic stance, to the point where he can conclude that <em>All is heuristic</em>. This discussion and analysis comprises about half of the book and draws on domains like quantum mechanics, Gödel’s incompleteness theorems, philosophy of the mind, linguistics, psychology, to systematically undermine the stability and “absolutness” of every single concept that usually makes up our world view.</p>
+<p>I found this part way too long, somewhat confusing, quite pretentious, and ultimately ending with a boring conclusion: Taking about 100 pages to defend and demonstrate a somewhat naive form of relativism wasn’t necessary, especially as it draws from a number of well-known and analysed paradoxes and counterintuitive ideas. In particular, I found surprising and disappointing that a nuclear engineer by trade choose quantum mechanics and its classical paradoxes to critique our sense of reality and our notions of time and space. The phenomenological approach, which B.Koen seems to advocate through his radical skepticism, can be used as demonstrated by <a href="https://cv.hal.science/michel-bitbol?langChosen=fr">Michel Bitbol</a>’s works to completely dissolve those paradoxes: Schrödinger’s cat, EPR, or Wigner’s friend mind bending experiments are paradoxes only under a strong realist stance, when one adopts “God’s viewpoint” and are dissolved when one realises that an observation only makes sense for an observer. And if one wants to avoid subjectivism, there are other available interpretations like <a href="https://en.wikipedia.org/wiki/Relational_quantum_mechanics">Carlo Rovelli</a>’s relational interpretation that also address those paradoxes.</p>
+<h2 id="a-practical-use-for-sota">A practical use for sota</h2>
+<p>At <a href="https://socrates-rennes.github.io">SoCraTes Rennes 2024</a> Christophe Thibaut introduced the audience to the concepts exposed in this book, and the consequences on his work as a coach and consultant he has drawn from it. In particular, C.Thibaut suggests that a lot of frictions and problems which our industry is rife with like quality issues, unexpected delays, rework from miscomprehensions in “requirements”, teams misalignment, come from <em>conflicting sotas</em> between the three main actors of a software development project: The management, the product, the engineers.</p>
+<p>To address those problems he proposes a particular kind of workshop whereby different actors will make their respective sotas explicit by enumerating various practices, techniques, tools and principles they each consider important for the success of the project. By <em>mapping</em> the individual sotas onto a shared space on a board, conflicting, misaligned, or simply surprising differences in world-views will emerge and help objectivise what’s often left subjective. It’s not uncommon within teams that relatively small misunderstandings, which could be probably addressed and fixed when taken early and “objectively”, grow over time leading to over or open conflicts.</p>
+<p>This is akin to the <a href="https://humanisticsystems.com/2016/12/05/the-varieties-of-human-work/">Varieties of human work</a> analysis which analyses the problems created by misalignment between <em>Work-as-done</em>, which is the actual, concrete activity carried on by people in the field, and others characterisation of work like <em>Work-as-prescribed</em>, the set of rules which the work <em>should</em> follow, <em>Work-as-disclosed</em> or how we talk and describe the work, or <em>Work-as-imagined</em> which is how we think the work is done.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The part of the book that focuses on engineering is very relevant to our job as software engineers, and clearly exposes the flaws that any kind of “first principle”, mathematical, or scientific approach to engineering bears. Engineering is <em>not</em> applied science as is often claimed, and by the way science is not even “science” either as the author later on advocates<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>By acknowledging the fact we all draw from a set of heuristics which have their limits in space, domain and time, that there’s no unique or absolute principle that should guide our engineering and design work, that more often than not the very act of defining the goal of some particular endeavour is part of the engineering work, that the division between those who sets the goals and those who work to achieve it is artificial and counterproductive, the book advocates for engineers to refrain from “absolutising” what is essentially situated in time and space and therefore pay more attention to the social aspects of their work, both within their teams or organisations, and within society in general.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The interested reader might want to read Latour’s <a href="https://en.wikipedia.org/wiki/Science_in_Action_(book)">Science in Action</a> or <a href="https://en.wikipedia.org/wiki/Aramis,_or_the_Love_of_Technology">Aramis</a> which provide thorough analysis of how intertwined society and science are.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Sur &quot;Le paradigme de l&#39;art contemporain&quot;</title>
     <link href="http://abailly.github.io/posts/art-contemporain.html" />
     <id>http://abailly.github.io/posts/art-contemporain.html</id>
@@ -992,49 +1105,6 @@ Finished in 18.1146 seconds</code></pre>
 * It benefits from adopting an “Adversarial” mindset, trying to find interesting changes that should not be disallowed.</p>
 <p>More generally, test-driving code using both mutations and properties seems to improve the quality of the “triangulation process” which TDD rests upon: QuickCheck generated counterexamples pinpoint exactly what’s missing in the code, which can be fixed straightforwardly even using “fakes”, but next run will find more counterexamples until enough coverage is reached.</p>
 <p>I think this approach, while particularly well-suited to Plutus validators, has broader applicability on every development platform where there’s support for Property-Based Testing.</p>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>Debord / Baudrillard</title>
-    <link href="http://abailly.github.io/posts/debord-baudrillard.html" />
-    <id>http://abailly.github.io/posts/debord-baudrillard.html</id>
-    <published>2022-01-29T00:00:00Z</published>
-    <updated>2022-01-29T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>Debord / Baudrillard</h1>
-
-  <h2 class="subtitle">Le situationnisme est un humanisme</h2>
-
-<div class="info">Posted on January 29, 2022</div>
-
-<p>La lecture récente de <a href="http://www.editions-galilee.fr/f/index.php?sp=liv&amp;livre_id=2631">Simulacres et simulations</a> de <a href="https://fr.wikipedia.org/wiki/Jean_Baudrillard">Jean Baudrillard</a> m’a laissée un peu perplexe. Si le livre est très bien écrit et s’il est indéniable que Baudrillard a été visionnaire dans sa critique de l’hypertrophie du sens et du discours qui noie le réel, son nihilisme assumé m’ennuie. J’ai eu envie dans ce court texte de confronter ce que j’ai compris de sa pensée à celle d’un autre grand contempteur de la société capitaliste, Guy Debord.</p>
-<p>Pour Debord, le <em>spectacle</em> est la subversion du réel par la marchandise, la soumission d’une part de plus en plus croissante des rapports humains à la logique spectaculaire marchande. Cette critique part de l’art, muséifié, momifié, marchandisé, spectacularisé (le premier geste critique de Debord est une manifestation au festival de Cannes) puis passe à la moulinette tous les domaines de la vie : urbanisme, économie, architecture, relations internationales, écologie, éducation. Le situationnisme est une lutte contre le spectacle visant à remettre la vie et les rapports humains <em>immédiats</em> au centre de l’existence, en ce sens ce n’est pas tant une théorie qu’un foyer de pratiques concrètes visant à réinvestir, redonner du sens aux rapports humains.</p>
-<p>La <em>construction de situations</em> ne vise pas autre chose qu’à produire <em>collectivement</em> des moments éphémères de haute intensité du réel qui échappent par essence à la logique spectaculaire Le jeu, la <em>dépense somptuaire</em> sans contrepartie, le sexe, l’alcool, le dérèglement de tous les sens, le rejet de toutes les conventions de la vie bourgeoise (travail, famille, patrie) sont les constantes de Debord.</p>
-<p>L’auto-dissolution de l’IS et l’exclusion systématique de nombreux membres au cours de sa brève existence est l’illustration de cette stratégie du “<em>refus de parvenir</em>”, du rejet de toute postérité, de toute construction pérenne, de toute institution qui puisse capturer l’existence et la recycler dans du spectacle.</p>
-<p>La vie de Debord lui même est une suite de situations culminant avec mai 68 et poursuivies jusqu’à sa mort dans le refus de jamais travailler, d’être en relation marchande avec qui que ce soit, la volonté d’être maître de son existence jusqu’au bout. Comme le dit Debord lui-même dans <em>Commentaires sur la société du spectacle</em> (je paraphrase et cite de mémoire) : “Toute mon existence aura été tournée vers ce seul objectif qui est de nuire à la société spectaculaire marchande.” En conséquence, il a toujours refusé et lutté contre toute forme de “publicité”, toute “vulgarisation” de sa pensée, toute comprimission avec l’univers médiatique, pour finir dans les années 80 par être parmi les intellectuels français les plus cités et les moins visibles.</p>
-<p>Ce qui fait l’originalité et le force de Debord et de l’IS c’est qu’ils ont toujours été activement engagés dans la lutte contre cette société qu’ils critiquent avec force, proposant des actions et des formes de vies alternatives concrètes. Il ne s’agit jamais d’une pensée déconnectée de l’existence, d’une pensée qui ne serait que critique, mais il s’agit de lutter activement, par tous les moyens, sous tous les aspects, contre le spectacle.</p>
-<p>Baudrillard approfondit la critique situationniste, explicitement citée dans <em>Simulacres &amp; simulations</em>, de la médiation et du spectacle mais il cherche à aller plus loin: là où les situs pensaient le spectacle comme un masque sur le réel destiné à maintenir et étendre l’emprise du capital, Baudrillard affirme qu’il n’y a même plus de réel, que le spectacle, les simulacres, ont “dévoré” le réel, que “la carte a remplacé le territoire.”</p>
-<p>Les péripéties, les événements, le “réel” ne sont plus que les éléments d’une immense simulation destinée à maintenir l’illusion de l’existence d’un réel, d’enjeux de pouvoirs et de luttes idéologiques. Le Watergate, la détente russo puis sino-américaine, le Vietnam, l’accident nucléaire de Three Miles Island précédé de peu par le film <em>Le syndrôme chinois</em>, Beaubourg, les hypermarchés, Disneyland, la publicité… sont quelques uns des artefacts de la <em>post-modernité</em> qu’il convoque à l’appui de sa thèse. L’hypertrophie du sens et du discours, y compris “de gauche” sur la question sociale, masque ou tente de masquer le vide du réel.</p>
-<p>La dissuasion - nucléaire, sécuritaire - maintien le réel comme en suspens, produit un glacis sur le réel en attente de l’inévitable catastrophe toujours repoussé à l’horizon. Le terrorisme est ambigü, car en tant que catastrophe authentique il réintroduit du réel dans la simulation, mais il vient aussi renforcer ce qu’il prétend détruire en réactivant la simulation de la normalité et du réel une fois la catastrophe passée.</p>
-<p>Pour le dire autrement, dans le monde hyperréel <em>tout</em> fait sens, tout test saturé de sens et est récupérable et récupéré. Mais personne n’est dupe et ceux qui regardent de la téléréalité, par exemple, savent très bien qu’il s’agit d’un simulacre à moitié scénarisée, mais cela n’a aucune importance. Il n’y a plus <em>d’extérieur</em> ou d’alternative, et la seule option qui reste c’est le <em>nihilisme</em> dont se réclame explicitement Baudrillard dans le dernier chapitre de <em>Simulacres et simulations</em>.</p>
-<p>Contrairement à Debord, Baudrillard a toujours fait partie du système qu’il dénoncait : il a été professeur de lycée et d’université, invité à donner des conférences et des séminaires aux quatre coins de la planète ; il a été marié (2 fois) et a eu des enfants ; il a exposé ses photographies dans des musées et des galeries d’art…</p>
-<p>C’est à mon sens l’aporie principale de son post-modernisme : la critique, aussi percutante et visionnaire soit elle, se dissout <em>elle aussi</em> dans l’hyper-réel du fait de l’anomie qu’elle induit, se perd dans l’infini de la récupération et des jeux de miroirs de la <em>séduction</em> du spectacle, là où Debord et l’IS tracent un chemin d’existence concret, joyeux et bordélique.</p>
-<p>Là où Baudrillard a tendance à “se taper des poses”, Debord agit et c’est en ce sens que le situationnisme est un humanisme pour reprendre une formule célèbre.</p>
 
 
 <div id="disqus_thread"></div>
