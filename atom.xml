@@ -10,8 +10,65 @@
         <email>arnaud@igitur.io</email>
         
     </author>
-    <updated>2024-04-13T00:00:00Z</updated>
+    <updated>2024-05-02T00:00:00Z</updated>
     <entry>
+    <title>On &quot;A theory of facilitated variations&quot;</title>
+    <link href="http://abailly.github.io/posts/theory-of-facilitated-variations.html" />
+    <id>http://abailly.github.io/posts/theory-of-facilitated-variations.html</id>
+    <published>2024-05-02T00:00:00Z</published>
+    <updated>2024-05-02T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<h1>On &quot;A theory of facilitated variations&quot;</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on May  2, 2024</div>
+
+<p>I got referred to <a href="https://www.pnas.org/doi/full/10.1073/pnas.0701035104">The theory of facilitated variation</a>, by Gerhart and Kirschner, while reading <a href="https://www.gallimard.fr/Catalogue/GALLIMARD/Bibliotheque-des-Sciences-humaines/La-survie-des-mediocres">La survie des médiocres</a> de Daniel S. Milo and found it interesting enough in its own right to be worth a short blog post.</p>
+<p>With this paper I am quite far from my usual bases: I am not a specialist in biology, evolution, genetics, nor any of the topics it draws from, so if you dear reader notice a mistake, please let me know. But I think I got the gist of it and it resonated deeply with some ideas and experiences from the software world.</p>
+<p>One of the puzzles that evolution and natural selection pose is an explanation of the wide phenotype variations observed in nature. Phenotype is the set of features exhibited by some organism and with which it interacts with its environment. The theory of evolution posits that all living organisms evolve, that this evolution is “undirected”, and that natural selection kicks in to favor those variations that increase the “fitness” of the organism with respect to its environment. While this was unaccessible to Darwin at the time he formulated his theory, we now know that inheritable variations are caused by genetic mutations: Random variations in the genotype of an organism produce phenotypical variations, some which end up being <em>selected</em> and passed down to descendants.</p>
+<p>What’s unclear however are the <em>rules</em> governing those variations, and at what speed does it occur? Is it the case that significant phenotype variations like the one famously observed on Galapagos’ finches by Darwin, are the result of many small repeated mutation/selection cycle? Or could it be possible that phenotypical traits evolve at a faster rate? The theory of <em>facilitated variations</em> provides some evidence for the latter.</p>
+<p>The key insight for this theory comes from the fact modern advances in genetics have proven that all living organisms share a substantial share of their genotypes, and that most of the key features of how life “works” at the molecular level were already in place in the pre-cambrian, in early prokaryote and eurkaryot organisms, before the subsequent explosion of life-forms. In other words, it seems clear that the wild array of phenotype variations observed in living and extinct species over the past billion of years is caused by a rather limited set of <em>core components and processes</em> from DNA replication, RNA transcription and generation of proteins, to cell division and specialisation, body axis and lateralisation, etc.</p>
+<p>The general idea is that large phenotype variations can be caused by tiny DNA mutations if those mutations entail changes in the <em>regulatory processes</em> that link together various components of the living system, because those core components and processes are very versatile and adaptable. Or said differently, minor variations in genotypes can generate recombinations of components and processes that in turn lead to major variations in phenotype. This is made possible because those core components exhibit some key charateristics:</p>
+<ol type="1">
+<li><p>Weak regulatory linkage where some component’s complex behaviour, typically a cell, can be triggered or inhibited by the presence or even the absence (through self-inhibition) of some simple molecule. The inhibitor or enabler does not need any “knowledge” or even direct relation with the other process, and</p>
+<blockquote>
+<p>The ease with which simple signals can entrain complex processes reflects the capacity of core processes to engage in weak regulatory linkage.</p>
+</blockquote></li>
+<li><p>State selection, the built-in capability of a component to be in several states depending on its environment and interactions. Those so-called conserved processes and components being very versatile and <em>encapsulating</em> complex behaviour,</p></li>
+<li><p>Exploratory capabilities whereby processes are able to “explore” a very large space to find suitable targets, similar to how ants look for food in their environment</p></li>
+</ol>
+<p>Those characteristics make core components and processes <em>robust</em> and <em>adaptable</em> and as the authors put it:</p>
+<blockquote>
+<p>Robustness and adaptability are essential to the kind of evolution we have described, wherein core processes are used in different combinations, amounts, and states to produce new traits.</p>
+</blockquote>
+<p>Moreover, these adaptative capabilities manifest themselves differently in different parts of the organisms, leading to even more differentiation, a phenomenon called <em>compartmentation</em> by the authors.</p>
+<p>Any software developer will recognize the characteristics cited above, albeit disguised under different names, and more generally the way variations of observable behaviour occurs through recombination of core components and processes, as key software design principles.</p>
+<ul>
+<li>Weak regulatory linkage is well-known as the <em>Loose coupling - Strong cohesion</em> principle,</li>
+<li>State selection along with weak linkage is very reminiscent of what John Osterhout calls <em>Shallow interface - Deep module</em> principle in his <a href="https://www.amazon.com/Philosophy-Software-Design-John-Ousterhout/dp/1732102201">Philosophy of software design book</a>,</li>
+<li>Exploratory processes are definitely akin to <em>iterative and incremental</em> software development processes.</li>
+</ul>
+<p>Noting the connection between how “Nature” designs life forms and how “humans” design artifacts is certainly not new, dating back to at least Aristotle and his conception of “Art as imitation of Nature”, where art is to be understood as any form of human design including what we now call art, craft, architecture. However, Aristotelian conception is teleological as both Nature and Art are assumed to be driven by a <em>purpose</em>, whereas evolution and natural selection have no purpose being the result of complex interactions within and among ecosystems. Moreover, Aristotle mostly conceived Art and Nature as <em>static</em>: An artist realises some goal in some art form, a process known as morphogenesis that consists in imposing a shape on matter, but never has to cope with change. Similarly, Nature is fixed and not conceived to be evolving, the myriad of life forms having been created once and for all.</p>
+<p>What this article - and theory of evolution in general - highlights is how “Nature” has “built” in the lowest level of life’s components and processes how to more or less easily cope with <em>change</em>. And by contrast it strikes me as something we very often, in software design and development, overlook or pay lip service to. Far from having learned Darwin’s and genetics’ lessons, we are still very much “fixists” in how we conceive our systems.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+]]></summary>
+</entry>
+<entry>
     <title>Sur &quot;Un empire bon marché&quot;</title>
     <link href="http://abailly.github.io/posts/empire-bon-marche.html" />
     <id>http://abailly.github.io/posts/empire-bon-marche.html</id>
@@ -858,110 +915,6 @@ Et les mots pour le dire nous viennent aisément</p>
 <p>I found it interesting this analysis lead to the somewhat obvious but yet ignored truth that <em>coding involves code</em>: Even though it’s possible to write programs with pencil and paper, to actual <em>code</em> and <em>program</em> requires some other program to actually do something. HW is the first artefact a wannabe developer encounters that helps to acquire that insight. It reminds me of how puzzled I was before I learnt systems programming, when I reading books about Computer hardware and CPU, that were hinting at assembly or C code and I was pretty much clueless on how to actually <em>write</em> and <em>execute</em> those. I only have ever programmed using high-level applications like Multiplan or Access and did not know there was another reality behind those applications.</p>
 <p>Robin Hill’s work, while seemingly simple, highlights this fact there is a <em>huge</em> amount of implicit knowledge behind even the simplest task of programming.</p>
 </blockquote>
-
-
-<div id="disqus_thread"></div>
-<script>
-  (function() {  // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-  
-    s.src = '//arnaudsblog.disqus.com/embed.js';
-  
-    s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-]]></summary>
-</entry>
-<entry>
-    <title>On &quot;Resonance&quot;</title>
-    <link href="http://abailly.github.io/posts/resonance.html" />
-    <id>http://abailly.github.io/posts/resonance.html</id>
-    <published>2022-03-12T00:00:00Z</published>
-    <updated>2022-03-12T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<h1>On &quot;Resonance&quot;</h1>
-
-  <h2 class="subtitle">Part I, On relations to the World</h2>
-
-<div class="info">Posted on March 12, 2022</div>
-
-<p><a href="https://www.editionsladecouverte.fr/resonance-9782348067358">Resonance</a> is a book by Harmut Rosa, a famous contemporary German sociologist and philosopher who theorised <em>Acceleration</em> as a core impact modernity has on society in a previous book. I have read the first part of this book in French but the ideas he set forth <em>resonated</em> - pun intended - so much with me I wanted to share them with a wider audience, hence this English summary.</p>
-<p>My notes don’t do justice to the richness of the book which is very well written even if quite dense, and more importantly packed with concrete examples and actual results from studies in the field and experiments, whether from neurosciences, sociology, psychology… Something that’s rare enough in a theoretical book to be worthy of emphasis.</p>
-<p>This small article tries to summarise the core ideas I understood from this rich book, and how those ideas relate to other ideas, feelings, experiences I have had in the past. It’s (un)structured as a loosely organised collection of notes, and my goal is to give the reader enough clues and intriguing ideas that she or he would want to have a closer look and read this important book.</p>
-<h2 id="how-does-a-resonating-life-looks-like">How does a resonating life looks like?</h2>
-<p>Our life is essentially experienced as weaving bonds with beings and things, whether objects, practices, beliefs, groups), as a continuous stream of phenomenons manifesting that something outside of us <em>Affects</em> use. Rosa introduces his book with the description of the contrasted life of three pairs of people:
-* One person that seeks to maximise resonance of every single experience, versus one who tries to maximise the number of variety of lived experiences,
-* One that perceives the world as full of resonating bonds versus one the only feels alienated,
-* One that relates to the world and other beings through <em>command &amp; control</em>, as instruments to suit her purpose, versus one that relates to others through <em>mimetic assimilation</em>.</p>
-<p>Resonance thus occurs either <em>horizontally</em>, with other human beings (friends, relatives, lovers, activists…), <em>diagonally</em> with things, animals, ideas, or <em>vertically</em> with transcending “totalities” like The World, Nature, God, Humanity.</p>
-<h2 id="embodiment-of-resonance">Embodiment of Resonance</h2>
-<p>Our body is what allows us to resonate with otheres, skin is our first communication medium: It’s first through touch and being touched that we experience the world, following the eerie state of the baby in his or her mother’s placenta. The skin is a membrane through which the outside affects us (scars, burns, strokes, tatoos), but with which we also express ourselves (flush, goose bumps). The more we consider our skin (and more generally our body) as an <em>object</em> the less we seem able to resonate.</p>
-<p>Breathing and blowing are our very first, mostly unconscious, interaction with the world, ones which force us to let it penetrate us. Then comes eating and drinking.</p>
-<p>We are social beings through and through even within our bodily interaction with the world: The way we walk, we perceive space, our attitude, how we stand up and sit down… This <em>hexis</em> is the embodiment of socially built constraints and habits and in return it has social effects.</p>
-<p>The erotic relationship to the other, whether “purely” sexual or “merely” platonic, is a peak of resonance. It’s one of the most powerful and intense ways to resonate with the Other and the World as it involves every part of our being, physical, mental, aesthetic.</p>
-<p>Relation to the World can be modelled as involving 3 parts: The Self, the Body and the World.
-The Body mediates the relationship of the Self to the World, and interactions happen in both directions yielding 4 different possible type of relations. Any of these relations can be experienced as <em>resonating</em> or <em>muted</em>. In the late modernity, the Body (and the World) are most often experienced as <em>instrumental</em>.</p>
-<p>Reification is the process through which one aims at controlling and mastering the Body, considering it as an <em>object</em>. It can take two apparently opposite but deeply connected aspects:</p>
-<ul>
-<li><em>Internal reification</em> through reeducation and training, dietary regimes, yoga and gym courses, fasting…</li>
-<li><em>External reification</em> through the use drugs or aesthetical surgery.</li>
-</ul>
-<p>Reification induces <em>alienation</em> by dissociating one’s Self from her Body, a symptom of which being the <em>burn-out</em>.</p>
-<p>The separation between the <em>objectal body</em> and the <em>subjectal body</em>, between the body as it relates to the world and the body as it relates to the Self, is nowhere as obvious than in the varieties of sexuality and relationships to one’s gender. The fact that intersexuality, travesty, homosexuality or transsexuality can be powerful sources of alienation and pain for the individual demonstrates:
-1. How much society values the <em>objectal body</em> over the <em>subjectal</em> one, and
-2. That such fundamental things as our perceptions of our body are socially built.</p>
-<h2 id="resonance-culture">Resonance &amp; Culture</h2>
-<p>The deepest experiences of resonances are always devoid of a particular object hence of desire.</p>
-<blockquote>
-<p>The Self and the World are not entities preexisting their relationship, but take shape through the relationnal process.
-p. 195</p>
-</blockquote>
-<p>Man is an auto-interpretative being.</p>
-<p>According to Weber and Habermas, each culture favors one or the other form of relation to the worlds, classified along 2 pairs of opposition: Active or Passive attitude, whereby the Self is an intentional subject actively engaging with the World, or merely a receptacle of whatever the World throws at her ; Affirmation or Negation as ways to evaluate one’s relationship to the world.</p>
-<table>
-<thead>
-<tr class="header">
-<th></th>
-<th>Active</th>
-<th>Passive</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Affirmation</td>
-<td>Adaptation (Confucianism)</td>
-<td>Contemplation (Ancient Greece)</td>
-</tr>
-<tr class="even">
-<td>Negation</td>
-<td>Domination (Capitalism)</td>
-<td>Escape (hinduism, buddhism)</td>
-</tr>
-</tbody>
-</table>
-<p>No culture is devoid of values hence of <em>evaluation</em> which is the process through which we attribute one or more <em>values</em> to something.
-We can distinguish between <em>Weak evaluation</em> which relates to our immediate desires, “I want X” and which are “internal”; and <em>Strong evaluation</em> which relates to our core values, “It is important that X”, and which are always external, within the <em>World</em>.</p>
-<p>Evaluation allows to build a <em>Moral map</em> of the World with guides our choices and gives meaning, within the frame of a specific cultural context.</p>
-<p><a href="http://www.gerhardschulze.de/">Gerhard Schulze</a> studied the attitudes and beliefs of inhabitants of a small German city in the 80’s and proposed 5 classes identifiying each attitude with what he calls a <em>Basic Existential Problem</em>:</p>
-<ol type="1">
-<li><em>Threat</em> where the World is perceived mostly as a source of danger from which to seek protection,</li>
-<li><em>Trial</em>: The world is a source of challenges to overcome,</li>
-<li><em>Stimulation</em>: The World is a source of feelings and sensations,</li>
-<li><em>Self experience</em>: The world is a way to know oneself better,</li>
-<li><em>Adaptation</em>: The World as expectations to be met, to adapt with.</li>
-</ol>
-<h2 id="resonance-empathy">Resonance &amp; Empathy</h2>
-<p>Empathy is a biological phenomenon that we have been programmed to feel, much like as social animals we have a natural tendency to imitate others. That’s why it’s pretty hard to act violently in normal circumstances, it requires exceptional situations and possibly several agressions to react.</p>
-<p>Empathy has a neurological support, possibly through so-called mirror neurons and imitative instinct, but it is socially constructed through the child and adult’s interactions with others. “Wolf child” unvoluntary experiments and numerous psychological studies have proven that interactions are vital for the mental well-being and psychic development.</p>
-<p>Saying or hearing can be performative because language is intimately linked to our capabilities to resonate. And language resonates because it links us to the social world.</p>
-<h2 id="alienation-vs.-resonance">Alienation vs. Resonance</h2>
-<p>Alienation is a concept which has received a lot of attention along the 20th century, so much so that it devolved into amorphous meaninglessness. Within the theory of resonance, alienation can receive a very precise definition as <em>relation without relationship</em> to the World, that is a form of being and interaction with the world, both things, animals and people, which is purely <em>instrumental</em>, muted, devoid of feedback.</p>
-<p>That’s the exact opposite of <em>resonance</em> which is defined as a bi-directional, feedback rich, relation to the World, each party resonating with the others on its <em>own frequency</em>.</p>
-<p>Alienation and resonance are dialectically related: Resonance emerges from consciousness of an alienation and the quest of a “solution” founded on trust into the very possibility of resonance.</p>
-<p>This dialectic definition <em>resonance</em> and <em>alienation</em> ends the first part of the book, the second being devoted to identifying concrete manifestations of both in what Rosa calls <em>Late modernity</em>, namely our Western capitalist civilisation.</p>
 
 
 <div id="disqus_thread"></div>
