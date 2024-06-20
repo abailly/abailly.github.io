@@ -289,14 +289,14 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a 
 <h1>Idris</h1>
 
 </section>
-<section id="types-abstraits-de-données-généralisés"
+<section id="types-algebriques-de-données-généralisés"
 class="slide level2">
-<h2>Types abstraits de données généralisés</h2>
+<h2>Types algébriques de données généralisés</h2>
 <p><img data-src="/images/kandinsky-comp-8.jpg" /></p>
 </section>
-<section id="types-abstraits-de-données-généralisés-1"
+<section id="types-algebriques-de-données-généralisés-1"
 class="slide level2">
-<h2>Types abstraits de données généralisés</h2>
+<h2>Types algébriques de données généralisés</h2>
 <ul>
 <li class="fragment">Applicable aux types paramétrés</li>
 <li class="fragment">Chaque constructeur d’un type peut retourner une
@@ -305,9 +305,9 @@ type différent</li>
 contexte dans lequel le type est appelé à s’insérer</li>
 </ul>
 </section>
-<section id="types-abstraits-de-données-généralisés-2"
+<section id="types-algebriques-de-données-généralisés-2"
 class="slide level2">
-<h2>Types abstraits de données généralisés</h2>
+<h2>Types algébriques de données généralisés</h2>
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode idris"><code class="sourceCode idris"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Command</span> <span class="ot">:</span> <span class="dt">Type</span> <span class="ot">-&gt;</span> <span class="dt">Type</span> <span class="kw">where</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Prompt</span>         <span class="ot">:</span> <span class="dt">Question</span> <span class="ot">-&gt;</span> <span class="dt">Command</span> <span class="dt">Input</span></span>
