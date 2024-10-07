@@ -152,17 +152,17 @@ data Question where
 
 # Idris #
 
-## Types abstraits de données généralisés
+## Types algébriques de données généralisés
 
 ![](/images/kandinsky-comp-8.jpg)
 
-## Types abstraits de données généralisés
+## Types algébriques de données généralisés
 
 * Applicable aux types paramétrés
 * Chaque constructeur d'un type peut retourner une type différent
 * Permet de spécialiser le paramètre en fonction du contexte dans lequel le type est appelé à s'insérer
 
-## Types abstraits de données généralisés
+## Types algébriques de données généralisés
 
 ```idris
 data Command : Type -> Type where
