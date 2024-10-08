@@ -252,29 +252,29 @@ My current workflow when working on Haskell code looks like:</p>
 <p>In retrospect I think the biggest issue we faced while developing the platform and working on the dev and prod infrastructure was fighting back increase in <em>build time</em> as we were adding new features and services. Building a deployable container <em>from scratch</em>, including creation of the build machine, configuration of build tools, creation of the needed containers, download and build of dependencies, testing, packaging would take about 2 hours. Here is the breakdown of time for some of the build stages according to the CI:</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Test</th>
 <th>Mean</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>IntegrationTest</td>
 <td>7m51s</td>
 </tr>
-<tr class="even">
+<tr>
 <td>EndToEndTest</td>
 <td>7m05s</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Compile</td>
 <td>6m05s</td>
 </tr>
-<tr class="even">
+<tr>
 <td>ParallelDeploy</td>
 <td>1m12s</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>UITest</td>
 <td>53.46s</td>
 </tr>
