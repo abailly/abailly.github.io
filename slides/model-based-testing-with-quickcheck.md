@@ -50,6 +50,8 @@ _Automata Testing_ $\rightarrow$ _Test-Driven Development_ $\rightarrow$ _Proper
 
 contributions = code + feedback
 
+:::
+
 ## What can you expect?
 
 * An overview of an interesting new tool
