@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Arnaud Bailly - @dr_c0d3">
+  <meta name="dcterms.date" content="2025-03-14">
+  <title>Against (Formal) Method?</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="/reveal.js/dist/theme/virgil-black.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Against (Formal) Method?</h1>
+  <p class="subtitle">An experience report on Formal Methods from a
+developer point-of-view</p>
+  <p class="author">Arnaud Bailly - <span class="citation"
+data-cites="dr_c0d3">@dr_c0d3</span></p>
+  <p class="institute">Pankzsoft</p>
+  <p class="date">2025-03-14</p>
+</section>
+
+<section>
+<section id="introduction" class="title-slide slide level1">
+<h1>Introduction</h1>
+
+</section>
+<section id="agenda" class="slide level2">
+<h2>Agenda</h2>
+<ul>
+<li class="fragment">Context &amp; experiments</li>
+<li class="fragment">Findings &amp; Analysis</li>
+<li class="fragment">Possible solutions</li>
+</ul>
+</section>
+<section id="who-am-i" class="slide level2">
+<h2>Who am I?</h2>
+<ul>
+<li class="fragment">Dev/Tech Lead/Architect/Consultant for 30+
+years</li>
+<li class="fragment">PhD in computer science (20 years ago)</li>
+<li class="fragment">Dedicated <em>eXtreme Programming</em>
+Practitioner</li>
+<li class="fragment">Skeptic believer in the benefits of formal
+methods</li>
+</ul>
+</section>
+<section id="goals" class="slide level2">
+<h2>Goals</h2>
+<p>How can we build better software?</p>
+<ul>
+<li class="fragment">Share experience integrating Formal Methods as part
+of Software Development Life-Cycle</li>
+<li class="fragment">Share analysis from this experience in the light of
+my understanding of software development</li>
+<li class="fragment">Identify <em>issues</em> and
+<em>shortcomings</em></li>
+<li class="fragment">Suggest <em>solutions</em></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>better = build the software right + build the right software</li>
+<li>opinions and analysis are my own and are debatable</li>
+</ul>
+</aside>
+</section>
+<section id="funarch-2024" class="slide level2">
+<h2>FUNARCH ’2024</h2>
+<figure>
+<img data-src="/images/funarch-paper.png" alt="FUNARCH’2024" />
+<figcaption aria-hidden="true">FUNARCH’2024</figcaption>
+</figure>
+<aside class="notes">
+<ul>
+<li>previously published paper at Workshop on Functional Architecture w/
+James Chapman and Polina Vinogradova</li>
+<li>summarizes various other projects</li>
+<li>contains some findings and analysis shared here</li>
+</ul>
+</aside>
+</section></section>
+<section>
+<section id="experience-report" class="title-slide slide level1">
+<h1>Experience Report</h1>
+
+</section>
+<section id="cardano" class="slide level2">
+<h2>Cardano</h2>
+<p>A research-based proof-of-stake blockchain and cryptocurrency based
+on <em>Ouroboros Praos</em> protocol</p>
+<figure>
+<img data-src="/images/praos-paper.png" alt="Ouroboros Praos" />
+<figcaption aria-hidden="true">Ouroboros Praos</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">Globally distributed and fully decentralized
+<em>open</em> system</li>
+<li class="fragment">3000+ block producing nodes, 1M+ “wallets”, 100s of
+<em>developers</em> and <em>startups</em></li>
+<li class="fragment">Daily transactions amounting to 100s of millions
+USD</li>
+<li class="fragment"><em>Security &amp; safety are not an
+option</em></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>not an endorsment of economic model or libertarian values</li>
+</ul>
+</aside>
+</section>
+<section id="rd" class="slide level2">
+<h2>R&amp;D</h2>
+<p><strong>Turn research papers into working software</strong></p>
+<ul>
+<li class="fragment"><a href="https://hydra.family">Hydra</a>:
+Isomorphic state channels for Cardano (aka. Layer 2)</li>
+<li class="fragment"><a href="https://mithril.network">Mithril</a>:
+Stake-based multisigned snapshots</li>
+<li class="fragment"><a
+href="https://peras.cardano-scaling.org">Peras</a>: Faster settlement
+for Ouroboros</li>
+<li class="fragment"><a
+href="https://leios.cardano-scaling.org">Leios</a>: Higher throughput
+for Ouroboros</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>only list projects I have been personally involved with</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<p>Common theme:</p>
+<ul>
+<li class="fragment">More or less (more) complex algorithms and
+protocols w/ proven properties</li>
+<li class="fragment">Written by cryptographic &amp; security
+researchers, aka. <em>mathematicians</em>, with heavy proof
+apparatus</li>
+<li class="fragment">Require collaboration of people with diverse
+background and skills</li>
+</ul>
+<!-- ## Hydra/Mithril -->
+<!-- * No attempt at working with formal methods -->
+<!-- * Heavy emphasis on Property-based testing & Test-driven development -->
+<!-- * Used _some_ model-based testing approach -->
+<!-- * After-the-fact formal specification in LaTeX -->
+<!-- ---- -->
+<!-- ![Hydra formalization](/images/hydra-formal-spec.png) -->
+</section>
+<section id="peras" class="slide level2">
+<h2>Peras</h2>
+<ul>
+<li class="fragment">One project within <em>Innovation streams</em></li>
+<li class="fragment">Experiment and refined structured <em>method</em>
+to go from research ideas to products</li>
+<li class="fragment">Small (3.5 people) team: Researcher, FM engineer, 2
+x Architects/Developers</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Product is somewhat mising in the picture but let’s not dive to
+deeply into this</li>
+<li>Method replicated for Leios projects</li>
+</ul>
+</aside>
+</section>
+<section id="process-tools" class="slide level2">
+<h2>Process &amp; Tools</h2>
+<figure>
+<img data-src="/images/peras-process.jpg"
+alt="Peras detailed workflow" />
+<figcaption aria-hidden="true">Peras detailed workflow</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment"><em>Agda</em>: Formal specification language</li>
+<li class="fragment"><em>Agda2HS</em>: Generate Haskell code from Agda
+specification</li>
+<li class="fragment"><em>quickcheck-dynamic</em>: Haskell code to
+generate conformance tests</li>
+<li class="fragment"><em>Haskell</em> and <em>Rust</em>: Target
+languages for prototypes</li>
+</ul>
+</section>
+<section id="agda-formalisation" class="slide level2">
+<h2>Agda formalisation</h2>
+<ul>
+<li class="fragment">Protocol modelled in Agda using <a
+href="https://peras.cardano-scaling.org/agda_html/Peras.SmallStep.html">Small-steps
+semantics</a> specifying the impact of each node “actions” on global
+state</li>
+<li class="fragment">Took inspiration from previous work on <a
+href="https://eprint.iacr.org/2020/917.pdf">Formalizing Nakamoto-Style
+Proof of Stake</a> in Coq</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="/images/peras-agda-spec.png" alt="Agda Specification" />
+<figcaption aria-hidden="true">Agda Specification</figcaption>
+</figure>
+</section>
+<section id="peras-conformance-tests" class="slide level2">
+<h2>Peras conformance tests</h2>
+<ul>
+<li class="fragment">💡 Write a “simpler” model for testing purpose in
+Agda</li>
+<li class="fragment">Generate code suitable for use with Haskell
+QuickCheck</li>
+<li class="fragment">Write <a
+href="https://github.com/input-output-hk/peras-design/blob/main/src/Peras/Conformance/Soundness.agda">Proof
+of soundness</a></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="/images/peras-conformance-testing.png"
+alt="Peras testing" />
+<figcaption aria-hidden="true">Peras testing</figcaption>
+</figure>
+<!-- ## Cardano-ledger conformance tests -->
+<!-- * 💡 Write an Agda model (specification) -->
+<!-- * Generate Haskell code using standard MAlonzo "opaque" code generator -->
+<!-- * Use generated model to test conformance of (Haskell) implementation -->
+<!-- ## Outcome -->
+<!-- https://tweag.github.io/cardano-peras/peras-design.pdf -->
+</section></section>
+<section>
+<section id="shortcomings" class="title-slide slide level1">
+<h1>Shortcomings</h1>
+
+</section>
+<section id="maintenance" class="slide level2">
+<h2>Maintenance</h2>
+<ul>
+<li class="fragment">Most formal specifications are written once and
+rarely touched upon</li>
+<li class="fragment">Software necessarily evolves over time to suit the
+need for changing requirements, users, environment</li>
+<li class="fragment">How do we keep formal specifications and FM
+artefacts maintenable over time?</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="/images/pos-nsb-proof.png" alt="Coq Proof fragment" />
+<figcaption aria-hidden="true">Coq Proof fragment</figcaption>
+</figure>
+</section>
+<section id="skills-shortage" class="slide level2">
+<h2>Skills shortage</h2>
+<ul>
+<li class="fragment">FM are rarely touched upon before graduate
+level</li>
+<li class="fragment">There’s a plethora of tools and languages to choose
+from, each with its own (small) ecosystem</li>
+<li class="fragment">Upskilling general purpose programmers to use FM
+takes time</li>
+<li class="fragment">Even switching from one method to an other is non
+trivial</li>
+</ul>
+</section>
+<section id="tools" class="slide level2">
+<h2>Tools</h2>
+<ul>
+<li class="fragment">Tooling is not on par with tooling for general
+purpose programming languages</li>
+<li class="fragment">“Market size” effect -&gt; building tools for niche
+languages does not attract big players</li>
+<li class="fragment">“PhD quality software” -&gt; software written to
+support research ideas or projects, not “industrial” software</li>
+</ul>
+<aside class="notes">
+<ul>
+<li><code>agda2hs</code> is basically incompatible with
+<code>stdlib</code> -&gt; they serve 2 different purposes</li>
+<li>it’s not maintained by a dedicated team</li>
+</ul>
+</aside>
+</section>
+<section id="silo" class="slide level2">
+<h2>Silo</h2>
+<figure>
+<img data-src="/images/silo.jpeg" alt="Silos" />
+<figcaption aria-hidden="true">Silos</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">FM work requires specialised skills and
+knowledge</li>
+<li class="fragment">FM on the critical path of software development
+introduces delays</li>
+<li class="fragment"><em>The DBA effect</em></li>
+<li class="fragment"><em>Ivory Tower</em> architects</li>
+</ul>
+</section>
+<section id="researchers-formal-methods" class="slide level2">
+<h2>Researchers &amp; Formal Methods</h2>
+<ul>
+<li class="fragment">Researchers are not FM engineers</li>
+<li class="fragment">Writing “Pen &amp; paper” proofs is <em>very
+different</em> from writing mechanized proofs in Agda or Coq</li>
+<li class="fragment">How are we sure the formal specification matches
+the paper?</li>
+</ul>
+</section>
+<section id="cost-time" class="slide level2">
+<h2>Cost &amp; time</h2>
+<ul>
+<li class="fragment">Writing proofs for non-trivial properties is time
+consuming (took 4 months to prove soundness property for Peras)</li>
+<li class="fragment">This time impacts total development cost</li>
+</ul>
+</section>
+<section id="engineeringfm" class="slide level2">
+<h2>Engineering/FM</h2>
+<ul>
+<li class="fragment">“Agile” software development techniques have become
+more and more widespread</li>
+<li class="fragment">How do we integrate FM in an iterative and
+incremental process?</li>
+</ul>
+</section></section>
+<section>
+<section id="conclusion" class="title-slide slide level1">
+<h1>Conclusion</h1>
+
+</section>
+<section id="its-just-another-domain" class="slide level2">
+<h2>It’s just another <em>Domain</em></h2>
+<figure>
+<img data-src="/images/proof-program.png"
+alt="Relating Proofs &amp; Programs" />
+<figcaption aria-hidden="true">Relating Proofs &amp;
+Programs</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">Researchers are domain experts whose ideas we want
+to turn into software</li>
+<li class="fragment"><em>Domain Driven Design</em> emerged in the past
+decade as a great (set of) tool for software development</li>
+<li class="fragment">Creating and evolving an <em>Ubiquitous
+Language</em> is a key ingredient in DDD</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<blockquote>
+<p>Can Formal Methods be useful as a Better Ubiquitous Language?</p>
+</blockquote>
+</section>
+<section id="call-to-action" class="slide level2">
+<h2>Call to action</h2>
+<ul>
+<li class="fragment">Need to improve tooling</li>
+<li class="fragment">Teaching and training for “the rest of us”</li>
+<li class="fragment">Gradual integration of FM in software lifecycle
+(work on small feature or components)</li>
+<li class="fragment">Consolidation of the FM landscape</li>
+<li class="fragment">Integration with LLM and generative AI?</li>
+</ul>
+</section>
+<section id="references-links" class="slide level2">
+<h2>References &amp; Links</h2>
+<ul>
+<li class="fragment">Peras <a
+href="https://peras.cardano-scaling.org">website</a> and <a
+href="https://github.com/input-output-hk/peras-design">code
+repository</a> contain details about the project</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="/reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="/reveal.js/plugin/notes/notes.js"></script>
+  <script src="/reveal.js/plugin/search/search.js"></script>
+  <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>

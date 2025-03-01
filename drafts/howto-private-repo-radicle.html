@@ -1,0 +1,110 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - How to set up a shared private repository with radicle?</title>
+  <meta name="description" content="We craft code">
+  <meta name="author" content="Arnaud Bailly, Thomas Queste">
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="http://abailly.github.io"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="#">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="draft" id="main" role="main">
+<h1>How to set up a shared private repository with radicle?</h1>
+
+  <h2 class="subtitle"></h2>
+
+<div class="info">Posted on November  4, 2024</div>
+
+<p>I fell in love with <a href="https://radicle.xyz">Radicle</a>, so much so that I am trying to use for every project I start. The hardest part is convincing friends I am working with to use it: let’s face it, while radicle is awesome it also has a somewhat steep learning curve. Even though the team has put effort on documenting and providing useful guides, those guides are mostly tutorials (see <a href="https://dunnhq.com/posts/2023/documentation-quadrants/">4 quadrants</a> theory of documentation) but when <em>doing</em> things one needs <em>howtos</em>.</p>
+<p>This short document is such a practical <em>howto</em>, aiming at explaining the steps two people need to start collaborating one a piece of <em>privately</em> using Radicle’s peer-to-peer infrastructure. The end goal is that those two people should <em>each</em> be able to use standard git commands to share whatever changes they are making to a code repository, without the need of a centralised server.</p>
+<h2 id="set-up">Set up</h2>
+<p>We assume the following setup:</p>
+<ul>
+<li>Each user, say Alice and Bob, has a working <a href="https://radicle.xyz/#get-started">installation</a> of <em>Radicle</em> on their local machine</li>
+<li>There is an accessible <a href="https://radicle.xyz/guides/seeder">seeder</a> machine one or both of the users have access to, named <em>Charlie</em> for the purpose of this Howto.
+<ul>
+<li>This step might not be necessary if both users’ machine can connect to each other directly, either through standard TCP (eg. they are on the same network) or using <a href="https://www.torproject.org">TOR</a></li>
+</ul></li>
+</ul>
+<h2 id="creating-the-repository">Creating the repository</h2>
+<p>Alice creates a git repository to share work with Bob:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> secret-project</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> secret-project</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;Secret project with Bob&quot;</span> <span class="op">&gt;</span> README.md</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add README.md</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Initial commit&quot;</span></span></code></pre></div>
+<p>Then she initialises this repository as a radicle repository:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rad</span> init <span class="at">--private</span></span></code></pre></div>
+<p>which outputs:</p>
+<pre><code>Initializing private radicle 👾 repository in /Users/arnaud/projects/secret-project..
+
+✓ Name secret-project
+✓ Description
+✓ Default branch main
+✓ Repository secret-project created.
+
+Your Repository ID (RID) is rad:z2C5FYqMSjYATNBaeg9UiTicruMUN.
+You can show it any time by running `rad .` from this directory.
+
+You have created a private repository.
+This repository will only be visible to you, and to peers you explicitly allow.
+
+To make it public, run `rad publish`.
+To push changes, run `git push`.</code></pre>
+<h2 id="sharing-it-with-public-seed-and-bob">Sharing it with public seed and Bob</h2>
+<p>To allow Bob to commit directly to this repository, Alice needs to add him as a <em>delegate</em>.</p>
+<pre><code>rad id update --title &quot;Allow delegate to Bob&quot; --allow &quot;did:key:&lt;bob's id&gt;&quot; --delegate &quot;did:key:&lt;bob's id&gt;&quot;</code></pre>
+<p>And for both parties to be able to collaborate they need the public seeder to be able to seed the repository, so that Bob can clone it and the seeder can serve as a relay between Alice and Bob:</p>
+<pre><code>rad id update --title &quot;Allow public seeder&quot; --allow &quot;did:key:&lt;seeder id&gt;&quot;
+
+</code></pre>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/abailly"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+  </div>
+</body>
+</html>
