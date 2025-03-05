@@ -55,34 +55,53 @@ data-cites="dr_c0d3">@dr_c0d3</span></p>
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
 <ul>
-<li class="fragment">Context &amp; experiments</li>
+<li class="fragment">Introduction</li>
+<li class="fragment">Context &amp; Experiments</li>
 <li class="fragment">Findings &amp; Analysis</li>
-<li class="fragment">Possible solutions</li>
+<li class="fragment">Takeaways &amp; Conclusion</li>
 </ul>
 </section>
-<section id="who-am-i" class="slide level2">
-<h2>Who am I?</h2>
+<section id="where-do-i-speak-from" class="slide level2">
+<h2>Where do I speak from?</h2>
 <ul>
 <li class="fragment">Dev/Tech Lead/Architect/Consultant for 30+
 years</li>
 <li class="fragment">PhD in computer science (20 years ago)</li>
 <li class="fragment">Dedicated <em>eXtreme Programming</em>
 Practitioner</li>
-<li class="fragment">Skeptic believer in the benefits of formal
+<li class="fragment">Cautious believer in the benefits of formal
 methods</li>
+<li class="fragment">Experience limited to <em>specific</em> types of
+software</li>
 </ul>
 </section>
-<section id="goals" class="slide level2">
-<h2>Goals</h2>
-<p>How can we build better software?</p>
+<section id="publication" class="slide level2">
+<h2>Publication</h2>
+<figure>
+<img data-src="/images/funarch-paper.png" alt="FUNARCH’2024" />
+<figcaption aria-hidden="true">FUNARCH’2024</figcaption>
+</figure>
+<aside class="notes">
 <ul>
-<li class="fragment">Share experience integrating Formal Methods as part
-of Software Development Life-Cycle</li>
-<li class="fragment">Share analysis from this experience in the light of
-my understanding of software development</li>
-<li class="fragment">Identify <em>issues</em> and
-<em>shortcomings</em></li>
-<li class="fragment">Suggest <em>solutions</em></li>
+<li>personal take from this paper and own experience</li>
+<li>previously published paper at Workshop on Functional Architecture w/
+James Chapman and Polina Vinogradova</li>
+<li>summarizes various other projects</li>
+<li>contains some findings and analysis shared here</li>
+</ul>
+</aside>
+</section>
+<section id="too-long-didnt-read" class="slide level2">
+<h2>Too Long; Didn’t Read</h2>
+<p>To reap more benefits out of thems, <em>Formal Methods</em>
+should:</p>
+<ul>
+<li class="fragment">Become a first-class citizen of the software
+development process</li>
+<li class="fragment">Get out of their current niche and specialized
+circles</li>
+<li class="fragment">Better support modern software development
+practices like <em>Domain Driven Design</em></li>
 </ul>
 <aside class="notes">
 <ul>
@@ -91,24 +110,13 @@ my understanding of software development</li>
 </ul>
 </aside>
 </section>
-<section id="funarch-2024" class="slide level2">
-<h2>FUNARCH ’2024</h2>
-<figure>
-<img data-src="/images/funarch-paper.png" alt="FUNARCH’2024" />
-<figcaption aria-hidden="true">FUNARCH’2024</figcaption>
-</figure>
-<aside class="notes">
-<ul>
-<li>previously published paper at Workshop on Functional Architecture w/
-James Chapman and Polina Vinogradova</li>
-<li>summarizes various other projects</li>
-<li>contains some findings and analysis shared here</li>
-</ul>
-</aside>
+<section class="slide level2">
+
+<p><strong>Formal methods are software too</strong></p>
 </section></section>
 <section>
-<section id="experience-report" class="title-slide slide level1">
-<h1>Experience Report</h1>
+<section id="context-experience" class="title-slide slide level1">
+<h1>Context &amp; Experience</h1>
 
 </section>
 <section id="cardano" class="slide level2">
@@ -138,9 +146,8 @@ option</em></li>
 </ul>
 </aside>
 </section>
-<section id="rd" class="slide level2">
-<h2>R&amp;D</h2>
-<p><strong>Turn research papers into working software</strong></p>
+<section id="rd-projects" class="slide level2">
+<h2>R&amp;D Projects</h2>
 <ul>
 <li class="fragment"><a href="https://hydra.family">Hydra</a>:
 Isomorphic state channels for Cardano (aka. Layer 2)</li>
@@ -158,6 +165,12 @@ for Ouroboros</li>
 <li>only list projects I have been personally involved with</li>
 </ul>
 </aside>
+</section>
+<section class="slide level2">
+
+<h4>
+<strong>My job is to turn research papers into working software</strong>
+</h4>
 </section>
 <section class="slide level2">
 
@@ -183,8 +196,8 @@ background and skills</li>
 <h2>Peras</h2>
 <ul>
 <li class="fragment">One project within <em>Innovation streams</em></li>
-<li class="fragment">Experiment and refined structured <em>method</em>
-to go from research ideas to products</li>
+<li class="fragment">Experiment and refine structured <em>method</em> to
+go from research ideas to products</li>
 <li class="fragment">Small (3.5 people) team: Researcher, FM engineer, 2
 x Architects/Developers</li>
 </ul>
@@ -199,9 +212,8 @@ deeply into this</li>
 <section id="process-tools" class="slide level2">
 <h2>Process &amp; Tools</h2>
 <figure>
-<img data-src="/images/peras-process.jpg"
-alt="Peras detailed workflow" />
-<figcaption aria-hidden="true">Peras detailed workflow</figcaption>
+<img data-src="/images/peras-process-simple.png" alt="Peras workflow" />
+<figcaption aria-hidden="true">Peras workflow</figcaption>
 </figure>
 </section>
 <section class="slide level2">
@@ -236,15 +248,15 @@ Proof of Stake</a> in Coq</li>
 </figure>
 </section>
 <section id="peras-conformance-tests" class="slide level2">
-<h2>Peras conformance tests</h2>
+<h2>Peras conformance tests 💡</h2>
 <ul>
-<li class="fragment">💡 Write a “simpler” model for testing purpose in
-Agda</li>
-<li class="fragment">Generate code suitable for use with Haskell
-QuickCheck</li>
+<li class="fragment">Write an executable model for testing purpose
+(<em>Agda</em>)</li>
+<li class="fragment">Generate code suitable for use with
+<em>QuickCheck</em></li>
 <li class="fragment">Write <a
-href="https://github.com/input-output-hk/peras-design/blob/main/src/Peras/Conformance/Soundness.agda">Proof
-of soundness</a></li>
+href="https://github.com/input-output-hk/peras-design/blob/main/src/Peras/Conformance/Soundness.agda">soundness
+proof</a> relating the two models</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -262,19 +274,86 @@ alt="Peras testing" />
 <!-- https://tweag.github.io/cardano-peras/peras-design.pdf -->
 </section></section>
 <section>
-<section id="shortcomings" class="title-slide slide level1">
-<h1>Shortcomings</h1>
+<section id="findings" class="title-slide slide level1">
+<h1>Findings</h1>
 
 </section>
-<section id="maintenance" class="slide level2">
-<h2>Maintenance</h2>
+<section id="better-standard" class="slide level2">
+<h2>Better standard</h2>
+<p><em>Literate Agda</em> formed the backbone of a <a
+href="https://github.com/cardano-foundation/CIPs/tree/master/CIP-0140">Cardano
+Improvement Proposal</a> standard specification.</p>
+<figure>
+<img data-src="/images/peras-cip.png" alt="CIP-140" />
+<figcaption aria-hidden="true">CIP-140</figcaption>
+</figure>
+</section>
+<section id="feedback-loop" class="slide level2">
+<h2>Feedback loop</h2>
+<ul>
+<li class="fragment">Formalisation (and prototyping) uncovered
+shortcomings in the protocol that lead to improvements</li>
+<li class="fragment">Interaction of formal modeling and prototyping
+uncovered a few bugs in <em>both</em></li>
+<li class="fragment">Having a “small” formal model helped bootstrap <a
+href="https://tweag.github.io/cardano-peras/peras-design.pdf">development
+beyond prototyping</a></li>
+</ul>
+</section>
+<section id="towards-a-security-research-dsl" class="slide level2">
+<h2>Towards a “Security Research” DSL</h2>
+<figure>
+<img data-src="/images/peras-pseudo-code.png"
+alt="“Informal” pseudocode" />
+<figcaption aria-hidden="true">“Informal” pseudocode</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="/images/peras-pseudo-specification.png"
+alt="“Formal” pseudocode" />
+<figcaption aria-hidden="true">“Formal” pseudocode</figcaption>
+</figure>
+</section>
+<section id="skills-specialization" class="slide level2">
+<h2>Skills &amp; specialization</h2>
+<ul>
+<li class="fragment">FM are rarely touched upon before graduate
+level</li>
+<li class="fragment">Upskilling general purpose programmers to use FM
+takes time</li>
+<li class="fragment">Even switching from one method to an other is non
+trivial</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">FM work requires specialised skills and
+knowledge</li>
+<li class="fragment">FM on the critical path of software development
+introduces delays</li>
+<li class="fragment"><em>The DBA effect</em></li>
+<li class="fragment"><em>Ivory Tower</em> architects</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="/images/silo.jpeg" alt="Silos" />
+<figcaption aria-hidden="true">Silos</figcaption>
+</figure>
+</section>
+<section id="tools-process" class="slide level2">
+<h2>Tools &amp; Process</h2>
 <ul>
 <li class="fragment">Most formal specifications are written once and
 rarely touched upon</li>
+<li class="fragment">There’s a plethora of tools and languages to choose
+from, each with its own (small) ecosystem</li>
 <li class="fragment">Software necessarily evolves over time to suit the
 need for changing requirements, users, environment</li>
-<li class="fragment">How do we keep formal specifications and FM
-artefacts maintenable over time?</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -284,21 +363,15 @@ artefacts maintenable over time?</li>
 <figcaption aria-hidden="true">Coq Proof fragment</figcaption>
 </figure>
 </section>
-<section id="skills-shortage" class="slide level2">
-<h2>Skills shortage</h2>
-<ul>
-<li class="fragment">FM are rarely touched upon before graduate
-level</li>
-<li class="fragment">There’s a plethora of tools and languages to choose
-from, each with its own (small) ecosystem</li>
-<li class="fragment">Upskilling general purpose programmers to use FM
-takes time</li>
-<li class="fragment">Even switching from one method to an other is non
-trivial</li>
-</ul>
+<section class="slide level2">
+
+<h4>
+How do we keep formal specifications and FM artefacts maintenable over
+time?
+</h4>
 </section>
-<section id="tools" class="slide level2">
-<h2>Tools</h2>
+<section class="slide level2">
+
 <ul>
 <li class="fragment">Tooling is not on par with tooling for general
 purpose programming languages</li>
@@ -315,26 +388,17 @@ support research ideas or projects, not “industrial” software</li>
 </ul>
 </aside>
 </section>
-<section id="silo" class="slide level2">
-<h2>Silo</h2>
-<figure>
-<img data-src="/images/silo.jpeg" alt="Silos" />
-<figcaption aria-hidden="true">Silos</figcaption>
-</figure>
-</section>
 <section class="slide level2">
 
 <ul>
-<li class="fragment">FM work requires specialised skills and
-knowledge</li>
-<li class="fragment">FM on the critical path of software development
-introduces delays</li>
-<li class="fragment"><em>The DBA effect</em></li>
-<li class="fragment"><em>Ivory Tower</em> architects</li>
+<li class="fragment">Writing proofs for non-trivial properties is time
+consuming (took 4 months to prove soundness property for Peras)</li>
+<li class="fragment">This time impacts total development cost</li>
 </ul>
 </section>
-<section id="researchers-formal-methods" class="slide level2">
-<h2>Researchers &amp; Formal Methods</h2>
+<section id="team-organisation" class="slide level2">
+<h2>Team &amp; Organisation</h2>
+<p>On the research side:</p>
 <ul>
 <li class="fragment">Researchers are not FM engineers</li>
 <li class="fragment">Writing “Pen &amp; paper” proofs is <em>very
@@ -343,19 +407,12 @@ different</em> from writing mechanized proofs in Agda or Coq</li>
 the paper?</li>
 </ul>
 </section>
-<section id="cost-time" class="slide level2">
-<h2>Cost &amp; time</h2>
+<section class="slide level2">
+
+<p>On the engineering side:</p>
 <ul>
-<li class="fragment">Writing proofs for non-trivial properties is time
-consuming (took 4 months to prove soundness property for Peras)</li>
-<li class="fragment">This time impacts total development cost</li>
-</ul>
-</section>
-<section id="engineeringfm" class="slide level2">
-<h2>Engineering/FM</h2>
-<ul>
-<li class="fragment">“Agile” software development techniques have become
-more and more widespread</li>
+<li class="fragment"><em>Collective code ownership</em> require
+team-wide mastery of the whole development process</li>
 <li class="fragment">How do we integrate FM in an iterative and
 incremental process?</li>
 </ul>
