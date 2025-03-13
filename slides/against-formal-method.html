@@ -69,39 +69,23 @@ years</li>
 <li class="fragment">PhD in computer science (20 years ago)</li>
 <li class="fragment">Dedicated <em>eXtreme Programming</em>
 Practitioner</li>
-<li class="fragment">Cautious believer in the benefits of formal
-methods</li>
+<li class="fragment"><em>Cautious believer</em> in the benefits of
+formal methods</li>
 <li class="fragment">Experience limited to <em>specific</em> types of
 software</li>
 </ul>
 </section>
-<section id="publication" class="slide level2">
-<h2>Publication</h2>
-<figure>
-<img data-src="/images/funarch-paper.png" alt="FUNARCH’2024" />
-<figcaption aria-hidden="true">FUNARCH’2024</figcaption>
-</figure>
-<aside class="notes">
+<section id="too-long-didnt-stay" class="slide level2">
+<h2>Too Long; Didn’t Stay</h2>
+<p>Formal Methods (FM) are not a <em>Silver Bullet</em> but a useful
+tool that can bring value to most software development efforts</p>
 <ul>
-<li>personal take from this paper and own experience</li>
-<li>previously published paper at Workshop on Functional Architecture w/
-James Chapman and Polina Vinogradova</li>
-<li>summarizes various other projects</li>
-<li>contains some findings and analysis shared here</li>
-</ul>
-</aside>
-</section>
-<section id="too-long-didnt-read" class="slide level2">
-<h2>Too Long; Didn’t Read</h2>
-<p>To reap more benefits out of thems, <em>Formal Methods</em>
-should:</p>
-<ul>
-<li class="fragment">Become a first-class citizen of the software
-development process</li>
-<li class="fragment">Get out of their current niche and specialized
-circles</li>
-<li class="fragment">Better support modern software development
-practices like <em>Domain Driven Design</em></li>
+<li class="fragment"><em>Proving software correctness</em> is still out
+of reach for most teams and systems</li>
+<li class="fragment">FMs can be introduced incrementally in the
+<em>Software Development Lifecycle</em> (SDLC)</li>
+<li class="fragment">FM can help grow and maintaing a powerful
+<em>Ubiquitous Language</em></li>
 </ul>
 <aside class="notes">
 <ul>
@@ -109,36 +93,41 @@ practices like <em>Domain Driven Design</em></li>
 <li>opinions and analysis are my own and are debatable</li>
 </ul>
 </aside>
-</section>
-<section class="slide level2">
-
-<p><strong>Formal methods are software too</strong></p>
 </section></section>
 <section>
 <section id="context-experience" class="title-slide slide level1">
 <h1>Context &amp; Experience</h1>
 
 </section>
+<section id="why-use-formal-methods" class="slide level2">
+<h2>Why use Formal Methods?</h2>
+<ul>
+<li class="fragment">Fun: Because it’s so cool…</li>
+<li class="fragment">Computer science: Study formal systems,
+mathematics, programming languages, etc.</li>
+<li class="fragment">Applied science: Back research with
+machine-checkable proofs of stated properties</li>
+<li class="fragment">Software development: <strong>Implement software
+systems requiring strong safety guarantees</strong></li>
+</ul>
+<aside class="notes">
+<p>DDDEurope keynote about Boeing 737 Max design failures:
+https://2025.dddeurope.com/program/the-boeing-737-max-when-humans-and-technology-dont-mix/</p>
+</aside>
+</section>
 <section id="cardano" class="slide level2">
 <h2>Cardano</h2>
-<p>A research-based proof-of-stake blockchain and cryptocurrency based
-on <em>Ouroboros Praos</em> protocol</p>
-<figure>
-<img data-src="/images/praos-paper.png" alt="Ouroboros Praos" />
-<figcaption aria-hidden="true">Ouroboros Praos</figcaption>
-</figure>
-</section>
-<section class="slide level2">
-
+<p>Key features:</p>
 <ul>
 <li class="fragment">Globally distributed and fully decentralized
-<em>open</em> system</li>
-<li class="fragment">3000+ block producing nodes, 1M+ “wallets”, 100s of
-<em>developers</em> and <em>startups</em></li>
-<li class="fragment">Daily transactions amounting to 100s of millions
-USD</li>
-<li class="fragment"><em>Security &amp; safety are not an
-option</em></li>
+<em>open</em> system w/ 3000+ block producing nodes and 100s of
+<em>developers</em></li>
+<li class="fragment">Daily transactions amounting to $100s of
+millions</li>
+<li class="fragment"><em>Security &amp; safety are critically
+important</em></li>
+<li class="fragment">Established tradition of working with Formal
+Methods</li>
 </ul>
 <aside class="notes">
 <ul>
@@ -148,33 +137,23 @@ option</em></li>
 </section>
 <section id="rd-projects" class="slide level2">
 <h2>R&amp;D Projects</h2>
-<ul>
-<li class="fragment"><a href="https://hydra.family">Hydra</a>:
-Isomorphic state channels for Cardano (aka. Layer 2)</li>
-<li class="fragment"><a href="https://mithril.network">Mithril</a>:
-Stake-based multisigned snapshots</li>
-<li class="fragment"><a
-href="https://peras.cardano-scaling.org">Peras</a>: Faster settlement
-for Ouroboros</li>
-<li class="fragment"><a
-href="https://leios.cardano-scaling.org">Leios</a>: Higher throughput
-for Ouroboros</li>
-</ul>
-<aside class="notes">
-<ul>
-<li>only list projects I have been personally involved with</li>
-</ul>
-</aside>
-</section>
-<section class="slide level2">
-
 <h4>
-<strong>My job is to turn research papers into working software</strong>
+<strong>How do we turn research papers into reliable working
+software?</strong>
 </h4>
 </section>
 <section class="slide level2">
 
-<p>Common theme:</p>
+<figure>
+<img data-src="/images/proof-program.png"
+alt="Relating Proofs &amp; Programs" />
+<figcaption aria-hidden="true">Relating Proofs &amp;
+Programs</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<p>Projects I worked on had a common theme:</p>
 <ul>
 <li class="fragment">More or less (more) complex algorithms and
 protocols w/ proven properties</li>
@@ -183,6 +162,7 @@ researchers, aka. <em>mathematicians</em>, with heavy proof
 apparatus</li>
 <li class="fragment">Require collaboration of people with diverse
 background and skills</li>
+<li class="fragment">Software needs to operate <em>safely</em></li>
 </ul>
 <!-- ## Hydra/Mithril -->
 <!-- * No attempt at working with formal methods -->
@@ -191,6 +171,13 @@ background and skills</li>
 <!-- * After-the-fact formal specification in LaTeX -->
 <!-- ---- -->
 <!-- ![Hydra formalization](/images/hydra-formal-spec.png) -->
+</section>
+<section class="slide level2">
+
+<p>💡 Researchers are Domain experts</p>
+<aside class="notes">
+<p>Domain in the sense of DDD</p>
+</aside>
 </section>
 <section id="peras" class="slide level2">
 <h2>Peras</h2>
@@ -219,6 +206,7 @@ deeply into this</li>
 <section class="slide level2">
 
 <ul>
+<li class="fragment"><em>ΔQ</em>: Network performance formalism</li>
 <li class="fragment"><em>Agda</em>: Formal specification language</li>
 <li class="fragment"><em>Agda2HS</em>: Generate Haskell code from Agda
 specification</li>
@@ -228,8 +216,8 @@ generate conformance tests</li>
 languages for prototypes</li>
 </ul>
 </section>
-<section id="agda-formalisation" class="slide level2">
-<h2>Agda formalisation</h2>
+<section id="agda-as-specification-language" class="slide level2">
+<h2>Agda as specification language</h2>
 <ul>
 <li class="fragment">Protocol modelled in Agda using <a
 href="https://peras.cardano-scaling.org/agda_html/Peras.SmallStep.html">Small-steps
@@ -238,6 +226,8 @@ state</li>
 <li class="fragment">Took inspiration from previous work on <a
 href="https://eprint.iacr.org/2020/917.pdf">Formalizing Nakamoto-Style
 Proof of Stake</a> in Coq</li>
+<li class="fragment">Heavy emphasis on producing a <em>readable
+specification</em></li>
 </ul>
 </section>
 <section class="slide level2">
@@ -247,25 +237,22 @@ Proof of Stake</a> in Coq</li>
 <figcaption aria-hidden="true">Agda Specification</figcaption>
 </figure>
 </section>
-<section id="peras-conformance-tests" class="slide level2">
-<h2>Peras conformance tests 💡</h2>
-<ul>
-<li class="fragment">Write an executable model for testing purpose
-(<em>Agda</em>)</li>
-<li class="fragment">Generate code suitable for use with
-<em>QuickCheck</em></li>
-<li class="fragment">Write <a
-href="https://github.com/input-output-hk/peras-design/blob/main/src/Peras/Conformance/Soundness.agda">soundness
-proof</a> relating the two models</li>
-</ul>
-</section>
-<section class="slide level2">
-
+<section id="agda-driving-conformance-tests" class="slide level2">
+<h2>Agda driving conformance tests</h2>
 <figure>
 <img data-src="/images/peras-conformance-testing.png"
 alt="Peras testing" />
 <figcaption aria-hidden="true">Peras testing</figcaption>
 </figure>
+<aside class="notes">
+<ul>
+<li>Write an executable model for testing purpose (<em>Agda</em>)</li>
+<li>Generate code suitable for use with <em>QuickCheck</em></li>
+<li>Write <a
+href="https://github.com/input-output-hk/peras-design/blob/main/src/Peras/Conformance/Soundness.agda">soundness
+proof</a> relating the two models</li>
+</ul>
+</aside>
 <!-- ## Cardano-ledger conformance tests -->
 <!-- * 💡 Write an Agda model (specification) -->
 <!-- * Generate Haskell code using standard MAlonzo "opaque" code generator -->
@@ -274,12 +261,15 @@ alt="Peras testing" />
 <!-- https://tweag.github.io/cardano-peras/peras-design.pdf -->
 </section></section>
 <section>
-<section id="findings" class="title-slide slide level1">
-<h1>Findings</h1>
+<section id="outcomes" class="title-slide slide level1">
+<h1>Outcomes</h1>
 
 </section>
-<section id="better-standard" class="slide level2">
-<h2>Better standard</h2>
+<section id="what-went-well" class="slide level2">
+<h2>What went well</h2>
+</section>
+<section id="a-better-standard" class="slide level2">
+<h2>A Better Standard</h2>
 <p><em>Literate Agda</em> formed the backbone of a <a
 href="https://github.com/cardano-foundation/CIPs/tree/master/CIP-0140">Cardano
 Improvement Proposal</a> standard specification.</p>
@@ -288,8 +278,8 @@ Improvement Proposal</a> standard specification.</p>
 <figcaption aria-hidden="true">CIP-140</figcaption>
 </figure>
 </section>
-<section id="feedback-loop" class="slide level2">
-<h2>Feedback loop</h2>
+<section id="improved-feedback-loop" class="slide level2">
+<h2>Improved Feedback loop</h2>
 <ul>
 <li class="fragment">Formalisation (and prototyping) uncovered
 shortcomings in the protocol that lead to improvements</li>
@@ -299,6 +289,11 @@ uncovered a few bugs in <em>both</em></li>
 href="https://tweag.github.io/cardano-peras/peras-design.pdf">development
 beyond prototyping</a></li>
 </ul>
+<aside class="notes">
+<ul>
+<li>triangulate problem through FM and prototyping</li>
+</ul>
+</aside>
 </section>
 <section id="towards-a-security-research-dsl" class="slide level2">
 <h2>Towards a “Security Research” DSL</h2>
@@ -315,49 +310,44 @@ alt="“Informal” pseudocode" />
 alt="“Formal” pseudocode" />
 <figcaption aria-hidden="true">“Formal” pseudocode</figcaption>
 </figure>
-</section>
-<section id="skills-specialization" class="slide level2">
-<h2>Skills &amp; specialization</h2>
+<aside class="notes">
 <ul>
-<li class="fragment">FM are rarely touched upon before graduate
-level</li>
-<li class="fragment">Upskilling general purpose programmers to use FM
-takes time</li>
-<li class="fragment">Even switching from one method to an other is non
-trivial</li>
+<li>Researchers are not FM engineers</li>
+<li>Writing “Pen &amp; paper” proofs is <em>very different</em> from
+writing mechanized proofs in Agda or Coq</li>
 </ul>
+</aside>
 </section>
-<section class="slide level2">
-
-<ul>
-<li class="fragment">FM work requires specialised skills and
-knowledge</li>
-<li class="fragment">FM on the critical path of software development
-introduces delays</li>
-<li class="fragment"><em>The DBA effect</em></li>
-<li class="fragment"><em>Ivory Tower</em> architects</li>
-</ul>
+<section id="what-could-be-improved" class="slide level2">
+<h2>What could be improved</h2>
 </section>
-<section class="slide level2">
-
+<section id="silos" class="slide level2">
+<h2>Silos</h2>
 <figure>
 <img data-src="/images/silo.jpeg" alt="Silos" />
 <figcaption aria-hidden="true">Silos</figcaption>
 </figure>
 </section>
-<section id="tools-process" class="slide level2">
-<h2>Tools &amp; Process</h2>
-<ul>
-<li class="fragment">Most formal specifications are written once and
-rarely touched upon</li>
-<li class="fragment">There’s a plethora of tools and languages to choose
-from, each with its own (small) ecosystem</li>
-<li class="fragment">Software necessarily evolves over time to suit the
-need for changing requirements, users, environment</li>
-</ul>
-</section>
 <section class="slide level2">
 
+<ul>
+<li class="fragment">Integrating FM engineering in the day-to-day
+activity of the team is not straightforward</li>
+<li class="fragment">FM engineering is a specialty that’s not (yet)
+widespread</li>
+<li class="fragment">Creating silos is a slippery slope that leads to
+<em>DBA</em> or <em>Ivory Tower architects</em> situations</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>FM are rarely touched upon before graduate level</li>
+<li>Upskilling general purpose programmers to use FM takes time</li>
+<li>Even switching from one method to an other is non trivial</li>
+</ul>
+</aside>
+</section>
+<section id="coping-with-change" class="slide level2">
+<h2>Coping with change</h2>
 <figure>
 <img data-src="/images/pos-nsb-proof.png" alt="Coq Proof fragment" />
 <figcaption aria-hidden="true">Coq Proof fragment</figcaption>
@@ -369,103 +359,210 @@ need for changing requirements, users, environment</li>
 How do we keep formal specifications and FM artefacts maintenable over
 time?
 </h4>
-</section>
-<section class="slide level2">
-
-<ul>
-<li class="fragment">Tooling is not on par with tooling for general
-purpose programming languages</li>
-<li class="fragment">“Market size” effect -&gt; building tools for niche
-languages does not attract big players</li>
-<li class="fragment">“PhD quality software” -&gt; software written to
-support research ideas or projects, not “industrial” software</li>
-</ul>
 <aside class="notes">
 <ul>
-<li><code>agda2hs</code> is basically incompatible with
-<code>stdlib</code> -&gt; they serve 2 different purposes</li>
-<li>it’s not maintained by a dedicated team</li>
+<li>Most formal specifications are written once and rarely touched
+upon</li>
+<li>Software necessarily evolves over time to suit the need for changing
+requirements, users, environment</li>
 </ul>
 </aside>
 </section>
-<section class="slide level2">
-
+<section id="tools-process" class="slide level2">
+<h2>Tools &amp; Process</h2>
 <ul>
-<li class="fragment">Writing proofs for non-trivial properties is time
-consuming (took 4 months to prove soundness property for Peras)</li>
-<li class="fragment">This time impacts total development cost</li>
+<li class="fragment">Tooling is not on par with “industrial
+languages”</li>
+<li class="fragment">Research and industry needs and interests are not
+always aligned</li>
+<li class="fragment">FM is a very fragmented landscape with mostly
+incompatible ecosystems</li>
 </ul>
-</section>
-<section id="team-organisation" class="slide level2">
-<h2>Team &amp; Organisation</h2>
-<p>On the research side:</p>
+<aside class="notes">
 <ul>
-<li class="fragment">Researchers are not FM engineers</li>
-<li class="fragment">Writing “Pen &amp; paper” proofs is <em>very
-different</em> from writing mechanized proofs in Agda or Coq</li>
-<li class="fragment">How are we sure the formal specification matches
-the paper?</li>
+<li>There’s a plethora of tools and languages to choose from, each with
+its own (small) ecosystem</li>
+<li><code>agda2hs</code> was mostly incompatible with
+<code>stdlib</code> -&gt; they serve 2 different purposes</li>
+<li>it’s not maintained by a dedicated team</li>
+<li>not always straightforward to learn</li>
 </ul>
-</section>
-<section class="slide level2">
-
-<p>On the engineering side:</p>
-<ul>
-<li class="fragment"><em>Collective code ownership</em> require
-team-wide mastery of the whole development process</li>
-<li class="fragment">How do we integrate FM in an iterative and
-incremental process?</li>
-</ul>
+</aside>
 </section></section>
 <section>
 <section id="conclusion" class="title-slide slide level1">
 <h1>Conclusion</h1>
 
 </section>
-<section id="its-just-another-domain" class="slide level2">
-<h2>It’s just another <em>Domain</em></h2>
+<section id="philosophical-detours" class="slide level2">
+<h2>Philosophical detours</h2>
+<p><img data-src="/images/discussion-of-method.jpeg" /></p>
+<aside class="notes">
+<ul>
+<li>Everything is a heuristic</li>
+<li>State of the art is the set of heuristics known and accepted by an
+individual or a group at any point in time</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/against-method.jpeg" /></p>
+<aside class="notes">
+<ul>
+<li>“anything goes”: there’s not <em>one</em> scientific method</li>
+<li>facts, hypothesis, and theories often start as ad hoc constructions
+that got strengthened or destroyed over time</li>
+<li>epistemic anarchism</li>
+</ul>
+</aside>
+</section>
+<section id="takeaways" class="slide level2">
+<h2>Takeaways</h2>
+</section>
+<section class="slide level2">
+
+<h4>
+Use formal specification to interact with domain experts as early as
+possible
+</h4>
+<aside class="notes">
+<ul>
+<li>In the case of Peras, we started working even before the paper was
+written</li>
+<li>This also implies publishing readable spec as early as possible and
+use feedback to improve communication aspects</li>
+<li>Counterexample: Agda ledger specification was not meant for external
+consumption, turns out to be hard for engineers interested in
+implmenting =&gt; did not pass the “ubiquitous language” test</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<h4>
+Model-based Testing is a great way to introduce formal languages and
+methods
+</h4>
+<aside class="notes">
+<ul>
+<li>Use FM as models for unit/integration/property/ETE testing</li>
+<li>particularly suited for state-machine based testing (with the usual
+caveat on how to handle concurrency)</li>
+<li>Can evolve into a conformance test suite usable across the
+organisation/ecosystem</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<h4>
+Start small, focusing on important/critical components of the system
+</h4>
+<aside class="notes">
+<ul>
+<li>Peras: test model for block production with limited adversarial
+power, ignore crypto/certificates aspects</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<h4>
+Ensure collective code ownership ⇒ training, pairing, mobbing, mentoring
+</h4>
+<aside class="notes">
+<p>Not an advice peculiar to FM!!</p>
+</aside>
+</section>
+<section class="slide level2">
+
+<h4>
+Select one tool and stick to it (but select wisely)
+</h4>
+<aside class="notes">
+<ul>
+<li>Peras/IOG: settled on Agda, perhaps not the best choice out there
+but at least it becomes consistent across the whole company</li>
+<li>Some parts of the company worked with Isabelle/HOL, Lustre, Lean4,
+Coq =&gt; isolated efforts</li>
+<li>Contributions are often more than welcome, communities are small and
+eager to share and learn (personal experience with Idris)</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<h4>
+Do not put proofs on the critical path of software delivery
+</h4>
+<aside class="notes">
+<ul>
+<li>Formal proofs of complex properties can be extremely tricky and
+lengthy to write</li>
+</ul>
+</aside>
+</section>
+<section id="santas-list-to-the-fm-community" class="slide level2">
+<h2>Santa’s List to the FM Community</h2>
+<ul>
+<li class="fragment">Improve tooling and developer experience</li>
+<li class="fragment">Lower the barrier of entry through more accessible
+and “practical” training material</li>
+<li class="fragment">Consolidate the formal languages and methods
+landscape</li>
+</ul>
+<aside class="notes">
+<ul>
+<li><p>integrate with standard and widely used tools, eg. Docker, VS
+Code, easy to use web services, CI (e.g Github actions)</p></li>
+<li><p>compatibility across tools through shared representations,
+ontologies perhaps? =&gt; express a state machine in Agda and export it
+to TLA+</p></li>
+<li><p>work on error messages !!</p></li>
+<li><p>avoid far-reaching breaking changes (example: Idris1 –&gt;
+Idris2)</p></li>
+<li><p>documentation for the rest of us (tutorials, howtos) focused on
+the <em>pragmatics</em> not the theoretical aspects of the FM</p></li>
+<li><p>concrete examples and success story people can relate with (eg.
+like this one!)</p></li>
+<li><p>A “generalist” developer should be able to <em>maintain</em> an
+Agda/Idris/Coq/Whatever codebase 80-90% of the time</p></li>
+</ul>
+<p>Probably wishful thinking but it would be great if not every
+university had its own language and tooling, or if those tools</p>
+</aside>
+</section>
+<section id="related-work" class="slide level2">
+<h2>Related work</h2>
 <figure>
-<img data-src="/images/proof-program.png"
-alt="Relating Proofs &amp; Programs" />
-<figcaption aria-hidden="true">Relating Proofs &amp;
-Programs</figcaption>
+<img data-src="/images/funarch-paper.png" alt="FUNARCH’2024" />
+<figcaption aria-hidden="true">FUNARCH’2024</figcaption>
 </figure>
+<aside class="notes">
+<ul>
+<li>personal take from this paper and own experience</li>
+<li>previously published paper at Workshop on Functional Architecture w/
+James Chapman and Polina Vinogradova</li>
+<li>summarizes various other projects</li>
+<li>contains some findings and analysis shared here</li>
+</ul>
+</aside>
 </section>
 <section class="slide level2">
 
-<ul>
-<li class="fragment">Researchers are domain experts whose ideas we want
-to turn into software</li>
-<li class="fragment"><em>Domain Driven Design</em> emerged in the past
-decade as a great (set of) tool for software development</li>
-<li class="fragment">Creating and evolving an <em>Ubiquitous
-Language</em> is a key ingredient in DDD</li>
-</ul>
-</section>
-<section class="slide level2">
-
-<blockquote>
-<p>Can Formal Methods be useful as a Better Ubiquitous Language?</p>
-</blockquote>
-</section>
-<section id="call-to-action" class="slide level2">
-<h2>Call to action</h2>
-<ul>
-<li class="fragment">Need to improve tooling</li>
-<li class="fragment">Teaching and training for “the rest of us”</li>
-<li class="fragment">Gradual integration of FM in software lifecycle
-(work on small feature or components)</li>
-<li class="fragment">Consolidation of the FM landscape</li>
-<li class="fragment">Integration with LLM and generative AI?</li>
-</ul>
-</section>
-<section id="references-links" class="slide level2">
-<h2>References &amp; Links</h2>
-<ul>
-<li class="fragment">Peras <a
-href="https://peras.cardano-scaling.org">website</a> and <a
+<p>Peras <a href="https://peras.cardano-scaling.org">website</a> and <a
 href="https://github.com/input-output-hk/peras-design">code
-repository</a> contain details about the project</li>
+repository</a> contain details about the project</p>
+</section>
+<section id="thanks" class="slide level2">
+<h2>Thanks</h2>
+<ul>
+<li class="fragment">BOBKonf organisers for selecting my talk</li>
+<li class="fragment">Bertrand Bougon, Emmanuel Gaillot, Pascal Grange,
+Fabien Lamarque, Xavier Maso, Matthias Neubauer, and Hugo Traverson for
+improving it</li>
+<li class="fragment">Christophe Thibaut for the inspiration</li>
 </ul>
 </section></section>
     </div>
