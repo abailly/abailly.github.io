@@ -22,29 +22,17 @@ revealjs-url: /reveal.js
 * Dev/Tech Lead/Architect/Consultant for 30+ years
 * PhD in computer science (20 years ago)
 * Dedicated _eXtreme Programming_ Practitioner
-* Cautious believer in the benefits of formal methods
+* _Cautious believer_ in the benefits of formal methods
 * Experience limited to _specific_ types of software
 
-## Publication
+## Too Long; Didn't Stay
 
-![FUNARCH'2024](/images/funarch-paper.png)
+Formal Methods (FM) are not a _Silver Bullet_ but a useful tool that
+can bring value to most software development efforts
 
-::: notes
-
-* personal take from this paper and own experience
-* previously published paper at Workshop on Functional Architecture w/ James Chapman and Polina Vinogradova
-* summarizes various other projects
-* contains some findings and analysis shared here
-
-:::
-
-## Too Long; Didn't Read
-
-To reap more benefits out of thems, _Formal Methods_ should:
-
-* Become a first-class citizen of the software development process
-* Get out of their current niche and specialized circles
-* Better support modern software development practices like _Domain Driven Design_
+* _Proving software correctness_ is still out of reach for most teams and systems
+* FMs can be introduced incrementally in the _Software Development Lifecycle_ (SDLC)
+* FM can help grow and maintaing a powerful _Ubiquitous Language_
 
 ::: notes
 
@@ -53,25 +41,30 @@ To reap more benefits out of thems, _Formal Methods_ should:
 
 :::
 
-----
-
-<strong>Formal methods are software too</strong>
-
 # Context & Experience
+
+## Why use Formal Methods?
+
+* Fun: Because it's so cool...
+* Computer science: Study formal systems, mathematics, programming languages, etc.
+* Applied science: Back research with machine-checkable proofs of stated properties
+* Software development: **Implement software systems requiring strong safety guarantees**
+
+::: notes
+
+DDDEurope keynote about Boeing 737 Max design failures: https://2025.dddeurope.com/program/the-boeing-737-max-when-humans-and-technology-dont-mix/
+
+:::
 
 ## Cardano
 
-A research-based proof-of-stake blockchain and cryptocurrency based
-on _Ouroboros Praos_ protocol
+Key features:
 
-![Ouroboros Praos](/images/praos-paper.png)
-
-----
-
-* Globally distributed and fully decentralized _open_ system
-* 3000+ block producing nodes, 1M+ "wallets", 100s of _developers_ and _startups_
-* Daily transactions amounting to 100s of millions USD
-* _Security & safety are not an option_
+* Globally distributed and fully decentralized _open_ system w/ 3000+
+  block producing nodes and 100s of _developers_
+* Daily transactions amounting to $100s of millions
+* _Security & safety are critically important_
+* Established tradition of working with Formal Methods
 
 ::: notes
 
@@ -81,28 +74,16 @@ on _Ouroboros Praos_ protocol
 
 ## R&D Projects
 
-* [Hydra](https://hydra.family): Isomorphic state channels for Cardano (aka. Layer 2)
-* [Mithril](https://mithril.network): Stake-based multisigned snapshots
-* [Peras](https://peras.cardano-scaling.org): Faster settlement for Ouroboros
-* [Leios](https://leios.cardano-scaling.org): Higher throughput for Ouroboros
-
-::: notes
-
-* only list projects I have been personally involved with
-
-:::
-
------
-
-<h4>**My job is to turn research papers into working software**</h4>
+<h4>**How do we turn research papers into reliable working software?**</h4>
 
 ----
 
-Common theme:
+Projects I worked on had a common theme:
 
 * More or less (more) complex algorithms and protocols w/ proven properties
 * Written by cryptographic & security researchers, aka. _mathematicians_, with heavy proof apparatus
 * Require collaboration of people with diverse background and skills
+* Software needs to operate _safely_
 
 <!-- ## Hydra/Mithril -->
 
@@ -114,6 +95,16 @@ Common theme:
 <!-- ---- -->
 
 <!-- ![Hydra formalization](/images/hydra-formal-spec.png) -->
+
+## 💡 Researchers are Domain experts
+
+![Relating Proofs & Programs](/images/proof-program.png)
+
+::: notes
+
+Domain in the sense of DDD
+
+:::
 
 ## Peras
 
@@ -134,29 +125,36 @@ Common theme:
 
 ----
 
+* _ΔQ_: Network performance formalism
 * _Agda_: Formal specification language
 * _Agda2HS_: Generate Haskell code from Agda specification
 * _quickcheck-dynamic_: Haskell code to generate conformance tests
 * _Haskell_ and _Rust_: Target languages for prototypes
 
-## Agda formalisation
+## Agda as specification language
 
-* Protocol modelled in Agda using [Small-steps semantics](https://peras.cardano-scaling.org/agda_html/Peras.SmallStep.html) specifying the impact of each node "actions" on global state
-* Took inspiration from previous work on [Formalizing Nakamoto-Style Proof of Stake](https://eprint.iacr.org/2020/917.pdf) in Coq
+* Protocol modelled in Agda using [Small-steps
+  semantics](https://peras.cardano-scaling.org/agda_html/Peras.SmallStep.html)
+  specifying the impact of each node "actions" on global state
+* Took inspiration from previous work on [Formalizing Nakamoto-Style
+  Proof of Stake](https://eprint.iacr.org/2020/917.pdf) in Coq
+* Heavy emphasis on producing a _readable specification_
 
 ----
 
 ![Agda Specification](/images/peras-agda-spec.png)
 
-## Peras conformance tests 💡
+## Agda driving conformance tests
+
+![Peras testing](/images/peras-conformance-testing.png)
+
+::: notes
 
 * Write an executable model for testing purpose (_Agda_)
 * Generate code suitable for use with _QuickCheck_
 * Write [soundness proof](https://github.com/input-output-hk/peras-design/blob/main/src/Peras/Conformance/Soundness.agda) relating the two models
 
-----
-
-![Peras testing](/images/peras-conformance-testing.png)
+:::
 
 <!-- ## Cardano-ledger conformance tests -->
 
@@ -168,15 +166,15 @@ Common theme:
 
 <!-- https://tweag.github.io/cardano-peras/peras-design.pdf -->
 
-# Findings
+# Outcomes
 
-## Better standard
+## A Better Standard
 
 _Literate Agda_ formed the backbone of a [Cardano Improvement Proposal](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0140) standard specification.
 
 ![CIP-140](/images/peras-cip.png)
 
-## Feedback loop
+## Improved Feedback loop
 
 * Formalisation (and prototyping) uncovered shortcomings in the protocol that lead to improvements
 * Interaction of formal modeling and prototyping uncovered a few bugs in _both_
@@ -254,13 +252,17 @@ On the engineering side:
 * _Collective code ownership_ require team-wide mastery of the whole development process
 * How do we integrate FM in an iterative and incremental process?
 
+## Philosophical detours
+
+![](/images/discussion-of-method.jpeg)
+
+----
+
+![](/images/against-method.jpg)
+
 # Conclusion
 
 ## It's just another _Domain_
-
-![Relating Proofs & Programs](/images/proof-program.png)
-
-----
 
 * Researchers are domain experts whose ideas we want to turn into software
 * _Domain Driven Design_ emerged in the past decade as a great (set of) tool for software development
@@ -268,15 +270,95 @@ On the engineering side:
 
 ----
 
-> Can Formal Methods be useful as a Better Ubiquitous Language?
+> Formal Methods can be useful as a Better Ubiquitous Language
 
-## Call to action
+## Takeaways
 
-* Need to improve tooling
-* Teaching and training for "the rest of us"
-* Gradual integration of FM in software lifecycle (work on small feature or components)
-* Consolidation of the FM landscape
-* Integration with LLM and generative AI?
+<h4>Engage with domain experts as early as possible</h4>
+
+::: notes
+
+* In the case of Peras, we started working even before the paper was written
+* This also implies publishing readable spec as early as possible and use feedback to improve communication aspects
+
+:::
+
+----
+
+<h4>Testing is a great way to introduce formal languages and methods</h4>
+
+----
+
+<h4>Start small, focusing on important/critical components of the system</h4>
+
+::: notes
+
+* Peras: test model focused on the
+
+:::
+
+----
+
+<h4>Ensure collective code ownership ⇒ training, pairing, mobbing, mentoring</h4>
+
+----
+
+<h4>Select one tool and stick to it (but select wisely)</h4>
+
+::: notes
+
+* Peras/IOG: settled on Agda, perhaps not the best choice out there but at least it becomes consistent across the whole company
+* Some parts of the company worked with Isabelle/HOL, Lustre, Lean4, Coq => isolated efforts
+* Contributions are often more than welcome, communities are small and eager to share and learn (personal experience with Idris)
+
+:::
+
+
+## Santa's List to the FM Community
+
+<h4>Improve tooling and developer experience</h4>
+
+::: notes
+
+* integrate with standard and widely used tools, eg. Docker, VS Code, provide easy to use web services, CI (e.g Github actions)
+* work on error messages !!
+
+:::
+
+----
+
+<h4>Lower the barrier of entry through more accessible and "practical" training material</h4>
+
+::: notes
+
+* documentation for the rest of us (tutorials, howtos) focused on the _pragmatics_ not the theoretical aspects of the FM
+* concrete examples
+* A "generalist" developer should be able to _maintain_ an Agda/Idris/Coq/Whatever codebase 80-90% of the time
+
+:::
+
+----
+
+<h4>Consolidate the formal languages and methods</h4>
+
+::: notes
+
+Probably wishful thinking but it would be great if the community stopped
+
+:::
+
+## Related work
+
+![FUNARCH'2024](/images/funarch-paper.png)
+
+::: notes
+
+* personal take from this paper and own experience
+* previously published paper at Workshop on Functional Architecture w/ James Chapman and Polina Vinogradova
+* summarizes various other projects
+* contains some findings and analysis shared here
+
+:::
 
 ## References & Links
 
