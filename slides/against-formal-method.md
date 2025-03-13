@@ -78,6 +78,10 @@ Key features:
 
 ----
 
+![Relating Proofs & Programs](/images/proof-program.png)
+
+----
+
 Projects I worked on had a common theme:
 
 * More or less (more) complex algorithms and protocols w/ proven properties
@@ -96,9 +100,9 @@ Projects I worked on had a common theme:
 
 <!-- ![Hydra formalization](/images/hydra-formal-spec.png) -->
 
-## 💡 Researchers are Domain experts
+----
 
-![Relating Proofs & Programs](/images/proof-program.png)
+💡 Researchers are Domain experts
 
 ::: notes
 
@@ -168,6 +172,8 @@ Domain in the sense of DDD
 
 # Outcomes
 
+## What went well
+
 ## A Better Standard
 
 _Literate Agda_ formed the backbone of a [Cardano Improvement Proposal](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0140) standard specification.
@@ -180,6 +186,12 @@ _Literate Agda_ formed the backbone of a [Cardano Improvement Proposal](https://
 * Interaction of formal modeling and prototyping uncovered a few bugs in _both_
 * Having a "small" formal model helped bootstrap [development beyond prototyping](https://tweag.github.io/cardano-peras/peras-design.pdf)
 
+::: notes
+
+* triangulate problem through FM and prototyping
+
+:::
+
 ## Towards a "Security Research" DSL
 
 !["Informal" pseudocode](/images/peras-pseudo-code.png)
@@ -188,30 +200,34 @@ _Literate Agda_ formed the backbone of a [Cardano Improvement Proposal](https://
 
 !["Formal" pseudocode](/images/peras-pseudo-specification.png)
 
-## Skills & specialization
+::: notes
+
+* Researchers are not FM engineers
+* Writing "Pen & paper" proofs is _very different_ from writing mechanized proofs in Agda or Coq
+
+:::
+
+## What could be improved
+
+## Silos
+
+![Silos](/images/silo.jpeg)
+
+----
+
+* Integrating FM engineering in the day-to-day activity of the team is not straightforward
+* FM engineering is a specialty that's not (yet) widespread
+* Creating silos is a slippery slope that leads to _DBA_ or _Ivory Tower architects_ situations
+
+::: notes
 
 * FM are rarely touched upon before graduate level
 * Upskilling general purpose programmers to use FM takes time
 * Even switching from one method to an other is non trivial
 
-----
+:::
 
-* FM work requires specialised skills and knowledge
-* FM on the critical path of software development introduces delays
-* _The DBA effect_
-* _Ivory Tower_ architects
-
-----
-
-![Silos](/images/silo.jpeg)
-
-## Tools & Process
-
-* Most formal specifications are written once and rarely touched upon
-* There's a plethora of tools and languages to choose from, each with its own (small) ecosystem
-* Software necessarily evolves over time to suit the need for changing requirements, users, environment
-
-----
+## Coping with change
 
 ![Coq Proof fragment](/images/pos-nsb-proof.png)
 
@@ -219,73 +235,78 @@ _Literate Agda_ formed the backbone of a [Cardano Improvement Proposal](https://
 
 <h4>How do we keep formal specifications and FM artefacts maintenable over time?</h4>
 
-----
-
-* Tooling is not on par with tooling for general purpose programming languages
-* "Market size" effect -> building tools for niche languages does not attract big players
-* "PhD quality software" -> software written to support research ideas or projects, not "industrial" software
-
 ::: notes
 
-* `agda2hs` is basically incompatible with `stdlib` -> they serve 2 different purposes
-* it's not maintained by a dedicated team
+* Most formal specifications are written once and rarely touched upon
+* Software necessarily evolves over time to suit the need for changing requirements, users, environment
 
 :::
 
-----
+## Tools & Process
 
-* Writing proofs for non-trivial properties is time consuming (took 4 months to prove soundness property for Peras)
-* This time impacts total development cost
+* Tooling is not on par with "industrial languages"
+* Research and industry needs and interests are not always aligned
+* FM is a very fragmented landscape with mostly incompatible ecosystems
 
-## Team & Organisation
+::: notes
 
-On the research side:
+* There's a plethora of tools and languages to choose from, each with its own (small) ecosystem
+* `agda2hs` was mostly incompatible with `stdlib` -> they serve 2 different purposes
+* it's not maintained by a dedicated team
+* not always straightforward to learn
 
-* Researchers are not FM engineers
-* Writing "Pen & paper" proofs is _very different_ from writing mechanized proofs in Agda or Coq
-* How are we sure the formal specification matches the paper?
+:::
 
-----
-
-On the engineering side:
-
-* _Collective code ownership_ require team-wide mastery of the whole development process
-* How do we integrate FM in an iterative and incremental process?
+# Conclusion
 
 ## Philosophical detours
 
 ![](/images/discussion-of-method.jpeg)
 
-----
-
-![](/images/against-method.jpg)
-
-# Conclusion
-
-## It's just another _Domain_
-
-* Researchers are domain experts whose ideas we want to turn into software
-* _Domain Driven Design_ emerged in the past decade as a great (set of) tool for software development
-* Creating and evolving an _Ubiquitous Language_ is a key ingredient in DDD
-
-----
-
-> Formal Methods can be useful as a Better Ubiquitous Language
-
-## Takeaways
-
-<h4>Engage with domain experts as early as possible</h4>
-
 ::: notes
 
-* In the case of Peras, we started working even before the paper was written
-* This also implies publishing readable spec as early as possible and use feedback to improve communication aspects
+* Everything is a heuristic
+* State of the art is the set of heuristics known and accepted by an individual or a group at any point in time
 
 :::
 
 ----
 
-<h4>Testing is a great way to introduce formal languages and methods</h4>
+![](/images/against-method.jpeg)
+
+::: notes
+
+* "anything goes": there's not _one_ scientific method
+* facts, hypothesis, and theories often start as ad hoc constructions that got strengthened or destroyed over time
+* epistemic anarchism
+
+:::
+
+## Takeaways
+
+----
+
+<h4>Use formal specification to interact with domain experts as early as possible</h4>
+
+::: notes
+
+* In the case of Peras, we started working even before the paper was written
+* This also implies publishing readable spec as early as possible and use feedback to improve communication aspects
+* Counterexample: Agda ledger specification was not meant for external consumption, turns out to be hard for engineers interested in implmenting => did not pass the "ubiquitous language" test
+
+:::
+
+----
+
+<h4>Model-based Testing is a great way to introduce formal languages and methods</h4>
+
+::: notes
+
+* Use FM as models for unit/integration/property/ETE testing
+* particularly suited for state-machine based testing (with the usual caveat on how to handle concurrency)
+* Can evolve into a conformance test suite usable across the organisation/ecosystem
+
+:::
 
 ----
 
@@ -293,13 +314,19 @@ On the engineering side:
 
 ::: notes
 
-* Peras: test model focused on the
+* Peras: test model for block production with limited adversarial power, ignore crypto/certificates aspects
 
 :::
 
 ----
 
 <h4>Ensure collective code ownership ⇒ training, pairing, mobbing, mentoring</h4>
+
+::: notes
+
+Not an advice peculiar to FM!!
+
+:::
 
 ----
 
@@ -313,37 +340,34 @@ On the engineering side:
 
 :::
 
+----
+
+<h4>Do not put proofs on the critical path of software delivery</h4>
+
+::: notes
+
+* Formal proofs of complex properties can be extremely tricky and lengthy to write
+
+:::
 
 ## Santa's List to the FM Community
 
-<h4>Improve tooling and developer experience</h4>
+* Improve tooling and developer experience
+* Lower the barrier of entry through more accessible and "practical" training material
+* Consolidate the formal languages and methods landscape
 
 ::: notes
 
-* integrate with standard and widely used tools, eg. Docker, VS Code, provide easy to use web services, CI (e.g Github actions)
+* integrate with standard and widely used tools, eg. Docker, VS Code, easy to use web services, CI (e.g Github actions)
+* compatibility across tools through shared representations, ontologies perhaps? => express a state machine in Agda and export it to TLA+
 * work on error messages !!
-
-:::
-
-----
-
-<h4>Lower the barrier of entry through more accessible and "practical" training material</h4>
-
-::: notes
+* avoid far-reaching breaking changes (example: Idris1 --> Idris2)
 
 * documentation for the rest of us (tutorials, howtos) focused on the _pragmatics_ not the theoretical aspects of the FM
-* concrete examples
+* concrete examples and success story people can relate with (eg. like this one!)
 * A "generalist" developer should be able to _maintain_ an Agda/Idris/Coq/Whatever codebase 80-90% of the time
 
-:::
-
-----
-
-<h4>Consolidate the formal languages and methods</h4>
-
-::: notes
-
-Probably wishful thinking but it would be great if the community stopped
+Probably wishful thinking but it would be great if not every university had its own language and tooling, or if those tools
 
 :::
 
@@ -360,6 +384,12 @@ Probably wishful thinking but it would be great if the community stopped
 
 :::
 
-## References & Links
+----
 
-* Peras [website](https://peras.cardano-scaling.org) and [code repository](https://github.com/input-output-hk/peras-design) contain details about the project
+Peras [website](https://peras.cardano-scaling.org) and [code repository](https://github.com/input-output-hk/peras-design) contain details about the project
+
+## Thanks
+
+* BOBKonf organisers for selecting my talk
+* Bertrand Bougon, Emmanuel Gaillot, Pascal Grange, Fabien Lamarque, Xavier Maso, Matthias Neubauer, and Hugo Traverson for improving it
+* Christophe Thibaut for the inspiration
