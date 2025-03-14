@@ -103,12 +103,14 @@ of reach for most teams and systems</li>
 <h2>Why use Formal Methods?</h2>
 <ul>
 <li class="fragment">Fun: Because it’s so cool…</li>
-<li class="fragment">Computer science: Study formal systems,
-mathematics, programming languages, etc.</li>
+<li class="fragment">Computer science: Study type systems, mathematics,
+programming languages, etc.</li>
 <li class="fragment">Applied science: Back research with
 machine-checkable proofs of stated properties</li>
-<li class="fragment">Software development: <strong>Implement software
-systems requiring strong safety guarantees</strong></li>
+<li class="fragment">Software quality: Provide strong safety guarantees
+⇒ <em>make the software right</em></li>
+<li class="fragment">Software design: <strong>Improve design with better
+models</strong> ⇒ <em>make the right software</em></li>
 </ul>
 <aside class="notes">
 <p>DDDEurope keynote about Boeing 737 Max design failures:
@@ -122,12 +124,12 @@ https://2025.dddeurope.com/program/the-boeing-737-max-when-humans-and-technology
 <li class="fragment">Globally distributed and fully decentralized
 <em>open</em> system w/ 3000+ block producing nodes and 100s of
 <em>developers</em></li>
-<li class="fragment">Daily transactions amounting to $100s of
-millions</li>
 <li class="fragment"><em>Security &amp; safety are critically
 important</em></li>
 <li class="fragment">Established tradition of working with Formal
 Methods</li>
+<li class="fragment">Research plays a key role in the system’s
+development</li>
 </ul>
 <aside class="notes">
 <ul>
@@ -137,6 +139,27 @@ Methods</li>
 </section>
 <section id="rd-projects" class="slide level2">
 <h2>R&amp;D Projects</h2>
+<p>Projects I worked on had a common theme:</p>
+<ul>
+<li class="fragment">More or less (more) complex algorithms and
+protocols w/ proven properties</li>
+<li class="fragment">Written by cryptographic &amp; security
+researchers, aka. <em>mathematicians</em>, with heavy proof
+apparatus</li>
+<li class="fragment">Require collaboration of people with diverse
+background and skills</li>
+<li class="fragment">Strong safety and/or liveness requirements</li>
+</ul>
+<!-- ## Hydra/Mithril -->
+<!-- * No attempt at working with formal methods -->
+<!-- * Heavy emphasis on Property-based testing & Test-driven development -->
+<!-- * Used _some_ model-based testing approach -->
+<!-- * After-the-fact formal specification in LaTeX -->
+<!-- ---- -->
+<!-- ![Hydra formalization](/images/hydra-formal-spec.png) -->
+</section>
+<section class="slide level2">
+
 <h4>
 <strong>How do we turn research papers into reliable working
 software?</strong>
@@ -150,27 +173,6 @@ alt="Relating Proofs &amp; Programs" />
 <figcaption aria-hidden="true">Relating Proofs &amp;
 Programs</figcaption>
 </figure>
-</section>
-<section class="slide level2">
-
-<p>Projects I worked on had a common theme:</p>
-<ul>
-<li class="fragment">More or less (more) complex algorithms and
-protocols w/ proven properties</li>
-<li class="fragment">Written by cryptographic &amp; security
-researchers, aka. <em>mathematicians</em>, with heavy proof
-apparatus</li>
-<li class="fragment">Require collaboration of people with diverse
-background and skills</li>
-<li class="fragment">Software needs to operate <em>safely</em></li>
-</ul>
-<!-- ## Hydra/Mithril -->
-<!-- * No attempt at working with formal methods -->
-<!-- * Heavy emphasis on Property-based testing & Test-driven development -->
-<!-- * Used _some_ model-based testing approach -->
-<!-- * After-the-fact formal specification in LaTeX -->
-<!-- ---- -->
-<!-- ![Hydra formalization](/images/hydra-formal-spec.png) -->
 </section>
 <section class="slide level2">
 
@@ -558,12 +560,20 @@ repository</a> contain details about the project</p>
 <section id="thanks" class="slide level2">
 <h2>Thanks</h2>
 <ul>
-<li class="fragment">BOBKonf organisers for selecting my talk</li>
-<li class="fragment">Bertrand Bougon, Emmanuel Gaillot, Pascal Grange,
-Fabien Lamarque, Xavier Maso, Matthias Neubauer, and Hugo Traverson for
-improving it</li>
+<li class="fragment">My colleagues at IOG from whom I learnt a lot</li>
+<li class="fragment">BOBKonf organisers for inviting me</li>
+<li class="fragment">Josselin Auguste, Bertrand Bougon, Emmanuel
+Gaillot, Pascal Grange, Fabien Lamarque, Xavier Maso, Matthias Neubauer,
+and Hugo Traverson for improving it</li>
 <li class="fragment">Christophe Thibaut for the inspiration</li>
+<li class="fragment"><strong>You</strong></li>
 </ul>
+</section>
+<section class="slide level2">
+
+<h2>
+Questions?
+</h2>
 </section></section>
     </div>
   </div>
