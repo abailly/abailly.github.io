@@ -1,7 +1,7 @@
 ---
 title: Against (Formal) Method?
 subtitle: An experience report on Formal Methods from a developer point-of-view
-author: Arnaud Bailly - @dr_c0d3
+author: Arnaud Bailly - @abailly.bsky.social
 institute: Pankzsoft
 date: 2025-03-14
 theme: virgil-black
