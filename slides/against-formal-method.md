@@ -46,9 +46,10 @@ can bring value to most software development efforts
 ## Why use Formal Methods?
 
 * Fun: Because it's so cool...
-* Computer science: Study formal systems, mathematics, programming languages, etc.
+* Computer science: Study type systems, mathematics, programming languages, etc.
 * Applied science: Back research with machine-checkable proofs of stated properties
-* Software development: **Implement software systems requiring strong safety guarantees**
+* Software quality: Provide strong safety guarantees ⇒ _make the software right_
+* Software design: **Improve design with better models**  ⇒ _make the right software_
 
 ::: notes
 
@@ -62,9 +63,9 @@ Key features:
 
 * Globally distributed and fully decentralized _open_ system w/ 3000+
   block producing nodes and 100s of _developers_
-* Daily transactions amounting to $100s of millions
 * _Security & safety are critically important_
 * Established tradition of working with Formal Methods
+* Research plays a key role in the system's development
 
 ::: notes
 
@@ -74,20 +75,12 @@ Key features:
 
 ## R&D Projects
 
-<h4>**How do we turn research papers into reliable working software?**</h4>
-
-----
-
-![Relating Proofs & Programs](/images/proof-program.png)
-
-----
-
 Projects I worked on had a common theme:
 
 * More or less (more) complex algorithms and protocols w/ proven properties
 * Written by cryptographic & security researchers, aka. _mathematicians_, with heavy proof apparatus
 * Require collaboration of people with diverse background and skills
-* Software needs to operate _safely_
+* Strong safety and/or liveness requirements
 
 <!-- ## Hydra/Mithril -->
 
@@ -99,6 +92,14 @@ Projects I worked on had a common theme:
 <!-- ---- -->
 
 <!-- ![Hydra formalization](/images/hydra-formal-spec.png) -->
+
+----
+
+<h4>**How do we turn research papers into reliable working software?**</h4>
+
+----
+
+![Relating Proofs & Programs](/images/proof-program.png)
 
 ----
 
@@ -390,6 +391,12 @@ Peras [website](https://peras.cardano-scaling.org) and [code repository](https:/
 
 ## Thanks
 
-* BOBKonf organisers for selecting my talk
-* Bertrand Bougon, Emmanuel Gaillot, Pascal Grange, Fabien Lamarque, Xavier Maso, Matthias Neubauer, and Hugo Traverson for improving it
+* My colleagues at IOG from whom I learnt a lot
+* BOBKonf organisers for inviting me
+* Josselin Auguste, Bertrand Bougon, Emmanuel Gaillot, Pascal Grange, Fabien Lamarque, Xavier Maso, Matthias Neubauer, and Hugo Traverson for improving it
 * Christophe Thibaut for the inspiration
+* **You**
+
+----
+
+<h2>Questions?</h2>
