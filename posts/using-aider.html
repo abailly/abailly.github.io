@@ -1,0 +1,193 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Arnaud Bailly - Vibe coding with Aider</title>
+
+  <meta name="description" content="Crafting code since 1994">
+
+  <meta name="author" content="Arnaud Bailly">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/css/default.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <script src="/js/modernizr-2.0.6.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <div id="company-title">
+        <a href="/"><img id="company-logo" src="/images/logo.png" width="259" height="75" title="igitur.io" /></a>
+      </div>
+      <div>
+        <nav class="clearfix">
+        <ul id="menu">
+          <li>
+          <a href="http://drcode.io">Dr.Code</a>
+          </li>
+          <li>
+          <a href="/about.html">About</a>
+          </li>
+        </ul>
+        </nav>
+      </div>
+    </header>
+    <div id="main" role="main">
+<h1>Vibe coding with Aider</h1>
+
+  <h2 class="subtitle">Experimenting with the latest development hype</h2>
+
+<div class="info">Posted on March 28, 2025</div>
+
+<p>Nudged by <a href="https://bsky.app/profile/simonwillison.net/post/3lgsxsw6ma22z">this post</a> on Blue Sky from Simon Willison, I decided yesterady to give <a href="https://aider.chat">Aider</a> a try while coding some stuff on <a href="https://github.com/pragma-org/amaru">amaru</a>, and I must say I have been quite impressed by the fluidity of the interaction.</p>
+<p>Setting it up was pretty much flawless once I stopped using <code>pip</code> directly and just used <code>homebrew</code>. I tried to configure it to use my local ollama but the first results were very disappointing, so I tried to use one of the models proposed by <a href="https://mistral.ai">Mistral</a>. After creating an account, I wasn’t able to convince Aider to use my account keys so I just gave up after a few minutes and switched to <a href="https://anthropic.com/">Anthropic</a>. I had to buy $5 of credits to get an API key (no free plan there) and then got started.</p>
+<p>The first task I asked it was:</p>
+<pre><code>&gt; write a function into crates/amaru-kernel/src/network.rs to load a EraHistory structure from a JSON file</code></pre>
+<p>It produced the following function (I omit the body for reasons that will be clear later):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/// Load an `EraHistory` from a JSON file.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">///</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">/// # Arguments</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">///</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">/// * `path` - Path to the JSON file containing era history data</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">///</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">/// # Returns</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">///</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">/// Returns a Result containing the `EraHistory` if successful, or a `String` if the file</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">/// cannot be read or parsed.</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">///</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">/// # Example</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">///</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">/// ```no_run</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">/// use amaru_kernel::network::load_era_history_from_file;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">/// use std::path::Path;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">///</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">/// let era_history = load_era_history_from_file(Path::new(&quot;era_history.json&quot;)).unwrap();</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">/// ```</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">fn</span> load_era_history_from_file(path<span class="op">:</span> <span class="op">&amp;</span><span class="dt">Path</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>EraHistory<span class="op">,</span> <span class="dt">String</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>and I only had to fix some missing package to have it compiled. I then asked</p>
+<pre><code>&gt; add a unit test converting `PREPROD_ERA_HISTORY` to a JSON file and reading it back again, checking the two matches</code></pre>
+<p>It added the required test, yielding the following test. I only had to remove the superfluous comments which were just repeating what the code was doing and were not particularly informative.</p>
+<pre><code>    #[test]
+    fn test_era_history_json_serialization() {
+        let original_era_history = &amp;*PREPROD_ERA_HISTORY;
+
+        let mut temp_file_path = env::temp_dir();
+        temp_file_path.push(&quot;test_era_history.json&quot;);
+
+        let json_data = serde_json::to_string_pretty(original_era_history)
+            .expect(&quot;Failed to serialize EraHistory to JSON&quot;);
+
+        let mut file = File::create(&amp;temp_file_path).expect(&quot;Failed to create temporary file&quot;);
+
+        file.write_all(json_data.as_bytes())
+            .expect(&quot;Failed to write JSON data to file&quot;);
+
+        let loaded_era_history = load_era_history_from_file(temp_file_path.as_path())
+            .expect(&quot;Failed to load EraHistory from file&quot;);
+
+        assert_eq!(
+            *original_era_history, loaded_era_history,
+            &quot;Era histories don't match&quot;
+        );
+
+        std::fs::remove_file(temp_file_path).ok();
+    }</code></pre>
+<p>I had to do some manual tweaks to have the test pass, notably use a temporary file in the <code>tempdir</code> to add the JSON file to converted, but it was pretty straightforward. Then I asked for a few more tweaks:</p>
+<pre><code>&gt; instead of returning a String as error from load_era_history_from_file, create a proper error type named EraHistoryFileError, distinguishing the different error cases, and return it from the function</code></pre>
+<p>It modified the function, giving me:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">fn</span> load_era_history_from_file(path<span class="op">:</span> <span class="op">&amp;</span><span class="dt">Path</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>EraHistory<span class="op">,</span> EraHistoryFileError<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> file <span class="op">=</span> <span class="pp">File::</span>open(path)<span class="op">.</span>map_err(<span class="pp">EraHistoryFileError::</span>FileOpenError)<span class="op">?;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> reader <span class="op">=</span> <span class="pp">BufReader::</span>new(file)<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="pp">serde_json::</span>from_reader(reader)<span class="op">.</span>map_err(<span class="pp">EraHistoryFileError::</span>JsonParseError)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>along with the accompanying definition for <code>EraHistoryFileError</code> containing the above variants.</p>
+<p>My next prompt was to ask for</p>
+<pre><code>&gt; add one test for each failure case</code></pre>
+<p>which it fulfilled with the following tests:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="at">#[</span>test<span class="at">]</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> test_era_history_file_open_error() <span class="op">{</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> non_existent_path <span class="op">=</span> <span class="dt">Path</span><span class="pp">::</span>new(<span class="st">&quot;non_existent_file.json&quot;</span>)<span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">#[</span>test<span class="at">]</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> test_era_history_json_parse_error() <span class="op">{</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> <span class="kw">mut</span> temp_file_path <span class="op">=</span> <span class="pp">env::</span>temp_dir()<span class="op">;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        temp_file_path<span class="op">.</span>push(<span class="st">&quot;invalid_era_history.json&quot;</span>)<span class="op">;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> invalid_json <span class="op">=</span> <span class="st">r#&quot;{ &quot;eras&quot;: [invalid json] }&quot;#</span><span class="op">;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The complete result is visible in <a href="https://github.com/pragma-org/amaru/blob/main/crates/amaru-kernel/src/network.rs">this file</a>.</p>
+<p>Another task I gave to aider was to</p>
+<pre><code>&gt; implement a method for EraHistory that compute the relative slot in the epoch given an absolute slot</code></pre>
+<p>again, it quickly generated the following function, complete with the accompanying error handling which preexisted in the module, along with an test case.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">/// Computes the relative slot in the epoch given an absolute slot.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">///</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/// Returns the number of slots since the start of the epoch containing the given slot.</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">///</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">/// # Errors</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">///</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">/// Returns `TimeHorizonError::PastTimeHorizon` if the slot is beyond the time horizon.</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">/// Returns `TimeHorizonError::InvalidEraHistory` if the era history is invalid.</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">pub</span> <span class="kw">fn</span> slot_in_epoch(<span class="op">&amp;</span><span class="kw">self</span><span class="op">,</span> slot<span class="op">:</span> <span class="dt">u64</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span><span class="dt">u64</span><span class="op">,</span> TimeHorizonError<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> epoch <span class="op">=</span> <span class="kw">self</span><span class="op">.</span>slot_to_epoch(slot)<span class="op">?;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> bounds <span class="op">=</span> <span class="kw">self</span><span class="op">.</span>epoch_bounds(epoch)<span class="op">?;</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="cn">Ok</span>(slot <span class="op">-</span> bounds<span class="op">.</span>start)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>I only had to request to:</p>
+<pre><code>&gt; add a test for slot_in_epoch for error cases</code></pre>
+<p>to generate the following unit test:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    <span class="at">#[</span>test<span class="at">]</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> slot_in_epoch_past_time_horizon() <span class="op">{</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> eras <span class="op">=</span> one_era()<span class="op">;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> relative_slot <span class="op">=</span> eras<span class="op">.</span>slot_in_epoch(<span class="dv">864001</span>)<span class="op">;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="pp">assert_eq!</span>(relative_slot<span class="op">,</span> <span class="cn">Err</span>(<span class="pp">TimeHorizonError::</span>PastTimeHorizon))<span class="op">;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Once convinced of the capabilities of Aider, I thought it would be nice to not have to switch away from Emacs and it turned that, obviously, there was an Emacs mode available aptly named <a href="https://github.com/tninja/aider.el">aider.el</a>, which provides the necessary bindings to interact with Aider inside Emacs.</p>
+<p>I am obviously jumping quite late on the AI bandwagon, and not totally embracing it, but I found this small experiment compelling enough I know want to use on a regular basis.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+  (function() {  // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+  
+    s.src = '//arnaudsblog.disqus.com/embed.js';
+  
+    s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    </div>
+    <footer>
+       <a href="https://fr.linkedin.com/in/arnaudbailly"> <img src="/images/linkedin.png" width="28" /></a>  <a href="https://twitter.com/dr_c0d3"> <img width="32" src="/images/twitter.png" /></a>  <a href="/atom.xml"><img src="/images/feed-icon.svg" width="24px" /></a>  <a href="http://jaspervdj.be/hakyll"><img src="/images/lambda.png" width="24px" /></a>
+    </footer>
+
+  </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42631907-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
