@@ -4,7 +4,6 @@ subtitle: An experience report on Formal Methods from a developer point-of-view
 author: Arnaud Bailly - @abailly.bsky.social
 institute: Pankzsoft
 date: 2025-03-14
-theme: virgil-black
 revealjs-url: /reveal.js
 ---
 
@@ -91,7 +90,7 @@ Projects I worked on had a common theme:
 
 <!-- ---- -->
 
-<!-- ![Hydra formalization](/images/hydra-formal-spec.png) -->
+<!-- ![Hydra formalization](./images/hydra-formal-spec.png) -->
 
 ----
 
@@ -99,7 +98,7 @@ Projects I worked on had a common theme:
 
 ----
 
-![Relating Proofs & Programs](/images/proof-program.png)
+![Relating Proofs & Programs](./images/proof-program.png)
 
 ----
 
@@ -126,7 +125,7 @@ Domain in the sense of DDD
 
 ## Process & Tools
 
-![Peras workflow](/images/peras-process-simple.png)
+![Peras workflow](./images/peras-process-simple.png)
 
 ----
 
@@ -147,11 +146,11 @@ Domain in the sense of DDD
 
 ----
 
-![Agda Specification](/images/peras-agda-spec.png)
+![Agda Specification](./images/peras-agda-spec.png)
 
 ## Agda driving conformance tests
 
-![Peras testing](/images/peras-conformance-testing.png)
+![Peras testing](./images/peras-conformance-testing.png)
 
 ::: notes
 
@@ -179,7 +178,7 @@ Domain in the sense of DDD
 
 _Literate Agda_ formed the backbone of a [Cardano Improvement Proposal](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0140) standard specification.
 
-![CIP-140](/images/peras-cip.png)
+![CIP-140](./images/peras-cip.png)
 
 ## Improved Feedback loop
 
@@ -195,11 +194,11 @@ _Literate Agda_ formed the backbone of a [Cardano Improvement Proposal](https://
 
 ## Towards a "Security Research" DSL
 
-!["Informal" pseudocode](/images/peras-pseudo-code.png)
+!["Informal" pseudocode](./images/peras-pseudo-code.png)
 
 ----
 
-!["Formal" pseudocode](/images/peras-pseudo-specification.png)
+!["Formal" pseudocode](./images/peras-pseudo-specification.png)
 
 ::: notes
 
@@ -212,7 +211,7 @@ _Literate Agda_ formed the backbone of a [Cardano Improvement Proposal](https://
 
 ## Silos
 
-![Silos](/images/silo.jpeg)
+![Silos](./images/silo.jpeg)
 
 ----
 
@@ -230,7 +229,7 @@ _Literate Agda_ formed the backbone of a [Cardano Improvement Proposal](https://
 
 ## Coping with change
 
-![Coq Proof fragment](/images/pos-nsb-proof.png)
+![Coq Proof fragment](./images/pos-nsb-proof.png)
 
 ----
 
@@ -262,7 +261,7 @@ _Literate Agda_ formed the backbone of a [Cardano Improvement Proposal](https://
 
 ## Philosophical detours
 
-![](/images/discussion-of-method.jpeg)
+![](./images/discussion-of-method.jpeg)
 
 ::: notes
 
@@ -273,7 +272,7 @@ _Literate Agda_ formed the backbone of a [Cardano Improvement Proposal](https://
 
 ----
 
-![](/images/against-method.jpeg)
+![](./images/against-method.jpeg)
 
 ::: notes
 
@@ -374,7 +373,7 @@ Probably wishful thinking but it would be great if not every university had its 
 
 ## Related work
 
-![FUNARCH'2024](/images/funarch-paper.png)
+![FUNARCH'2024](./images/funarch-paper.png)
 
 ::: notes
 
