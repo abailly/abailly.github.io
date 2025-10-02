@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Arnaud Bailly - @abailly.bsky.social">
+  <meta name="dcterms.date" content="2025-10-02">
+  <title>Decentralising the Development Process</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="/reveal.js/dist/theme/black.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Decentralising the Development Process</h1>
+  <p class="subtitle">An experience with Radicle and some ideas on how
+to increase teams’ autonomy</p>
+  <p class="author">Arnaud Bailly - <span class="citation"
+data-cites="abailly.bsky.social">@abailly.bsky.social</span></p>
+  <p class="institute">Pankzsoft</p>
+  <p class="date">2025-10-02</p>
+</section>
+
+<section>
+<section id="a-short-fiction" class="title-slide slide level1">
+<h1>A short fiction…</h1>
+
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/trump-macron-14-juillet.jpg" /></p>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/44bzh.jpg" /></p>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/entartage.jpeg" /></p>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/trump-angry.jpeg" /></p>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/trump-tech-dinner.jpeg" /></p>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/accounts-suspended.png" /></p>
+<aside class="notes">
+<ul>
+<li>On 14th of July of 2026, President Trump is invited at the Palais de
+l’Élysée for a reception following Bastille Day celebrations</li>
+<li>A commando of yellow jackets manages to sneak into the Palais and
+throws custard pie at him, spoiling his brushing</li>
+<li>Back in the US, he sends a commando of Navy Seals to abduct the
+terrorists but they are ambushed by a party of angry farmers and fail
+their mission</li>
+<li>As a retaliation against France he instructs U.S. tech companies to
+delete all accounts and data associated with French companies and ban
+them access to those platforms</li>
+</ul>
+</aside>
+</section></section>
+<section>
+<section id="introduction" class="title-slide slide level1">
+<h1>Introduction</h1>
+
+</section>
+<section id="agenda" class="slide level2">
+<h2>Agenda</h2>
+<ul>
+<li class="fragment">Why decentralise software development?</li>
+<li class="fragment">Experience report with Radicle</li>
+<li class="fragment">Conclusion</li>
+</ul>
+</section>
+<section id="where-do-i-speak-from" class="slide level2">
+<h2>Where do I speak from?</h2>
+<ul>
+<li class="fragment">Senior Dev/Tech Lead/Architect/Consultant/🤡 for
+30+ years</li>
+<li class="fragment">Dedicated <em>eXtreme Programming</em>
+Practitioner</li>
+<li class="fragment">In search of <em>autonomy</em> since 1969</li>
+</ul>
+</section>
+<section id="too-long-didnt-stay" class="slide level2">
+<h2>Too Long; Didn’t Stay</h2>
+<ul>
+<li class="fragment">Centralised services trade <em>convenience</em> for
+<em>control</em> (and/or a fee). This is fine …</li>
+<li class="fragment">… until it’s not</li>
+<li class="fragment">Decentralised solutions (re-)emerge like <a
+href="https://radicle.xyz">Radicle</a></li>
+<li class="fragment">It affords teams with both convenience
+<strong>and</strong> control over coding process</li>
+</ul>
+</section></section>
+<section>
+<section id="why-decentralise-software-development"
+class="title-slide slide level1">
+<h1>Why decentralise software development?</h1>
+
+</section>
+<section id="a-bit-of-terminology" class="slide level2">
+<h2>A bit of terminology</h2>
+<ul>
+<li class="fragment">Decentralisation ≠ Distribution</li>
+<li class="fragment">Distributed teams have become commonplace in
+software development</li>
+<li class="fragment">Decentralised organisations are rather
+uncommon</li>
+<li class="fragment">Decentralised <em>coordination</em> is
+<strong>hard</strong></li>
+</ul>
+</section>
+<section id="why-centralise-development-tools" class="slide level2">
+<h2>Why <em>centralise</em> development tools?</h2>
+</section>
+<section id="convenience" class="slide level2">
+<h2>Convenience</h2>
+<ul>
+<li class="fragment">Offload complexity of tools setup and management on
+specialists</li>
+<li class="fragment">Afford better UI &amp; UX</li>
+<li class="fragment">Ease of integration with other tools/services</li>
+</ul>
+</section>
+<section id="efficiency" class="slide level2">
+<h2>Efficiency</h2>
+<ul>
+<li class="fragment">Decrease TCO by mutualising infrastructure
+costs</li>
+<li class="fragment">Offload cost of infrastructure management on
+someone else</li>
+<li class="fragment">Specialisation ↦ Focus on <em>core</em> domain</li>
+</ul>
+</section>
+<section id="control" class="slide level2">
+<h2>Control</h2>
+<ul>
+<li class="fragment">Provide single point of control for
+organisations</li>
+<li class="fragment">“Industrialise” practices and tools across
+organisation and whole sectors</li>
+</ul>
+</section>
+<section id="why-decentralise-development-tools" class="slide level2">
+<h2>Why <em>decentralise</em> development tools?</h2>
+</section>
+<section id="reclaim-ownership" class="slide level2">
+<h2>Reclaim <em>ownership</em></h2>
+<ul>
+<li class="fragment">Avoid unfettered value extraction from
+“megacorps”</li>
+<li class="fragment">Avoid censorship from governments</li>
+<li class="fragment">Avoid vendor lock-in</li>
+</ul>
+</section>
+<section id="empower-teams-individuals" class="slide level2">
+<h2>Empower teams &amp; individuals</h2>
+<p>Remember the <a href="https://agilemanifesto.org/">Agile
+manifesto</a>?</p>
+<p><img data-src="/images/agile-manifesto.png" /></p>
+</section>
+<section id="empower-teams-individuals-1" class="slide level2">
+<h2>Empower teams &amp; individuals</h2>
+<ul>
+<li class="fragment">There’s no <em>One size fits all</em>
+solutions</li>
+<li class="fragment">Allow teams to find solutions that fit
+<em>their</em> context</li>
+<li class="fragment">Increase local efficiency and avoid bloat</li>
+</ul>
+</section>
+<section id="increase-resilience" class="slide level2">
+<h2>Increase Resilience</h2>
+<ul>
+<li class="fragment">Remove <em>Single Point of Failure</em></li>
+<li class="fragment">Distribute load across the “network”</li>
+<li class="fragment">Adapt to changing environment</li>
+</ul>
+</section>
+<section id="fight-against-enshittification" class="slide level2">
+<h2>Fight against Enshittification</h2>
+<p><img data-src="/images/this-is-fine.jpg" /></p>
+</section></section>
+<section>
+<section id="experience-report" class="title-slide slide level1">
+<h1>Experience report</h1>
+
+</section>
+<section id="a-little-bit-of-context" class="slide level2">
+<h2>A little bit of context…</h2>
+<ul>
+<li class="fragment">Working on <a
+href="https://cardano.org">Cardano</a>, a blockchain network and
+crypto-currency</li>
+<li class="fragment">Decentralisation is (or should be) at the heart of
+blockchain</li>
+<li class="fragment">Yet 100% of the code is hosted on GitHub!</li>
+</ul>
+</section>
+<section id="experiments" class="slide level2">
+<h2>Experiments</h2>
+<ul>
+<li class="fragment"><a
+href="https://app.radicle.xyz/nodes/seed.hydra.bzh/rad%3Az4QBQYzMP9DtUJmejVyDHkCyTVj8G">HAL
+Team</a> has been experimenting with <a
+href="https://radicle.xyz">Radicle</a> since May 2025</li>
+<li class="fragment">We have also been working on providing
+decentralised access to <a
+href="https://cardano-foundation.github.io/antithesis">Antithesis</a></li>
+</ul>
+</section>
+<section id="what-is-radicle" class="slide level2">
+<h2>What is Radicle?</h2>
+<blockquote>
+<p>Radicle is an open source, peer-to-peer code collaboration stack
+built on Git. Unlike centralized code hosting platforms, there is no
+single entity controlling the network. Repositories are replicated
+across peers in a decentralized manner, and users are in full control of
+their data and workflow.</p>
+</blockquote>
+<p>More info at <a
+href="https://radicle.xyz">https://radicle.xyz</a></p>
+</section>
+<section id="in-a-nutshell" class="slide level2">
+<h2>In a Nutshell</h2>
+<p><img
+data-src="https://radicle.xyz/assets/images/p2p-network.svg" /></p>
+</section>
+<section id="demo" class="slide level2">
+<h2>Demo</h2>
+<p><img data-src="/images/bonaldi-demo.jpg" /></p>
+</section>
+<section id="working-with-radicle" class="slide level2">
+<h2>Working with Radicle</h2>
+<p>Team’s feedback is overall positive</p>
+<ul>
+<li class="fragment">Great Developer Experience with CLI</li>
+<li class="fragment">Smooth collaboration workflow</li>
+<li class="fragment">Has all the core features one need to collaborate
+on “small” projects</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>Some warts and issues:</p>
+<ul>
+<li class="fragment">Features mismatch between UI and CLI</li>
+<li class="fragment">Not having a central authority caused some
+“fumbles”</li>
+<li class="fragment">Requires deeper knowledge of git</li>
+<li class="fragment">How to do Trunk-Based Development properly?</li>
+</ul>
+</section></section>
+<section>
+<section id="conclusion" class="title-slide slide level1">
+<h1>Conclusion</h1>
+
+</section>
+<section id="more-experiments" class="slide level2">
+<h2>More Experiments</h2>
+<p><img data-src="/images/buzz.jpg" /></p>
+</section>
+<section id="radicle-ci" class="slide level2">
+<h2>Radicle CI</h2>
+<p><img data-src="/images/radicle-ci-ui.png" /></p>
+<aside class="notes">
+<ul>
+<li>Work in progress to provide CI triggered by radicle events from a
+node</li>
+<li>Integrate with various run engines, including GHA, Concourse,
+CircleCI or custom (Ambient, Native, containers)</li>
+<li>Registers <em>job</em> COBs that are available to all peers</li>
+<li>Great combo with reproducible builds -&gt; allow decentralised build
+artifacts reuse</li>
+</ul>
+</aside>
+</section>
+<section id="resources-access-control-audit" class="slide level2">
+<h2>Resources Access Control &amp; Audit</h2>
+<p>Started collaborating with <a
+href="https://antithesis.com">Antithesis</a></p>
+<ul>
+<li class="fragment">Antithesis is a SaaS for <em>Deterministic
+Simulation Testing</em></li>
+<li class="fragment">We wanted to provide this service for the whole
+Cardano community</li>
+<li class="fragment">Built a CLI tool to trigger and trace test runs
+over Cardano blockchain</li>
+<li class="fragment">More info on <a
+href="https://app.radicle.xyz/nodes/seed.hydra.bzh/rad%3Az2a7Te5b28CX5YyPQ7ihrdG2EEUsC">Repository</a></li>
+</ul>
+</section>
+<section id="more-ideas-projects" class="slide level2">
+<h2>More ideas &amp; projects</h2>
+<ul>
+<li class="fragment">Sharing locally built artifacts</li>
+<li class="fragment">Decentralised Web-of-Trust for Open-Source Software
+packages</li>
+<li class="fragment">Using <a href="https://atproto.com">ATProto</a> for
+team(s) collaboration</li>
+<li class="fragment">…</li>
+</ul>
+</section>
+<section id="takeaways" class="slide level2">
+<h2>Takeaways</h2>
+<ul>
+<li class="fragment">Decentralised processes &amp; organisations are
+more resilient</li>
+<li class="fragment">This is the original promise of the <em>World Wide
+Web</em> and DVCS like Git</li>
+<li class="fragment">This promise has been captured by megacorps and
+governments</li>
+<li class="fragment">There are tools like <em>Radicle</em> that offer
+both <em>convenience</em> and <em>control</em></li>
+</ul>
+</section></section>
+<section id="credits" class="title-slide slide level1">
+<h1>Credits</h1>
+<ul>
+<li class="fragment">Le Soir: <a
+href="https://www.lesoir.be/sites/default/files/dpistyles_v2/ena_16_9_extra_big/2017/07/14/node_104609/4412350/public/2017/07/14/B9712609397Z.1_20170714123746_000+GAM9EKRAF.1-0.jpg?itok=Y9XgK-Ky1553016802">Trump
+&amp; Macron 14th of July</a></li>
+<li class="fragment">INA: <a
+href="https://mediaclip.ina.fr/media/videos/imagettes/886x498/332/CAB97106147.jpeg">Delors
+entarté</a></li>
+<li class="fragment"><a
+href="https://pbs.twimg.com/media/C3VSo4JWMAA7TA8?format=jpg&amp;name=4096x4096">Trump
+angry</a></li>
+<li class="fragment"><a
+href="https://s.yimg.com/ny/api/res/1.2/L2FAIS8kafiVyJ_DPqv16w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTY0MDtjZj13ZWJw/https://media.zenfs.com/en/cbs_news_897/5bd253ee5a00c50c6a66ea0770db3749">Tech
+dinner</a></li>
+<li class="fragment"><a
+href="https://medium.com/@CWSkelly/analysis-this-is-fine-meme-e8980ff61e78">“This
+is fine” meme analysis</a></li>
+<li class="fragment"><a
+href="https://medium.com/future-haigo/comment-briller-en-démo-lorsque-lon-est-développeur-bef02e9f86db">Bonaldi
+Demo effect</a></li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <script src="/reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="/reveal.js/plugin/notes/notes.js"></script>
+  <script src="/reveal.js/plugin/search/search.js"></script>
+  <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
