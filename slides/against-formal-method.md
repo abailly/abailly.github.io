@@ -46,7 +46,7 @@ can bring value to most software development efforts
 
 * Fun: Because it's so cool...
 * Computer science: Study type systems, mathematics, programming languages, etc.
-* Applied science: Back research with machine-checkable proofs of stated properties
+* Applied science: Back research with machiqne-checkable proofs of stated properties
 * Software quality: Provide strong safety guarantees ⇒ _make the software right_
 * Software design: **Improve design with better models**  ⇒ _make the right software_
 
