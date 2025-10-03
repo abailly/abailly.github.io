@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Arnaud Bailly - @abailly.bsky.social">
+  <meta name="dcterms.date" content="2025-10-02">
+  <title>Décentraliser le Processus de Développement</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="/reveal.js/dist/theme/black.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Décentraliser le Processus de Développement</h1>
+  <p class="subtitle">Une expérience avec Radicle et quelques idées pour
+augmenter l’autonomie des équipes</p>
+  <p class="author">Arnaud Bailly - <span class="citation"
+data-cites="abailly.bsky.social">@abailly.bsky.social</span></p>
+  <p class="institute">Pankzsoft</p>
+  <p class="date">2025-10-02</p>
+</section>
+
+<section>
+<section id="une-courte-fiction" class="title-slide slide level1">
+<h1>Une courte fiction…</h1>
+
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/trump-macron-14-juillet.jpg" /></p>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/44bzh.jpg" /></p>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/entartage.jpeg" /></p>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/trump-angry.jpeg" /></p>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/trump-tech-dinner.jpeg" /></p>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/accounts-suspended.png" /></p>
+<aside class="notes">
+<ul>
+<li>Le 14 juillet 2026, le Président Trump est invité au Palais de
+l’Élysée pour une réception suivant les célébrations du 14 juillet</li>
+<li>Un commando de gilets jaunes parvient à s’infiltrer dans le Palais
+et lui lance une tarte à la crème, gâchant son brushing</li>
+<li>De retour aux États-Unis, il envoie un commando de Navy Seals pour
+enlever les terroristes mais ils tombent dans une embuscade tendue par
+un groupe d’agriculteurs en colère et échouent leur mission</li>
+<li>En représailles contre la France, il ordonne aux entreprises
+technologiques américaines de supprimer tous les comptes et données
+associés aux entreprises françaises et de leur interdire l’accès à ces
+plateformes</li>
+</ul>
+</aside>
+</section></section>
+<section>
+<section id="introduction" class="title-slide slide level1">
+<h1>Introduction</h1>
+
+</section>
+<section id="plan" class="slide level2">
+<h2>Plan</h2>
+<ul>
+<li class="fragment">Pourquoi décentraliser le développement logiciel
+?</li>
+<li class="fragment">Retour d’expérience avec Radicle</li>
+<li class="fragment">Conclusion</li>
+</ul>
+</section>
+<section id="doù-parlé-je" class="slide level2">
+<h2>D’où parlé-je ?</h2>
+<ul>
+<li class="fragment">Dev Senior/Tech Lead/Architecte/Consultant/🤡
+depuis plus de 30 ans</li>
+<li class="fragment">Praticien convaincu de l’<em>eXtreme
+Programming</em></li>
+<li class="fragment">À la recherche de l’<em>autonomie</em> depuis
+1969</li>
+</ul>
+</section>
+<section id="trop-long-pas-resté" class="slide level2">
+<h2>Trop Long ; Pas Resté</h2>
+<ul>
+<li class="fragment">Les services centralisés échangent de la
+<em>commodité</em> contre du <em>contrôle</em> (et/ou des frais). C’est
+bien…</li>
+<li class="fragment">… jusqu’à ce que ça ne le soit plus</li>
+<li class="fragment">Des solutions décentralisées (ré-)émergent comme <a
+href="https://radicle.xyz">Radicle</a></li>
+<li class="fragment">Cela offre aux équipes à la fois commodité
+<strong>et</strong> contrôle sur le processus de développement</li>
+</ul>
+</section></section>
+<section>
+<section id="pourquoi-décentraliser-le-développement-logiciel"
+class="title-slide slide level1">
+<h1>Pourquoi décentraliser le développement logiciel ?</h1>
+
+</section>
+<section id="un-peu-de-terminologie" class="slide level2">
+<h2>Un peu de terminologie</h2>
+<ul>
+<li class="fragment">Décentralisation ≠ Distribution</li>
+<li class="fragment">Les équipes distribuées sont devenues courantes
+dans le développement logiciel</li>
+<li class="fragment">Les organisations décentralisées sont plutôt
+rares</li>
+<li class="fragment">La <em>coordination</em> décentralisée est
+<strong>difficile</strong></li>
+</ul>
+<aside class="notes">
+<p>distribution est un anglicisme, le vrai mot c’est répartition</p>
+</aside>
+</section>
+<section id="pourquoi-centraliser-les-outils-de-développement"
+class="slide level2">
+<h2>Pourquoi <em>centraliser</em> les outils de développement ?</h2>
+</section>
+<section id="commodité" class="slide level2">
+<h2>Commodité</h2>
+<ul>
+<li class="fragment">Déléguer la complexité de la configuration et de la
+gestion des outils à des spécialistes</li>
+<li class="fragment">Offrir de meilleures interfaces et “expériences”
+utilisateur</li>
+<li class="fragment">Faciliter l’intégration avec d’autres
+outils/services</li>
+</ul>
+</section>
+<section id="efficacité" class="slide level2">
+<h2>Efficacité</h2>
+<ul>
+<li class="fragment">Diminuer le <em>TCO</em> en mutualisant les coûts
+d’infrastructure</li>
+<li class="fragment">Déléguer le coût de la gestion de l’infrastructure
+à quelqu’un d’autre</li>
+<li class="fragment">Se spécialiser ↦ Se concentrer sur le domaine
+<em>principal</em> de l’organisation</li>
+</ul>
+<aside class="notes">
+<p>TCO = Total Cost of Ownership</p>
+</aside>
+</section>
+<section id="contrôle" class="slide level2">
+<h2>Contrôle</h2>
+<ul>
+<li class="fragment">Fournir un point de contrôle unique pour les
+organisations</li>
+<li class="fragment">“Industrialiser” les pratiques et outils à travers
+l’organisation et des secteurs entiers</li>
+</ul>
+</section>
+<section id="pourquoi-décentraliser-les-outils-de-développement"
+class="slide level2">
+<h2>Pourquoi <em>décentraliser</em> les outils de développement ?</h2>
+</section>
+<section id="reprendre-la-contrôle" class="slide level2">
+<h2>Reprendre la <em>contrôle</em></h2>
+<ul>
+<li class="fragment">Éviter l’extraction de valeur effrénée des
+“mégacorporations”</li>
+<li class="fragment">Éviter la censure des gouvernements</li>
+<li class="fragment">Éviter le verrouillage par les fournisseurs</li>
+</ul>
+</section>
+<section id="donner-du-pouvoir-aux-équipes-et-aux-individus"
+class="slide level2">
+<h2>Donner du pouvoir aux équipes et aux individus</h2>
+<p>Vous souvenez-vous du <a href="https://agilemanifesto.org/">Manifeste
+Agile</a> ?</p>
+<p><img data-src="/images/agile-manifesto.png" /></p>
+</section>
+<section id="donner-du-pouvoir-aux-équipes-et-aux-individus-1"
+class="slide level2">
+<h2>Donner du pouvoir aux équipes et aux individus</h2>
+<ul>
+<li class="fragment">Il n’y a pas de solution <em>universelle</em></li>
+<li class="fragment">Permettre aux équipes de trouver des solutions qui
+correspondent à <em>leur</em> contexte</li>
+<li class="fragment">Augmenter l’efficacité locale et éviter
+l’inflation</li>
+</ul>
+</section>
+<section id="augmenter-la-résilience" class="slide level2">
+<h2>Augmenter la Résilience</h2>
+<ul>
+<li class="fragment">Supprimer le <em>Point Unique de
+Défaillance</em></li>
+<li class="fragment">Distribuer la charge à travers le “réseau”</li>
+<li class="fragment">S’adapter à un environnement changeant</li>
+</ul>
+</section>
+<section id="lutter-contre-lenshittification" class="slide level2">
+<h2>Lutter contre l’Enshittification</h2>
+<p><img data-src="/images/this-is-fine.jpg" /></p>
+</section></section>
+<section>
+<section id="retour-dexpérience" class="title-slide slide level1">
+<h1>Retour d’expérience</h1>
+
+</section>
+<section id="un-peu-de-contexte" class="slide level2">
+<h2>Un peu de contexte…</h2>
+<ul>
+<li class="fragment">Travail sur <a
+href="https://cardano.org">Cardano</a>, un réseau blockchain et une
+crypto-monnaie</li>
+<li class="fragment">La décentralisation est (ou devrait être) au cœur
+de la blockchain</li>
+<li class="fragment">Pourtant 100% du code est hébergé sur GitHub !</li>
+</ul>
+</section>
+<section id="expérimentations" class="slide level2">
+<h2>Expérimentations</h2>
+<p>L’<a
+href="https://app.radicle.xyz/nodes/seed.hydra.bzh/rad%3Az4QBQYzMP9DtUJmejVyDHkCyTVj8G">équipe
+HAL</a> expérimente <a href="https://radicle.xyz">Radicle</a> depuis mai
+2025</p>
+</section>
+<section id="quest-ce-que-radicle" class="slide level2">
+<h2>Qu’est-ce que Radicle ?</h2>
+<blockquote>
+<p>Radicle est une pile de collaboration de code open source et
+peer-to-peer construite sur Git. Contrairement aux plateformes
+d’hébergement de code centralisées, il n’y a pas d’entité unique
+contrôlant le réseau. Les dépôts sont répliqués entre pairs de manière
+décentralisée, et les utilisateurs ont le contrôle total de leurs
+données et de leur flux de travail.</p>
+</blockquote>
+<p>Plus d’infos sur <a
+href="https://radicle.xyz">https://radicle.xyz</a></p>
+</section>
+<section id="en-résumé" class="slide level2">
+<h2>En résumé</h2>
+<p><img
+data-src="https://radicle.xyz/assets/images/p2p-network.svg" /></p>
+</section>
+<section id="démo" class="slide level2">
+<h2>Démo</h2>
+<p><img data-src="/images/bonaldi-demo.jpg" /></p>
+</section>
+<section id="travailler-avec-radicle" class="slide level2">
+<h2>Travailler avec Radicle</h2>
+<p>Les retours de l’équipe sont globalement positifs</p>
+<ul>
+<li class="fragment">Excellente expérience développeur avec la CLI</li>
+<li class="fragment">Flux de travail collaboratif fluide</li>
+<li class="fragment">Possède toutes les fonctionnalités essentielles
+nécessaires pour collaborer sur des “petits” projets</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>Quelques défauts et problèmes :</p>
+<ul>
+<li class="fragment">Décalage de fonctionnalités entre l’interface
+utilisateur et la CLI</li>
+<li class="fragment">Ne pas avoir d’autorité centrale a causé quelques
+“tâtonnements”</li>
+<li class="fragment">Nécessite une connaissance plus approfondie de
+git</li>
+<li class="fragment">🧩 Comment faire du Trunk-Based Development
+correctement ?</li>
+</ul>
+</section></section>
+<section>
+<section id="conclusion" class="title-slide slide level1">
+<h1>Conclusion</h1>
+
+</section>
+<section id="plus-dexpérimentations" class="slide level2">
+<h2>Plus d’expérimentations</h2>
+<p><img data-src="/images/buzz.jpg" /></p>
+</section>
+<section id="radicle-ci" class="slide level2">
+<h2>Radicle CI</h2>
+<p><img data-src="/images/radicle-ci-ui.png" /></p>
+<aside class="notes">
+<ul>
+<li>Travail en cours pour fournir une CI déclenchée par les événements
+radicle depuis un nœud</li>
+<li>Intégration avec divers moteurs d’exécution, notamment GHA,
+Concourse, CircleCI ou personnalisés (Ambient, Native, conteneurs)</li>
+<li>Enregistre des COBs de <em>travaux</em> qui sont disponibles pour
+tous les pairs</li>
+<li>Excellente combinaison avec les builds reproductibles -&gt; permet
+la réutilisation décentralisée des artefacts de build</li>
+</ul>
+</aside>
+</section>
+<section id="contrôle-daccès-aux-ressources-et-audit"
+class="slide level2">
+<h2>Contrôle d’Accès aux Ressources et Audit</h2>
+<p>Collaboration démarrée avec <a
+href="https://antithesis.com">Antithesis</a></p>
+<ul>
+<li class="fragment">Antithesis est un SaaS pour le <em>Test de
+Simulation Déterministe</em></li>
+<li class="fragment">Nous voulions fournir ce service à toute la
+communauté Cardano</li>
+<li class="fragment">Construction d’un outil CLI pour déclencher et
+tracer les exécutions de tests sur la blockchain Cardano</li>
+<li class="fragment">Plus d’infos sur le <a
+href="https://app.radicle.xyz/nodes/seed.hydra.bzh/rad%3Az2a7Te5b28CX5YyPQ7ihrdG2EEUsC">Dépôt</a></li>
+</ul>
+</section>
+<section id="plus-didées-et-de-projets" class="slide level2">
+<h2>Plus d’idées et de projets</h2>
+<ul>
+<li class="fragment">Partager les artefacts construits localement</li>
+<li class="fragment">Réseau de Confiance Décentralisé pour les packages
+de logiciels Open-Source</li>
+<li class="fragment">Utiliser <a href="https://atproto.com">ATProto</a>
+pour la collaboration d’équipe(s)</li>
+<li class="fragment">…</li>
+</ul>
+</section>
+<section id="points-à-retenir" class="slide level2">
+<h2>Points à retenir</h2>
+<ul>
+<li class="fragment">Les outils et processus décentralisés sont plus
+résilients et ouverts</li>
+<li class="fragment">C’est la promesse originelle de l’informatique
+personnelle, du <em>World Wide Web</em>, des DVCS…</li>
+<li class="fragment">Cette promesse est souvent oubliée en échange de
+<em>commodité</em></li>
+<li class="fragment">Des outils comme <em>Radicle</em> offrent à la fois
+<em>commodité</em> et <em>contrôle</em></li>
+</ul>
+</section></section>
+<section id="crédits" class="title-slide slide level1">
+<h1>Crédits</h1>
+<ul>
+<li class="fragment">Le Soir : <a
+href="https://www.lesoir.be/sites/default/files/dpistyles_v2/ena_16_9_extra_big/2017/07/14/node_104609/4412350/public/2017/07/14/B9712609397Z.1_20170714123746_000+GAM9EKRAF.1-0.jpg?itok=Y9XgK-Ky1553016802">Trump
+&amp; Macron 14 juillet</a></li>
+<li class="fragment">INA : <a
+href="https://mediaclip.ina.fr/media/videos/imagettes/886x498/332/CAB97106147.jpeg">Delors
+entarté</a></li>
+<li class="fragment"><a
+href="https://pbs.twimg.com/media/C3VSo4JWMAA7TA8?format=jpg&amp;name=4096x4096">Trump
+en colère</a></li>
+<li class="fragment"><a
+href="https://s.yimg.com/ny/api/res/1.2/L2FAIS8kafiVyJ_DPqv16w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTY0MDtjZj13ZWJw/https://media.zenfs.com/en/cbs_news_897/5bd253ee5a00c50c6a66ea0770db3749">Dîner
+Tech</a></li>
+<li class="fragment"><a
+href="https://medium.com/@CWSkelly/analysis-this-is-fine-meme-e8980ff61e78">Analyse
+du meme “This is fine”</a></li>
+<li class="fragment"><a
+href="https://medium.com/future-haigo/comment-briller-en-démo-lorsque-lon-est-développeur-bef02e9f86db">Effet
+Démo Bonaldi</a></li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <script src="/reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="/reveal.js/plugin/notes/notes.js"></script>
+  <script src="/reveal.js/plugin/search/search.js"></script>
+  <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
