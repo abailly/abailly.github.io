@@ -1,12 +1,12 @@
 ---
 title: On "The Dream Team Nightmare",  by Portia Tung
-author: Arnaud Bailly 
+author: Arnaud Bailly
 date: 2014-01-09
 ---
 
 The first "agile" conference I attended was [SPA 2008](http://spaconference.org/spa2008) which took place in a nice hotel in the english countryside. And one of the first session I attended at this conference was a session about [Real options](http://www.spaconference.org/spa2008/sessions/session148.html), initially planned to be run by Chris Matts but actually lead by Pascal Van Cauwenberghe and Portia Tung. I vividly recall that, although the session was far from being perfect, it was fun, intriguing and I learnt quite a few new things.
 
-Since then, I have had the opportunity to attend several of Portia's session, mainly at [XP Day Benelux[(http://xpday.be/) (which by the way is the best conference I ever attended), and they always have been great moments, perfectly balanced between learning and fun, and perfectly organized[^1].
+Since then, I have had the opportunity to attend several of Portia's session, mainly at [XP Day Benelux](http://xpday.be/) (which by the way is the best conference I ever attended), and they always have been great moments, perfectly balanced between learning and fun, and perfectly organized[^1].
 
 # The Dream Team Nightmare
 

@@ -72,14 +72,14 @@ registration, authentication and settings for users (e.g. features)...
 
 A `BusinessModel` is defined as:
 
-~~~~~~~~~ {.haskell}
+```haskell
 class BusinessModel a where
   data Event a :: *
   data Command a :: *
   init :: a
   act :: Command a -> a -> Event a
   apply :: Event a -> a  -> a
-~~~~~~~~~
+```
 
 
 * A type of events this model generates
@@ -111,21 +111,19 @@ access to 2 pieces of state.
 
 Here is the definition of `WebStateM`:
 
-~~~~~~~~~ {.haskell}
+```haskell
 newtype WebStateM shared local m a = WebStateM { runWebM :: TVar shared -> local -> m a }
 
 type WebM a = forall s . EventStore s => WebStateM SharedState LocalState s a
-~~~~~~~~~
+```
 
-This is simply a `Reader` monad with two different pieces of data:
-
+This is simply a `Reader` monad with two different pieces of data```
 * `LocalState` is filled with information relevant to a single query (e.g. user id, request id, time...),
 * `SharedState` is a `TVar` (transaction variable living in `STM` monad) that is shared across all requests,
 * The `EventStore` constraint means we need the underlying monad to provide access to persistent storage.
 
 The vast majority of services use the generic `applyCommand` function which is the critical part of the system. This function is
-responsible for:
-
+responsible for```
 *  applying the command and updating the stored Model,
 *  persist the event in the "database",
 *  dispatch the event to interested components.
@@ -133,16 +131,13 @@ responsible for:
 ## Web
 
 The REST interface is provided by [scotty](https://github.com/scotty-web/scotty) which is a simple framework based on
-[WAI](https://github.com/yesodweb/wai) and [warp](https://github.com/yesodweb/wai)[^7]. Most action handlers are pretty simple:
-
+[WAI](https://github.com/yesodweb/wai) and [warp](https://github.com/yesodweb/wai)[^7]. Most action handlers are pretty simple```
 * They extract some parameters or JSON data from the body of the request,
 * They invoke some service,
-* They provide an HTTP response according to the result returned:
-    * Queries simply serialize the result to JSON or other requested media type,
+* They provide an HTTP response according to the result returned```    * Queries simply serialize the result to JSON or other requested media type,
     * Actions look at the returned `Event` to provide meaningful answers.
 
-On top of REST endpoints sit some `Middleware`s which check or apply transformations to requests and/or responses:
-
+On top of REST endpoints sit some `Middleware`s which check or apply transformations to requests and/or responses```
 * Provide a `Request-Id` header,
 * Authorisation and authentication,
 * Sanity checks (e.g. sizes of payloads),
@@ -151,8 +146,7 @@ On top of REST endpoints sit some `Middleware`s which check or apply transformat
 
 ## Lost in Translation
 
-Executing a user-triggered action is in a sense a series of  translations occuring between different *level of languages*:
-
+Executing a user-triggered action is in a sense a series of  translations occuring between different *level of languages*```
 * From REST to `WebM` we use `inWeb :: WebStateM CapitalMatchState LocalState m a -> ActionT e (WebStateM CapitalMatchState
   LocalState m) a`,
 * From `WebM` to `STM Model` we use `liftIO . atomically`,
@@ -160,12 +154,11 @@ Executing a user-triggered action is in a sense a series of  translations occuri
 
 Conceptually, we have this hierarchy of monads, expressed in types:
 
-~~~~~ {.haskell}
+```haskell
 model :: Command -> StateT STM Model (Event Model)
 service :: WebM (Event Model)
 web :: ActionT ()
-~~~~~~
-
+```
 This hierarchy of monads delineates, somewhat obviously, the following languages:
 
 * Language of *Models* expresses atomic (e.g. often CRUDesque) changes to a Model, like `RegisterTransaction`, `UpdateProfile` or `CloseFacility`,

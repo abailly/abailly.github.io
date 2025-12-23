@@ -1,6 +1,6 @@
 ---
 title: Notes sur "Enquête sur les modes d'existence"
-author: Arnaud Bailly 
+author: Arnaud Bailly
 date: 2013-01-27
 ---
 
@@ -40,8 +40,7 @@ particulier en tant qu'ils sont le produit d'une histoire ; 4.
 
 ## Instaurer les êtres
 
-Le processus d'instauration - substitut au terme chargé de construction
-- doit permettre de rencontrer les êtres "susceptibles de nous
+Le processus d'instauration - substitut au terme chargé de construction - doit permettre de rencontrer les êtres "susceptibles de nous
 inquiéter", tous ces êtres qui vont peupler de leur mode d'existence
 particulier les réseaux. On distinguera *l'être-en-tant-qu'être*
 caractérisé par sa substance, ses fondements de
@@ -218,10 +217,10 @@ d'un jugement.
 
 ## [ORG] Scripter l'économie
 
-L'économie est le produit de 3 décalages: 
+L'économie est le produit de 3 décalages:
 
-1. transformer le chaud en froid, les intérêts passionnés des êtres emplis de désirs en purs calculs rationnels ; 
-2. rendre transcendant (la "main invisible" du marché) la manière dont les richesses sont partagées ; 
+1. transformer le chaud en froid, les intérêts passionnés des êtres emplis de désirs en purs calculs rationnels ;
+2. rendre transcendant (la "main invisible" du marché) la manière dont les richesses sont partagées ;
 3. croire en l'organisation transcendante des multiples micro-organisations et
 désordres.
 

@@ -1,6 +1,6 @@
 ---
 title: Essence & Accident
-author: Arnaud Bailly 
+author: Arnaud Bailly
 date: 2013-11-10
 ---
 
@@ -17,20 +17,20 @@ Some thoughts on accidental vs. essential complexity triggered while reading
     (eg. complexity arising from performance issues and from
     suboptimal language and infrastructure)"
 * This is actually not Brooks' definition of accident and essence, and it seems I can trace back this misunderstanding to
-[another definition by N.Ford](http://www.ibm.com/developerworks/java/library/j-eaed1/index.html). 
-* Brooks actually talks about the *essential complexity* of *software development*, irrespective of the problem or usage software is put to use: 
+[another definition by N.Ford](http://www.ibm.com/developerworks/java/library/j-eaed1/index.html).
+* Brooks actually talks about the *essential complexity* of *software development*, irrespective of the problem or usage software is put to use:
 
   > The essence of a software entity is a construct of interlocking concepts [..] This essence is abstract, in that the conceptual
   > constructs is the same under many different representations.
   >
   > The complexity of software is an essential property, not an
-  >  accidental one 
-  > 
+  >  accidental one
+  >
   > Brooks, The MMM, p.182 sq.
-      
+
 * In essence (ha!ha!) what Brooks says is: "No matter how sophisticated your tools may be, developing software is complex". It
 uses this uses this assertion to undermine various efforts to reduce complexity of software through languages, patterns, tools
-(eg. software). 
+(eg. software).
 * Looks like another form of the irreflexive nature of most formalisms: No computational formalism is powerful enough to talk about itself.
 * Then they derive a methodology from this initial requirement that we need to deal only with the essential complexity,
 methodology which goes through another form of formal declarative requirement language meant to ignore accidental issues of *how*
@@ -41,8 +41,8 @@ the system is about to perform anything
 * Any technical device, and software makes no exception to it, changes its users and the way they interact with the "world". They
 create relations between various things, various beings that were previously unrelated, while at the same time sending other
 beings into oblivion.
-* This is at the heart of Activity Theory, among many others (see also Habermas, Simondon, more recently Stéphane Vial and of course Latour). 
-* "It is not the business of the user to know what they want" -  S.Jobs. Users don't know what they want until they see it, and when they see it they want something else or different 
+* This is at the heart of Activity Theory, among many others (see also Habermas, Simondon, more recently Stéphane Vial and of course Latour).
+* "It is not the business of the user to know what they want" -  S.Jobs. Users don't know what they want until they see it, and when they see it they want something else or different
 * Software is a by-product of technical acts, the result of various acts and transformations forming a network extending over
 space and time. In [Latour](/posts/eme.html)'s term, they are leftovers from the passing of [TEC] beings within some group of people, a specific
 *folding* of materials and immaterials other beings that, when completed and put to use, produce some efficicent effect.
