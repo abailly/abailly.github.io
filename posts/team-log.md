@@ -33,7 +33,7 @@ My current practice is actually pretty simple: In the team's wiki, there is one 
 
 Here is a screen capture from our team's wiki (in this case Azure DevOps) showing a random page's content:
 
-![](/images/sample-team-log.png){width=100%}
+![](https://abailly.github.io/images/sample-team-log.png){width=100%}
 
 In this case, I was trying to understand why tests were slow and I graphed the distrbution of execution times for "writes" using some [GNUPlot](http://www.gnuplot.info/) script. This picture also shows the tree of daily log entries, with daily pages "archived" under each month.
 

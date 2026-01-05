@@ -6,7 +6,7 @@ date: 2016-04-23
 
 Une France post-apocalyptique et comme suspendue. Des gangs sillonent l'ex-capitale et le pays pour s'entretuer. Ils ont nom *Sang Noir de Bakounine*, *Docteur Jdanov*, *Planète Potlatch*, *Jeunes Hégeliens*... Julius Puech est le chef de la *Fraction Armée Spinoziste*. Il porte des bottes de lézard mauves et voue une haine farouche aux Hégeliens dont le chef s'appelle Thorez. Il aime Spinoza et François. Il a de la sympathie pour le Diable. Tout ça finira très mal.
 
-![](/images/spinoza-encule-hegel.jpg){.floating height=300px} 
+![](https://abailly.github.io/images/spinoza-encule-hegel.jpg){.floating height=300px}
 
 Plutôt que *La septième fonction du langage* de Laurent Binet qui y fait référence, mieux vaut lire [Spinoza encule Hegel](https://fr.wikipedia.org/wiki/Spinoza_encule_Hegel) de Jean-Bernard Pouy. Si possible vite, très vite. Avec une bouteille d'alcool fort à portée de la main, et les Stones à fond dans les oreilles. Ou alors entre deux propositions de l'Éthique. Mais le texte n'a pas besoin d'adjuvants pour exciter les sens, enivrer. La prose est hypnotique et balistique, mais sait se faire lyrique quand elle évoque les amours - exclusivement masculines - des héros. Manière élégante somme toute de dépasser le sexisme inhérent aux situations riches en testostérone. D'ailleurs, le héros finira esclave d'un gang exclusivement féminin pas moins nihiliste que ses congénères masculins.
 

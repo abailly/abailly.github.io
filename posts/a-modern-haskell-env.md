@@ -66,7 +66,7 @@ As this is done through `stack`, it will install the relevant GHC version automa
 
 As I understand it, the executable that needs to be pointed to is the `xxx-wrapper` which is responsible for starting the server and delegates the actual parsing and compiling to the correct backend:
 
-![](/images/emacs-lsp-process-tree.png)
+![](https://abailly.github.io/images/emacs-lsp-process-tree.png)
 
 
 Emacs needs to be able to find the executable. In my case, I have added the directory top the `exec-path` variable of Emacs and to the `PATH` environment variable:

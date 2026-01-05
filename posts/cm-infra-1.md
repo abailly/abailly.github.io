@@ -55,7 +55,7 @@ There is not a dearth of tools when it comes to configuration management, system
 
 # Overview
 
-![](/images/system-architecture.png){width=900}
+![](https://abailly.github.io/images/system-architecture.png){width=900}
 
 The above figure gives a high-level overview of the system:
 

@@ -94,7 +94,7 @@ Comme je le disais en introduction, je retire de ce livre une position plus nuan
 
 La question à laquelle il ne répond pas, ou très indirectement, est de savoir comment faire ou refaire société dans un monde où s'affrontent non plus des idées ou des conceptions politiques, mais des _réalités_ et des systèmes de croyances complets ? Comment débattre, discuter, convaincre - ou se laisser convaincre - quand "la réalité est ailleurs", quand c'est toute le processus de réflexion lui-même qui est remis en cause par des anathèmes croisés ?
 
-![Article paru dans _Libération_ du 23 janvier 2021](/images/2021-01-libe-chronique.jpg){width=100%}
+![Article paru dans _Libération_ du 23 janvier 2021](https://abailly.github.io/images/2021-01-libe-chronique.jpg){width=100%}
 
 [^1]: Ce terme est emprunté à [Carlo Ginzburg](https://fr.wikipedia.org/wiki/Carlo_Ginzburg) dans l'article [Signes, traces, pistes](https://f.hypotheses.org/wp-content/blogs.dir/2002/files/2016/09/Ginzburg-Signes-traces-pistes.pdf) repris dans le livre [Mythes emblèmes traces](https://editions-verdier.fr/livre/mythes-emblemes-traces/). Cet article et ce livre mériteraient eux aussi un article en bonne et dûe forme, d'autant plus qu'il est abondamment cité par Boltanski, mais les journées ne font que 24 heures.
 

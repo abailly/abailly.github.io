@@ -13,6 +13,8 @@ But I wanted to see how it fared with something more substantial, a feature that
 
 Up to that point I had been able to publish markdown blog posts to [Leaflet](https://pankzsoft.leaflet.pub) only if they did not contain images: Image markup `![some title](some/path/or/url)` was simply `undefined` hence it blew up the parser when hit. But I wrote blog posts with images and I do want to be able to migrate those and of course publish new posts with whatever images I fancy. The goal, therefore, was to implement a feature that could be expressed quite simply as: "I want to publish or update articles that contain link to images, such that those images are displayed on `leaflet.pub` when browsing the published article."
 
+![An oil refinery illuminated at night](https://abailly.github.io/images/refinery.jpg)
+
 While the goal is straightforward, the implementation is a tad involved:
 
 * [commonmark-hs](https://github.com/jgm/commonmark-hs/blob/master/commonmark/src/Commonmark/Types.hs#L93) parses images as _inline_ elements, but the [Leaflet document](https://tangled.org/leaflet.pub/leaflet/blob/main/lexicons/pub/leaflet/pages/linearDocument.json#L36) format expects images to appear as _blocks_, so some post-processing of parsed elements has to happen,
@@ -185,7 +187,7 @@ Here are a few highlights I took not of about the code produced:
 
 ## Conclusion
 
-I have been again quite impressed by Claude Code's ability to implement a complete feature without any supervision, from a single initial prompt. However I think the end result has some shortcomings that make it not better and actually slightly worse than the code I wrote myself, which could definitely be improved but goes straight to the point, does not introduce additional dependencies and does not break other code.
+I have been again quite impressed by Claude Code's ability to implement a complete feature without any supervision, from a single initial prompt. However I think the end result has some shortcomings that make it not better and actually slightly worse than the code I wrote myself, which could definitely be improved but goes straight to the point, does not introduce additional dependencies and does not break other code. It should nevertheless be stressed that it was able to _autonomously_ build a complete feature with capabilities identical or similar to what I wrote myself, in a fraction of the time.
 
 What I gather from these experiments, and from informed comments and reports here and there, is that letting an agent run loose to code something relatively involved is not the best use of such tools in the context of an existing codebase. It might make more sense when prototyping, or implementing some side feature (I have used Claude Code to build an End-to-End test suite based on playwright on another project and it was fine) which can be replaced at will. But when working on a system for an extended period, the feedback loop should be much shorter and the agent (at least as far as coding is concerned) should be used just like a pairing partner, drafting and revising a plan together, implementing small features easily reviewed and changed one at a time, correcting course, and so on.
 

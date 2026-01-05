@@ -18,7 +18,7 @@ We settled on using a central git repository and CI server, hosted on a dedicate
 * The git repository is configured with a git deploy hook](https://www.digitalocean.com/community/tutorials/how-to-use-git-hooks-to-automate-development-and-deployment-tasks) that triggers a call to the CI server when we push on the `review` branch,
 * Our CI server is implemented with [bake](https://github.com/ndmitchell/bake), a robust and simple CI engine built - guess what? - in Haskell. Bake has a client/server architecture where the server is responsible for orchestrating builds that are run by registered clients, which are supposed to represent different build environments or configurations. Bake has a very simple web interface that looks like
 
-    ![](/images/bake-screenshot.png)
+    ![](https://abailly.github.io/images/bake-screenshot.png)
 
 * Bake provides the framework for executing "tests", reporting their results and merging changes to `master` branch upon successful build, but does not tell you *how* your software is built: This is something we describe in Haskell as a set of steps (bake calls them all *tests*) that are linked through dependencies and possibly dependent on the capabilities of the client. Here is a fragment of the code for building Capital Match:
 
@@ -154,7 +154,7 @@ Doing actual deployment of a new version of the system involves the following st
 
 The net result is the something like the following. The dark boxes represent services/processes while the lighter grayed boxes represent containers:
 
-![](/images/services-architecture.png)
+![](https://abailly.github.io/images/services-architecture.png)
 
 We were lucky enough to be able to start our system with few constraints which means we did not have to go through the complexity of setting up a blue/green or rolling deployment and we can live with deploying everything on a single machine, thus alleviating to use more sophisticated container orchestration tools.
 

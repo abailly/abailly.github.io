@@ -23,9 +23,9 @@ D'ailleurs David van Reybrouck, dans [Contre les élections](https://www.actes-s
 
 Honneth commence par distinguer trois traditions critiques de la relation entre division sociale du travail et citoyenneté :
 
-  * une critique _marxiste_ centrée sur _l'aliénation_ que la transformation du travail en marchandise induit chez les travailleurs et notamment les moins qualifiés, conduisant à une déshumanisation du travail et la perte de sens et de lien avec toute capacité à se projeter, critique qui se concentre sur le contenu du travail ;
-  * une critique _républicaine_ qui considère que seule la pleine autonomie dans et hors du travail peut permettre la réalisation de l'idéal démocratique et qui se concentre sur l'organisation du travail ;
-  * une critique dite _démocratique_ dans laquelle s'inscrit Axel Honneth, qui se concentre sur la question de la finalité du travail et considère que les formes et modalités de division du travail social ne doivent pas aller à l'encontrer des principes démocratiques mais au contraire les renforcer.
+* une critique _marxiste_ centrée sur _l'aliénation_ que la transformation du travail en marchandise induit chez les travailleurs et notamment les moins qualifiés, conduisant à une déshumanisation du travail et la perte de sens et de lien avec toute capacité à se projeter, critique qui se concentre sur le contenu du travail ;
+* une critique _républicaine_ qui considère que seule la pleine autonomie dans et hors du travail peut permettre la réalisation de l'idéal démocratique et qui se concentre sur l'organisation du travail ;
+* une critique dite _démocratique_ dans laquelle s'inscrit Axel Honneth, qui se concentre sur la question de la finalité du travail et considère que les formes et modalités de division du travail social ne doivent pas aller à l'encontrer des principes démocratiques mais au contraire les renforcer.
 
 Il constate ensuite que la question de la division et de l'organisation du travail est un point-aveugle des théories de la démocratie, en particulier chez [Rawls](https://fr.wikipedia.org/wiki/John_Rawls) et [Habermas](https://en.wikipedia.org/wiki/Jürgen_Habermas). Le fait que l'État garantisse une certaine égalité en droit, et que le reste soit renvoyé à la logique du marché est symptomatique de l'hégémonie de la pensée économique libérale sur le débat politique. Considérer que pour des questions d'efficacité dans la conduite de l'entreprise, des situations de soumission à l'autorité, de parcellisation du travail, d'évidement de tout sens et de toute finalité concrète, sont acceptables parce que en théorie et en droit les individus seraient libres de ne pas les accepter, c'est bien évidemment tout ignorer des conditions réelles nécessaires pour garantir l'égalité d'accès de chacune et chacun au débat démocratique.
 
@@ -37,11 +37,11 @@ D'autant plus que ces questions de la réalité concrète des modes d'organisati
 
 Le chapitre 3 est plus particulièrement dédié à définir les conditions d'une division sociale du travail qui permettraient une participation démocratique pleine et entière. Axel Honneth liste cinq grandes conditions:
 
-1. l'**indépendance économique**, afin de soustraire les individus à la contrainte de devoir travailler coûte que coûte pour survivre ;
-2. du **temps libre** pour réfléchir et participer à la délibération démocratique ;
-3. le sentiment de sa propre valeur et l'**estime de soi**, qui ne peuvent exister si la personne est par ailleurs dévalorisée dans son travail ;
-4. la **pratique** des processus de décisions collectifs ;
-5. enfin, la mobilisation des **capacités cognitives** et la densité des tâches intellectuelles.
+* l'**indépendance économique**, afin de soustraire les individus à la contrainte de devoir travailler coûte que coûte pour survivre ;
+* du **temps libre** pour réfléchir et participer à la délibération démocratique ;
+* le sentiment de sa propre valeur et l'**estime de soi**, qui ne peuvent exister si la personne est par ailleurs dévalorisée dans son travail ;
+* la **pratique** des processus de décisions collectifs ;
+* enfin, la mobilisation des **capacités cognitives** et la densité des tâches intellectuelles.
 
 Par ailleurs, Honneth se pose la question de l'efficacité des critiques quand leur définition du _travail social_ est problématique. D'un côté, une conception restreinte à la production de biens matériels, typique des auteurs classiques de Smith à Marx inclus, qui ignore donc tout de l'importance du travail de _soin_, des services à la personne, et du travail domestique ; d'un autre une conception trop large englobant tout un tas d'activités humaines telles que hobbies ou passe-temps dépendant des affinités et désirs individuels. Ces questions rejoignent les critiques, notamment féministes, sur la hiérarchie des tâches quotidiennes plus ou moins valorisées et reconnues.
 

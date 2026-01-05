@@ -102,7 +102,7 @@ about 40-50% only of the designed features were actually shipped on go-live. Hen
 At some early stage I tried to use [Story mapping](http://www.agileproductdesign.com/presentations/user_story_mapping/e),
 maintaining a map of the software's features using [MindMup](https://www.mindmup.com/) a hosted mind-mapping application:
 
-![A fragment of Capital Match's Story Map](/images/story-map.png)
+![A fragment of Capital Match's Story Map](https://abailly.github.io/images/story-map.png)
 
 The idea was that we would represent the whole process in a map, distinguishing manual/automated parts and filling the leaves with
 actually available features. However this did not gel and people never get accustomed to use that representation of the software, so I quickly stopped
@@ -313,7 +313,7 @@ distributed agile style of working:
 * Haskell is (still) a [niche language](http://githut.info/) for at least two reasons: Because of its paradigm which is very different from maintstream languages
   and platforms, and because of its history which ties it to academic and esoteric PLT research more than to the production of
   mundane web applications,
-  ![Latest Ranking from http://githut.info](/images/haskell-ranking.png)
+  ![Latest Ranking from http://githut.info](https://abailly.github.io/images/haskell-ranking.png)
 * Due to its niche nature, it attracts programmers that either want to distinguish themselves and/or are inherently attracted by the
   different, not to say the bizarre... This is often the kind of people that are ready to make some extra efforts to keep on working
   with such a language, including working with shifted hours, moving to a foreign country, learning new tools and processes...

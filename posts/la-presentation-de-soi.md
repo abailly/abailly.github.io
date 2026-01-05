@@ -109,7 +109,7 @@ J'ai été particulièrement intéressé par l'importance que Goffman octroie à
 
 Le "moi" est le produit d'un _rôle_, pas sa cause, il est une construction essentiellement sociale.
 
-![](/images/roles.png)
+![](https://abailly.github.io/images/roles.png)
 
 Ce que nous permettent Goffman, la sociologie, les sciences sociales en général, c'est utiliser ce cadre d'analyse pour prendre conscience des rôles que nous jouons, de chausser des lunettes déformantes pour mieux nous voir et voir les autres dans toutes ces situations d'interactions et démonter les mécanismes qui sont de l'ordre de la dramaturgie d'une situation. Dans le cadre d'une équipe de développement par exemple, sujet qui me touche de près, il devrait être possible de rendre explicite ces mécanismes implicites, par exemple au travers de _rétrospectives_ ou de techniques de demande de _feedback_, afin de libérer les interactions au sein de l'équipe du poids des rôles attendus de chacune. Une telle équipe, consciente d'elle même, serait mieux à même de collaborer avec d'autres équipes sur un pied d'égalité, serait en quelque sorte une matrice à partir de laquelle des hiérarchies et des structures de domination insconscientes ou refoulées seraient déconstruites. On peut rêver...
 

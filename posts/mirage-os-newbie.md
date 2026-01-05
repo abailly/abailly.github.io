@@ -254,7 +254,7 @@ The part I had most difficulties with is of course the networking part. We want 
 hypervisor inside the VirtualBox VM to be visible from our *host*. The following picture tries to render my understanding of the
 network topology and configuration we want to achieve (actual IPs/MACs may of course differ).
 
-![](/images/xen-vm-network-topo.png)
+![](https://abailly.github.io/images/xen-vm-network-topo.png)
 
 The VirtualBox engine exposes the host-only interface to the host as `vboxnet4` with a pre-configured IP (e.g. IP is set in `Vagrantfile` as part of definition of host-only network). This interface is linked
 to the `eth1` "physical interface" inside the VM and part of the same *ethernet* network. We create a `br0` interface which is a bridge: An interface that connects two or more interfaces by routing the packets to/from each of the bridged interfaces. In this case it connects the host-only interface

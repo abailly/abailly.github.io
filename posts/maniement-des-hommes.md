@@ -21,7 +21,7 @@ Le management pré-scientifique est ainsi fondamentalement patriarcal et paterna
 
 # Émergence du management scientifique
 
-![Une base de données en 1916](/images/early-forms.png)
+![Une base de données en 1916](https://abailly.github.io/images/early-forms.png)
 
 Le management ne prend son sens actuel qu'au tournant du XXème siècle, aux États-Unis, avec les publications de Frederick Taylor, au moment même où le _positivisme_ et le progressisme se diffusent dans toutes les strates de la société ; où le culte de la performance et de l'efficacité s'imposent comme des évidences, portées par le progrès technologique et scientifique qui, avant les destructions des guerres mondiales, paraissent sans fin ; où la massification des modes de production et l'accroissement spectaculaire de la population urbaine distendent le tissu des relations interpersonnelles.
 
