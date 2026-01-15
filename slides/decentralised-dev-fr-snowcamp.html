@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Arnaud Bailly - @panzksoft.net">
+  <meta name="dcterms.date" content="2026-01-16">
+  <title>Décentraliser le Processus de Développement</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="/reveal.js/dist/theme/black.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Décentraliser le Processus de Développement</h1>
+  <p class="subtitle">Pourquoi ? Comment ? Retours d’expérience</p>
+  <p class="author">Arnaud Bailly - <span class="citation"
+data-cites="panzksoft.net">@panzksoft.net</span></p>
+  <p class="institute">Pankzsoft</p>
+  <p class="date">2026-01-16</p>
+</section>
+
+<section id="merci" class="title-slide slide level1">
+<h1>Merci</h1>
+<p><img data-src="/images/snowcamp-sponsors.png" /></p>
+</section>
+
+<section>
+<section id="une-fable-contemporaine" class="title-slide slide level1">
+<h1>Une fable contemporaine</h1>
+
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/trump-macron-14-juillet.jpg" /></p>
+<aside class="notes">
+<ul>
+<li>Le 14 juillet 2026, le Président Trump est invité au Palais de
+l’Élysée pour une réception suivant les célébrations du 14 juillet</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/autonomistes-savoyards.jpg" /></p>
+<aside class="notes">
+<ul>
+<li>Le 14 juillet 2026, le Président Trump est invité au Palais de
+l’Élysée pour une réception suivant les célébrations du 14 juillet</li>
+<li>Un commando d’autonomistes savoyards parvient à s’infiltrer dans le
+Palais</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/entartage.jpeg" /></p>
+<aside class="notes">
+<ul>
+<li>et lui lance une tarte à la crème, gâchant son brushing</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/trump-angry.jpeg" /></p>
+<aside class="notes">
+<ul>
+<li>il est très en colère</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/trump-tech-dinner.jpeg" /></p>
+<aside class="notes">
+<ul>
+<li>De retour aux États-Unis, il envoie un commando de Navy Seals pour
+enlever les terroristes mais ils tombent dans une embuscade tendue par
+un groupe d’agriculteurs en colère et échouent leur mission</li>
+<li>En représailles contre la France, il ordonne aux entreprises
+technologiques américaines</li>
+</ul>
+</aside>
+</section>
+<section class="slide level2">
+
+<p><img data-src="/images/accounts-suspended.png" /></p>
+<aside class="notes">
+<ul>
+<li>de supprimer tous les comptes et données associés aux entreprises
+françaises et de leur interdire l’accès à ces plateformes</li>
+</ul>
+</aside>
+</section></section>
+<section>
+<section id="introduction" class="title-slide slide level1">
+<h1>Introduction</h1>
+
+</section>
+<section id="plan" class="slide level2">
+<h2>Plan</h2>
+<ul>
+<li class="fragment">Pourquoi décentraliser le développement logiciel
+?</li>
+<li class="fragment">Retour d’expérience - Radicle</li>
+<li class="fragment">Retour d’expérience - Amaru</li>
+<li class="fragment">Conclusion</li>
+</ul>
+</section>
+<section id="doù-parlé-je" class="slide level2">
+<h2>D’où parlé-je ?</h2>
+<ul>
+<li class="fragment">Dev Senior/Tech Lead/Architecte/Consultant/🤡
+depuis plus de 30 ans</li>
+<li class="fragment">Praticien convaincu de l’<em>eXtreme
+Programming</em></li>
+<li class="fragment">Dans “la blockchain” pendant 8 ans</li>
+<li class="fragment">À la recherche de l’<em>autonomie</em> perdue</li>
+</ul>
+</section>
+<section id="trop-long-pas-resté" class="slide level2">
+<h2>Trop Long ; Pas Resté</h2>
+<ul>
+<li class="fragment">Les services centralisés échangent de la
+<em>commodité</em> contre du <em>contrôle</em>. C’est pratique…
+<ul>
+<li class="fragment">… jusqu’à ce que ça ne le soit plus !</li>
+</ul></li>
+<li class="fragment">Des solutions décentralisées (ré-)émergent pour
+gérer le code source
+<ul>
+<li class="fragment">Par exemple <a
+href="https://radicle.xyz">Radicle</a></li>
+</ul></li>
+<li class="fragment">Décentraliser, c’est difficile…
+<ul>
+<li class="fragment">… mais nécessaire à la conservation de notre
+libre-arbitre</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="pourquoi-décentraliser-le-développement-logiciel"
+class="title-slide slide level1">
+<h1>Pourquoi décentraliser le développement logiciel ?</h1>
+
+</section>
+<section id="un-peu-de-terminologie" class="slide level2">
+<h2>Un peu de terminologie</h2>
+</section>
+<section id="libertaire-libertarien" class="slide level2">
+<h2>Libertaire ≠ Libertarien</h2>
+<p><img data-src="/images/rand-kropotkine.png" /></p>
+<aside class="notes">
+<ul>
+<li>blockchain et réseaux p2p souvent associés aux méchants
+libertariens</li>
+<li>il y a pas mal de libertaires dedans aussi</li>
+<li>libertaires = anarchistes “collectivistes”, intéressés par
+l’autonomie de groupes d’affinités oeuvrant pour le bien commun dans le
+respect de chacun·e et de la planète</li>
+<li>libertariens = anarchistes “invidualistes” et “capitalistes”</li>
+</ul>
+</aside>
+</section>
+<section id="répartir-décentraliser" class="slide level2">
+<h2>Répartir ≠ Décentraliser</h2>
+<p><img data-src="/images/distributed-vs-decentralised.png" /></p>
+<aside class="notes">
+<ul>
+<li>Les équipes réparties sont devenues courantes dans le développement
+logiciel</li>
+<li>Les organisations décentralisées sont plutôt rares</li>
+<li>La <em>coordination</em> décentralisée est
+<strong>difficile</strong></li>
+<li>distribution est un anglicisme, le vrai mot c’est répartition</li>
+<li>coordination décentralisée est un problème insoluble en
+informatique</li>
+<li>c’est un continuum: la fédération est un compromis possible</li>
+</ul>
+</aside>
+</section>
+<section id="pourquoi-centraliser-le-développement"
+class="slide level2">
+<h2>Pourquoi <em>centraliser</em> le développement ?</h2>
+<ul>
+<li class="fragment">Par commodité</li>
+<li class="fragment">Pour plus d’efficacité</li>
+<li class="fragment">Pour plus de contrôle</li>
+<li class="fragment">Pour plus de sécurité</li>
+</ul>
+<aside class="notes">
+<ul>
+<li><p>Déléguer la complexité de la configuration et de la gestion des
+outils à des spécialistes</p></li>
+<li><p>Offrir de meilleures interfaces et “expériences”
+utilisateur</p></li>
+<li><p>Faciliter l’intégration avec d’autres outils/services</p></li>
+<li><p>Déléguer la sécurité à des tiers</p></li>
+<li><p>Diminuer le <em>TCO</em> en mutualisant les coûts
+d’infrastructure</p></li>
+<li><p>Déléguer le coût de la gestion de l’infrastructure à quelqu’un
+d’autre</p></li>
+<li><p>Se spécialiser ↦ Se concentrer sur le domaine <em>principal</em>
+de l’organisation</p></li>
+<li><p>Fournir un point de contrôle unique pour les
+organisations</p></li>
+<li><p>“Industrialiser” les pratiques et outils à travers l’organisation
+et/ou des secteurs entier</p></li>
+<li><p>“Simplifier” la sécurisation des données et processus</p></li>
+<li><p>sécurité = centralisation authentification et authorisation est
+plus simple</p></li>
+<li><p>PKI difficile</p></li>
+</ul>
+</aside>
+</section>
+<section id="pourquoi-décentraliser-le-développement"
+class="slide level2">
+<h2>Pourquoi <em>décentraliser</em> le développement ?</h2>
+</section>
+<section id="reprendre-la-contrôle" class="slide level2">
+<h2>Reprendre la <em>contrôle</em></h2>
+<ul>
+<li class="fragment">Éviter l’extraction de valeur effrénée des
+“mégacorporations”</li>
+<li class="fragment">Éviter la censure des gouvernements</li>
+<li class="fragment">Éviter le verrouillage par les fournisseurs</li>
+</ul>
+</section>
+<section id="reprendre-le-contrôle" class="slide level2">
+<h2>Reprendre le <em>contrôle</em></h2>
+<figure>
+<img data-src="/images/collaborer-quentin-adam.png"
+alt="Quentin Adam - Travailler pour une (Big) Tech US : que signifie « collaborer » ?" />
+<figcaption aria-hidden="true"><a
+href="https://www.linkedin.com/pulse/travailler-pour-une-big-tech-us-que-signifie-collaborer-quentin-adam-kjgce/?trackingId=NyTmPbR8AAzhIklktKZZ3A%3D%3D">Quentin
+Adam - Travailler pour une (Big) Tech US : que signifie « collaborer »
+?</a></figcaption>
+</figure>
+</section>
+<section id="donner-du-pouvoir-aux-équipes-et-aux-individus"
+class="slide level2">
+<h2>Donner du pouvoir aux équipes et aux individus</h2>
+<p>Vous souvenez-vous du <a href="https://agilemanifesto.org/">Manifeste
+Agile</a> ?</p>
+<p><img data-src="/images/agile-manifesto.png" /></p>
+</section>
+<section id="donner-du-pouvoir-aux-équipes-et-aux-individus-1"
+class="slide level2">
+<h2>Donner du pouvoir aux équipes et aux individus</h2>
+<ul>
+<li class="fragment">Il n’y a pas de solution <em>universelle</em></li>
+<li class="fragment">Permettre aux équipes de trouver des solutions qui
+correspondent à <em>leur</em> contexte</li>
+<li class="fragment">Augmenter l’efficacité locale et éviter le
+“bloat”</li>
+<li class="fragment">Responsabiliser les équipes et les individus</li>
+</ul>
+</section>
+<section id="augmenter-la-résilience" class="slide level2">
+<h2>Augmenter la Résilience</h2>
+<ul>
+<li class="fragment">Supprimer le <em>Point Unique de
+Défaillance</em></li>
+<li class="fragment">Distribuer la charge à travers le “réseau”</li>
+<li class="fragment">S’adapter à un environnement changeant</li>
+</ul>
+</section></section>
+<section>
+<section id="retour-dexpérience---radicle"
+class="title-slide slide level1">
+<h1>Retour d’expérience - Radicle</h1>
+
+</section>
+<section id="expérimentations" class="slide level2">
+<h2>Expérimentations</h2>
+<p>L’<a
+href="https://app.radicle.xyz/nodes/seed.hydra.bzh/rad%3Az4QBQYzMP9DtUJmejVyDHkCyTVj8G">équipe
+HAL</a> a expérimenté <a href="https://radicle.xyz">Radicle</a> entre
+mai 2025 et novembre 2025</p>
+</section>
+<section id="quest-ce-que-radicle" class="slide level2">
+<h2>Qu’est-ce que Radicle ?</h2>
+<blockquote>
+<p>Radicle est une pile de collaboration de code open source et
+peer-to-peer construite sur Git. Contrairement aux plateformes
+d’hébergement de code centralisées, il n’y a pas d’entité unique
+contrôlant le réseau. Les dépôts sont répliqués entre pairs de manière
+décentralisée, et les utilisateurs ont le contrôle total de leurs
+données et de leur flux de travail.</p>
+</blockquote>
+<p>Plus d’infos sur <a
+href="https://radicle.xyz">https://radicle.xyz</a></p>
+</section>
+<section id="démo" class="slide level2">
+<h2>Démo</h2>
+<p><img data-src="/images/bonaldi-demo.jpg" /></p>
+<aside class="notes">
+<ul>
+<li>create a new radicle node with a new id
+<ul>
+<li>curl -sSLf https://radicle.xyz/install | sh</li>
+<li>configure to add
+z6MkfiRENtzUJiU1kxLhxWMWFCiGGxGi6jEbj33Pq9zBVQkK@seed.hydra.bzh:8776 as
+preferred seed</li>
+</ul></li>
+<li>Create a private (?) repository
+<ul>
+<li>commit and push some code</li>
+</ul></li>
+<li>rad clone on MBP outside the VM
+<ul>
+<li>create and push a patch</li>
+<li>show patch appearing in VM</li>
+<li>validate patch</li>
+</ul></li>
+<li>Add did:key:z6MkhgPg6WShnhJcmfwox4G5yL3EvJ2zW8L31SZLD95yUi11 as
+delegate</li>
+<li>on MBP, modify main then push</li>
+<li>check changes appear on the other side</li>
+<li>change visibility to public (?)</li>
+</ul>
+</aside>
+</section>
+<section id="radicle-ui" class="slide level2">
+<h2><a href="https://app.radicle.xyz/nodes/seed.hydra.bzh/">Radicle
+UI</a></h2>
+<p><img data-src="/images/radicle-web-ui.png" /></p>
+</section>
+<section id="radicle-ci" class="slide level2">
+<h2><a href="">Radicle CI</a></h2>
+<p><img data-src="/images/radicle-ci-ui.png" /></p>
+<aside class="notes">
+<ul>
+<li>Travail en cours pour fournir une CI déclenchée par les événements
+radicle depuis un nœud</li>
+<li>Intégration avec divers moteurs d’exécution, notamment GHA,
+Concourse, CircleCI ou personnalisés (Ambient, Native, conteneurs)</li>
+<li>Enregistre des COBs de <em>travaux</em> qui sont disponibles pour
+tous les pairs</li>
+<li>Excellente combinaison avec les builds reproductibles -&gt; permet
+la réutilisation décentralisée des artefacts de build</li>
+</ul>
+<p>Quick demo with sensei:</p>
+<ul>
+<li>push a change in the sensei repo</li>
+<li>show the .radicle/native.yaml configuration</li>
+<li>show the radicle-ci configuration -&gt; control who can run
+what</li>
+<li>show the result of the build (should be fast)</li>
+</ul>
+</aside>
+</section>
+<section id="comment-ça-marche" class="slide level2">
+<h2>Comment ça marche?</h2>
+<p><img data-src="/images/radicle-arch-simple.png" /></p>
+<aside class="notes">
+<ul>
+<li>réseau de noeuds pair à pair</li>
+<li>chaque noeud est associé à une paire de clés, la clé publique
+définissant l’identité du noeud</li>
+<li>les noeuds s’échangent des événements signés relatifs à des
+référentiel</li>
+<li>à chaque référentiel de code est associé un ensemble de méta-données
+elles-même versionnées</li>
+</ul>
+</aside>
+</section>
+<section id="travailler-avec-radicle" class="slide level2">
+<h2>Travailler avec Radicle</h2>
+<p>Les retours de l’équipe sont globalement positifs</p>
+<ul>
+<li class="fragment">Excellente expérience développeur avec la CLI</li>
+<li class="fragment">Flux de travail collaboratif fluide</li>
+<li class="fragment">Possède toutes les fonctionnalités essentielles
+nécessaires pour collaborer sur des “petits” projets</li>
+<li class="fragment">Équipe très compétente et réactive</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>Quelques défauts:</p>
+<ul>
+<li class="fragment">Décalage de fonctionnalités entre l’interface
+utilisateur et la CLI</li>
+<li class="fragment">Ne pas avoir d’autorité centrale a causé quelques
+“tâtonnements”</li>
+<li class="fragment">Nécessite une connaissance plus approfondie de
+git</li>
+<li class="fragment">🧩 Comment faire du Trunk-Based Development
+correctement ?</li>
+</ul>
+</section>
+<section id="alternative---tangled.org" class="slide level2">
+<h2>Alternative - <a href="https://tangled.org">tangled.org</a></h2>
+<p><img data-src="/images/tangled-org.png" /></p>
+</section></section>
+<section>
+<section id="retour-dexpérience---amaru"
+class="title-slide slide level1">
+<h1>Retour d’expérience - Amaru</h1>
+
+</section>
+<section id="un-peu-de-contexte" class="slide level2">
+<h2>Un peu de contexte…</h2>
+<ul>
+<li class="fragment"><a href="https://cardano.org">Cardano</a> est une
+<em>blockchain</em> (et une crypto-monnaie) ie. un journal de
+transaction réparti pair-à-pair</li>
+<li class="fragment"><a href="https://amaru.global">Amaru</a> est un
+projet open-source de création d’un noeud pour le réseau Cardano</li>
+<li class="fragment">La décentralisation est (ou devrait être) au cœur
+de la blockchain</li>
+<li class="fragment"><strong>Problème</strong>: Comment gérer de manière
+décentralisée et transparente un projet comme Amaru?</li>
+</ul>
+</section>
+<section id="les-acteurs-du-projet" class="slide level2">
+<h2>Les acteurs du projet</h2>
+<p><img data-src="/images/amaru-treasury-high-level.png" /></p>
+<aside class="notes">
+<ul>
+<li>PRAGMA: Member based organisation, legal umbrella for various
+projects but does not participate in the operations/governance of the
+projects themselves</li>
+<li>Amaru Maintainers Committee: Small group of people responsible for a
+specific <em>scope</em> within the overall project</li>
+<li>Contributors: people or organisations contributing to the project
+possibly for profit</li>
+<li>Cardano: blockchain</li>
+<li>Stakeholders: People holding Ada and contributing to the governance
+of Cardano through their vote</li>
+</ul>
+</aside>
+</section>
+<section id="le-processus-de-paiement" class="slide level2">
+<h2>Le processus de paiement</h2>
+<p><img data-src="/images/amaru-disbursement.png" /></p>
+<aside class="notes">
+<ul>
+<li>contributor signs a service agreement with AMC</li>
+<li>contributor contributes some code materialised through commits -&gt;
+uniquely identifiable</li>
+<li>contributor issues invoice to AMC</li>
+<li>AMC creates disbursement transasction</li>
+</ul>
+</aside>
+</section>
+<section id="le-chaînon-manquant" class="slide level2">
+<h2>Le chaînon manquant</h2>
+<ul>
+<li class="fragment">Cardano et IPFS sont des infrastructures
+décentralisées et résilientes…
+<ul>
+<li class="fragment">… mais pas une “forge” centralisée!</li>
+</ul></li>
+<li class="fragment"><strong>Problème</strong>: Comment “garantir” la
+pérennité du lien entre les contributions et les transactions?</li>
+<li class="fragment"><strong>Solution</strong>: Un <em>oracle</em>
+enregistrant sur la chaîne une structure de type “Arbre de Merkle”</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="/images/mpfs.png"
+alt="Merkle-Patricia Forestry Service" />
+<figcaption aria-hidden="true"><a
+href="https://mpfs.plutimus.com">Merkle-Patricia Forestry
+Service</a></figcaption>
+</figure>
+</section></section>
+<section>
+<section id="conclusion" class="title-slide slide level1">
+<h1>Conclusion</h1>
+
+</section>
+<section id="au-delà-du-code-source" class="slide level2">
+<h2>Au delà du code source</h2>
+<ul>
+<li class="fragment">Décentraliser l’intégration continue
+<ul>
+<li class="fragment"><a
+href="https://radicle.xyz/2025/07/23/using-radicle-ci-for-development">radicle
+CI</a>, cache partagé</li>
+</ul></li>
+<li class="fragment">Décentraliser la distribution des paquets de
+logiciels Open-Source
+<ul>
+<li class="fragment"><a href="https://ipfs.tech">IPFS</a>, MPFS</li>
+</ul></li>
+<li class="fragment">Décentraliser le financement de projets <em>open
+source</em>
+<ul>
+<li class="fragment"><a href="https://www.drips.network">Drips</a></li>
+</ul></li>
+<li class="fragment">Décentraliser les outils de communication et
+collaboration
+<ul>
+<li class="fragment"><a href="https://atproto.com">ATProto</a></li>
+</ul></li>
+</ul>
+<aside class="notes">
+
+</aside>
+</section>
+<section id="et-lia-dans-tout-ça" class="slide level2">
+<h2>Et l’IA dans tout ça?</h2>
+<ul>
+<li class="fragment">Une nouvelle force centralisatrice</li>
+<li class="fragment">Un nouveau moyen de captation de valeur</li>
+<li class="fragment">Des alternatives auto-hébergées et open-source
+émergent
+<ul>
+<li class="fragment"><a href="https://ollama.com">Ollama</a>, <a
+href="https://huggingface.co">HuggingFace</a>, <a
+href="https://github.com/vllm-project/vllm">vLLM</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="points-à-retenir" class="slide level2">
+<h2>Points à retenir</h2>
+<ul>
+<li class="fragment">Les outils et processus décentralisés sont plus
+résilients et ouverts</li>
+<li class="fragment">C’est la promesse originelle de l’informatique
+personnelle, du <em>World Wide Web</em>, des DVCS…</li>
+<li class="fragment">Cette promesse est souvent oubliée en échange de
+<em>commodité</em></li>
+<li class="fragment">Des outils comme <em>Radicle</em> offrent à la fois
+<em>commodité</em> et <em>contrôle</em></li>
+</ul>
+</section></section>
+<section>
+<section id="postface" class="title-slide slide level1">
+<h1>Postface</h1>
+
+</section>
+<section id="les-histoires-damour" class="slide level2">
+<h2>Les histoires d’amour…</h2>
+<p><img data-src="/images/trou-noir-github.jpg" /></p>
+</section>
+<section id="les-histoires-damour-1" class="slide level2">
+<h2>Les histoires d’amour…</h2>
+<ul>
+<li class="fragment">Fin 2025, l’équipe <a
+href="https://github.com/cardano-foundation/hal/blob/be1bec5a41ca594ad8a4e541e5034acf90cb8223/docs/radicle.md#L123">décide</a>
+de retourner sur GitHub:
+<ul>
+<li class="fragment">Barrière à l’entrée pour les contributeurs
+potentiels</li>
+<li class="fragment">Besoin de certaines fonctionnalités de GH (Pages,
+Actions)</li>
+<li class="fragment">Difficulté à synchroniser Radicle et GitHub</li>
+</ul></li>
+</ul>
+</section>
+<section id="avis" class="slide level2">
+<h2>Avis</h2>
+<p><img data-src="/images/snowcamp-26-rating.png" /></p>
+</section>
+<section id="crédits" class="slide level2">
+<h2>Crédits</h2>
+<ul>
+<li class="fragment">Le Soir : <a
+href="https://www.lesoir.be/sites/default/files/dpistyles_v2/ena_16_9_extra_big/2017/07/14/node_104609/4412350/public/2017/07/14/B9712609397Z.1_20170714123746_000+GAM9EKRAF.1-0.jpg?itok=Y9XgK-Ky1553016802">Trump
+&amp; Macron 14 juillet</a></li>
+<li class="fragment">INA : <a
+href="https://mediaclip.ina.fr/media/videos/imagettes/886x498/332/CAB97106147.jpeg">Delors
+entarté</a></li>
+<li class="fragment"><a
+href="https://pbs.twimg.com/media/C3VSo4JWMAA7TA8?format=jpg&amp;name=4096x4096">Trump
+en colère</a></li>
+<li class="fragment"><a
+href="https://s.yimg.com/ny/api/res/1.2/L2FAIS8kafiVyJ_DPqv16w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTY0MDtjZj13ZWJw/https://media.zenfs.com/en/cbs_news_897/5bd253ee5a00c50c6a66ea0770db3749">Dîner
+des Tech Bros</a></li>
+<li class="fragment"><a
+href="https://www.ledauphine.com/politique/2020/10/05/et-la-savoie-redevint-independante">Et
+la Savoie redevint indépendante</a></li>
+<li class="fragment"><a
+href="https://medium.com/future-haigo/comment-briller-en-démo-lorsque-lon-est-développeur-bef02e9f86db">Effet
+Démo Bonaldi</a></li>
+<li class="fragment"><a
+href="https://trustmyscience.com/wp-content/uploads/2016/11/trou-noir-supermassif-1024x576.jpg">Trou
+noir</a></li>
+<li class="fragment"><a
+href="https://www.babelio.com/auteur/Pierre-Kropotkine/63248">Pierre
+Kropotkine</a></li>
+<li class="fragment"><a
+href="https://vocal.media/viva/ayn-rand-the-unknown-ideal-woman">Ayn
+Rand</a></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="/reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="/reveal.js/plugin/notes/notes.js"></script>
+  <script src="/reveal.js/plugin/search/search.js"></script>
+  <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
