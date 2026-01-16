@@ -18,3 +18,9 @@ For historical reasons, it uses Git branches and submodules to separate source t
 ## Publish
 
 * commit and push `_site` directory content to `master`
+
+## Creating slides
+
+```
+pandoc -s -i -t revealjs --slide-level 2 -o _site/slides/decentralised-dev-fr-snowcamp.html slides/decentralised-dev-fr.md
+```
