@@ -2,9 +2,9 @@
 title: TDD & TDD sont dans un bateau
 subtitle: TDD au delà des exemples
 author: Arnaud Bailly - @dr_c0d3
-institute: Input Output Global
-date: 2022-10-21
-theme: virgil-black-iohk
+institute: Pankzsoft
+date: 2026-02-17
+theme: virgil-black
 revealjs-url: /reveal.js
 ---
 
@@ -20,7 +20,7 @@ revealjs-url: /reveal.js
 
 ## Présentation
 
-* Architecte pour la blockchain Cardano chez [IOG](https://iohk.io)
+* Architecte/Développeur vraiment sénior/Touche-à-tout
 * ~~Traumatisé~~ Intéressé par le test depuis une thèse sur le sujet
 * Pratiquant assidu d'_eXtreme Programming_
 * Convaincu de l'intérêt du typage statique fort
@@ -276,7 +276,7 @@ validateINSEE :: INSEE1 -> Bool
 ## Triangulation {transition=none}
 
 ```haskell
-    it "characters 11, 12, and 13 represent an order" $
+    it "characters 11, 12, and 13 represent an serial" $
         validateINSEE "2231159123zzz22" `shouldBe` False
 
 
@@ -386,7 +386,7 @@ data INSEE = INSEE
     , month :: Month
     , dept :: Department
     , commune :: Commune
-    , order :: Order
+    , serial :: Serial
     }
 ```
 
@@ -638,7 +638,7 @@ newtype Year = Year (Zn 100)
 
 # Mutations
 
-## Idée :tada:
+## Idée 🎉
 
 * Partir d'une valeur `INSEE` correcte
 * Lui appliquer une mutation _arbitraire_ la transformant en valeur incorrecte
@@ -754,7 +754,7 @@ genMutant =
 
 # Conclusion
 
-## Types + Tests = :rocket:
+## Types + Tests = 🚀
 
 * Le typage fort s'intègre parfaitement dans le cycle TDD
 * Le test de propriété évite de devoir énumérer des exemples explicitement
@@ -763,6 +763,7 @@ genMutant =
   * [Cardano Ledger](https://github.com/input-output-hk/cardano-ledger)
   * [Hydra](https://github.com/input-output-hk/hydra-poc)
   * [Quviq](http://www.quviq.com/)
+  * ...
 
 ## Si je fais pas de Haskell ?
 
