@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Eagle Lake';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Eagle Lake'),
+       url('CinzelDecorative-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+}

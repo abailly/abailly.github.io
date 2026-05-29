@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'Cinzel Decorative';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cinzel Decorative'),
+       url('CinzelDecorative-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+}
+
+@font-face {
+  font-family: 'Cinzel Decorative';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Cinzel Decorative'),
+       url('CinzelDecorative-Bold.ttf') format('truetype'), /* Safari, Android, iOS */
+}
+
+@font-face {
+  font-family: 'Cinzel Decorative';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Cinzel Decorative'),
+       url('CinzelDecorative-Black.ttf') format('truetype'), /* Safari, Android, iOS */
+}
